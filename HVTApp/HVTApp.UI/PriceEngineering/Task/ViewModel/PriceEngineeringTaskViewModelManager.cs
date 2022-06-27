@@ -42,11 +42,11 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand SelectDesignDepartmentCommand { get; private set; }
         
         public DelegateLogCommand AddTechnicalRequrementsFilesCommand { get; private set; }
-        public DelegateLogCommand RemoveTechnicalRequrementsFilesCommand { get; private set; }
+        public DelegateLogConfirmationCommand RemoveTechnicalRequrementsFilesCommand { get; private set; }
 
-        public DelegateLogCommand AcceptCommand { get; private set; }
-        public DelegateLogCommand RejectCommand { get; private set; }
-        public DelegateLogCommand StopCommand { get; private set; }
+        public DelegateLogConfirmationCommand AcceptCommand { get; private set; }
+        public DelegateLogConfirmationCommand RejectCommand { get; private set; }
+        public DelegateLogConfirmationCommand StopCommand { get; private set; }
 
 
         /// <summary>
@@ -145,12 +145,11 @@ namespace HVTApp.UI.PriceEngineering
                 }, 
                 () => IsEditMode);
 
-            RemoveTechnicalRequrementsFilesCommand = new DelegateLogCommand(
+            RemoveTechnicalRequrementsFilesCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите удалить выделенное ТЗ?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
                     if (string.IsNullOrEmpty(SelectedTechnicalRequrementsFile.Path))
                     {
                         SelectedTechnicalRequrementsFile.IsActual = false;
@@ -162,10 +161,11 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsEditMode && this.SelectedTechnicalRequrementsFile != null);
 
-            AcceptCommand = new DelegateLogCommand(
+            AcceptCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите принять проработку задачи?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите принять проработку задачи?", defaultNo: true) != MessageDialogResult.Yes) return;
                     this.Accept();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
@@ -179,22 +179,22 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
-            RejectCommand = new DelegateLogCommand(
+            RejectCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите отклонить проработку задачи?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите отклонить проработку?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
                     this.RejectedByManager();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
-            StopCommand = new DelegateLogCommand(
+            StopCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите остановить проработку задачи?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите остановить проработку?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
                     this.Stop();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);

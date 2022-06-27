@@ -97,6 +97,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DelegateLogConfirmationCommand.cs" />
     <Compile Include="Components\ViewBaseSaveCustomization.cs" />
     <Compile Include="Controls\LoadableContentControl.xaml.cs">
       <DependentUpon>LoadableContentControl.xaml</DependentUpon>

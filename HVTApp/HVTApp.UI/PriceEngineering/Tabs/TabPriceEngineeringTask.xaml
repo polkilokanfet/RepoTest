@@ -22,28 +22,21 @@
         <infRib:ButtonTool Caption="Удалить"
                            Command="{Binding RemoveTaskCommand}"
                            SmallImage="/HVTApp.UI;component/Images/remove.png" />
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Задачи" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
 
         <infRib:ButtonTool Caption="Стартовать всё"
                            Command="{Binding StartCommand}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
 
-        <infRib:ButtonTool Caption="Заменить продукты"
-                           Command="{Binding ReplaceProductsCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/refresh.png" />
-        <!--<infRib:ButtonTool Caption="Остановить"
-                           Command="{Binding CancelCommand}"
-                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+        <infRib:ButtonTool Caption="Остановить всё"
+                           Command="{Binding StopCommand}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />
 
-        <infRib:ButtonTool Caption="Отклонить"
-                           Command="{Binding RejectCommand}"
-                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
-
-        <infRib:ButtonTool Caption="Завершить"
-                           Command="{Binding FinishCommand}"
-                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/done.png" />-->
+        <!--<infRib:ButtonTool Caption="Заменить продукты"
+                           Command="{Binding ReplaceProductsCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/refresh.png" />-->
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Общее ТЗ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">

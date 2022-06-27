@@ -42,10 +42,11 @@ namespace HVTApp.UI.PriceEngineering
         #region Commands
 
         public DelegateLogCommand AddFileTechnicalRequirementsCommand { get; }
-        public DelegateLogCommand RemoveFileTechnicalRequirementsCommand { get; }
+        public DelegateLogConfirmationCommand RemoveFileTechnicalRequirementsCommand { get; }
         public DelegateLogCommand RemoveTaskCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
-        public DelegateLogCommand StartCommand { get; }
+        public DelegateLogConfirmationCommand StartCommand { get; }
+        public DelegateLogConfirmationCommand StopCommand { get; }
         public DelegateLogCommand OpenPriceCalculationCommand { get; }
         public DelegateLogCommand CreatePriceCalculationCommand { get; }
         public DelegateLogCommand OpenTceCommand { get; }
@@ -100,12 +101,11 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => AllowEditProps);
 
-            RemoveFileTechnicalRequirementsCommand = new DelegateLogCommand(
+            RemoveFileTechnicalRequirementsCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите удалить выделенное ТЗ?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
                     if (string.IsNullOrEmpty(SelectedFileTechnicalRequirements.Path))
                     {
                         SelectedFileTechnicalRequirements.IsActual = false;
@@ -139,12 +139,11 @@ namespace HVTApp.UI.PriceEngineering
                     }
                 });
 
-            RemoveTaskCommand = new DelegateLogCommand(
+            RemoveTaskCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите удалить выделенную задачу?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
                     this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(SelectedPriceEngineeringTaskViewModel);
                 },
                 () =>
@@ -182,12 +181,11 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => this.PriceEngineeringTasksWrapper != null && this.PriceEngineeringTasksWrapper.IsValid && this.PriceEngineeringTasksWrapper.IsChanged);
 
-            StartCommand = new DelegateLogCommand(
+            StartCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(), 
+                "Вы уверены, что хотите стартовать все задачи?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Старт всех заданий", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
                     LoadNewTechnicalRequirementFilesInStorage();
                     foreach (var priceEngineeringTaskViewModel in PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
                     {
@@ -204,6 +202,34 @@ namespace HVTApp.UI.PriceEngineering
                       this.PriceEngineeringTasksWrapper.IsValid &&
                       this.PriceEngineeringTasksWrapper.IsChanged &&
                       AllowEditProps);
+
+            StopCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите остановить все задачи?",
+                () =>
+                {
+                    foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper
+                        .ChildPriceEngineeringTasks)
+                    {
+                        foreach (var viewModel in priceEngineeringTaskViewModel.GetAllPriceEngineeringTaskViewModels())
+                        {
+                            if (viewModel.Model.Status == PriceEngineeringTaskStatusEnum.Stopped)
+                            {
+                                continue;
+                            }
+
+                            if (viewModel is PriceEngineeringTaskViewModelManager priceEngineeringTaskViewModelManager)
+                            {
+                                priceEngineeringTaskViewModelManager.StopCommand.ExecuteWithoutConfirmation();
+                            }
+                        }
+                    }
+
+                    StopCommand.RaiseCanExecuteChanged();
+                },
+                () => this.PriceEngineeringTasksWrapper != null && this.IsNew == false);
+            //this.PriceEngineeringTasksWrapper != null &&
+            //    this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.SelectMany(x => x.Model.Statuses).Any(x => x.StatusEnum != PriceEngineeringTaskStatusEnum.Stopped && x.StatusEnum != PriceEngineeringTaskStatusEnum.Created));
 
             OpenPriceCalculationCommand = new DelegateLogCommand(
                 () =>
@@ -285,6 +311,7 @@ namespace HVTApp.UI.PriceEngineering
                 }
 
                 RaisePropertyChanged(nameof(AllowEditProps));
+                StopCommand.RaiseCanExecuteChanged();
             };
 
             this.SelectedPriceEngineeringTaskViewModelChanged += () =>
@@ -359,6 +386,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             SaveCommand.RaiseCanExecuteChanged();
             StartCommand.RaiseCanExecuteChanged();
+            StopCommand.RaiseCanExecuteChanged();
             ReplaceProductsCommand.RaiseCanExecuteChanged();
             CreatePriceCalculationCommand.RaiseCanExecuteChanged();
         }
