@@ -298,17 +298,10 @@ namespace HVTApp.UI.PriceEngineering
             RejectCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Отклонить", "Вы уверены, что хотите отклонить проработку задачи?", defaultNo: true) != MessageDialogResult.Yes)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите отклонить проработку задачи?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
-
                     this.RejectChanges();
-
-                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.RejectedByConstructor }));
-                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = "Задача отклонена ОГК."
-                    }));
+                    this.RejectByConstructor();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(this.Model);
                 },

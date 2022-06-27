@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -222,6 +223,52 @@ namespace HVTApp.UI.PriceEngineering
             : this(new PriceEngineeringTask())
         {
             UnitOfWork = unitOfWork;
+        }
+
+        /// <summary>
+        /// Принять задачу
+        /// </summary>
+        protected void Accept()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.Accepted, "Проработка задачи принята.");
+        }
+
+        /// <summary>
+        /// Отклонить проработку задачи
+        /// </summary>
+        protected void RejectedByManager()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByManager, "Проработка задачи отклонена.");
+        }
+
+        /// <summary>
+        /// Отклонить проработку задачи (для конструктора)
+        /// </summary>
+        protected void RejectByConstructor()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
+        }
+
+        /// <summary>
+        /// Остановить проработку задачи
+        /// </summary>
+        protected void Stop()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.Stopped, "Проработка задачи остановлена.");
+        }
+
+        private void MakeAction(PriceEngineeringTaskStatusEnum status, string message)
+        {
+            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
+            {
+                StatusEnum = status
+            }));
+
+            this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+            {
+                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                Message = message
+            }));
         }
     }
 }

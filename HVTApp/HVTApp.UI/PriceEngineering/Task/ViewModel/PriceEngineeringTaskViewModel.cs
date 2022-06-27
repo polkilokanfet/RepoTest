@@ -137,11 +137,6 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand ShowReportCommand { get; private set; }
 
-        /// <summary>
-        /// Замена продукта в SalesUnit на продукты из задачи
-        /// </summary>
-        public DelegateLogCommand ReplaceProductCommand { get; private set; }
-
         #endregion
 
         #region Events
@@ -163,21 +158,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         protected event Action SelectedAnswerFileIsChanged;
 
-
-        /// <summary>
-        /// Событие полного принятия проработки задачи
-        /// </summary>
-        public event Action<PriceEngineeringTaskViewModel> TotalAcceptedEvent;
-
         #endregion
-
-        protected void InvokePriceEngineeringTaskAccepted(PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
-        {
-            if (this.Model.IsTotalAccepted)
-            {
-                this.TotalAcceptedEvent?.Invoke(this);
-            }
-        }
 
         public PriceEngineeringTaskMessenger Messenger { get; private set; }
 
@@ -306,74 +287,6 @@ namespace HVTApp.UI.PriceEngineering
                     //}
                 });
 
-            ReplaceProductCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (!this.Model.SalesUnits.Any()) return;
-                    
-                    var getProductService = Container.Resolve<IGetProductService>();
-                    var unitOfWork = Container.Resolve<IUnitOfWork>();
-
-                    var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
-
-                    var product = getProductService.GetProduct(unitOfWork, priceEngineeringTask.GetProduct());
-                    var salesUnits = this.Model.SalesUnits
-                        .Select(x => unitOfWork.Repository<SalesUnit>().GetById(x.Id))
-                        .ToList();
-
-                    var productBlocksAdded = priceEngineeringTask
-                        .GetAllPriceEngineeringTasks()
-                        .SelectMany(x => x.ProductBlocksAdded)
-                        .Where(x => x.IsRemoved == false)
-                        .ToList();
-
-                    //Включённое оборудование на всё количество
-                    var productsIncludedOnAmount = productBlocksAdded
-                        .Where(x => x.IsOnBlock == false)
-                        .Select(x => new ProductIncluded
-                        {
-                            Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
-                            Amount = x.Amount
-                        })
-                        .ToList();
-
-
-                    foreach (var salesUnit in salesUnits)
-                    {
-                        //заменяем продукт
-                        salesUnit.Product = product;
-
-                        //заменяем включёное оборудование
-                        //удаляем старое
-                        foreach (var productIncluded in 
-                            salesUnit.ProductsIncluded
-                                .Where(x => x.Product.ProductBlock.IsSupervision == false)
-                                .ToList())
-                        {
-                            salesUnit.ProductsIncluded.Remove(productIncluded);
-                            unitOfWork.Repository<ProductIncluded>().Delete(productIncluded);
-                        }
-
-                        //Включённое оборудование на каждый блок
-                        var productsIncludedOnBlock = productBlocksAdded
-                            .Where(x => x.IsOnBlock == true)
-                            .Select(x => new ProductIncluded
-                            {
-                                Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
-                                Amount = x.Amount
-                            })
-                            .ToList();
-
-                        salesUnit.ProductsIncluded.AddRange(productsIncludedOnBlock);
-                        salesUnit.ProductsIncluded.AddRange(productsIncludedOnAmount);
-                    }
-
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение",
-                        unitOfWork.SaveChanges().OperationCompletedSuccessfully
-                            ? $"Заменен продукт в {salesUnits.First()}"
-                            : $"Не заменен продукт в {salesUnits.First()}");
-                });
-
             #endregion
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
@@ -394,9 +307,6 @@ namespace HVTApp.UI.PriceEngineering
             };
 
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
-
-            //реакция на полное принятие задачи менеджером
-            this.TotalAcceptedEvent += viewModel => ReplaceProductCommand.Execute();
         }
 
 

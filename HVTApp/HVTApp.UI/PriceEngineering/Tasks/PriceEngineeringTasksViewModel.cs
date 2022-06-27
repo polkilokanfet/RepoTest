@@ -116,7 +116,7 @@ namespace HVTApp.UI.PriceEngineering
             this.Load(priceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork));
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             UnitOfWork?.Dispose();
             this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.ForEach(viewModel => viewModel.Dispose());

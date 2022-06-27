@@ -262,7 +262,10 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsTotalAccepted))
                     {
-                        priceEngineeringTaskViewModel.ReplaceProductCommand.Execute();
+                        if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManager viewModel)
+                        {
+                            viewModel.ReplaceProductCommand.Execute();
+                        }
                     }
                 },
                 () => this.PriceEngineeringTasksWrapper != null);
@@ -274,19 +277,11 @@ namespace HVTApp.UI.PriceEngineering
                 if (valueOld != null)
                 {
                     valueOld.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
-                    foreach (var ct in valueOld.ChildPriceEngineeringTasks)
-                    {
-                        ct.TotalAcceptedEvent -= OnPriceEngineeringTaskAccepted;
-                    }
                 }
 
                 if (valueNew != null)
                 {
                     valueNew.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
-                    foreach (var ct in valueNew.ChildPriceEngineeringTasks)
-                    {
-                        ct.TotalAcceptedEvent += OnPriceEngineeringTaskAccepted;
-                    }
                 }
 
                 RaisePropertyChanged(nameof(AllowEditProps));
@@ -301,6 +296,8 @@ namespace HVTApp.UI.PriceEngineering
             {
                 RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
             };
+
+            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Subscribe(OnPriceEngineeringTaskAccepted);
         }
 
         /// <summary>
@@ -340,15 +337,15 @@ namespace HVTApp.UI.PriceEngineering
 
         #region PriceEngineeringTasksWrapperOn
 
-        private void OnPriceEngineeringTaskAccepted(PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
+        private void OnPriceEngineeringTaskAccepted(PriceEngineeringTask priceEngineeringTask)
         {
-            if (this.PriceEngineeringTasksWrapper == null) return;
+            if (this.PriceEngineeringTasksWrapper == null)
+                return;
+            if (this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks.Any(x => x.Id == priceEngineeringTask.Id) == false)
+                return;
 
             //если приняты все задачи
-            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
-                    .Any(x => x.Model.IsTotalAccepted) &&
-                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
-                    .All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped))
+            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped))
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
                 if (dr == MessageDialogResult.Yes)
@@ -367,5 +364,11 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Unsubscribe(OnPriceEngineeringTaskAccepted);
+        }
     }
 }

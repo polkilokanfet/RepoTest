@@ -6,9 +6,9 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
@@ -52,6 +52,12 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand RejectCommand { get; private set; }
         public DelegateLogCommand StopCommand { get; private set; }
 
+
+        /// <summary>
+        /// Замена продукта в SalesUnit на продукты из задачи
+        /// </summary>
+        public DelegateLogCommand ReplaceProductCommand { get; private set; }
+
         #endregion
 
         #region ctors
@@ -88,9 +94,6 @@ namespace HVTApp.UI.PriceEngineering
                     vm.Parent = this;
                 }
             }
-
-            //если принята вложенная задача (не стала ли задача полностью принятой)
-            this.ChildPriceEngineeringTasks.ForEach(x => x.TotalAcceptedEvent += this.InvokePriceEngineeringTaskAccepted);
         }
 
         public PriceEngineeringTaskViewModelManager(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) 
@@ -99,9 +102,6 @@ namespace HVTApp.UI.PriceEngineering
             var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(Container, x));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
             //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-
-            //если принята вложенная задача (не стала ли задача полностью принятой)
-            this.ChildPriceEngineeringTasks.ForEach(x => x.TotalAcceptedEvent += this.InvokePriceEngineeringTaskAccepted);
         }
 
         #endregion
@@ -109,7 +109,7 @@ namespace HVTApp.UI.PriceEngineering
         protected override void InCtor()
         {
             base.InCtor();
-
+            
             #region Commands
 
             SelectDesignDepartmentCommand = new DelegateLogCommand(
@@ -169,33 +169,26 @@ namespace HVTApp.UI.PriceEngineering
             AcceptCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите принять проработку?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
-                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.Accepted }));
-                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = "Проработка принята!"
-                    }));
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите принять проработку задачи?", defaultNo: true) != MessageDialogResult.Yes) return;
+                    this.Accept();
                     SaveCommand.Execute();
-                    InvokePriceEngineeringTaskAccepted(this);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
+
+                    var mainTask = this.GetMainTask(this.Model);
+                    if (mainTask.IsTotalAccepted)
+                    {
+                        ReplaceProduct(mainTask);
+                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Publish(mainTask);
+                    }
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
             RejectCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Отклонить проработку", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите отклонить проработку?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
-
-                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.RejectedByManager }));
-                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = "Проработка отклонена."
-                    }));
+                    this.RejectedByManager();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
@@ -204,20 +197,16 @@ namespace HVTApp.UI.PriceEngineering
             StopCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Остановить проработку", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
+                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите остановить проработку?", defaultNo: true) != MessageDialogResult.Yes)
                         return;
-
-                    this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.Stopped }));
-                    this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = "Задача остановлена."
-                    }));
+                    this.Stop();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
                 },
                 () => this.Status != PriceEngineeringTaskStatusEnum.Created && this.Status != PriceEngineeringTaskStatusEnum.Stopped && this.IsValid);
-            
+
+            ReplaceProductCommand = new DelegateLogCommand(() => { this.ReplaceProduct(this.Model); });
+
 
             #endregion
 
@@ -236,6 +225,86 @@ namespace HVTApp.UI.PriceEngineering
                 AcceptCommand.RaiseCanExecuteChanged();
                 RejectCommand.RaiseCanExecuteChanged();
             };
+        }
+
+        /// <summary>
+        /// Найти главную задачу в цепочке (самую первую)
+        /// </summary>
+        /// <param name="priceEngineeringTask"></param>
+        /// <returns></returns>
+        private PriceEngineeringTask GetMainTask(PriceEngineeringTask priceEngineeringTask)
+        {
+            var result = priceEngineeringTask;
+            while (result.ParentPriceEngineeringTaskId.HasValue)
+            {
+                result = UnitOfWork.Repository<PriceEngineeringTask>().GetById(result.ParentPriceEngineeringTaskId.Value);
+            }
+            return result;
+        }
+
+        private void ReplaceProduct(PriceEngineeringTask priceEngineeringTask)
+        {
+            if (priceEngineeringTask.SalesUnits.Any() == false) return;
+
+            var getProductService = Container.Resolve<IGetProductService>();
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+
+            priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
+
+            var product = getProductService.GetProduct(unitOfWork, priceEngineeringTask.GetProduct());
+            var salesUnits = priceEngineeringTask.SalesUnits;
+
+            var productBlocksAdded = priceEngineeringTask
+                .GetAllPriceEngineeringTasks()
+                .SelectMany(x => x.ProductBlocksAdded)
+                .Where(x => x.IsRemoved == false)
+                .ToList();
+
+            //Включённое оборудование на всё количество
+            var productsIncludedOnAmount = productBlocksAdded
+                .Where(x => x.IsOnBlock == false)
+                .Select(x => new ProductIncluded
+                {
+                    Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
+                    Amount = x.Amount
+                })
+                .ToList();
+
+
+            foreach (var salesUnit in salesUnits)
+            {
+                //заменяем продукт
+                salesUnit.Product = product;
+
+                //заменяем включёное оборудование
+                //удаляем старое
+                foreach (var productIncluded in
+                    salesUnit.ProductsIncluded
+                        .Where(x => x.Product.ProductBlock.IsSupervision == false)
+                        .ToList())
+                {
+                    salesUnit.ProductsIncluded.Remove(productIncluded);
+                    unitOfWork.Repository<ProductIncluded>().Delete(productIncluded);
+                }
+
+                //Включённое оборудование на каждый блок
+                var productsIncludedOnBlock = productBlocksAdded
+                    .Where(x => x.IsOnBlock == true)
+                    .Select(x => new ProductIncluded
+                    {
+                        Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
+                        Amount = x.Amount
+                    })
+                    .ToList();
+
+                salesUnit.ProductsIncluded.AddRange(productsIncludedOnBlock);
+                salesUnit.ProductsIncluded.AddRange(productsIncludedOnAmount);
+            }
+
+            Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение",
+                unitOfWork.SaveChanges().OperationCompletedSuccessfully
+                    ? $"Заменен продукт в {salesUnits.First()}"
+                    : $"Не заменен продукт в {salesUnits.First()}");
         }
     }
 }
