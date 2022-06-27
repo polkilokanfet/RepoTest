@@ -24,14 +24,22 @@
     <Border>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5 0 0 5">
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="10 0 0 10">
                 <Border.Background>
                     <SolidColorBrush Color="{Binding Status, Converter={StaticResource StatusToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                 </Border.Background>
+                <TextBlock Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontWeight="Bold">
+                    <TextBlock.LayoutTransform>
+                        <RotateTransform Angle="-90"/>
+                    </TextBlock.LayoutTransform>
+                </TextBlock>
             </Border>
 
             <Border Grid.Column="1" Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
@@ -80,7 +88,6 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
@@ -161,10 +168,6 @@
                                             <TextBox Grid.Column="4" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 
                                         </Grid>
-
-                                        <!--Статус задачи-->
-                                        <Label Grid.Row="2" Grid.Column="0" Content="Статус: "/>
-                                        <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}"/>
 
                                     </Grid>
                                 </Grid>
