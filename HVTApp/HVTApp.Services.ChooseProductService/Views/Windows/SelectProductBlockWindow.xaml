@@ -14,7 +14,8 @@
             <Button Content="Ok" Click="ButtonOk_OnClick" Margin="5,10" Padding="5"/>
         </StackPanel>
         
-    <ScrollViewer>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto">
             <local:SelectProductBlockControl DataContext="{Binding}"/>
     </ScrollViewer>
         
