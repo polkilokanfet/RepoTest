@@ -19,13 +19,13 @@
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Файлы ТЗ">
+    <!--<infRib:RibbonGroup Caption="Файлы ТЗ">
 
         <infRib:ButtonTool Caption="Загрузить"
                            Command="{Binding LoadFilesCommand}"
                            SmallImage="/HVTApp.UI;component/Images/out.png" />
 
-    </infRib:RibbonGroup>
+    </infRib:RibbonGroup>-->
 
 
     <infRib:RibbonGroup Caption="Действия">

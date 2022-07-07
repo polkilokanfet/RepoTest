@@ -6,26 +6,26 @@
     xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View">
 
     <GroupBox Header="Заявка в ТСЕ">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <ListView Grid.Row="0" 
-                      SelectedItem="{Binding SelectedItem}"
-                      ItemsSource="{Binding Item.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <view:TasksTceItemControl TasksTceItem="{Binding }"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-        </Grid>
+                <ItemsControl ItemsSource="{Binding Item.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <view:TasksTceItemControl TasksTceItem="{Binding }"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
     </GroupBox>
 
 </inf:ViewBaseConfirmNavigationRequest>

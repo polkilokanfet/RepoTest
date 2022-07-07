@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using Prism.Commands;
 
 namespace HVTApp.UI.PriceEngineering.Tce.Second
 {
@@ -25,6 +27,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         public List<SccVersionWrapper> SccVersions { get; }
 
+        public ICommand LoadFilesCommand { get; }
+
         public SccVersionWrapper TargetSccVersion
         {
             get
@@ -39,6 +43,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 return result;
             }
         }
+
+        public event Action<PriceEngineeringTask> LoadFilesRequest; 
 
         public TasksTceItem(PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
         {
@@ -57,6 +63,11 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             SccVersions = new List<SccVersionWrapper> { this.TargetSccVersion };
             SccVersions.AddRange(ChildPriceEngineeringTasks.SelectMany(x => x.SccVersions));
             SccVersions.AddRange(BlockAddedList.SelectMany(x => x.SccVersions));
+
+            LoadFilesCommand = new DelegateCommand(() =>
+            {
+                LoadFilesRequest?.Invoke(this.Model);
+            });
         }
     }
 }

@@ -40,6 +40,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         public IValidatableChangeTrackingCollection<TasksTceItem> Items { get; }
 
+        public event Action<PriceEngineeringTask> LoadFilesRequest;
+
         public TasksTceWrapper(PriceEngineeringTasks model) : base(model)
         {
             InitializeComplexProperty(nameof(BackManager), Model.BackManager == null ? null : new UserEmptyWrapper(Model.BackManager));
@@ -50,6 +52,11 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
             Items = new ValidatableChangeTrackingCollection<TasksTceItem>(model.ChildPriceEngineeringTasks.Select(x => new TasksTceItem(x)));
             RegisterCollection(Items, Model.ChildPriceEngineeringTasks);
+
+            foreach (var item in Items)
+            {
+                item.LoadFilesRequest += task => this.LoadFilesRequest?.Invoke(task);
+            }
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()

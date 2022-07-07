@@ -21,6 +21,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!--Шапка-->
@@ -86,6 +87,12 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+            </GroupBox>
+
+            <GroupBox Grid.Row="2" Header="Действия">
+                <Grid>
+                    <Button Content="Загрузить файлы ТЗ" Command="{Binding LoadFilesCommand}"/>
+                </Grid>
             </GroupBox>
 
         </Grid>
