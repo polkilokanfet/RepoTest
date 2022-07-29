@@ -94,6 +94,7 @@
       <DependentUpon>ComplectsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Complects\ComplectViewModel.cs" />
+    <Compile Include="Converter\ParameterSelectorToParameterGroupNameConverter.cs" />
     <Compile Include="GetProductServiceWpf.cs" />
     <Compile Include="Ext.cs" />
     <Compile Include="NotifyPropertyChanged.cs" />

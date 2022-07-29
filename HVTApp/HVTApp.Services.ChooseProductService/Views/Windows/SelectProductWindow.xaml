@@ -16,7 +16,7 @@
         
         <ScrollViewer VerticalScrollBarVisibility="Auto" 
                       HorizontalScrollBarVisibility="Auto">
-            <local:SelectProductControl DataContext="{Binding}"/>
+            <local:SelectProductControl ProductSelector="{Binding}"/>
         </ScrollViewer>
         
     </DockPanel>

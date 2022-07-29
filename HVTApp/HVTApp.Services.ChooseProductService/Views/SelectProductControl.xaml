@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="HVTApp.Services.GetProductService.SelectProductControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:HVTApp.Services.GetProductService">
+             xmlns:local="clr-namespace:HVTApp.Services.GetProductService"
+             x:Name="Root">
 
     <Border Margin="10" 
             HorizontalAlignment="Center"
@@ -24,7 +25,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Обозначение продукта: " Foreground="White"/>
-                    <TextBox Grid.Column="1" Text="{Binding SelectedProduct, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox Grid.Column="1" Text="{Binding ProductSelector.SelectedProduct, ElementName=Root, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                              Foreground="White"
                              Background="Transparent"
                              BorderThickness="0"
@@ -34,7 +35,7 @@
             </Border>
             <!--<Label Content="{Binding Amount}" HorizontalAlignment="Center"/>-->
 
-            <local:SelectProductBlockControl DataContext="{Binding BlockSelector}"/>
+            <local:SelectProductBlockControl ProductBlockSelector="{Binding ProductSelector.BlockSelector, ElementName=Root}"/>
 
             <Expander Header="Дочернее оборудование:"
                       HorizontalAlignment="Stretch"
@@ -42,9 +43,9 @@
                       BorderBrush="Black"
                       IsExpanded="True"
                       Margin="10"
-                      Visibility="{Binding HasDependentProducts, Converter={StaticResource BooleanToVisibilityConverter}}">
+                      Visibility="{Binding ProductSelector.HasDependentProducts, ElementName=Root, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-                <ItemsControl ItemsSource="{Binding ProductSelectors}"
+                <ItemsControl ItemsSource="{Binding ProductSelector.ProductSelectors, ElementName=Root}"
                               HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -53,7 +54,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <local:SelectProductControl DataContext="{Binding}" HorizontalAlignment="Stretch" />
+                            <local:SelectProductControl ProductSelector="{Binding}" HorizontalAlignment="Stretch" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

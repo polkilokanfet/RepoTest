@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -7,6 +8,15 @@ namespace HVTApp.Services.GetProductService
         public SelectParameterControl()
         {
             InitializeComponent();
+        }
+
+        public static readonly DependencyProperty ParameterSelectorProperty = DependencyProperty.Register(
+            "ParameterSelector", typeof(ParameterSelector), typeof(SelectParameterControl), new PropertyMetadata(default(ParameterSelector)));
+
+        public ParameterSelector ParameterSelector
+        {
+            get => (ParameterSelector) GetValue(ParameterSelectorProperty);
+            set => SetValue(ParameterSelectorProperty, value);
         }
     }
 }

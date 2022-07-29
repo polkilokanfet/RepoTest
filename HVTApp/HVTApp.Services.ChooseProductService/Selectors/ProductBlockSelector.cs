@@ -19,7 +19,11 @@ namespace HVTApp.Services.GetProductService
 
         #region private props
 
-        private List<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).Select(x => x.Parameter).ToList();
+        private List<Parameter> SelectedParameters => ParameterSelectors
+            .Select(x => x.SelectedParameterFlaged)
+            .Where(x => x != null)
+            .Select(x => x.Parameter)
+            .ToList();
 
         #endregion
 
@@ -32,7 +36,7 @@ namespace HVTApp.Services.GetProductService
         /// </summary>
         public ProductBlock SelectedBlock
         {
-            get { return _bank.GetBlock(SelectedParameters); }
+            get => _bank.GetBlock(SelectedParameters);
             set
             {
                 var blockToSet = value;
@@ -75,9 +79,10 @@ namespace HVTApp.Services.GetProductService
         {
             _bank = bank;
 
+            var parametersArray = parameters as Parameter[] ?? parameters.ToArray();
+
             //создаем селекторы параметров
-            var groupedParameters = GetGroupingParameters(parameters).Select(x => new ParameterSelector(x));
-            ParameterSelectors = new ObservableCollection<ParameterSelector>(groupedParameters);
+            ParameterSelectors = new ObservableCollection<ParameterSelector>(GetParameterSelectors(parametersArray));
 
             //подписка на смену параметра в селекторе
             ParameterSelectors.ToList().ForEach(ps => ps.SelectedParameterFlagedChanged += OnSelectedParameterChanged);
@@ -85,8 +90,9 @@ namespace HVTApp.Services.GetProductService
             //если есть выбранный блок
             if (selectedProductBlock != null)
             {
-                if(!selectedProductBlock.Parameters.AllContainsIn(parameters))
+                if(selectedProductBlock.Parameters.AllContainsIn(parametersArray) == false)
                     throw new ArgumentException("ѕараметры блока не соответствуют возможным параметрам.");
+
                 SelectedBlock = selectedProductBlock;
             }
         }
@@ -103,19 +109,22 @@ namespace HVTApp.Services.GetProductService
         #endregion
 
         /// <summary>
-        /// группировка параметров по группе и упор€дочивание их
+        /// группировка параметров и упор€дочивание их
         /// </summary>
         /// <param name="parameters">параметры</param>
         /// <returns></returns>
-        private IEnumerable<IEnumerable<Parameter>> GetGroupingParameters(IEnumerable<Parameter> parameters)
+        private IEnumerable<ParameterSelector> GetParameterSelectors(IEnumerable<Parameter> parameters)
         {
             //группировка параметров по группам и упор€дочивание их.
             var groups = parameters
                 .GroupBy(parameter => parameter.ParameterGroup.Id)
-                .OrderBy(x => x, new ParametersEnumerableComparerByPaths());
+                .OrderBy(x => x, new ParametersEnumerableComparerByPaths())
+                .Select(x => new ParameterSelector(x))
+                .ToList();
+
             foreach (var group in groups)
             {
-                yield return group.OrderBy(parameter => parameter.Value);
+                yield return group;
             }
         }
 

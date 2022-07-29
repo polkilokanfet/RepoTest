@@ -16,17 +16,30 @@ namespace HVTApp.Services.GetProductService.Comparers
             if (parametersX == null) throw new ArgumentNullException(nameof(parametersX));
             if (parametersY == null) throw new ArgumentNullException(nameof(parametersY));
 
-            if (parametersX.Any() == false) throw new ArgumentNullException(nameof(parametersX));
-            if (parametersY.Any() == false) throw new ArgumentNullException(nameof(parametersY));
+            var arrayX = parametersX as Parameter[] ?? parametersX.ToArray();
+            if (arrayX.Any() == false) throw new ArgumentNullException(nameof(parametersX));
 
-            if (parametersX.AllContainsInById(parametersY))
+            var arrayY = parametersY as Parameter[] ?? parametersY.ToArray();
+            if (arrayY.Any() == false) throw new ArgumentNullException(nameof(parametersY));
+
+            if (arrayX.AllContainsInById(arrayY))
             {
                 return 0;
             }
 
-            foreach (var parameterX in parametersX)
+            //if (arrayX.First().ParameterGroup.Name == "Высота опорной металлоконструкции" ||
+            //    arrayY.First().ParameterGroup.Name == "Высота опорной металлоконструкции")
+            //{
+            //    if (arrayX.First().ParameterGroup.Name == "Тип дополнительного оборудования" ||
+            //        arrayY.First().ParameterGroup.Name == "Тип дополнительного оборудования")
+            //    {
+
+            //    }
+            //}
+
+            foreach (var parameterX in arrayX)
             {
-                foreach (var parameterY in parametersY)
+                foreach (var parameterY in arrayY)
                 {
                     if (parameterX.ContainsParameterInPath(parameterY))
                     {
@@ -35,9 +48,9 @@ namespace HVTApp.Services.GetProductService.Comparers
                 }
             }
 
-            foreach (var parameterY in parametersY)
+            foreach (var parameterY in arrayY)
             {
-                foreach (var parameterX in parametersX)
+                foreach (var parameterX in arrayX)
                 {
                     if (parameterY.ContainsParameterInPath(parameterX))
                     {
@@ -46,7 +59,7 @@ namespace HVTApp.Services.GetProductService.Comparers
                 }
             }
 
-            return parametersX.First().ParameterGroup.CompareTo(parametersY.First().ParameterGroup);
+            return arrayX.First().ParameterGroup.CompareTo(arrayY.First().ParameterGroup);
         }
 
         //public int Compare(IEnumerable<Parameter> parameterX, IEnumerable<Parameter> parameterY)

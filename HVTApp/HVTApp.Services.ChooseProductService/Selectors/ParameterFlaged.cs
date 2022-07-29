@@ -5,22 +5,17 @@ namespace HVTApp.Services.GetProductService
 {
     public class ParameterFlaged : NotifyPropertyChanged
     {
-        #region fields
-
-        private bool _isActual;
-
-        #endregion
-
         #region props
 
         public Parameter Parameter { get; }
 
+        private bool _isActual;
         /// <summary>
         /// Флаг актуальности параметра.
         /// </summary>
         public bool IsActual
         {
-            get { return _isActual; }
+            get => _isActual;
             set
             {
                 if (Equals(_isActual, value)) return;
@@ -48,5 +43,12 @@ namespace HVTApp.Services.GetProductService
         public event Action<ParameterFlaged> IsActualChanged;
 
         #endregion
+
+        public override string ToString()
+        {
+            return this.IsActual 
+                ? $"{this.Parameter} - актуален" 
+                : $"{this.Parameter} - не актуален";
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿<UserControl x:Class="HVTApp.Services.GetProductService.SelectParameterControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converter="clr-namespace:HVTApp.Services.GetProductService.Converter"
+             x:Name="Root">
     
     <UserControl.Resources>
         <Style x:Key="CollapsableItem" TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
@@ -10,28 +12,30 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <converter:ParameterSelectorToParameterGroupNameConverter x:Key="ParameterSelectorToParameterGroupNameConverter"/>
     </UserControl.Resources>
 
-    <Grid Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}" 
+    <Grid Visibility="{Binding ParameterSelector.IsActual, ElementName=Root, Converter={StaticResource BooleanToVisibilityConverter}}" 
           HorizontalAlignment="Stretch"
-          Margin="2 2 2 0">
+          Margin="2 0 ">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
                             
-        <Label Content="{Binding GroupName}" HorizontalAlignment="Right" Grid.Column="0"/>
+        <Label Content="{Binding ParameterSelector, ElementName=Root, Converter={StaticResource ParameterSelectorToParameterGroupNameConverter}}" HorizontalAlignment="Right" Grid.Column="0"/>
                             
-        <ComboBox ItemsSource="{Binding ParametersFlaged}"
-                  SelectedItem="{Binding SelectedParameterFlaged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <ComboBox ItemsSource="{Binding ParameterSelector.ParametersFlaged, ElementName=Root}"
+                  SelectedItem="{Binding ParameterSelector.SelectedParameterFlaged, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Center"
-                  Grid.Column="1" 
+                  Grid.Column="1"
                   ItemContainerStyle="{StaticResource CollapsableItem}">
 
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                        <Label Content="{Binding Parameter.Value}"/>
+                    <Label Content="{Binding Parameter.Value}" Padding="0"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
                                 
