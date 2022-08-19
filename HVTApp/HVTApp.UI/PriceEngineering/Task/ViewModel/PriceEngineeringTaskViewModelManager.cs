@@ -19,6 +19,8 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskViewModel
     {
+        private readonly PriceEngineeringTasksViewModelManager _priceEngineeringTasksViewModelManager;
+
         public override bool IsTarget => true;
 
         public override bool IsEditMode
@@ -48,19 +50,24 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogConfirmationCommand RejectCommand { get; private set; }
         public DelegateLogConfirmationCommand StopCommand { get; private set; }
 
+        public DelegateLogConfirmationCommand RemoveTaskCommand { get; private set; }
+
+        public DelegateLogConfirmationCommand StartProductionCommand { get; private set; }
 
         /// <summary>
         /// «амена продукта в SalesUnit на продукты из задачи
         /// </summary>
-        public DelegateLogCommand ReplaceProductCommand { get; private set; }
+        public DelegateLogConfirmationCommand ReplaceProductCommand { get; private set; }
+        
 
         #endregion
 
         #region ctors
 
-        public PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits) 
+        public PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits, PriceEngineeringTasksViewModelManager priceEngineeringTasksViewModelManager) 
             : this(container, unitOfWork, salesUnits.First().Product)
         {
+            _priceEngineeringTasksViewModelManager = priceEngineeringTasksViewModelManager;
             this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
         }
 
@@ -108,6 +115,8 @@ namespace HVTApp.UI.PriceEngineering
             
             #region Commands
 
+            var messageService = this.Container.Resolve<IMessageService>();
+
             SelectDesignDepartmentCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -146,7 +155,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsEditMode);
 
             RemoveTechnicalRequrementsFilesCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
+                messageService,
                 "¬ы уверены, что хотите удалить выделенное “«?",
                 () =>
                 {
@@ -161,8 +170,7 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsEditMode && this.SelectedTechnicalRequrementsFile != null);
 
-            AcceptCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
+            AcceptCommand = new DelegateLogConfirmationCommand(messageService,
                 "¬ы уверены, что хотите прин€ть проработку задачи?",
                 () =>
                 {
@@ -180,7 +188,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
             RejectCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
+                messageService,
                 "¬ы уверены, что хотите отклонить проработку задачи?",
                 () =>
                 {
@@ -190,8 +198,7 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
-            StopCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
+            StopCommand = new DelegateLogConfirmationCommand(messageService,
                 "¬ы уверены, что хотите остановить проработку задачи?",
                 () =>
                 {
@@ -201,8 +208,26 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => this.Status != PriceEngineeringTaskStatusEnum.Created && this.Status != PriceEngineeringTaskStatusEnum.Stopped && this.IsValid);
 
-            ReplaceProductCommand = new DelegateLogCommand(() => { this.ReplaceProduct(this.Model); });
+            ReplaceProductCommand = new DelegateLogConfirmationCommand(messageService, 
+                "¬ы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",
+                () => { this.ReplaceProduct(this.Model); });
 
+            StartProductionCommand = new DelegateLogConfirmationCommand(messageService,
+                "¬ы уверены, что хотите запустить производство этого оборудовани€?",
+                () => {});
+
+            RemoveTaskCommand = new DelegateLogConfirmationCommand(
+                messageService,
+                "¬ы уверены, что хотите удалить эту задачу из списка?",
+                () =>
+                {
+                    if (_priceEngineeringTasksViewModelManager.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Contains(this))
+                        _priceEngineeringTasksViewModelManager.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(this);
+                },
+                () => 
+                    _priceEngineeringTasksViewModelManager != null && 
+                    _priceEngineeringTasksViewModelManager.AllowEditProps &&
+                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) == null);
 
             #endregion
 
@@ -221,6 +246,8 @@ namespace HVTApp.UI.PriceEngineering
                 AcceptCommand.RaiseCanExecuteChanged();
                 RejectCommand.RaiseCanExecuteChanged();
             };
+
+            this.TaskStartedAction += () => { RemoveTaskCommand.RaiseCanExecuteChanged(); };
         }
 
         /// <summary>

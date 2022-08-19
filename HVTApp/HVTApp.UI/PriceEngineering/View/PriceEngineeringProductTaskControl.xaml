@@ -7,8 +7,10 @@
     <UserControl.Resources>
         <converters:PriceEngineeringTaskViewModelToProductDesignationConverter x:Key="ToProductDesignationConverter" />
         <converters:PriceEngineeringTaskViewModelToFacilityConverter x:Key="ToFacilityConverter" />
+        <converters:PriceEngineeringTaskViewModelToFacilityAddressConverter x:Key="ToFacilityAddressConverter" />
         <converters:PriceEngineeringTaskViewModelToProductAmountConverter x:Key="ToProductAmountConverter" />
         <converters:PriceEngineeringTaskViewModelIsExpendedConverter x:Key="IsExpendedConverter" />
+        <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
     </UserControl.Resources>
 
     <Border Margin="2" Padding="5" Background="LightGray"  BorderBrush="Black" BorderThickness="1" CornerRadius="7">
@@ -22,23 +24,49 @@
             <Border Grid.Row="0" Background="AliceBlue"  BorderBrush="Black" BorderThickness="1" CornerRadius="5 5 0 0">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="Объект: "/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="Продукт: "/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductDesignationConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Объект: "/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
 
-                    <Label Grid.Row="2" Grid.Column="0" Content="Количество: "/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductAmountConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                        <Label Grid.Row="0" Grid.Column="2" Content=" Адрес: "/>
+                        <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityAddressConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Продукт: "/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductDesignationConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+
+                        <Label Grid.Row="1" Grid.Column="2" Content=" Кол-во: "/>
+                        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductAmountConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1" 
+                          Margin="5"
+                          Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button Grid.Row="0" Content="Удалить" Command="{Binding RemoveTaskCommand}" Padding="2" Margin="0, 0, 0, 2"/>
+                        <Button Grid.Row="1" Content="Синхронизировать" Command="{Binding ReplaceProductCommand}" Padding="2"/>
+                        <!--<Button Grid.Row="2" Content="Произвести" Command="{Binding StartProductionCommand}"/>-->
+                    </Grid>
 
                 </Grid>
             </Border>

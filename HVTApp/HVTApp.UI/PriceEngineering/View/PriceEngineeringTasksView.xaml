@@ -91,26 +91,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <ListBox Grid.Row="0" 
-                                     Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                     ItemsSource="{Binding PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks}" 
-                                     SelectedItem="{Binding SelectedPriceEngineeringTaskViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                     HorizontalAlignment="Stretch"
-                                     BorderThickness="0">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <view:PriceEngineeringProductTaskControl DataContext="{Binding}" Margin="5"/>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-
                             <ItemsControl Grid.Row="0" 
-                                          Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityReverseConverter}}"
                                           ItemsSource="{Binding PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks}" 
                                           HorizontalAlignment="Stretch"
                                           BorderThickness="0">

@@ -129,7 +129,7 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Events
 
-        public event Action TaskIsStarted;
+        public event Action TaskStartedAction;
 
         /// <summary>
         /// —обытие изменени€ выбранного добавленного блока
@@ -374,7 +374,7 @@ namespace HVTApp.UI.PriceEngineering
             }
 
             StartCommand.RaiseCanExecuteChanged();
-            TaskIsStarted?.Invoke();
+            TaskStartedAction?.Invoke();
 
             if (saveChanges)
             {

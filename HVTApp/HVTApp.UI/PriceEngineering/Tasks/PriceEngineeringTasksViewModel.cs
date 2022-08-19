@@ -17,11 +17,10 @@ namespace HVTApp.UI.PriceEngineering
     /// </summary>
     public class PriceEngineeringTasksViewModel : ViewModelBase, IDisposable
     {
-        private PriceEngineeringTaskViewModel _selectedPriceEngineeringTaskViewModel;
         private PriceEngineeringTasksWrapper1 _priceEngineeringTasksWrapper;
         private PriceEngineeringTasksFileTechnicalRequirementsWrapper _selectedFileTechnicalRequirements;
 
-        public virtual bool IsNew { get; protected set; } = false;
+        public bool IsNew { get; protected set; } = false;
 
         public PriceEngineeringTasksWrapper1 PriceEngineeringTasksWrapper
         {
@@ -35,18 +34,6 @@ namespace HVTApp.UI.PriceEngineering
 
                 RaisePropertyChanged(nameof(AllowEditProps));
                 this.PriceEngineeringTasksWrapperChanged?.Invoke(originValue, value);
-            }
-        }
-        
-        public PriceEngineeringTaskViewModel SelectedPriceEngineeringTaskViewModel
-        {
-            get => _selectedPriceEngineeringTaskViewModel;
-            set
-            {
-                if (Equals(value, _selectedPriceEngineeringTaskViewModel)) return;
-
-                _selectedPriceEngineeringTaskViewModel = value;
-                SelectedPriceEngineeringTaskViewModelChanged?.Invoke();
             }
         }
         
@@ -70,7 +57,6 @@ namespace HVTApp.UI.PriceEngineering
         #region Events
 
         public event Action<PriceEngineeringTasksWrapper1, PriceEngineeringTasksWrapper1> PriceEngineeringTasksWrapperChanged;
-        public event Action SelectedPriceEngineeringTaskViewModelChanged;
         public event Action SelectedFileTechnicalRequirementsChanged;
 
         #endregion

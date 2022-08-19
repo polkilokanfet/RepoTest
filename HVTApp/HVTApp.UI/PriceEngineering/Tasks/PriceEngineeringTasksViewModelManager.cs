@@ -17,7 +17,6 @@ using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.Comparers;
 using HVTApp.UI.PriceEngineering.Tce.Second.View;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -26,24 +25,12 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModel
     {
-        private bool _isNew = false;
-        public override bool IsNew
-        {
-            get => _isNew;
-            protected set
-            {
-                _isNew = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public PriceCalculationWrapper SelectedCalculation { get; set; }
 
         #region Commands
 
         public DelegateLogCommand AddFileTechnicalRequirementsCommand { get; }
         public DelegateLogConfirmationCommand RemoveFileTechnicalRequirementsCommand { get; }
-        public DelegateLogCommand RemoveTaskCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
         public DelegateLogConfirmationCommand StartCommand { get; }
         public DelegateLogConfirmationCommand StopCommand { get; }
@@ -139,18 +126,6 @@ namespace HVTApp.UI.PriceEngineering
                     }
                 });
 
-            RemoveTaskCommand = new DelegateLogConfirmationCommand(
-                container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите удалить выделенную задачу?",
-                () =>
-                {
-                    this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(SelectedPriceEngineeringTaskViewModel);
-                },
-                () =>
-                    SelectedPriceEngineeringTaskViewModel != null &&
-                    AllowEditProps &&
-                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(SelectedPriceEngineeringTaskViewModel.Id) == null);
-
             SaveCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -171,6 +146,7 @@ namespace HVTApp.UI.PriceEngineering
                         this.PriceEngineeringTasksWrapper.AcceptChanges();
                         UnitOfWork.SaveChanges();
                         IsNew = false;
+                        RaisePropertyChanged(nameof(IsNew));
                         Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
                         Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
                     }
@@ -193,7 +169,6 @@ namespace HVTApp.UI.PriceEngineering
                     }
                     SaveCommand.Execute();
                     StartCommand.RaiseCanExecuteChanged();
-                    RemoveTaskCommand.RaiseCanExecuteChanged();
                     AddFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
                     RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(nameof(AllowEditProps));
@@ -314,11 +289,6 @@ namespace HVTApp.UI.PriceEngineering
                 StopCommand.RaiseCanExecuteChanged();
             };
 
-            this.SelectedPriceEngineeringTaskViewModelChanged += () =>
-            {
-                RemoveTaskCommand.RaiseCanExecuteChanged();
-            };
-
             this.SelectedFileTechnicalRequirementsChanged += () =>
             {
                 RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
@@ -336,7 +306,7 @@ namespace HVTApp.UI.PriceEngineering
             var vms = salesUnits
                 .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
                 .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer())
-                .Select(x => new PriceEngineeringTaskViewModelManager(Container, UnitOfWork, x));
+                .Select(x => new PriceEngineeringTaskViewModelManager(Container, UnitOfWork, x, this));
 
             PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(vms)
             {
@@ -344,6 +314,7 @@ namespace HVTApp.UI.PriceEngineering
             };
 
             IsNew = true;
+            RaisePropertyChanged(nameof(IsNew));
         }
 
         /// <summary>
