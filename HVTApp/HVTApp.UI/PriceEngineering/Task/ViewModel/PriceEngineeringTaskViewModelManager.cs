@@ -303,7 +303,7 @@ namespace HVTApp.UI.PriceEngineering
                 //удаляем старое
                 foreach (var productIncluded in
                     salesUnit.ProductsIncluded
-                        .Where(x => x.Product.ProductBlock.IsSupervision == false)
+                        .Where(x => x.Product == null || x.Product.ProductBlock.IsSupervision == false)
                         .ToList())
                 {
                     salesUnit.ProductsIncluded.Remove(productIncluded);

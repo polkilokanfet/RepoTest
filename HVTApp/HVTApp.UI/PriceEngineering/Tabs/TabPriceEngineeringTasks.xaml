@@ -4,7 +4,7 @@
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.UI.PriceEngineering.Tabs.TabPriceEngineeringTasks"
-             Header="Калькуляция себестоимости">
+             Header="Технико-стоимостные проработки">
 
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Перезагрузить" 

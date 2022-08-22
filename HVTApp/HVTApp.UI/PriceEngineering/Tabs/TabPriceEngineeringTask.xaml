@@ -17,13 +17,6 @@
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Задача" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
-
-        <infRib:ButtonTool Caption="Удалить"
-                           Command="{Binding RemoveTaskCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
-    </infRib:RibbonGroup>
-
     <infRib:RibbonGroup Caption="Задачи" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
 
         <infRib:ButtonTool Caption="Стартовать всё"
