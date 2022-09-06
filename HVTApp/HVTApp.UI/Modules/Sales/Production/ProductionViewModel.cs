@@ -178,16 +178,24 @@ namespace HVTApp.UI.Modules.Sales.Production
 
             // Загрузка юнитов, которые могут быть включены в производство
             //задачи из ТСЕ, которые менеджер запустил
-            List<TechnicalRequrementsTask> requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
+            var requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
+            //задачи из ТСП
+            var priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTask>().Find(priceEngineeringTask => priceEngineeringTask.IsTotalAccepted);
+
+            var su1 = requrementsTasks
+                .SelectMany(technicalRequrementsTask => technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits))
+                .Union(priceEngineeringTasks.SelectMany(x => x.SalesUnits))
+                .Distinct()
+                .ToList();
 
             //пересечение множеств
-            var salesUnits = _salesUnitsAll
+            var salesUnitsToProductions = _salesUnitsAll
                 .Where(salesUnit => !salesUnit.IsRemoved)                           //не удалены
                 .Where(salesUnit => !salesUnit.IsLoosen)                            //не проиграны
                 .Where(salesUnit => !salesUnit.SignalToStartProduction.HasValue)    //не включены в производство
-                .Intersect(requrementsTasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits)).Distinct());
+                .Intersect(su1);
 
-            var productionItems = salesUnits.Select(salesUnit => new ProductionItem(salesUnit, UnitOfWork)).ToList();
+            var productionItems = salesUnitsToProductions.Select(salesUnit => new ProductionItem(salesUnit, UnitOfWork)).ToList();
 
             _groupsToProduction = productionItems
                 .Where(productionItem => !productionItem.SignalToStartProduction.HasValue)
