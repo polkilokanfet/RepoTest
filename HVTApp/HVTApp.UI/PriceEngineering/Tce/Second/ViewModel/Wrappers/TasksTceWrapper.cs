@@ -21,8 +21,20 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             get => Model.TceNumber;
             set => SetValue(value);
         }
-        public string TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
+        public string TceNumberOriginalValue => GetOriginalValue<string>(nameof(TceNumber));
         public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
+
+        /// <summary>
+        /// Комментарий руководителя бэкофиса
+        /// </summary>
+        public string CommentBackOfficeBoss
+        {
+            get => Model.CommentBackOfficeBoss;
+            set => SetValue(value);
+        }
+        public string CommentBackOfficeBossOriginalValue => GetOriginalValue<string>(nameof(CommentBackOfficeBoss));
+        public bool CommentBackOfficeBossIsChanged => GetIsChanged(nameof(CommentBackOfficeBoss));
+
 
         /// <summary>
         /// BackManager

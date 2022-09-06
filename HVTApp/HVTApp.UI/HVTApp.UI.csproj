@@ -295,6 +295,7 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedChildTasksConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksViewModelManager.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossIsUserConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelFrontManagerVisibilityConverter.cs" />

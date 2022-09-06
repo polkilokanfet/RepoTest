@@ -3094,6 +3094,17 @@ namespace HVTApp.Model.Wrapper
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
         /// <summary>
+        /// Комментарий руководителя бэкофиса
+        /// </summary>
+        public System.String CommentBackOfficeBoss
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentBackOfficeBossOriginalValue => GetOriginalValue<System.String>(nameof(CommentBackOfficeBoss));
+        public bool CommentBackOfficeBossIsChanged => GetIsChanged(nameof(CommentBackOfficeBoss));
+
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id

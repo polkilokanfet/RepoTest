@@ -11,6 +11,8 @@
         <visibility:TasksTceViewModelFrontManagerVisibilityConverter x:Key="FrontManagerVisibilityConverter" />
         <visibility:TasksTceViewModelBackManagerVisibilityConverter x:Key="BackManagerVisibilityConverter" />
         <visibility:TasksTceViewModelBackManagerBossVisibilityConverter x:Key="BackManagerBossVisibilityConverter" />
+        <visibility:TasksTceViewModelBackManagerBossIsUserConverter x:Key="BackManagerBossIsUserConverter" />
+        
     </inf:RibbonTabItemWithViewModel.Resources>
 
     <infRib:RibbonGroup Caption="Навигация">
@@ -54,11 +56,23 @@
 
     <infRib:RibbonGroup Caption="Номер заявки в ТСЕ">
         <TextBox Text="{Binding Item.TceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 Width="100"
+                 MinWidth="100"
                  IsReadOnly="{Binding AllowEdit, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Расчет ПЗ" Visibility="{Binding Converter={StaticResource FrontManagerVisibilityConverter}}">
+    <infRib:RibbonGroup Caption="Комментарий руководителя бэкофиса">
+        <StackPanel Orientation="Vertical">
+            <TextBox Text="{Binding Item.CommentBackOfficeBoss, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     IsReadOnly="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BackManagerBossIsUserConverter}}"
+                     MinWidth="300"/>
+            <infRib:ButtonTool Caption="Сохранить комментарий"
+                               Visibility="{Binding Converter={StaticResource BackManagerBossVisibilityConverter}}"
+                               Command="{Binding SaveCommentBackOfficeBossCommand}"
+                               SmallImage="/HVTApp.UI;component/Images/save.png" />
+        </StackPanel>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Расчёт ПЗ" Visibility="{Binding Converter={StaticResource FrontManagerVisibilityConverter}}">
         <infRib:ButtonTool Caption="Создать"
                            Command="{Binding CreatePriceCalculationCommand}"
                            SmallImage="/HVTApp.UI;component/Images/add.png" />

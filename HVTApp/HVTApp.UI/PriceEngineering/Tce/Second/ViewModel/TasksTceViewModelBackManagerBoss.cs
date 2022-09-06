@@ -1,6 +1,7 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -11,6 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
     public class TasksTceViewModelBackManagerBoss : TasksTceViewModel
     {
         public DelegateLogCommand InstructCommand { get; }
+        public DelegateLogCommand SaveCommentBackOfficeBossCommand { get; }
 
         public TasksTceViewModelBackManagerBoss(IUnityContainer container) : base(container)
         {            
@@ -26,9 +28,36 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                         InstructCommand.RaiseCanExecuteChanged();
                     }
                 },
-                () => this.Item != null && Item.IsValid );
+                () => 
+                    Item != null && 
+                    Item.IsValid );
 
-            this.ViewModelIsLoaded += () => InstructCommand.RaiseCanExecuteChanged();
+            SaveCommentBackOfficeBossCommand = new DelegateLogCommand(
+                () =>
+                {
+                    SaveCommand.Execute(null);
+                    SaveCommentBackOfficeBossCommand.RaiseCanExecuteChanged();
+                },
+                () => 
+                    Item != null && 
+                    Item.IsValid && 
+                    Item.CommentBackOfficeBossIsChanged &&
+                    GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss);
+
+            this.ViewModelIsLoaded += () =>
+            {
+                InstructCommand.RaiseCanExecuteChanged();
+                SaveCommentBackOfficeBossCommand.RaiseCanExecuteChanged();
+
+                this.Item.PropertyChanged += (sender, args) =>
+                {
+                    if (args.PropertyName == nameof(Item.CommentBackOfficeBoss))
+                    {
+                        SaveCommentBackOfficeBossCommand.RaiseCanExecuteChanged();
+                        InstructCommand.RaiseCanExecuteChanged();
+                    }
+                };
+            };
         }
     }
 }

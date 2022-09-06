@@ -49,6 +49,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Комментарий"), OrderStatus(1400), MaxLength(1024)]
         public string Comment { get; set; }
 
+        [Designation("Комментарий руководителя бэкофиса"), OrderStatus(1350), MaxLength(1024)]
+        public string CommentBackOfficeBoss { get; set; }
+
         [Designation("Файлы технических требований (общие)"), OrderStatus(610)]
         public virtual List<PriceEngineeringTasksFileTechnicalRequirements> FilesTechnicalRequirements { get; set; } = new List<PriceEngineeringTasksFileTechnicalRequirements>();
 
@@ -126,7 +129,7 @@ namespace HVTApp.Model.POCOs
                 .Distinct()
                 .OrderBy(facility => facility.Name);
 
-            return $"Технико-стоимостная проработка для объектов: {facilities.ToStringEnum(", ")}";
+            return $"ТСП для объектов: {facilities.ToStringEnum(", ")}";
         }
     }
 }
