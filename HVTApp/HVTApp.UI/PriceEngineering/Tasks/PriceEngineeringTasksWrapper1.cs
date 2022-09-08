@@ -123,6 +123,17 @@ namespace HVTApp.UI.PriceEngineering
             if (taskList == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(taskList);
             //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
+
+            foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
+            {
+                priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += () =>
+                {
+                    if (this.Model.IsAccepted)
+                    {
+                        AllTasksAcceptedByManagerAction?.Invoke();
+                    }
+                };
+            }
         }
 
         public PriceEngineeringTasksWrapper1(IEnumerable<PriceEngineeringTaskViewModelManager> taskList) : this(new PriceEngineeringTasks())
@@ -132,5 +143,9 @@ namespace HVTApp.UI.PriceEngineering
             ChildPriceEngineeringTasks.AddRange(taskList);
         }
 
+        /// <summary>
+        /// Событие возникающее, когда менеджер принял все задачи
+        /// </summary>
+        public event Action AllTasksAcceptedByManagerAction;
     }
 }

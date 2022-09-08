@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -58,7 +59,16 @@ namespace HVTApp.UI.PriceEngineering
         /// Замена продукта в SalesUnit на продукты из задачи
         /// </summary>
         public DelegateLogConfirmationCommand ReplaceProductCommand { get; private set; }
-        
+
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Событие принятия задачи менеджером
+        /// </summary>
+        public override event Action TaskAcceptedByManagerAction;
 
         #endregion
 
@@ -71,6 +81,12 @@ namespace HVTApp.UI.PriceEngineering
             this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
         }
 
+        /// <summary>
+        /// Конструктор для создания новой задачи
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="unitOfWork"></param>
+        /// <param name="product"></param>
         public PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
             : base(container, unitOfWork)
         {
@@ -108,7 +124,7 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
-
+        
         protected override void InCtor()
         {
             base.InCtor();
@@ -177,12 +193,13 @@ namespace HVTApp.UI.PriceEngineering
                     this.Accept();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
+                    this.TaskAcceptedByManagerAction?.Invoke();
 
                     var mainTask = this.GetMainTask(this.Model);
                     if (mainTask.IsTotalAccepted)
                     {
                         ReplaceProduct(mainTask);
-                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Publish(mainTask);
+                        1Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Publish(mainTask);
                     }
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
@@ -248,6 +265,17 @@ namespace HVTApp.UI.PriceEngineering
             };
 
             this.TaskStartedAction += () => { RemoveTaskCommand.RaiseCanExecuteChanged(); };
+
+            this.TaskAcceptedByManagerAction += OnTaskAcceptedByManagerAction;
+            this.ChildTaskAcceptedByManagerAction += OnTaskAcceptedByManagerAction;
+        }
+
+        private void OnTaskAcceptedByManagerAction()
+        {
+            if (this.Model.ParentPriceEngineeringTaskId == null)
+            {
+                throw new NotImplementedException();1
+            }
         }
 
         /// <summary>

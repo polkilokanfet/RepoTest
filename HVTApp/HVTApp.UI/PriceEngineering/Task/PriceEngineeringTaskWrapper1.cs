@@ -12,6 +12,7 @@ namespace HVTApp.UI.PriceEngineering
     public abstract class PriceEngineeringTaskWrapper1 : WrapperBase<PriceEngineeringTask>
     {
         protected readonly IUnitOfWork UnitOfWork;
+        private IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> _childPriceEngineeringTasks;
 
         #region SimpleProperties
 
@@ -161,7 +162,34 @@ namespace HVTApp.UI.PriceEngineering
         /// Дочерние задачи
         /// ChildPriceEngineeringTasks инициализируются в дочерних классах
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks
+        {
+            get => _childPriceEngineeringTasks;
+            protected set
+            {
+                _childPriceEngineeringTasks = value;
+
+                //подписка на событие принятия менеджером дочерней задачи
+                if (value != null)
+                {
+                    foreach (var priceEngineeringTaskViewModel in value)
+                    {
+                        priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += () => this.ChildTaskAcceptedByManagerAction?.Invoke();
+                        priceEngineeringTaskViewModel.ChildTaskAcceptedByManagerAction += () => this.ChildTaskAcceptedByManagerAction?.Invoke();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Событие принятия задачи менеджером
+        /// </summary>
+        public virtual event Action TaskAcceptedByManagerAction;
+
+        /// <summary>
+        /// Событие принятия дочерней задачи менеджером
+        /// </summary>
+        public event Action ChildTaskAcceptedByManagerAction;
 
         private PriceEngineeringTaskWrapper1(PriceEngineeringTask model) : base(model)
         {

@@ -29,6 +29,8 @@ namespace HVTApp.UI.PriceEngineering
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
         private PriceEngineeringTaskProductBlockAddedWrapper1 _selectedBlockAdded;
 
+        #region Props
+
         /// <summary>
         /// Эта задача подходит текущему пользователю
         /// </summary>
@@ -68,7 +70,7 @@ namespace HVTApp.UI.PriceEngineering
                     {
                         foreach (var file in args.NewItems.Cast<PriceEngineeringTaskFileTechnicalRequirementsWrapper>())
                         {
-                            if(IsEditMode)
+                            if (IsEditMode)
                                 this.FilesTechnicalRequirements.Add(file);
                         }
                     }
@@ -112,6 +114,10 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+
+
+        #endregion
+
         #region Commands
 
         public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
@@ -129,6 +135,9 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Events
 
+        /// <summary>
+        /// Событие старта задачи
+        /// </summary>
         public event Action TaskStartedAction;
 
         /// <summary>
