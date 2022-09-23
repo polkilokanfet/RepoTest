@@ -174,8 +174,8 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     foreach (var priceEngineeringTaskViewModel in value)
                     {
-                        priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += () => this.ChildTaskAcceptedByManagerAction?.Invoke();
-                        priceEngineeringTaskViewModel.ChildTaskAcceptedByManagerAction += () => this.ChildTaskAcceptedByManagerAction?.Invoke();
+                        //прокидываем событие выше
+                        priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += task => this.TaskAcceptedByManagerAction?.Invoke(task);
                     }
                 }
             }
@@ -184,12 +184,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Событие принятия задачи менеджером
         /// </summary>
-        public virtual event Action TaskAcceptedByManagerAction;
-
-        /// <summary>
-        /// Событие принятия дочерней задачи менеджером
-        /// </summary>
-        public event Action ChildTaskAcceptedByManagerAction;
+        public virtual event Action<PriceEngineeringTask> TaskAcceptedByManagerAction;
 
         private PriceEngineeringTaskWrapper1(PriceEngineeringTask model) : base(model)
         {

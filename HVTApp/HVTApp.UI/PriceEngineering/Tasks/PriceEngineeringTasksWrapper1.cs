@@ -76,7 +76,9 @@ namespace HVTApp.UI.PriceEngineering
         /// Задачи
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; }
-        
+
+        #region ctors
+
         private PriceEngineeringTasksWrapper1(PriceEngineeringTasks model) : base(model)
         {
             #region InitializeComplexProperties
@@ -126,9 +128,10 @@ namespace HVTApp.UI.PriceEngineering
 
             foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
             {
-                priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += () =>
+                priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += task =>
                 {
-                    if (this.Model.IsAccepted)
+                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(Model.Id);
+                    if (priceEngineeringTasks.IsAccepted)
                     {
                         AllTasksAcceptedByManagerAction?.Invoke();
                     }
@@ -142,6 +145,8 @@ namespace HVTApp.UI.PriceEngineering
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             ChildPriceEngineeringTasks.AddRange(taskList);
         }
+
+        #endregion
 
         /// <summary>
         /// Событие возникающее, когда менеджер принял все задачи

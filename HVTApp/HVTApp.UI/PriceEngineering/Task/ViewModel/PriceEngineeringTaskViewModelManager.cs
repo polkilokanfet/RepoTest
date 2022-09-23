@@ -68,12 +68,21 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Событие принятия задачи менеджером
         /// </summary>
-        public override event Action TaskAcceptedByManagerAction;
+        public override event Action<PriceEngineeringTask> TaskAcceptedByManagerAction;
+
+        /// <summary>
+        /// Событие полного принятия задачи менеджером
+        /// </summary>
+        public event Action<PriceEngineeringTask> TaskTotalAcceptedByManagerAction;
 
         #endregion
 
         #region ctors
 
+        /// <summary>
+        /// Для создания новой технико-стоимостной проработки по единицам продаж
+        /// </summary>
+        /// <param name="salesUnits"></param>
         public PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits, PriceEngineeringTasksViewModelManager priceEngineeringTasksViewModelManager) 
             : this(container, unitOfWork, salesUnits.First().Product)
         {
@@ -82,7 +91,7 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         /// <summary>
-        /// Конструктор для создания новой задачи
+        /// Для создания новой задачи
         /// </summary>
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
@@ -121,9 +130,16 @@ namespace HVTApp.UI.PriceEngineering
             var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(Container, x));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
             //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-        }
 
-        #endregion
+            //реакция на событие принятие дочерней задачи
+            foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
+            {
+                if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManager petvmm)
+                {
+                    petvmm.TaskAcceptedByManagerAction += OnTaskAcceptedByManagerAction;
+                }
+            }
+        }
         
         protected override void InCtor()
         {
@@ -192,15 +208,8 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     this.Accept();
                     SaveCommand.Execute();
+                    this.OnTaskAcceptedByManagerAction(this.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
-                    this.TaskAcceptedByManagerAction?.Invoke();
-
-                    var mainTask = this.GetMainTask(this.Model);
-                    if (mainTask.IsTotalAccepted)
-                    {
-                        ReplaceProduct(mainTask);
-                        1Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Publish(mainTask);
-                    }
                 },
                 () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
 
@@ -264,33 +273,37 @@ namespace HVTApp.UI.PriceEngineering
                 RejectCommand.RaiseCanExecuteChanged();
             };
 
-            this.TaskStartedAction += () => { RemoveTaskCommand.RaiseCanExecuteChanged(); };
-
-            this.TaskAcceptedByManagerAction += OnTaskAcceptedByManagerAction;
-            this.ChildTaskAcceptedByManagerAction += OnTaskAcceptedByManagerAction;
+            this.TaskStartedAction += () =>
+            {
+                RemoveTaskCommand.RaiseCanExecuteChanged();
+            };
         }
 
-        private void OnTaskAcceptedByManagerAction()
+        #endregion
+
+        private void OnTaskAcceptedByManagerAction(PriceEngineeringTask task)
         {
+            //если эта задача головная
             if (this.Model.ParentPriceEngineeringTaskId == null)
             {
-                throw new NotImplementedException();1
-            }
-        }
+                var priceEngineeringTask = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(Model.Id);
 
-        /// <summary>
-        /// Найти главную задачу в цепочке (самую первую)
-        /// </summary>
-        /// <param name="priceEngineeringTask"></param>
-        /// <returns></returns>
-        private PriceEngineeringTask GetMainTask(PriceEngineeringTask priceEngineeringTask)
-        {
-            var result = priceEngineeringTask;
-            while (result.ParentPriceEngineeringTaskId.HasValue)
-            {
-                result = UnitOfWork.Repository<PriceEngineeringTask>().GetById(result.ParentPriceEngineeringTaskId.Value);
+                //если задача полностью принята менеджером
+                if (priceEngineeringTask.IsTotalAccepted)
+                {
+                    this.TaskTotalAcceptedByManagerAction?.Invoke(this.Model);
+
+                    var ms = Container.Resolve<IMessageService>();
+                    if (ms.ShowYesNoMessageDialog("Хотите синхронизировать?") == MessageDialogResult.Yes)
+                    {
+                        //синхронизируем продукты
+                        this.ReplaceProduct(priceEngineeringTask);
+                    }
+                }
             }
-            return result;
+
+            //прокидываем событие на уровень выше
+            this.TaskAcceptedByManagerAction?.Invoke(task);
         }
 
         private void ReplaceProduct(PriceEngineeringTask priceEngineeringTask)

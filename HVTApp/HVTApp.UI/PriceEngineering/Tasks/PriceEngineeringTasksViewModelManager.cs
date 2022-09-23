@@ -218,10 +218,12 @@ namespace HVTApp.UI.PriceEngineering
             CreatePriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var isTceConnected = this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
-                                             .Any(x => x.Model.IsTotalAccepted) &&
-                                         this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks
-                                             .All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped);
+                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Id);
+
+                    var isTceConnected = priceEngineeringTasks.ChildPriceEngineeringTasks
+                                             .Any(x => x.IsTotalAccepted) &&
+                                         priceEngineeringTasks.ChildPriceEngineeringTasks
+                                             .All(x => x.IsTotalAccepted || x.IsTotalStopped);
                     if (isTceConnected == false)
                     {
                         var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Не все задачи приняты (из неостановленных).\nХотите ли Вы создать расчёт ПЗ по аналогам?");
@@ -273,28 +275,38 @@ namespace HVTApp.UI.PriceEngineering
 
             #endregion
 
-            this.PriceEngineeringTasksWrapperChanged += (valueOld, valueNew) =>
-            {
-                if (valueOld != null)
-                {
-                    valueOld.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
-                }
-
-                if (valueNew != null)
-                {
-                    valueNew.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
-                }
-
-                RaisePropertyChanged(nameof(AllowEditProps));
-                StopCommand.RaiseCanExecuteChanged();
-            };
-
             this.SelectedFileTechnicalRequirementsChanged += () =>
             {
                 RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
             };
 
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Subscribe(OnPriceEngineeringTaskAccepted);
+            //реакция на событие замены списка задач
+            this.PriceEngineeringTasksWrapperChanged += (valueOld, valueNew) =>
+            {
+                if (valueOld != null)
+                {
+                    valueOld.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
+                    valueOld.AllTasksAcceptedByManagerAction -= PriceEngineeringTasksWrapperOnAllTasksAcceptedByManagerAction;
+                }
+
+                if (valueNew != null)
+                {
+                    valueNew.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
+                    valueNew.AllTasksAcceptedByManagerAction += PriceEngineeringTasksWrapperOnAllTasksAcceptedByManagerAction;
+                }
+
+                RaisePropertyChanged(nameof(AllowEditProps));
+                StopCommand.RaiseCanExecuteChanged();
+            };
+        }
+
+        private void PriceEngineeringTasksWrapperOnAllTasksAcceptedByManagerAction()
+        {
+            var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
+            if (dr == MessageDialogResult.Yes)
+            {
+                CreatePriceCalculationCommand.Execute();
+            }
         }
 
         /// <summary>
@@ -363,11 +375,5 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedTotalEvent>().Unsubscribe(OnPriceEngineeringTaskAccepted);
-        }
     }
 }

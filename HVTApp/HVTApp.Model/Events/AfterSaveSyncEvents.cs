@@ -59,7 +59,6 @@ namespace HVTApp.Model.Events
     public class PriceEngineeringTaskInstructedEvent : PubSubEvent<PriceEngineeringTask> { }
     public class PriceEngineeringTaskFinishedEvent : PubSubEvent<PriceEngineeringTask> { }
     public class PriceEngineeringTaskAcceptedEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskAcceptedTotalEvent : PubSubEvent<PriceEngineeringTask> { }
     public class PriceEngineeringTaskRejectedByManagerEvent : PubSubEvent<PriceEngineeringTask> { }
     public class PriceEngineeringTaskRejectedByConstructorEvent : PubSubEvent<PriceEngineeringTask> { }
 

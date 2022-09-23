@@ -77,6 +77,9 @@ namespace HVTApp.Model.POCOs
             }
         }
         
+        /// <summary>
+        /// Задача (в т.ч. все дочернии задачи) принята менеджером
+        /// </summary>
         [Designation("Всё принято?"), NotMapped, NotForListView, NotForDetailsView]
         public bool IsAccepted => StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted);
         

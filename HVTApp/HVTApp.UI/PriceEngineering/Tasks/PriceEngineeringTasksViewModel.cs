@@ -56,7 +56,11 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Events
 
+        /// <summary>
+        /// Событие замены списка задач
+        /// </summary>
         public event Action<PriceEngineeringTasksWrapper1, PriceEngineeringTasksWrapper1> PriceEngineeringTasksWrapperChanged;
+
         public event Action SelectedFileTechnicalRequirementsChanged;
 
         #endregion
