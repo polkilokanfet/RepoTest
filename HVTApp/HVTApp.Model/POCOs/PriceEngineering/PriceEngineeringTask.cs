@@ -83,6 +83,43 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        /// <summary>
+        /// Задача в процессе проработки конструктором
+        /// </summary>
+        public bool InProcessByConstructor 
+        {
+            get
+            {
+                if (UserConstructor == null) return false;
+
+                switch (Status)
+                {
+                    case PriceEngineeringTaskStatusEnum.Created:
+                        return true;
+                    case PriceEngineeringTaskStatusEnum.Started:
+                        return true;
+                    case PriceEngineeringTaskStatusEnum.Stopped:
+                        return false;
+                    case PriceEngineeringTaskStatusEnum.RejectedByManager:
+                        return true;
+                    case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
+                        return false;
+                    case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
+                        return false;
+                    case PriceEngineeringTaskStatusEnum.Accepted:
+                        return false;
+                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                        return false;
+                    case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
+                        return false;
+                    case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        }
+
         public string GetStatusForDesignDepartmentHead()
         {
             if (this.UserConstructor == null)

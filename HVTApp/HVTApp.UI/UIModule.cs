@@ -102,6 +102,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<ProductRelationsView>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksTceView2>();
             Container.RegisterViewForNavigation<TasksTceView>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksListViewDesignDepartmentHead>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
             Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();

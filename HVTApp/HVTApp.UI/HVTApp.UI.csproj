@@ -294,10 +294,17 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedChildTasksConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
+    <Compile Include="PriceEngineering\TasksList\WorkloadOnEmployeesControl.xaml.cs">
+      <DependentUpon>WorkloadOnEmployeesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListControl.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListViewDesignDepartmentHead.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListViewDesignDepartmentHead.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\TasksList\PriceEngineeringTasksListViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\TasksList\WorkloadOnEmployeesViewModel.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksViewModelManager.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossIsUserConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossVisibilityConverter.cs" />
@@ -1736,6 +1743,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\TasksList\WorkloadOnEmployeesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\TasksList\PriceEngineeringTasksListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

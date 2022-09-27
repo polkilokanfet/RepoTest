@@ -3,72 +3,26 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:dp="http://infragistics.com/DataPresenter"
-              xmlns:controls="http://infragistics.com/Windows">
+              xmlns:controls="http://infragistics.com/Windows"
+              xmlns:priceEngineering="clr-namespace:HVTApp.UI.PriceEngineering"
+              x:Name="Root">
 
-    <dp:XamDataGrid x:Name="PriceEngineeringTasksLookupListGrid" Style="{StaticResource ListViewGrid}" DataItems="{Binding PriceEngineeringTasks}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <dp:XamDataGrid.InputBindings>
-            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenTaskCommand, Mode=OneWay}"/>
-        </dp:XamDataGrid.InputBindings>
+        <GroupBox Grid.Row="0" Header="Задачи">
+            <priceEngineering:PriceEngineeringTasksListControl ViewModel="{Binding}"/>
+        </GroupBox>
 
-        <dp:XamDataGrid.FieldLayouts>
-            <dp:FieldLayout>
-                <dp:FieldLayout.RecordFilters>
-                    <dp:RecordFilter FieldName="ToShow">
-                        <dp:RecordFilter.Conditions>
-                            <controls:ComparisonCondition Operator="Equals" Value="True" />
-                        </dp:RecordFilter.Conditions>
-                    </dp:RecordFilter>
-                </dp:FieldLayout.RecordFilters>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="2"/>
 
-                <dp:FieldLayout.Fields>
-                    <dp:TextField Name="DesignDepartment" Label="Бюро конструкторов" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dp:TextField Name="UserConstructor" Label="Конструктор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dp:NumericField Name="Amount" Label="Количество блоков продукта" Width="Auto" AllowResize="True" />
-                    <dp:TextField Name="ProductBlockManager" Label="Блок продукта от менеджера" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dp:TextField Name="ProductBlockEngineer" Label="Блок продукта от инженера-конструктора" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dp:TextField Name="ProductBlocksAdded" Label="Добавленные блоки продукта от инженера-конструктора" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="FilesTechnicalRequirements" Label="Файлы технических требований" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="FilesAnswers" Label="Файлы ответов ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="ChildPriceEngineeringTasks" Label="Дочерние задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="StructureCostVersions" Label="Версии SCC" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="PriceCalculationItems" Label="Строки расчётов ПЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="Statuses" Label="Статусы проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:CheckBoxField Name="RequestForVerificationFromHead" Label="Запрос на проверку от руководителя" Width="Auto" AllowResize="True" />
-                    <dp:CheckBoxField Name="RequestForVerificationFromConstructor" Label="Запрос на проверку от исполнителя" Width="Auto" AllowResize="True" />
-                    <dp:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <dp:TextField Name="UserConstructorInitiator" Label="Инициатор подзадачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dp:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
-                    <dp:CheckBoxField Name="IsTotalStopped" Label="IsTotalStopped" Width="Auto" AllowResize="True" />
-                    <dp:CheckBoxField Name="IsTotalAccepted" Label="IsTotalAccepted" Width="Auto" AllowResize="True" />
-                    <dp:CheckBoxField Name="IsFinishedByConstructor" Label="IsFinishedByConstructor" Width="Auto" AllowResize="True" />
-                    <dp:CheckBoxField Name="HasSccInTce" Label="HasSccInTce" Width="Auto" AllowResize="True" />
-                    <dp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
-                </dp:FieldLayout.Fields>
-            </dp:FieldLayout>
-
-            <!--<dp:FieldLayout>
-
-                <dp:FieldLayout.Fields>
-                    <dp:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" />
-                    <dp:DateTimeField Name="WorkUpTo" Label="Срок" Width="Auto" AllowResize="False" />
-                    --><!--<dp:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" Converter="{StaticResource ListToStringConverter}"/>--><!--
-                    <dp:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" />
-                    <dp:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
-                    <dp:TextField Name="Comment" Label="Комментарий" Width="300" AllowResize="True" />
-                    <dp:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />
-                    <dp:TextField Name="UserManager" Label="Менеджер" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dp:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
-                    <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
-                    <dp:TextField Name="Number" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Number}" Label="№" Width="Auto" AllowResize="True" />
-                    <dp:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
-                    --><!--<dp:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />--><!--
-                </dp:FieldLayout.Fields>
-            </dp:FieldLayout>-->
-
-        </dp:XamDataGrid.FieldLayouts>
-    </dp:XamDataGrid>
-
+        <GroupBox Grid.Row="2" Header="Нагрузка на сотрудников">
+            <priceEngineering:WorkloadOnEmployeesControl ViewModel="{Binding WorkloadOnEmployeesViewModel, ElementName=Root}"/>
+        </GroupBox>
+    </Grid>
 
 </inf:ViewBase>

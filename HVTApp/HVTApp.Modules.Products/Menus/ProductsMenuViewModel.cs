@@ -24,8 +24,15 @@ namespace HVTApp.Modules.Products.Menus
                 Items.Add(new NavigationItem("Нормо-часы", typeof(LaborHoursView)));
             }
 
+            if (GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead)
+            {
+                Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewDesignDepartmentHead)));
+            }
+            else
+            {
+                Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
+            }
 
-            Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
 
             //if (GlobalAppProperties.User.RoleCurrent == Role.Constructor)
             //    Items.Add(new NavigationItem("Стракчакосты", typeof(StructureCostsView)));

@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -14,9 +15,8 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTasksListViewModelDesignDepartmentHead
+    public class PriceEngineeringTasksListViewModelDesignDepartmentHead : ViewModelBaseCanExportToExcel
     {
-        private readonly IUnityContainer _container;
         private PriceEngineeringTaskLookup _selectedPriceEngineeringTask;
 
         public ObservableCollection<PriceEngineeringTaskLookup> PriceEngineeringTasks { get; } = new ObservableCollection<PriceEngineeringTaskLookup>();
@@ -34,10 +34,8 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand LoadCommand { get; }
         public DelegateLogCommand OpenTaskCommand { get; }
 
-        public PriceEngineeringTasksListViewModelDesignDepartmentHead(IUnityContainer container)
+        public PriceEngineeringTasksListViewModelDesignDepartmentHead(IUnityContainer container) : base(container)
         {
-            _container = container;
-
             LoadCommand = new DelegateLogCommand(Load);
 
             OpenTaskCommand = new DelegateLogCommand(
@@ -73,13 +71,14 @@ namespace HVTApp.UI.PriceEngineering
         {
             this.PriceEngineeringTasks.Clear();
 
-            var priceEngineeringTasks = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>()
+            var priceEngineeringTasks = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>()
                 .GetAll()
                 .SelectMany(priceEngineeringTask => priceEngineeringTask.GetSuitableTasksForInstruct(GlobalAppProperties.User))
                 .Distinct()
                 .ToList();
 
             PriceEngineeringTasks.AddRange(priceEngineeringTasks.Select(priceEngineeringTask => new PriceEngineeringTaskLookup(priceEngineeringTask)));
+            SelectedPriceEngineeringTask = null;
         }
 
         private void OnPriceEngineeringTask(PriceEngineeringTask priceEngineeringTask)
@@ -90,7 +89,7 @@ namespace HVTApp.UI.PriceEngineering
 
         private void OnPriceEngineeringTasks(PriceEngineeringTasks priceEngineeringTasks)
         {
-            priceEngineeringTasks = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
+            priceEngineeringTasks = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
             var suitableTasks = priceEngineeringTasks.GetSuitableTasksForInstruct(GlobalAppProperties.User);
 
             foreach (var suitableTask in suitableTasks)

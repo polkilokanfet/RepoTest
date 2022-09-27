@@ -8,10 +8,15 @@ namespace HVTApp.UI.PriceEngineering
     [RibbonTab(typeof(TabPriceEngineeringTasks))]
     public partial class PriceEngineeringTasksListViewDesignDepartmentHead : ViewBase
     {
-        public PriceEngineeringTasksListViewDesignDepartmentHead(PriceEngineeringTasksListViewModelDesignDepartmentHead viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public PriceEngineeringTasksListViewModel PriceEngineeringTasksListViewModel { get; }
+        public WorkloadOnEmployeesViewModel WorkloadOnEmployeesViewModel { get; }
+
+        public PriceEngineeringTasksListViewDesignDepartmentHead(PriceEngineeringTasksListViewModel priceEngineeringTasksListViewModel, WorkloadOnEmployeesViewModel workloadOnEmployeesViewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
+            PriceEngineeringTasksListViewModel = priceEngineeringTasksListViewModel;
+            WorkloadOnEmployeesViewModel = workloadOnEmployeesViewModel;
             InitializeComponent();
-            this.DataContext = viewModel;
+            DataContext = priceEngineeringTasksListViewModel;
         }
     }
 }
