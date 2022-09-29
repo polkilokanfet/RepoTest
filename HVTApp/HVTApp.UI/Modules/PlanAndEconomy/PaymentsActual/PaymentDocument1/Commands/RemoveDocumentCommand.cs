@@ -18,7 +18,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             var dr = messageService.ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить весь платежный документ?", defaultYes: true);
             if (dr != MessageDialogResult.Yes) return;
 
-            ViewModel.UnitOfWork1.Repository<PaymentActual>().DeleteRange(ViewModel.Payments.Select(payment => payment.PaymentActual.Model));
+            foreach (var paymentActualWrapper2 in ViewModel.Item.Payments.ToList())
+            {
+                ViewModel.Item.Payments.Remove(paymentActualWrapper2);
+                ViewModel.UnitOfWork1.Repository<PaymentActual>().Delete(paymentActualWrapper2.Model);
+            }
+
             ViewModel.UnitOfWork1.Repository<PaymentDocument>().Delete(ViewModel.PaymentDocument.Model);
             ViewModel.UnitOfWork1.SaveChanges();
 
@@ -27,7 +32,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.UnitOfWork1.Repository<PaymentDocument>().GetById(ViewModel.PaymentDocument.Id) != null;
+            return ViewModel.UnitOfWork1.Repository<PaymentDocument>().GetById(ViewModel.PaymentDocument.Model.Id) != null;
         }
     }
 }

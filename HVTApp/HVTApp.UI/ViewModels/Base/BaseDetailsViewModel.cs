@@ -70,14 +70,16 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         protected virtual void InitSpecialGetMethods() { }
 
+        #region Load
+
         public void Load(TEntity entity, IUnitOfWork unitOfWork)
         {
             IsLoaded = false;
             UnitOfWork = unitOfWork;
             var item = UnitOfWork.Repository<TEntity>().GetById(entity.Id);
             //создаем или редактируем
-            Item = item == null ? (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity)
-                                : (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
+            Item = item == null ? CreateWrapper(entity)
+                                : CreateWrapper(item);
             AfterLoading();
         }
 
@@ -87,8 +89,8 @@ namespace HVTApp.UI.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var item = UnitOfWork.Repository<TEntity>().GetById(entity.Id);
             //создаем или редактируем
-            Item = item == null ? (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity)
-                                : (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
+            Item = item == null ? CreateWrapper(entity) 
+                                : CreateWrapper(item);
             AfterLoading();
         }
 
@@ -97,7 +99,7 @@ namespace HVTApp.UI.ViewModels
             IsLoaded = false;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var item = UnitOfWork.Repository<TEntity>().GetById(id);
-            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
+            Item = CreateWrapper(item);
             AfterLoading();
         }
 
@@ -112,6 +114,13 @@ namespace HVTApp.UI.ViewModels
         {
             IsLoaded = true;
         }
+
+        protected virtual TWrapper CreateWrapper(TEntity entity)
+        {
+            return (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
+        }
+
+        #endregion
 
 
         public ICommand SaveCommand { get; }

@@ -1,4 +1,5 @@
 using System.Linq;
+using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
@@ -11,22 +12,20 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         protected override void ExecuteMethod()
         {
-            var sum = ViewModel.DockSumWithVat;
-            var date = ViewModel.DockDate;
+            var sum = ViewModel.Item.DockSumWithVat;
+            var date = ViewModel.Item.DockDate;
 
-            var selectedUnits = ViewModel.SelectedPotentialUnits.Cast<SalesUnitPaymentWrapper>().ToList();
+            var salesUnits = ViewModel.SelectedPotentialUnits.Cast<SalesUnit>().ToList();
 
-            foreach (var selectedUnit in selectedUnits)
+            foreach (var selectedUnit in salesUnits)
             {
-                var payment = new Payment(selectedUnit);
-                ViewModel.PaymentDocument.Payments.Add(payment.PaymentActual);
-                ViewModel.Payments.Add(payment);
+                ViewModel.Item.Payments.Add(new PaymentActualWrapper2(new PaymentActual(), selectedUnit, ViewModel.Item.Model));
                 ViewModel.Potential.Remove(selectedUnit);
             }
             ViewModel.SelectedPotentialUnits = null;
 
-            ViewModel.DockSumWithVat = sum;
-            ViewModel.DockDate = date;
+            ViewModel.Item.DockSumWithVat = sum;
+            ViewModel.Item.DockDate = date;
         }
 
         protected override bool CanExecuteMethod()

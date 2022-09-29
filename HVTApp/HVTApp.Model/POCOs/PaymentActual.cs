@@ -8,6 +8,10 @@ namespace HVTApp.Model.POCOs
     [Designation("Платеж совершённый")]
     public partial class PaymentActual : BaseEntity
     {
+        public Guid SalesUnitId { get; set; }
+
+        public Guid PaymentDocumentId { get; set; }
+
         [Designation("Дата"), Required]
         public DateTime Date { get; set; }
 

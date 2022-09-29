@@ -12,12 +12,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         protected override void ExecuteMethod()
         {
-            ViewModel.Payments.ForEach(payment => payment.SumWithVat += payment.SumNotPaidWithVat);
+            ViewModel.Item.Payments.ForEach(payment => payment.SetRestPay());
         }
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.Payments.Any();
+            return ViewModel.Item != null && ViewModel.Item.Payments.Any();
         }
     }
 }

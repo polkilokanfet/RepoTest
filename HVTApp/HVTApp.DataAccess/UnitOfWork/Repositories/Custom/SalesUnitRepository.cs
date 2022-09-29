@@ -178,6 +178,33 @@ namespace HVTApp.DataAccess
                 .ToList();
         }
 
+        public IEnumerable<SalesUnit> GetAllForPaymentDocument(string orderNumber)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            IQueryable<SalesUnit> query;
+
+            if (string.IsNullOrWhiteSpace(orderNumber))
+            {
+                query = Context.Set<SalesUnit>().AsQueryable()
+                    .Where(salesUnit => salesUnit.IsRemoved == false && salesUnit.Order != null);
+            }
+            else
+            {
+                query = Context.Set<SalesUnit>().AsQueryable()
+                    .Where(salesUnit => salesUnit.IsRemoved == false && salesUnit.Order != null && salesUnit.Order.Number.Contains(orderNumber.Trim()));
+            }
+
+            query = query
+                .Include(salesUnit => salesUnit.Order)
+                .Include(salesUnit => salesUnit.Specification)
+                .Include(salesUnit => salesUnit.Facility.Type)
+                .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
+                .Include(salesUnit => salesUnit.PaymentsActual);
+
+            return query.ToList().Where(x => x.IsLoosen == false).ToList();
+        }
+
         public IEnumerable<SalesUnit> GetAllNotRemovedNotLoosen()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);

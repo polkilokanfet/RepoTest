@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
@@ -9,9 +8,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     public class SalesUnitPaymentWrapper : WrapperBase<SalesUnit>
     {
-        public SalesUnitPaymentWrapper(SalesUnit model) : base(model) { }
-
         public IValidatableChangeTrackingCollection<PaymentActualWrapper1> PaymentsActual { get; private set; }
+
+        public SalesUnitPaymentWrapper(SalesUnit model) : base(model) { }
 
         protected override void InitializeCollectionProperties()
         {

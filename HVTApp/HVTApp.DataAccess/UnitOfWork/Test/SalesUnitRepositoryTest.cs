@@ -6,6 +6,11 @@ namespace HVTApp.DataAccess
 {
     public partial class SalesUnitRepositoryTest : ISalesUnitRepository
     {
+        public IEnumerable<SalesUnit> GetAllForPaymentDocument(string orderNumber)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<SalesUnit> GetAllOfCurrentUser()
         {
             throw new NotImplementedException();

@@ -1635,6 +1635,28 @@ namespace HVTApp.Model.Wrapper
         #region SimpleProperties
 
         /// <summary>
+        /// SalesUnitId
+        /// </summary>
+        public System.Guid SalesUnitId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid SalesUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SalesUnitId));
+        public bool SalesUnitIdIsChanged => GetIsChanged(nameof(SalesUnitId));
+
+        /// <summary>
+        /// PaymentDocumentId
+        /// </summary>
+        public System.Guid PaymentDocumentId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid PaymentDocumentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PaymentDocumentId));
+        public bool PaymentDocumentIdIsChanged => GetIsChanged(nameof(PaymentDocumentId));
+
+        /// <summary>
         /// Дата
         /// </summary>
         public System.DateTime Date
@@ -2637,6 +2659,11 @@ namespace HVTApp.Model.Wrapper
         /// Статус
         /// </summary>
         public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(); 
+
+        /// <summary>
+        /// InProcessByConstructor
+        /// </summary>
+        public System.Boolean InProcessByConstructor => GetValue<System.Boolean>(); 
 
         /// <summary>
         /// IsFinishedByConstructor

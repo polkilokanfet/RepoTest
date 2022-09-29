@@ -190,6 +190,7 @@
       <DependentUpon>TabServiceRealizationDates.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentActualWrapper1.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentActualWrapper2.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\AddPaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\BasePaymentDocumentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemovePaymentCommand.cs" />

@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
@@ -15,7 +14,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         private double Sum
         {
-            get { return PaymentActual.Sum; }
+            get => PaymentActual.Sum;
             set
             {
                 if (Equals(value, Sum)) return;
@@ -33,7 +32,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         public double SumWithVat
         {
-            get { return Sum * (100.0 + SalesUnit.Model.Vat) / 100.0; }
+            get => Sum * (100.0 + SalesUnit.Model.Vat) / 100.0;
             set
             {
                 Sum = value / ((100.0 + SalesUnit.Model.Vat) / 100.0);

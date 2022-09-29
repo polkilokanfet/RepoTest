@@ -233,7 +233,7 @@ namespace HVTApp.Model.POCOs
         /// Оплаченная сумма
         /// </summary>
         [Designation("Оплачено"), NotMapped]
-        public double SumPaid => PaymentsActual.Sum(x => x.Sum);
+        public double SumPaid => PaymentsActual.Sum(paymentActual => paymentActual.Sum);
 
         /// <summary>
         /// Неоплаченная сумма без НДС

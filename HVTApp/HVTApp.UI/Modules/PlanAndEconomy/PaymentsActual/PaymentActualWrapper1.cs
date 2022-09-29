@@ -7,8 +7,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 {
     public class PaymentActualWrapper1 : WrapperBase<PaymentActual>
     {
-        public PaymentActualWrapper1(PaymentActual model) : base(model) { }
-
         #region SimpleProperties
 
         //Date
@@ -50,6 +48,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         public Guid Id => Model.Id;
 
         #endregion
+
+        public PaymentActualWrapper1(PaymentActual model) : base(model) { }
 
     }
 }

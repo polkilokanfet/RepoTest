@@ -400,6 +400,10 @@
     <Compile Include="Migrations\202209060606380_CommentBackOfficeBoss.Designer.cs">
       <DependentUpon>202209060606380_CommentBackOfficeBoss.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209280729180_PaymentsId.cs" />
+    <Compile Include="Migrations\202209280729180_PaymentsId.Designer.cs">
+      <DependentUpon>202209280729180_PaymentsId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -649,6 +653,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209060606380_CommentBackOfficeBoss.resx">
       <DependentUpon>202209060606380_CommentBackOfficeBoss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209280729180_PaymentsId.resx">
+      <DependentUpon>202209280729180_PaymentsId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

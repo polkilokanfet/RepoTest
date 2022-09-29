@@ -75,6 +75,13 @@ namespace HVTApp.DataAccess
         IEnumerable<SalesUnit> GetAllIncludeActualPayments();
 
         /// <summary>
+        /// Получить все юниты для платежки
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SalesUnit> GetAllForPaymentDocument(string orderNumber);
+
+
+        /// <summary>
         /// Получить все не удаленные и не проигранные юниты
         /// </summary>
         /// <returns></returns>

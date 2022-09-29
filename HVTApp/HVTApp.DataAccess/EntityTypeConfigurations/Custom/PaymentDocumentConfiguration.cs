@@ -4,8 +4,8 @@ namespace HVTApp.DataAccess
     {
         public PaymentDocumentConfiguration()
         {
-            Property(x => x.Number).IsOptional();
-            HasMany(x => x.Payments).WithRequired().WillCascadeOnDelete(true);
+            Property(paymentDocument => paymentDocument.Number).IsOptional();
+            HasMany(paymentDocument => paymentDocument.Payments).WithRequired().HasForeignKey(x => x.PaymentDocumentId).WillCascadeOnDelete(true);
         }
     }
 }

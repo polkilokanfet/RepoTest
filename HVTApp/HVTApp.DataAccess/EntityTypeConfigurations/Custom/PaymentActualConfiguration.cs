@@ -4,8 +4,8 @@ namespace HVTApp.DataAccess
     {
         public PaymentActualConfiguration()
         {
-            Property(x => x.Date).IsRequired();
-            Property(x => x.Sum).IsRequired();
+            Property(paymentActual => paymentActual.Date).IsRequired();
+            Property(paymentActual => paymentActual.Sum).IsRequired();
         }
     }
 }

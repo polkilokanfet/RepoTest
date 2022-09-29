@@ -1,5 +1,4 @@
-using System.Linq;
-using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
@@ -13,21 +12,19 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         protected override void ExecuteMethod()
         {
-            ViewModel.UnitOfWork1.Repository<PaymentActual>().Delete(ViewModel.SelectedPayment.PaymentActual.Model);
-
-            //удаление платежа из документа
-            var payment = ViewModel.PaymentDocument.Payments.Single(paymentActual => paymentActual.Id == ViewModel.SelectedPayment.PaymentActual.Id);
-            ViewModel.PaymentDocument.Payments.Remove(payment);
+            var payment = ViewModel.SelectedPayment;
 
             //добавление  платежа в список потенциальных
-            var potential = ViewModel.SalesUnitWrappers.Single(x => x.PaymentsActual.Select(pa => pa.Id).Contains(payment.Id));
-            ViewModel.Potential.Add(potential);
+            ViewModel.Potential.Insert(0, ViewModel.UnitOfWork1.Repository<SalesUnit>().GetById(payment.SalesUnitId));
 
-            //удаление платежа из юнита
-            var paymentToRemove = potential.PaymentsActual.Single(x => x.Id == payment.Id);
-            potential.PaymentsActual.Remove(paymentToRemove);
+            //удаление платежа из документа
+            ViewModel.Item.Payments.Remove(ViewModel.SelectedPayment);
 
-            ViewModel.Payments.Remove(ViewModel.SelectedPayment);
+            //удаление платежа из юнита автоматически идет в PaymentDocumentWrapper1
+
+            //удаления платежа из репозитория
+            if (ViewModel.UnitOfWork1.Repository<PaymentActual>().GetById(payment.Model.Id) != null)
+                ViewModel.UnitOfWork1.Repository<PaymentActual>().Delete(payment.Model);
         }
 
         protected override bool CanExecuteMethod()
