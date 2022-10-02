@@ -294,6 +294,12 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventRespo" +
             "nse")]
         System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
+        bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -382,6 +388,9 @@ namespace EventServiceClient2.ServiceReference1 {
             "", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallback" +
             "Response")]
         bool OnPriceEngineeringTaskSendMessageServiceCallback(System.Guid messageId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSavePaymentDocumentServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSavePaymentDocumentServiceCallbackResponse")]
+        bool OnSavePaymentDocumentServiceCallback(System.Guid paymentDocumentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallbackResponse")]
         bool OnSavePriceCalculationServiceCallback(System.Guid calculationId);
@@ -794,6 +803,14 @@ namespace EventServiceClient2.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId) {
             return base.Channel.PriceEngineeringTaskSendMessagePublishEventAsync(eventSourceAppSessionId, targetUserId, messageId);
+        }
+        
+        public bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
+            return base.Channel.SavePaymentDocumentPublishEvent(eventSourceAppSessionId, targetUserId, paymentDocumentId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
+            return base.Channel.SavePaymentDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, paymentDocumentId);
         }
     }
 }

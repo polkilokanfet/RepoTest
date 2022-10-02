@@ -24,7 +24,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 ViewModel.UnitOfWork1.Repository<PaymentActual>().Delete(paymentActualWrapper2.Model);
             }
 
-            ViewModel.UnitOfWork1.Repository<PaymentDocument>().Delete(ViewModel.PaymentDocument.Model);
+            ViewModel.UnitOfWork1.Repository<PaymentDocument>().Delete(ViewModel.Item.Model);
             ViewModel.UnitOfWork1.SaveChanges();
 
             ViewModel.GoBackCommand.Execute(null);
@@ -32,7 +32,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.UnitOfWork1.Repository<PaymentDocument>().GetById(ViewModel.PaymentDocument.Model.Id) != null;
+            return ViewModel.UnitOfWork1.Repository<PaymentDocument>().GetById(ViewModel.Item.Model.Id) != null;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using Prism.Events;
@@ -73,41 +74,43 @@ namespace HVTApp.Model.Events
 
     #endregion
 
-    #region ActualPayment
+    //#region ActualPayment
 
-    public class AfterSaveActualPaymentDocumentEvent : PubSubEvent<ActualPaymentEventEntity> { }
-    public class AfterSaveActualPaymentEvent : PubSubEvent<SalesUnit> { }
+    public class AfterSaveActualPaymentDocumentEvent : PubSubEvent<PaymentDocument> { }
 
-    #endregion
+    //public class AfterSaveActualPaymentDocumentEvent : PubSubEvent<ActualPaymentEventEntity> { }
+    //public class AfterSaveActualPaymentEvent : PubSubEvent<SalesUnit> { }
 
-    /// <summary>
-    /// Контейнер для передачи информации при синхронизации поступивших платежей.
-    /// </summary>
-    public class ActualPaymentEventEntity
-    {
-        public PaymentDocument PaymentDocument { get; }
-        public IEnumerable<SalesUnit> SalesUnits { get; }
+    //#endregion
 
-        public ActualPaymentEventEntity(PaymentDocument paymentDocument, IEnumerable<SalesUnit> salesUnits)
-        {
-            PaymentDocument = paymentDocument;
-            SalesUnits = salesUnits;
-        }
+    ///// <summary>
+    ///// Контейнер для передачи информации при синхронизации поступивших платежей.
+    ///// </summary>
+    //public class ActualPaymentEventEntity
+    //{
+    //    public PaymentDocument PaymentDocument { get; }
+    //    public IEnumerable<SalesUnit> SalesUnits { get; }
 
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(PaymentDocument);
-            foreach (var salesUnit in SalesUnits)
-            {
-                sb.AppendLine($"за {salesUnit}");
-                foreach (var payment in PaymentDocument.Payments.Where(paymentActual => salesUnit.PaymentsActual.ContainsById(paymentActual)))
-                {
-                    sb.AppendLine($" - {payment}");
-                }
-            }
+    //    public ActualPaymentEventEntity(PaymentDocument paymentDocument, IEnumerable<SalesUnit> salesUnits)
+    //    {
+    //        PaymentDocument = paymentDocument;
+    //        SalesUnits = salesUnits;
+    //    }
 
-            return sb.ToString();
-        }
-    }
+    //    public override string ToString()
+    //    {
+    //        StringBuilder sb = new StringBuilder();
+    //        sb.Append(PaymentDocument);
+    //        foreach (var salesUnit in SalesUnits)
+    //        {
+    //            sb.AppendLine($"за {salesUnit}");
+    //            foreach (var payment in PaymentDocument.Payments.Where(paymentActual => salesUnit.PaymentsActual.ContainsById(paymentActual)))
+    //            {
+    //                sb.AppendLine($" - {payment}");
+    //            }
+    //        }
+
+    //        return sb.ToString();
+    //    }
+    //}
 }

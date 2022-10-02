@@ -30,8 +30,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         #region Props
 
-        public PaymentDocumentWrapper1 PaymentDocument => this.Item;
-
         /// <summary>
         /// Потенциальные платежи
         /// </summary>
@@ -85,11 +83,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         public RemovePaymentCommand RemovePaymentCommand { get; }
 
         /// <summary>
-        /// Команда сохранения платежки
-        /// </summary>
-        public DelegateLogCommand SaveDocumentCommand { get; }
-
-        /// <summary>
         /// Команда удаления платежки
         /// </summary>
         public RemoveDocumentCommand RemoveDocumentCommand { get; }
@@ -106,27 +99,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         public PaymentDocumentViewModel(IUnityContainer container) : base(container)
         {
             _messageService = container.Resolve<IMessageService>();
-
-            SaveDocumentCommand = new DelegateLogCommand(
-                () =>
-                {
-                    //PaymentDocument.PropertyChanged -= PaymentDocumentOnPropertyChanged;
-
-                    //var units = SalesUnitWrappers.Where(wrapper => wrapper.IsChanged).Select(wrapper => wrapper.Model).ToList();
-                    //var entity = new ActualPaymentEventEntity(this.Item.Model, units);
-
-                    SaveItem();
-                    SaveDocumentCommand.RaiseCanExecuteChanged();
-
-                    //EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(entity);
-                    //foreach (var salesUnit in units)
-                    //{
-                    //    EventAggregator.GetEvent<AfterSaveActualPaymentEvent>().Publish(salesUnit);
-                    //}
-
-                    //PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
-                },
-                () => PaymentDocument != null && PaymentDocument.IsValid && PaymentDocument.IsChanged);
 
             AddPaymentCommand = new AddPaymentCommand(this, this.Container);
             RemovePaymentCommand = new RemovePaymentCommand(this, this.Container);
@@ -157,34 +129,24 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         protected override void AfterLoading()
         {
-            Item.Payments.CollectionChanged += (sender, args) =>
-            {
-                RestPaymentCommand.RaiseCanExecuteChanged();
-            };
-
-            //событие изменения в платежном документе
-            PaymentDocument.PropertyChanged += PaymentDocumentOnPropertyChanged;
-
+            RestPaymentCommand.RaiseCanExecuteChanged();
             base.AfterLoading();
         }
 
-        private void PaymentDocumentOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        protected override void SaveItem()
         {
-            SaveDocumentCommand.RaiseCanExecuteChanged();
-        }
+            //var units = this.Item.Payments.Where(paymentActual => paymentActual.IsChanged).Select(paymentActual => paymentActual.SalesUnit).ToList();
+            //var entity = new ActualPaymentEventEntity(this.Item.Model, units);
 
-        protected override void GoBackCommand_Execute()
-        {
-            //если были какие-то изменения
-            if (SaveDocumentCommand.CanExecute())
-            {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?", defaultNo:true) == MessageDialogResult.Yes)
-                {
-                    SaveDocumentCommand.Execute();
-                }
-            }
+            base.SaveItem();
+            //EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(this.Item.Model);
 
-            RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
+
+            //EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(entity);
+            //foreach (var salesUnit in units)
+            //{
+            //    EventAggregator.GetEvent<AfterSaveActualPaymentEvent>().Publish(salesUnit);
+            //}
         }
     }
 

@@ -84,6 +84,7 @@
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskStart.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskStop.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationReject.cs" />
+    <Compile Include="SyncEntities\Entities\SyncPaymentDocument.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskAccept.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinish.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinishedGoToVerification.cs" />

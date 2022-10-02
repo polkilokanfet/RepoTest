@@ -654,5 +654,23 @@ namespace EventServiceClient2
 
 
         #endregion
+
+
+        public bool OnSavePaymentDocumentServiceCallback(Guid paymentDocumentId)
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var paymentDocument = unitOfWork.Repository<PaymentDocument>().GetById(paymentDocumentId);
+
+            if (SyncContainer.PublishWithinAppForCurrentUser<PaymentDocument, AfterSaveActualPaymentDocumentEvent>(paymentDocument))
+            {
+                var message = $"123";
+                var title = $"Сохранено п/п №{paymentDocument.Number} от {paymentDocument.Date.ToShortDateString()} г.";
+                _popupNotificationsService.ShowPopupNotification(paymentDocument, message, title);
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

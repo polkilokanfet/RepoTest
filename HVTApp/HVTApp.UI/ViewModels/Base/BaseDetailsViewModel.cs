@@ -186,6 +186,9 @@ namespace HVTApp.UI.ViewModels
                 //Сигнализируем о сохранении сущности
                 EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
 
+                if (SaveCommand is DelegateLogCommand delegateCommand)
+                    delegateCommand.RaiseCanExecuteChanged();
+
                 //запрашиваем закрытие окна
                 OnCloseRequested(new DialogRequestCloseEventArgs(true));
             }

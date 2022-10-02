@@ -58,6 +58,8 @@ namespace HVTApp.Model.POCOs
         PriceEngineeringTaskSendMessage,
         PriceEngineeringTaskFinishGoToVerification, 
         PriceEngineeringTaskVerificationRejectedByHead,
-        PriceEngineeringTaskVerificationAcceptedByHead
+        PriceEngineeringTaskVerificationAcceptedByHead,
+
+        SavePaymentDocument
     }
 }

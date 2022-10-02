@@ -97,6 +97,9 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #endregion
 
+        [OperationContract]
+        bool OnSavePaymentDocumentServiceCallback(Guid paymentDocumentId);
+
         #region PriceCalculation
 
         [OperationContract]

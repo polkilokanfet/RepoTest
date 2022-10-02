@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
@@ -17,7 +16,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.Item != null && ViewModel.Item.Payments.Any();
+            return ViewModel.Item != null;
         }
     }
 }

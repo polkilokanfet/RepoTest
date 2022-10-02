@@ -335,5 +335,11 @@ namespace EventService
         }
 
         #endregion
+
+        public bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid paymentDocumentId)
+        {
+            return PublishEventByServiceForUser(targetUserId, eventSourceAppSessionId,
+                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePaymentDocumentServiceCallback(paymentDocumentId));
+        }
     }
 }

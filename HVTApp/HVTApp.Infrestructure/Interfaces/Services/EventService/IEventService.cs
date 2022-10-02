@@ -187,5 +187,10 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid messageId);
 
         #endregion
+
+
+        [OperationContract]
+        bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid paymentDocumentId);
+
     }
 }
