@@ -189,14 +189,13 @@
     <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.xaml.cs">
       <DependentUpon>TabServiceRealizationDates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentActualWrapper1.cs" />
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentActualWrapper2.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentActualWrapper2.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\AddPaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\BasePaymentDocumentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemovePaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemoveDocumentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RestPaymentCommand.cs" />
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocumentWrapper1.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentWrapper1.cs" />
     <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesView.xaml.cs">
       <DependentUpon>SpecificationSignDatesView.xaml</DependentUpon>
@@ -590,13 +589,11 @@
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\SalesUnitPayment.cs" />
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\SalesUnitPaymentWrapper.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\Payment1.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\AfterSaveOrderItemsEvent.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderViewModel.cs" />
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\Payment.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentsActualViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsViewModel.cs" />

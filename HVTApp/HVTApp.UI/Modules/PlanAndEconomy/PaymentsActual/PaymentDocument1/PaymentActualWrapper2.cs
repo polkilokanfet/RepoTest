@@ -23,7 +23,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             }
         }
 
-        public double SumNotPaid => SalesUnit.SumNotPaid;
         public double SumNotPaidWithVat => SalesUnit.SumNotPaidWithVat;
 
 
@@ -40,12 +39,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 if (args.PropertyName == nameof(Sum))
                 {
                     OnPropertyChanged(nameof(SumWithVat));
-                    OnPropertyChanged(nameof(SumNotPaid));
                     OnPropertyChanged(nameof(SumNotPaidWithVat));
                 }
             };
         }
 
+        /// <summary>
+        /// Поставить суммой платежа весь остаток
+        /// </summary>
         public void SetRestPay()
         {
             this.Sum = _sumNotPaid;
