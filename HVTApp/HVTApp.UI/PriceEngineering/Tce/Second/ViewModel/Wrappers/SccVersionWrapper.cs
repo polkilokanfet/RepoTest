@@ -9,6 +9,11 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 {
     public class SccVersionWrapper : StructureCostVersionWrapper
     {
+        /// <summary>
+        /// Этот scc является целевым для задачи (важно для валидации объекта)
+        /// </summary>
+        public bool IsTarget { get; set; } = false;
+
         public string Name { get; }
 
         public SccVersionWrapper(StructureCostVersion model, string name) : base(model)
@@ -18,7 +23,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager && IsTarget)
             {
                 if(Version.HasValue == false)
                     yield return new ValidationResult("Version is required", new[] { nameof(Version) });
