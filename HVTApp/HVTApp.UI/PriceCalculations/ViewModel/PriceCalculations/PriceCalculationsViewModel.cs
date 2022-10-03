@@ -87,15 +87,17 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculations
 
             if (CurrentUserIsBackManager)
             {
-                //var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null && technicalRequrementsTask.BackManager.IsAppCurrentUser());
-                //calculations = tasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.PriceCalculations).Distinct().ToList();
                 calculations = UnitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.Initiator?.Id == GlobalAppProperties.User.Id);
+                calculations.AddRange(UnitOfWork.Repository<PriceEngineeringTasks>()
+                    .Find(x => x.BackManager?.Id == GlobalAppProperties.User.Id)
+                    .SelectMany(x => x.PriceCalculations));
             }
 
             if (CurrentUserIsBackManagerBoss)
             {
-                var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null);
-                calculations = tasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.PriceCalculations).Distinct().ToList();
+                //var tasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.BackManager != null);
+                //calculations = tasks.SelectMany(technicalRequrementsTask => technicalRequrementsTask.PriceCalculations).Distinct().ToList();
+                calculations = UnitOfWork.Repository<PriceCalculation>().Find(priceCalculation => priceCalculation.TaskOpenMoment.HasValue);
             }
 
             if (CurrentUserIsPricer)
