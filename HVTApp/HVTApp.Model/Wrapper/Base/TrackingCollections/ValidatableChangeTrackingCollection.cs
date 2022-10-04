@@ -24,7 +24,7 @@ namespace HVTApp.Model.Wrapper.Base.TrackingCollections
         private readonly ObservableCollection<TCollectionItem> _modifiedItems = new ObservableCollection<TCollectionItem>();
         private readonly ObservableCollection<TCollectionItem> _removedItems = new ObservableCollection<TCollectionItem>();
 
-        public ValidatableChangeTrackingCollection(IEnumerable<TCollectionItem> groups) : base(groups)
+        public ValidatableChangeTrackingCollection(IEnumerable<TCollectionItem> items) : base(items)
         {
             //фиксируем то, что мы имели изначально.
             _originalCollection = this.ToList();

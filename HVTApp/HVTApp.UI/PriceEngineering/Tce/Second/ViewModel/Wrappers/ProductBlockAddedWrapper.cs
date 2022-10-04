@@ -12,32 +12,41 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         /// <summary>
         /// Версии SCC
         /// </summary>
-        public IValidatableChangeTrackingCollection<SccVersionWrapper> StructureCostVersions { get; }
+        public IValidatableChangeTrackingCollection<SccVersionWrapper> StructureCostVersions { get; private set; }
 
-        public List<SccVersionWrapper> SccVersions { get; }
-
-        public SccVersionWrapper TargetSccVersion
-        {
-            get
-            {
-                var result = this.StructureCostVersions.SingleOrDefault(x => x.OriginalStructureCostNumber == this.Model.ProductBlock.StructureCostNumber);
-                if (result == null)
-                {
-                    result = new SccVersionWrapper(new StructureCostVersion { OriginalStructureCostNumber = this.Model.ProductBlock.StructureCostNumber }, this.Model.ProductBlock.ToString());
-                    StructureCostVersions.Add(result);
-                }
-
-                return result;
-            }
-        }
+        public SccVersionWrapper TargetSccVersion { get; private set; }
 
         public ProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded model) : base(model)
         {
-            if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
-            StructureCostVersions = new ValidatableChangeTrackingCollection<SccVersionWrapper>(Model.StructureCostVersions.Select(e => new SccVersionWrapper(e, Model.ProductBlock.ToString())));
-            RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
+        }
 
-            SccVersions = new List<SccVersionWrapper> { this.TargetSccVersion };
+        protected override void InitializeCollectionProperties()
+        {
+            if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
+
+            var sccVersions = new List<SccVersionWrapper>();
+            foreach (var structureCostVersion in Model.StructureCostVersions)
+            {
+                var sccVersionWrapper =
+                    structureCostVersion.OriginalStructureCostNumber == this.Model.ProductBlock.StructureCostNumber
+                        ? new SccVersionWrapperTarget(structureCostVersion, Model.ProductBlock.ToString())
+                        : new SccVersionWrapper(structureCostVersion, Model.ProductBlock.ToString());
+                sccVersions.Add(sccVersionWrapper);
+            }
+
+            StructureCostVersions = new ValidatableChangeTrackingCollection<SccVersionWrapper>(sccVersions);
+            RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
+        }
+
+        public override void InitializeOther()
+        {
+            TargetSccVersion = this.StructureCostVersions.SingleOrDefault(x => x.OriginalStructureCostNumber == this.Model.ProductBlock.StructureCostNumber);
+            if (TargetSccVersion == null)
+            {
+                TargetSccVersion = new SccVersionWrapperTarget(new StructureCostVersion { OriginalStructureCostNumber = this.Model.ProductBlock.StructureCostNumber }, this.Model.ProductBlock.ToString());
+                StructureCostVersions.Add(TargetSccVersion);
+                StructureCostVersions.AcceptChanges();
+            }
         }
     }
 }

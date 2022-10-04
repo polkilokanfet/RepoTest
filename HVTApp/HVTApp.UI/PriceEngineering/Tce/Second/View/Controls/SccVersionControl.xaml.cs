@@ -10,8 +10,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View
 
         public SccVersionWrapper SccVersion
         {
-            get { return (SccVersionWrapper) GetValue(SccVersionProperty); }
-            set { SetValue(SccVersionProperty, value); }
+            get => (SccVersionWrapper) GetValue(SccVersionProperty);
+            set => SetValue(SccVersionProperty, value);
         }
 
         public SccVersionControl()

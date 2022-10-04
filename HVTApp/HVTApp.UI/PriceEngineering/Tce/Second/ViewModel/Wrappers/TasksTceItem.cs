@@ -55,7 +55,19 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             RegisterCollection(BlockAddedList, Model.ProductBlocksAdded);
 
             if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
-            StructureCostVersions = new ValidatableChangeTrackingCollection<SccVersionWrapper>(Model.StructureCostVersions.Select(e => new SccVersionWrapper(e, Model.ProductBlockEngineer.ToString())));
+
+            var sccVersions = new List<SccVersionWrapper>();
+            foreach (var structureCostVersion in Model.StructureCostVersions)
+            {
+                var sccVersionWrapper =
+                    structureCostVersion.OriginalStructureCostNumber == this.Model.ProductBlock.StructureCostNumber
+                        ? new SccVersionWrapperTarget(structureCostVersion, Model.ProductBlockEngineer.ToString())
+                        : new SccVersionWrapper(structureCostVersion, Model.ProductBlock.ToString());
+                sccVersions.Add(sccVersionWrapper);
+            }
+
+            StructureCostVersions = new ValidatableChangeTrackingCollection<SccVersionWrapper>(sccVersions);
+
             RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
         }
 
@@ -65,14 +77,14 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             TargetSccVersion = this.StructureCostVersions.SingleOrDefault(x => x.OriginalStructureCostNumber == this.Model.ProductBlockEngineer.StructureCostNumber);
             if (TargetSccVersion == null)
             {
-                TargetSccVersion = new SccVersionWrapper(new StructureCostVersion { OriginalStructureCostNumber = this.Model.ProductBlockEngineer.StructureCostNumber }, Model.ProductBlockEngineer.ToString());
+                TargetSccVersion = new SccVersionWrapperTarget(new StructureCostVersion { OriginalStructureCostNumber = this.Model.ProductBlockEngineer.StructureCostNumber }, Model.ProductBlockEngineer.ToString());
                 StructureCostVersions.Add(TargetSccVersion);
+                StructureCostVersions.AcceptChanges();
             }
-            TargetSccVersion.IsTarget = true;
 
             SccVersions.Add(this.TargetSccVersion);
+            SccVersions.AddRange(BlockAddedList.Select(x => x.TargetSccVersion));
             SccVersions.AddRange(ChildPriceEngineeringTasks.SelectMany(x => x.SccVersions));
-            SccVersions.AddRange(BlockAddedList.SelectMany(x => x.SccVersions));
 
             LoadFilesCommand = new DelegateCommand(() =>
             {

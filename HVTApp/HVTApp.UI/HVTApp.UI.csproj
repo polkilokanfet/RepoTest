@@ -385,10 +385,10 @@
     <Compile Include="PriceEngineering\Tce\Second\View\TasksTceView.xaml.cs">
       <DependentUpon>TasksTceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\Tce\Second\View\TasksTceItemControl.xaml.cs">
+    <Compile Include="PriceEngineering\Tce\Second\View\Controls\TasksTceItemControl.xaml.cs">
       <DependentUpon>TasksTceItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\Tce\Second\View\SccVersionControl.xaml.cs">
+    <Compile Include="PriceEngineering\Tce\Second\View\Controls\SccVersionControl.xaml.cs">
       <DependentUpon>SccVersionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml.cs">
@@ -1772,11 +1772,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\Tce\Second\View\TasksTceItemControl.xaml">
+    <Page Include="PriceEngineering\Tce\Second\View\Controls\TasksTceItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\Tce\Second\View\SccVersionControl.xaml">
+    <Page Include="PriceEngineering\Tce\Second\View\Controls\SccVersionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

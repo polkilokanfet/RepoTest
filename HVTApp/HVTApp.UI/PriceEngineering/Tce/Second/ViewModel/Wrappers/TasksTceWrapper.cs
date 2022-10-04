@@ -48,27 +48,34 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         /// <summary>
         /// Расчеты переменных затрат
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceCalculationEmptyWrapper> PriceCalculations { get; }
+        public IValidatableChangeTrackingCollection<PriceCalculationEmptyWrapper> PriceCalculations { get; private set; }
 
-        public IValidatableChangeTrackingCollection<TasksTceItem> Items { get; }
+        public IValidatableChangeTrackingCollection<TasksTceItem> Items { get; private set; }
 
         public event Action<PriceEngineeringTask> LoadFilesRequest;
 
         public TasksTceWrapper(PriceEngineeringTasks model) : base(model)
         {
-            InitializeComplexProperty(nameof(BackManager), Model.BackManager == null ? null : new UserEmptyWrapper(Model.BackManager));
-
-            if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
-            PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationEmptyWrapper>(Model.PriceCalculations.Select(x => new PriceCalculationEmptyWrapper(x)));
-            RegisterCollection(PriceCalculations, Model.PriceCalculations);
-
-            Items = new ValidatableChangeTrackingCollection<TasksTceItem>(model.ChildPriceEngineeringTasks.Select(x => new TasksTceItem(x)));
-            RegisterCollection(Items, Model.ChildPriceEngineeringTasks);
-
             foreach (var item in Items)
             {
                 item.LoadFilesRequest += task => this.LoadFilesRequest?.Invoke(task);
             }
+        }
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty(nameof(BackManager), Model.BackManager == null ? null : new UserEmptyWrapper(Model.BackManager));
+        }
+
+        protected override void InitializeCollectionProperties()
+        {
+            if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
+            PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationEmptyWrapper>(Model.PriceCalculations.Select(x => new PriceCalculationEmptyWrapper(x)));
+            RegisterCollection(PriceCalculations, Model.PriceCalculations);
+
+            if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+            Items = new ValidatableChangeTrackingCollection<TasksTceItem>(Model.ChildPriceEngineeringTasks.Select(x => new TasksTceItem(x)));
+            RegisterCollection(Items, Model.ChildPriceEngineeringTasks);
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()

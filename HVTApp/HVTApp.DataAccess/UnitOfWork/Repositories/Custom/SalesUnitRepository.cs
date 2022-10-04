@@ -187,7 +187,7 @@ namespace HVTApp.DataAccess
             if (string.IsNullOrWhiteSpace(orderNumber))
             {
                 query = Context.Set<SalesUnit>().AsQueryable()
-                    .Where(salesUnit => salesUnit.IsRemoved == false && salesUnit.Order != null);
+                    .Where(salesUnit => salesUnit.IsRemoved == false);
             }
             else
             {
