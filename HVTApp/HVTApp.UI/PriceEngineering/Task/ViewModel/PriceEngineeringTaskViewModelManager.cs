@@ -139,7 +139,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите принять проработку задачи?",
                 () =>
                 {
-                    this.Accept();
+                    this.SetStatusAccept();
                     SaveCommand.Execute();
                     this.OnTaskAcceptedByManagerAction(this.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
@@ -151,7 +151,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите отклонить проработку задачи?",
                 () =>
                 {
-                    this.RejectedByManager();
+                    this.SetStatusRejectedByManager();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
@@ -161,7 +161,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите остановить проработку задачи?",
                 () =>
                 {
-                    this.Stop();
+                    this.SetStatusStop();
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
                 },
@@ -287,30 +287,30 @@ namespace HVTApp.UI.PriceEngineering
                     : $"Не заменен продукт в {salesUnits.First()}");
         }
 
-        #region Actions
+        #region SetStatus
 
         /// <summary>
         /// Принять задачу
         /// </summary>
-        protected void Accept()
+        protected void SetStatusAccept()
         {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.Accepted, "Проработка задачи принята.");
+            this.SetStatus(PriceEngineeringTaskStatusEnum.Accepted, "Проработка задачи принята.");
         }
 
         /// <summary>
         /// Отклонить проработку задачи
         /// </summary>
-        protected void RejectedByManager()
+        protected void SetStatusRejectedByManager()
         {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByManager, "Проработка задачи отклонена.");
+            this.SetStatus(PriceEngineeringTaskStatusEnum.RejectedByManager, "Проработка задачи отклонена.");
         }
 
         /// <summary>
         /// Остановить проработку задачи
         /// </summary>
-        protected void Stop()
+        protected void SetStatusStop()
         {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.Stopped, "Проработка задачи остановлена.");
+            this.SetStatus(PriceEngineeringTaskStatusEnum.Stopped, "Проработка задачи остановлена.");
         }
 
         #endregion

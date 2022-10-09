@@ -2,12 +2,9 @@ using System;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -67,7 +64,7 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
-            this.AddStartStatus();
+            this.SetStatusStart();
 
             //если запускается только конкретная задача
             if (saveChanges)
@@ -98,13 +95,8 @@ namespace HVTApp.UI.PriceEngineering
             return true;
         }
 
-        private void AddStartStatus()
+        private void SetStatusStart()
         {
-            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
-            {
-                StatusEnum = PriceEngineeringTaskStatusEnum.Started
-            }));
-
             var sb = new StringBuilder();
             sb.AppendLine("Задача запущена на проработку.");
             if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null)
@@ -136,11 +128,7 @@ namespace HVTApp.UI.PriceEngineering
 
             }
 
-            this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
-            {
-                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = sb.ToString().TrimEnd('\n', '\r')
-            }));
+            this.SetStatus(PriceEngineeringTaskStatusEnum.Started, sb.ToString().TrimEnd('\n', '\r'));
         }
     }
 }

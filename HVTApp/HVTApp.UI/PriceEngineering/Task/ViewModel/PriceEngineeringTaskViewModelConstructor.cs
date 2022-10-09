@@ -406,7 +406,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         protected void RejectByConstructor()
         {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
+            this.SetStatus(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
         }
 
     }

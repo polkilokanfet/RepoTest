@@ -338,7 +338,7 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        protected void MakeAction(PriceEngineeringTaskStatusEnum status, string message)
+        protected void SetStatus(PriceEngineeringTaskStatusEnum status, string message)
         {
             this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
             {
