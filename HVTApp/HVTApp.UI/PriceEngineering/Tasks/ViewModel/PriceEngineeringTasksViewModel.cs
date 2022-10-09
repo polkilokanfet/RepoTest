@@ -8,21 +8,21 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    /// <summary>
-    /// PriceEngineeringTasksViewModel для ОГК
-    /// </summary>
-    public class PriceEngineeringTasksViewModel : ViewModelBase, IDisposable
+    public abstract class PriceEngineeringTasksViewModel<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel> : ViewModelBase, IPriceEngineeringTasksViewModel
+        where TPriceEngineeringTasksWrapper : PriceEngineeringTasksContainerWrapper<TPriceEngineeringTaskViewModel>
+        where TPriceEngineeringTaskViewModel : PriceEngineeringTaskViewModel
     {
-        private PriceEngineeringTasksWrapper1 _priceEngineeringTasksWrapper;
+        private TPriceEngineeringTasksWrapper _priceEngineeringTasksWrapper;
         private PriceEngineeringTasksFileTechnicalRequirementsWrapper _selectedFileTechnicalRequirements;
 
         public bool IsNew { get; protected set; } = false;
 
-        public PriceEngineeringTasksWrapper1 PriceEngineeringTasksWrapper
+        public TPriceEngineeringTasksWrapper PriceEngineeringTasksWrapper
         {
             get => _priceEngineeringTasksWrapper;
             protected set
@@ -59,7 +59,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Событие замены списка задач
         /// </summary>
-        public event Action<PriceEngineeringTasksWrapper1, PriceEngineeringTasksWrapper1> PriceEngineeringTasksWrapperChanged;
+        public event Action<TPriceEngineeringTasksWrapper, TPriceEngineeringTasksWrapper> PriceEngineeringTasksWrapperChanged;
 
         public event Action SelectedFileTechnicalRequirementsChanged;
 
@@ -70,7 +70,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public virtual bool AllowEditProps => false;
 
-        public PriceEngineeringTasksViewModel(IUnityContainer container) : base(container)
+        protected PriceEngineeringTasksViewModel(IUnityContainer container) : base(container)
         {
             OpenFileTechnicalRequirementsCommand = new DelegateLogCommand(
                 () =>
@@ -98,13 +98,15 @@ namespace HVTApp.UI.PriceEngineering
         public void Load(PriceEngineeringTasks priceEngineeringTasks)
         {
             var tasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
-            this.PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(tasks, Container);
+            this.PriceEngineeringTasksWrapper = GetPriceEngineeringTasksWrapper(tasks, Container);
         }
 
         public void Load(PriceEngineeringTask priceEngineeringTask)
         {
             this.Load(priceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork));
         }
+
+        protected abstract TPriceEngineeringTasksWrapper GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container);
 
         public virtual void Dispose()
         {

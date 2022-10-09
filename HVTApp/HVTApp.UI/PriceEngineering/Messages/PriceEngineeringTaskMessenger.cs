@@ -59,8 +59,6 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
         public DelegateLogCommand SendMessageCommand { get; }
 
-        public event Action<Guid, DateTime, string> SendedMessageInNewTask; 
-
         public PriceEngineeringTaskMessenger(IUnityContainer container, PriceEngineeringTaskViewModel viewModel)
         {
             _viewModel = viewModel;
@@ -135,6 +133,8 @@ namespace HVTApp.UI.PriceEngineering.Messages
                     }
                 });
         }
+
+        public event Action<Guid, DateTime, string> SendedMessageInNewTask; 
 
         private void MessagesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {

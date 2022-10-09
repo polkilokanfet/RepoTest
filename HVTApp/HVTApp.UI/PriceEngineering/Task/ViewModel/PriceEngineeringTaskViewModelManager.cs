@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,17 +10,14 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskViewModel
+    public abstract class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskWithStartCommandViewModel
     {
-        private readonly PriceEngineeringTasksViewModelManager _priceEngineeringTasksViewModelManager;
-
         public override bool IsTarget => true;
 
         public override bool IsEditMode
@@ -42,16 +38,12 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Commands
 
-        public DelegateLogCommand SelectDesignDepartmentCommand { get; private set; }
-        
         public DelegateLogCommand AddTechnicalRequrementsFilesCommand { get; private set; }
         public DelegateLogConfirmationCommand RemoveTechnicalRequrementsFilesCommand { get; private set; }
 
         public DelegateLogConfirmationCommand AcceptCommand { get; private set; }
         public DelegateLogConfirmationCommand RejectCommand { get; private set; }
         public DelegateLogConfirmationCommand StopCommand { get; private set; }
-
-        public DelegateLogConfirmationCommand RemoveTaskCommand { get; private set; }
 
         public DelegateLogConfirmationCommand StartProductionCommand { get; private set; }
 
@@ -80,66 +72,18 @@ namespace HVTApp.UI.PriceEngineering
         #region ctors
 
         /// <summary>
-        /// Для создания новой технико-стоимостной проработки по единицам продаж
+        /// Для загрузки (редактирования) созданной задачи
         /// </summary>
-        /// <param name="salesUnits"></param>
-        public PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits, PriceEngineeringTasksViewModelManager priceEngineeringTasksViewModelManager) 
-            : this(container, unitOfWork, salesUnits.First().Product)
-        {
-            _priceEngineeringTasksViewModelManager = priceEngineeringTasksViewModelManager;
-            this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
-        }
+        /// <param name="container"></param>
+        /// <param name="priceEngineeringTaskId"></param>
+        protected PriceEngineeringTaskViewModelManager(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId) { }
 
         /// <summary>
         /// Для создания новой задачи
         /// </summary>
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
-        /// <param name="product"></param>
-        public PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
-            : base(container, unitOfWork)
-        {
-            ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
-            ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
-
-            //бюро
-            var department = UnitOfWork.Repository<DesignDepartment>().Find(x => x.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
-            if (department != null)
-            {
-                this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
-            }
-
-            var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(container, x));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-            
-            foreach (var dependentProduct in product.DependentProducts)
-            {
-                for (int i = 0; i < dependentProduct.Amount; i++)
-                {
-                    var vm = new PriceEngineeringTaskViewModelManager(container, unitOfWork, dependentProduct.Product);
-                    this.ChildPriceEngineeringTasks.Add(vm);
-                    vm.Parent = this;
-                }
-            }
-        }
-
-        public PriceEngineeringTaskViewModelManager(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) 
-            : base(container, priceEngineeringTask)
-        {
-            var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelManager(Container, x));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
-            //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-
-            //реакция на событие принятие дочерней задачи
-            foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
-            {
-                if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManager petvmm)
-                {
-                    petvmm.TaskAcceptedByManagerAction += OnTaskAcceptedByManagerAction;
-                }
-            }
-        }
+        protected PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork) { }
         
         protected override void InCtor()
         {
@@ -149,17 +93,6 @@ namespace HVTApp.UI.PriceEngineering
 
             var messageService = this.Container.Resolve<IMessageService>();
 
-            SelectDesignDepartmentCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var departments = UnitOfWork.Repository<DesignDepartment>().Find(designDepartment => designDepartment.ProductBlockIsSuitable(this.Model.ProductBlockEngineer));
-                    var department = Container.Resolve<ISelectService>().SelectItem(departments);
-                    if (department != null)
-                    {
-                        this.DesignDepartment = new DesignDepartmentEmptyWrapper(UnitOfWork.Repository<DesignDepartment>().GetById(department.Id));
-                    }
-                },
-                () => IsEditMode);
 
             AddTechnicalRequrementsFilesCommand = new DelegateLogCommand(
                 () =>
@@ -242,18 +175,6 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите запустить производство этого оборудования?",
                 () => {});
 
-            RemoveTaskCommand = new DelegateLogConfirmationCommand(
-                messageService,
-                "Вы уверены, что хотите удалить эту задачу из списка?",
-                () =>
-                {
-                    if (_priceEngineeringTasksViewModelManager.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Contains(this))
-                        _priceEngineeringTasksViewModelManager.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(this);
-                },
-                () => 
-                    _priceEngineeringTasksViewModelManager != null && 
-                    _priceEngineeringTasksViewModelManager.AllowEditProps &&
-                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) == null);
 
             #endregion
 
@@ -264,7 +185,7 @@ namespace HVTApp.UI.PriceEngineering
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {
-                SelectDesignDepartmentCommand.RaiseCanExecuteChanged();
+                //SelectDesignDepartmentCommand.RaiseCanExecuteChanged();
                 StartCommand.RaiseCanExecuteChanged();
                 StopCommand.RaiseCanExecuteChanged();
                 AddTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
@@ -272,16 +193,11 @@ namespace HVTApp.UI.PriceEngineering
                 AcceptCommand.RaiseCanExecuteChanged();
                 RejectCommand.RaiseCanExecuteChanged();
             };
-
-            this.TaskStartedAction += () =>
-            {
-                RemoveTaskCommand.RaiseCanExecuteChanged();
-            };
         }
 
         #endregion
 
-        private void OnTaskAcceptedByManagerAction(PriceEngineeringTask task)
+        protected void OnTaskAcceptedByManagerAction(PriceEngineeringTask task)
         {
             //если эта задача головная
             if (this.Model.ParentPriceEngineeringTaskId == null)
@@ -370,5 +286,33 @@ namespace HVTApp.UI.PriceEngineering
                     ? $"Заменен продукт в {salesUnits.First()}"
                     : $"Не заменен продукт в {salesUnits.First()}");
         }
+
+        #region Actions
+
+        /// <summary>
+        /// Принять задачу
+        /// </summary>
+        protected void Accept()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.Accepted, "Проработка задачи принята.");
+        }
+
+        /// <summary>
+        /// Отклонить проработку задачи
+        /// </summary>
+        protected void RejectedByManager()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByManager, "Проработка задачи отклонена.");
+        }
+
+        /// <summary>
+        /// Остановить проработку задачи
+        /// </summary>
+        protected void Stop()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.Stopped, "Проработка задачи остановлена.");
+        }
+
+        #endregion
     }
 }

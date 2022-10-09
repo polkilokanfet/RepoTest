@@ -5,6 +5,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.Tabs;
+using HVTApp.UI.PriceEngineering.ViewModel;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -14,18 +15,21 @@ namespace HVTApp.UI.PriceEngineering.View
     [RibbonTab(typeof(TabPriceEngineeringTask))]
     public partial class PriceEngineeringTasksView : ViewBaseConfirmNavigationRequest, IDisposable
     {
-        private PriceEngineeringTasksViewModel _viewModel;
+        private IPriceEngineeringTasksViewModel _viewModel;
 
         public PriceEngineeringTasksView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            switch (GlobalAppProperties.User.RoleCurrent)
             {
-                _viewModel = container.Resolve<PriceEngineeringTasksViewModelManager>();
-            }
-            else if (GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead ||
-                     GlobalAppProperties.User.RoleCurrent == Role.Constructor)
-            {
-                _viewModel = container.Resolve<PriceEngineeringTasksViewModel>();
+                case Role.SalesManager:
+                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelManager>();
+                    break;
+                case Role.DesignDepartmentHead:
+                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelDesignDepartmentHead>();
+                    break;
+                case Role.Constructor:
+                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelConstructor>();
+                    break;
             }
 
             InitializeComponent();
@@ -66,7 +70,8 @@ namespace HVTApp.UI.PriceEngineering.View
 
         protected override bool IsSomethingChanged()
         {
-            return _viewModel.PriceEngineeringTasksWrapper != null && _viewModel.PriceEngineeringTasksWrapper.IsChanged;
+            return false;
+            //return _viewModel.PriceEngineeringTasksWrapper != null && _viewModel.PriceEngineeringTasksWrapper.IsChanged;
         }
 
         public void Dispose()

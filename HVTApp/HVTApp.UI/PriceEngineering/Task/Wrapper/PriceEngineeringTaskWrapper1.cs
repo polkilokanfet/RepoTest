@@ -1,13 +1,12 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.Wrapper
 {
     public abstract class PriceEngineeringTaskWrapper1 : WrapperBase<PriceEngineeringTask>
     {
@@ -19,18 +18,18 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Id группы
         /// </summary>
-        public System.Guid ParentPriceEngineeringTasksId
+        public Guid? ParentPriceEngineeringTasksId
         {
-            get { return GetValue<System.Guid>(); }
-            set { SetValue(value); }
+            get => Model.ParentPriceEngineeringTasksId;
+            set => SetValue(value);
         }
-        public System.Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
+        public Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
         public bool ParentPriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTasksId));
 
         /// <summary>
         /// Количество блоков продукта
         /// </summary>
-        public System.Int32 Amount
+        public int Amount
         {
             get { return GetValue<System.Int32>(); }
             set { SetValue(value); }
@@ -139,22 +138,22 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Файлы ответов ОГК
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
 
         /// <summary>
         /// Переписка
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper> Messages { get; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper> Messages { get; private set; }
 
         /// <summary>
         /// Статусы проработки
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; private set; }
 
         /// <summary>
         /// SalesUnits
         /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; }
+        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
 
         #endregion
 
@@ -186,7 +185,21 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public virtual event Action<PriceEngineeringTask> TaskAcceptedByManagerAction;
 
-        private PriceEngineeringTaskWrapper1(PriceEngineeringTask model) : base(model)
+        private PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
+        {
+            UnitOfWork = unitOfWork;
+        }
+
+        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
+            : this(unitOfWork, unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId))
+        {
+        }
+
+        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork) : this(unitOfWork, new PriceEngineeringTask())
+        {
+        }
+
+        public override void InitializeComplexProperties()
         {
             #region InitializeComplexProperties
 
@@ -206,7 +219,10 @@ namespace HVTApp.UI.PriceEngineering
             InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlockEngineer, validateStructureCostNumber));
 
             #endregion
+        }
 
+        protected override void InitializeCollectionProperties()
+        {
             #region InitializeCollectionProperties
 
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
@@ -234,64 +250,6 @@ namespace HVTApp.UI.PriceEngineering
             RegisterCollection(SalesUnits, Model.SalesUnits);
 
             #endregion
-        }
-
-        protected PriceEngineeringTaskWrapper1(PriceEngineeringTask model, IUnitOfWork unitOfWork)
-            : this(unitOfWork.Repository<PriceEngineeringTask>().GetById(model.Id))
-        {
-            UnitOfWork = unitOfWork;
-        }
-
-        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork)
-            : this(new PriceEngineeringTask())
-        {
-            UnitOfWork = unitOfWork;
-        }
-
-        /// <summary>
-        /// Принять задачу
-        /// </summary>
-        protected void Accept()
-        {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.Accepted, "Проработка задачи принята.");
-        }
-
-        /// <summary>
-        /// Отклонить проработку задачи
-        /// </summary>
-        protected void RejectedByManager()
-        {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByManager, "Проработка задачи отклонена.");
-        }
-
-        /// <summary>
-        /// Отклонить проработку задачи (для конструктора)
-        /// </summary>
-        protected void RejectByConstructor()
-        {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
-        }
-
-        /// <summary>
-        /// Остановить проработку задачи
-        /// </summary>
-        protected void Stop()
-        {
-            this.MakeAction(PriceEngineeringTaskStatusEnum.Stopped, "Проработка задачи остановлена.");
-        }
-
-        private void MakeAction(PriceEngineeringTaskStatusEnum status, string message)
-        {
-            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
-            {
-                StatusEnum = status
-            }));
-
-            this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
-            {
-                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = message
-            }));
         }
     }
 }

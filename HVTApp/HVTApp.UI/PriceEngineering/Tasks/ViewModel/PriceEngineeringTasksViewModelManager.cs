@@ -16,14 +16,15 @@ using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.Comparers;
+using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using HVTApp.UI.PriceEngineering.Tce.Second.View;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModel
+    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModel<PriceEngineeringTasksContainerWrapperManager, PriceEngineeringTaskViewModelManager>
     {
         public PriceCalculationWrapper SelectedCalculation { get; set; }
 
@@ -55,6 +56,11 @@ namespace HVTApp.UI.PriceEngineering
                 return PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Created) ||
                        PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
             }
+        }
+
+        protected override PriceEngineeringTasksContainerWrapperManager GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
+        {
+            return new PriceEngineeringTasksContainerWrapperManager(priceEngineeringTasks, container);
         }
 
         public PriceEngineeringTasksViewModelManager(IUnityContainer container) : base(container)
@@ -132,7 +138,7 @@ namespace HVTApp.UI.PriceEngineering
                     try
                     {
                         //если задание новое - добавляем его в базу
-                        if (UnitOfWork.Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Id) == null)
+                        if (UnitOfWork.Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Model.Id) == null)
                         {
                             UnitOfWork.Repository<PriceEngineeringTasks>().Add(this.PriceEngineeringTasksWrapper.Model);
                         }
@@ -218,7 +224,7 @@ namespace HVTApp.UI.PriceEngineering
             CreatePriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Id);
+                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Model.Id);
 
                     var isTceConnected = priceEngineeringTasks.ChildPriceEngineeringTasks
                                              .Any(x => x.IsTotalAccepted) &&
@@ -318,9 +324,9 @@ namespace HVTApp.UI.PriceEngineering
             var vms = salesUnits
                 .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
                 .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer())
-                .Select(x => new PriceEngineeringTaskViewModelManager(Container, UnitOfWork, x, this));
+                .Select(x => new PriceEngineeringTaskViewModelManagerNew(Container, UnitOfWork, x, this));
 
-            PriceEngineeringTasksWrapper = new PriceEngineeringTasksWrapper1(vms)
+            PriceEngineeringTasksWrapper = new PriceEngineeringTasksContainerWrapperManager(vms)
             {
                 UserManager = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id))
             };
@@ -343,6 +349,12 @@ namespace HVTApp.UI.PriceEngineering
                     fileWrapper.Path = null;
                 }
             }
+        }
+
+        public void RemoveChildTask(PriceEngineeringTaskViewModelManager priceEngineeringTaskViewModel)
+        {
+            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Contains(priceEngineeringTaskViewModel))
+                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(priceEngineeringTaskViewModel);
         }
 
         #region PriceEngineeringTasksWrapperOn

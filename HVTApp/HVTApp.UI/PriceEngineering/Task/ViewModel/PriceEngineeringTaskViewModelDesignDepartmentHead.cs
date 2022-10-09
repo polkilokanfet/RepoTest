@@ -36,9 +36,9 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(container, priceEngineeringTask)
+        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
-            var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, x));
+            var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
         }
 
@@ -149,7 +149,6 @@ namespace HVTApp.UI.PriceEngineering
                 AcceptPriceEngineeringTaskCommand.RaiseCanExecuteChanged();
                 RejectPriceEngineeringTaskCommand.RaiseCanExecuteChanged();
             };
-
         }
     }
 }

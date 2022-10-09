@@ -22,9 +22,9 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskViewModel
+    public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskWithStartCommandViewModel
     {
-        public override bool IsTarget => UserConstructor != null && Equals(Model.UserConstructor.Id, GlobalAppProperties.User.Id);
+        public override bool IsTarget => Equals(Model.UserConstructor?.Id, GlobalAppProperties.User.Id);
 
         public override bool IsEditMode
         {
@@ -74,11 +74,10 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(container, priceEngineeringTask)
+        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
-            var vms = Model.ChildPriceEngineeringTasks.Select(x => new PriceEngineeringTaskViewModelConstructor(container, x));
+            var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new PriceEngineeringTaskViewModelConstructor(container, priceEngineeringTask.Id));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
-            //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
         }
 
         #endregion
@@ -321,7 +320,7 @@ namespace HVTApp.UI.PriceEngineering
                     block = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
                     var product = getProductService.GetProduct(unitOfWork, new Product { ProductBlock = block });
 
-                    var taskViewModel = new PriceEngineeringTaskViewModelManager(Container, unitOfWork, product)
+                    var taskViewModel = new PriceEngineeringTaskViewModelManagerNew(Container, unitOfWork, product)
                     {
                         ParentPriceEngineeringTaskId = this.Id,
                         Amount = 1
@@ -331,7 +330,7 @@ namespace HVTApp.UI.PriceEngineering
 
                     if (taskViewModel.StartCommandExecute(true))
                     {
-                        this.ChildPriceEngineeringTasks.Add(new PriceEngineeringTaskViewModelConstructor(this.Container, taskViewModel.Model));
+                        this.ChildPriceEngineeringTasks.Add(new PriceEngineeringTaskViewModelConstructor(this.Container, taskViewModel.Model.Id));
                     }
                 },
                 () => IsTarget && IsEditMode && this.Model.DesignDepartment.ParameterSetsSubTask.Any());
@@ -399,6 +398,15 @@ namespace HVTApp.UI.PriceEngineering
                     fileWrapper.Path = null;
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Отклонить проработку задачи (для конструктора)
+        /// </summary>
+        protected void RejectByConstructor()
+        {
+            this.MakeAction(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
         }
 
     }

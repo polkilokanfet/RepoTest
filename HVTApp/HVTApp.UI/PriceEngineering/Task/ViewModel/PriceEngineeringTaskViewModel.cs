@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -16,6 +15,7 @@ using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Messages;
+using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -127,18 +127,12 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand LoadAnswerFilesCommand { get; private set; }
 
         public DelegateLogCommand SaveCommand { get; protected set; }
-        public DelegateLogCommand StartCommand { get; private set; }
 
         public DelegateLogCommand ShowReportCommand { get; private set; }
 
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// Событие старта задачи
-        /// </summary>
-        public event Action TaskStartedAction;
 
         /// <summary>
         /// Событие изменения выбранного добавленного блока
@@ -161,13 +155,23 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) 
-            : base(priceEngineeringTask, container.Resolve<IUnitOfWork>())
+        /// <summary>
+        /// Для загрузки и редактирования существующей задачи
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="priceEngineeringTaskId"></param>
+        protected PriceEngineeringTaskViewModel(IUnityContainer container, Guid priceEngineeringTaskId) 
+            : base(container.Resolve<IUnitOfWork>(), priceEngineeringTaskId)
         {
             Container = container;
             InCtor();
         }
 
+        /// <summary>
+        /// Для создания новой задачи
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="unitOfWork"></param>
         protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) 
             : base(unitOfWork)
         {
@@ -252,7 +256,7 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     var files = this.Model.FilesAnswers
-                        .Where(x => x.IsActual).ToList();
+                        .Where(fileAnswer => fileAnswer.IsActual).ToList();
                     if (files.Any())
                         Container.Resolve<IFilesStorageService>().CopyFilesFromStorage(files, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
                 });
@@ -265,13 +269,6 @@ namespace HVTApp.UI.PriceEngineering
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
                 });
-
-            StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
-                                                () => 
-                                                    this.IsValid && 
-                                                    this.IsChanged && 
-                                                    (Status == PriceEngineeringTaskStatusEnum.Created || Status == PriceEngineeringTaskStatusEnum.Stopped) &&
-                                                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null);
 
             ShowReportCommand = new DelegateLogCommand(
                 () =>
@@ -286,7 +283,6 @@ namespace HVTApp.UI.PriceEngineering
 
             #endregion
 
-            this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(IsEditMode));
 
             //синхронизация сообщений
@@ -307,91 +303,6 @@ namespace HVTApp.UI.PriceEngineering
         }
 
 
-
-        /// <summary>
-        /// Старт задачи
-        /// </summary>
-        /// <param name="saveChanges">Сохранить в конце и принять изменения?</param>
-        public bool StartCommandExecute(bool saveChanges)
-        {
-            var messageService = Container.Resolve<IMessageService>();
-            if (saveChanges)
-            {
-                if (messageService.ShowYesNoMessageDialog($"Вы уверены, что хотите cтартовать задачу?\n{this}", defaultNo: true) != MessageDialogResult.Yes)
-                    return false;
-
-                if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) == null)
-                {
-                    UnitOfWork.Repository<PriceEngineeringTask>().Add(this.Model);
-                }
-            }
-
-
-            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
-            {
-                StatusEnum = PriceEngineeringTaskStatusEnum.Started
-            }));
-
-            var sb = new StringBuilder();
-            sb.AppendLine("Задача запущена на проработку.");
-            if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null)
-            {
-                if (this.FilesTechnicalRequirements.IsChanged)
-                {
-                    sb.AppendLine("Внесены изменения в ТЗ.");
-                }
-
-                var actualFiles = FilesTechnicalRequirements.Where(x => x.IsActual).OrderBy(x => x.CreationMoment).ToList();
-                if (actualFiles.Any())
-                {
-                    sb.AppendLine("Актуальные файлы:");
-                    foreach (var file in actualFiles)
-                    {
-                        sb.AppendLine($" + {file.CreationMoment} {file.Name}");
-                    }
-                }
-
-                var notActualFiles = FilesTechnicalRequirements.Where(x => x.IsActual == false).OrderBy(x => x.CreationMoment).ToList();
-                if (notActualFiles.Any())
-                {
-                    sb.AppendLine("Не актуальные файлы:");
-                    foreach (var file in notActualFiles)
-                    {
-                        sb.AppendLine($" - {file.CreationMoment} {file.Name}");
-                    }
-                }
-
-            }
-
-            this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
-            {
-                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = sb.ToString().TrimEnd('\n', '\r')
-            }));
-
-
-            //если запускается только конкретная задача
-            if (saveChanges)
-            {
-                this.SaveCommand.Execute();
-                Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStartedEvent>().Publish(this.Model);
-            }
-            //если запускаются все задачи в задании
-            else
-            {
-                this.ChildPriceEngineeringTasks.ForEach(x => x.StartCommandExecute(false));
-            }
-
-            StartCommand.RaiseCanExecuteChanged();
-            TaskStartedAction?.Invoke();
-
-            if (saveChanges)
-            {
-                messageService.ShowOkMessageDialog("Уведомление",$"Задача успешно стартована!\n{this}");
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Загрузить все добавленные файлы ТЗ в хранилище
@@ -425,6 +336,20 @@ namespace HVTApp.UI.PriceEngineering
                     yield return engineeringTaskViewModel;
                 }
             }
+        }
+
+        protected void MakeAction(PriceEngineeringTaskStatusEnum status, string message)
+        {
+            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
+            {
+                StatusEnum = status
+            }));
+
+            this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+            {
+                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                Message = message
+            }));
         }
 
         public void Dispose()
