@@ -8,7 +8,6 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -20,9 +19,9 @@ namespace HVTApp.UI.PriceEngineering.Messages
     {
         private readonly PriceEngineeringTaskViewModel _viewModel;
         private PriceEngineeringTaskMessagesWrapper _taskMessagesWrapper;
-        public PriceEngineeringTaskMessageWrapper Message { get; }
+        public PriceEngineeringTaskMessageWrapper1 Message { get; }
 
-        public ObservableCollection<PriceEngineeringTaskMessageWrapper> MessagesToShow { get; }
+        public ObservableCollection<PriceEngineeringTaskMessageWrapper1> MessagesToShow { get; }
 
         private PriceEngineeringTaskMessagesWrapper TaskMessagesWrapper
         {
@@ -66,10 +65,10 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
             var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Model.Id) ?? viewModel.Model;
             TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(priceEngineeringTask);
+            
+            MessagesToShow = new ObservableCollection<PriceEngineeringTaskMessageWrapper1>(TaskMessagesWrapper.Messages.OrderByDescending(x => x.Moment));
 
-            MessagesToShow = new ObservableCollection<PriceEngineeringTaskMessageWrapper>(TaskMessagesWrapper.Messages.OrderByDescending(x => x.Moment));
-
-            Message = new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+            Message = new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
             {
                 Author = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
                 Message = string.Empty
@@ -83,7 +82,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
                         Author = this.Message.Author.Model,
                         Message = this.Message.Message
                     };
-                    var messageWrapper = new PriceEngineeringTaskMessageWrapper(message);
+                    var messageWrapper = new PriceEngineeringTaskMessageWrapper1(message);
 
                     //если задача уже сохранена в базе данных
                     if (unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Model.Id) != null)
@@ -128,7 +127,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
                     {
                         if (MessagesToShow.Select(x => x.Model).ContainsById(message) == false)
                         {
-                            MessagesToShow.Insert(0, new PriceEngineeringTaskMessageWrapper(message));
+                            MessagesToShow.Insert(0, new PriceEngineeringTaskMessageWrapper1(message));
                         }
                     }
                 });
@@ -142,11 +141,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
             {
                 var msgs = this.MessagesToShow.ToList();
                 MessagesToShow.Clear();
-                foreach (var messageWrapper in args.NewItems.Cast<PriceEngineeringTaskMessageWrapper>())
-                {
-                    msgs.Add(messageWrapper);
-                }
-
+                msgs.AddRange(args.NewItems.Cast<PriceEngineeringTaskMessageWrapper1>());
                 MessagesToShow.AddRange(msgs.OrderByDescending(x => x.Moment));
             }
         }
