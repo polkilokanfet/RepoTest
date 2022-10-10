@@ -65,7 +65,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
             var unitOfWork = container.Resolve<IUnitOfWork>();
 
             var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Model.Id) ?? viewModel.Model;
-            TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(priceEngineeringTask);
+            TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(priceEngineeringTask, unitOfWork);
             
             MessagesToShow = new ObservableCollection<PriceEngineeringTaskMessageWrapper1>(TaskMessagesWrapper.Messages.OrderByDescending(x => x.Moment));
 
@@ -78,26 +78,19 @@ namespace HVTApp.UI.PriceEngineering.Messages
             SendMessageCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var message = new PriceEngineeringTaskMessage
-                    {
-                        Author = this.Message.Author.Model,
-                        Message = this.Message.Message
-                    };
-                    var messageWrapper = new PriceEngineeringTaskMessageWrapper1(message);
-
                     //если задача уже сохранена в базе данных
                     if (unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Model.Id) != null)
                     {
-                        TaskMessagesWrapper.Messages.Add(messageWrapper);
+                        var m = TaskMessagesWrapper.Messages.Add(this.Message.Message);
                         TaskMessagesWrapper.AcceptChanges();
                         unitOfWork.SaveChanges();
 
-                        container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskSendMessageEvent>().Publish(messageWrapper.Model);
+                        container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskSendMessageEvent>().Publish(m);
                     }
                     //если задача не сохранена
                     else
                     {
-                        viewModel.Messages.Add(messageWrapper); 1
+                        viewModel.Messages.Add(this.Message.Message);
                     }
 
                     this.Message.Message = string.Empty;

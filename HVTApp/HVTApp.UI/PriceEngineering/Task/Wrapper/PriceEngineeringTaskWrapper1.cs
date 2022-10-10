@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -150,7 +152,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// <summary>
         /// Переписка
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1> Messages { get; private set; }
+        public MessagesCollection Messages { get; private set; }
 
         /// <summary>
         /// Статусы проработки
@@ -192,9 +194,14 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// </summary>
         public virtual event Action<PriceEngineeringTask> TaskAcceptedByManagerAction;
 
-        private PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) : base(priceEngineeringTask)
+        private PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
+            : base(priceEngineeringTask)
         {
             UnitOfWork = unitOfWork;
+
+            if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
+            Messages = new MessagesCollection(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper1(e)), UnitOfWork);
+            RegisterCollection(Messages, Model.Messages);
         }
 
         protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
@@ -202,14 +209,13 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         {
         }
 
-        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork) : this(unitOfWork, new PriceEngineeringTask())
+        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork) 
+            : this(unitOfWork, new PriceEngineeringTask())
         {
         }
 
         public override void InitializeComplexProperties()
         {
-            #region InitializeComplexProperties
-
             InitializeComplexProperty(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentEmptyWrapper(Model.DesignDepartment));
             InitializeComplexProperty(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor));
             InitializeComplexProperty(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockManager));
@@ -224,8 +230,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
                 }
             }
             InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlockEngineer, validateStructureCostNumber));
-
-            #endregion
         }
 
         protected override void InitializeCollectionProperties()
@@ -244,10 +248,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             FilesAnswers = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper>(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 
-            if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
-            Messages = new ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1>(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper1(e)));
-            RegisterCollection(Messages, Model.Messages);
-
             if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
             Statuses = new ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper>(Model.Statuses.Select(e => new PriceEngineeringTaskStatusWrapper(e)));
             RegisterCollection(Statuses, Model.Statuses);
@@ -257,6 +257,27 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             RegisterCollection(SalesUnits, Model.SalesUnits);
 
             #endregion
+        }
+    }
+
+    public class MessagesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1>
+    {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public MessagesCollection(IEnumerable<PriceEngineeringTaskMessageWrapper1> items, IUnitOfWork unitOfWork) : base(items)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public PriceEngineeringTaskMessage Add(string message)
+        {
+            var result = new PriceEngineeringTaskMessage()
+            {
+                Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                Message = message
+            };
+            this.Add(new PriceEngineeringTaskMessageWrapper1(result));
+            return result;
         }
     }
 }

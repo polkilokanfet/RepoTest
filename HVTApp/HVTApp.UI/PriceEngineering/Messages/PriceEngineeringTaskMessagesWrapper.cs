@@ -1,24 +1,23 @@
 using System;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.PriceEngineering.Wrapper;
 
 namespace HVTApp.UI.PriceEngineering.Messages
 {
     public class PriceEngineeringTaskMessagesWrapper : WrapperBase<PriceEngineeringTask>
     {
-        public PriceEngineeringTaskMessagesWrapper(PriceEngineeringTask model) : base(model) { }
-        
         /// <summary>
         /// Переписка
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1> Messages { get; private set; }
+        public MessagesCollection Messages { get; }
 
-        protected override void InitializeCollectionProperties()
+        public PriceEngineeringTaskMessagesWrapper(PriceEngineeringTask model, IUnitOfWork unitOfWork) : base(model)
         {
             if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
-            Messages = new ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1>(Model.Messages.Select(taskMessage => new PriceEngineeringTaskMessageWrapper1(taskMessage)));
+            Messages = new MessagesCollection(Model.Messages.Select(taskMessage => new PriceEngineeringTaskMessageWrapper1(taskMessage)), unitOfWork);
             RegisterCollection(Messages, Model.Messages);
         }
     }
