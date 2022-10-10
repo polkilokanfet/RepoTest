@@ -45,7 +45,8 @@ namespace HVTApp.UI.PriceEngineering
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
         /// <param name="product"></param>
-        public PriceEngineeringTaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, Product product) : base(container, unitOfWork)
+        public PriceEngineeringTaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
+            : base(container, unitOfWork)
         {
             ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
             ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
@@ -93,6 +94,9 @@ namespace HVTApp.UI.PriceEngineering
                     }
                 },
                 () => IsEditMode);
+
+            //если задача в процессе создания, нужно добавить соответствующий статус
+            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.Created }));
         }
     }
 }

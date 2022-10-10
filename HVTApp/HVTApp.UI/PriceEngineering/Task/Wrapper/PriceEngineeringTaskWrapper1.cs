@@ -82,6 +82,12 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
         public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
 
+
+        /// <summary>
+        /// Статус
+        /// </summary>
+        public PriceEngineeringTaskStatusEnum Status => this.Model.Status;
+
         #endregion
 
         #region ComplexProperties

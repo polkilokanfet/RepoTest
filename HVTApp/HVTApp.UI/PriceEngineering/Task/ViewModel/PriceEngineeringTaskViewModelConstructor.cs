@@ -25,10 +25,7 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskWithStartCommandViewModel
     {
-        /// <summary>
-        /// Обязательные параметры главного блока продукта задачи
-        /// </summary>
-        private List<Parameter> _productBlockRequiredParameters;
+        private PriceEngineeringTaskProductBlockAddedWrapper1 _selectedBlockAdded;
 
         public override bool IsTarget => Equals(Model.UserConstructor?.Id, GlobalAppProperties.User.Id);
 
@@ -50,6 +47,17 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         public override bool AllowEditAddedBlocks => IsEditMode;
+
+        public PriceEngineeringTaskProductBlockAddedWrapper1 SelectedBlockAdded
+        {
+            get => _selectedBlockAdded;
+            set
+            {
+                if (Equals(_selectedBlockAdded, value)) return;
+                _selectedBlockAdded = value;
+                RemoveBlockAddedCommand.RaiseCanExecuteChanged();
+            }
+        }
 
         #region Commands
 
@@ -82,25 +90,21 @@ namespace HVTApp.UI.PriceEngineering
         {
             var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new PriceEngineeringTaskViewModelConstructor(container, priceEngineeringTask.Id));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
-        }
 
-        #endregion
-
-        protected override void InCtor()
-        {
-            base.InCtor();
-
-            _productBlockRequiredParameters = DesignDepartment
+            //Обязательные параметры главного блока продукта задачи
+            var productBlockRequiredParameters = DesignDepartment
                 .Model
                 .ParameterSets
                 .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters))?
                 .Parameters.ToList();
 
+            #region Commands
+
             SelectProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
                     var originProductBlock = this.ProductBlockEngineer.Model;
-                    var selectedProductBlock = Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, _productBlockRequiredParameters);
+                    var selectedProductBlock = Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, productBlockRequiredParameters);
                     if (originProductBlock.Id != selectedProductBlock.Id)
                     {
                         this.ProductBlockEngineer.RejectChanges();
@@ -112,14 +116,14 @@ namespace HVTApp.UI.PriceEngineering
                             var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
                             if (dr == MessageDialogResult.Yes)
                             {
-                                var rp = _productBlockRequiredParameters.ToList();
+                                var rp = productBlockRequiredParameters.ToList();
                                 rp.Add(GlobalAppProperties.Actual.ParameterCurrentTransformersSetCustom);
                                 var product = Container.Resolve<IGetProductService>().GetProduct(rp);
                                 if (product != null)
                                 {
                                     foreach (var block in product.GetBlocks())
                                     {
-                                        if (_productBlockRequiredParameters.AllContainsInById(block.Parameters))
+                                        if (productBlockRequiredParameters.AllContainsInById(block.Parameters))
                                         {
                                             continue;
                                         }
@@ -295,7 +299,7 @@ namespace HVTApp.UI.PriceEngineering
             BlockNewParameterCommand = new DelegateLogCommand(
                 () =>
                 {
-                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.Model.ProductBlockEngineer, _productBlockRequiredParameters));
+                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.Model.ProductBlockEngineer, productBlockRequiredParameters));
                 },
                 () => IsEditMode);
 
@@ -335,6 +339,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.ProductBlocksAdded.AddRange(blocks.Select(x => new PriceEngineeringTaskProductBlockAddedWrapper1(x)));
                 });
 
+            #endregion
 
             this.PropertyChanged += (sender, args) =>
             {
@@ -361,15 +366,14 @@ namespace HVTApp.UI.PriceEngineering
             };
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();
-            this.SelectedBlockAddedIsChanged += () => RemoveBlockAddedCommand.RaiseCanExecuteChanged();
         }
+
+        #endregion
 
         protected override void SaveCommand_ExecuteMethod()
         {
             this.LoadNewAnswerFilesInStorage();
-            this.AcceptChanges();
-            UnitOfWork.SaveChanges();
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+            base.SaveCommand_ExecuteMethod();
         }
 
         protected override bool SaveCommand_CanExecuteMethod()

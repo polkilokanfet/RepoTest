@@ -27,7 +27,6 @@ namespace HVTApp.UI.PriceEngineering
         private PriceEngineeringTaskViewModel _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequrementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
-        private PriceEngineeringTaskProductBlockAddedWrapper1 _selectedBlockAdded;
 
         #region Props
 
@@ -46,10 +45,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public virtual bool AllowEditAddedBlocks => false;
 
-        /// <summary>
-        /// Статус
-        /// </summary>
-        public PriceEngineeringTaskStatusEnum Status => this.Model.Status;
+        public PriceEngineeringTaskMessenger Messenger { get; private set; }
 
         /// <summary>
         /// Родительское задание
@@ -78,17 +74,6 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        public PriceEngineeringTaskProductBlockAddedWrapper1 SelectedBlockAdded
-        {
-            get => _selectedBlockAdded;
-            set
-            {
-                if (Equals(_selectedBlockAdded, value)) return;
-                _selectedBlockAdded = value;
-                SelectedBlockAddedIsChanged?.Invoke();
-            }
-        }
-
         /// <summary>
         /// Выбранный файл ТЗ
         /// </summary>
@@ -114,8 +99,6 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-
-
         #endregion
 
         #region Commands
@@ -135,11 +118,6 @@ namespace HVTApp.UI.PriceEngineering
         #region Events
 
         /// <summary>
-        /// Событие изменения выбранного добавленного блока
-        /// </summary>
-        protected event Action SelectedBlockAddedIsChanged;
-
-        /// <summary>
         /// Событие изменения выбранного файла ТЗ
         /// </summary>
         protected event Action SelectedTechnicalRequrementsFileIsChanged;
@@ -150,8 +128,6 @@ namespace HVTApp.UI.PriceEngineering
         protected event Action SelectedAnswerFileIsChanged;
 
         #endregion
-
-        public PriceEngineeringTaskMessenger Messenger { get; private set; }
 
         #region ctors
 
@@ -187,12 +163,6 @@ namespace HVTApp.UI.PriceEngineering
         protected virtual void  InCtor()
         {
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(Status));
-
-            //если задача в процессе создания, нужно добавить соответствующий статус
-            if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) == null)
-            {
-                this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus {StatusEnum = PriceEngineeringTaskStatusEnum.Created}));
-            }
 
             #region Commands
 
@@ -280,17 +250,6 @@ namespace HVTApp.UI.PriceEngineering
 
             //синхронизация сообщений
             Messenger = new PriceEngineeringTaskMessenger(Container, this);
-            Messenger.SendedMessageInNewTask += (authorId, moment, message1) =>
-            {
-                var message = new PriceEngineeringTaskMessage
-                {
-                    Author = UnitOfWork.Repository<User>().GetById(authorId),
-                    Moment = moment,
-                    Message = message1
-                };
-                var messageWrapper = new PriceEngineeringTaskMessageWrapper1(message);
-                this.Messages.Add(messageWrapper);
-            };
 
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
         }
@@ -307,7 +266,7 @@ namespace HVTApp.UI.PriceEngineering
             return this.IsValid && this.IsChanged;
         }
 
-    public IEnumerable<PriceEngineeringTaskViewModel> GetAllPriceEngineeringTaskViewModels()
+        public IEnumerable<PriceEngineeringTaskViewModel> GetAllPriceEngineeringTaskViewModels()
         {
             yield return this;
 

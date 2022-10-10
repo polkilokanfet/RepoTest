@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -96,7 +97,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
                     //если задача не сохранена
                     else
                     {
-                        this.SendedMessageInNewTask?.Invoke(message.Author.Id, message.Moment, message.Message);
+                        viewModel.Messages.Add(messageWrapper); 1
                     }
 
                     this.Message.Message = string.Empty;
@@ -115,8 +116,6 @@ namespace HVTApp.UI.PriceEngineering.Messages
                 RaisePropertyChanged(nameof(AllowTexting));
             };
 
-            //viewModel.TaskIsStarted += () => this.TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Id));
-
             //синхронизация показа сообщений
             viewModel.Messages.CollectionChanged += MessagesOnCollectionChanged;
 
@@ -132,8 +131,6 @@ namespace HVTApp.UI.PriceEngineering.Messages
                     }
                 });
         }
-
-        public event Action<Guid, DateTime, string> SendedMessageInNewTask; 
 
         private void MessagesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
