@@ -126,7 +126,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand OpenAnswerFileCommand { get; private set; }
         public DelegateLogCommand LoadAnswerFilesCommand { get; private set; }
 
-        public DelegateLogCommand SaveCommand { get; protected set; }
+        public DelegateLogCommand SaveCommand { get; private set; }
 
         public DelegateLogCommand ShowReportCommand { get; private set; }
 
@@ -261,14 +261,7 @@ namespace HVTApp.UI.PriceEngineering
                         Container.Resolve<IFilesStorageService>().CopyFilesFromStorage(files, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
                 });
 
-            SaveCommand = new DelegateLogCommand(
-                () =>
-                {
-                    this.LoadNewTechnicalRequirementFilesInStorage();
-                    this.AcceptChanges();
-                    UnitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
-                });
+            SaveCommand = new DelegateLogCommand(SaveCommand_ExecuteMethod, SaveCommand_CanExecuteMethod);
 
             ShowReportCommand = new DelegateLogCommand(
                 () =>
@@ -295,37 +288,26 @@ namespace HVTApp.UI.PriceEngineering
                     Moment = moment,
                     Message = message1
                 };
-                var messageWrapper = new PriceEngineeringTaskMessageWrapper(message);
+                var messageWrapper = new PriceEngineeringTaskMessageWrapper1(message);
                 this.Messages.Add(messageWrapper);
             };
 
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
         }
 
-
-
-        /// <summary>
-        /// Загрузить все добавленные файлы ТЗ в хранилище
-        /// </summary>
-        public void LoadNewTechnicalRequirementFilesInStorage()
+        protected virtual void SaveCommand_ExecuteMethod()
         {
-            foreach (var fileWrapper in this.FilesTechnicalRequirements.AddedItems)
-            {
-                var destFileName = $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}";
-                if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
-                {
-                    File.Copy(fileWrapper.Path, destFileName);
-                    fileWrapper.Path = null;
-                }
-            }
-
-            foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
-            {
-                childPriceEngineeringTask.LoadNewTechnicalRequirementFilesInStorage();
-            }
+            this.AcceptChanges();
+            UnitOfWork.SaveChanges();
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
         }
 
-        public IEnumerable<PriceEngineeringTaskViewModel> GetAllPriceEngineeringTaskViewModels()
+        protected virtual bool SaveCommand_CanExecuteMethod()
+        {
+            return this.IsValid && this.IsChanged;
+        }
+
+    public IEnumerable<PriceEngineeringTaskViewModel> GetAllPriceEngineeringTaskViewModels()
         {
             yield return this;
 
@@ -345,7 +327,7 @@ namespace HVTApp.UI.PriceEngineering
                 StatusEnum = status
             }));
 
-            this.Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+            this.Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
             {
                 Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
                 Message = message

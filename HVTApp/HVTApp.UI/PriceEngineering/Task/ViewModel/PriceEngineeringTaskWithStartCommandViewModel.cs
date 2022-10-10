@@ -33,7 +33,6 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InCtor();
 
-
             StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
                 () =>
                     this.IsValid &&

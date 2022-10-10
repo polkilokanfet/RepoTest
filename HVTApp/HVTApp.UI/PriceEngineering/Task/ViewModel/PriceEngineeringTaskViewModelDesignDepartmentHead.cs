@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -11,6 +9,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Messages;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -18,6 +17,8 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelDesignDepartmentHead : PriceEngineeringTaskViewModel
     {
+        #region Commands
+
         /// <summary>
         /// Поручить проработку задачи
         /// </summary>
@@ -26,21 +27,12 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Принять проработку
         /// </summary>
-        public DelegateLogCommand AcceptPriceEngineeringTaskCommand { get; private set; }
+        public DelegateLogConfirmationCommand AcceptPriceEngineeringTaskCommand { get; private set; }
 
         /// <summary>
         /// Отклонить проработку
         /// </summary>
-        public DelegateLogCommand RejectPriceEngineeringTaskCommand { get; private set; }
-
-
-        #region ctors
-
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
-        {
-            var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
-        }
+        public DelegateLogConfirmationCommand RejectPriceEngineeringTaskCommand { get; private set; }
 
         #endregion
 
@@ -62,9 +54,12 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        protected override void InCtor()
+        #region ctors
+
+        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
-            base.InCtor();
+            var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
 
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
@@ -73,75 +68,58 @@ namespace HVTApp.UI.PriceEngineering
 
                     if (user == null) return;
 
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo:true);
+                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
                     this.RequestForVerificationFromHead = dr == MessageDialogResult.Yes;
 
                     string s = RequestForVerificationFromHead
                         ? ". Необходимо проверить результат проработки."
                         : string.Empty;
-                        
+
                     this.UserConstructor = new UserEmptyWrapper(user);
-                    Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
+                    Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage()
                     {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id), 
+                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
                         Message = $"Назначен исполнитель: {user}{s}"
                     }));
-                    
-                    this.AcceptChanges();
-                    UnitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+
+                    this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
-                }, 
-                () => 
+                },
+                () =>
                     IsTarget &&
+                    Status != PriceEngineeringTaskStatusEnum.FinishedByConstructor &&
                     Status != PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification &&
                     Status != PriceEngineeringTaskStatusEnum.Created &&
                     Status != PriceEngineeringTaskStatusEnum.Stopped &&
                     Status != PriceEngineeringTaskStatusEnum.Accepted);
 
-            AcceptPriceEngineeringTaskCommand = new DelegateLogCommand(
+            AcceptPriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите принять результаты проработки?",
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проработка", "Вы уверены, что хотите принять результаты проработки?", defaultYes: true);
-                    if (dr != MessageDialogResult.Yes) return;
-
-                    Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = "Результаты проработки приняты. Проработка завершена."
-                    }));
-
-                    //Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead }));
-                    Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.FinishedByConstructor }));
-
-                    this.AcceptChanges();
-                    UnitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+                    SetStatus(PriceEngineeringTaskStatusEnum.FinishedByConstructor, "Результаты проработки приняты. Проработка завершена.");
+                    this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(this.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
                 },
-                () => IsEditMode);
+                () =>
+                    IsEditMode &&
+                    this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
 
-            RejectPriceEngineeringTaskCommand = new DelegateLogCommand(
+            RejectPriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите отправить задачу на доработку исполнителю?",
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проработка", "Вы уверены, что хотите отправить задачу на доработку исполнителю?", defaultYes: true);
-                    if (dr != MessageDialogResult.Yes) return;
-
-                    Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage()
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = "Результаты проработки не приняты. Отправлено на доработку исполнителю."
-                    }));
-
-                    Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus() { StatusEnum = PriceEngineeringTaskStatusEnum.VerificationRejectededByHead }));
-
-                    this.AcceptChanges();
-                    UnitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+                    SetStatus(PriceEngineeringTaskStatusEnum.VerificationRejectededByHead, "Результаты проработки не приняты. Отправлено на доработку исполнителю.");
+                    this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(this.Model);
                 },
-                () => IsEditMode);
+                () =>
+                    IsEditMode &&
+                    this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
+
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {
@@ -150,5 +128,7 @@ namespace HVTApp.UI.PriceEngineering
                 RejectPriceEngineeringTaskCommand.RaiseCanExecuteChanged();
             };
         }
+
+        #endregion
     }
 }

@@ -294,6 +294,7 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedChildTasksConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessageWrapper1.cs" />
     <Compile Include="PriceEngineering\TasksList\WorkloadOnEmployeesControl.xaml.cs">
       <DependentUpon>WorkloadOnEmployeesControl.xaml</DependentUpon>

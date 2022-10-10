@@ -14,6 +14,7 @@
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelManagerOldVisibilityConverter x:Key="ManagerVisibilityConverterOld" />
         <converters:PriceEngineeringTaskStatusEnumToStringConverter x:Key="StatusToStringConverter" />
         <converters:PriceEngineeringTaskViewModelToBoarderTricknessConverter x:Key="PriceEngineeringTaskViewModelToBoarderTricknessConverter" />
         <converters:StructureCostIsReadOnlyConverter x:Key="StructureCostIsReadOnlyConverter" />
@@ -321,7 +322,7 @@
                                     </Grid>
                                 </GroupBox>
 
-                                <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+                                <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>

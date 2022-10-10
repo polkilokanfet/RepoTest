@@ -4,8 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -121,7 +121,7 @@ namespace HVTApp.UI.PriceEngineering
 
             RemoveTechnicalRequrementsFilesCommand = new DelegateLogConfirmationCommand(
                 messageService,
-                "Вы уверены, что хотите удалить выделенное ТЗ?",
+                "Вы уверены, что хотите удалить выделенное техническое задание?",
                 () =>
                 {
                     if (string.IsNullOrEmpty(SelectedTechnicalRequrementsFile.Path))
@@ -286,6 +286,35 @@ namespace HVTApp.UI.PriceEngineering
                     ? $"Заменен продукт в {salesUnits.First()}"
                     : $"Не заменен продукт в {salesUnits.First()}");
         }
+
+        protected override void SaveCommand_ExecuteMethod()
+        {
+            LoadNewTechnicalRequirementFilesInStorage();
+            base.SaveCommand_ExecuteMethod();
+        }
+
+        /// <summary>
+        /// Загрузить все добавленные файлы ТЗ в хранилище
+        /// </summary>
+        public void LoadNewTechnicalRequirementFilesInStorage()
+        {
+            foreach (var fileWrapper in this.FilesTechnicalRequirements.AddedItems)
+            {
+                var destFileName = $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}";
+                if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
+                {
+                    File.Copy(fileWrapper.Path, destFileName);
+                    fileWrapper.Path = null;
+                }
+            }
+
+            foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
+            {
+                if (childPriceEngineeringTask is PriceEngineeringTaskViewModelManager vm)
+                    vm.LoadNewTechnicalRequirementFilesInStorage();
+            }
+        }
+
 
         #region SetStatus
 

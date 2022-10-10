@@ -21,7 +21,7 @@ namespace HVTApp.UI.Commands
         
         protected override void ExecuteMethod()
         {
-            if (_showConfirmation && _messageService.ShowYesNoMessageDialog(_confirmationMessage, defaultNo:true) != MessageDialogResult.Yes)
+            if (_showConfirmation && _messageService.ShowYesNoMessageDialog("Подтвердите свои намерения", _confirmationMessage, defaultNo:true) != MessageDialogResult.Yes)
             {
                 return;
             }

@@ -16,6 +16,7 @@ using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Messages;
 using HVTApp.UI.PriceEngineering.ParametersService1;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -24,6 +25,11 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskWithStartCommandViewModel
     {
+        /// <summary>
+        /// Обязательные параметры главного блока продукта задачи
+        /// </summary>
+        private List<Parameter> _productBlockRequiredParameters;
+
         public override bool IsTarget => Equals(Model.UserConstructor?.Id, GlobalAppProperties.User.Id);
 
         public override bool IsEditMode
@@ -45,8 +51,6 @@ namespace HVTApp.UI.PriceEngineering
 
         public override bool AllowEditAddedBlocks => IsEditMode;
 
-        private List<Parameter> ProductBlockRequiredParameters { get; set; }
-
         #region Commands
 
         /// <summary>
@@ -55,11 +59,11 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand SelectProductBlockCommand { get; private set; }
         public DelegateLogCommand AddBlockAddedCommand { get; private set; }
         public DelegateLogCommand AddBlockAddedComplectCommand { get; private set; }
-        public DelegateLogCommand RemoveBlockAddedCommand { get; private set; }
+        public DelegateLogConfirmationCommand RemoveBlockAddedCommand { get; private set; }
         public DelegateLogCommand AddAnswerFilesCommand { get; private set; }
-        public DelegateLogCommand RemoveAnswerFileCommand { get; private set; }
-        public DelegateLogCommand FinishCommand { get; private set; }
-        public DelegateLogCommand RejectCommand { get; private set; }
+        public DelegateLogConfirmationCommand RemoveAnswerFileCommand { get; private set; }
+        public DelegateLogConfirmationCommand FinishCommand { get; private set; }
+        public DelegateLogConfirmationCommand RejectCommand { get; private set; }
         public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
         public DelegateLogCommand BlockNewParameterCommand { get; private set; }
 
@@ -86,7 +90,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InCtor();
 
-            ProductBlockRequiredParameters = DesignDepartment
+            _productBlockRequiredParameters = DesignDepartment
                 .Model
                 .ParameterSets
                 .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters))?
@@ -96,7 +100,7 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     var originProductBlock = this.ProductBlockEngineer.Model;
-                    var selectedProductBlock = Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, ProductBlockRequiredParameters);
+                    var selectedProductBlock = Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, _productBlockRequiredParameters);
                     if (originProductBlock.Id != selectedProductBlock.Id)
                     {
                         this.ProductBlockEngineer.RejectChanges();
@@ -108,14 +112,14 @@ namespace HVTApp.UI.PriceEngineering
                             var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
                             if (dr == MessageDialogResult.Yes)
                             {
-                                var rp = ProductBlockRequiredParameters.ToList();
+                                var rp = _productBlockRequiredParameters.ToList();
                                 rp.Add(GlobalAppProperties.Actual.ParameterCurrentTransformersSetCustom);
                                 var product = Container.Resolve<IGetProductService>().GetProduct(rp);
                                 if (product != null)
                                 {
                                     foreach (var block in product.GetBlocks())
                                     {
-                                        if (ProductBlockRequiredParameters.AllContainsInById(block.Parameters))
+                                        if (_productBlockRequiredParameters.AllContainsInById(block.Parameters))
                                         {
                                             continue;
                                         }
@@ -154,12 +158,11 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsTarget && IsEditMode);
 
-            RemoveBlockAddedCommand = new DelegateLogCommand(
+            RemoveBlockAddedCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(), 
+                "Вы уверены, что хотите удалить выделенное дополнительное оборудование?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
                     SelectedBlockAdded.RejectChanges();
 
                     if (SelectedBlockAdded.Model.StructureCostVersions.Any())
@@ -204,12 +207,11 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsTarget && IsEditMode == true);
 
-            RemoveAnswerFileCommand = new DelegateLogCommand(
+            RemoveAnswerFileCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите удалить выделенный файл?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
                     if (string.IsNullOrEmpty(SelectedFileAnswer.Path))
                     {
                         SelectedFileAnswer.IsActual = false;
@@ -221,22 +223,11 @@ namespace HVTApp.UI.PriceEngineering
                 }, 
                 () => IsTarget && IsEditMode && SelectedFileAnswer != null);
 
-            SaveCommand = new DelegateLogCommand(
+            FinishCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите завершить проработку?",
                 () =>
                 {
-                    this.LoadNewAnswerFilesInStorage();
-                    this.AcceptChanges();
-                    UnitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
-                },
-                () => IsTarget && IsEditMode && this.IsValid && this.IsChanged);
-
-            FinishCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Завершение проработки", "Вы уверены, что хотите завершить проработку?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
-
                     if (this.RequestForVerificationFromHead == false)
                     {
                         var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
@@ -261,7 +252,7 @@ namespace HVTApp.UI.PriceEngineering
                     {
                         StatusEnum = needVerification ? PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification : PriceEngineeringTaskStatusEnum.FinishedByConstructor
                     }));
-                    Messages.Add(new PriceEngineeringTaskMessageWrapper(new PriceEngineeringTaskMessage
+                    Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
                     {
                         Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
                         Message = sb.ToString().TrimEnd('\n', '\r')
@@ -282,13 +273,13 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsTarget && IsEditMode && this.IsValid);
 
-            RejectCommand = new DelegateLogCommand(
+            RejectCommand = new DelegateLogConfirmationCommand(
+                Container.Resolve<IMessageService>(),
+"Вы уверены, что хотите отклонить проработку задачи?",
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы уверены, что хотите отклонить проработку задачи?", defaultNo: true) != MessageDialogResult.Yes)
-                        return;
                     this.RejectChanges();
-                    this.RejectByConstructor();
+                    this.SetStatus(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(this.Model);
                 },
@@ -304,7 +295,7 @@ namespace HVTApp.UI.PriceEngineering
             BlockNewParameterCommand = new DelegateLogCommand(
                 () =>
                 {
-                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.Model.ProductBlockEngineer, ProductBlockRequiredParameters));
+                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.Model.ProductBlockEngineer, _productBlockRequiredParameters));
                 },
                 () => IsEditMode);
 
@@ -373,6 +364,20 @@ namespace HVTApp.UI.PriceEngineering
             this.SelectedBlockAddedIsChanged += () => RemoveBlockAddedCommand.RaiseCanExecuteChanged();
         }
 
+        protected override void SaveCommand_ExecuteMethod()
+        {
+            this.LoadNewAnswerFilesInStorage();
+            this.AcceptChanges();
+            UnitOfWork.SaveChanges();
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
+        }
+
+        protected override bool SaveCommand_CanExecuteMethod()
+        {
+            return IsTarget && IsEditMode && this.IsValid && this.IsChanged;
+        }
+
+
         private void AddAddedBlock(ProductBlock block)
         {
             block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
@@ -382,7 +387,6 @@ namespace HVTApp.UI.PriceEngineering
             };
             this.ProductBlocksAdded.Add(wrapper);
         }
-
 
         /// <summary>
         /// Загрузить все добавленные ответы ОГК в хранилище
@@ -399,15 +403,5 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
         }
-
-
-        /// <summary>
-        /// Отклонить проработку задачи (для конструктора)
-        /// </summary>
-        protected void RejectByConstructor()
-        {
-            this.SetStatus(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
-        }
-
     }
 }

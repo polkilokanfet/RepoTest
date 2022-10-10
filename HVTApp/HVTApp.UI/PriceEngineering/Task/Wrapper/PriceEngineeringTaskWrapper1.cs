@@ -5,6 +5,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.PriceEngineering.Messages;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
@@ -143,7 +144,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// <summary>
         /// Переписка
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper> Messages { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1> Messages { get; private set; }
 
         /// <summary>
         /// Статусы проработки
@@ -238,7 +239,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 
             if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
-            Messages = new ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper>(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper(e)));
+            Messages = new ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1>(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper1(e)));
             RegisterCollection(Messages, Model.Messages);
 
             if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
