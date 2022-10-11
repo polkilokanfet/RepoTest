@@ -256,11 +256,7 @@ namespace HVTApp.UI.PriceEngineering
                     {
                         StatusEnum = needVerification ? PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification : PriceEngineeringTaskStatusEnum.FinishedByConstructor
                     }));
-                    Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = sb.ToString().TrimEnd('\n', '\r')
-                    }));
+                    Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));
                     SaveCommand.Execute();
 
                     AddAnswerFilesCommand.RaiseCanExecuteChanged();

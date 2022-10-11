@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -155,8 +156,6 @@ namespace HVTApp.UI.PriceEngineering
             InCtor();
         }
 
-        #endregion
-
         /// <summary>
         /// Метод запускается в конце каждого конструктора
         /// </summary>
@@ -249,10 +248,12 @@ namespace HVTApp.UI.PriceEngineering
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(IsEditMode));
 
             //синхронизация сообщений
-            Messenger = new PriceEngineeringTaskMessenger(Container, this);
+            Messenger = new PriceEngineeringTaskMessenger(this, Container);
 
             this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
         }
+
+        #endregion
 
         protected virtual void SaveCommand_ExecuteMethod()
         {
@@ -286,16 +287,18 @@ namespace HVTApp.UI.PriceEngineering
                 StatusEnum = status
             }));
 
-            this.Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
-            {
-                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = message
-            }));
+            this.Messenger.SendMessage(message);
+            //this.Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
+            //{
+            //    Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+            //    Message = message
+            //}));
         }
 
         public void Dispose()
         {
             UnitOfWork?.Dispose();
+            Messenger.Dispose();
         }
     }
 }

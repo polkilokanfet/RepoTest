@@ -76,12 +76,7 @@ namespace HVTApp.UI.PriceEngineering
                         : string.Empty;
 
                     this.UserConstructor = new UserEmptyWrapper(user);
-                    Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage()
-                    {
-                        Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Message = $"Назначен исполнитель: {user}{s}"
-                    }));
-
+                    Messenger.SendMessage($"Назначен исполнитель: {user}{s}");
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
                 },

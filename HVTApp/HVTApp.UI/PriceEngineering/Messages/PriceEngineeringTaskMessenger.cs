@@ -1,43 +1,25 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace HVTApp.UI.PriceEngineering.Messages
 {
-    public class PriceEngineeringTaskMessenger : BindableBase
+    public class PriceEngineeringTaskMessenger : ReadOnlyObservableCollection<PriceEngineeringTaskMessage>, IDisposable
     {
         private readonly PriceEngineeringTaskViewModel _viewModel;
-        private PriceEngineeringTaskMessagesWrapper _taskMessagesWrapper;
-        public PriceEngineeringTaskMessageWrapper1 Message { get; }
-
-        public ObservableCollection<PriceEngineeringTaskMessageWrapper1> MessagesToShow { get; }
-
-        private PriceEngineeringTaskMessagesWrapper TaskMessagesWrapper
-        {
-            get => _taskMessagesWrapper;
-            set
-            {
-                if (_taskMessagesWrapper != null)
-                    _taskMessagesWrapper.Messages.CollectionChanged -= this.MessagesOnCollectionChanged;
-
-                _taskMessagesWrapper = value;
-
-                if (_taskMessagesWrapper != null)
-                    _taskMessagesWrapper.Messages.CollectionChanged += this.MessagesOnCollectionChanged;
-            }
-        }
+        private readonly IUnityContainer _container;
+        private IUnitOfWork _unitOfWork;
+        private string _messageText;
+        private IUnitOfWork UnitOfWork => _unitOfWork ?? (_unitOfWork = _container.Resolve<IUnitOfWork>());
 
         /// <summary>
         /// Можно ли вести переписку
@@ -48,6 +30,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
             {
                 switch (_viewModel.Status)
                 {
+                    case PriceEngineeringTaskStatusEnum.Created:
                     case PriceEngineeringTaskStatusEnum.Stopped:
                     case PriceEngineeringTaskStatusEnum.Accepted:
                         return false;
@@ -59,81 +42,76 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
         public DelegateLogCommand SendMessageCommand { get; }
 
-        public PriceEngineeringTaskMessenger(IUnityContainer container, PriceEngineeringTaskViewModel viewModel)
+        public string MessageText
+        {
+            get => _messageText;
+            set
+            {
+                if (Equals(_messageText, value))
+                    return;
+
+                _messageText = value;
+                this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(MessageText)));
+                SendMessageCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public PriceEngineeringTaskMessenger(PriceEngineeringTaskViewModel viewModel, IUnityContainer container) 
+            : base(new ObservableCollection<PriceEngineeringTaskMessage>(viewModel.Model.Messages.OrderByDescending(x => x.Moment)))
         {
             _viewModel = viewModel;
-            var unitOfWork = container.Resolve<IUnitOfWork>();
-
-            var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Model.Id) ?? viewModel.Model;
-            TaskMessagesWrapper = new PriceEngineeringTaskMessagesWrapper(priceEngineeringTask, unitOfWork);
-            
-            MessagesToShow = new ObservableCollection<PriceEngineeringTaskMessageWrapper1>(TaskMessagesWrapper.Messages.OrderByDescending(x => x.Moment));
-
-            Message = new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
-            {
-                Author = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = string.Empty
-            });
+            _container = container;
 
             SendMessageCommand = new DelegateLogCommand(
                 () =>
                 {
-                    //если задача уже сохранена в базе данных
-                    if (unitOfWork.Repository<PriceEngineeringTask>().GetById(viewModel.Model.Id) != null)
-                    {
-                        var m = TaskMessagesWrapper.Messages.Add(this.Message.Message);
-                        TaskMessagesWrapper.AcceptChanges();
-                        unitOfWork.SaveChanges();
-
-                        container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskSendMessageEvent>().Publish(m);
-                    }
-                    //если задача не сохранена
-                    else
-                    {
-                        viewModel.Messages.Add(this.Message.Message);
-                    }
-
-                    this.Message.Message = string.Empty;
+                    var message = this.SendMessage(MessageText);
+                    container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskSendMessageEvent>().Publish(message);
+                    this.MessageText = string.Empty;
                 },
-                () => 
-                    AllowTexting && 
-                    Message != null && 
-                    Message.IsValid &&
-                    Message.IsChanged && 
-                    string.IsNullOrWhiteSpace(Message.Message) == false);
+                () => AllowTexting && string.IsNullOrWhiteSpace(MessageText) == false);
 
-            Message.PropertyChanged += (sender, args) => SendMessageCommand.RaiseCanExecuteChanged();
-            viewModel.PropertyChanged += (sender, args) =>
+            _viewModel.Statuses.CollectionChanged += (sender, args) =>
             {
+                this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(AllowTexting)));
                 SendMessageCommand.RaiseCanExecuteChanged();
-                RaisePropertyChanged(nameof(AllowTexting));
             };
 
-            //синхронизация показа сообщений
-            viewModel.Messages.CollectionChanged += MessagesOnCollectionChanged;
 
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>().Subscribe(
-                message =>
-                {
-                    if (message.PriceEngineeringTaskId == this._viewModel.Model.Id)
-                    {
-                        if (MessagesToShow.Select(x => x.Model).ContainsById(message) == false)
-                        {
-                            MessagesToShow.Insert(0, new PriceEngineeringTaskMessageWrapper1(message));
-                        }
-                    }
-                });
+            _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>().Subscribe(OnReciveMessageEvent);
         }
 
-        private void MessagesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        public PriceEngineeringTaskMessage SendMessage(string text)
         {
-            if (args.Action == NotifyCollectionChangedAction.Add)
+            var message = new PriceEngineeringTaskMessage
             {
-                var msgs = this.MessagesToShow.ToList();
-                MessagesToShow.Clear();
-                msgs.AddRange(args.NewItems.Cast<PriceEngineeringTaskMessageWrapper1>());
-                MessagesToShow.AddRange(msgs.OrderByDescending(x => x.Moment));
+                Message = text,
+                Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                PriceEngineeringTaskId = _viewModel.Model.Id
+            };
+            UnitOfWork.Repository<PriceEngineeringTaskMessage>().Add(message);
+            UnitOfWork.SaveChanges();
+
+            this.Items.Insert(0, message);
+
+            return message;
+        }
+
+        private void OnReciveMessageEvent(PriceEngineeringTaskMessage message)
+        {
+            if (message.PriceEngineeringTaskId == this._viewModel.Model.Id)
+            {
+                if (this.ContainsById(message) == false)
+                {
+                    this.Items.Insert(0, message);
+                }
             }
+        }
+
+        public void Dispose()
+        {
+            _unitOfWork?.Dispose();
+            _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>().Unsubscribe(OnReciveMessageEvent);
         }
     }
 }

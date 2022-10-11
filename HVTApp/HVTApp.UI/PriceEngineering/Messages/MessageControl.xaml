@@ -6,7 +6,7 @@
              Width="Auto">
 
     <UserControl.Resources>
-        <messages:PriceEngineeringTaskMessageWrapperToColorConverter x:Key="ToColorConverter"/>
+        <messages:PriceEngineeringTaskMessageToColorConverter x:Key="ToColorConverter"/>
     </UserControl.Resources>
 
     <Border CornerRadius="10" 

@@ -149,10 +149,10 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
 
-        /// <summary>
-        /// Переписка
-        /// </summary>
-        public MessagesCollection Messages { get; private set; }
+        ///// <summary>
+        ///// Переписка
+        ///// </summary>
+        //public MessagesCollection Messages { get; }
 
         /// <summary>
         /// Статусы проработки
@@ -199,9 +199,9 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         {
             UnitOfWork = unitOfWork;
 
-            if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
-            Messages = new MessagesCollection(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper1(e)), UnitOfWork);
-            RegisterCollection(Messages, Model.Messages);
+            //if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
+            //Messages = new MessagesCollection(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper1(e)), UnitOfWork);
+            //RegisterCollection(Messages, Model.Messages);
         }
 
         protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
@@ -260,24 +260,24 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         }
     }
 
-    public class MessagesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1>
-    {
-        private readonly IUnitOfWork _unitOfWork;
+    //public class MessagesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1>
+    //{
+    //    private readonly IUnitOfWork _unitOfWork;
 
-        public MessagesCollection(IEnumerable<PriceEngineeringTaskMessageWrapper1> items, IUnitOfWork unitOfWork) : base(items)
-        {
-            _unitOfWork = unitOfWork;
-        }
+    //    public MessagesCollection(IEnumerable<PriceEngineeringTaskMessageWrapper1> items, IUnitOfWork unitOfWork) : base(items)
+    //    {
+    //        _unitOfWork = unitOfWork;
+    //    }
 
-        public PriceEngineeringTaskMessage Add(string message)
-        {
-            var result = new PriceEngineeringTaskMessage()
-            {
-                Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                Message = message
-            };
-            this.Add(new PriceEngineeringTaskMessageWrapper1(result));
-            return result;
-        }
-    }
+    //    public PriceEngineeringTaskMessage Add(string message)
+    //    {
+    //        var result = new PriceEngineeringTaskMessage()
+    //        {
+    //            Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+    //            Message = message
+    //        };
+    //        this.Add(new PriceEngineeringTaskMessageWrapper1(result));
+    //        return result;
+    //    }
+    //}
 }

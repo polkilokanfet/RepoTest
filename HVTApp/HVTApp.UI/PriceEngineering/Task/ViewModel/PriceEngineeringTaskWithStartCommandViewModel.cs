@@ -3,9 +3,12 @@ using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Messages;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -13,7 +16,6 @@ namespace HVTApp.UI.PriceEngineering
 {
     public abstract class PriceEngineeringTaskWithStartCommandViewModel : PriceEngineeringTaskViewModel
     {
-
         /// <summary>
         /// Событие старта задачи
         /// </summary>
@@ -127,7 +129,23 @@ namespace HVTApp.UI.PriceEngineering
 
             }
 
-            this.SetStatus(PriceEngineeringTaskStatusEnum.Started, sb.ToString().TrimEnd('\n', '\r'));
+            if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null)
+            {
+                this.SetStatus(PriceEngineeringTaskStatusEnum.Started, sb.ToString().TrimEnd('\n', '\r'));
+            }
+            else
+            {
+                this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
+                {
+                    StatusEnum = PriceEngineeringTaskStatusEnum.Started
+                }));
+
+                this.Model.Messages.Add(new PriceEngineeringTaskMessage
+                {
+                    Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                    Message = sb.ToString().TrimEnd('\n', '\r')
+                });
+            }
         }
     }
 }
