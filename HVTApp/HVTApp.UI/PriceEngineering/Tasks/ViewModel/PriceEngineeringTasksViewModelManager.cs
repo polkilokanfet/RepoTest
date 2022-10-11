@@ -199,7 +199,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                 continue;
                             }
 
-                            if (viewModel is PriceEngineeringTaskViewModelManager priceEngineeringTaskViewModelManager)
+                            if (viewModel is PriceEngineeringTaskViewModelManagerOld priceEngineeringTaskViewModelManager)
                             {
                                 priceEngineeringTaskViewModelManager.StopCommand.ExecuteWithoutConfirmation();
                             }
@@ -271,7 +271,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 {
                     foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsTotalAccepted))
                     {
-                        if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManager viewModel)
+                        if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManagerOld viewModel)
                         {
                             viewModel.ReplaceProductCommand.Execute();
                         }

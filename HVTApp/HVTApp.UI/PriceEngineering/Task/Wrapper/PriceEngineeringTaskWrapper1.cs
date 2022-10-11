@@ -14,7 +14,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
     public abstract class PriceEngineeringTaskWrapper1 : WrapperBase<PriceEngineeringTask>
     {
         protected readonly IUnitOfWork UnitOfWork;
-        private IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> _childPriceEngineeringTasks;
 
         #region SimpleProperties
 
@@ -170,29 +169,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// Дочерние задачи
         /// ChildPriceEngineeringTasks инициализируются в дочерних классах
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks
-        {
-            get => _childPriceEngineeringTasks;
-            protected set
-            {
-                _childPriceEngineeringTasks = value;
-
-                //подписка на событие принятия менеджером дочерней задачи
-                if (value != null)
-                {
-                    foreach (var priceEngineeringTaskViewModel in value)
-                    {
-                        //прокидываем событие выше
-                        priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += task => this.TaskAcceptedByManagerAction?.Invoke(task);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Событие принятия задачи менеджером
-        /// </summary>
-        public virtual event Action<PriceEngineeringTask> TaskAcceptedByManagerAction;
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
 
         private PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
             : base(priceEngineeringTask)
@@ -234,8 +211,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-            #region InitializeCollectionProperties
-
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
             ProductBlocksAdded = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper1>(Model.ProductBlocksAdded.Select(e => new PriceEngineeringTaskProductBlockAddedWrapper1(e)));
             RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
@@ -255,29 +230,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
             SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
-
-            #endregion
         }
     }
-
-    //public class MessagesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper1>
-    //{
-    //    private readonly IUnitOfWork _unitOfWork;
-
-    //    public MessagesCollection(IEnumerable<PriceEngineeringTaskMessageWrapper1> items, IUnitOfWork unitOfWork) : base(items)
-    //    {
-    //        _unitOfWork = unitOfWork;
-    //    }
-
-    //    public PriceEngineeringTaskMessage Add(string message)
-    //    {
-    //        var result = new PriceEngineeringTaskMessage()
-    //        {
-    //            Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-    //            Message = message
-    //        };
-    //        this.Add(new PriceEngineeringTaskMessageWrapper1(result));
-    //        return result;
-    //    }
-    //}
 }

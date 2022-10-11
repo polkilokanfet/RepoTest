@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -14,6 +12,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Messages;
 using HVTApp.UI.PriceEngineering.Wrapper;
@@ -288,11 +287,6 @@ namespace HVTApp.UI.PriceEngineering
             }));
 
             this.Messenger.SendMessage(message);
-            //this.Messages.Add(new PriceEngineeringTaskMessageWrapper1(new PriceEngineeringTaskMessage
-            //{
-            //    Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-            //    Message = message
-            //}));
         }
 
         public void Dispose()

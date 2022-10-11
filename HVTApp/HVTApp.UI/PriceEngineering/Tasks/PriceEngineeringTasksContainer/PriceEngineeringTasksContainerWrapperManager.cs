@@ -60,6 +60,8 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 
         #endregion
 
+        #region ctors
+
         /// <summary>
         /// Для загрузки и редактирования существующей ТСП
         /// </summary>
@@ -69,14 +71,17 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         {
             foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
             {
-                priceEngineeringTaskViewModel.TaskAcceptedByManagerAction += task =>
+                if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManagerOld vmOld)
                 {
-                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(Model.Id);
-                    if (priceEngineeringTasks.IsAccepted)
+                    vmOld.TaskAcceptedByManagerAction += task =>
                     {
-                        AllTasksAcceptedByManagerAction?.Invoke();
-                    }
-                };
+                        var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(Model.Id);
+                        if (priceEngineeringTasks.IsAccepted)
+                        {
+                            AllTasksAcceptedByManagerAction?.Invoke();
+                        }
+                    };
+                }
             }
         }
 
@@ -90,6 +95,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             ChildPriceEngineeringTasks.AddRange(taskList);
         }
+        
+        #endregion
+
 
         public override void InitializeComplexProperties()
         {
