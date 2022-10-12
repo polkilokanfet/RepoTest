@@ -154,34 +154,5 @@ namespace HVTApp.UI.PriceEngineering
                     vm.LoadNewTechnicalRequirementFilesInStorage();
             }
         }
-
-
-        #region SetStatus
-
-        /// <summary>
-        /// Принять задачу
-        /// </summary>
-        protected void SetStatusAccept()
-        {
-            this.SetStatus(PriceEngineeringTaskStatusEnum.Accepted, "Проработка задачи принята.");
-        }
-
-        /// <summary>
-        /// Отклонить проработку задачи
-        /// </summary>
-        protected void SetStatusRejectedByManager()
-        {
-            this.SetStatus(PriceEngineeringTaskStatusEnum.RejectedByManager, "Проработка задачи отклонена.");
-        }
-
-        /// <summary>
-        /// Остановить проработку задачи
-        /// </summary>
-        protected void SetStatusStop()
-        {
-            this.SetStatus(PriceEngineeringTaskStatusEnum.Stopped, "Проработка задачи остановлена.");
-        }
-
-        #endregion
     }
 }

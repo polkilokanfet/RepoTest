@@ -1,5 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
@@ -156,7 +160,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// <summary>
         /// Статусы проработки
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper> Statuses { get; private set; }
+        public StatusesCollection Statuses { get; private set; }
 
         /// <summary>
         /// SalesUnits
@@ -222,12 +226,32 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 
             if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
-            Statuses = new ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper>(Model.Statuses.Select(e => new PriceEngineeringTaskStatusWrapper(e)));
+            Statuses = new StatusesCollection(Model.Statuses);
             RegisterCollection(Statuses, Model.Statuses);
 
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
             SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
+        }
+    }
+
+    public class StatusesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusEmptyWrapper>
+    {
+        public StatusesCollection(IEnumerable<PriceEngineeringTaskStatus> items) 
+            : base(items.Select(x => new PriceEngineeringTaskStatusEmptyWrapper(x)))
+        {
+        }
+
+        public void Add(PriceEngineeringTaskStatusEnum statusEnum, string comment = null)
+        {
+            var status = new PriceEngineeringTaskStatus()
+            {
+                StatusEnum = statusEnum,
+                Moment = DateTime.Now,
+                Comment = comment
+            };
+
+            this.Add(new PriceEngineeringTaskStatusEmptyWrapper(status));
         }
     }
 }

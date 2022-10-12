@@ -85,7 +85,7 @@ namespace HVTApp.UI.PriceEngineering
                 "¬ы уверены, что хотите прин€ть проработку задачи?",
                 () =>
                 {
-                    this.SetStatusAccept();
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.Accepted);
                     SaveCommand.Execute();
                     this.OnTaskAcceptedByManagerAction(this.Model);
                     eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
@@ -97,7 +97,7 @@ namespace HVTApp.UI.PriceEngineering
                 "¬ы уверены, что хотите отклонить проработку задачи?",
                 () =>
                 {
-                    this.SetStatusRejectedByManager();
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.RejectedByManager);
                     SaveCommand.Execute();
                     eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
@@ -107,7 +107,7 @@ namespace HVTApp.UI.PriceEngineering
                 "¬ы уверены, что хотите остановить проработку задачи?",
                 () =>
                 {
-                    this.SetStatusStop();
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.Stopped);
                     SaveCommand.Execute();
                     eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
                 },

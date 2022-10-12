@@ -65,12 +65,14 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
-            this.SetStatusStart();
+            this.Statuses.Add(PriceEngineeringTaskStatusEnum.Started);
 
             //если запускается только конкретная задача
             if (saveChanges)
             {
+                var text = GetStartMessageText();
                 this.SaveCommand.Execute();
+                Messenger.SendMessage(text);
                 Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStartedEvent>().Publish(this.Model);
             }
             //если запускаются все задачи в задании
@@ -96,56 +98,35 @@ namespace HVTApp.UI.PriceEngineering
             return true;
         }
 
-        private void SetStatusStart()
+        private string GetStartMessageText()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("Задача запущена на проработку.");
-            if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null)
+            if (this.FilesTechnicalRequirements.IsChanged)
             {
-                if (this.FilesTechnicalRequirements.IsChanged)
-                {
-                    sb.AppendLine("Внесены изменения в ТЗ.");
-                }
-
-                var actualFiles = FilesTechnicalRequirements.Where(x => x.IsActual).OrderBy(x => x.CreationMoment).ToList();
-                if (actualFiles.Any())
-                {
-                    sb.AppendLine("Актуальные файлы:");
-                    foreach (var file in actualFiles)
-                    {
-                        sb.AppendLine($" + {file.CreationMoment} {file.Name}");
-                    }
-                }
-
-                var notActualFiles = FilesTechnicalRequirements.Where(x => x.IsActual == false).OrderBy(x => x.CreationMoment).ToList();
-                if (notActualFiles.Any())
-                {
-                    sb.AppendLine("Не актуальные файлы:");
-                    foreach (var file in notActualFiles)
-                    {
-                        sb.AppendLine($" - {file.CreationMoment} {file.Name}");
-                    }
-                }
-
+                sb.AppendLine("Внесены изменения в Техническое Задание.");
             }
 
-            if (UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null)
+            var actualFiles = FilesTechnicalRequirements.Where(x => x.IsActual).OrderBy(x => x.CreationMoment).ToList();
+            if (actualFiles.Any())
             {
-                this.SetStatus(PriceEngineeringTaskStatusEnum.Started, sb.ToString().TrimEnd('\n', '\r'));
-            }
-            else
-            {
-                this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
+                sb.AppendLine("Актуальные файлы:");
+                foreach (var file in actualFiles)
                 {
-                    StatusEnum = PriceEngineeringTaskStatusEnum.Started
-                }));
+                    sb.AppendLine($" + {file.CreationMoment} {file.Name}");
+                }
+            }
 
-                this.Model.Messages.Add(new PriceEngineeringTaskMessage
+            var notActualFiles = FilesTechnicalRequirements.Where(x => x.IsActual == false).OrderBy(x => x.CreationMoment).ToList();
+            if (notActualFiles.Any())
+            {
+                sb.AppendLine("Не актуальные файлы:");
+                foreach (var file in notActualFiles)
                 {
-                    Author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                    Message = sb.ToString().TrimEnd('\n', '\r')
-                });
+                    sb.AppendLine($" - {file.CreationMoment} {file.Name}");
+                }
             }
+
+            return sb.ToString().TrimEnd('\n', '\r');
         }
     }
 }

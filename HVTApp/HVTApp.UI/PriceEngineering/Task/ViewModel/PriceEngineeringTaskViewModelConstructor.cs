@@ -241,7 +241,7 @@ namespace HVTApp.UI.PriceEngineering
                     bool needVerification = this.RequestForVerificationFromHead || this.RequestForVerificationFromConstructor;
 
                     var sb = new StringBuilder()
-                        .AppendLine(needVerification ? "Проработка направлена на проверку руководителю." : "Проработка завершена.")
+                        .AppendLine("Информация о результатах проработки.")
                         .AppendLine("Основной блок:")
                         .AppendLine(this.ProductBlockEngineer.PrintToMessage());
 
@@ -252,10 +252,10 @@ namespace HVTApp.UI.PriceEngineering
                         pba.ForEach(x => sb.AppendLine(x.ToString()));
                     }
 
-                    Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
-                    {
-                        StatusEnum = needVerification ? PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification : PriceEngineeringTaskStatusEnum.FinishedByConstructor
-                    }));
+                    var statusEnum = needVerification
+                        ? PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification
+                        : PriceEngineeringTaskStatusEnum.FinishedByConstructor;
+                    Statuses.Add(statusEnum);
                     Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));
                     SaveCommand.Execute();
 
@@ -279,7 +279,7 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     this.RejectChanges();
-                    this.SetStatus(PriceEngineeringTaskStatusEnum.RejectedByConstructor, "Проработка задачи отклонена ОГК.");
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.RejectedByConstructor);
                     SaveCommand.Execute();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(this.Model);
                 },

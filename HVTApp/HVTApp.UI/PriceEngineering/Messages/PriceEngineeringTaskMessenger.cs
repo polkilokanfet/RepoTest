@@ -84,7 +84,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
                 this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(AllowTexting)));
                 SendMessageCommand.RaiseCanExecuteChanged();
 
-                foreach (var statusWrapper in args.NewItems.Cast<PriceEngineeringTaskStatusWrapper>())
+                foreach (var statusWrapper in args.NewItems.Cast<PriceEngineeringTaskStatusEmptyWrapper>())
                 {
                     this.Items.Insert(0, PriceEngineeringTaskStatusMessage.Convert(statusWrapper.Model));
                 }
@@ -96,6 +96,9 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
         public PriceEngineeringTaskMessage SendMessage(string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+
             var message = new PriceEngineeringTaskMessage
             {
                 Message = text,

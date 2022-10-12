@@ -95,8 +95,8 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsEditMode);
 
-            //если задача в процессе создания, нужно добавить соответствующий статус
-            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.Created }));
+            //задача в процессе создания, нужно добавить соответствующий статус
+            this.Statuses.Add(new PriceEngineeringTaskStatusEmptyWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.Created }));
         }
     }
 }

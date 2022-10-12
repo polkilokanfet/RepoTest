@@ -96,7 +96,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите принять результаты проработки?",
                 () =>
                 {
-                    SetStatus(PriceEngineeringTaskStatusEnum.FinishedByConstructor, "Результаты проработки приняты. Проработка завершена.");
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.FinishedByConstructor);
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(this.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
@@ -108,7 +108,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите отправить задачу на доработку исполнителю?",
                 () =>
                 {
-                    SetStatus(PriceEngineeringTaskStatusEnum.VerificationRejectededByHead, "Результаты проработки не приняты. Отправлено на доработку исполнителю.");
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.VerificationRejectededByHead);
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(this.Model);
                 },

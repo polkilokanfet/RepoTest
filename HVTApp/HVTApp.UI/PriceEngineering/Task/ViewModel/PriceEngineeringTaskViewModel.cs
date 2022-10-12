@@ -293,16 +293,6 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        protected void SetStatus(PriceEngineeringTaskStatusEnum status, string message)
-        {
-            this.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus
-            {
-                StatusEnum = status
-            }));
-
-            this.Messenger.SendMessage(message);
-        }
-
         public void Dispose()
         {
             UnitOfWork?.Dispose();
