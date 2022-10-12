@@ -61,6 +61,10 @@ namespace HVTApp.UI.PriceEngineering
 
         public PriceEngineeringTaskProductBlockAddedWrapper1(PriceEngineeringTaskProductBlockAdded model) : base(model)
         {
+        }
+
+        public override void InitializeComplexProperties()
+        {
             InitializeComplexProperty(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockStructureCostWrapper(Model.ProductBlock, true));
         }
 

@@ -173,8 +173,6 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         protected virtual void  InCtor()
         {
-            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(Status));
-
             #region Commands
 
             OpenTechnicalRequrementsFileCommand = new DelegateLogCommand(
@@ -257,12 +255,15 @@ namespace HVTApp.UI.PriceEngineering
 
             #endregion
 
-            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(IsEditMode));
-
             //синхронизация сообщений
             Messenger = new PriceEngineeringTaskMessenger(this, Container);
 
-            this.Statuses.CollectionChanged += (sender, args) => OnPropertyChanged(nameof(AllowEditAddedBlocks));
+            this.Statuses.CollectionChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(IsEditMode));
+                OnPropertyChanged(nameof(AllowEditAddedBlocks));
+            };
         }
 
         #endregion

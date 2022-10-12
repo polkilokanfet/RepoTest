@@ -4,7 +4,6 @@ using System.Windows.Data;
 using System.Windows.Media;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.PriceEngineering.Messages
 {
@@ -19,6 +18,11 @@ namespace HVTApp.UI.PriceEngineering.Messages
                 {
                     return new SolidColorBrush(Colors.LightGray);
                 }
+            }
+
+            if (value is PriceEngineeringTaskStatusMessage)
+            {
+                return new SolidColorBrush(Colors.Transparent);
             }
 
             return new SolidColorBrush(Colors.LightSkyBlue);

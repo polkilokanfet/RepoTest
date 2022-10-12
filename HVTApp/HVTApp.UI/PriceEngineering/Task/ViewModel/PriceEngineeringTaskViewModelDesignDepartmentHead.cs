@@ -54,10 +54,20 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        public bool AllowInstruction =>
+            IsTarget &&
+            Status != PriceEngineeringTaskStatusEnum.FinishedByConstructor &&
+            Status != PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification &&
+            Status != PriceEngineeringTaskStatusEnum.Created &&
+            Status != PriceEngineeringTaskStatusEnum.Stopped &&
+            Status != PriceEngineeringTaskStatusEnum.Accepted;
+
         #region ctors
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) 
+            : base(container, priceEngineeringTaskId)
         {
+            //Вложенные дочерние задачи
             var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
 
@@ -65,14 +75,13 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Model.Staff);
-
                     if (user == null) return;
 
                     var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
                     this.RequestForVerificationFromHead = dr == MessageDialogResult.Yes;
 
                     string s = RequestForVerificationFromHead
-                        ? ". Необходимо проверить результат проработки."
+                        ? ". Считаю необходимым проверить результат работы исполнителя."
                         : string.Empty;
 
                     this.UserConstructor = new UserEmptyWrapper(user);
@@ -80,13 +89,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
                 },
-                () =>
-                    IsTarget &&
-                    Status != PriceEngineeringTaskStatusEnum.FinishedByConstructor &&
-                    Status != PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification &&
-                    Status != PriceEngineeringTaskStatusEnum.Created &&
-                    Status != PriceEngineeringTaskStatusEnum.Stopped &&
-                    Status != PriceEngineeringTaskStatusEnum.Accepted);
+                () => AllowInstruction);
 
             AcceptPriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
                 Container.Resolve<IMessageService>(),
@@ -98,9 +101,7 @@ namespace HVTApp.UI.PriceEngineering
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(this.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
                 },
-                () =>
-                    IsEditMode &&
-                    this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
+                () => IsEditMode);
 
             RejectPriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
                 Container.Resolve<IMessageService>(),
@@ -111,9 +112,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(this.Model);
                 },
-                () =>
-                    IsEditMode &&
-                    this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
+                () => IsEditMode);
 
 
             this.Statuses.CollectionChanged += (sender, args) =>

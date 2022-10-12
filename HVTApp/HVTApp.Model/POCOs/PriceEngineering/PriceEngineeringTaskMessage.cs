@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Технико-стоимостная проработка (сообщение)")]
     [DesignationPlural("Технико-стоимостная проработка (сообщения)")]
-    public class PriceEngineeringTaskMessage : BaseEntity
+    public class PriceEngineeringTaskMessage : BaseEntity, IMessage
     {
         [Designation("Id технико-стоимостной проработки"), Required, OrderStatus(900)]
         public virtual Guid PriceEngineeringTaskId { get; set; }
@@ -20,5 +20,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Сообщение"), Required, OrderStatus(100)]
         public string Message { get; set; }
+    }
+
+    public interface IMessage
+    {
+        DateTime Moment { get; } 
+        string Message { get; }
     }
 }

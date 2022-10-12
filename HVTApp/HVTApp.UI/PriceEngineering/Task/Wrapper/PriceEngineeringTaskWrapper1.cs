@@ -176,9 +176,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         {
             UnitOfWork = unitOfWork;
 
-            //if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
-            //Messages = new MessagesCollection(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper1(e)), UnitOfWork);
-            //RegisterCollection(Messages, Model.Messages);
+
         }
 
         protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)

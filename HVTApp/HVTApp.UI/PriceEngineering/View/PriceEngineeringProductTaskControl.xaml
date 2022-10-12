@@ -11,6 +11,7 @@
         <converters:PriceEngineeringTaskViewModelToProductAmountConverter x:Key="ToProductAmountConverter" />
         <converters:PriceEngineeringTaskViewModelIsExpendedConverter x:Key="IsExpendedConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelManagerNewVisibilityConverter x:Key="ManagerVisibilityConverterNew" />
     </UserControl.Resources>
 
     <Border Visibility="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="2" Padding="5" Background="LightGray"  BorderBrush="Black" BorderThickness="1" CornerRadius="7">
@@ -63,7 +64,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Button Grid.Row="0" Content="Удалить" Command="{Binding RemoveTaskCommand}" Padding="2" Margin="0, 0, 0, 2"/>
+                        <Button Grid.Row="0" Content="Удалить" Command="{Binding RemoveTaskCommand}" Padding="2" Margin="0, 0, 0, 2"
+                                Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}"/>
                         <Button Grid.Row="1" Content="Синхронизировать" Command="{Binding ReplaceProductCommand}" Padding="2"/>
                         <!--<Button Grid.Row="2" Content="Произвести" Command="{Binding StartProductionCommand}"/>-->
                     </Grid>
