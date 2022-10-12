@@ -27,8 +27,21 @@ namespace HVTApp.UI.PriceEngineering
         private PriceEngineeringTaskViewModel _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequrementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
+        private bool _isVisible = true;
 
         #region Props
+
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (Equals(_isVisible, value))
+                    return;
+                _isVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Эта задача подходит текущему пользователю

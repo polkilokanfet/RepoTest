@@ -314,6 +314,7 @@
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManager.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelVisible.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerOld.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskWithStartCommandViewModel.cs" />

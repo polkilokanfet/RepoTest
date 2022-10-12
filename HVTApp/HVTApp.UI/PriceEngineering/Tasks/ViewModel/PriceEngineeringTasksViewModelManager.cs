@@ -24,7 +24,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModel<PriceEngineeringTasksContainerWrapperManager, PriceEngineeringTaskViewModelManager>
+    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManager, PriceEngineeringTaskViewModelManager>
     {
         public PriceCalculationWrapper SelectedCalculation { get; set; }
 

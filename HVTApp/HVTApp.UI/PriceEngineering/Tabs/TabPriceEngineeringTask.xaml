@@ -5,7 +5,7 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
              x:Class="HVTApp.UI.PriceEngineering.Tabs.TabPriceEngineeringTask"
-             Header="Калькуляция себестоимости">
+             Header="Технико-стоимостная проработка">
 
     <inf:RibbonTabItemWithViewModel.Resources>
         <converters:PriceEngineeringTasksViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
@@ -51,5 +51,8 @@
 
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Отображение">
+        <infRib:CheckBoxTool Caption="Все задачи" IsChecked="{Binding AllTasksAreVisible}"/>
+    </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

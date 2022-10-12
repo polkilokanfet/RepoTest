@@ -13,7 +13,7 @@
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
     </UserControl.Resources>
 
-    <Border Margin="2" Padding="5" Background="LightGray"  BorderBrush="Black" BorderThickness="1" CornerRadius="7">
+    <Border Visibility="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="2" Padding="5" Background="LightGray"  BorderBrush="Black" BorderThickness="1" CornerRadius="7">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

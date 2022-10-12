@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -95,13 +96,13 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 });
         }
 
-        public void Load(PriceEngineeringTasks priceEngineeringTasks)
+        public virtual void Load(PriceEngineeringTasks priceEngineeringTasks)
         {
             var tasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
             this.PriceEngineeringTasksWrapper = GetPriceEngineeringTasksWrapper(tasks, Container);
         }
 
-        public void Load(PriceEngineeringTask priceEngineeringTask)
+        public virtual void Load(PriceEngineeringTask priceEngineeringTask)
         {
             this.Load(priceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork));
         }

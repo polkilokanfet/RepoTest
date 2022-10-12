@@ -7,7 +7,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
     /// <summary>
     /// PriceEngineeringTasksViewModel для руководителя КБ
     /// </summary>
-    public class PriceEngineeringTasksViewModelDesignDepartmentHead : PriceEngineeringTasksViewModel<PriceEngineeringTasksContainerWrapperDesignDepartmentHead, PriceEngineeringTaskViewModelDesignDepartmentHead>
+    public class PriceEngineeringTasksViewModelDesignDepartmentHead : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperDesignDepartmentHead, PriceEngineeringTaskViewModelDesignDepartmentHead>
     {
         public PriceEngineeringTasksViewModelDesignDepartmentHead(IUnityContainer container) : base(container)
         {
