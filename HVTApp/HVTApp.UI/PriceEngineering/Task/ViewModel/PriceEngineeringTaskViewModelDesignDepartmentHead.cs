@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
@@ -9,7 +11,6 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceEngineering.Messages;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -36,7 +37,9 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        public override bool IsTarget => DesignDepartment != null && DesignDepartment.Model.Head.Id == GlobalAppProperties.User.Id;
+        public override bool IsTarget => 
+            DesignDepartment != null && 
+            DesignDepartment.Model.Head.Id == GlobalAppProperties.User.Id;
 
         public override bool IsEditMode
         {
@@ -77,17 +80,9 @@ namespace HVTApp.UI.PriceEngineering
                     var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Model.Staff);
                     if (user == null) return;
 
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
-                    this.RequestForVerificationFromHead = dr == MessageDialogResult.Yes;
+                    var needVerification = MessageDialogResult.Yes == Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
 
-                    string s = RequestForVerificationFromHead
-                        ? ". Считаю необходимым проверить результат работы исполнителя."
-                        : string.Empty;
-
-                    this.UserConstructor = new UserEmptyWrapper(user);
-                    Messenger.SendMessage($"Назначен исполнитель: {user}{s}");
-                    this.SaveCommand_ExecuteMethod();
-                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
+                    this.Instruct(user, needVerification);
                 },
                 () => AllowInstruction);
 
@@ -124,5 +119,39 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
+
+        public void Instruct(User user, bool needVerification)
+        {
+            if (user == null || AllowInstruction == false)
+                return;
+
+            var sb = new StringBuilder($"Назначен исполнитель: {user.Employee.Person}.");
+            if (needVerification)
+                sb.Append("\nСчитаю необходимым проверить результат работы исполнителя.");
+
+            this.RequestForVerificationFromHead = needVerification;
+            this.UserConstructor = new UserEmptyWrapper(this.UnitOfWork.Repository<User>().GetById(user.Id));
+            Messenger.SendMessage(sb.ToString());
+            this.SaveCommand_ExecuteMethod();
+            Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
+        }
+
+        /// <summary>
+        /// Все задачи, проработку которых может поручить пользователь
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<PriceEngineeringTaskViewModelDesignDepartmentHead> GetSuitableTasksForInstruct()
+        {
+            if (this.IsTarget && this.AllowInstruction)
+                yield return this;
+
+            foreach (var child in this.ChildPriceEngineeringTasks.Cast<PriceEngineeringTaskViewModelDesignDepartmentHead>())
+            {
+                foreach (var child2 in child.GetSuitableTasksForInstruct())
+                {
+                    yield return child2;
+                }
+            }
+        }
     }
 }

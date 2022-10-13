@@ -9,6 +9,7 @@
 
     <inf:RibbonTabItemWithViewModel.Resources>
         <converters:PriceEngineeringTasksViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+        <converters:PriceEngineeringTasksViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
     </inf:RibbonTabItemWithViewModel.Resources>
 
     <infRib:RibbonGroup Caption="Навигация">
@@ -50,6 +51,14 @@
                            SmallImage="/HVTApp.UI;component/Images/add.png" />-->
 
     </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Поручение" Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}">
+        <infRib:ButtonTool Caption="Поручить проработку всех задач"
+                           Command="{Binding InstructAllTasksCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/add.png" />
+
+    </infRib:RibbonGroup>
+
 
     <infRib:RibbonGroup Caption="Отображение">
         <infRib:CheckBoxTool Caption="Все задачи" IsChecked="{Binding AllTasksAreVisible}"/>
