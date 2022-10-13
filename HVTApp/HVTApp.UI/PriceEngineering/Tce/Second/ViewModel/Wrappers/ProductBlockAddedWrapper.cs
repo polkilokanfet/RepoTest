@@ -25,10 +25,10 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 var scc = new SccVersionWrapper(new StructureCostVersion(), this.Model.ProductBlock.ToString(), true);
                 this.StructureCostVersions.Add(scc);
                 scc.OriginalStructureCostNumber = originalStructureCostNumber;
+                StructureCostVersions.AcceptChanges();
             }
 
             this.StructureCostVersions.ForEach(x => x.Constructor = constructor);
-
         }
 
         protected override void InitializeCollectionProperties()
