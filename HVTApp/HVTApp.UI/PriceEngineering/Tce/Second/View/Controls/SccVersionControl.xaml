@@ -9,31 +9,46 @@
     <!--Версия SCC-->
     <Border BorderBrush="Black" BorderThickness="1" Padding="3" Background="Gainsboro" CornerRadius="5">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="30"/>
-            </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" 
-                     Text="{Binding ElementName=Root, Path=SccVersion.Name, Mode=OneWay}" 
-                     BorderThickness="0"
-                     IsReadOnly="True"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="1" Content=" SCC от ОГК:"/>
+                <TextBox Grid.Column="0" 
+                         Text="{Binding ElementName=Root, Path=SccVersion.Name, Mode=OneWay}" 
+                         BorderThickness="0"
+                         IsReadOnly="True"/>
 
-            <TextBox Grid.Column="2" 
-                     Text="{Binding ElementName=Root, Path=SccVersion.OriginalStructureCostNumber, Mode=OneWay}" 
-                     BorderThickness="0"
-                     IsReadOnly="True"/>
+                <Label Grid.Column="1" Content="ОГК:"/>
 
-            <Label Grid.Column="3" Content=" V:"/>
+                <TextBox Grid.Column="2"
+                         Text="{Binding ElementName=Root, Path=SccVersion.Constructor, Mode=OneWay}" 
+                         BorderThickness="0"
+                         IsReadOnly="True"/>
 
-            <editors:XamNumericEditor Grid.Column="4"
-                                      Value="{Binding ElementName=Root, Path=SccVersion.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ValueType="system:Int32"
-                                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TasksTceView}}, Path=DataContext.AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Column="3" Content=" SCC от ОГК:"/>
+
+                <TextBox Grid.Column="4"
+                         Text="{Binding ElementName=Root, Path=SccVersion.OriginalStructureCostNumber, Mode=OneWay}" 
+                         BorderThickness="0"
+                         IsReadOnly="True"/>
+
+                <Label Grid.Column="5" Content=" V:"/>
+
+                <editors:XamNumericEditor Grid.Column="6"
+                                          Value="{Binding ElementName=Root, Path=SccVersion.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ValueType="system:Int32"
+                                          IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TasksTceView}}, Path=DataContext.AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+
+            <Separator Background="Black" Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+
         </Grid>
     </Border>
 

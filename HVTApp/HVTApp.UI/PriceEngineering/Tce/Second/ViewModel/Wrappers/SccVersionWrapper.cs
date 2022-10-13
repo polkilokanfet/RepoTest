@@ -7,33 +7,33 @@ using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.PriceEngineering.Tce.Second
 {
-    public class SccVersionWrapperTarget : SccVersionWrapper
+    public class SccVersionWrapper : StructureCostVersionWrapper
     {
-        public SccVersionWrapperTarget(StructureCostVersion model, string name) : base(model, name)
+        public bool IsActual { get; }
+        public string Name { get; }
+        public string Constructor { get; set; }
+
+        public SccVersionWrapper(StructureCostVersion model, string name, bool isActual) : base(model)
         {
+            Name = name;
+            IsActual = isActual;
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            if (IsActual)
             {
-                if (Version.HasValue == false)
-                    yield return new ValidationResult("Version is required", new[] { nameof(Version) });
-                else if (Version.Value < 1)
-                    yield return new ValidationResult("Version should be greater then 0", new[] { nameof(Version) });
-                else if (Version.Value > 99)
-                    yield return new ValidationResult("Version should be less then 99", new[] { nameof(Version) });
+                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                {
+                    if (Version.HasValue == false)
+                        yield return new ValidationResult("Version is required", new[] {nameof(Version)});
+                    else if (Version.Value < 1)
+                        yield return new ValidationResult("Version should be greater then 0", new[] {nameof(Version)});
+                    else if (Version.Value > 99)
+                        yield return new ValidationResult("Version should be less then 99", new[] {nameof(Version)});
+                }
             }
         }
-    }
 
-    public class SccVersionWrapper : StructureCostVersionWrapper
-    {
-        public string Name { get; }
-
-        public SccVersionWrapper(StructureCostVersion model, string name) : base(model)
-        {
-            Name = name;
-        }
     }
 }
