@@ -90,7 +90,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.OnTaskAcceptedByManagerAction(this.Model);
                     eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
                 },
-                () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
+                () => (this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor || this.Status == PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead) && this.IsValid);
 
             RejectCommand = new DelegateLogConfirmationCommand(
                 messageService,
@@ -101,7 +101,7 @@ namespace HVTApp.UI.PriceEngineering
                     SaveCommand.Execute();
                     eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
-                () => this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor && this.IsValid);
+                () => (this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor || this.Status == PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead) && this.IsValid);
 
             StopCommand = new DelegateLogConfirmationCommand(messageService,
                 "Вы уверены, что хотите остановить проработку задачи?",

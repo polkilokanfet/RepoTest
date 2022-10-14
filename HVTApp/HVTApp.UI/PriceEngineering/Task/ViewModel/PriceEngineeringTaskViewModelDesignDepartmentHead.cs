@@ -60,6 +60,7 @@ namespace HVTApp.UI.PriceEngineering
         public bool AllowInstruction =>
             IsTarget &&
             Status != PriceEngineeringTaskStatusEnum.FinishedByConstructor &&
+            Status != PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead &&
             Status != PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification &&
             Status != PriceEngineeringTaskStatusEnum.Created &&
             Status != PriceEngineeringTaskStatusEnum.Stopped &&
@@ -91,6 +92,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите принять результаты проработки?",
                 () =>
                 {
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead);
                     this.Statuses.Add(PriceEngineeringTaskStatusEnum.FinishedByConstructor);
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(this.Model);

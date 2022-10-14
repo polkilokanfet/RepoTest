@@ -108,51 +108,6 @@ namespace HVTApp.UI.Lookup
             }
         }
 
-        //public bool? IsFinishedByConstructor
-        //{
-        //    get
-        //    {
-        //        var statuses = new List<PriceEngineeringTaskStatusEnum>()
-        //        {
-        //            PriceEngineeringTaskStatusEnum.FinishedByConstructor,
-        //            PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification,
-        //            PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead,
-        //            PriceEngineeringTaskStatusEnum.Accepted
-        //        };
-
-        //        switch (GlobalAppProperties.User.RoleCurrent)
-        //        {
-        //            case Role.SalesManager:
-        //            {
-        //                if (Entity.StatusesAll.All(x => statuses.Contains(x))
-        //                {
-        //                    return true;
-        //                }
-
-        //                return false;
-        //            }
-        //            case Role.Constructor:
-        //            {
-        //                return Entity
-        //                    .GetSuitableTasksForWork(GlobalAppProperties.User)
-        //                    .Select(x => x.Status.StatusToString())
-        //                    .Distinct()
-        //                    .OrderBy(x => x)
-        //                    .ToStringEnum();
-        //            }
-        //            case Role.DesignDepartmentHead:
-        //            {
-        //                return Entity
-        //                    .GetSuitableTasksForInstruct(GlobalAppProperties.User)
-        //                    .Select(x => x.GetStatusForDesignDepartmentHead())
-        //                    .Distinct()
-        //                    .OrderBy(x => x)
-        //                    .ToStringEnum();
-        //            }
-        //        }
-        //    }
-        //}
-
         public bool ToShow
         {
             get
