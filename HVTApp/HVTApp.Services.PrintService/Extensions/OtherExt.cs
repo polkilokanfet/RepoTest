@@ -2,7 +2,7 @@ using System;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.PrintService.Extansions
+namespace HVTApp.Services.PrintService.Extensions
 {
     public static class OtherExt
     {
@@ -29,7 +29,5 @@ namespace HVTApp.Services.PrintService.Extansions
                 ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}"
                 : path + $"\\{fileName}";
         }
-
-
     }
 }

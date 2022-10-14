@@ -2,7 +2,7 @@
 using Infragistics.Documents.Word;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace HVTApp.Services.PrintService.Extansions
+namespace HVTApp.Services.PrintService.Extensions
 {
     public static class WordDocumentWriterExt
     {

@@ -12,19 +12,12 @@ using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Groups;
-using HVTApp.Services.PrintService.Extansions;
+using HVTApp.Services.PrintService.Extensions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.PrintService
 {
-    public class PrintPriceEngineeringService : PrintServiceBase
-    {
-        public PrintPriceEngineeringService(IUnityContainer container) : base(container)
-        {
-        }
-    }
-
     public class PrintOfferService : PrintServiceBase, IPrintOfferService
     {
         private readonly PrintProductService _printProductService;
@@ -476,6 +469,16 @@ namespace HVTApp.Services.PrintService
                     docWriter.PrintParagraph(Environment.NewLine);
                 }
             }
+        }
+
+        protected override string GetFullPath(Document document, string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void PrintBody(Document document, WordDocumentWriter docWriter)
+        {
+            throw new NotImplementedException();
         }
     }
 

@@ -102,7 +102,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                     {
                         Number = new DocumentNumber(),
                         Date = DateTime.Today,
-                        Comment = $"Шеф-монтаж на {supervisions.Select(supervision => supervision.SalesUnit.Facility).Distinct().ToStringEnum(", ")}".GetFirstSimbols(150),
+                        Comment = $"О шеф-монтаже на объектах: {supervisions.Select(supervision => supervision.SalesUnit.Facility).Distinct().ToStringEnum(", ")}".GetFirstSimbols(150),
                         Author = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id).Employee,
                         SenderEmployee = unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id),
                         RecipientEmployee = unitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.RecipientSupervisionLetterEmployee.Id)

@@ -7,6 +7,8 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.POCOs;
+using HVTApp.Services.PrintService.Extensions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
 
@@ -22,6 +24,174 @@ namespace HVTApp.Services.PrintService
             Container = container;
             MessageService = Container.Resolve<IMessageService>();
         }
+
+        /// <summary>
+        /// Печать на официальном бланке организации
+        /// </summary>
+        protected void PrintOnLetterhead(Document document, string path)
+        {
+            //полный путь к файлу (с именем файла)
+            var fullPath = this.GetFullPath(document, path);
+            var docWriter = GetWordDocumentWriter(fullPath);
+            if (docWriter == null) return;
+            docWriter.StartDocument();
+
+            #region Print Header
+
+            docWriter.StartParagraph();
+            docWriter.AddInlinePicture(GetImage("header.jpg"));
+            docWriter.EndParagraph();
+
+            Font fontBold = docWriter.CreateFont();
+            fontBold.Bold = true;
+
+            var noBordersTableBorderProperties = docWriter.CreateTableBorderProperties();
+            noBordersTableBorderProperties.Style = TableBorderStyle.None;
+            noBordersTableBorderProperties.Sides = TableBorderSides.None;
+
+            var headTableProperties = GetTableProperties(docWriter, noBordersTableBorderProperties);
+            headTableProperties.Alignment = ParagraphAlignment.Left;
+            headTableProperties.PreferredWidthAsPercentage = 100;
+            docWriter.StartTable(2, headTableProperties);
+
+            //таблица с номером ТКП
+            docWriter.StartTableRow();
+            TableCellProperties tableCellProperties1 = docWriter.CreateTableCellProperties();
+            tableCellProperties1.PreferredWidthAsPercentage = 50;
+            docWriter.StartTableCell(tableCellProperties1);
+            docWriter.StartTable(4, headTableProperties);
+
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                "исх.№ ",
+                $"{document.RegNumber}",
+                "от",
+                $"{document.Date.ToShortDateString()} г.");
+
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                "на № ",
+                document.RequestDocument == null ? string.Empty : $"{document.RequestDocument.RegNumber}",
+                "от",
+                document.RequestDocument == null ? string.Empty : $"{document.RequestDocument.Date.ToShortDateString()} г.");
+
+            docWriter.EndTable();
+            docWriter.EndTableCell();
+
+            var recipient = document.RecipientEmployee;
+            docWriter.PrintTableCell("Получатель: " + Environment.NewLine + $"{recipient.Position} {recipient.Company.Form.ShortName} \"{recipient.Company.ShortName}\"" + Environment.NewLine + $"{recipient.Person}");
+
+            docWriter.EndTableRow();
+
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.CreateParagraphProperties(), docWriter.CreateFont(),
+                $"{document.Comment}", string.Empty);
+
+            docWriter.EndTable();
+
+            #endregion
+
+            #region Print Text Before Body
+
+            docWriter.PrintParagraph(string.Empty);
+
+            var paraFormat = docWriter.CreateParagraphProperties();
+            paraFormat.Alignment = ParagraphAlignment.Center;
+            var prefix = document.RecipientEmployee.Person.IsMan ? "Уважаемый" : "Уважаемая";
+            docWriter.PrintParagraph($"{prefix} {document.RecipientEmployee.Person.Name} {document.RecipientEmployee.Person.Patronymic}!", paraFormat, fontBold);
+
+            #endregion
+
+            this.PrintBody(document, docWriter);
+
+            #region Sender
+
+            docWriter.PrintParagraph(string.Empty);
+
+            var bordProps = docWriter.CreateTableBorderProperties();
+            bordProps.Style = TableBorderStyle.None;
+            bordProps.Sides = TableBorderSides.None;
+
+            TableProperties tableProperties2 = GetTableProperties(docWriter, bordProps);
+            tableProperties2.PreferredWidthAsPercentage = 100;
+            docWriter.StartTable(3, tableProperties2);
+
+            TableCellProperties tableCellProperties2 = docWriter.CreateTableCellProperties();
+            tableCellProperties2.PreferredWidthAsPercentage = 33;
+
+            docWriter.StartTableRow();
+
+            var part1 = "С уважением," + Environment.NewLine + $"{document.SenderEmployee.Position}";
+            docWriter.PrintTableCell(part1, tableCellProperties2);
+
+            //подпись
+            if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
+            {
+                var drt = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo: true);
+                if (drt == MessageDialogResult.Yes)
+                {
+                    try
+                    {
+                        docWriter.StartTableCell(tableCellProperties2);
+
+                        var prpr = docWriter.CreateParagraphProperties();
+                        prpr.Alignment = ParagraphAlignment.Center;
+                        docWriter.StartParagraph(prpr);
+                        docWriter.AddInlinePicture(GetImage("sign_deev.png"));
+                        docWriter.EndParagraph();
+
+                        docWriter.EndTableCell();
+
+                    }
+                    catch (Exception e)
+                    {
+                        Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                        docWriter.PrintTableCell(string.Empty);
+                    }
+                }
+                else
+                {
+                    docWriter.PrintTableCell(string.Empty);
+                }
+            }
+            else
+            {
+                docWriter.PrintTableCell(string.Empty);
+            }
+
+            //ФИО подписывающего лица
+            var part3 = Environment.NewLine + $"{document.SenderEmployee.Person.Name[0]}.{document.SenderEmployee.Person.Patronymic?[0]}.{document.SenderEmployee.Person.Surname}";
+            var pp = docWriter.CreateParagraphProperties();
+            pp.Alignment = ParagraphAlignment.Right;
+            docWriter.PrintTableCell(part3, tableCellProperties2, pp);
+
+            docWriter.EndTableRow();
+
+            docWriter.EndTable();
+
+            #endregion
+
+            #region Author Footer
+
+            var parts = SectionHeaderFooterParts.FooterAllPages;
+            var writerSet = docWriter.AddSectionHeaderFooter(parts);
+            writerSet.FooterWriterAllPages.Open();
+            writerSet.FooterWriterAllPages.StartParagraph();
+            writerSet.FooterWriterAllPages.AddTextRun("Исполнитель:" + Environment.NewLine + $"{document.Author}" + Environment.NewLine + $"тел.: {document.Author.PhoneNumber}; e-mail: {document.Author.Email}; uetm.ru");
+            writerSet.FooterWriterAllPages.AddTextRun(Environment.NewLine + $"{document.RegNumber} от {document.Date.ToShortDateString()} г. - стр. ");
+            writerSet.FooterWriterAllPages.AddPageNumberField(PageNumberFieldFormat.Decimal);
+            writerSet.FooterWriterAllPages.EndParagraph();
+            writerSet.FooterWriterAllPages.Close();
+
+            #endregion
+
+            //docWriter.DefineSection(sp);
+
+            docWriter.EndDocument();
+            docWriter.Close();
+
+            OpenDocument(fullPath);
+        }
+
+        protected abstract string GetFullPath(Document document, string path);
+        protected abstract void PrintBody(Document document, WordDocumentWriter docWriter);
 
         protected WordDocumentWriter GetWordDocumentWriter(string fullPath)
         {
