@@ -18,7 +18,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            IFileManagerService fileManagerService = _container.Resolve<IFileManagerService>();
+            var fileManagerService = _container.Resolve<IFileManagerService>();
             _container.Resolve<IPrintOfferService>().PrintOffer(_viewModel.Offers.SelectedItem.Id, fileManagerService.GetPath(_viewModel.Offers.SelectedItem.Entity));
         }
 

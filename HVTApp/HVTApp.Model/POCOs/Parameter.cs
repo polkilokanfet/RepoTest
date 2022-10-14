@@ -10,7 +10,7 @@ using HVTApp.Infrastructure.Extansions;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Параметр")]
-    public partial class Parameter : BaseEntity
+    public partial class Parameter : BaseEntity, IComparable<Parameter>
     {
         [Designation("Группа"), Required, OrderStatus(5)]
         public virtual ParameterGroup ParameterGroup { get; set; }
@@ -35,23 +35,47 @@ namespace HVTApp.Model.POCOs
             return Value;
         }
 
+        public int CompareTo(Parameter other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return this.CompareTo((object)other);
+        }
+
+        public int CompareToPaths(Parameter other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+
+            if (this.ContainsParameterInPath(other))
+                return 1;
+
+            if (other.ContainsParameterInPath(this))
+                return -1;
+
+            return 0;
+        }
+
         public override int CompareTo(object obj)
         {
             var first = this;
             if (!(obj is Parameter second))
-                throw new ArgumentException();
+                return 0;
 
+            //если параметры из одной группы
             if (first.ParameterGroup.Id == second.ParameterGroup.Id)
             {
-                return string.Compare(first.Value, second.Value, StringComparison.Ordinal);
+                return first.Rang == second.Rang 
+                    ? string.Compare(first.Value, second.Value, StringComparison.Ordinal)
+                    : second.Rang - first.Rang;
             }
+
+            //сравнение по путям
+            var result = first.CompareToPaths(second);
+            if (result != 0)
+                return result;
             
-            if (first.ContainsParameterInPath(second))
-                return 1;
-
-            if (second.ContainsParameterInPath(first))
-                return -1;
-
+            //сравнение по группам параметров
             return first.ParameterGroup.CompareTo(second.ParameterGroup);
         }
 
@@ -62,7 +86,7 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public bool ContainsParameterInPath(Parameter parameter)
         {
-            return this.Paths().Any(x => x.Parameters.ContainsById(parameter));
+            return this.Paths().Any(pathToOrigin => pathToOrigin.Parameters.ContainsById(parameter));
         }
 
         /// <summary>
@@ -75,7 +99,7 @@ namespace HVTApp.Model.POCOs
             if (_pathsToOrigin == null || !this.ParameterRelations.MembersAreSame(_previousParameterRelations))
             {
                 _previousParameterRelations = this.ParameterRelations.ToList();
-                _pathsToOrigin = Paths(null).Where(x => x.IsFull).Distinct(new PathComparer()).ToList();
+                _pathsToOrigin = Paths(null).Where(pathToOrigin => pathToOrigin.IsFull).Distinct(new PathComparer()).ToList();
             }
 
             return _pathsToOrigin;
@@ -187,6 +211,7 @@ namespace HVTApp.Model.POCOs
 
             return result;
         }
+
     }
 
     public class PathComparer : IEqualityComparer<PathToOrigin>

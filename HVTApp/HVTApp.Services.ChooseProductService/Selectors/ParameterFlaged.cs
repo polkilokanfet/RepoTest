@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class ParameterFlaged : NotifyPropertyChanged
+    public class ParameterFlaged : NotifyPropertyChanged, IComparable<ParameterFlaged>
     {
         #region props
 
@@ -31,8 +32,7 @@ namespace HVTApp.Services.GetProductService
 
         public ParameterFlaged(Parameter parameter)
         {
-            if(parameter == null) throw new ArgumentNullException(nameof(parameter));
-            Parameter = parameter;
+            Parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
             _isActual = Parameter.IsOrigin;
         }
 
@@ -49,6 +49,13 @@ namespace HVTApp.Services.GetProductService
             return this.IsActual 
                 ? $"{this.Parameter} - актуален" 
                 : $"{this.Parameter} - не актуален";
+        }
+
+        public int CompareTo(ParameterFlaged other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return this.Parameter.CompareTo(other.Parameter);
         }
     }
 }

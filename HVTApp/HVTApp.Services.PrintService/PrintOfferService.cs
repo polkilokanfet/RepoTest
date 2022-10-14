@@ -18,14 +18,19 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.PrintService
 {
+    public class PrintPriceEngineeringService : PrintServiceBase
+    {
+        public PrintPriceEngineeringService(IUnityContainer container) : base(container)
+        {
+        }
+    }
+
     public class PrintOfferService : PrintServiceBase, IPrintOfferService
     {
-        private readonly IMessageService _messageService;
         private readonly PrintProductService _printProductService;
 
         public PrintOfferService(IUnityContainer container) : base(container)
         {
-            _messageService = Container.Resolve<IMessageService>();
             _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
@@ -40,7 +45,7 @@ namespace HVTApp.Services.PrintService
 
             if (File.Exists(fullPath))
             {
-                var dr = _messageService.ShowYesNoMessageDialog("Внимание", "Это ТКП уже напечатано. Заменить его?", defaultNo: true);
+                var dr = MessageService.ShowYesNoMessageDialog("Внимание", "Это ТКП уже напечатано. Заменить его?", defaultNo: true);
                 if(dr != MessageDialogResult.Yes)
                     return;
             }
@@ -244,7 +249,7 @@ namespace HVTApp.Services.PrintService
             //подпись
             if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
             {
-                var drt = _messageService.ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
+                var drt = MessageService.ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
                 if (drt == MessageDialogResult.Yes)
                 {
                     try
@@ -262,7 +267,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                        MessageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }
@@ -372,7 +377,6 @@ namespace HVTApp.Services.PrintService
             }
             return "В стоимости оборудования не учтены расходы, связанные с его доставкой на объект.";
         }
-
 
         private List<OfferUnitsGroup> GetOfferUnitsGroups(Guid offerId)
         {

@@ -118,8 +118,9 @@ namespace HVTApp.Services.GetProductService
             //группировка параметров по группам и упорядочивание их.
             var groups = parameters
                 .GroupBy(parameter => parameter.ParameterGroup.Id)
-                .OrderBy(x => x, new ParametersEnumerableComparerByPaths())
+                //.OrderBy(x => x, new ParametersEnumerableComparerByPaths())
                 .Select(x => new ParameterSelector(x))
+                .OrderBy(x => x)
                 .ToList();
 
             foreach (var group in groups)

@@ -96,7 +96,5 @@ namespace HVTApp.Services.PrintService
                 }
             }
         }
-
-
     }
 }

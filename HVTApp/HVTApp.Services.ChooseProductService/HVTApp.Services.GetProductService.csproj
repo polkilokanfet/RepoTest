@@ -98,7 +98,6 @@
     <Compile Include="GetProductServiceWpf.cs" />
     <Compile Include="Ext.cs" />
     <Compile Include="NotifyPropertyChanged.cs" />
-    <Compile Include="Comparers\ParametersEnumerableComparerByPaths.cs" />
     <Compile Include="ProductGeneration\BlockGeneration.cs" />
     <Compile Include="Selectors\ParameterFlaged.cs" />
     <Compile Include="Selectors\ParameterSelector.cs" />

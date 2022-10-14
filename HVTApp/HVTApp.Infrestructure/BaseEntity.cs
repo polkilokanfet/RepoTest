@@ -17,6 +17,8 @@ namespace HVTApp.Infrastructure
 
         public override bool Equals(object obj)
         {
+            if (ReferenceEquals(this, obj)) return true;
+
             var other = obj as BaseEntity;
             if (other == null) return false;
             if (Equals(this.Id, other.Id)) return true;
@@ -40,6 +42,9 @@ namespace HVTApp.Infrastructure
 
         public virtual int CompareTo(object other)
         {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+
             return string.Compare(this.ToString(), other.ToString(), StringComparison.Ordinal);
         }
 
