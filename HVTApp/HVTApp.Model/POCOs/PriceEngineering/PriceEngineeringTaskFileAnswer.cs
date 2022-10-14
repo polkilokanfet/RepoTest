@@ -24,5 +24,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Комментарий"), MaxLength(1024), OrderStatus(600)]
         public string Comment { get; set; }
+
+        public override string ToString()
+        {
+            return $"{CreationMoment.ToShortDateString()} {Name}";
+        }
     }
 }

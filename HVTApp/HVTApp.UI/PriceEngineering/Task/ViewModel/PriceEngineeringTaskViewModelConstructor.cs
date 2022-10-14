@@ -238,18 +238,25 @@ namespace HVTApp.UI.PriceEngineering
                         this.RequestForVerificationFromConstructor = dr == MessageDialogResult.Yes;
                     }
 
-                    bool needVerification = this.RequestForVerificationFromHead || this.RequestForVerificationFromConstructor;
+                    var needVerification = this.RequestForVerificationFromHead || this.RequestForVerificationFromConstructor;
 
                     var sb = new StringBuilder()
                         .AppendLine("Информация о результатах проработки.")
                         .AppendLine("Основной блок:")
-                        .AppendLine(this.ProductBlockEngineer.PrintToMessage());
+                        .AppendLine($" - {this.ProductBlockEngineer.PrintToMessage()}");
 
                     var pba = this.ProductBlocksAdded.Where(x => x.IsRemoved == false).ToList();
                     if (pba.Any())
                     {
                         sb.AppendLine("Добавленные блоки:");
-                        pba.ForEach(x => sb.AppendLine(x.ToString()));
+                        pba.ForEach(x => sb.AppendLine($" - {x}"));
+                    }
+
+                    var fa = this.FilesAnswers.Where(x => x.IsActual).ToList();
+                    if (fa.Any())
+                    {
+                        sb.AppendLine("Актуальные приложенные файлы ОГК:");
+                        fa.ForEach(x => sb.AppendLine($" - {x}"));
                     }
 
                     var statusEnum = needVerification
