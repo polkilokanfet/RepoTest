@@ -1,7 +1,7 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
 using Microsoft.Practices.Unity;
 
@@ -9,7 +9,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
     public class RemoveStructureCostCommand : BasePriceCalculationCommand
     {
-
         public RemoveStructureCostCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
@@ -30,7 +29,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.SelectedItem is StructureCostWrapper && !ViewModel.IsStarted;
+            return ViewModel.SelectedItem is WrapperBase<StructureCost> && !ViewModel.IsStarted;
         }
     }
 }
