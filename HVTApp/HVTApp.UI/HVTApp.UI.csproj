@@ -417,6 +417,9 @@
     <Compile Include="PriceEngineering\View\PriceEngineeringTaskChatControl.xaml.cs">
       <DependentUpon>PriceEngineeringTaskChatControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTaskStatusControl.xaml.cs">
+      <DependentUpon>PriceEngineeringTaskStatusControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\ProductBlockControl.xaml.cs">
       <DependentUpon>ProductBlockControl.xaml</DependentUpon>
     </Compile>
@@ -1808,6 +1811,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\PriceEngineeringTaskChatControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\PriceEngineeringTaskStatusControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
-             xmlns:messages="clr-namespace:HVTApp.UI.PriceEngineering.Messages"
              xmlns:dataPresenter="http://infragistics.com/DataPresenter">
 
     <UserControl.Resources>
-        <converters:PriceEngineeringTaskViewModelIsTargetTaskVisibilityConverter x:Key="IsTargetTaskVisibilityConverter" />
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorVisibilityConverter x:Key="ConstructorVisibilityConverter" />
@@ -15,10 +13,8 @@
         <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelManagerOldVisibilityConverter x:Key="ManagerVisibilityConverterOld" />
-        <converters:PriceEngineeringTaskStatusEnumToStringConverter x:Key="StatusToStringConverter" />
         <converters:PriceEngineeringTaskViewModelToBoarderTricknessConverter x:Key="PriceEngineeringTaskViewModelToBoarderTricknessConverter" />
         <converters:StructureCostIsReadOnlyConverter x:Key="StructureCostIsReadOnlyConverter" />
-        <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
@@ -29,19 +25,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="10 0 0 10">
-                <Border.Background>
-                    <SolidColorBrush Color="{Binding Status, Converter={StaticResource StatusToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                </Border.Background>
-                <TextBlock Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}" 
-                           VerticalAlignment="Center" 
-                           HorizontalAlignment="Center" 
-                           FontWeight="Bold">
-                    <TextBlock.LayoutTransform>
-                        <RotateTransform Angle="-90"/>
-                    </TextBlock.LayoutTransform>
-                </TextBlock>
-            </Border>
+            <!--Панель статуса-->
+            <view:PriceEngineeringTaskStatusControl 
+                Grid.Column="0"
+                StatusEnum="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Border Grid.Column="1" Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
 
