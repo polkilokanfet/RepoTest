@@ -79,23 +79,26 @@
                                 <Grid Grid.Row="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
                                     <Grid Grid.Row="0" Margin="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Id задачи: "/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
 
                                         <!--Блок продукта-->
-                                        <Label Grid.Row="0" Grid.Column="0" Content="Блок: "/>
-                                        <Grid Grid.Row="0" Grid.Column="1">
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Блок: "/>
+                                        <Grid Grid.Row="1" Grid.Column="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
@@ -109,16 +112,6 @@
                                                     Padding="5 0"/>
 
                                             <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
-                                            <!--<TextBox ToolTipService.ShowDuration="120000" Grid.Column="1" FontWeight="DemiBold" Text="{Binding ProductBlockEngineer, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0">
-                                                <TextBox.ToolTip>
-                                                    <DataGrid ItemsSource="{Binding ProductBlockEngineer.Model.Parameters, Mode=OneWay}" AutoGenerateColumns="False">
-                                                        <DataGrid.Columns>
-                                                            <DataGridTextColumn Header="Группа" Binding="{Binding Path=ParameterGroup}" Width="Auto"/>
-                                                            <DataGridTextColumn Header="Значение" Binding="{Binding Path=Value}" Width="Auto"/>
-                                                        </DataGrid.Columns>
-                                                    </DataGrid>
-                                                </TextBox.ToolTip>
-                                            </TextBox>-->
 
                                             <Grid Grid.Column="2" 
                                                   Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
@@ -143,8 +136,8 @@
                                         </Grid>
 
                                         <!--Исполнитель-->
-                                        <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
-                                        <Grid Grid.Row="1" Grid.Column="1">
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Исполнитель: "/>
+                                        <Grid Grid.Row="2" Grid.Column="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
@@ -171,6 +164,7 @@
                                         </Grid>
 
                                     </Grid>
+
                                 </Grid>
 
                                 <!--Файлы-->

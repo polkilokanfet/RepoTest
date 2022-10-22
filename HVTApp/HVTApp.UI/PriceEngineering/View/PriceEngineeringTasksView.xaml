@@ -15,7 +15,18 @@
 
 
     <Border Background="White" Padding="5">
-        <GroupBox Header="Технико-ценовая проработка">
+        <GroupBox Header="{Binding PriceEngineeringTasksWrapper}">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Технико-ценовая проработка сборки задач с Id"/>
+                        <TextBox Text="{Binding Path=Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                 IsReadOnly="True"
+                                 BorderThickness="0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -36,7 +47,6 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <Label Grid.Column="0" Content="Проработать до:"/>
@@ -49,11 +59,6 @@
                             <TextBox Grid.Column="3" 
                                      Text="{Binding PriceEngineeringTasksWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsReadOnly="{Binding AllowEditProps, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
-
-                            <TextBox Grid.Column="4" 
-                                     Text="{Binding PriceEngineeringTasksWrapper.Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                     IsReadOnly="True"
-                                     BorderThickness="0"/>
 
                         </Grid>
 

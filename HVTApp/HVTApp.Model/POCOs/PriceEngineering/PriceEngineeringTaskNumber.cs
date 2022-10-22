@@ -10,7 +10,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return Number.ToString();
+            return $"{Number:D4}";
         }
     }
 }

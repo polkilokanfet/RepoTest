@@ -426,6 +426,8 @@
     <Compile Include="UnitOfWork\Repositories\Custom\PaymentDocumentRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\PriceCalculationItemRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\PriceCalculationRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\PriceEngineeringTaskRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\PriceEngineeringTasksRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductCategoryRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductDesignationRepository.cs" />
