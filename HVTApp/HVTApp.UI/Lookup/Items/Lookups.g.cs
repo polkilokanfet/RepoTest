@@ -1024,8 +1024,6 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-		[OrderStatus(1)]
-        public System.String Number => Entity.Number;
 
 		[OrderStatus(2000)]
         public System.String TceNumber => Entity.TceNumber;

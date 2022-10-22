@@ -13,20 +13,13 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Технико-стоимостная проработка (группы)")]
     public class PriceEngineeringTasks : BaseEntity
     {
-        [Designation("Номер"), NotMapped]
-        public string Number 
-        {
-            get
-            {
-                var statuses = this.ChildPriceEngineeringTasks.SelectMany(x => x.Statuses).ToList();
-                if (statuses.Any())
-                {
-                    var dt = statuses.Min(x => x.Moment);
-                    return $"{UserManager?.Employee.PersonalNumber}-{dt.Year.ToString().Remove(0, 2)}-{dt.Month:D2}-{dt.Day:D2}-{dt.Hour:D2}{dt.Minute:D2}{dt.Second:D2}";
-                }
-                return null;
-            }
-        }
+        [Designation("№"), OrderStatus(3000)]
+        public virtual PriceEngineeringTasksNumber Number { get; set; } = new PriceEngineeringTasksNumber();
+
+        [Designation("№ полный"), OrderStatus(3000)]
+        public string NumberFull => Number == null
+            ? "номер не назначен"
+            : $"{UserManager?.Employee.PersonalNumber}-{Number}";
 
         [Designation("Номер ТСЕ"), OrderStatus(2000), MaxLength(12)]
         public string TceNumber { get; set; }

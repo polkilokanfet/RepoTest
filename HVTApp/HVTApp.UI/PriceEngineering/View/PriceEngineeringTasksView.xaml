@@ -51,7 +51,7 @@
                                      IsReadOnly="{Binding AllowEditProps, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
                             <TextBox Grid.Column="4" 
-                                     Text="{Binding PriceEngineeringTasksWrapper.Model.Number, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding PriceEngineeringTasksWrapper.Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsReadOnly="True"
                                      BorderThickness="0"/>
 

@@ -43,30 +43,24 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
+                    var rr = unitOfWork.Repository<PriceEngineeringTasks>().GetAll();
+                    foreach (var tsks in rr.OrderBy(x => x.StartMoment))
+                    {
+                        if (tsks.Number == null)
+                        {
+                            tsks.Number = new PriceEngineeringTasksNumber();
+                        }
+                        else
+                        {
+                            var i = 1;
+                        }
 
-                    //var rr = unitOfWork.Repository<PriceEngineeringTaskTce>().GetAll();
-                    //foreach (var priceEngineeringTaskTce in rr)
-                    //{
-                    //    foreach (var sccVersion in priceEngineeringTaskTce.SccVersions.ToList())
-                    //    {
-                    //        priceEngineeringTaskTce.SccVersions.Remove(sccVersion);
-                    //        unitOfWork.Repository<PriceEngineeringTaskTceStructureCostVersion>().Delete(sccVersion);
-                    //    }
+                        foreach (var tsk in tsks.ChildPriceEngineeringTasks)
+                        {
+                            this.SetNumber(tsk);
+                        }
+                    }
 
-                    //    foreach (var storyItem in priceEngineeringTaskTce.StoryItems.ToList())
-                    //    {
-                    //        priceEngineeringTaskTce.StoryItems.Remove(storyItem);
-                    //        unitOfWork.Repository<PriceEngineeringTaskTceStoryItem>().Delete(storyItem);
-                    //    }
-
-                    //    foreach (var priceCalculation in priceEngineeringTaskTce.PriceCalculations.ToList())
-                    //    {
-                    //        priceEngineeringTaskTce.PriceCalculations.Remove(priceCalculation);
-                    //        priceCalculation.PriceEngineeringTaskTceId = null;
-                    //    }
-
-                    //    unitOfWork.Repository<PriceEngineeringTaskTce>().Delete(priceEngineeringTaskTce);
-                    //}
 
                     unitOfWork.SaveChanges();
                     unitOfWork.Dispose();
@@ -96,6 +90,23 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    var dep = list.Select(x => x.Dependent).Distinct().ToList();
                     //}
                 });
+        }
+
+        private void SetNumber(PriceEngineeringTask tsk)
+        {
+            if (tsk.Number == null)
+            {
+                tsk.Number = new PriceEngineeringTaskNumber();
+            }
+            else
+            {
+                var i = 1;
+            }
+
+            foreach (var c in tsk.ChildPriceEngineeringTasks)
+            {
+                this.SetNumber(c);
+            }
         }
     }
 
