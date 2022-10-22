@@ -18,34 +18,90 @@
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border>
+    <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
+
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!--Панель статуса-->
-            <view:PriceEngineeringTaskStatusControl 
-                Grid.Column="0"
-                StatusEnum="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Border Grid.Column="1" Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
 
-                    <Border Grid.Row="0" 
-                            MinHeight="250" 
-                            MaxHeight="500"
-                            BorderBrush="Blue"  
-                            BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
+            <Border Grid.Row="0" 
+                    MaxHeight="500"
+                    BorderBrush="Blue"  
+                    BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
 
-                        <Grid>
+                <Expander 
+                    Header="{Binding}"
+                    IsExpanded="{Binding IsTarget, Mode=OneTime}">
+                    <Expander.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Блок продукта-->
+                                <Label Grid.Column="0" Content="Блок: "/>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" 
+                                            Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
+                                            Content="..." 
+                                            Command="{Binding SelectProductBlockCommand}" 
+                                            Padding="5 0"/>
+
+                                    <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
+
+                                    <Grid Grid.Column="2" 
+                                          Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Content="SCC:" Padding="2 0 0 0"/>
+                                        <TextBox Grid.Column="1" Width="150" 
+                                                    IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
+                                                    Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                        <Label Grid.Column="2" Content=" Чертеж:" Padding="2 0 0 0"/>
+                                        <TextBox Grid.Column="3" Width="150" 
+                                                    IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
+                                                    Text="{Binding ProductBlockEngineer.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Grid>
+
+                                </Grid>
+
+                                <Label Grid.Column="2" Content=" Id задачи: "/>
+                                <TextBox Grid.Column="3" Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </Expander.HeaderTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Панель статуса-->
+                        <view:PriceEngineeringTaskStatusControl 
+                            Grid.Column="0"
+                            StatusEnum="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -72,7 +128,6 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -80,72 +135,30 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Grid.Row="0" Grid.Column="0" Content="Id задачи: "/>
-                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
-
-                                        <!--Блок продукта-->
-                                        <Label Grid.Row="1" Grid.Column="0" Content="Блок: "/>
+                                        <!--Исполнитель-->
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
                                         <Grid Grid.Row="1" Grid.Column="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <Button Grid.Column="0" 
-                                                    Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
-                                                    Content="..." 
-                                                    Command="{Binding SelectProductBlockCommand}" 
-                                                    Padding="5 0"/>
-
-                                            <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
-
-                                            <Grid Grid.Column="2" 
-                                                  Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <Label Grid.Column="0" Content="SCC:" Padding="2 0 0 0"/>
-                                                <TextBox Grid.Column="1" Width="150" 
-                                                         IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
-                                                         Text="{Binding ProductBlockEngineer.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                                                <Label Grid.Column="2" Content=" Чертеж:" Padding="2 0 0 0"/>
-                                                <TextBox Grid.Column="3" Width="150" 
-                                                         IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" 
-                                                         Text="{Binding ProductBlockEngineer.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </Grid>
-
-                                        </Grid>
-
-                                        <!--Исполнитель-->
-                                        <Label Grid.Row="2" Grid.Column="0" Content="Исполнитель: "/>
-                                        <Grid Grid.Row="2" Grid.Column="1">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
                                             <Button Grid.Column="0" 
-                                                    Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
-                                                    Content="..." 
-                                                    Command="{Binding InstructPriceEngineeringTaskCommand}" 
-                                                    Padding="5 0"/>
+                                            Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
+                                            Content="..." 
+                                            Command="{Binding InstructPriceEngineeringTaskCommand}" 
+                                            Padding="5 0"/>
                                             <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 
                                             <Label Grid.Column="2" Content=" Бюро:"></Label>
                                             <Button Grid.Column="3" 
-                                                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
-                                                    Content="..." 
-                                                    Command="{Binding SelectDesignDepartmentCommand}" 
-                                                    Padding="5 0"/>
+                                            Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
+                                            Content="..." 
+                                            Command="{Binding SelectDesignDepartmentCommand}" 
+                                            Padding="5 0"/>
                                             <TextBox Grid.Column="4" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 
                                         </Grid>
@@ -155,16 +168,14 @@
                                 </Grid>
 
                                 <!--Файлы-->
-                                <view:PriceEngineeringTaskFilesControl 
-                                    Grid.Row="1"
-                                    PriceEngineeringTaskViewModel="{Binding}"/>
+                                <view:PriceEngineeringTaskFilesControl Grid.Row="1"
+                                                                       PriceEngineeringTaskViewModel="{Binding}"/>
 
                                 <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
                                 <!--Дополнительные блоки-->
-                                <view:PriceEngineeringTaskBlocksAddedControl 
-                                    Grid.Row="3"
-                                    PriceEngineeringTaskViewModel ="{Binding}"/>
+                                <view:PriceEngineeringTaskBlocksAddedControl Grid.Row="3"
+                                                                             PriceEngineeringTaskViewModel ="{Binding}"/>
 
                                 <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
                                     <Grid>
@@ -232,49 +243,50 @@
 
                             <!--Переписка-->
                             <view:PriceEngineeringTaskChatControl 
-                                Grid.Column="2" 
-                                PriceEngineeringTaskViewModel="{Binding}"/>
+                        Grid.Column="2" 
+                        PriceEngineeringTaskViewModel="{Binding}"/>
 
                         </Grid>
-                    </Border>
 
-                    <!--Вложенные блоки-->
-                    <Expander Grid.Row="1"
-                              IsExpanded="{Binding Mode=OneTime, Converter={StaticResource IsExpendedChildTasksConverter}}"
-                              Header="Вложенные блоки"
-                              Margin="5"
-                              BorderBrush="Black"
-                              Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
-
-                        <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding ChildPriceEngineeringTasks}">
-                            <!--<ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Rows="1"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>-->
-                            <!--<ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>-->
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="White" Margin="10 0 0 0" Padding="5 2">
-                                        <StackPanel>
-                                            <view:PriceEngineeringTaskControl DataContext="{Binding}" />
-                                        </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                    </Expander>
-
-                </Grid>
+                    </Grid>
+                </Expander>
 
             </Border>
 
+            <!--Вложенные блоки-->
+            <Expander Grid.Row="1"
+                        IsExpanded="{Binding Mode=OneTime, Converter={StaticResource IsExpendedChildTasksConverter}}"
+                        Header="Вложенные блоки"
+                        Margin="5"
+                        BorderBrush="Black"
+                        Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
+
+                <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                    <!--<ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="1"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>-->
+                    <!--<ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>-->
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White" Margin="10 0 0 0" Padding="5 2">
+                                <StackPanel>
+                                    <view:PriceEngineeringTaskControl DataContext="{Binding}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </Expander>
+
         </Grid>
+
     </Border>
 
 </UserControl>
