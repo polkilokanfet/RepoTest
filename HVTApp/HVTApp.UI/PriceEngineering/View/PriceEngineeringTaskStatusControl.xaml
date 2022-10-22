@@ -15,6 +15,7 @@
             <SolidColorBrush Color="{Binding ElementName=Root, Path=StatusEnum, Converter={StaticResource StatusToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
         </Border.Background>
         <TextBlock Text="{Binding ElementName=Root, Path=StatusEnum, Converter={StaticResource StatusToStringConverter}}" 
+                   Margin="2"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center" 
                     FontWeight="Bold">
