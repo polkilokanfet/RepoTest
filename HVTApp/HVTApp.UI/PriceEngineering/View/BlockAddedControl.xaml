@@ -6,6 +6,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:ribbon="http://schemas.infragistics.com/xaml/wpf"
+             x:Name="Root"
              MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ribbon:RibbonWindowContentHost}}, Path=ActualWidth, Converter={StaticResource BlockAddedWidthConverter}}">
 
     <UserControl.Resources>
@@ -29,21 +30,29 @@
             <view:ProductBlockControl Grid.Column="0" ProductBlock="{Binding ProductBlock.Model, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 0 0 0"/>
 
             <Label Grid.Column="1" Content="Чертеж: " Margin="5 0 0 0"/>
-            <TextBox Grid.Column="2" Width="120" 
+            <TextBox Grid.Column="2" 
+                     DataContext="{Binding ElementName=Root, Path=ProductBlockAdded}"
+                     Width="120" 
                      Text="{Binding ProductBlock.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Grid.Column="3" Content="SCC: " Margin="5 0 0 0"/>
-            <TextBox Grid.Column="4" Width="120" 
+            <TextBox Grid.Column="4" 
+                     DataContext="{Binding ElementName=Root, Path=ProductBlockAdded}"
+                     Width="120" 
                      Text="{Binding ProductBlock.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <editors:XamNumericEditor Grid.Column="5" Width="37" Margin="10 0 0 0" 
+            <editors:XamNumericEditor Grid.Column="5" 
+                                      DataContext="{Binding ElementName=Root, Path=ProductBlockAdded}"
+                                      Width="37" 
+                                      Margin="10 0 0 0" 
                                       Value="{Binding Amount}" ValueType="system:Int32"
                                       IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="6" Content=" шт.: "/>
 
             <CheckBox Grid.Column="7" 
+                      DataContext="{Binding ElementName=Root, Path=ProductBlockAdded}"
                       IsChecked="{Binding IsOnBlock, Mode=TwoWay}" Margin="5 0 0 0"
                       IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:PriceEngineeringTaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="8" Content=" - на блок"/>
