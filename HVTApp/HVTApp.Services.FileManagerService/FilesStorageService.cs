@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Services;
 
 namespace HVTApp.Services.FileManagerService
@@ -68,6 +67,7 @@ namespace HVTApp.Services.FileManagerService
 
         public string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string targetDirectoryPath, string addToFileName = null, bool showTargetDirectory = true)
         {
+            //проверка наличия файла
             FileInfo fileInfo;
             try
             {
