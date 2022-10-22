@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTaskChatControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:messages="clr-namespace:HVTApp.UI.PriceEngineering.Messages"
+             x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:PriceEngineeringTaskViewModelIsTargetTaskVisibilityConverter x:Key="IsTargetTaskVisibilityConverter" />
+    </UserControl.Resources>
+    
+    <!--Переписка-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Переписка">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl 
+                    DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}"
+                    ItemsSource="{Binding Messenger, Mode=OneWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <messages:MessageControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </GroupBox>
+
+        <Grid Grid.Row="1" 
+              Visibility="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel, Converter={StaticResource IsTargetTaskVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" 
+                     DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}"
+                     IsEnabled="{Binding Messenger.AllowTexting, UpdateSourceTrigger=PropertyChanged}" 
+                     Text="{Binding Messenger.MessageText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Button Grid.Column="1" 
+                    DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}"
+                    Content="Отправить" 
+                    Command="{Binding Messenger.SendMessageCommand}"/>
+        </Grid>
+
+    </Grid>
+
+</UserControl>

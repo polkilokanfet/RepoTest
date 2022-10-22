@@ -381,37 +381,9 @@
                             <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
                             <!--Переписка-->
-                            <Grid Grid.Column="2" >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <GroupBox Grid.Row="0" Header="Переписка">
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <ItemsControl ItemsSource="{Binding Messenger, Mode=OneWay}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <messages:MessageControl/>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </ScrollViewer>
-                                </GroupBox>
-
-                                <Grid Grid.Row="1" Visibility="{Binding Converter={StaticResource IsTargetTaskVisibilityConverter}}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBox Grid.Column="0" 
-                                             IsEnabled="{Binding Messenger.AllowTexting, UpdateSourceTrigger=PropertyChanged}" 
-                                             Text="{Binding Messenger.MessageText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <Button Grid.Column="1" Content="Отправить" Command="{Binding Messenger.SendMessageCommand}"/>
-                                </Grid>
-
-                            </Grid>
+                            <view:PriceEngineeringTaskChatControl 
+                                Grid.Column="2" 
+                                PriceEngineeringTaskViewModel="{Binding}"/>
 
                         </Grid>
                     </Border>
