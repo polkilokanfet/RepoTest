@@ -23,7 +23,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
 
                 if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelConstructor viewModelConstructor)
                 {
-                    return viewModelConstructor.UserConstructor != null && viewModelConstructor.Model.GetSuitableTasksForWork(GlobalAppProperties.User).Any();
+                    return viewModelConstructor.Model.GetSuitableTasksForWork(GlobalAppProperties.User).Any();
                 }
 
                 if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelDesignDepartmentHead viewModelDesignDepartmentHead)

@@ -34,7 +34,7 @@
                     <RowDefinition Height="Auto" MaxHeight="250"/>
                 </Grid.RowDefinitions>
 
-                <GroupBox Grid.Row="0" Header="Общая информация">
+                <GroupBox Grid.Row="0" Header="Общая информация для всего оборудования в заданиях">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
