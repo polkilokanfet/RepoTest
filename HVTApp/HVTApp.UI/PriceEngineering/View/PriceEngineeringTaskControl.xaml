@@ -243,8 +243,8 @@
 
                             <!--Переписка-->
                             <view:PriceEngineeringTaskChatControl 
-                        Grid.Column="2" 
-                        PriceEngineeringTaskViewModel="{Binding}"/>
+                                Grid.Column="2" 
+                                PriceEngineeringTaskViewModel="{Binding}"/>
 
                         </Grid>
 
@@ -261,7 +261,10 @@
                         BorderBrush="Black"
                         Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
 
-                <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                <ItemsControl 
+                    Background="Transparent" 
+                    HorizontalAlignment="Stretch" 
+                    ItemsSource="{Binding ChildPriceEngineeringTasks}">
                     <!--<ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Rows="1"/>
@@ -274,7 +277,10 @@
                     </ListBox.ItemContainerStyle>-->
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="White" Margin="10 0 0 0" Padding="5 2">
+                            <Border 
+                                Background="Transparent" 
+                                Margin="10 0 0 0" 
+                                Padding="5 2">
                                 <StackPanel>
                                     <view:PriceEngineeringTaskControl DataContext="{Binding}" />
                                 </StackPanel>

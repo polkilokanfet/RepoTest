@@ -17,9 +17,11 @@
                     Visibility="{Binding Converter={StaticResource StatusMessageVisibilityConverter}}">
 
             <TextBlock VerticalAlignment="Center" Text="{Binding Moment, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter}}"/>
-            <TextBox Text="{Binding Message, Mode=OneWay}" VerticalAlignment="Center"
+            <TextBox Text="{Binding Message, Mode=OneWay}" 
+                     VerticalAlignment="Center"
                      TextWrapping="Wrap"
                      IsReadOnly="True"
+                     Background="Transparent"
                      BorderThickness="0"/>
 
         </StackPanel>

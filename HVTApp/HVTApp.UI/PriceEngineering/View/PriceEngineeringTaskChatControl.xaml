@@ -16,7 +16,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Переписка">
+        <GroupBox Grid.Row="0" Background="Transparent">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <Label Content="События и переписка"/>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl 
                     DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}"
