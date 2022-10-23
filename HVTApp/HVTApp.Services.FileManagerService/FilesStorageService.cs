@@ -166,11 +166,11 @@ namespace HVTApp.Services.FileManagerService
             return true;
         }
 
-        public void GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName)
+        public string GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName)
         {
             var destinationDirectory = this.GetFolderPath();
             if (string.IsNullOrEmpty(destinationDirectory))
-                return;
+                return null;
 
             string tempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
 
@@ -181,8 +181,27 @@ namespace HVTApp.Services.FileManagerService
                 this.CopyFileFromStorage(file.File.Id, file.SourcePath, ttp, null, false);
             }
 
-            ZipFile.CreateFromDirectory(tempDirectory, Path.Combine(destinationDirectory, $"{zipFileName}.zip"));
+            var destinationFilePath = Path.Combine(destinationDirectory, $"{zipFileName}.zip");
+            ZipFile.CreateFromDirectory(tempDirectory, destinationFilePath);
             Directory.Delete(tempDirectory, true);
+            return destinationFilePath;
+        }
+
+        public void AddFilesToZip(string zipPath, string[] files)
+        {
+            if (files == null || files.Length == 0)
+            {
+                return;
+            }
+
+            using (var zipArchive = ZipFile.Open(zipPath, ZipArchiveMode.Update))
+            {
+                foreach (var file in files)
+                {
+                    var fileInfo = new FileInfo(file);
+                    zipArchive.CreateEntryFromFile(fileInfo.FullName, fileInfo.Name);
+                }
+            }
         }
     }
 }

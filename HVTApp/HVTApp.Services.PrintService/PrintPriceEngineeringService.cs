@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using HVTApp.Infrastructure;
@@ -20,6 +21,25 @@ namespace HVTApp.Services.PrintService
         {
             this.PrintPriceEngineeringTasksInformation(Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(id));
         }
+
+        public string PrintPriceEngineeringTask(Guid id, string destDirectory = null, string fileName = null)
+        {
+            destDirectory = destDirectory ?? Path.GetTempPath();
+            fileName = fileName ?? Guid.NewGuid().ToString();
+            string documentPath = Path.Combine(destDirectory, $"{fileName}.docx");
+
+            WordDocumentWriter docWriter = WordDocumentWriter.Create(documentPath);
+            docWriter.StartDocument();
+
+            docWriter.PrintParagraph("Информация о технической проработке задачи в УП ВВА.");
+            this.PrintPriceEngineeringTaskInformation(Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(id), docWriter);
+
+            docWriter.EndDocument();
+            docWriter.Close();
+            //System.Diagnostics.Process.Start(documentPath);
+            return documentPath;
+        }
+
 
         private void PrintPriceEngineeringTasksInformation(PriceEngineeringTasks priceEngineeringTasks)
         {

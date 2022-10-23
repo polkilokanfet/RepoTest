@@ -28,9 +28,9 @@
                            Command="{Binding StopCommand}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />
 
-        <infRib:ButtonTool Caption="Печать"
+        <!--<infRib:ButtonTool Caption="Печать"
                            Command="{Binding PrintCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/print.png" />
+                           SmallImage="/HVTApp.UI;component/Images/print.png" />-->
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Общее ТЗ" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">

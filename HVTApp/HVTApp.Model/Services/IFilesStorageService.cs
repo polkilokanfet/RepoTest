@@ -63,6 +63,8 @@ namespace HVTApp.Model.Services
         /// <returns>Успешно ли прошло копирование</returns>
         bool CopyDirectory(string sourcePath, string destinationPath);
 
-        void GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName);
+        string GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName);
+
+        void AddFilesToZip(string zipPath, string[] files);
     }
 }

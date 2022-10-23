@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -57,7 +59,24 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 }
             }
 
-            Container.Resolve<IFilesStorageService>().GetZipFolder(files, $"{priceEngineeringTask.Number}_{DateTime.Now.ToShortDateString().ReplaceUncorrectSimbols()}");
+            var filesStorageService = Container.Resolve<IFilesStorageService>();
+            try
+            {
+                var zipFilePath = filesStorageService.GetZipFolder(files, $"{priceEngineeringTask.Number}_{DateTime.Now.ToShortDateString().ReplaceUncorrectSimbols()}");
+                if (string.IsNullOrEmpty(zipFilePath) == false)
+                {
+                    var rr = Container.Resolve<IPrintPriceEngineering>().PrintPriceEngineeringTask(priceEngineeringTask.Id);
+                    if (string.IsNullOrEmpty(rr) == false)
+                    {
+                        filesStorageService.AddFilesToZip(zipFilePath, new []{rr});
+                        System.Diagnostics.Process.Start(Path.GetDirectoryName(zipFilePath));
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.Message);
+            }
         }
 
         private class FileCopyStorage : IFileCopyStorage
