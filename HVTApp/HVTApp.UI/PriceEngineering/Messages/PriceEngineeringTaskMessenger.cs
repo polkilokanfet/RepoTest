@@ -63,9 +63,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
         public PriceEngineeringTaskMessenger(PriceEngineeringTaskViewModel viewModel, IUnityContainer container) 
             : base(new ObservableCollection<IMessage>())
         {
-            var messages = new List<IMessage>(viewModel.Model.Messages);
-            messages.AddRange(viewModel.Model.Statuses.Select(PriceEngineeringTaskStatusMessage.Convert));
-            this.Items.AddRange(messages.OrderByDescending(x => x.Moment));
+            this.Items.AddRange(viewModel.Model.GetMessages().OrderByDescending(x => x.Moment));
 
             _viewModel = viewModel;
             _container = container;
@@ -131,61 +129,4 @@ namespace HVTApp.UI.PriceEngineering.Messages
         }
     }
 
-    public class PriceEngineeringTaskStatusMessage : IMessage
-    {
-        public DateTime Moment { get; }
-        public string Message { get; }
-
-        private PriceEngineeringTaskStatusMessage(DateTime moment, string message)
-        {
-            Moment = moment;
-            Message = message;
-        }
-
-        public static PriceEngineeringTaskStatusMessage Convert(PriceEngineeringTaskStatus status)
-        {
-            var sb = new StringBuilder();
-
-            switch (status.StatusEnum)
-            {
-                case PriceEngineeringTaskStatusEnum.Created:
-                    sb.Append("Менеджер создал задачу");
-                    break;
-                case PriceEngineeringTaskStatusEnum.Started:
-                    sb.Append("Менеджер запустил задачу на проработку");
-                    break;
-                case PriceEngineeringTaskStatusEnum.Stopped:
-                    sb.Append("Менеджер остановил проработку задачи");
-                    break;
-                case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                    sb.Append("Менеджер вернул задачу на доработку исполнителю");
-                    break;
-                case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
-                    sb.Append("Исполнитель отклонил задачу");
-                    break;
-                case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                    sb.Append("Исполнитель завершил работу над задачей");
-                    break;
-                case PriceEngineeringTaskStatusEnum.Accepted:
-                    sb.Append("Менеджер принял проработку задачи");
-                    break;
-                case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
-                    sb.Append("Исполнитель направил задачу на проверку руководителю");
-                    break;
-                case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
-                    sb.Append("Руководитель согласовал исполнителю проработку");
-                    break;
-                case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
-                    sb.Append("Руководитель отклонил исполнителю проработку");
-                    break;
-            }
-
-            if (string.IsNullOrWhiteSpace(status.Comment) == false)
-            {
-                sb.AppendLine(status.Comment);
-            }
-
-            return new PriceEngineeringTaskStatusMessage(status.Moment, sb.ToString());
-        }
-    }
 }

@@ -386,5 +386,21 @@ namespace HVTApp.Model.POCOs
                     }).ToList()
             };
         }
+
+        public string GetDirectoryName()
+        {
+            return $"{this.Number:D4}";
+        }
+
+        /// <summary>
+        /// Сообщения + "сообщения-статусы"
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IMessage> GetMessages()
+        {
+            var messages = new List<IMessage>(this.Messages);
+            messages.AddRange(this.Statuses.Select(PriceEngineeringTaskStatusMessage.Convert));
+            return messages.OrderByDescending(x => x.Moment);
+        }
     }
 }

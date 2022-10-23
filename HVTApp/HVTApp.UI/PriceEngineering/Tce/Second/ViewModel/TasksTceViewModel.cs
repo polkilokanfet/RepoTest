@@ -48,12 +48,12 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             {
                 foreach (var fileTechnicalRequirement in pet.FilesTechnicalRequirements)
                 {
-                    files.Add(new FileCopyStorage(fileTechnicalRequirement, $"{pet.Number}-TechReq", GlobalAppProperties.Actual.TechnicalRequrementsFilesPath));
+                    files.Add(new FileCopyStorage(fileTechnicalRequirement, $"{pet.GetDirectoryName()}-TechReq", GlobalAppProperties.Actual.TechnicalRequrementsFilesPath));
                 }
 
                 foreach (var answer in pet.FilesAnswers)
                 {
-                    files.Add(new FileCopyStorage(answer, $"{pet.Number}-Answer", GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath));
+                    files.Add(new FileCopyStorage(answer, $"{pet.GetDirectoryName()}-Answer", GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath));
                 }
             }
 
@@ -63,14 +63,13 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         private class FileCopyStorage : IFileCopyStorage
         {
             public IFileStorage File { get; }
-            public string TargetPath { get; }
-
+            public string DestinationDirectoryName { get; }
             public string SourcePath { get; }
 
-            public FileCopyStorage(IFileStorage file, string targetPathName, string sourcePath)
+            public FileCopyStorage(IFileStorage file, string destinationDirectoryNameName, string sourcePath)
             {
                 File = file;
-                TargetPath = targetPathName;
+                DestinationDirectoryName = destinationDirectoryNameName;
                 SourcePath = sourcePath;
             }
         }

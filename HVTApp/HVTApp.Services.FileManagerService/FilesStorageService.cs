@@ -176,7 +176,7 @@ namespace HVTApp.Services.FileManagerService
 
             foreach (var file in files)
             {
-                var ttp = Path.Combine(tempDirectory, file.TargetPath);
+                var ttp = Path.Combine(tempDirectory, file.DestinationDirectoryName);
                 Directory.CreateDirectory(ttp);
                 this.CopyFileFromStorage(file.File.Id, file.SourcePath, ttp, null, false);
             }

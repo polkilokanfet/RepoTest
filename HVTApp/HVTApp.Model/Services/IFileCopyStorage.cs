@@ -3,7 +3,7 @@
     public interface IFileCopyStorage
     {
         IFileStorage File { get; }
-        string TargetPath { get; }
+        string DestinationDirectoryName { get; }
         string SourcePath { get; }
     }
 }
