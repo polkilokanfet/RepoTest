@@ -43,29 +43,29 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    var rr = unitOfWork.Repository<PriceEngineeringTasks>().GetAll();
-                    foreach (var tsks in rr.OrderBy(x => x.StartMoment))
-                    {
-                        if (tsks.Number == null)
-                        {
-                            tsks.Number = new PriceEngineeringTasksNumber();
-                        }
-                        else
-                        {
-                            var i = 1;
-                        }
+                    //var rr = unitOfWork.Repository<PriceEngineeringTasks>().GetAll();
+                    //foreach (var tsks in rr.OrderBy(x => x.StartMoment))
+                    //{
+                    //    if (tsks.Number == null)
+                    //    {
+                    //        tsks.Number = new PriceEngineeringTasksNumber();
+                    //    }
+                    //    else
+                    //    {
+                    //        var i = 1;
+                    //    }
 
-                        foreach (var tsk in tsks.ChildPriceEngineeringTasks)
-                        {
-                            this.SetNumber(tsk);
-                        }
-                    }
+                    //    foreach (var tsk in tsks.ChildPriceEngineeringTasks)
+                    //    {
+                    //        this.SetNumber(tsk);
+                    //    }
+                    //}
 
 
-                    unitOfWork.SaveChanges();
-                    unitOfWork.Dispose();
+                    //unitOfWork.SaveChanges();
+                    //unitOfWork.Dispose();
 
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "!!!");
+                    //_container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "!!!");
 
 
 
@@ -90,23 +90,6 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    var dep = list.Select(x => x.Dependent).Distinct().ToList();
                     //}
                 });
-        }
-
-        private void SetNumber(PriceEngineeringTask tsk)
-        {
-            if (tsk.Number == null)
-            {
-                tsk.Number = new PriceEngineeringTaskNumber();
-            }
-            else
-            {
-                var i = 1;
-            }
-
-            foreach (var c in tsk.ChildPriceEngineeringTasks)
-            {
-                this.SetNumber(c);
-            }
         }
     }
 

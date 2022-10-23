@@ -46,11 +46,9 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PriceEngineeringTaskFileAnswerConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskFileTechnicalRequirementsConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskMessageConfiguration());
-            modelBuilder.Configurations.Add(new PriceEngineeringTaskNumberConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskProductBlockAddedConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTasksConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTasksFileTechnicalRequirementsConfiguration());
-            modelBuilder.Configurations.Add(new PriceEngineeringTasksNumberConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskStatusConfiguration());
             modelBuilder.Configurations.Add(new StructureCostVersionConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
@@ -156,11 +154,9 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PriceEngineeringTaskFileAnswer> PriceEngineeringTaskFileAnswerDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskFileTechnicalRequirements> PriceEngineeringTaskFileTechnicalRequirementsDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskMessage> PriceEngineeringTaskMessageDbSet { get; set; }
-        public virtual DbSet<PriceEngineeringTaskNumber> PriceEngineeringTaskNumberDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskProductBlockAdded> PriceEngineeringTaskProductBlockAddedDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTasks> PriceEngineeringTasksDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTasksFileTechnicalRequirements> PriceEngineeringTasksFileTechnicalRequirementsDbSet { get; set; }
-        public virtual DbSet<PriceEngineeringTasksNumber> PriceEngineeringTasksNumberDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskStatus> PriceEngineeringTaskStatusDbSet { get; set; }
         public virtual DbSet<StructureCostVersion> StructureCostVersionDbSet { get; set; }
         public virtual DbSet<ProductCategory> ProductCategoryDbSet { get; set; }

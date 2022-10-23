@@ -9,8 +9,7 @@ namespace HVTApp.DataAccess
         protected override IQueryable<PriceEngineeringTask> GetQuery()
         {
             return Context.Set<PriceEngineeringTask>().AsQueryable()
-                .Include(x => x.ChildPriceEngineeringTasks.Select(c => c.Number))
-                .Include(x => x.Number)
+                .Include(x => x.ChildPriceEngineeringTasks)
                 .Include(x => x.UserConstructor);
         }
     }

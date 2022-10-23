@@ -15,8 +15,9 @@ namespace HVTApp.Model.POCOs
     {
         #region DB
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Designation("№"), OrderStatus(3000)]
-        public virtual PriceEngineeringTaskNumber Number { get; set; } = new PriceEngineeringTaskNumber();
+        public int Number { get; set; }
 
         [Designation("Id группы"), OrderStatus(2000)]
         public virtual Guid? ParentPriceEngineeringTasksId { get; set; }

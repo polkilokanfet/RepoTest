@@ -13,13 +13,12 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Технико-стоимостная проработка (группы)")]
     public class PriceEngineeringTasks : BaseEntity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Designation("№"), OrderStatus(3000)]
-        public virtual PriceEngineeringTasksNumber Number { get; set; } = new PriceEngineeringTasksNumber();
+        public int Number { get; set; }
 
         [Designation("№ полный"), OrderStatus(3000)]
-        public string NumberFull => Number == null
-            ? "номер не назначен"
-            : $"{UserManager?.Employee.PersonalNumber}-{Number}";
+        public string NumberFull => $"{UserManager?.Employee.PersonalNumber}-{Number:D4}";
 
         [Designation("Номер ТСЕ"), OrderStatus(2000), MaxLength(12)]
         public string TceNumber { get; set; }

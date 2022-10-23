@@ -2491,6 +2491,17 @@ namespace HVTApp.Model.Wrapper
         #region SimpleProperties
 
         /// <summary>
+        /// №
+        /// </summary>
+        public System.Int32 Number
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
+        public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+        /// <summary>
         /// Id группы
         /// </summary>
         public System.Nullable<System.Guid> ParentPriceEngineeringTasksId
@@ -3088,6 +3099,17 @@ namespace HVTApp.Model.Wrapper
         #region SimpleProperties
 
         /// <summary>
+        /// №
+        /// </summary>
+        public System.Int32 Number
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
+        public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+        /// <summary>
         /// Номер ТСЕ
         /// </summary>
         public System.String TceNumber
@@ -3185,9 +3207,9 @@ namespace HVTApp.Model.Wrapper
         #region GetProperties
 
         /// <summary>
-        /// Номер
+        /// № полный
         /// </summary>
-        public System.String Number => GetValue<System.String>(); 
+        public System.String NumberFull => GetValue<System.String>(); 
 
         /// <summary>
         /// Всё принято?

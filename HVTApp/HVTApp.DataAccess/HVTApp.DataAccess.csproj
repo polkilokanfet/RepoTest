@@ -404,9 +404,9 @@
     <Compile Include="Migrations\202209280729180_PaymentsId.Designer.cs">
       <DependentUpon>202209280729180_PaymentsId.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202210220926290_PriceEngineeringTaskNumber.cs" />
-    <Compile Include="Migrations\202210220926290_PriceEngineeringTaskNumber.Designer.cs">
-      <DependentUpon>202210220926290_PriceEngineeringTaskNumber.cs</DependentUpon>
+    <Compile Include="Migrations\202210231458305_PriceEngineeringTaskNumbering.cs" />
+    <Compile Include="Migrations\202210231458305_PriceEngineeringTaskNumbering.Designer.cs">
+      <DependentUpon>202210231458305_PriceEngineeringTaskNumbering.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -663,8 +663,8 @@
     <EmbeddedResource Include="Migrations\202209280729180_PaymentsId.resx">
       <DependentUpon>202209280729180_PaymentsId.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202210220926290_PriceEngineeringTaskNumber.resx">
-      <DependentUpon>202210220926290_PriceEngineeringTaskNumber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202210231458305_PriceEngineeringTaskNumbering.resx">
+      <DependentUpon>202210231458305_PriceEngineeringTaskNumbering.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
