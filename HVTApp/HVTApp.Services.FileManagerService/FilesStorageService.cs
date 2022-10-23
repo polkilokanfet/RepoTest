@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Extansions;
@@ -48,21 +49,10 @@ namespace HVTApp.Services.FileManagerService
 
         public string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null, bool showTargetDirectory = true)
         {
-            string targetDirectoryPath;
-            using (var folderBrowserDialog = new FolderBrowserDialog())
-            {
-                var result = folderBrowserDialog.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
-                {
-                    targetDirectoryPath = folderBrowserDialog.SelectedPath;
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
-
-            return this.CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName, showTargetDirectory);
+            string targetDirectoryPath = this.GetFolderPath();
+            return string.IsNullOrEmpty(targetDirectoryPath) 
+                ? string.Empty 
+                : this.CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName, showTargetDirectory);
         }
 
         public string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string targetDirectoryPath, string addToFileName = null, bool showTargetDirectory = true)
@@ -113,26 +103,22 @@ namespace HVTApp.Services.FileManagerService
 
         public void CopyFilesFromStorage(IEnumerable<IFileStorage> files, string storageDirectoryPath, bool addName = true, bool showTargetDirectory = true)
         {
-            using (var fdb = new FolderBrowserDialog())
+            var targetDirectory = this.GetFolderPath();
+            if (string.IsNullOrEmpty(targetDirectory))
+                return;
+
+            foreach (var file in files)
             {
-                var result = fdb.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
-                {
-                    var selectedPath = fdb.SelectedPath;
-                    foreach (var file in files)
-                    {
-                        string addToFileName = addName 
-                            ? $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}"
-                            : string.Empty;
+                string addToFileName = addName 
+                    ? $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}"
+                    : string.Empty;
 
-                        CopyFileFromStorage(file.Id, storageDirectoryPath, selectedPath, addToFileName, false);
-                    }
+                CopyFileFromStorage(file.Id, storageDirectoryPath, targetDirectory, addToFileName, false);
+            }
 
-                    if (showTargetDirectory)
-                    {
-                        Process.Start(selectedPath);
-                    }
-                }
+            if (showTargetDirectory)
+            {
+                Process.Start(targetDirectory);
             }
         }
 
@@ -178,6 +164,25 @@ namespace HVTApp.Services.FileManagerService
                 File.Copy(newPath, newPath.Replace(sourcePath, destinationPath), true);
 
             return true;
+        }
+
+        public void GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName)
+        {
+            var destinationDirectory = this.GetFolderPath();
+            if (string.IsNullOrEmpty(destinationDirectory))
+                return;
+
+            string tempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+
+            foreach (var file in files)
+            {
+                var ttp = Path.Combine(tempDirectory, file.TargetPath);
+                Directory.CreateDirectory(ttp);
+                this.CopyFileFromStorage(file.File.Id, file.SourcePath, ttp, null, false);
+            }
+
+            ZipFile.CreateFromDirectory(tempDirectory, Path.Combine(destinationDirectory, $"{zipFileName}.zip"));
+            Directory.Delete(tempDirectory, true);
         }
     }
 }

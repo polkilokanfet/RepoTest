@@ -62,11 +62,7 @@ namespace HVTApp.Model.Services
         /// <param name="destinationPath">Путь к директории, куда нужно скопировать</param>
         /// <returns>Успешно ли прошло копирование</returns>
         bool CopyDirectory(string sourcePath, string destinationPath);
-    }
 
-    public interface IFileStorage
-    {
-        Guid Id { get; }
-        string Name { get; }
+        void GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName);
     }
 }
