@@ -153,12 +153,12 @@ namespace HVTApp.UI.ViewModels
             get => _selectedItem;
             set
             {
-                if (Equals(_selectedItem, value)) return;
-                _selectedItem = value;
-                SelectedLookup = _selectedItem == null 
-                    ? null
-                    : Lookups.Single(lookup => lookup.Entity.Id == _selectedItem.Id);
-                RaisePropertyChanged();
+                if (this.SetProperty(ref _selectedItem, value))
+                {
+                    SelectedLookup = _selectedItem == null 
+                        ? null
+                        : Lookups.Single(lookup => lookup.Entity.Id == _selectedItem.Id);
+                }
             }
         }
 

@@ -9,7 +9,7 @@ using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Mvvm;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public class WorkloadOnEmployeesViewModel : ViewModelBase
     {

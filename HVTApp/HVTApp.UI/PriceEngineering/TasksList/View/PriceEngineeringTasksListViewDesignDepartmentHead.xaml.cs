@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.UI.PriceEngineering.Tabs;
+using HVTApp.UI.PriceEngineering.ViewModel;
 using Prism.Events;
 using Prism.Regions;
 

@@ -124,27 +124,6 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        public string GetStatusForDesignDepartmentHead()
-        {
-            if (this.UserConstructor == null)
-            {
-                return this.StartMoment.HasValue
-                    ? "Требует поручения"
-                    : "Задача остановлена";
-            }
-
-            if (StartMoment.HasValue)
-            {
-                if (Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification)
-                    return "Требует проверки";
-
-                return IsFinishedByConstructor
-                    ? "Поручено (проработано исполнителем)"
-                    : "Поручено (не проработано исполнителем)";
-            }
-
-            return "Поручено (задача остановлена)";
-        }
 
         public bool IsFinishedByConstructor
         {
