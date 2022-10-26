@@ -6,6 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -125,6 +126,11 @@ namespace HVTApp.UI.PriceEngineering.ParametersService1
             SelectBaseProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (designDepartment1.ParameterSetsAddedBlocks.Any() == false)
+                    {
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомление", $"В КБ \"{designDepartment1.Name}\" нет ни одного дополнительного блока. Обратитесь к администратору.");
+                        return;
+                    }
                     var block = container.Resolve<IGetProductService>().GetProductBlock(designDepartment1.ParameterSetsAddedBlocks);
                     if (block != null && block.Id != BaseProductBlock?.Id)
                     {
