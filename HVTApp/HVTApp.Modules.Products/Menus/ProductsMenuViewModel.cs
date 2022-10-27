@@ -5,6 +5,7 @@ using HVTApp.UI.Modules.Products.Parameters;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Reference;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.Views;
 
 namespace HVTApp.Modules.Products.Menus

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
@@ -14,7 +15,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public abstract class PriceEngineeringTasksListViewModelBase<TTasks, TTask> : ViewModelBase
+    public abstract class PriceEngineeringTasksListViewModelBase<TTasks, TTask> : ViewModelBaseCanExportToExcel
         where TTask : PriceEngineeringTaskListItemBase
         where TTasks : PriceEngineeringTasksListItemBase<TTask>
     {
@@ -45,10 +46,23 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             OpenCommand = new DelegateLogCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters
+                    object paremeter = null;
+                    if (SelectedItem is TTasks tTasks)
                     {
-                        { nameof(PriceEngineeringTasks), this.SelectedItem }
-                    });
+                        paremeter = tTasks.Entity;
+                    }
+                    else if (SelectedItem is TTask tTask)
+                    {
+                        paremeter = tTask.Entity;
+                    }
+
+                    if (paremeter != null)
+                    {
+                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters
+                        {
+                            { nameof(PriceEngineeringTasks), paremeter }
+                        });
+                    }
                 },
                 () => SelectedItem != null);
 

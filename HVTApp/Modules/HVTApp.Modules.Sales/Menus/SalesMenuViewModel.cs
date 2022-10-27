@@ -7,6 +7,7 @@ using HVTApp.UI.Modules.Sales.Supervision;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 
 namespace HVTApp.Modules.Sales.Menus

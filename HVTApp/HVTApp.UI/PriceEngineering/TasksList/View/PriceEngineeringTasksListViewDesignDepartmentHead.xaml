@@ -5,6 +5,7 @@
               xmlns:dp="http://infragistics.com/DataPresenter"
               xmlns:controls="http://infragistics.com/Windows"
               xmlns:priceEngineering="clr-namespace:HVTApp.UI.PriceEngineering"
+              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
               x:Name="Root">
 
     <Grid>
@@ -15,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Header="Задачи">
-            <priceEngineering:PriceEngineeringTasksListControl ViewModel="{Binding}"/>
+            <view:PriceEngineeringTasksListControl ViewModel="{Binding}"/>
         </GroupBox>
 
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="2"/>

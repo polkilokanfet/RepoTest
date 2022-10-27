@@ -13,60 +13,56 @@ namespace HVTApp.UI.PriceEngineering.Items
         where TChildTask: PriceEngineeringTaskListItemBase
     {
         [Designation("Объекты"), OrderStatus(5000)]
-        public string Facilities =>
-            Entity.ChildPriceEngineeringTasks
-                .SelectMany(x => x.SalesUnits)
-                .Select(x => x.Facility)
-                .Distinct()
-                .OrderBy(x => x.Name)
-                .ToStringEnum();
-
+        public abstract string Facilities { get; }
+            
         [Designation("Блоки"), OrderStatus(4000)]
         public string ProductBlocks =>
-            Entity.ChildPriceEngineeringTasks
-                .Select(x => x.ProductBlockEngineer)
+            this.ChildPriceEngineeringTasks
+                .Select(x => x.Entity.ProductBlock)
                 .Distinct()
                 .OrderBy(x => x.Designation)
                 .ToStringEnum();
 
         [Designation("Исполнители"), OrderStatus(3000)]
-        public string Users => ChildPriceEngineeringTasks
-            .Select(x => x.Entity.UserConstructor)
-            .Where(x => x != null)
-            .Distinct()
-            .ToStringEnum();
+        public string Users =>
+            this.ChildPriceEngineeringTasks
+                .Select(x => x.Entity.UserConstructor)
+                .Where(x => x != null)
+                .Distinct()
+                .ToStringEnum();
 
-        public string StatusString => ChildPriceEngineeringTasks
-            .Select(x => x.StatusString)
-            .Distinct()
-            .OrderBy(x => x)
-            .ToStringEnum();
+        public string StatusString =>
+            this.ChildPriceEngineeringTasks
+                .Select(x => x.StatusString)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToStringEnum();
 
         public bool ToShow => ChildPriceEngineeringTasks.Any(x => x.ToShow);
 
-        public bool ToShowTce
-        {
-            get
-            {
-                switch (GlobalAppProperties.User.RoleCurrent)
-                {
-                    case Role.SalesManager:
-                    {
-                        return true;
-                    }
-                    case Role.BackManager:
-                    {
-                        return Entity.PriceCalculations.Any(x => x.IsTceConnected && x.LastHistoryItem.Type == PriceCalculationHistoryItemType.Create);
-                    }
-                    case Role.BackManagerBoss:
-                    {
-                        return Entity.BackManager == null;
-                    }
-                }
+        //public bool ToShowTce
+        //{
+        //    get
+        //    {
+        //        switch (GlobalAppProperties.User.RoleCurrent)
+        //        {
+        //            case Role.SalesManager:
+        //            {
+        //                return true;
+        //            }
+        //            case Role.BackManager:
+        //            {
+        //                return Entity.PriceCalculations.Any(x => x.IsTceConnected && x.LastHistoryItem.Type == PriceCalculationHistoryItemType.Create);
+        //            }
+        //            case Role.BackManagerBoss:
+        //            {
+        //                return Entity.BackManager == null;
+        //            }
+        //        }
 
-                return true;
-            }
-        }
+        //        return true;
+        //    }
+        //}
 
         #region Model props
 
@@ -85,13 +81,11 @@ namespace HVTApp.UI.PriceEngineering.Items
         public System.Boolean IsAccepted => Entity.IsAccepted;
 
         [OrderStatus(2000)]
-        public System.Nullable<System.DateTime> StartMoment => Entity.StartMoment;
+        public System.DateTime? StartMoment => Entity.StartMoment;
 
         #endregion
 
         #region ComplexProperties
-        [OrderStatus(1900)]
-        public UserLookup UserManager { get { return GetLookup<UserLookup>(); } }
 
         [OrderStatus(1800)]
         public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using HVTApp.UI.PriceEngineering.ViewModel;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.View
 {
     public partial class PriceEngineeringTasksListControl : UserControl
     {

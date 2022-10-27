@@ -5340,41 +5340,7 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
-        public System.Windows.Visibility FacilitiesVisibility
-        {
-            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Facilities)].Visibility; }
-            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Facilities)].Visibility = value; }
-        }
 
-        public System.Windows.Visibility ProductBlocksVisibility
-        {
-            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ProductBlocks)].Visibility; }
-            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ProductBlocks)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility UsersVisibility
-        {
-            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Users)].Visibility; }
-            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.Users)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility StatusStringVisibility
-        {
-            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.StatusString)].Visibility; }
-            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.StatusString)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility ToShowVisibility
-        {
-            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ToShow)].Visibility; }
-            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ToShow)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility ToShowTceVisibility
-        {
-            get { return PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ToShowTce)].Visibility; }
-            set { PriceEngineeringTasksLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksLookup.ToShowTce)].Visibility = value; }
-        }
 
         public System.Windows.Visibility TceNumberVisibility
         {
