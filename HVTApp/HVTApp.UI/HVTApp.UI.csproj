@@ -309,6 +309,8 @@
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBase.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelConstructor.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelSalesManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\Converters\UnVisibleToConstructorConverter.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\Converters\UnVisibleToManagerConverter.cs" />
     <Compile Include="PriceEngineering\TasksList\View\WorkloadOnEmployeesControl.xaml.cs">
       <DependentUpon>WorkloadOnEmployeesControl.xaml</DependentUpon>
     </Compile>

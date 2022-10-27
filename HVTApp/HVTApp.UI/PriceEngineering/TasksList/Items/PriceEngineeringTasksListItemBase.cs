@@ -26,7 +26,7 @@ namespace HVTApp.UI.PriceEngineering.Items
         [Designation("Исполнители"), OrderStatus(3000)]
         public string Users =>
             this.ChildPriceEngineeringTasks
-                .Select(x => x.Entity.UserConstructor)
+                .Select(x => x.Entity.UserConstructor?.Employee.Person)
                 .Where(x => x != null)
                 .Distinct()
                 .ToStringEnum();
@@ -98,7 +98,7 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         protected PriceEngineeringTasksListItemBase(PriceEngineeringTasks entity) : base(entity)
         {
-            ChildPriceEngineeringTasks = GetChildTasks();
+            ChildPriceEngineeringTasks = GetChildTasks().ToList();
         }
 
         protected abstract IEnumerable<TChildTask> GetChildTasks();

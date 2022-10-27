@@ -94,24 +94,6 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 itemChild.Refresh(priceEngineeringTask);
                 item.Refresh();
             }
-
-            //var task = priceEngineeringTask;
-            //while (task.ParentPriceEngineeringTasksId.HasValue == false)
-            //{
-            //    if (task.ParentPriceEngineeringTaskId.HasValue)
-            //    {
-            //        task = UnitOfWork.Repository<PriceEngineeringTask>().GetById(task.ParentPriceEngineeringTaskId.Value);
-            //    }
-            //    else
-            //    {
-            //        return;
-            //    }
-            //}
-
-            //var priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value);
-
-            //if (priceEngineeringTasks != null)
-            //    OnItem(priceEngineeringTasks);
         }
 
         private void OnItem(PriceEngineeringTasks priceEngineeringTasks)

@@ -4,15 +4,15 @@ using HVTApp.UI.PriceEngineering.ViewModel;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.View
 {
     [RibbonTab(typeof(TabPriceEngineeringTasks))]
     public partial class PriceEngineeringTasksListViewDesignDepartmentHead : ViewBase
     {
-        public PriceEngineeringTasksListViewModel PriceEngineeringTasksListViewModel { get; }
+        public PriceEngineeringTasksListViewModelDesignDepartmentHead PriceEngineeringTasksListViewModel { get; }
         public WorkloadOnEmployeesViewModel WorkloadOnEmployeesViewModel { get; }
 
-        public PriceEngineeringTasksListViewDesignDepartmentHead(PriceEngineeringTasksListViewModel priceEngineeringTasksListViewModel, WorkloadOnEmployeesViewModel workloadOnEmployeesViewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public PriceEngineeringTasksListViewDesignDepartmentHead(PriceEngineeringTasksListViewModelDesignDepartmentHead priceEngineeringTasksListViewModel, WorkloadOnEmployeesViewModel workloadOnEmployeesViewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             PriceEngineeringTasksListViewModel = priceEngineeringTasksListViewModel;
             WorkloadOnEmployeesViewModel = workloadOnEmployeesViewModel;

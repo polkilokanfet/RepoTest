@@ -32,7 +32,7 @@ namespace HVTApp.UI.Lookup
         public Guid Id => GetValue<Guid>();
 
         public TEntity Entity { get; private set; }
-
+        
         [Designation("Отображение")]
         public string DisplayMember { get; set; }
 

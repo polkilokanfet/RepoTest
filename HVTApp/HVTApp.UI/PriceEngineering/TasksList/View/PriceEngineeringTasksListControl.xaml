@@ -5,20 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
              xmlns:controls="http://infragistics.com/Windows"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.View.Converters"
              mc:Ignorable="d" 
              x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:UnVisibleToConstructorConverter x:Key="UnVisibleToConstructorConverter" />
+        <converters:UnVisibleToManagerConverter x:Key="UnVisibleToManagerConverter" />
+    </UserControl.Resources>
 
     <Grid>
 
         <dataPresenter:XamDataGrid 
-            Style="{StaticResource ListViewGrid}"
-            DataSource="{Binding ViewModel.Lookups, ElementName=Root}">
+            DataSource="{Binding Items}"
+            SelectedDataItem="{Binding SelectedItem}"
+            Style="{StaticResource ListViewGrid}">
 
             <dataPresenter:XamDataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem 
                         Header="Export to Excel" 
-                        Command="{Binding ViewModel.ExportToExcel, ElementName=Root}" 
+                        Command="{Binding ExportToExcel}" 
                         CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
                 </ContextMenu>
             </dataPresenter:XamDataGrid.ContextMenu>
@@ -26,13 +33,12 @@
             <dataPresenter:XamDataGrid.InputBindings>
                 <MouseBinding 
                     MouseAction="LeftDoubleClick" 
-                    Command="{Binding Path=ViewModel.OpenTaskCommand, Mode=OneWay, ElementName=Root}"/>
+                    Command="{Binding Path=OpenCommand, Mode=OneWay}"/>
             </dataPresenter:XamDataGrid.InputBindings>
 
-
-
             <dataPresenter:XamDataGrid.FieldLayouts>
-                <dataPresenter:FieldLayout>
+
+                <dataPresenter:FieldLayout Key="MnL">
                     <dataPresenter:FieldLayout.RecordFilters>
                         <dataPresenter:RecordFilter FieldName="ToShow">
                             <dataPresenter:RecordFilter.Conditions>
@@ -48,12 +54,23 @@
                         <dataPresenter:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
                         <dataPresenter:TextField Name="Comment" Label="Комментарий" Width="300" AllowResize="True" />
                         <dataPresenter:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />
-                        <dataPresenter:TextField Name="UserManager" Label="Менеджер" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.UserManager.Employee.Person}" Label="Менеджер" Width="200" AllowResize="True" 
+                                      Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToManagerConverter}}"/>
                         <dataPresenter:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
                         <dataPresenter:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
-                        <dataPresenter:TextField Name="Number" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Number}" Label="№" Width="Auto" AllowResize="True" />
+                        <dataPresenter:TextField Name="NumberFull" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.NumberFull}" Label="№" Width="Auto" AllowResize="True" />
                         <dataPresenter:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
+                        <dataPresenter:Field Name="ChildPriceEngineeringTasks" IsExpandable="True"/>
                     </dataPresenter:FieldLayout.Fields>
+
+                </dataPresenter:FieldLayout>
+
+                <dataPresenter:FieldLayout ParentFieldLayoutKey="MnL" ParentFieldName="ChildPriceEngineeringTasks">
+                    <dataPresenter:TextField Label="Блок" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.ProductBlock}" Width="300"/>
+                    <dataPresenter:TextField Label="Исполнитель" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.UserConstructor}" Width="300" 
+                                  Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToConstructorConverter}}"/>
+                    <dataPresenter:TextField Label="Статус" BindingType="UseAlternateBinding" AlternateBinding="{Binding StatusString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                    <dataPresenter:TextField Label="№ задачи" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Number}" Width="Auto"/>
                 </dataPresenter:FieldLayout>
 
             </dataPresenter:XamDataGrid.FieldLayouts>

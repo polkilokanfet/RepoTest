@@ -14,6 +14,5 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         public virtual bool ToShow => Entity.Status != PriceEngineeringTaskStatusEnum.Stopped &&
                                       Entity.Status != PriceEngineeringTaskStatusEnum.Accepted;
-
     }
 }
