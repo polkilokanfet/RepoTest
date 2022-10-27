@@ -29,6 +29,7 @@ namespace HVTApp.UI.PriceEngineering.Items
                 .Select(x => x.Entity.UserConstructor?.Employee.Person)
                 .Where(x => x != null)
                 .Distinct()
+                .OrderBy(x => x.ToString())
                 .ToStringEnum();
 
         public string StatusString =>
@@ -38,31 +39,9 @@ namespace HVTApp.UI.PriceEngineering.Items
                 .OrderBy(x => x)
                 .ToStringEnum();
 
+        public string Numbers { get; }
+
         public bool ToShow => ChildPriceEngineeringTasks.Any(x => x.ToShow);
-
-        //public bool ToShowTce
-        //{
-        //    get
-        //    {
-        //        switch (GlobalAppProperties.User.RoleCurrent)
-        //        {
-        //            case Role.SalesManager:
-        //            {
-        //                return true;
-        //            }
-        //            case Role.BackManager:
-        //            {
-        //                return Entity.PriceCalculations.Any(x => x.IsTceConnected && x.LastHistoryItem.Type == PriceCalculationHistoryItemType.Create);
-        //            }
-        //            case Role.BackManagerBoss:
-        //            {
-        //                return Entity.BackManager == null;
-        //            }
-        //        }
-
-        //        return true;
-        //    }
-        //}
 
         #region Model props
 
@@ -98,7 +77,8 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         protected PriceEngineeringTasksListItemBase(PriceEngineeringTasks entity) : base(entity)
         {
-            ChildPriceEngineeringTasks = GetChildTasks().ToList();
+            ChildPriceEngineeringTasks = GetChildTasks().OrderBy(x => x.Entity.Number).ToList();
+            Numbers = $"{entity.NumberFull} ({ChildPriceEngineeringTasks.Select(x => x.Entity.Number).ToStringEnum()})";
         }
 
         protected abstract IEnumerable<TChildTask> GetChildTasks();

@@ -52,13 +52,13 @@
                         <dataPresenter:DateTimeField Name="WorkUpTo" Label="Срок" Width="Auto" AllowResize="False" />
                         <dataPresenter:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" />
                         <dataPresenter:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
-                        <dataPresenter:TextField Name="Comment" Label="Комментарий" Width="300" AllowResize="True" />
-                        <dataPresenter:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />
+                        <dataPresenter:TextField Name="Comment" Label="Комментарий" Width="250" AllowResize="True" />
+                        <dataPresenter:TextField Name="StatusString" Label="Статусы задач" Width="250" AllowResize="True" />
                         <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.UserManager.Employee.Person}" Label="Менеджер" Width="200" AllowResize="True" 
                                       Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToManagerConverter}}"/>
                         <dataPresenter:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
                         <dataPresenter:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
-                        <dataPresenter:TextField Name="NumberFull" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.NumberFull}" Label="№" Width="Auto" AllowResize="True" />
+                        <dataPresenter:TextField Label="№ сборки (№№ задач)" BindingType="UseAlternateBinding" AlternateBinding="{Binding Numbers}" Width="175" AllowResize="True" />
                         <dataPresenter:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
                         <dataPresenter:Field Name="ChildPriceEngineeringTasks" IsExpandable="True"/>
                     </dataPresenter:FieldLayout.Fields>
