@@ -323,11 +323,11 @@
                                         <dp:FieldLayout>
                                             <dp:FieldLayout.Fields>
                                                 <dp:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" />
-                                                <dp:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />
+                                                <dp:TextField Name="NumberFull" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.NumberFull}" Label="№" Width="Auto" AllowResize="True" />
+                                                <!--<dp:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />-->
                                                 <dp:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
-                                                <dp:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
-                                                <dp:TextField Name="Number" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Number}" Label="№" Width="Auto" AllowResize="True" />
-                                                <dp:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
+                                                <!--<dp:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />-->
+                                                <!--<dp:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />-->
                                             </dp:FieldLayout.Fields>
                                         </dp:FieldLayout>
                                     </dp:XamDataGrid.FieldLayouts>

@@ -1,31 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    //public class WorkloadOnEmployeesViewModel : ViewModelBase
-    //{
-    //    public IEnumerable<WorkloadItem> WorkloadItems { get; }
-    //    public WorkloadOnEmployeesViewModel(IUnityContainer container) : base(container)
-    //    {
-    //        //КБ, которыми руководит пользователь
-    //        var departments = UnitOfWork.Repository<DesignDepartment>().Find(department => department.Head.Id == GlobalAppProperties.User.Id);
-            
-    //        //сотрудники из этих КБ
-    //        var employees = departments.SelectMany(department => department.Staff).Distinct();
-
-    //        WorkloadItems = new List<WorkloadItem>(employees.OrderBy(x => x.ToString()).Select(x => new WorkloadItem(x, this, container.Resolve<IEventAggregator>())));
-    //    }
-    //}
-
     public class WorkloadItem : BindableBase
     {
         private readonly PriceEngineeringTasksListViewModelDesignDepartmentHead _viewModel;
