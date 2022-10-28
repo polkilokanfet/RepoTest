@@ -17,8 +17,8 @@ namespace HVTApp.UI.PriceEngineering.Items
             
         [Designation("Блоки"), OrderStatus(4000)]
         public string ProductBlocks =>
-            this.ChildPriceEngineeringTasks
-                .Select(x => x.Entity.ProductBlock)
+            Entity.ChildPriceEngineeringTasks
+                .Select(x => x.ProductBlock)
                 .Distinct()
                 .OrderBy(x => x.Designation)
                 .ToStringEnum();

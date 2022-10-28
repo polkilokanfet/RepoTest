@@ -43,7 +43,7 @@
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding UserManager}" 
                                       Label="Front manager" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" 
                                       Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                        <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShowTce}" Label="S" Width="Auto" AllowResize="False" />
+                        <dp:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding TceNumber}" 
                                       Label="TceNumber" Width="Auto" AllowResize="True" />
                         <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Id}" 
