@@ -45,6 +45,11 @@
                                 <controls:ComparisonCondition Operator="Equals" Value="True" />
                             </dataPresenter:RecordFilter.Conditions>
                         </dataPresenter:RecordFilter>
+                        <dataPresenter:RecordFilter FieldName="ToShowFilt">
+                            <dataPresenter:RecordFilter.Conditions>
+                                <controls:ComparisonCondition Operator="Equals" Value="True" />
+                            </dataPresenter:RecordFilter.Conditions>
+                        </dataPresenter:RecordFilter>
                     </dataPresenter:FieldLayout.RecordFilters>
 
                     <dataPresenter:FieldLayout.Fields>
@@ -58,6 +63,7 @@
                                       Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToManagerConverter}}"/>
                         <dataPresenter:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
                         <dataPresenter:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Label="S" Width="Auto" AllowResize="False" />
+                        <dataPresenter:CheckBoxField Name="ToShowFilt" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShowFilt}" Label="F" Visibility="Collapsed"/>
                         <dataPresenter:TextField Label="№ сборки (№№ задач)" BindingType="UseAlternateBinding" AlternateBinding="{Binding Numbers}" Width="175" AllowResize="True" />
                         <dataPresenter:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
                         <dataPresenter:Field Name="ChildPriceEngineeringTasks" IsExpandable="True"/>

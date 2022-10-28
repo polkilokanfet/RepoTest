@@ -6,13 +6,13 @@ namespace HVTApp.UI.PriceEngineering.Items
 {
     public abstract class PriceEngineeringTaskListItemBase : LookupItem<PriceEngineeringTask>
     {
-        protected PriceEngineeringTaskListItemBase(PriceEngineeringTask entity) : base(entity)
-        {
-        }
-
         public virtual string StatusString => Entity?.Status.StatusToString();
 
         public virtual bool ToShow => Entity.Status != PriceEngineeringTaskStatusEnum.Stopped &&
                                       Entity.Status != PriceEngineeringTaskStatusEnum.Accepted;
+
+        protected PriceEngineeringTaskListItemBase(PriceEngineeringTask entity) : base(entity)
+        {
+        }
     }
 }

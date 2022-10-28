@@ -24,6 +24,9 @@ namespace HVTApp.UI.PriceEngineering.Items
                     if (Entity.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification)
                         return "Требует проверки";
 
+                    if (Entity.Status == PriceEngineeringTaskStatusEnum.RejectedByConstructor)
+                        return "Поручено (отправлено менеджеру на доработку)";
+
                     return Entity.IsFinishedByConstructor
                         ? "Поручено (проработано исполнителем)"
                         : "Поручено (прорабатывается исполнителем)";

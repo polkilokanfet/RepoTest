@@ -2,9 +2,6 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:dp="http://infragistics.com/DataPresenter"
-              xmlns:controls="http://infragistics.com/Windows"
-              xmlns:priceEngineering="clr-namespace:HVTApp.UI.PriceEngineering"
               xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
               x:Name="Root">
 
@@ -22,7 +19,7 @@
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="2"/>
 
         <GroupBox Grid.Row="2" Header="Нагрузка на сотрудников">
-            <priceEngineering:WorkloadOnEmployeesControl ViewModel="{Binding WorkloadOnEmployeesViewModel, ElementName=Root}"/>
+            <view:WorkloadOnEmployeesControl DataContext="{Binding}"/>
         </GroupBox>
     </Grid>
 

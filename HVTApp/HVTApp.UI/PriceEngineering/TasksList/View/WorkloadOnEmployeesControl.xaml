@@ -1,30 +1,35 @@
-﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.WorkloadOnEmployeesControl"
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.WorkloadOnEmployeesControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             xmlns:dp="http://infragistics.com/DataPresenter"
              xmlns:controls="http://infragistics.com/Windows"
              mc:Ignorable="d" 
              x:Name="Root">
 
     <Grid>
 
-        <dataPresenter:XamDataGrid 
+        <dp:XamDataGrid 
             x:Name="PriceEngineeringTasksLookupListGrid" 
             Style="{StaticResource ListViewGrid}"
-            DataSource="{Binding ViewModel.Items, ElementName=Root}">
+            DataSource="{Binding WorkloadItems}">
 
-            <dataPresenter:XamDataGrid.FieldLayouts>
-                <dataPresenter:FieldLayout>
-                    <dataPresenter:FieldLayout.Fields>
-                        <dataPresenter:TextField Name="Name" Label="ФИО" Width="Auto" AllowResize="True" />
-                        <dataPresenter:NumericField Name="Workload" Label="Блоков в работе" Width="Auto" AllowResize="True" />
-                    </dataPresenter:FieldLayout.Fields>
-                </dataPresenter:FieldLayout>
+            <dp:XamDataGrid.FieldLayouts>
+                <dp:FieldLayout>
+                    <dp:FieldLayout.Fields>
+                        <dp:TextField Name="User" Label="Сотрудник" Width="Auto" AllowResize="True" />
+                        <dp:NumericField Name="Workload" Label="Блоков в работе" Width="Auto" AllowResize="True" />
+                        <dp:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding ShowUsersTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Label="Показать задачи" AllowEdit="True" Width="Auto" AllowResize="True">
+                            <dp:Field.Settings>
+                                <dp:FieldSettings DataItemUpdateTrigger="OnCellValueChange"/>
+                            </dp:Field.Settings>
+                        </dp:CheckBoxField>
+                    </dp:FieldLayout.Fields>
+                </dp:FieldLayout>
 
-            </dataPresenter:XamDataGrid.FieldLayouts>
-        </dataPresenter:XamDataGrid>
+            </dp:XamDataGrid.FieldLayouts>
+        </dp:XamDataGrid>
 
     </Grid>
 

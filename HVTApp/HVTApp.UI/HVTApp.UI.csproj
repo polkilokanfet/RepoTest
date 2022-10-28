@@ -322,7 +322,7 @@
       <DependentUpon>PriceEngineeringTasksListViewDesignDepartmentHead.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelDesignDepartmentHead.cs" />
-    <Compile Include="PriceEngineering\TasksList\ViewModel\WorkloadOnEmployeesViewModel.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\WorkloadItem.cs" />
     <Compile Include="PriceEngineering\Tasks\ViewModel\IPriceEngineeringTasksViewModel.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\PriceEngineeringTasksContainerWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\PriceEngineeringTasksContainerWrapperDesignDepartmentHead.cs" />

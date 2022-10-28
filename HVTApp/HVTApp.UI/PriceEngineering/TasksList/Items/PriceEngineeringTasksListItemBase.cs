@@ -12,13 +12,27 @@ namespace HVTApp.UI.PriceEngineering.Items
     public abstract class PriceEngineeringTasksListItemBase<TChildTask> : LookupItem<PriceEngineeringTasks>
         where TChildTask: PriceEngineeringTaskListItemBase
     {
+        private bool _toShowFilt = true;
+
+        /// <summary>
+        /// Фильтрационный флаг
+        /// </summary>
+        public bool ToShowFilt
+        {
+            get => _toShowFilt;
+            set
+            {
+                this.SetProperty(ref _toShowFilt, value);
+            }
+        }
+
         [Designation("Объекты"), OrderStatus(5000)]
         public abstract string Facilities { get; }
             
         [Designation("Блоки"), OrderStatus(4000)]
         public string ProductBlocks =>
-            Entity.ChildPriceEngineeringTasks
-                .Select(x => x.ProductBlock)
+            this.ChildPriceEngineeringTasks
+                .Select(x => x.Entity.ProductBlock)
                 .Distinct()
                 .OrderBy(x => x.Designation)
                 .ToStringEnum();

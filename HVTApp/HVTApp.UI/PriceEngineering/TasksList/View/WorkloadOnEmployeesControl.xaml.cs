@@ -1,23 +1,12 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using HVTApp.UI.PriceEngineering.ViewModel;
+﻿using System.Windows.Controls;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.View
 {
     public partial class WorkloadOnEmployeesControl : UserControl
     {
         public WorkloadOnEmployeesControl()
         {
             InitializeComponent();
-        }
-
-        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
-            "ViewModel", typeof(WorkloadOnEmployeesViewModel), typeof(WorkloadOnEmployeesControl), new PropertyMetadata(default(WorkloadOnEmployeesViewModel)));
-
-        public WorkloadOnEmployeesViewModel ViewModel
-        {
-            get => (WorkloadOnEmployeesViewModel) GetValue(ViewModelProperty);
-            set => SetValue(ViewModelProperty, value);
         }
     }
 }
