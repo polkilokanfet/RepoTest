@@ -109,6 +109,7 @@
     <Compile Include="Converter\PartToPercentConverterNullable.cs" />
     <Compile Include="Converter\HistoryElementTypeToStringConverter.cs" />
     <Compile Include="Extantions\Ext.cs" />
+    <Compile Include="Extantions\ExtWpf.cs" />
     <Compile Include="Helpers\OutlookDataObject.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskGroupLookup.cs" />
     <Compile Include="Lookup\Items\Custom\DirectumTaskLookup.cs" />

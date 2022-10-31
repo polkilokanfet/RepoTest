@@ -34,56 +34,23 @@ namespace HVTApp.UI.Modules.Sales.Market
             : base(viewModel, regionManager, eventAggregator, messageService)
         {
             _viewModel = viewModel;
-
             _messagesOutlookService = messagesOutlookService;
             _fileManagerService = fileManagerService;
             InitializeComponent();
 
-            _viewModel.IsShownDoneItemsChanged += () =>
+            _viewModel.PropertyChanged += (sender, args) =>
             {
-                var recordFilter = ((XamDataGrid)ContentControl.Content).FieldLayouts[0].RecordFilters
-                    .Where(filter => filter.FieldName == "IsDone")
-                    .OrderBy(filter => filter.Version)
-                    .Last();
-                recordFilter.Conditions.Clear();
-
-                //если нужно скрыть реализованные строки
-                if (_viewModel.IsShownDoneItems == false)
+                if (args.PropertyName == nameof(_viewModel.IsShownDoneItems))
                 {
-                    ComparisonCondition condition = new ComparisonCondition(ComparisonOperator.Equals, false);
-                    recordFilter.Conditions.Add(condition);
+                    DataGrid.SetFilter("IsDone", _viewModel.IsShownDoneItems == false, false);
                 }
-            };
-
-            _viewModel.IsShownLoosenItemsChanged += () =>
-            {
-                var recordFilter = ((XamDataGrid)ContentControl.Content).FieldLayouts[0].RecordFilters
-                    .Where(rf => rf.FieldName == "IsLoosen")
-                    .OrderBy(filter => filter.Version)
-                    .Last();
-                recordFilter.Conditions.Clear();
-
-                //если нужно скрыть проигранные строки
-                if (_viewModel.IsShownLoosenItems == false)
+                else if (args.PropertyName == nameof(_viewModel.IsShownLoosenItems))
                 {
-                    var condition = new ComparisonCondition(ComparisonOperator.Equals, false);
-                    recordFilter.Conditions.Add(condition);
+                    DataGrid.SetFilter("IsLoosen", _viewModel.IsShownLoosenItems == false, false);
                 }
-            };
-
-            _viewModel.IsShownOnlyReportsItemsChanged += () =>
-            {
-                var recordFilter = ((XamDataGrid)ContentControl.Content).FieldLayouts[0].RecordFilters
-                    .Where(rf => rf.FieldName == "ForReport")
-                    .OrderBy(filter => filter.Version)
-                    .Last();
-                recordFilter.Conditions.Clear();
-
-                //если нужно показать только строки для отчета
-                if (_viewModel.IsShownOnlyReportsItems)
+                else if (args.PropertyName == nameof(_viewModel.IsShownOnlyReportsItems))
                 {
-                    ComparisonCondition condition = new ComparisonCondition(ComparisonOperator.Equals, true);
-                    recordFilter.Conditions.Add(condition);
+                    DataGrid.SetFilter("ForReport", _viewModel.IsShownOnlyReportsItems, true);
                 }
             };
 

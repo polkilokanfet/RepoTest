@@ -35,30 +35,27 @@ namespace HVTApp.UI.Modules.Sales.Market
         private PriceCalculationsContainer _priceCalculations;
         private object _selectedItem;
         private object[] _selectedItems;
-        private bool _isShownDoneItems;
-        private bool _isShownLoosenItems;
-        private bool _isShownOnlyReportsItems;
+        private bool _isShownDoneItems = true;
+        private bool _isShownLoosenItems = true;
+        private bool _isShownOnlyReportsItems = true;
 
         public bool IsShownDoneItems
         {
             get => _isShownDoneItems;
-            set => this.SetProperty(ref _isShownDoneItems, value, () => { IsShownDoneItemsChanged?.Invoke(); });
+            set => this.SetProperty(ref _isShownDoneItems, value);
         }
-        public event Action IsShownDoneItemsChanged;
 
         public bool IsShownLoosenItems
         {
             get => _isShownLoosenItems;
-            set => this.SetProperty(ref _isShownLoosenItems, value, () => { IsShownLoosenItemsChanged?.Invoke(); });
+            set => this.SetProperty(ref _isShownLoosenItems, value);
         }
-        public event Action IsShownLoosenItemsChanged;
 
         public bool IsShownOnlyReportsItems
         {
             get => _isShownOnlyReportsItems;
-            set => this.SetProperty(ref _isShownOnlyReportsItems, value, () => { IsShownOnlyReportsItemsChanged?.Invoke(); });
+            set => this.SetProperty(ref _isShownOnlyReportsItems, value);
         }
-        public event Action IsShownOnlyReportsItemsChanged;
 
         public ProjectItemsCollection ProjectItems { get; } 
 
