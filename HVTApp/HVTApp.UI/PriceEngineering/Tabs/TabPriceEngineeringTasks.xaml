@@ -12,4 +12,9 @@
                            SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Показывать">
+        <infRib:CheckBoxTool Caption="Только актуальное сейчас" 
+                             IsChecked="{Binding IsShownActual}"/>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

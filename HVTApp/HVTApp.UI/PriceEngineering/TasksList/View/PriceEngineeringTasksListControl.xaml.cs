@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using HVTApp.UI.PriceEngineering.ViewModel;
 
@@ -9,15 +10,28 @@ namespace HVTApp.UI.PriceEngineering.View
         public PriceEngineeringTasksListControl()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
         }
 
-        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
-            "ViewModel", typeof(PriceEngineeringTasksListViewModel), typeof(PriceEngineeringTasksListControl), new PropertyMetadata(default(PriceEngineeringTasksListViewModel)));
-
-        public PriceEngineeringTasksListViewModel ViewModel
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            get => (PriceEngineeringTasksListViewModel) GetValue(ViewModelProperty);
-            set => SetValue(ViewModelProperty, value);
+            if (this.DataContext is INotifyPropertyChanged propertyChangedViewModel)
+            {
+                if (propertyChangedViewModel is IIsShownActual viewModel)
+                {
+                    propertyChangedViewModel.PropertyChanged += (o, eventArgs) =>
+                    {
+                        if (eventArgs.PropertyName == nameof(viewModel.IsShownActual))
+                        {
+                            this.DataGrid.SetFilter("ToShow", viewModel.IsShownActual, true);
+                        }
+
+                        this.DataGrid.SetFilter("ToShow", viewModel.IsShownActual, true);
+                    };
+                }
+            }
+
+            this.Loaded -= OnLoaded;
         }
     }
 }

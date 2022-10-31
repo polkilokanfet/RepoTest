@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Header="Задачи">
-            <view:PriceEngineeringTasksListControl ViewModel="{Binding}"/>
+            <view:PriceEngineeringTasksListControl DataContext="{Binding}"/>
         </GroupBox>
 
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="2"/>

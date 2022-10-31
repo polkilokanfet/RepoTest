@@ -15,11 +15,12 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public abstract class PriceEngineeringTasksListViewModelBase<TTasks, TTask> : ViewModelBaseCanExportToExcel
+    public abstract class PriceEngineeringTasksListViewModelBase<TTasks, TTask> : ViewModelBaseCanExportToExcel, IIsShownActual
         where TTask : PriceEngineeringTaskListItemBase
         where TTasks : PriceEngineeringTasksListItemBase<TTask>
     {
         private object _selectedItem;
+        private bool _isShownActual = true;
 
         public object SelectedItem
         {
@@ -31,6 +32,12 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     OpenCommand.RaiseCanExecuteChanged();
                 }
             }
+        }
+
+        public bool IsShownActual
+        {
+            get => _isShownActual;
+            set => this.SetProperty(ref _isShownActual, value);
         }
 
         public IEnumerable<TTasks> Items { get; } = new ObservableCollection<TTasks>();
@@ -141,5 +148,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             var priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(IsSuitable);
             ((ICollection<TTasks>)Items).AddRange(priceEngineeringTasks.OrderByDescending(x => x.WorkUpTo).Select(this.GetItem));
         }
+    }
+
+    public interface IIsShownActual
+    {
+        bool IsShownActual { get; }
     }
 }

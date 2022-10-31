@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Services;
 using HVTApp.UI.Helpers;
 using HVTApp.UI.Modules.Sales.Market.Tabs;
-using Infragistics.Windows.Controls;
 using Infragistics.Windows.DataPresenter;
 using Prism.Events;
 using Prism.Regions;
