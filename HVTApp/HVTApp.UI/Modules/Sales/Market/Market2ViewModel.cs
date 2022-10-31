@@ -5,20 +5,16 @@ using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
-using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceEngineering.View;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -46,36 +42,21 @@ namespace HVTApp.UI.Modules.Sales.Market
         public bool IsShownDoneItems
         {
             get => _isShownDoneItems;
-            set
-            {
-                _isShownDoneItems = value;
-                IsShownDoneItemsChanged?.Invoke();
-                RaisePropertyChanged();
-            }
+            set => this.SetProperty(ref _isShownDoneItems, value, () => { IsShownDoneItemsChanged?.Invoke(); });
         }
         public event Action IsShownDoneItemsChanged;
 
         public bool IsShownLoosenItems
         {
             get => _isShownLoosenItems;
-            set
-            {
-                _isShownLoosenItems = value;
-                IsShownLoosenItemsChanged?.Invoke();
-                RaisePropertyChanged();
-            }
+            set => this.SetProperty(ref _isShownLoosenItems, value, () => { IsShownLoosenItemsChanged?.Invoke(); });
         }
         public event Action IsShownLoosenItemsChanged;
 
         public bool IsShownOnlyReportsItems
         {
             get => _isShownOnlyReportsItems;
-            set
-            {
-                _isShownOnlyReportsItems = value;
-                IsShownOnlyReportsItemsChanged?.Invoke();
-                RaisePropertyChanged();
-            }
+            set => this.SetProperty(ref _isShownOnlyReportsItems, value, () => { IsShownOnlyReportsItemsChanged?.Invoke(); });
         }
         public event Action IsShownOnlyReportsItemsChanged;
 

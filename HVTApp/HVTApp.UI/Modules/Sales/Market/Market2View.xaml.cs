@@ -66,7 +66,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 //если нужно скрыть проигранные строки
                 if (_viewModel.IsShownLoosenItems == false)
                 {
-                    ComparisonCondition condition = new ComparisonCondition(ComparisonOperator.Equals, false);
+                    var condition = new ComparisonCondition(ComparisonOperator.Equals, false);
                     recordFilter.Conditions.Add(condition);
                 }
             };
