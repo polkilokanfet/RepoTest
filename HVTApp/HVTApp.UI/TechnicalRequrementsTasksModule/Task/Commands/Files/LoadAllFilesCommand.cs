@@ -27,14 +27,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     var taskPath = fdb.SelectedPath;
                     foreach (var requrement in ViewModel.TechnicalRequrementsTaskWrapper.Requrements.Where(x => x.IsActual.HasValue && x.IsActual.Value))
                     {
-                        var reqDirName = $"{requrement.Model.Id} {requrement.SalesUnit.Product.Designation.ReplaceUncorrectSimbols().LimitLengh()} ({requrement.Amount} רע.)";
+                        var reqDirName = $"{requrement.Model.Id} {requrement.SalesUnit.Product.Designation.ReplaceUncorrectSimbols().LimitLength()} ({requrement.Amount} רע.)";
                         var dirPath = Path.Combine(taskPath, reqDirName);
                         _fileManagerService.CreateDirectoryPathIfNotExists(dirPath);
 
                         foreach (var file in requrement.Files.Where(technicalRequrementsFileWrapper => technicalRequrementsFileWrapper.IsActual))
                         {
                             var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
-                            string addToFileName = $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}";
+                            string addToFileName = $"{file.Name.ReplaceUncorrectSimbols().LimitLength()}";
                             FilesStorageService.CopyFileFromStorage(file.Id, storageDirectory, dirPath, addToFileName, false);
                         }
                     }

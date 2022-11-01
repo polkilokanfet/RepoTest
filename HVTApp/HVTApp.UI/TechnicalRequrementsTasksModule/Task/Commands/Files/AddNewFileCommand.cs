@@ -36,7 +36,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     try
                     {
                         File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                        fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50);
+                        fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50);
                         ((TechnicalRequrements2Wrapper)ViewModel.SelectedItem).Files.Add(fileWrapper);
                     }
                     catch (Exception e)

@@ -13,7 +13,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         protected override void ExecuteMethod()
         {
             var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
-            string addToFileName = $"{ViewModel.SelectedAnswerFile.Name.ReplaceUncorrectSimbols().LimitLengh()}";
+            string addToFileName = $"{ViewModel.SelectedAnswerFile.Name.ReplaceUncorrectSimbols().LimitLength()}";
             FilesStorageService.CopyFileFromStorage(ViewModel.SelectedAnswerFile.Id, storageDirectory, addToFileName: addToFileName);
         }
 

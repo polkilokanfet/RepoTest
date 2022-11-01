@@ -202,7 +202,7 @@ namespace HVTApp.UI.PriceEngineering
                         {
                             var fileWrapper = new PriceEngineeringTaskFileAnswerWrapper(new PriceEngineeringTaskFileAnswer())
                             {
-                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50),
+                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50),
                                 Path = fileName
                             };
                             this.FilesAnswers.Add(fileWrapper);

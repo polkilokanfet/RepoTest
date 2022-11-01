@@ -110,7 +110,7 @@ namespace HVTApp.Services.FileManagerService
             foreach (var file in files)
             {
                 string addToFileName = addName 
-                    ? $"{file.Name.ReplaceUncorrectSimbols().LimitLengh()}"
+                    ? $"{file.Name.ReplaceUncorrectSimbols().LimitLength()}"
                     : string.Empty;
 
                 CopyFileFromStorage(file.Id, storageDirectoryPath, targetDirectory, addToFileName, false);
@@ -138,7 +138,7 @@ namespace HVTApp.Services.FileManagerService
 
         public void OpenFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null)
         {
-            var filePath = CopyFileFromStorage(fileId, storageDirectoryPath, Path.GetTempPath(), addToFileName, showTargetDirectory: false);
+            var filePath = CopyFileFromStorage(fileId, storageDirectoryPath, Path.GetTempPath(), addToFileName.LimitLength(7), showTargetDirectory: false);
 
             if (!string.IsNullOrEmpty(filePath))
             {

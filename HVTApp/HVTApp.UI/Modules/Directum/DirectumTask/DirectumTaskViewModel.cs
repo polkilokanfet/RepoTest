@@ -518,7 +518,7 @@ namespace HVTApp.UI.Modules.Directum
                         {
                             var fileWrapper = new DirectumTaskGroupFileWrapper(new DirectumTaskGroupFile())
                             {
-                                Name = Path.GetFileNameWithoutExtension(path).LimitLengh(255),
+                                Name = Path.GetFileNameWithoutExtension(path).LimitLength(255),
                                 Author = currentUserWrapper
                             };
                             _filesToAdd.Add(fileWrapper, path);

@@ -22,11 +22,11 @@ namespace HVTApp.Infrastructure.Extansions
         /// Ограничить длину строки
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="lenth"></param>
+        /// <param name="length"></param>
         /// <returns></returns>
-        public static string LimitLengh(this string text, int lenth = 25)
+        public static string LimitLength(this string text, int length = 25)
         {
-            return text.Length > lenth ? text.Substring(0, lenth - 1) : text;
+            return text.Length > length ? text.Substring(0, length - 1) : text;
         }
 
         public static string TrimAndReplaceDoubleSpaces(this string text)

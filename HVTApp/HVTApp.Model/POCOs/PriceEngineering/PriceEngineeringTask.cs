@@ -275,7 +275,7 @@ namespace HVTApp.Model.POCOs
             //стракчакост основного блока
             yield return new StructureCost
             {
-                Comment = ProductBlockEngineer.ToString().LimitLengh(200),
+                Comment = ProductBlockEngineer.ToString().LimitLength(200),
                 Number = structureCostNumber,
                 OriginalStructureCostProductBlock = ProductBlockEngineer,
                 OriginalStructureCostNumber = ProductBlockEngineer.StructureCostNumber,
@@ -294,7 +294,7 @@ namespace HVTApp.Model.POCOs
 
                 yield return new StructureCost
                 {
-                    Comment = blockAdded.ProductBlock.ToString().LimitLengh(200),
+                    Comment = blockAdded.ProductBlock.ToString().LimitLength(200),
                     Number = structureCostNumber1,
                     OriginalStructureCostProductBlock = blockAdded.ProductBlock,
                     OriginalStructureCostNumber = blockAdded.ProductBlock.StructureCostNumber,

@@ -25,7 +25,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     foreach (var answerFile in ViewModel.TechnicalRequrementsTaskWrapper.AnswerFiles)
                     {
                         var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
-                        string addToFileName = $"{answerFile.Name.ReplaceUncorrectSimbols().LimitLengh()}";
+                        string addToFileName = $"{answerFile.Name.ReplaceUncorrectSimbols().LimitLength()}";
                         FilesStorageService.CopyFileFromStorage(answerFile.Id, storageDirectory, targetDirectoryPath, addToFileName, false);
                     }
 

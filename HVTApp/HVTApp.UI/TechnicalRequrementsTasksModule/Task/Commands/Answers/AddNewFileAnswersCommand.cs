@@ -34,7 +34,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     {
                         var fileWrapper = new AnswerFileTceWrapper(new AnswerFileTce())
                         {
-                            Name = Path.GetFileNameWithoutExtension(fileName).LimitLengh(50)
+                            Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50)
                         };
                         File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
                         ViewModel.TechnicalRequrementsTaskWrapper.AnswerFiles.Add(fileWrapper);
