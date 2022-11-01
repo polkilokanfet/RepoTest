@@ -52,7 +52,7 @@ namespace HVTApp.Services.PrintService
 
             var tableProperties = GetTableProperties(docWriter, tableBorderProperties);
             tableProperties.Alignment = ParagraphAlignment.Left;
-            docWriter.StartTable(7, tableProperties);
+            docWriter.StartTable(8, tableProperties);
 
             tableRowProperties.IsHeaderRow = true;
             tableCellProperties.BackColor = colorTableHeader;
@@ -60,7 +60,7 @@ namespace HVTApp.Services.PrintService
             paragraphProps.Alignment = ParagraphAlignment.Left;
 
             docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, 
-                "№", "Тип оборудования", "Обозначение оборудования", "зав.№", "Заказ клиента", "Сервисный заказ", "Требуемая дата монтажа");
+                "№", "Тип оборудования", "Обозначение оборудования", "з/з (поз.)", "зав.№", "Заказ клиента", "Сервисный заказ", "Требуемая дата монтажа");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             tableCellProperties.Reset();
@@ -95,6 +95,7 @@ namespace HVTApp.Services.PrintService
                     docWriter.PrintTableCell(supervision.SalesUnit.Product.ProductType?.Name, tableCellProperties);
                     //тип оборудования
                     docWriter.PrintTableCell(supervision.SalesUnit.Product.Designation, tableCellProperties); //обозначение
+                    docWriter.PrintTableCell($"{supervision.SalesUnit.Order} ({supervision.SalesUnit.Order?.Number})", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.SalesUnit.SerialNumber}", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.ClientOrderNumber}", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.ServiceOrderNumber}", tableCellProperties);
