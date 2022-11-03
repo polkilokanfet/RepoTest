@@ -17,13 +17,13 @@ namespace HVTApp.Services.PriceService.PriceServ
     public partial class PriceService : IPriceService
     {
         private readonly IUnityContainer _container;
-        private List<ProductBlock> _blocks = null;
+        private Dictionary<Guid, ProductBlock> _blocks = null;
         private Dictionary<Guid, PriceItems> _salesUnitsCalculationsDictionary = null;
 
         /// <summary>
         /// Все блоки
         /// </summary>
-        private List<ProductBlock> Blocks
+        private Dictionary<Guid, ProductBlock> AllProductBlocksDictionary
         {
             get
             {
@@ -32,6 +32,11 @@ namespace HVTApp.Services.PriceService.PriceServ
             }
             set => _blocks = value;
         }
+
+        /// <summary>
+        /// Все блоки с ПЗ
+        /// </summary>
+        private Dictionary<Guid, ProductBlock> ProductBlocksWithPriceDictionary { get; set; }
 
         /// <summary>
         /// Словарь калькуляций ПЗ
@@ -47,9 +52,9 @@ namespace HVTApp.Services.PriceService.PriceServ
         }
 
         /// <summary>
-        /// Словарь блоков с прайсами
+        /// Словарь блоков-аналогов с прайсами
         /// </summary>
-        private Dictionary<Guid, ProductBlock> AnalogsWithPrice { get; } = new Dictionary<Guid, ProductBlock>();
+        private Dictionary<Guid, ProductBlock> ProductBlocksAnalogsDictionary { get; } = new Dictionary<Guid, ProductBlock>();
 
         public PriceService(IUnityContainer container)
         {
@@ -59,6 +64,8 @@ namespace HVTApp.Services.PriceService.PriceServ
             container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Subscribe(
                 calculation =>
                 {
+                    if (this.SalesUnitsCalculationsDictionary == null) return;
+
                     //добавляем только данные из завершенных расчетов
                     if (!calculation.TaskCloseMoment.HasValue) return;
 
@@ -84,6 +91,8 @@ namespace HVTApp.Services.PriceService.PriceServ
             container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Subscribe(
                 calculation =>
                 {
+                    if (this.SalesUnitsCalculationsDictionary == null) return;
+
                     if (calculation.TaskCloseMoment.HasValue) return;
 
                     foreach (var priceCalculationItem in calculation.PriceCalculationItems)
@@ -118,7 +127,10 @@ namespace HVTApp.Services.PriceService.PriceServ
             var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
             LaborHoursList = unitOfWork.Repository<LaborHours>().GetAll();
             LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
-            Blocks = unitOfWork.Repository<ProductBlock>().GetAll();
+
+            var blocksAll = unitOfWork.Repository<ProductBlock>().GetAll();
+            AllProductBlocksDictionary = blocksAll.ToDictionary(block => block.Id);
+            ProductBlocksWithPriceDictionary = blocksAll.Where(x => x.HasPrice).ToDictionary(block => block.Id);
 
             SalesUnitsCalculationsDictionary = new Dictionary<Guid, PriceItems>();
 
@@ -178,16 +190,22 @@ namespace HVTApp.Services.PriceService.PriceServ
         /// <returns></returns>
         public ProductBlock GetAnalogWithPrice(ProductBlock blockTarget)
         {
-            if (AnalogsWithPrice.ContainsKey(blockTarget.Id))
-                return AnalogsWithPrice[blockTarget.Id];
+            if (ProductBlocksAnalogsDictionary.ContainsKey(blockTarget.Id))
+                return ProductBlocksAnalogsDictionary[blockTarget.Id];
 
-            var targetBlock = Blocks.SingleOrDefault(block => block.Id == blockTarget.Id) ?? blockTarget;
-            var blocksWithPrices = Blocks
-                .Where(productBlock => productBlock.Id != targetBlock.Id)
-                .Where(productBlock => productBlock.HasPrice).ToList();
+            var targetBlock = AllProductBlocksDictionary.ContainsKey(blockTarget.Id)
+                ? AllProductBlocksDictionary[blockTarget.Id]
+                : blockTarget;
+
+            //все блоки с прайсом
+            var blocksWithPrices = new Dictionary<Guid, ProductBlock>(ProductBlocksWithPriceDictionary);
+            if (blocksWithPrices.ContainsKey(targetBlock.Id))
+            {
+                blocksWithPrices.Remove(targetBlock.Id);
+            }
 
             var dic = new Dictionary<ProductBlock, double>();
-            foreach (var blockWithPrice in blocksWithPrices)
+            foreach (var blockWithPrice in blocksWithPrices.Select(x => x.Value))
             {
                 double dif = 0;
 
@@ -221,7 +239,7 @@ namespace HVTApp.Services.PriceService.PriceServ
             }
 
             var blockAnalog = dic.OrderByDescending(x => x.Value).First().Key;
-            AnalogsWithPrice.Add(blockTarget.Id, blockAnalog);
+            ProductBlocksAnalogsDictionary.Add(blockTarget.Id, blockAnalog);
             return blockAnalog;
         }
     }

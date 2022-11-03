@@ -95,7 +95,7 @@ namespace HVTApp.Services.PrintService
                     docWriter.PrintTableCell(supervision.SalesUnit.Product.ProductType?.Name, tableCellProperties);
                     //тип оборудования
                     docWriter.PrintTableCell(supervision.SalesUnit.Product.Designation, tableCellProperties); //обозначение
-                    docWriter.PrintTableCell($"{supervision.SalesUnit.Order} ({supervision.SalesUnit.Order?.Number})", tableCellProperties);
+                    docWriter.PrintTableCell($"{supervision.SalesUnit.Order} ({supervision.SalesUnit.OrderPosition})", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.SalesUnit.SerialNumber}", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.ClientOrderNumber}", tableCellProperties);
                     docWriter.PrintTableCell($"{supervision.ServiceOrderNumber}", tableCellProperties);
