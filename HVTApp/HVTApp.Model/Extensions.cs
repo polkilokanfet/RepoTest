@@ -143,21 +143,22 @@ namespace HVTApp.Model
         /// Оставить параметр единственным в группе
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Parameter> LeaveParameterAsTheOnlyOneInTheGroup(this IEnumerable<Parameter> parameters, Parameter parameter)
+        public static IEnumerable<Parameter> LeaveParameterAloneInGroup(this IEnumerable<Parameter> parameters, Parameter parameterRequired)
         {
-            var result = parameters.ToList();
-
-            List<Parameter> parametersToRemove = new List<Parameter>();
-            foreach (var parameter1 in result)
+            foreach (var parameter in parameters)
             {
-                if (parameter1.Id == parameter.Id)
-                    continue;
-
-                if (parameter1.ParameterGroup.Id == parameter.ParameterGroup.Id)
-                    parametersToRemove.Add(parameter1);
+                if (parameter.Id == parameterRequired.Id)
+                {
+                    yield return parameter;
+                }
+                else
+                {
+                    if (parameter.ParameterGroup.Id != parameterRequired.ParameterGroup.Id)
+                    {
+                        yield return parameter;
+                    }
+                }
             }
-
-            return result.Except(parametersToRemove);
         }
 
         public static PriceEngineeringTasks GetPriceEngineeringTasks(this PriceEngineeringTask task, IUnitOfWork unitOfWork)

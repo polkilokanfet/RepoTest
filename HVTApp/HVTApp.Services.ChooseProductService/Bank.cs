@@ -8,22 +8,22 @@ namespace HVTApp.Services.GetProductService
     /// <summary>
     /// Хранилище параметров и т.д.
     /// </summary>
-    public struct Bank
+    public readonly struct Bank
     {
         public List<Product> Products { get; }
         public List<ProductBlock> Blocks { get; }
-        public List<Parameter> Parameters { get; }
+        public HashSet<Parameter> Parameters { get; }
         public List<ProductRelation> Relations { get; }
 
-        public Bank(List<Product> products, 
-                    List<ProductBlock> blocks, 
-                    List<Parameter> parameters, 
-                    List<ProductRelation> relations)
+        public Bank(IEnumerable<Product> products, 
+                    IEnumerable<ProductBlock> blocks, 
+                    IEnumerable<Parameter> parameters, 
+                    IEnumerable<ProductRelation> relations)
         {
-            Products = products;
-            Blocks = blocks;
-            Parameters = parameters;
-            Relations = relations;
+            Products = products.ToList();
+            Blocks = blocks.ToList();
+            Parameters = parameters.ToHashSet();
+            Relations = relations.ToList();
         }
 
         /// <summary>
@@ -49,15 +49,14 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlock GetBlock(IEnumerable<Parameter> parameters)
         {
-
             //создание нового блока
             var block = new ProductBlock { Parameters = parameters.ToList() };
 
             //поиск в существующих блоках
-            var exist = Blocks.SingleOrDefault(x => x.Equals(block));
-            if (exist != null)
+            var existsBlock = Blocks.SingleOrDefault(x => x.Equals(block));
+            if (existsBlock != null)
             {
-                return exist;
+                return existsBlock;
             }
 
             //добавление блока в банк
@@ -72,8 +71,7 @@ namespace HVTApp.Services.GetProductService
         /// <returns>Связи к дочерним продуктам.</returns>
         public List<ProductRelation> RelationsToChildProducts(Product product)
         {
-            return Relations.Where(x => x.ParentProductParameters.AllContainsIn(product.ProductBlock.Parameters)).ToList();
+            return Relations.Where(relation => relation.ParentProductParameters.AllContainsIn(product.ProductBlock.Parameters)).ToList();
         }
-
     }
 }

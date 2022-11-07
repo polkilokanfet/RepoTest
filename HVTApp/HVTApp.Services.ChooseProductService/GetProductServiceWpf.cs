@@ -78,7 +78,7 @@ namespace HVTApp.Services.GetProductService
                 //оставляем обязательные параметры "одинокими"
                 foreach (var parameter in requiredPathParameters.Union(requiredParameters).Distinct())
                 {
-                    parameters = parameters.LeaveParameterAsTheOnlyOneInTheGroup(parameter).ToList();
+                    parameters = parameters.LeaveParameterAloneInGroup(parameter).ToList();
                 }
             }
 

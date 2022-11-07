@@ -80,6 +80,11 @@ namespace HVTApp.Model.POCOs
 
 
 
+        public override int GetHashCode()
+        {
+            return Parameters.GetHashCode();
+        }
+
         public override bool Equals(object other)
         {
             return base.Equals(other) || Equals(other as ProductBlock);

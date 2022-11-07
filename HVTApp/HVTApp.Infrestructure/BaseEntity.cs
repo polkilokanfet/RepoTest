@@ -15,6 +15,11 @@ namespace HVTApp.Infrastructure
             Id = Guid.NewGuid();
         }
 
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj)) return true;
@@ -37,6 +42,8 @@ namespace HVTApp.Infrastructure
 
         protected bool Equals(BaseEntity other)
         {
+            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) return false;
             return Id.Equals(other.Id);
         }
 
@@ -47,11 +54,6 @@ namespace HVTApp.Infrastructure
 
             return string.Compare(this.ToString(), other.ToString(), StringComparison.Ordinal);
         }
-
-        //public override int GetHashCode()
-        //{
-        //    return Id.GetHashCode();
-        //}
 
         //public override int GetHashCode()
         //{
