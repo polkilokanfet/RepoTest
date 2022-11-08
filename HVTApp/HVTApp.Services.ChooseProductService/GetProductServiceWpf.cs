@@ -108,9 +108,6 @@ namespace HVTApp.Services.GetProductService
         {
             var bank = _bankFactory.CreateBank(requiredParameters.Select(x => UnitOfWork.Repository<Parameter>().GetById(x.Id)));
 
-            //предварительно выбранный продукт
-            Product selectedProduct = null;
-
             var productSelector = new ProductSelector(bank, bank.Parameters);
             var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
