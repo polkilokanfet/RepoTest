@@ -4,26 +4,23 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using Prism.Mvvm;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class ParameterSelector : NotifyPropertyChanged, IComparable<ParameterSelector>
+    public class ParameterSelector : BindableBase, IComparable<ParameterSelector>, IDisposable
     {
         #region props
 
-        public bool IsActual => ParametersFlaged.Any(x => x.IsActual) && ParametersFlaged.Count(x => x.IsActual) > 1;
+        public bool IsActual => ParametersFlaged.Any(x => x.IsActual) && 
+                                ParametersFlaged.Count(x => x.IsActual) > 1;
 
         private ParameterFlaged _selectedParameterFlaged;
         public ParameterFlaged SelectedParameterFlaged
         {
             get => _selectedParameterFlaged;
-            set
-            {
-                if (Equals(_selectedParameterFlaged, value)) return;
-                _selectedParameterFlaged = value;
-                SelectedParameterFlagedChanged?.Invoke(this);
-                OnPropertyChanged();
-            }
+            set => this.SetProperty(ref _selectedParameterFlaged, value,
+                () => SelectedParameterFlagedChanged?.Invoke(this));
         }
 
         public ObservableCollection<ParameterFlaged> ParametersFlaged { get; }
@@ -41,27 +38,38 @@ namespace HVTApp.Services.GetProductService
             if (parametersArray.GroupBy(x => x.ParameterGroup.Id).Count() > 1) throw new ArgumentException(nameof(parameters), "В селектор пришли параметры из разных групп");
 
             //упорядочивание параметров
-            var parametersFlaged = parametersArray.Select(x => new ParameterFlaged(x));
+            var parametersFlaged = parametersArray.Select(parameter => new ParameterFlaged(parameter));
             ParametersFlaged = new ObservableCollection<ParameterFlaged>(parametersFlaged.OrderBy(x => x));
 
             //реакция на изменение актуальности параметра
-            foreach (var parameterFlaged in ParametersFlaged)
+            ParametersFlaged.ForEach(parameter => parameter.IsActualChanged += ParameterOnActualChanged);
+        }
+
+        /// <summary>
+        /// Реакция на изменение актуальности параметра
+        /// </summary>
+        /// <param name="parameter"></param>
+        private void ParameterOnActualChanged(ParameterFlaged parameter)
+        {
+            //актуализация выбранного параметра
+            if (SelectedParameterFlaged == null || 
+                SelectedParameterFlaged.IsActual == false)
             {
-                parameterFlaged.IsActualChanged += parameter =>
-                {
-                    //актуализация выбранного параметра
-                    if (SelectedParameterFlaged == null || !SelectedParameterFlaged.IsActual)
-                        SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(p => p.IsActual);
-                    //проверка актуальности селектора
-                    OnPropertyChanged(nameof(IsActual));
-                };
+                //если выбранный параметр стал не актуальным, выбираем первый актуальный
+                SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(p => p.IsActual);
             }
+
+            //проверка актуальности селектора
+            RaisePropertyChanged(nameof(IsActual));
         }
 
         #endregion
 
         #region events
 
+        /// <summary>
+        /// Событие изменения выбранного параметра
+        /// </summary>
         public event Action<ParameterSelector> SelectedParameterFlagedChanged;
 
         #endregion
@@ -122,6 +130,12 @@ namespace HVTApp.Services.GetProductService
             }
 
             return parametersThis.First().CompareTo(parametersOther.First());
+        }
+
+        public void Dispose()
+        {
+            //реакция на изменение актуальности параметра
+            ParametersFlaged.ForEach(parameter => parameter.IsActualChanged -= ParameterOnActualChanged);
         }
     }
 }

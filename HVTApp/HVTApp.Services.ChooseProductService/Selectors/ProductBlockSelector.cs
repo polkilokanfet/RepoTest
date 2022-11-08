@@ -5,10 +5,11 @@ using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService.Comparers;
+using Prism.Mvvm;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class ProductBlockSelector : NotifyPropertyChanged
+    public class ProductBlockSelector : BindableBase, IDisposable
     {
 
         #region fields
@@ -66,7 +67,7 @@ namespace HVTApp.Services.GetProductService
 
                 OnSelectedParameterChanged(null);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
                 SelectedBlockChanged?.Invoke(this);
             }
         }
@@ -85,7 +86,7 @@ namespace HVTApp.Services.GetProductService
             ParameterSelectors = new ObservableCollection<ParameterSelector>(GetParameterSelectors(parametersArray));
 
             //подписка на смену параметра в селекторе
-            ParameterSelectors.ToList().ForEach(ps => ps.SelectedParameterFlagedChanged += OnSelectedParameterChanged);
+            ParameterSelectors.ForEach(selector => selector.SelectedParameterFlagedChanged += OnSelectedParameterChanged);
 
             //если есть выбранный блок
             if (selectedProductBlock != null)
@@ -120,8 +121,7 @@ namespace HVTApp.Services.GetProductService
                 .GroupBy(parameter => parameter.ParameterGroup.Id)
                 //.OrderBy(x => x, new ParametersEnumerableComparerByPaths())
                 .Select(x => new ParameterSelector(x))
-                .OrderBy(x => x)
-                .ToList();
+                .OrderBy(x => x);
 
             foreach (var group in groups)
             {
@@ -146,6 +146,13 @@ namespace HVTApp.Services.GetProductService
             //событие смены блока
             SelectedBlockChanged?.Invoke(this);
             OnPropertyChanged(nameof(SelectedBlock));
+        }
+
+        public void Dispose()
+        {
+            //отмена подписки на смену параметра в селекторе
+            ParameterSelectors.ForEach(selector => selector.SelectedParameterFlagedChanged -= OnSelectedParameterChanged);
+            ParameterSelectors.ForEach(selector => selector.Dispose());
         }
     }
 }

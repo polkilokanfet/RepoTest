@@ -5,7 +5,6 @@ using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -20,74 +19,18 @@ namespace HVTApp.Services.GetProductService
         private IUnityContainer Container { get; }
         private IUnitOfWork UnitOfWork { get; }
 
+        private readonly BankFactory _bankFactory;
+
         public GetProductServiceWpf(IUnityContainer container)
         {
             Container = container;
             UnitOfWork = container.Resolve<IUnitOfWork>();
-        }
-
-        /// <summary>
-        /// Формирование банка для выбора продукта.
-        /// </summary>
-        /// <param name="originProduct"></param>
-        /// <returns></returns>
-        public Bank GetBank(Product originProduct)
-        {
-            var parameters = UnitOfWork.Repository<Parameter>()
-                .GetAll()
-                .WithoutComplects(originProduct)
-                .WithoutNew(originProduct);
-            var products = UnitOfWork.Repository<Product>().GetAll();
-            var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
-            var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
-
-            return new Bank(products, productBlocks, parameters, productRelations);
-        }
-
-        /// <summary>
-        /// Формирование банка для выбора блока продукта.
-        /// </summary>
-        /// <param name="requiredParameters">Обязательные параметры в селекторе</param>
-        /// <returns></returns>
-        public Bank GetBank(IEnumerable<Parameter> requiredParameters)
-        {
-            var parameters = UnitOfWork.Repository<Parameter>()
-                .GetAll()
-                .WithoutComplects()
-                .WithoutNew();
-            var products = UnitOfWork.Repository<Product>().GetAll();
-            var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
-            var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
-
-            if (requiredParameters != null)
-            {
-                //находим максимальное количество пересечений путей параметров
-                List<Parameter> requiredPathParameters = null;
-                foreach (var requiredParameter in requiredParameters)
-                {
-                    var pathsParameters = requiredParameter.Paths()
-                        .SelectMany(path => path.Parameters)
-                        .Distinct()
-                        .ToList();
-
-                    requiredPathParameters = requiredPathParameters == null 
-                        ? pathsParameters 
-                        : pathsParameters.Intersect(requiredPathParameters).ToList();
-                }
-
-                //оставляем обязательные параметры "одинокими"
-                foreach (var parameter in requiredPathParameters.Union(requiredParameters).Distinct())
-                {
-                    parameters = parameters.LeaveParameterAloneInGroup(parameter).ToList();
-                }
-            }
-
-            return new Bank(products, productBlocks, parameters, productRelations);
+            _bankFactory = new BankFactory(UnitOfWork);
         }
 
         public Product GetProduct(Product originProduct = null)
         {
-            var bank = GetBank(originProduct);
+            var bank = _bankFactory.CreateBank(originProduct);
 
             //предварительно выбранный продукт
             var selectedProduct = originProduct == null 
@@ -116,10 +59,7 @@ namespace HVTApp.Services.GetProductService
             if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProduct;
 
             var result = productSelector.SelectedProduct;
-
-            //оставляем только уникальные блоки
-            //var blocks = result.GetBlocks().Distinct().ToList();
-            //SubstitutionBlocks(result, blocks);
+            productSelector.Dispose();
 
             //загрузка актуальных продуктов
             //если выбранного продукта нет в базе
@@ -166,7 +106,7 @@ namespace HVTApp.Services.GetProductService
 
         public Product GetProduct(IEnumerable<Parameter> requiredParameters)
         {
-            var bank = GetBank(requiredParameters.Select(x => UnitOfWork.Repository<Parameter>().GetById(x.Id)));
+            var bank = _bankFactory.CreateBank(requiredParameters.Select(x => UnitOfWork.Repository<Parameter>().GetById(x.Id)));
 
             //предварительно выбранный продукт
             Product selectedProduct = null;
@@ -181,6 +121,7 @@ namespace HVTApp.Services.GetProductService
             if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return null;
 
             var result = productSelector.SelectedProduct;
+            productSelector.Dispose();
 
             //загрузка актуальных продуктов
             var products = UnitOfWork.Repository<Product>().GetAll();
@@ -213,24 +154,6 @@ namespace HVTApp.Services.GetProductService
 
 
         /// <summary>
-        /// подмена блоков на уникальные
-        /// </summary>
-        /// <param name="product">целевой продукт</param>
-        /// <param name="uniqBlocks">уникальные блоки</param>
-        private void SubstitutionBlocks(Product product, ICollection<ProductBlock> uniqBlocks)
-        {
-            if (uniqBlocks.Contains(product.ProductBlock))
-            {
-                product.ProductBlock = uniqBlocks.Single(x => x.Equals(product.ProductBlock));
-            }
-
-            foreach (var dependentProduct in product.DependentProducts)
-            {
-                SubstitutionBlocks(dependentProduct.Product, uniqBlocks);
-            }
-        }
-
-        /// <summary>
         /// Замена новых продуктов на сохранённые продукты
         /// </summary>
         /// <param name="product"></param>
@@ -250,7 +173,7 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlock GetProductBlock(ProductBlock originProductBlock = null, IEnumerable<Parameter> requiredParameters = null)
         {
-            var bank = GetBank(requiredParameters?.Select(parameter => UnitOfWork.Repository<Parameter>().GetById(parameter.Id)));
+            var bank = _bankFactory.CreateBank(requiredParameters?.Select(parameter => UnitOfWork.Repository<Parameter>().GetById(parameter.Id)));
             
             //предварительно выбранный блок продукта
             var selectedProductBlock = originProductBlock == null
@@ -289,7 +212,7 @@ namespace HVTApp.Services.GetProductService
         {
             var designDepartmentParametersAddedBlocksEnumerable = parametersContainers.ToList();
             var banks = designDepartmentParametersAddedBlocksEnumerable
-                .Select(x => GetBank(x.Parameters.Select(p => UnitOfWork.Repository<Parameter>().GetById(p.Id))))
+                .Select(x => _bankFactory.CreateBank(x.Parameters.Select(p => UnitOfWork.Repository<Parameter>().GetById(p.Id))))
                 .ToList();
             var bankParameters = banks.SelectMany(x => x.Parameters).Distinct().ToList();
 

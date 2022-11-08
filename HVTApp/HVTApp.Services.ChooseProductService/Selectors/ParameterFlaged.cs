@@ -1,30 +1,25 @@
 using System;
-using System.Collections.Generic;
 using HVTApp.Model.POCOs;
+using Prism.Mvvm;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class ParameterFlaged : NotifyPropertyChanged, IComparable<ParameterFlaged>
+    public class ParameterFlaged : BindableBase, IComparable<ParameterFlaged>
     {
         #region props
 
-        public Parameter Parameter { get; }
-
         private bool _isActual;
+
         /// <summary>
         /// Флаг актуальности параметра.
         /// </summary>
         public bool IsActual
         {
             get => _isActual;
-            set
-            {
-                if (Equals(_isActual, value)) return;
-                _isActual = value;
-                IsActualChanged?.Invoke(this);
-                OnPropertyChanged();
-            }
+            set => this.SetProperty(ref _isActual, value, () => IsActualChanged?.Invoke(this));
         }
+
+        public Parameter Parameter { get; }
 
         #endregion
 
@@ -40,6 +35,9 @@ namespace HVTApp.Services.GetProductService
 
         #region events
 
+        /// <summary>
+        /// Событие изменения актуальности праметра
+        /// </summary>
         public event Action<ParameterFlaged> IsActualChanged;
 
         #endregion

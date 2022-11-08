@@ -27,6 +27,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Комментарий"), MaxLength(75)]
         public string Comment { get; set; }
 
+        /// <summary>
+        /// Параметр является началом (не зависит от других парметров)
+        /// </summary>
         [Designation("Начало?")]
         public bool IsOrigin => !ParameterRelations.Any();
 

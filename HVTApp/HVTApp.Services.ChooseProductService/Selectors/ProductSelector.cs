@@ -4,10 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using Prism.Mvvm;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class ProductSelector : NotifyPropertyChanged
+    public class ProductSelector : BindableBase, IDisposable
     {
         private Bank Bank { get; }
 
@@ -93,7 +94,10 @@ namespace HVTApp.Services.GetProductService
             var productSelectors = ProductSelectors.OrderByDescending(x => x.SelectedProduct.ProductBlock.Parameters.Count).ToList();
 
             //загружаем связи к дочерним продуктам, упорядоченные по количеству параметров, зависимого продукта
-            var childProductsRelations = Bank.RelationsToChildProducts(SelectedProduct).OrderBy(x => x.ChildProductParameters.Count).ToList();
+            var childProductsRelations = Bank
+                .GetActualRelationsToChildProducts(SelectedProduct)
+                .OrderBy(x => x.ChildProductParameters.Count)
+                .ToList();
 
             var relaitionsDictionary = new Dictionary<ProductRelation, int>();
             foreach (var actualProductRelation in childProductsRelations)
@@ -111,6 +115,7 @@ namespace HVTApp.Services.GetProductService
                 if (relation == null)
                 {
                     ProductSelectors.Remove(productSelector);
+                    productSelector.Dispose();
                 }
                 //если находим - корректируем связь и удаляем этот селектор из поиска
                 else
@@ -156,7 +161,7 @@ namespace HVTApp.Services.GetProductService
         {
             var result = new Dictionary<ProductRelation, IEnumerable<Product>>();
             //получаем актуальные для выбранных параметров связи
-            var actualProductRelations = Bank.RelationsToChildProducts(product).ToList();
+            var actualProductRelations = Bank.GetActualRelationsToChildProducts(product);
             actualProductRelations.ForEach(x => result.Add(x, default(IEnumerable<Product>)));
 
             //составляем список дочерних продуктов
@@ -211,5 +216,11 @@ namespace HVTApp.Services.GetProductService
         public event Action SelectedProductChanged;
 
         #endregion
+
+        public void Dispose()
+        {
+            BlockSelector?.Dispose();
+            ProductSelectors.ForEach(productSelector => productSelector.Dispose());
+        }
     }
 }

@@ -10,20 +10,20 @@ namespace HVTApp.Services.GetProductService
     /// </summary>
     public readonly struct Bank
     {
-        public List<Product> Products { get; }
-        public List<ProductBlock> Blocks { get; }
+        public HashSet<Product> Products { get; }
+        public HashSet<ProductBlock> Blocks { get; }
         public HashSet<Parameter> Parameters { get; }
-        public List<ProductRelation> Relations { get; }
+        public HashSet<ProductRelation> Relations { get; }
 
         public Bank(IEnumerable<Product> products, 
                     IEnumerable<ProductBlock> blocks, 
                     IEnumerable<Parameter> parameters, 
                     IEnumerable<ProductRelation> relations)
         {
-            Products = products.ToList();
-            Blocks = blocks.ToList();
+            Products = products.ToHashSet();
+            Blocks = blocks.ToHashSet();
             Parameters = parameters.ToHashSet();
-            Relations = relations.ToList();
+            Relations = relations.ToHashSet();
         }
 
         /// <summary>
@@ -65,13 +65,14 @@ namespace HVTApp.Services.GetProductService
         }
 
         /// <summary>
-        /// Актуальные связи.
+        /// Актуальные связи с дочерними продуктами.
         /// </summary>
         /// <param name="product">Родительский продукт.</param>
         /// <returns>Связи к дочерним продуктам.</returns>
-        public List<ProductRelation> RelationsToChildProducts(Product product)
+        public IEnumerable<ProductRelation> GetActualRelationsToChildProducts(Product product)
         {
-            return Relations.Where(relation => relation.ParentProductParameters.AllContainsIn(product.ProductBlock.Parameters)).ToList();
+            return Relations
+                .Where(relation => relation.ParentProductParameters.AllContainsIn(product.ProductBlock.Parameters));
         }
     }
 }

@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bank.cs" />
+    <Compile Include="BankFactory.cs" />
     <Compile Include="Complects\Complect.cs" />
     <Compile Include="Complects\ComplectsViewModel.cs" />
     <Compile Include="Complects\ComplectTypesViewModel.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Converter\ParameterSelectorToParameterGroupNameConverter.cs" />
     <Compile Include="GetProductServiceWpf.cs" />
     <Compile Include="Ext.cs" />
-    <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="ProductGeneration\BlockGeneration.cs" />
     <Compile Include="Selectors\ParameterFlaged.cs" />
     <Compile Include="Selectors\ParameterSelector.cs" />
