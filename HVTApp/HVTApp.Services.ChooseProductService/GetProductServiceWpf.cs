@@ -33,13 +33,13 @@ namespace HVTApp.Services.GetProductService
         /// <returns></returns>
         public Bank GetBank(Product originProduct)
         {
-            var parameters = UnitOfWork.Repository<Parameter>().GetAll();
+            var parameters = UnitOfWork.Repository<Parameter>()
+                .GetAll()
+                .WithoutComplects(originProduct)
+                .WithoutNew(originProduct);
             var products = UnitOfWork.Repository<Product>().GetAll();
             var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
-
-            parameters = ParametersWithoutComplectsParameters(parameters, originProduct);
-            parameters = ParametersWithoutNewParameters(parameters, originProduct);
 
             return new Bank(products, productBlocks, parameters, productRelations);
         }
@@ -51,13 +51,13 @@ namespace HVTApp.Services.GetProductService
         /// <returns></returns>
         public Bank GetBank(IEnumerable<Parameter> requiredParameters)
         {
-            var parameters = UnitOfWork.Repository<Parameter>().GetAll();
+            var parameters = UnitOfWork.Repository<Parameter>()
+                .GetAll()
+                .WithoutComplects()
+                .WithoutNew();
             var products = UnitOfWork.Repository<Product>().GetAll();
             var productRelations = UnitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = UnitOfWork.Repository<ProductBlock>().GetAll();
-
-            parameters = ParametersWithoutComplectsParameters(parameters);
-            parameters = ParametersWithoutNewParameters(parameters);
 
             if (requiredParameters != null)
             {
@@ -83,110 +83,6 @@ namespace HVTApp.Services.GetProductService
             }
 
             return new Bank(products, productBlocks, parameters, productRelations);
-        }
-
-        /// <summary>
-        /// Параметры без параметров "Деталей и Комплектов"
-        /// </summary>
-        /// <param name="parameters1"></param>
-        private List<Parameter> ParametersWithoutComplectsParameters(IEnumerable<Parameter> parameters1)
-        {
-            var parameters = parameters1.ToList();
-
-            //парметры "обозначение комплекта"
-            var complectDesignationParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectDesignationGroup.Id).ToList();
-
-            //параметры "тип комплекта"
-            var complectTypeParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id).ToList();
-
-            var parametersToExclude = complectTypeParameters.Union(complectDesignationParameters).ToList();
-
-            //параметр "Комплекты и детали"
-            var complectsParameter = parameters.SingleOrDefault(parameter => parameter.Id == GlobalAppProperties.Actual.ComplectsParameter.Id);
-            if (complectsParameter != null)
-            {
-                parametersToExclude.Add(complectsParameter);
-            }
-
-            return parameters.Except(parametersToExclude).ToList();
-        }
-
-        /// <summary>
-        /// Параметры без параметров "Деталей и Комплектов"
-        /// </summary>
-        /// <param name="parameters1"></param>
-        /// <param name="selectedProduct"></param>
-        private List<Parameter> ParametersWithoutComplectsParameters(IEnumerable<Parameter> parameters1, Product selectedProduct)
-        {
-            var parameters = parameters1.ToList();
-
-            //парметры "обозначение комплекта"
-            var complectDesignationParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectDesignationGroup.Id).ToList();
-
-            //параметры "тип комплекта"
-            var complectTypeParameters = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id).ToList();
-
-            var parametersToExclude = complectTypeParameters.Union(complectDesignationParameters).ToList();
-
-            //параметр "Комплекты и детали"
-            var complectsParameter = parameters.SingleOrDefault(parameter => parameter.Id == GlobalAppProperties.Actual.ComplectsParameter.Id);
-            if (complectsParameter != null)
-                parametersToExclude.Add(complectsParameter);
-
-            if (selectedProduct != null)
-            {
-                var ids = selectedProduct.ProductBlock.Parameters.Select(parameter => parameter.Id).ToList();
-                parametersToExclude = parametersToExclude.Where(parameter => !ids.Contains(parameter.Id)).ToList();
-            }
-
-            return parameters.Except(parametersToExclude).ToList();
-        }
-
-        /// <summary>
-        /// Параметры без параметров "Новое оборудование"
-        /// </summary>
-        /// <param name="parameters1"></param>
-        private List<Parameter> ParametersWithoutNewParameters(IEnumerable<Parameter> parameters1)
-        {
-            var parameters = parameters1.ToList();
-
-            //парметры "обозначение"
-            var parametersToExclude = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.NewProductParameterGroup.Id).ToList();
-
-            //параметр "Комплекты и детали"
-            var newProductParameter = parameters.SingleOrDefault(parameter => parameter.Id == GlobalAppProperties.Actual.NewProductParameter.Id);
-            if (newProductParameter != null)
-            {
-                parametersToExclude.Add(newProductParameter);
-            }
-
-            return parameters.Except(parametersToExclude).ToList();
-        }
-
-        /// <summary>
-        /// Параметры без параметров "Новое оборудование"
-        /// </summary>
-        /// <param name="parameters1"></param>
-        /// <param name="selectedProduct"></param>
-        private List<Parameter> ParametersWithoutNewParameters(IEnumerable<Parameter> parameters1, Product selectedProduct)
-        {
-            var parameters = parameters1.ToList();
-
-            //парметры "обозначение"
-            var parametersToExclude = parameters.Where(parameter => parameter.ParameterGroup.Id == GlobalAppProperties.Actual.NewProductParameterGroup.Id).ToList();
-
-            //параметр "Комплекты и детали"
-            var newProductParameter = parameters.SingleOrDefault(parameter => parameter.Id == GlobalAppProperties.Actual.NewProductParameter.Id);
-            if (newProductParameter != null)
-                parametersToExclude.Add(newProductParameter);
-
-            if (selectedProduct != null)
-            {
-                var ids = selectedProduct.ProductBlock.Parameters.Select(parameter => parameter.Id).ToList();
-                parametersToExclude = parametersToExclude.Where(parameter => !ids.Contains(parameter.Id)).ToList();
-            }
-
-            return parameters.Except(parametersToExclude).ToList();
         }
 
         public Product GetProduct(Product originProduct = null)
@@ -459,4 +355,5 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
     }
+
 }

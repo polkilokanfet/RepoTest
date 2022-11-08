@@ -82,6 +82,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ParametersExtensions.cs" />
     <Compile Include="POCOs\ActivityFieldEnum.cs" />
     <Compile Include="POCOs\Address\CountryUnion.cs" />
     <Compile Include="POCOs\BankGuarantee.cs" />
