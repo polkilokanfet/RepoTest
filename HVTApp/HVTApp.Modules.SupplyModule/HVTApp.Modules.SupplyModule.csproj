@@ -53,7 +53,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Prism">
-      <HintPath>..\HVTApp.DataAccess\bin\Debug\Prism.dll</HintPath>
+      <HintPath>..\packages\Prism.Core.7.0.0.396\lib\net45\Prism.dll</HintPath>
     </Reference>
     <Reference Include="Prism.Wpf">
       <HintPath>..\HVTApp.DataAccess\bin\Debug\Prism.Wpf.dll</HintPath>
