@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -20,12 +21,9 @@ namespace HVTApp.Infrastructure.Prism
             _eventAggregator = Container.Resolve<IEventAggregator>();
         }
 
-        public void Initialize()
-        {
-            RegisterTypes();
-            ResolveOutlookGroup();
-            _eventAggregator.GetEvent<ModuleIsInitializedEvent>().Publish(this.GetType());
-        }
+        //public void Initialize()
+        //{
+        //}
 
         /// <summary>
         /// Регистрация специфических для модуля типов
@@ -36,6 +34,17 @@ namespace HVTApp.Infrastructure.Prism
         /// Кнопка аутлук
         /// </summary>
         protected abstract void ResolveOutlookGroup();
+
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            RegisterTypes();
+        }
+
+        public void OnInitialized(IContainerProvider containerProvider)
+        {
+            ResolveOutlookGroup();
+            _eventAggregator.GetEvent<ModuleIsInitializedEvent>().Publish(this.GetType());
+        }
     }
 
     public class ModuleIsInitializedEvent : PubSubEvent<Type>

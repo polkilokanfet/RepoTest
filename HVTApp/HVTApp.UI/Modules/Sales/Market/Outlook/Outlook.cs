@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -118,7 +117,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             IEnumerable<MessageOutlook> messages = new List<MessageOutlook>();
 
-            Task.Run(
+            System.Threading.Tasks.Task.Run(
                 () =>
                 {
                     messages = GetMessages(projectItem.Project).OrderByDescending(messageOutlook => messageOutlook.SentOnDate);

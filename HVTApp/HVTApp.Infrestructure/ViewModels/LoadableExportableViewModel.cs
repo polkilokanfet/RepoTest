@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -52,7 +51,7 @@ namespace HVTApp.Infrastructure.ViewModels
         {
             IsLoaded = false;
             BeforeGetData();
-            Task.Run(() => { GetData(); })
+            System.Threading.Tasks.Task.Run(() => { GetData(); })
                 .Await(
                     () =>
                     {

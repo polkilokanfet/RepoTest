@@ -145,7 +145,7 @@ namespace HVTApp.Services.GetProductService
 
             //событие смены блока
             SelectedBlockChanged?.Invoke(this);
-            OnPropertyChanged(nameof(SelectedBlock));
+            RaisePropertyChanged(nameof(SelectedBlock));
         }
 
         public void Dispose()

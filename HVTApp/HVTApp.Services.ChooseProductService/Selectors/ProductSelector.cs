@@ -54,7 +54,7 @@ namespace HVTApp.Services.GetProductService
             {
                 RefreshProductSelectors();
                 SelectedProductChanged?.Invoke();
-                OnPropertyChanged(nameof(SelectedProduct));
+                RaisePropertyChanged(nameof(SelectedProduct));
             };
 
             //удаление/добавление селекторов дочерних продуктов
@@ -141,7 +141,7 @@ namespace HVTApp.Services.GetProductService
                 }
             }
 
-            OnPropertyChanged(nameof(HasDependentProducts));
+            RaisePropertyChanged(nameof(HasDependentProducts));
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace HVTApp.Services.GetProductService
         /// </summary>
         private void OnChildProductChanged()
         {
-            OnPropertyChanged(nameof(SelectedProduct));
+            RaisePropertyChanged(nameof(SelectedProduct));
         }
 
         /// <summary>
