@@ -9,7 +9,6 @@
     <DockPanel LastChildFill="True">
         
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Новое" Click="ButtonNew_OnClick" Margin="5,10" Padding="5" Visibility="Collapsed"/>
             <Button Content="Комплекты и детали" Click="ButtonComplects_OnClick"  Margin="5,10" Padding="5"/>
             <Button Content="Ok" Click="ButtonOk_OnClick" Margin="5,10" Padding="5"/>
         </StackPanel>

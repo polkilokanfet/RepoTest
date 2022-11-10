@@ -30,11 +30,19 @@ namespace HVTApp.Services.GetProductService
 
         public Product GetProduct(Product originProduct = null)
         {
-            var bank = _bankFactory.CreateBank(originProduct);
+            return this.GetProduct(_bankFactory.CreateBank(originProduct), originProduct);
+        }
 
+        public Product GetProduct(IEnumerable<Parameter> requiredParameters)
+        {
+            return this.GetProduct(_bankFactory.CreateBank(requiredParameters.ChangeUnitOfWork(UnitOfWork)));
+        }
+
+        private Product GetProduct(Bank bank, Product originProduct = null)
+        {
             //предварительно выбранный продукт
-            var selectedProduct = originProduct == null 
-                ? null 
+            var selectedProduct = originProduct == null
+                ? null
                 : bank.Products.Single(product => product.Id == originProduct.Id);
 
             var productSelector = new ProductSelector(bank, bank.Parameters, selectedProduct);
@@ -42,21 +50,14 @@ namespace HVTApp.Services.GetProductService
             var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
             window.ShowDialog();
 
-            //если необходимо создать новый продукт
-            if (window.ShoodCreateNew)
-            {
-                var productNew = Container.Resolve<INewProductService>().GetNewProduct();
-                return productNew ?? originProduct;
-            }
+            //выходим, если пользователь отменил выбор продукта.
+            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProduct;
 
             //если необходимо выбрать комплект
-            if (window.ShoodSelectComplect)
+            if (window.ShouldSelectComplect)
             {
                 return Container.Resolve<IGetProductService>().GetComplect(originProduct);
             }
-
-            //выходим, если пользователь отменил выбор продукта.
-            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProduct;
 
             var result = productSelector.SelectedProduct;
             productSelector.Dispose();
@@ -65,16 +66,7 @@ namespace HVTApp.Services.GetProductService
             //если выбранного продукта нет в базе
             if (((IProductRepository)UnitOfWork.Repository<Product>()).CanAdd(result).OperationCompletedSuccessfully)
             {
-                var products = UnitOfWork.Repository<Product>().GetAll();
-                SubstitutionProducts(result, products);
-                if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
-                {
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
-                }
-                else
-                {
-                    throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
-                }
+                SaveProduct(result);
             }
 
             return result;
@@ -88,55 +80,30 @@ namespace HVTApp.Services.GetProductService
             var result = products.SingleOrDefault(x => x.Equals(product));
             if (result != null) return result;
 
-            //если выбранного продукта нет в базе
+            //если выбранного продукта нет в базе, сохраняем его
             result = product;
-            SubstitutionProducts(result, products);
-            //SubstitutionBlocks(result, unitOfWork.Repository<ProductBlock>().GetAll());
-            if (unitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
-            {
-                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
-            }
-            else
-            {
-                throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
-            }
+            this.SaveProduct(result);
 
             return result;
         }
 
-        public Product GetProduct(IEnumerable<Parameter> requiredParameters)
+
+        private void SaveProduct(Product product)
         {
-            var bank = _bankFactory.CreateBank(requiredParameters.Select(x => UnitOfWork.Repository<Parameter>().GetById(x.Id)));
-
-            var productSelector = new ProductSelector(bank, bank.Parameters);
-            var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
-            window.ShowDialog();
-
-
-            //выходим, если пользователь отменил выбор продукта.
-            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return null;
-
-            var result = productSelector.SelectedProduct;
-            productSelector.Dispose();
-
-            //загрузка актуальных продуктов
             var products = UnitOfWork.Repository<Product>().GetAll();
-            //если выбранного продукта нет в базе
-            if (products.Contains(result) == false)
-            {
-                SubstitutionProducts(result, products);
-                if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
-                {
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(result);
-                }
-                else
-                {
-                    throw new Exception("Ошибка при сохранении нового продукта в базу данных.");
-                }
-            }
 
-            return result;
+            SubstitutionDependentProducts(product, products);
+
+            var operationResult = UnitOfWork.SaveEntity(product);
+
+            if (operationResult.OperationCompletedSuccessfully)
+            {
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(product);
+            }
+            else
+            {
+                throw new Exception("Ошибка при сохранении нового продукта в базу данных.", operationResult.Exception);
+            }
         }
 
         public Product GetComplect(Product originProduct = null)
@@ -154,17 +121,19 @@ namespace HVTApp.Services.GetProductService
         /// Замена новых продуктов на сохранённые продукты
         /// </summary>
         /// <param name="product"></param>
-        /// <param name="uniqProducts"></param>
-        private void SubstitutionProducts(Product product, ICollection<Product> uniqProducts)
+        /// <param name="savedProducts">Сохраненные продукты</param>
+        private void SubstitutionDependentProducts(Product product, ICollection<Product> savedProducts)
         {
+            //для каждого зависиммого продукта
             foreach (var dependentProduct in product.DependentProducts)
             {
-                if (uniqProducts.Contains(dependentProduct.Product))
+                //если продукт есть в сохраненных, меняем его
+                if (savedProducts.Contains(dependentProduct.Product))
                 {
-                    dependentProduct.Product = uniqProducts.Single(product1 => product1.Equals(dependentProduct.Product));
+                    dependentProduct.Product = savedProducts.Single(product1 => product1.Equals(dependentProduct.Product));
                 }
 
-                SubstitutionProducts(dependentProduct.Product, uniqProducts);
+                SubstitutionDependentProducts(dependentProduct.Product, savedProducts);
             }
         }
 
