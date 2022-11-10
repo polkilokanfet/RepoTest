@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="HashTests.cs" />
     <Compile Include="OfferToDocTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

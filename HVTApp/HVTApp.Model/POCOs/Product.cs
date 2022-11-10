@@ -62,6 +62,16 @@ namespace HVTApp.Model.POCOs
             return base.Equals(obj) || Equals(obj as Product);
         }
 
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = ProductBlock != null ? ProductBlock.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ (DependentProducts != null ? DependentProducts.GetHashSum() : 0);
+                return hashCode;
+            }
+        }
+
         protected bool Equals(Product other)
         {
             if (other == null) return false;
@@ -87,15 +97,15 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public IEnumerable<ProductBlock> GetBlocks()
         {
-            var result = new List<ProductBlock> {ProductBlock};
+            yield return this.ProductBlock;
+
             foreach (var dependentProduct in DependentProducts)
             {
-                for (int i = 0; i < dependentProduct.Amount; i++)
+                foreach (var productBlock in dependentProduct.Product.GetBlocks())
                 {
-                    result.AddRange(dependentProduct.Product.GetBlocks());
+                    yield return productBlock;
                 }
             }
-            return result;
         }
 
         public IEnumerable<Product> GetProducts()
@@ -109,7 +119,6 @@ namespace HVTApp.Model.POCOs
                     yield return product;
                 }
             }
-
         }
 
 

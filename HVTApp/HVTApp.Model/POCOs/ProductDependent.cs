@@ -24,6 +24,18 @@ namespace HVTApp.Model.POCOs
             return base.Equals(other) || Equals(other as ProductDependent);
         }
 
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ MainProductId.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Product != null ? Product.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Amount;
+                return hashCode;
+            }
+        }
+
         protected bool Equals(ProductDependent other)
         {
             return Amount == other?.Amount && this.Product.Equals(other.Product);

@@ -41,7 +41,8 @@ namespace HVTApp.Services.GetProductService
             };
             //если такой продукт существует - возвращаем его
             var existsProduct = Products.SingleOrDefault(x => x.Equals(product));
-            if (existsProduct != null) return existsProduct;
+            if (existsProduct != null)
+                return existsProduct;
 
             Products.Add(product);
             return product;

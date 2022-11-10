@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -25,5 +26,31 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Уникальность")]
         public bool IsUnique { get; set; } = true;
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        protected bool Equals(ProductRelation other)
+        {
+            return base.Equals(other) ||
+                   (ParentProductParameters.MembersAreSame(other.ParentProductParameters) &&
+                    ChildProductParameters.MembersAreSame(other.ChildProductParameters) &&
+                    ChildProductsAmount == other.ChildProductsAmount &&
+                    IsUnique == other.IsUnique);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = ParentProductParameters != null ? ParentProductParameters.GetHashSum() : 0;
+                hashCode = (hashCode * 397) ^ (ChildProductParameters != null ? ChildProductParameters.GetHashSum() : 0);
+                hashCode = (hashCode * 397) ^ ChildProductsAmount;
+                hashCode = (hashCode * 397) ^ IsUnique.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }

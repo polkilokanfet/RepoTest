@@ -48,10 +48,10 @@ namespace HVTApp.Model.POCOs
         public List<Parameter> ParametersOrdered => Parameters.OrderBy(parameter => parameter).ToList();
 
         [Designation("Обозначение"), NotMapped]
-        public string Designation => GlobalAppProperties.ProductDesignationService.GetDesignation(this);
+        public string Designation => GlobalAppProperties.ProductDesignationService?.GetDesignation(this);
 
         [Designation("Тип"), NotMapped, OrderStatus(10)]
-        public ProductType ProductType => GlobalAppProperties.ProductDesignationService.GetProductType(this);
+        public ProductType ProductType => GlobalAppProperties.ProductDesignationService?.GetProductType(this);
 
         [Designation("Есть прайс"), NotMapped]
         public bool HasPrice => Prices.Any();
@@ -82,7 +82,7 @@ namespace HVTApp.Model.POCOs
 
         public override int GetHashCode()
         {
-            return Parameters.GetHashCode();
+            return Parameters.GetHashSum();
         }
 
         public override bool Equals(object other)

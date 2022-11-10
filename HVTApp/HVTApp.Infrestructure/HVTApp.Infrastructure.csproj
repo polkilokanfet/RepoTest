@@ -92,6 +92,7 @@
     <Compile Include="Attributes\OrderStatusAttribute.cs" />
     <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="BaseEntityExtensions.cs" />
     <Compile Include="BaseMenuViewModel.cs" />
     <Compile Include="Behaviors\ChangeBehavior.cs" />
     <Compile Include="Behaviors\DataGridChangeBehavior.cs" />
