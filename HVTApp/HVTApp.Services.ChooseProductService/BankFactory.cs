@@ -20,17 +20,13 @@ namespace HVTApp.Services.GetProductService
         /// </summary>
         /// <param name="originProduct"></param>
         /// <returns></returns>
-        public Bank CreateBank(Product originProduct)
+        public Bank CreateBank(Product originProduct = null)
         {
-            var parameters = _unitOfWork.Repository<Parameter>()
-                .GetAll()
-                .WithoutComplects(originProduct)
-                .WithoutNew(originProduct);
-            var products = _unitOfWork.Repository<Product>().GetAll();
+            var parameters = GetParameters(originProduct);
             var productRelations = _unitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
 
-            return new Bank(products, productBlocks, parameters, productRelations);
+            return new Bank(productBlocks, parameters, productRelations);
         }
 
         /// <summary>
@@ -40,11 +36,7 @@ namespace HVTApp.Services.GetProductService
         /// <returns></returns>
         public Bank CreateBank(IEnumerable<Parameter> requiredParameters)
         {
-            var parameters = _unitOfWork.Repository<Parameter>()
-                .GetAll()
-                .WithoutComplects()
-                .WithoutNew();
-            var products = _unitOfWork.Repository<Product>().GetAll();
+            var parameters = GetParameters();
             var productRelations = _unitOfWork.Repository<ProductRelation>().GetAll();
             var productBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
 
@@ -52,7 +44,8 @@ namespace HVTApp.Services.GetProductService
             {
                 //находим максимальное количество пересечений путей параметров
                 List<Parameter> requiredPathParameters = null;
-                foreach (var requiredParameter in requiredParameters)
+                var requiredParametersArray = requiredParameters as Parameter[] ?? requiredParameters.ToArray();
+                foreach (var requiredParameter in requiredParametersArray)
                 {
                     var pathsParameters = requiredParameter.Paths()
                         .SelectMany(path => path.Parameters)
@@ -65,13 +58,21 @@ namespace HVTApp.Services.GetProductService
                 }
 
                 //оставляем обязательные параметры "одинокими"
-                foreach (var parameter in requiredPathParameters.Union(requiredParameters).Distinct())
+                foreach (var parameter in requiredPathParameters.Union(requiredParametersArray).Distinct())
                 {
-                    parameters = parameters.LeaveParameterAloneInGroup(parameter).ToList();
+                    parameters = parameters.LeaveParameterAloneInGroup(parameter);
                 }
             }
 
-            return new Bank(products, productBlocks, parameters, productRelations);
+            return new Bank(productBlocks, parameters, productRelations);
+        }
+
+        private IEnumerable<Parameter> GetParameters(Product originProduct = null)
+        {
+            return _unitOfWork.Repository<Parameter>()
+                .GetAll()
+                .WithoutComplects(originProduct)
+                .WithoutNew(originProduct);
         }
     }
 }

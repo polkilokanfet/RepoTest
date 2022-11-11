@@ -38,7 +38,12 @@ namespace HVTApp.Services.GetProductService
             } 
         }
 
-        public Product SelectedProduct => Bank.GetProduct(BlockSelector.SelectedBlock, ProductDependents);
+        public Product SelectedProduct =>
+            new Product
+            {
+                ProductBlock = BlockSelector.SelectedBlock,
+                DependentProducts = this.ProductDependents.ToList(),
+            };
 
         public ProductSelector(Bank bank, IEnumerable<Parameter> parameters, Product selectedProduct = null, int amount = 1)
         {
@@ -99,10 +104,10 @@ namespace HVTApp.Services.GetProductService
                 .OrderBy(x => x.ChildProductParameters.Count)
                 .ToList();
 
-            var relaitionsDictionary = new Dictionary<ProductRelation, int>();
+            var relationsDictionary = new Dictionary<ProductRelation, int>();
             foreach (var actualProductRelation in childProductsRelations)
             {
-                relaitionsDictionary.Add(actualProductRelation, actualProductRelation.ChildProductsAmount);
+                relationsDictionary.Add(actualProductRelation, actualProductRelation.ChildProductsAmount);
             }
 
             //удаление неактуальных селекторов и чистка связей
@@ -122,8 +127,8 @@ namespace HVTApp.Services.GetProductService
                 {
                     productSelectors.Remove(productSelector);
 
-                    relaitionsDictionary[relation] -= productSelector.Amount;
-                    if (relaitionsDictionary[relation] == 0)
+                    relationsDictionary[relation] -= productSelector.Amount;
+                    if (relationsDictionary[relation] == 0)
                     {
                         childProductsRelations.Remove(relation);
                     }
@@ -133,7 +138,7 @@ namespace HVTApp.Services.GetProductService
             //добавление новых актуальных селекторов
             foreach (var productRelation in childProductsRelations)
             {
-                for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
+                for (int i = 0; i < relationsDictionary[productRelation]; i++)
                 {
                     //новый селектор с усеченными под связь параметрами
                     var productSelector = new ProductSelector(Bank, Bank.Parameters.GetUsefull(productRelation));

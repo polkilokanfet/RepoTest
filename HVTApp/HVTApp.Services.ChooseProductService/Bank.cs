@@ -10,59 +10,23 @@ namespace HVTApp.Services.GetProductService
     /// </summary>
     public readonly struct Bank
     {
-        public HashSet<Product> Products { get; }
         public HashSet<ProductBlock> Blocks { get; }
         public HashSet<Parameter> Parameters { get; }
-        public HashSet<ProductRelation> Relations { get; }
+        public List<ProductRelation> Relations { get; }
 
-        public Bank(IEnumerable<Product> products, 
-                    IEnumerable<ProductBlock> blocks, 
+        private readonly Dictionary<int, string> _specialDesignationsDictionary;
+
+        public Bank(IEnumerable<ProductBlock> blocks, 
                     IEnumerable<Parameter> parameters, 
                     IEnumerable<ProductRelation> relations)
         {
-            Products = products.ToHashSet();
             Blocks = blocks.ToHashSet();
             Parameters = parameters.ToHashSet();
-            Relations = relations.ToHashSet();
-        }
+            Relations = relations.ToList();
 
-        /// <summary>
-        /// Возвращает продукт, либо создает новый.
-        /// </summary>
-        /// <param name="block"></param>
-        /// <param name="productsDependent"></param>
-        /// <returns></returns>
-        public Product GetProduct(ProductBlock block, IEnumerable<ProductDependent> productsDependent)
-        {
-            var product = new Product
-            {
-                ProductBlock = block,
-                DependentProducts = productsDependent.ToList()
-            };
-            //если такой продукт существует - возвращаем его
-            var existsProduct = Products.SingleOrDefault(x => x.Equals(product));
-            if (existsProduct != null)
-                return existsProduct;
-
-            Products.Add(product);
-            return product;
-        }
-
-        public ProductBlock GetBlock(IEnumerable<Parameter> parameters)
-        {
-            //создание нового блока
-            var block = new ProductBlock { Parameters = parameters.ToList() };
-
-            //поиск в существующих блоках
-            var existsBlock = Blocks.SingleOrDefault(x => x.Equals(block));
-            if (existsBlock != null)
-            {
-                return existsBlock;
-            }
-
-            //добавление блока в банк
-            Blocks.Add(block);
-            return block;
+            _specialDesignationsDictionary = Blocks
+                .Where(block => block.DesignationSpecial != null)
+                .ToDictionary(block => block.GetHashCode(), block => block.DesignationSpecial);
         }
 
         /// <summary>
@@ -74,6 +38,13 @@ namespace HVTApp.Services.GetProductService
         {
             return Relations
                 .Where(relation => relation.ParentProductParameters.AllContainsIn(product.ProductBlock.Parameters));
+        }
+
+        public string GetBlockSpecialDesignation(int hash)
+        {
+            return _specialDesignationsDictionary.ContainsKey(hash) 
+                ? _specialDesignationsDictionary[hash] 
+                : null;
         }
     }
 }

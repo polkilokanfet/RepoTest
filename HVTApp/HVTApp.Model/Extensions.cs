@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 
@@ -109,6 +110,34 @@ namespace HVTApp.Model
                 else
                 {
                     if (parameter.ParameterGroup.Id != parameterRequired.ParameterGroup.Id)
+                    {
+                        yield return parameter;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Оставить параметры единственным в группе
+        /// </summary>
+        /// <param name="parameters">Все параметры</param>
+        /// <param name="parametersRequired">Единственные параметры в своих группах</param>
+        /// <returns></returns>
+        public static IEnumerable<Parameter> LeaveParametersAloneInGroup(this IEnumerable<Parameter> parameters, IEnumerable<Parameter> parametersRequired)
+        {
+            var requiredParameters = parametersRequired as Parameter[] ?? parametersRequired.ToArray();
+            foreach (var parameter in parameters)
+            {
+                if (requiredParameters.ContainsById(parameter))
+                {
+                    yield return parameter;
+                }
+                else
+                {
+                    var groups = requiredParameters
+                        .Select(x => x.ParameterGroup)
+                        .Distinct();
+                    if (groups.ContainsById(parameter.ParameterGroup) == false)
                     {
                         yield return parameter;
                     }

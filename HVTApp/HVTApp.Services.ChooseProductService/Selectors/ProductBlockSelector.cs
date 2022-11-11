@@ -37,7 +37,12 @@ namespace HVTApp.Services.GetProductService
         /// </summary>
         public ProductBlock SelectedBlock
         {
-            get => _bank.GetBlock(SelectedParameters);
+            get
+            {
+                var result = new ProductBlock {Parameters = SelectedParameters};
+                result.DesignationSpecial = _bank.GetBlockSpecialDesignation(result.GetHashCode());
+                return result;
+            }
             set
             {
                 var blockToSet = value;

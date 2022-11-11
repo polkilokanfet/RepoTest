@@ -152,6 +152,18 @@ namespace HVTApp.Infrastructure.Extansions
             return enumerable.Select(x => unitOfWork.Repository<T>().GetById(x.Id));
         }
 
+        /// <summary>
+        /// Заменить сущность на сущность из соответствующего UnitOfWork
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="unitOfWork"></param>
+        /// <returns></returns>
+        public static T ChangeUnitOfWork<T>(this T entity, IUnitOfWork unitOfWork) where T : class,IBaseEntity
+        {
+            return unitOfWork.Repository<T>().GetById(entity.Id);
+        }
+
         public static string ToStringEnum<T>(this IEnumerable<T> enumerable, string separator = "; ")
         {
             return enumerable == null || !enumerable.Any() || enumerable.All(x => x == null)

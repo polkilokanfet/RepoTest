@@ -65,6 +65,9 @@ namespace HVTApp.UI.PriceEngineering
         /// Выбрать блок продукта
         /// </summary>
         public DelegateLogCommand SelectProductBlockCommand { get; private set; }
+        /// <summary>
+        /// Команда добавления зависиммых блоков (например ЗИПов)
+        /// </summary>
         public DelegateLogCommand AddBlockAddedCommand { get; private set; }
         public DelegateLogCommand AddBlockAddedComplectCommand { get; private set; }
         public DelegateLogConfirmationCommand RemoveBlockAddedCommand { get; private set; }

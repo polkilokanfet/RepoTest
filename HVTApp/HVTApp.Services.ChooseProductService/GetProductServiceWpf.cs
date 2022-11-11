@@ -5,6 +5,7 @@ using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -41,17 +42,12 @@ namespace HVTApp.Services.GetProductService
         private Product GetProduct(Bank bank, Product originProduct = null)
         {
             //предварительно выбранный продукт
-            var selectedProduct = originProduct == null
-                ? null
-                : bank.Products.Single(product => product.Id == originProduct.Id);
+            var selectedProduct = originProduct?.ChangeUnitOfWork(UnitOfWork);
 
             var productSelector = new ProductSelector(bank, bank.Parameters, selectedProduct);
             var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
             window.ShowDialog();
-
-            //выходим, если пользователь отменил выбор продукта.
-            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProduct;
 
             //если необходимо выбрать комплект
             if (window.ShouldSelectComplect)
@@ -59,14 +55,21 @@ namespace HVTApp.Services.GetProductService
                 return Container.Resolve<IGetProductService>().GetComplect(originProduct);
             }
 
+            //выходим, если пользователь отменил выбор продукта.
+            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProduct;
+
             var result = productSelector.SelectedProduct;
             productSelector.Dispose();
 
-            //загрузка актуальных продуктов
             //если выбранного продукта нет в базе
             if (((IProductRepository)UnitOfWork.Repository<Product>()).CanAdd(result).OperationCompletedSuccessfully)
             {
                 SaveProduct(result);
+            }
+            else
+            {
+                var result1 = result;
+                result = UnitOfWork.Repository<Product>().FindAsNoTracking(x => x.Equals(result1)).Single();
             }
 
             return result;
@@ -91,19 +94,16 @@ namespace HVTApp.Services.GetProductService
         private void SaveProduct(Product product)
         {
             var products = UnitOfWork.Repository<Product>().GetAll();
+            var blocks = UnitOfWork.Repository<ProductBlock>().GetAll();
 
-            SubstitutionDependentProducts(product, products);
+            SubstitutionBlocksAndProducts(product, products, blocks);
 
             var operationResult = UnitOfWork.SaveEntity(product);
 
-            if (operationResult.OperationCompletedSuccessfully)
-            {
-                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(product);
-            }
-            else
-            {
+            if (operationResult.OperationCompletedSuccessfully == false)
                 throw new Exception("ќшибка при сохранении нового продукта в базу данных.", operationResult.Exception);
-            }
+
+            Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(product);
         }
 
         public Product GetComplect(Product originProduct = null)
@@ -118,37 +118,52 @@ namespace HVTApp.Services.GetProductService
 
 
         /// <summary>
-        /// «амена новых продуктов на сохранЄнные продукты
+        /// «амена новых блоков и продуктов на сохранЄнные
         /// </summary>
         /// <param name="product"></param>
         /// <param name="savedProducts">—охраненные продукты</param>
-        private void SubstitutionDependentProducts(Product product, ICollection<Product> savedProducts)
+        /// <param name="savedBlocks"></param>
+        private void SubstitutionBlocksAndProducts(Product product, ICollection<Product> savedProducts, ICollection<ProductBlock> savedBlocks)
         {
+            //замена блоков на сохранЄнные
+            var block = savedBlocks.SingleOrDefault(productBlock => product.ProductBlock.Equals(productBlock));
+            if (block != null)
+            {
+                product.ProductBlock = block;
+            }
+            else
+            {
+                savedBlocks.Add(product.ProductBlock);
+            }
+
             //дл€ каждого зависиммого продукта
             foreach (var dependentProduct in product.DependentProducts)
             {
+                var savedProduct = savedProducts.SingleOrDefault(product1 => product1.Equals(dependentProduct.Product));
                 //если продукт есть в сохраненных, мен€ем его
-                if (savedProducts.Contains(dependentProduct.Product))
+                if (savedProduct != null)
                 {
-                    dependentProduct.Product = savedProducts.Single(product1 => product1.Equals(dependentProduct.Product));
+                    dependentProduct.Product = savedProduct;
+                }
+                else
+                {
+                    savedProducts.Add(dependentProduct.Product);
                 }
 
-                SubstitutionDependentProducts(dependentProduct.Product, savedProducts);
+                SubstitutionBlocksAndProducts(dependentProduct.Product, savedProducts, savedBlocks);
             }
         }
 
         public ProductBlock GetProductBlock(ProductBlock originProductBlock = null, IEnumerable<Parameter> requiredParameters = null)
         {
-            var bank = _bankFactory.CreateBank(requiredParameters?.Select(parameter => UnitOfWork.Repository<Parameter>().GetById(parameter.Id)));
+            var bank = _bankFactory.CreateBank(requiredParameters?.ChangeUnitOfWork(UnitOfWork));
             
             //предварительно выбранный блок продукта
-            var selectedProductBlock = originProductBlock == null
-                ? null
-                : bank.Blocks.Single(block => block.Id == originProductBlock.Id);
+            var selectedProductBlock = originProductBlock?.ChangeUnitOfWork(UnitOfWork);
 
             var productBlockSelector = new ProductBlockSelector(bank.Parameters, bank, selectedProductBlock);
             var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            var window = new SelectProductBlockWindow() { DataContext = productBlockSelector, Owner = owner };
+            var window = new SelectProductBlockWindow { DataContext = productBlockSelector, Owner = owner };
             window.ShowDialog();
 
             //выходим, если пользователь отменил выбор блока продукта.
@@ -176,39 +191,30 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlock GetProductBlock(IEnumerable<IParametersContainer> parametersContainers, ProductBlock originProductBlock = null)
         {
-            var designDepartmentParametersAddedBlocksEnumerable = parametersContainers.ToList();
-            var banks = designDepartmentParametersAddedBlocksEnumerable
-                .Select(x => _bankFactory.CreateBank(x.Parameters.Select(p => UnitOfWork.Repository<Parameter>().GetById(p.Id))))
+            var parameterContainers = parametersContainers as IParametersContainer[] ?? parametersContainers.ToArray();
+            var banks = parameterContainers
+                .Select(x => _bankFactory.CreateBank(x.Parameters.ChangeUnitOfWork(UnitOfWork)))
                 .ToList();
-            var bankParameters = banks.SelectMany(x => x.Parameters).Distinct().ToList();
+
+            //об€зательные параметры в группах
+            var requiredParameters = parameterContainers
+                .SelectMany(x => x.Parameters)
+                .Distinct()
+                .ToList();
 
             //удал€ем из групп об€зательных параметров всЄ, кроме об€зательных параметров
-            var reqParIds = designDepartmentParametersAddedBlocksEnumerable
+            var bankParameters = banks
                 .SelectMany(x => x.Parameters)
-                .Select(x => x.Id).Distinct().ToList();
-            var reqGrpIds = designDepartmentParametersAddedBlocksEnumerable
-                .SelectMany(x => x.Parameters)
-                .Select(x => x.ParameterGroup.Id).Distinct().ToList();
-            foreach (var parameter in bankParameters.ToList())
-            {
-                if (reqParIds.Contains(parameter.Id))
-                {
-                    continue;
-                }
-
-                if (reqGrpIds.Contains(parameter.ParameterGroup.Id))
-                {
-                    bankParameters.Remove(parameter);
-                }
-            }
+                .Distinct()
+                .LeaveParametersAloneInGroup(requiredParameters)
+                .ToList();
 
             var firstBank = banks.First();
-            var bank = new Bank(firstBank.Products, firstBank.Blocks, bankParameters, firstBank.Relations);
+            //var bank = _bankFactory.CreateBank();
+            var bank = new Bank(firstBank.Blocks, bankParameters, firstBank.Relations);
 
             //предварительно выбранный блок продукта
-            ProductBlock selectedProductBlock = originProductBlock == null
-                ? null
-                : bank.Blocks.Single(block => block.Id == originProductBlock.Id);
+            var selectedProductBlock = originProductBlock?.ChangeUnitOfWork(UnitOfWork);
 
             var productBlockSelector = new ProductBlockSelector(bank.Parameters, bank, selectedProductBlock);
             var originParameterSelector = productBlockSelector.ParameterSelectors.FirstOrDefault(x => x.ParametersFlaged.Any(p => p.Parameter.IsOrigin));
