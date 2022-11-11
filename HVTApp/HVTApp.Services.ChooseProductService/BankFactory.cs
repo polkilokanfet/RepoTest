@@ -22,11 +22,7 @@ namespace HVTApp.Services.GetProductService
         /// <returns></returns>
         public Bank CreateBank(Product originProduct = null)
         {
-            var parameters = GetParameters(originProduct);
-            var productRelations = _unitOfWork.Repository<ProductRelation>().GetAll();
-            var productBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
-
-            return new Bank(productBlocks, parameters, productRelations);
+            return this.GetBank(GetParameters(originProduct));
         }
 
         /// <summary>
@@ -37,8 +33,6 @@ namespace HVTApp.Services.GetProductService
         public Bank CreateBank(IEnumerable<Parameter> requiredParameters)
         {
             var parameters = GetParameters();
-            var productRelations = _unitOfWork.Repository<ProductRelation>().GetAll();
-            var productBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
 
             if (requiredParameters != null)
             {
@@ -64,7 +58,28 @@ namespace HVTApp.Services.GetProductService
                 }
             }
 
-            return new Bank(productBlocks, parameters, productRelations);
+            return this.GetBank(parameters);
+        }
+
+
+        /// <summary>
+        /// ‘ормирование банка дл€ выбора блока продукта.
+        /// </summary>
+        /// <returns></returns>
+        public Bank CreateBankP(IEnumerable<Parameter> parameters)
+        {
+            return this.GetBank(parameters);
+        }
+
+        private Bank GetBank(IEnumerable<Parameter> parameters)
+        {
+            var relations = _unitOfWork.Repository<ProductRelation>().GetAll();
+            var blocks = _unitOfWork.Repository<ProductBlock>()
+                .Find(block => block.DesignationSpecial != null);
+            var specialDesignationsDictionary = blocks
+                .ToDictionary(block => block.GetHashCode(), block => block.DesignationSpecial);
+
+            return new Bank(parameters, specialDesignationsDictionary, relations);
         }
 
         private IEnumerable<Parameter> GetParameters(Product originProduct = null)

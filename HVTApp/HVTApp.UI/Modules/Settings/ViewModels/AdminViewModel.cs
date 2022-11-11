@@ -41,25 +41,47 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //}
 
 
-
+                    var messageService = _container.Resolve<IMessageService>();
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    //var rr = unitOfWork.Repository<PriceEngineeringTasks>().GetAll();
-                    //foreach (var tsks in rr.OrderBy(x => x.StartMoment))
-                    //{
-                    //    if (tsks.Number == null)
-                    //    {
-                    //        tsks.Number = new PriceEngineeringTasksNumber();
-                    //    }
-                    //    else
-                    //    {
-                    //        var i = 1;
-                    //    }
+                    var blocks = unitOfWork.Repository<ProductBlock>().GetAll();
+                    foreach (var block in blocks.ToList())
+                    {
+                        var b = blocks.Where(x => x.Equals(block)).ToList();
+                        if (b.Count > 1)
+                        {
+                            messageService.ShowOkMessageDialog("", $"Повтор в блоках ({block})");
+                        }
 
-                    //    foreach (var tsk in tsks.ChildPriceEngineeringTasks)
-                    //    {
-                    //        this.SetNumber(tsk);
-                    //    }
-                    //}
+                        var hashCode = block.GetHashCode();
+                        var h = blocks.Where(x => x.GetHashCode() == hashCode).ToList();
+                        if (h.Count > 1)
+                        {
+                            messageService.ShowOkMessageDialog("", $"Повтор Hash в блоке ({block})");
+                        }
+
+                        b.ForEach(x => blocks.Remove(x));
+                    }
+
+                    var products = unitOfWork.Repository<Product>().GetAll();
+                    foreach (var product in products.ToList())
+                    {
+                        var b = products.Where(x => x.Equals(product)).ToList();
+                        if (b.Count > 1)
+                        {
+                            messageService.ShowOkMessageDialog("", $"Повтор в продуктах ({product})");
+                        }
+
+                        var hashCode = product.GetHashCode();
+                        var h = products.Where(x => x.GetHashCode() == hashCode).ToList();
+                        if (h.Count > 1)
+                        {
+                            messageService.ShowOkMessageDialog("", $"Повтор Hash в продукте ({product})");
+                        }
+
+                        b.ForEach(x => products.Remove(x));
+                    }
+
+                    messageService.ShowOkMessageDialog("", "Finish");
 
 
                     //unitOfWork.SaveChanges();

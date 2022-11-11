@@ -209,9 +209,7 @@ namespace HVTApp.Services.GetProductService
                 .LeaveParametersAloneInGroup(requiredParameters)
                 .ToList();
 
-            var firstBank = banks.First();
-            //var bank = _bankFactory.CreateBank();
-            var bank = new Bank(firstBank.Blocks, bankParameters, firstBank.Relations);
+            var bank = _bankFactory.CreateBank(bankParameters);
 
             //предварительно выбранный блок продукта
             var selectedProductBlock = originProductBlock?.ChangeUnitOfWork(UnitOfWork);

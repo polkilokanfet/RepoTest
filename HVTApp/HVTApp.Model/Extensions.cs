@@ -118,7 +118,7 @@ namespace HVTApp.Model
         }
 
         /// <summary>
-        /// Оставить параметры единственным в группе
+        /// Оставить параметры единственными в своих группах
         /// </summary>
         /// <param name="parameters">Все параметры</param>
         /// <param name="parametersRequired">Единственные параметры в своих группах</param>

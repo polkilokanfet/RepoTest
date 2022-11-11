@@ -25,7 +25,9 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Обозначение продукта: " Foreground="White"/>
-                    <TextBox Grid.Column="1" Text="{Binding ProductSelector.SelectedProduct, ElementName=Root, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox Grid.Column="1" 
+                             Text="{Binding ProductSelector.SelectedProduct, ElementName=Root, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                             TextWrapping="Wrap"
                              Foreground="White"
                              Background="Transparent"
                              BorderThickness="0"

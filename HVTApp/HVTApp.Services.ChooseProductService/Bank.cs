@@ -10,23 +10,18 @@ namespace HVTApp.Services.GetProductService
     /// </summary>
     public readonly struct Bank
     {
-        public HashSet<ProductBlock> Blocks { get; }
-        public HashSet<Parameter> Parameters { get; }
-        public List<ProductRelation> Relations { get; }
-
+        private readonly List<ProductRelation> _relations;
         private readonly Dictionary<int, string> _specialDesignationsDictionary;
 
-        public Bank(IEnumerable<ProductBlock> blocks, 
-                    IEnumerable<Parameter> parameters, 
+        public HashSet<Parameter> Parameters { get; }
+
+        public Bank(IEnumerable<Parameter> parameters,
+            Dictionary<int, string> specialDesignationsDictionary, 
                     IEnumerable<ProductRelation> relations)
         {
-            Blocks = blocks.ToHashSet();
             Parameters = parameters.ToHashSet();
-            Relations = relations.ToList();
-
-            _specialDesignationsDictionary = Blocks
-                .Where(block => block.DesignationSpecial != null)
-                .ToDictionary(block => block.GetHashCode(), block => block.DesignationSpecial);
+            _relations = relations.ToList();
+            _specialDesignationsDictionary = specialDesignationsDictionary;
         }
 
         /// <summary>
@@ -36,7 +31,7 @@ namespace HVTApp.Services.GetProductService
         /// <returns>Связи к дочерним продуктам.</returns>
         public IEnumerable<ProductRelation> GetActualRelationsToChildProducts(Product product)
         {
-            return Relations
+            return _relations
                 .Where(relation => relation.ParentProductParameters.AllContainsIn(product.ProductBlock.Parameters));
         }
 

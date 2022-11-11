@@ -14,7 +14,7 @@
         </StackPanel>
         
         <ScrollViewer VerticalScrollBarVisibility="Auto" 
-                      HorizontalScrollBarVisibility="Auto">
+                      HorizontalScrollBarVisibility="Disabled">
             <local:SelectProductControl ProductSelector="{Binding}"/>
         </ScrollViewer>
         
