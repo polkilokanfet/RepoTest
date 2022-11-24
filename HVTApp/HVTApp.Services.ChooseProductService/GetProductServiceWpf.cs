@@ -179,6 +179,7 @@ namespace HVTApp.Services.GetProductService
                 if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
                 {
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductBlockEvent>().Publish(result);
+                    return result;
                 }
                 else
                 {
@@ -186,7 +187,7 @@ namespace HVTApp.Services.GetProductService
                 }
             }
 
-            return result;
+            return productBlocks.Single(x => x.Equals(result));
         }
 
         public ProductBlock GetProductBlock(IEnumerable<IParametersContainer> parametersContainers, ProductBlock originProductBlock = null)

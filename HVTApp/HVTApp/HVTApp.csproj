@@ -17,6 +17,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>D:\app\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
@@ -30,15 +32,13 @@
     <InstallUrl>\\uetm\data\ОП ВВА\BaseVVA\Storage\App\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.369</MinimumRequiredVersion>
-    <ApplicationRevision>370</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.371</MinimumRequiredVersion>
+    <ApplicationRevision>372</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

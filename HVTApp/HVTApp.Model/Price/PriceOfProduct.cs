@@ -71,14 +71,14 @@ namespace HVTApp.Model.Price
             => PricesOfMainBlockAndDependentBlocks.OrderByDescending(price => price.SumTotal).ToList();
 
 
-        public PriceOfProduct(Product product, DateTime targetDate, IPriceService priceService, double amount = 1, double? customFixedPrice = null)
+        public PriceOfProduct(Product product, DateTime targetDate, IPriceService priceService, double amount, double? customFixedPrice = null)
         {
-            Name = $"{product.ToString()}";
+            Name = $"{product}";
             Amount = amount;
             PriceMainBlock = new PriceOfProductBlock(product.ProductBlock, targetDate, priceService, amount);
             foreach (var dependentProduct in product.DependentProducts)
             {
-                PricesOfDependentBlocks.Add(new PriceOfProduct(dependentProduct.Product, targetDate, priceService, dependentProduct.Amount));
+                PricesOfDependentBlocks.Add(new PriceOfProduct(dependentProduct.Product, targetDate, priceService, dependentProduct.Amount * Amount));
             }
 
             //расстановка нестандартных фиксированных прайсов
