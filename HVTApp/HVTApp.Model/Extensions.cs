@@ -145,6 +145,21 @@ namespace HVTApp.Model
             }
         }
 
+        public static IEnumerable<Parameter> RemoveUnreachable(this IEnumerable<Parameter> parameters)
+        {
+            var parametersAll = parameters as Parameter[] ?? parameters.ToArray();
+
+            foreach (var parameter in parametersAll)
+            {
+                if (parameter.IsOrigin)
+                    yield return parameter;
+
+                if (parameter.Paths().Any(x => x.Parameters.AllContainsInById(parametersAll)))
+                    yield return parameter;
+            }
+        }
+
+
         public static PriceEngineeringTasks GetPriceEngineeringTasks(this PriceEngineeringTask task, IUnitOfWork unitOfWork)
         {
             while (task.ParentPriceEngineeringTasksId.HasValue == false)

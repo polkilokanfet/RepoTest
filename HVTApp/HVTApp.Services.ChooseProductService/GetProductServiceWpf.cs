@@ -208,6 +208,7 @@ namespace HVTApp.Services.GetProductService
                 .SelectMany(x => x.Parameters)
                 .Distinct()
                 .LeaveParametersAloneInGroup(requiredParameters)
+                .RemoveUnreachable()
                 .ToList();
 
             var bank = _bankFactory.CreateBank(bankParameters);
@@ -239,6 +240,7 @@ namespace HVTApp.Services.GetProductService
                 if (UnitOfWork.SaveEntity(result).OperationCompletedSuccessfully)
                 {
                     Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductBlockEvent>().Publish(result);
+                    return result;
                 }
                 else
                 {
@@ -246,7 +248,7 @@ namespace HVTApp.Services.GetProductService
                 }
             }
 
-            return result;
+            return productBlocks.Single(x => x.Equals(result));
         }
     }
 

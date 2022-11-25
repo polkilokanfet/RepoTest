@@ -56,9 +56,11 @@ namespace HVTApp.Services.GetProductService
                 {
                     parameters = parameters.LeaveParameterAloneInGroup(parameter);
                 }
+
+                parameters = parameters.Union(requiredParametersArray).ToList();
             }
 
-            return this.GetBank(parameters);
+            return this.GetBank(parameters.RemoveUnreachable());
         }
 
 
