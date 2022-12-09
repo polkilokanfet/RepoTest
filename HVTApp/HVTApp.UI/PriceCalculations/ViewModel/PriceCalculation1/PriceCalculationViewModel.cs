@@ -8,6 +8,8 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Price;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
@@ -414,7 +416,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             item.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(priceEngineeringTask.SalesUnits.First().PaymentConditionSet);
             item.Model.PriceEngineeringTaskId = priceEngineeringTask.Id;
 
-            foreach (var structureCost in priceEngineeringTask.GetStructureCosts(priceEngineeringTasks.TceNumber))
+            var priceService = Container.Resolve<IPriceService>();
+            foreach (var structureCost in priceEngineeringTask.GetStructureCosts(priceEngineeringTasks.TceNumber, null, priceService))
             {
                 item.StructureCosts.Add(new StructureCost2Wrapper(structureCost));
             }

@@ -6,6 +6,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Services;
 
 namespace HVTApp.Model.POCOs
 {
@@ -263,7 +264,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        public IEnumerable<StructureCost> GetStructureCosts(string tceNumber = null, int? salesUnitsAmount = null)
+        public IEnumerable<StructureCost> GetStructureCosts(string tceNumber = null, int? salesUnitsAmount = null, IPriceService priceService = null)
         {
             salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
 
@@ -271,6 +272,11 @@ namespace HVTApp.Model.POCOs
             var structureCostNumber = structureCostVersion == null
                 ? ProductBlockEngineer.StructureCostNumber
                 : $"{tceNumber} V{structureCostVersion.Version:D2}";
+
+            if (tceNumber == null && priceService != null)
+            {
+                structureCostNumber = priceService.GetAnalogWithPrice(this.ProductBlock)?.StructureCostNumber;
+            }
 
             //стракчакост основного блока
             yield return new StructureCost

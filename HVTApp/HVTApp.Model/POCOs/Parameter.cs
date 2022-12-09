@@ -233,14 +233,18 @@ namespace HVTApp.Model.POCOs
     public class PathToOrigin
     {
         public List<Parameter> Parameters { get; } = new List<Parameter>();
+
         public List<ParameterRelation> Relations { get; } = new List<ParameterRelation>();
 
+        /// <summary>
+        /// Все обязательные параметры есть в этом пути
+        /// </summary>
         public bool IsFull
         {
             get
             {
-                return !Relations.Any() ||
-                       Relations.SelectMany(x => x.RequiredParameters).Distinct().AllContainsIn(Parameters);
+                return Relations.Any() == false ||
+                       Relations.SelectMany(relation => relation.RequiredParameters).Distinct().AllContainsIn(Parameters);
             }
         }
 
@@ -257,9 +261,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            Parameters.ForEach(x => sb.Append($"{x} => "));
-            return sb.ToString();
+            return string.Join(" => ", Parameters);
         }
     }
 }

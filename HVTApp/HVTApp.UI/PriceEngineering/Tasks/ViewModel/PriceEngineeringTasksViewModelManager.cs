@@ -238,7 +238,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         {
                             isTceConnected = false;
                         }
-                        else if (dr == MessageDialogResult.No && this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsTotalAccepted))
+                        else if (dr == MessageDialogResult.No && 
+                                 this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsTotalAccepted))
                         {
                             isTceConnected = true;
                         }
