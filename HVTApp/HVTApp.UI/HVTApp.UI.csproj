@@ -108,6 +108,9 @@
     <Compile Include="Converter\PartToPercentConverter.cs" />
     <Compile Include="Converter\PartToPercentConverterNullable.cs" />
     <Compile Include="Converter\HistoryElementTypeToStringConverter.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\EngineeringDepartmentTask.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModel.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelAdmin.cs" />
     <Compile Include="Extantions\Ext.cs" />
     <Compile Include="Extantions\ExtWpf.cs" />
     <Compile Include="Helpers\OutlookDataObject.cs" />
