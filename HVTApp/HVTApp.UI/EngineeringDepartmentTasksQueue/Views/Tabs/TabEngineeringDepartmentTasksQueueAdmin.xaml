@@ -1,0 +1,24 @@
+﻿<inf:RibbonTabItemWithViewModel
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:infRib="http://infragistics.com/Ribbon" 
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.UI.EngineeringDepartmentTasksQueue.Views.Tabs.TabEngineeringDepartmentTasksQueueAdmin"
+             Header="Очередность задач">
+
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Перезагрузить" 
+                           Command="{Binding ReloadCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Изменить приоритет">
+        <infRib:ButtonTool Caption="Повысить" 
+                           Command="{Binding PriotityUpCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/arrow_back.png"/>
+        <infRib:ButtonTool Caption="Понизить" 
+                           Command="{Binding PriotityDownCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
+    </infRib:RibbonGroup>
+
+</inf:RibbonTabItemWithViewModel>

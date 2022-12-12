@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.EngineeringDepartmentTasksQueue.Views;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.Modules.Directum.ToAccept;
@@ -103,6 +104,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PriceEngineeringTasksTceView2>();
             Container.RegisterViewForNavigation<TasksTceView>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksListViewDesignDepartmentHead>();
+            Container.RegisterViewForNavigation<EngineeringDepartmentTasksQueueViewAdmin>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
             Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();

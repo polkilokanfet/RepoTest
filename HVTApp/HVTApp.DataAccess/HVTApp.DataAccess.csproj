@@ -409,6 +409,10 @@
     <Compile Include="Migrations\202210231458305_PriceEngineeringTaskNumbering.Designer.cs">
       <DependentUpon>202210231458305_PriceEngineeringTaskNumbering.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212121611368_TermPriorityInPrEnTask.cs" />
+    <Compile Include="Migrations\202212121611368_TermPriorityInPrEnTask.designer.cs">
+      <DependentUpon>202212121611368_TermPriorityInPrEnTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -666,6 +670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210231458305_PriceEngineeringTaskNumbering.resx">
       <DependentUpon>202210231458305_PriceEngineeringTaskNumbering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212121611368_TermPriorityInPrEnTask.resx">
+      <DependentUpon>202212121611368_TermPriorityInPrEnTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

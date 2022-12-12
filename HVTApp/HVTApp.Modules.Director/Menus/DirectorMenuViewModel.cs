@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.UI.EngineeringDepartmentTasksQueue.Views;
 using HVTApp.UI.Modules.Director.Views;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
@@ -14,6 +15,7 @@ namespace HVTApp.Modules.Director.Menus
             Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
             Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
             Items.Add(new NavigationItem("Расчет ПЗ", typeof(PriceCalculationsView)));
+            Items.Add(new NavigationItem("Приоритетность задач ОГК", typeof(EngineeringDepartmentTasksQueueViewAdmin)));
         }
     }
 }

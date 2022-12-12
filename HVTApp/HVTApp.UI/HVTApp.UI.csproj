@@ -111,6 +111,15 @@
     <Compile Include="EngineeringDepartmentTasksQueue\EngineeringDepartmentTask.cs" />
     <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModel.cs" />
     <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelAdmin.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueControl.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewAdmin.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueViewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueueAdmin.xaml.cs">
+      <DependentUpon>TabEngineeringDepartmentTasksQueueAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extantions\Ext.cs" />
     <Compile Include="Extantions\ExtWpf.cs" />
     <Compile Include="Helpers\OutlookDataObject.cs" />
@@ -1263,6 +1272,18 @@
     <Page Include="Controls\LoadableContentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueueAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\BookRegistration\Tabs\TabIncomingRequest.xaml">
       <Generator>MSBuild:Compile</Generator>

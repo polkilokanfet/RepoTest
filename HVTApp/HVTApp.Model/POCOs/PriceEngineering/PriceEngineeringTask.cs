@@ -10,17 +10,17 @@ using HVTApp.Model.Services;
 
 namespace HVTApp.Model.POCOs
 {
-    public interface IBaseTask
+    public interface IBasePriorityTask
     {
         /// <summary>
         /// Срок проработки (для выстраивания очередности задач)
         /// </summary>
-        DateTime? Term { get; set; }
+        DateTime? TermPriority { get; set; }
     }
 
     [Designation("Технико-стоимостная проработка")]
     [DesignationPlural("Технико-стоимостные проработки")]
-    public class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBaseTask
+    public class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBasePriorityTask
     {
         #region DB
 
@@ -82,7 +82,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Строки расчётов ПЗ"), OrderStatus(80)]
         public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 
-        public virtual DateTime? Term { get; set; }
+        public virtual DateTime? TermPriority { get; set; }
 
         #endregion
 
