@@ -23,7 +23,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     .Select(x => x.Entity)
                     .Count(priceEngineeringTask =>
                         priceEngineeringTask.UserConstructor?.Id == User.Id &&
-                        priceEngineeringTask.InProcessByConstructor);
+                        priceEngineeringTask.IsInProcessByConstructor);
             }
         }
 

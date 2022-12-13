@@ -228,9 +228,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Model.Id);
 
                     var isTceConnected = priceEngineeringTasks.ChildPriceEngineeringTasks
-                                             .Any(x => x.IsTotalAccepted) &&
+                                             .Any(x => x.IsAcceptedTotal) &&
                                          priceEngineeringTasks.ChildPriceEngineeringTasks
-                                             .All(x => x.IsTotalAccepted || x.IsTotalStopped);
+                                             .All(x => x.IsAcceptedTotal || x.IsStoppedTotal);
                     if (isTceConnected == false)
                     {
                         var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Не все задачи приняты (из неостановленных).\nХотите ли Вы создать расчёт ПЗ по аналогам?");
@@ -239,7 +239,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                             isTceConnected = false;
                         }
                         else if (dr == MessageDialogResult.No && 
-                                 this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsTotalAccepted))
+                                 this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsAcceptedTotal))
                         {
                             isTceConnected = true;
                         }
@@ -271,7 +271,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             ReplaceProductsCommand = new DelegateLogCommand(
                 () =>
                 {
-                    foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsTotalAccepted))
+                    foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsAcceptedTotal))
                     {
                         if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManagerOld viewModel)
                         {
@@ -375,7 +375,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 return;
 
             //если приняты все задачи
-            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.All(x => x.Model.IsTotalAccepted || x.Model.IsTotalStopped))
+            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.All(x => x.Model.IsAcceptedTotal || x.Model.IsStoppedTotal))
             {
                 var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
                 if (dr == MessageDialogResult.Yes)

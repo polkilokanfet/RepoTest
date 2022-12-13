@@ -180,7 +180,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             //задачи из ТСЕ, которые менеджер запустил
             var requrementsTasks = UnitOfWork.Repository<TechnicalRequrementsTask>().Find(technicalRequrementsTask => technicalRequrementsTask.Start.HasValue);
             //задачи из ТСП
-            var priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTask>().Find(priceEngineeringTask => priceEngineeringTask.IsTotalAccepted);
+            var priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTask>().Find(priceEngineeringTask => priceEngineeringTask.IsAcceptedTotal);
 
             var su1 = requrementsTasks
                 .SelectMany(technicalRequrementsTask => technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits))

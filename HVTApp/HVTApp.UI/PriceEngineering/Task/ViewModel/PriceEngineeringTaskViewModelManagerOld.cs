@@ -209,7 +209,7 @@ namespace HVTApp.UI.PriceEngineering
                 var priceEngineeringTask = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(Model.Id);
 
                 //если задача полностью принята менеджером
-                if (priceEngineeringTask.IsTotalAccepted)
+                if (priceEngineeringTask.IsAcceptedTotal)
                 {
                     this.TaskTotalAcceptedByManagerAction?.Invoke(this.Model);
 

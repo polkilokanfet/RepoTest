@@ -6,12 +6,10 @@ using Prism.Regions;
 
 namespace HVTApp.UI.EngineeringDepartmentTasksQueue.Views
 {
-    [RibbonTab(typeof(TabEngineeringDepartmentTasksQueueAdmin))]
     [RibbonTab(typeof(TabEngineeringDepartmentTasksQueue))]
-    public partial class EngineeringDepartmentTasksQueueViewAdmin
+    public partial class EngineeringDepartmentTasksQueueViewConstructor
     {
-
-        public EngineeringDepartmentTasksQueueViewAdmin(EngineeringDepartmentTasksQueueViewModelAdmin viewModel, 
+        public EngineeringDepartmentTasksQueueViewConstructor(EngineeringDepartmentTasksQueueViewModelConstructor viewModel, 
             IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();

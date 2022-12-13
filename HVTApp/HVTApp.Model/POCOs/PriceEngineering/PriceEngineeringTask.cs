@@ -86,7 +86,6 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
-
         [Designation("Статус"), NotMapped]
         public PriceEngineeringTaskStatusEnum Status
         {
@@ -101,7 +100,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Задача в процессе проработки конструктором
         /// </summary>
-        public bool InProcessByConstructor 
+        public bool IsInProcessByConstructor 
         {
             get
             {
@@ -135,7 +134,6 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-
         public bool IsFinishedByConstructor
         {
             get
@@ -152,6 +150,18 @@ namespace HVTApp.Model.POCOs
                 }
             }
         }
+
+        public bool IsAccepted => this.Status == PriceEngineeringTaskStatusEnum.Accepted;
+
+        /// <summary>
+        /// Проработка задачи принята менеджером (со всеми вложенными задачами).
+        /// </summary>
+        public bool IsAcceptedTotal => this.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted);
+
+        /// <summary>
+        /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).
+        /// </summary>
+        public bool IsStoppedTotal => this.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
@@ -172,9 +182,10 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        #region DB
+
         [Designation("Статусы проработки"), Required, OrderStatus(50)]
         public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>();
-
 
         [Designation("SalesUnits"), OrderStatus(10)]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
@@ -185,13 +196,15 @@ namespace HVTApp.Model.POCOs
         [Designation("Запрос на проверку от исполнителя"), OrderStatus(35)]
         public bool RequestForVerificationFromConstructor { get; set; } = false;
 
+        #endregion
+
         [Designation("Старт"), NotMapped]
         public DateTime? StartMoment
         {
             get
             {
-                if (Statuses.Any() == false) return default;
-                if (Status == PriceEngineeringTaskStatusEnum.Stopped || Status == PriceEngineeringTaskStatusEnum.Created) return default;
+                if (IsStarted == false)
+                    return default;
 
                 return this.Statuses
                     .Where(x => x.StatusEnum == PriceEngineeringTaskStatusEnum.Started)
@@ -200,6 +213,9 @@ namespace HVTApp.Model.POCOs
                     .Moment;
             }
         }
+
+        public bool IsStarted => Status != PriceEngineeringTaskStatusEnum.Stopped && 
+                                 Status != PriceEngineeringTaskStatusEnum.Created;
 
         [NotMapped]
         public bool HasSccInTce
@@ -345,22 +361,12 @@ namespace HVTApp.Model.POCOs
         public override string ToString()
         {
             return SalesUnits.Any() 
-                ? $"Технико-стоимостная проработка объектов: {SalesUnits.Select(x => x.Facility).Distinct().OrderBy(x => x.Name).ToStringEnum(", ")}" 
+                ? $"Технико-стоимостная проработка объектов: {SalesUnits.Select(salesUnit => salesUnit.Facility).Distinct().OrderBy(x => x.Name).ToStringEnum(", ")}" 
                 : $"Технико-стоимостная проработка блока: {this.ProductBlock}";
         }
 
         [NotMapped, NotForListView, NotForDetailsView]
         public ProductBlock ProductBlock => this.ProductBlockEngineer;
-
-        /// <summary>
-        /// Проработка задачи принята менеджером (со всеми вложенными задачами).
-        /// </summary>
-        public bool IsTotalAccepted => this.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted);
-
-        /// <summary>
-        /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).
-        /// </summary>
-        public bool IsTotalStopped => this.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
 
         /// <summary>
         /// Формирует продукт из проработанных блоков

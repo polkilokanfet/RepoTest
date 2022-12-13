@@ -2,7 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HVTApp.Infrastructure.ViewModels;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
+using HVTApp.UI.EngineeringDepartmentTasksQueue.Items;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.EngineeringDepartmentTasksQueue.ViewModels
@@ -39,5 +41,18 @@ namespace HVTApp.UI.EngineeringDepartmentTasksQueue.ViewModels
         }
 
         protected abstract IEnumerable<EngineeringDepartmentTask> GetAllItems();
+
+        protected PriceEngineeringTask GetTopTask(PriceEngineeringTask priceEngineeringTask)
+        {
+            var topTask = priceEngineeringTask;
+            while (topTask.ParentPriceEngineeringTaskId.HasValue)
+            {
+                topTask = UnitOfWork.Repository<PriceEngineeringTask>()
+                    .GetById(topTask.ParentPriceEngineeringTaskId.Value);
+            }
+
+            return topTask;
+        }
+
     }
 }

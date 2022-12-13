@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.UI.EngineeringDepartmentTasksQueue.Views;
 using HVTApp.UI.Modules.Products.LaborHours;
 using HVTApp.UI.Modules.Products.Parameters;
 using HVTApp.UI.Modules.Products.Views;
@@ -27,10 +28,12 @@ namespace HVTApp.Modules.Products.Menus
 
             if (GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead)
             {
+                Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewDepartmentHead)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewDesignDepartmentHead)));
             }
             else
             {
+                Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewConstructor)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
             }
 

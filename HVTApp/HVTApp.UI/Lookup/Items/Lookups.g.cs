@@ -860,10 +860,10 @@ namespace HVTApp.UI.Lookup
         public System.Boolean HasSccInTce => Entity.HasSccInTce;
 
 		[OrderStatus(1)]
-        public System.Boolean IsTotalAccepted => Entity.IsTotalAccepted;
+        public System.Boolean IsTotalAccepted => Entity.IsAcceptedTotal;
 
 		[OrderStatus(1)]
-        public System.Boolean IsTotalStopped => Entity.IsTotalStopped;
+        public System.Boolean IsTotalStopped => Entity.IsStoppedTotal;
 
         #endregion
 

@@ -108,14 +108,26 @@
     <Compile Include="Converter\PartToPercentConverter.cs" />
     <Compile Include="Converter\PartToPercentConverterNullable.cs" />
     <Compile Include="Converter\HistoryElementTypeToStringConverter.cs" />
-    <Compile Include="EngineeringDepartmentTasksQueue\EngineeringDepartmentTask.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\Items\EngineeringDepartmentTask.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\Items\EngineeringDepartmentTaskPrice.cs" />
     <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModel.cs" />
     <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelAdmin.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelConstructor.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelDepartmentHead.cs" />
     <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueControl.xaml.cs">
       <DependentUpon>EngineeringDepartmentTasksQueueControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewConstructor.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueViewConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewDepartmentHead.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueViewDepartmentHead.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewAdmin.xaml.cs">
       <DependentUpon>EngineeringDepartmentTasksQueueViewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueue.xaml.cs">
+      <DependentUpon>TabEngineeringDepartmentTasksQueue.xaml</DependentUpon>
     </Compile>
     <Compile Include="EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueueAdmin.xaml.cs">
       <DependentUpon>TabEngineeringDepartmentTasksQueueAdmin.xaml</DependentUpon>
@@ -1277,7 +1289,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewConstructor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewDepartmentHead.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

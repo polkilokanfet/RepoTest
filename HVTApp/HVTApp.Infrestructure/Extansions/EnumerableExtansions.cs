@@ -166,9 +166,10 @@ namespace HVTApp.Infrastructure.Extansions
 
         public static string ToStringEnum<T>(this IEnumerable<T> enumerable, string separator = "; ")
         {
-            return enumerable == null || !enumerable.Any() || enumerable.All(x => x == null)
+            var enumerable1 = enumerable as T[] ?? enumerable.ToArray();
+            return !enumerable1.Any() || enumerable1.All(x => x == null)
                 ? string.Empty 
-                : string.Join(separator, enumerable.Where(x => x != null).Select(x => x.ToString()).Distinct());
+                : string.Join(separator, enumerable1.Where(x => x != null).Select(x => x.ToString()).Distinct());
         }
     }
 }
