@@ -30,6 +30,12 @@ namespace HVTApp.UI.PriceEngineering.View
                 case Role.Constructor:
                     _viewModel = container.Resolve<PriceEngineeringTasksViewModelConstructor>();
                     break;
+                case Role.BackManager:
+                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelManagerBack>();
+                    break;
+                case Role.BackManagerBoss:
+                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelManagerBackBoss>();
+                    break;
             }
 
             InitializeComponent();

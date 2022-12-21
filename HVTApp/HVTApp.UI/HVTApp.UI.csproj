@@ -348,6 +348,7 @@
     </Compile>
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\WorkloadItem.cs" />
+    <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\PriceEngineeringTasksContainerWrapperManagerBack.cs" />
     <Compile Include="PriceEngineering\Tasks\ViewModel\IPriceEngineeringTasksViewModel.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\PriceEngineeringTasksContainerWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\PriceEngineeringTasksContainerWrapperDesignDepartmentHead.cs" />
@@ -356,7 +357,10 @@
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManager.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManagerBack.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManagerBackBoss.cs" />
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelVisible.cs" />
+    <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerBack.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerOld.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskWithStartCommandViewModel.cs" />

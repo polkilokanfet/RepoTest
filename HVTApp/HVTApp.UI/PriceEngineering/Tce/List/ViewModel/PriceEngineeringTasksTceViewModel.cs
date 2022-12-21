@@ -5,6 +5,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Tce.Second.View;
+using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
@@ -35,7 +36,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
             EditCommand = new DelegateLogCommand(
                 () =>
                 {
-                    RegionManager.RequestNavigateContentRegion<TasksTceView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
+                    //RegionManager.RequestNavigateContentRegion<TasksTceView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
+                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
                 },
                 () => SelectedItem != null);
 

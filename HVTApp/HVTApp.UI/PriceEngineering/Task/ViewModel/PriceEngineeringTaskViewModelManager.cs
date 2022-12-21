@@ -1,18 +1,14 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
