@@ -467,6 +467,9 @@
     <Compile Include="PriceEngineering\View\PriceEngineeringTaskStatusControl.xaml.cs">
       <DependentUpon>PriceEngineeringTaskStatusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksBackOfficeBossView.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksBackOfficeBossView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\ProductBlockControl.xaml.cs">
       <DependentUpon>ProductBlockControl.xaml</DependentUpon>
     </Compile>
@@ -1894,6 +1897,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\PriceEngineeringTaskStatusControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\PriceEngineeringTasksBackOfficeBossView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

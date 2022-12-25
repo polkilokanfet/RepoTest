@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -134,14 +135,9 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public void LoadNewTechnicalRequirementFilesInStorage()
         {
-            foreach (var fileWrapper in this.FilesTechnicalRequirements.AddedItems)
+            foreach (var fileWrapper in this.FilesTechnicalRequirements.AddedItems.Where(x => string.IsNullOrWhiteSpace(x.Path) == false))
             {
-                var destFileName = $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}";
-                if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
-                {
-                    File.Copy(fileWrapper.Path, destFileName);
-                    fileWrapper.Path = null;
-                }
+                this.LoadFile(fileWrapper, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
             }
 
             foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)

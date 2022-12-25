@@ -291,6 +291,7 @@
     <Compile Include="Wrapper\Groups\SimpleWrappers\ProjectTypeSimpleWrapper.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\SimpleWrapperBase.cs" />
     <Compile Include="Wrapper\Groups\SimpleWrappers\SpecificationSimpleWrapper.cs" />
+    <Compile Include="Wrapper\IFilePathContainer.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Wrapper\IUnitWrapper.cs" />
     <Compile Include="Wrapper\IWrapperWithUnits.cs" />

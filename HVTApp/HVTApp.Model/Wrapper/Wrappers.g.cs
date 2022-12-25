@@ -2758,7 +2758,7 @@ namespace HVTApp.Model.Wrapper
 	    public PriceEngineeringTaskEmptyWrapper(PriceEngineeringTask model) : base(model) { }
     }
 
-		
+
     public partial class PriceEngineeringTaskFileAnswerWrapper : WrapperBase<PriceEngineeringTaskFileAnswer>
 	{
 	    public PriceEngineeringTaskFileAnswerWrapper(PriceEngineeringTaskFileAnswer model) : base(model) { }

@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.PriceEngineering.ViewModel;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer

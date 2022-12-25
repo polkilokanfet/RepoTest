@@ -37,7 +37,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
                 () =>
                 {
                     //RegionManager.RequestNavigateContentRegion<TasksTceView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
-                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
+                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksBackOfficeBossView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
                 },
                 () => SelectedItem != null);
 

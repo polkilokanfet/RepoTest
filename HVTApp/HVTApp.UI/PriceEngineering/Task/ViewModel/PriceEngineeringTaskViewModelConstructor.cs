@@ -403,14 +403,9 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public void LoadNewAnswerFilesInStorage()
         {
-            foreach (var fileWrapper in this.FilesAnswers.AddedItems)
+            foreach (var file in this.FilesAnswers.AddedItems.Where(x => string.IsNullOrWhiteSpace(x.Path) == false))
             {
-                var destFileName = $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}";
-                if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
-                {
-                    File.Copy(fileWrapper.Path, destFileName);
-                    fileWrapper.Path = null;
-                }
+                this.LoadFile(file, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
             }
         }
     }
