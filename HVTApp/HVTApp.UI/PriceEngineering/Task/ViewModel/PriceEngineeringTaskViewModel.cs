@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -10,12 +9,10 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
-using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Messages;
-using HVTApp.UI.PriceEngineering.Tce.Second;
 using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -291,22 +288,6 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     yield return engineeringTaskViewModel;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Загрузка файла в хранилище
-        /// </summary>
-        protected void LoadFile(IFilePathContainer file, string storagePath)
-        {
-            if (string.IsNullOrWhiteSpace(file.Path))
-                return;
-
-            var destFileName = $"{storagePath}\\{file.Id}{Path.GetExtension(file.Path)}";
-            if (File.Exists(destFileName) == false)
-            {
-                File.Copy(file.Path, destFileName);
-                file.Path = null;
             }
         }
 

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceCalculationsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ribbon="http://schemas.infragistics.com/xaml/wpf"
+             x:Name="Root">
+
+    <Expander Header="Расчеты переменных затрат" IsExpanded="False">
+
+        <ribbon:XamDataGrid x:Name="PriceCalculationsGrid"
+                            DataSource="{Binding PriceEngineeringTasksWrapper.PriceCalculations}"
+                            ActiveDataItem="{Binding SelectedCalculation}">
+
+            <ribbon:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenPriceCalculationCommand, Mode=OneWay}"/>
+            </ribbon:XamDataGrid.InputBindings>
+
+            <ribbon:XamDataGrid.FieldLayouts>
+
+                <ribbon:FieldLayout Key="Calculation">
+                    <ribbon:FieldLayout.Fields>
+                        <ribbon:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <ribbon:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <ribbon:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Initiator}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                    </ribbon:FieldLayout.Fields>
+                </ribbon:FieldLayout>
+
+            </ribbon:XamDataGrid.FieldLayouts>
+        </ribbon:XamDataGrid>
+
+    </Expander>
+
+</UserControl>

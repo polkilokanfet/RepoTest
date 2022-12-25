@@ -135,9 +135,9 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public void LoadNewTechnicalRequirementFilesInStorage()
         {
-            foreach (var fileWrapper in this.FilesTechnicalRequirements.AddedItems.Where(x => string.IsNullOrWhiteSpace(x.Path) == false))
+            foreach (var file in this.FilesTechnicalRequirements.AddedItems.Where(x => string.IsNullOrWhiteSpace(x.Path) == false))
             {
-                this.LoadFile(fileWrapper, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                this.LoadFile(file, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
             }
 
             foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)

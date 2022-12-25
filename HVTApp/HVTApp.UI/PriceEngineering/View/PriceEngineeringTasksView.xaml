@@ -19,7 +19,7 @@
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Технико-ценовая проработка сборки задач с Id"/>
+                        <Label Content="Технико-стоимостная проработка сборки задач с Id"/>
                         <TextBox Text="{Binding Path=Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="True"
                                  BorderThickness="0"/>
@@ -94,10 +94,6 @@
                 <GroupBox Grid.Row="1" Header="Оборудование">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
                             <ItemsControl Grid.Row="0" 
                                           ItemsSource="{Binding PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks}" 
                                           HorizontalAlignment="Stretch"
@@ -113,33 +109,11 @@
                 </GroupBox>
 
                 <!--Расчеты переменных затрат-->
-                <GroupBox 
+                <view:PriceCalculationsControl 
                     Grid.Row="2" 
-                    Header="Расчеты переменных затрат" 
-                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
+                    DataContext="{Binding}"
+                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"/>
 
-                    <dataPresenter:XamDataGrid x:Name="PriceCalculationsGrid"
-                                               DataSource="{Binding PriceEngineeringTasksWrapper.PriceCalculations}"
-                                               ActiveDataItem="{Binding SelectedCalculation}">
-
-                        <dataPresenter:XamDataGrid.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenPriceCalculationCommand, Mode=OneWay}"/>
-                        </dataPresenter:XamDataGrid.InputBindings>
-
-                        <dataPresenter:XamDataGrid.FieldLayouts>
-
-                            <dataPresenter:FieldLayout Key="Calculation">
-                                <dataPresenter:FieldLayout.Fields>
-                                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                    <dataPresenter:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                                    <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Initiator}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
-                                </dataPresenter:FieldLayout.Fields>
-                            </dataPresenter:FieldLayout>
-
-                        </dataPresenter:XamDataGrid.FieldLayouts>
-                    </dataPresenter:XamDataGrid>
-
-                </GroupBox>
             </Grid>
         </GroupBox>
     </Border>

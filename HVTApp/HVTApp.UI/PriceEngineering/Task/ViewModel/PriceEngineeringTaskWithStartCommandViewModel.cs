@@ -1,10 +1,12 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -125,5 +127,22 @@ namespace HVTApp.UI.PriceEngineering
 
             return sb.ToString().TrimEnd('\n', '\r');
         }
+
+        /// <summary>
+        /// Загрузка файла в хранилище
+        /// </summary>
+        protected void LoadFile(IFilePathContainer file, string storagePath)
+        {
+            if (string.IsNullOrWhiteSpace(file.Path))
+                return;
+
+            var destFileName = $"{storagePath}\\{file.Id}{Path.GetExtension(file.Path)}";
+            if (File.Exists(destFileName) == false)
+            {
+                File.Copy(file.Path, destFileName);
+                file.Path = null;
+            }
+        }
+
     }
 }
