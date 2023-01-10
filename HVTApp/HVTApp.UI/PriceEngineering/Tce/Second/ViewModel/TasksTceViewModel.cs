@@ -92,5 +92,16 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 SourcePath = sourcePath;
             }
         }
+
+        public void Load(PriceEngineeringTask priceEngineeringTask)
+        {
+            throw new NotImplementedException();
+            //IsLoaded = false;
+            //UnitOfWork = Container.Resolve<IUnitOfWork>();
+            //priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
+            //Item = item == null ? CreateWrapper(entity)
+            //    : CreateWrapper(item);
+            //AfterLoading();
+        }
     }
 }

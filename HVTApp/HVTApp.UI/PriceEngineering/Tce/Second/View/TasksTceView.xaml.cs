@@ -54,6 +54,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View
                 var parameter = navigationContext.Parameters.First().Value;
                 if (parameter is PriceEngineeringTasks priceEngineeringTasks)
                     _viewModel.Load(priceEngineeringTasks);
+                if (parameter is PriceEngineeringTask priceEngineeringTask)
+                    _viewModel.Load(priceEngineeringTask);
             }
 
             base.OnNavigatedTo(navigationContext);

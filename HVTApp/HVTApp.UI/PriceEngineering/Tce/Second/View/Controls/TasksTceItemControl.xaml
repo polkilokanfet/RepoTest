@@ -16,10 +16,10 @@
     </UserControl.Resources>
 
     <!--Единица задачи ТСЕ-->
-    <Border BorderBrush="Black" BorderThickness="1" Padding="5" Margin="5" CornerRadius="5">
+    <Border Background="DarkGray" 
+            BorderBrush="Black" BorderThickness="1" Padding="5" Margin="5" CornerRadius="5">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -27,54 +27,88 @@
             <!--Шапка-->
             <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="AliceBlue" CornerRadius="5">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="Объект:"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" 
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Объект:"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" 
                              IsReadOnly="True"
                              Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToFacilityConverter}}"/>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="Владелец:"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" 
-                             IsReadOnly="True"
-                             Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToFacilityOwnerConverter}}"/>
-
-                    <Label Grid.Row="2" Grid.Column="0" Content="Адрес:"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" 
-                             IsReadOnly="True"
-                             Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToFacilityAddressConverter}}"/>
-
-                    <Label Grid.Row="3" Grid.Column="0" Content="Продукт:"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" 
+                            <Label Grid.Row="1" Grid.Column="0" Content="Продукт:"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" 
                              IsReadOnly="True"
                              Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToProductConverter}}"/>
 
-                    <Label Grid.Row="4" Grid.Column="0" Content="Количество:"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" 
+                            <Label Grid.Row="2" Grid.Column="0" Content="Количество:"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" 
                              IsReadOnly="True"
                              Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToAmountConverter}}"/>
+                        </Grid>
 
-                    <Label Grid.Row="5" Grid.Column="0" Content="Дата реализации:"/>
-                    <TextBox Grid.Row="5" Grid.Column="1" 
+                        <Expander Grid.Row="1" IsExpanded="False" Header="Дополнительная информация">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Content="Владелец объекта:"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" 
+                             IsReadOnly="True"
+                             Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToFacilityOwnerConverter}}"/>
+
+                                <Label Grid.Row="1" Grid.Column="0" Content="Адрес объекта:"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" 
+                             IsReadOnly="True"
+                             Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToFacilityAddressConverter}}"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Content="Дата реализации:"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" 
                              IsReadOnly="True"
                              Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToRealizationDateConverter}}"/>
 
-                    <Label Grid.Row="6" Grid.Column="0" Content="Тип доставки:"/>
-                    <TextBox Grid.Row="6" Grid.Column="1" 
+                                <Label Grid.Row="3" Grid.Column="0" Content="Тип доставки:"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" 
                              IsReadOnly="True"
                              Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}}"/>
+                            </Grid>
+
+                        </Expander>
+
+
+
+                    </Grid>
+
+                    <GroupBox Grid.Column="1" Header="Действия" Background="Transparent">
+                        <Button Content="Загрузить файлы ТЗ" Command="{Binding LoadFilesCommand}" VerticalAlignment="Top"/>
+                    </GroupBox>
+
                 </Grid>
             </Border>
 
@@ -87,12 +121,6 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </GroupBox>
-
-            <GroupBox Grid.Row="2" Header="Действия">
-                <Grid>
-                    <Button Content="Загрузить файлы ТЗ" Command="{Binding LoadFilesCommand}"/>
-                </Grid>
             </GroupBox>
 
         </Grid>

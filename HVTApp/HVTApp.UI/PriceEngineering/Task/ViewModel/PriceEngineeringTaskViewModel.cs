@@ -23,7 +23,7 @@ namespace HVTApp.UI.PriceEngineering
     {
         protected readonly IUnityContainer Container;
         private PriceEngineeringTaskViewModel _parent;
-        private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequrementsFile;
+        private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequirementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
         private bool _isVisible = true;
 
@@ -90,11 +90,11 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public PriceEngineeringTaskFileTechnicalRequirementsWrapper SelectedTechnicalRequrementsFile
         {
-            get => _selectedTechnicalRequrementsFile;
+            get => _selectedTechnicalRequirementsFile;
             set
             {
-                if (Equals(value, _selectedTechnicalRequrementsFile)) return;
-                _selectedTechnicalRequrementsFile = value;
+                if (Equals(value, _selectedTechnicalRequirementsFile)) return;
+                _selectedTechnicalRequirementsFile = value;
                 SelectedTechnicalRequrementsFileIsChanged?.Invoke();
             }
         }
@@ -114,8 +114,8 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Commands
 
-        public DelegateLogCommand OpenTechnicalRequrementsFileCommand { get; private set; }
-        public DelegateLogCommand LoadTechnicalRequrementsFilesCommand { get; private set; }
+        public DelegateLogCommand OpenTechnicalRequirementsFileCommand { get; private set; }
+        public DelegateLogCommand LoadTechnicalRequirementsFilesCommand { get; private set; }
 
         public DelegateLogCommand OpenAnswerFileCommand { get; private set; }
         public DelegateLogCommand LoadAnswerFilesCommand { get; private set; }
@@ -173,7 +173,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             #region Commands
 
-            OpenTechnicalRequrementsFileCommand = new DelegateLogCommand(
+            OpenTechnicalRequirementsFileCommand = new DelegateLogCommand(
                 () =>
                 {
                     try
@@ -196,7 +196,7 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => SelectedTechnicalRequrementsFile != null);
 
-            LoadTechnicalRequrementsFilesCommand = new DelegateLogCommand(
+            LoadTechnicalRequirementsFilesCommand = new DelegateLogCommand(
                 () =>
                 {
                     var files = this.Model.FilesTechnicalRequirements

@@ -34,6 +34,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             }
         }
 
+        /// <summary>
+        /// Показаны только актульные задачи
+        /// </summary>
         public bool IsShownActual
         {
             get => _isShownActual;
@@ -126,20 +129,6 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         /// <param name="engineeringTasks"></param>
         /// <returns></returns>
         protected abstract bool IsSuitable(PriceEngineeringTasks engineeringTasks);
-
-        //private bool IsSuitable(PriceEngineeringTasks engineeringTasks)
-        //{
-        //    switch (GlobalAppProperties.User.RoleCurrent)
-        //    {
-        //        case Role.SalesManager:
-        //            return engineeringTasks.UserManager.Id == GlobalAppProperties.User.Id;
-        //        case Role.Constructor:
-        //            return engineeringTasks.GetSuitableTasksForWork(GlobalAppProperties.User).Any();
-        //        case Role.DesignDepartmentHead:
-        //            return engineeringTasks.GetSuitableTasksForInstruct(GlobalAppProperties.User).Any();
-        //    }
-        //    return false;
-        //}
 
         protected void Load()
         {

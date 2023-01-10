@@ -35,11 +35,10 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Commands
 
-        public DelegateLogCommand AddTechnicalRequrementsFilesCommand { get; private set; }
-        public DelegateLogConfirmationCommand RemoveTechnicalRequrementsFilesCommand { get; private set; }
+        public DelegateLogCommand AddTechnicalRequirementsFilesCommand { get; private set; }
+        public DelegateLogConfirmationCommand RemoveTechnicalRequirementsFilesCommand { get; private set; }
 
         #endregion
-
 
         #region ctors
 
@@ -65,7 +64,7 @@ namespace HVTApp.UI.PriceEngineering
 
             var messageService = this.Container.Resolve<IMessageService>();
 
-            AddTechnicalRequrementsFilesCommand = new DelegateLogCommand(
+            AddTechnicalRequirementsFilesCommand = new DelegateLogCommand(
                 () =>
                 {
                     var openFileDialog = new OpenFileDialog
@@ -90,7 +89,7 @@ namespace HVTApp.UI.PriceEngineering
                 }, 
                 () => IsEditMode);
 
-            RemoveTechnicalRequrementsFilesCommand = new DelegateLogConfirmationCommand(
+            RemoveTechnicalRequirementsFilesCommand = new DelegateLogConfirmationCommand(
                 messageService,
                 "Вы уверены, что хотите удалить выделенное техническое задание?",
                 () =>
@@ -110,15 +109,14 @@ namespace HVTApp.UI.PriceEngineering
 
             this.SelectedTechnicalRequrementsFileIsChanged += () =>
             {
-                RemoveTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
+                RemoveTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
             };
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {
-                //SelectDesignDepartmentCommand.RaiseCanExecuteChanged();
                 StartCommand.RaiseCanExecuteChanged();
-                AddTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
-                RemoveTechnicalRequrementsFilesCommand.RaiseCanExecuteChanged();
+                AddTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
+                RemoveTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
             };
         }
 
@@ -135,9 +133,14 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public void LoadNewTechnicalRequirementFilesInStorage()
         {
-            foreach (var file in this.FilesTechnicalRequirements.AddedItems.Where(x => string.IsNullOrWhiteSpace(x.Path) == false))
+            //новые файлы ТЗ, которые нужно загрузить (в них пути к файлу не пустые)
+            var filesToLoad = 
+                this.FilesTechnicalRequirements.AddedItems
+                    .Where(x => string.IsNullOrWhiteSpace(x.Path) == false);
+
+            foreach (var file in filesToLoad)
             {
-                this.LoadFile(file, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                file.LoadToStorage(GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
             }
 
             foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)

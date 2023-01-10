@@ -36,8 +36,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
             EditCommand = new DelegateLogCommand(
                 () =>
                 {
-                    //RegionManager.RequestNavigateContentRegion<TasksTceView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
-                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksBackOfficeBossView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
+                    RegionManager.RequestNavigateContentRegion<TasksTceView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
+                    //RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksBackOfficeBossView>(new NavigationParameters { { nameof(PriceEngineeringTasks), SelectedItem } });
                 },
                 () => SelectedItem != null);
 

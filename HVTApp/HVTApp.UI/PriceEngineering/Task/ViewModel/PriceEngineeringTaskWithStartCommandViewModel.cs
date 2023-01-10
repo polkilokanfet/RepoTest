@@ -127,22 +127,5 @@ namespace HVTApp.UI.PriceEngineering
 
             return sb.ToString().TrimEnd('\n', '\r');
         }
-
-        /// <summary>
-        /// Загрузка файла в хранилище
-        /// </summary>
-        protected void LoadFile(IFilePathContainer file, string storagePath)
-        {
-            if (string.IsNullOrWhiteSpace(file.Path))
-                return;
-
-            var destFileName = $"{storagePath}\\{file.Id}{Path.GetExtension(file.Path)}";
-            if (File.Exists(destFileName) == false)
-            {
-                File.Copy(file.Path, destFileName);
-                file.Path = null;
-            }
-        }
-
     }
 }

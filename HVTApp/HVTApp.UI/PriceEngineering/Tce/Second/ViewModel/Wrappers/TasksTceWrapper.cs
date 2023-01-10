@@ -13,6 +13,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 {
     public class TasksTceWrapper : WrapperBase<PriceEngineeringTasks>
     {
+        #region TceNumber
+
         /// <summary>
         /// Номер ТСЕ
         /// </summary>
@@ -23,6 +25,10 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         }
         public string TceNumberOriginalValue => GetOriginalValue<string>(nameof(TceNumber));
         public bool TceNumberIsChanged => GetIsChanged(nameof(TceNumber));
+
+        #endregion
+
+        #region CommentBackOfficeBoss
 
         /// <summary>
         /// Комментарий руководителя бэкофиса
@@ -35,6 +41,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         public string CommentBackOfficeBossOriginalValue => GetOriginalValue<string>(nameof(CommentBackOfficeBoss));
         public bool CommentBackOfficeBossIsChanged => GetIsChanged(nameof(CommentBackOfficeBoss));
 
+        #endregion
 
         /// <summary>
         /// BackManager

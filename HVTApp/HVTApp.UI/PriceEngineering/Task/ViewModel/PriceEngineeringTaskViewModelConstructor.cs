@@ -405,7 +405,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             foreach (var file in this.FilesAnswers.AddedItems.Where(x => string.IsNullOrWhiteSpace(x.Path) == false))
             {
-                this.LoadFile(file, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
+                file.LoadToStorage(GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
             }
         }
     }
