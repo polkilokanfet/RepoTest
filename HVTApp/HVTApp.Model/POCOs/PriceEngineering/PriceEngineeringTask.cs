@@ -10,20 +10,11 @@ using HVTApp.Model.Services;
 
 namespace HVTApp.Model.POCOs
 {
-    public interface IBasePriorityTask
-    {
-        /// <summary>
-        /// Срок проработки (для выстраивания очередности задач)
-        /// </summary>
-        DateTime? TermPriority { get; set; }
-    }
-
+    //то, что фиксируется в БД
     [Designation("Технико-стоимостная проработка")]
     [DesignationPlural("Технико-стоимостные проработки")]
-    public class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBasePriorityTask
+    public partial class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBasePriorityTask
     {
-        #region DB
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Designation("№"), OrderStatus(3000)]
         public int Number { get; set; }
@@ -84,8 +75,22 @@ namespace HVTApp.Model.POCOs
 
         public virtual DateTime? TermPriority { get; set; }
 
-        #endregion
+        [Designation("Статусы проработки"), Required, OrderStatus(50)]
+        public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>();
 
+        [Designation("SalesUnits"), OrderStatus(10)]
+        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+
+        [Designation("Запрос на проверку от руководителя"), OrderStatus(40)]
+        public bool RequestForVerificationFromHead { get; set; } = false;
+
+        [Designation("Запрос на проверку от исполнителя"), OrderStatus(35)]
+        public bool RequestForVerificationFromConstructor { get; set; } = false;
+    }
+
+
+    public partial class PriceEngineeringTask
+    {
         [Designation("Статус"), NotMapped]
         public PriceEngineeringTaskStatusEnum Status
         {
@@ -182,22 +187,6 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        #region DB
-
-        [Designation("Статусы проработки"), Required, OrderStatus(50)]
-        public virtual List<PriceEngineeringTaskStatus> Statuses { get; set; } = new List<PriceEngineeringTaskStatus>();
-
-        [Designation("SalesUnits"), OrderStatus(10)]
-        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
-
-        [Designation("Запрос на проверку от руководителя"), OrderStatus(40)]
-        public bool RequestForVerificationFromHead { get; set; } = false;
-
-        [Designation("Запрос на проверку от исполнителя"), OrderStatus(35)]
-        public bool RequestForVerificationFromConstructor { get; set; } = false;
-
-        #endregion
-
         [Designation("Старт"), NotMapped]
         public DateTime? StartMoment
         {
@@ -217,7 +206,6 @@ namespace HVTApp.Model.POCOs
         public bool IsStarted => Status != PriceEngineeringTaskStatusEnum.Stopped && 
                                  Status != PriceEngineeringTaskStatusEnum.Created;
 
-        [NotMapped]
         public bool HasSccInTce
         {
             get
@@ -365,7 +353,7 @@ namespace HVTApp.Model.POCOs
                 : $"Технико-стоимостная проработка блока: {this.ProductBlock}";
         }
 
-        [NotMapped, NotForListView, NotForDetailsView]
+        [NotForListView, NotForDetailsView]
         public ProductBlock ProductBlock => this.ProductBlockEngineer;
 
         /// <summary>
@@ -401,7 +389,7 @@ namespace HVTApp.Model.POCOs
         {
             var messages = new List<IMessage>(this.Messages);
             messages.AddRange(this.Statuses.Select(PriceEngineeringTaskStatusMessage.Convert));
-            return messages.OrderByDescending(x => x.Moment);
+            return messages.OrderByDescending(message => message.Moment);
         }
     }
 }

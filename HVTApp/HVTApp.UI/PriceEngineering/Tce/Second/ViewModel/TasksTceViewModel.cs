@@ -99,8 +99,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             //IsLoaded = false;
             //UnitOfWork = Container.Resolve<IUnitOfWork>();
             //priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
-            //Item = item == null ? CreateWrapper(entity)
-            //    : CreateWrapper(item);
+            //Item = item == null ? CreateWrapper(entity) : CreateWrapper(item);
             //AfterLoading();
         }
     }

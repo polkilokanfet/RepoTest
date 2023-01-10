@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 using Microsoft.Practices.Unity;
@@ -12,8 +14,17 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 {
     public class TasksTceViewModelBackManager : TasksTceViewModel
     {
+        public DelegateLogConfirmationCommand FinishCommand { get; }
+
         public TasksTceViewModelBackManager(IUnityContainer container) : base(container)
         {
+            FinishCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите завершить синхронизацию задач с ТСЕ?",
+                () =>
+                {
+                    throw new NotImplementedException();
+                }, 
+                () => throw new NotImplementedException());
         }
 
         protected override void SaveItem()

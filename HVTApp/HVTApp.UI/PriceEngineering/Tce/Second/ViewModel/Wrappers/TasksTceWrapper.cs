@@ -43,14 +43,15 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         #endregion
 
-        /// <summary>
-        /// BackManager
-        /// </summary>
+        #region BackManager
+
         public UserEmptyWrapper BackManager
         {
             get => GetWrapper<UserEmptyWrapper>();
             set => SetComplexValue<User, UserEmptyWrapper>(BackManager, value);
         }
+
+        #endregion
 
         /// <summary>
         /// Расчеты переменных затрат
