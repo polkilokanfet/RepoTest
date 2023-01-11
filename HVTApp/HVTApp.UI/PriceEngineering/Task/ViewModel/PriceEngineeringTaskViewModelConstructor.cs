@@ -25,7 +25,7 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskWithStartCommandViewModel
     {
-        private PriceEngineeringTaskProductBlockAddedWrapper1 _selectedBlockAdded;
+        private PriceEngineeringTaskProductBlockAddedWrapper1Constructor _selectedBlockAdded;
 
         public override bool IsTarget => Equals(Model.UserConstructor?.Id, GlobalAppProperties.User.Id);
 
@@ -48,7 +48,7 @@ namespace HVTApp.UI.PriceEngineering
 
         public override bool AllowEditAddedBlocks => IsEditMode;
 
-        public PriceEngineeringTaskProductBlockAddedWrapper1 SelectedBlockAdded
+        public PriceEngineeringTaskProductBlockAddedWrapper1Constructor SelectedBlockAdded
         {
             get => _selectedBlockAdded;
             set
@@ -137,7 +137,7 @@ namespace HVTApp.UI.PriceEngineering
                         }
 
                         this.ProductBlockEngineer.RejectChanges();
-                        this.ProductBlockEngineer = new ProductBlockStructureCostWrapper(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id), true);
+                        this.ProductBlockEngineer = new ProductBlockStructureCostWrapperConstructor(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id));
                     }
                 },
                 () => IsTarget && IsEditMode);
@@ -157,9 +157,9 @@ namespace HVTApp.UI.PriceEngineering
                     var complect = Container.Resolve<IGetProductService>().GetComplect();
                     if (complect == null) return;
                     complect = UnitOfWork.Repository<Product>().GetById(complect.Id);
-                    var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1(new PriceEngineeringTaskProductBlockAdded())
+                    var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1Constructor(new PriceEngineeringTaskProductBlockAdded())
                     {
-                        ProductBlock = new ProductBlockStructureCostWrapper(complect.ProductBlock, true)
+                        ProductBlock = new ProductBlockStructureCostWrapperConstructor(complect.ProductBlock)
                     };
                     this.ProductBlocksAdded.Add(wrapper);
                 },
@@ -323,7 +323,7 @@ namespace HVTApp.UI.PriceEngineering
 
                     var taskViewModel = new PriceEngineeringTaskViewModelManagerNew(Container, unitOfWork, product)
                     {
-                        ParentPriceEngineeringTaskId = this.Id,
+                        ParentPriceEngineeringTaskId = this.Model.Id,
                         Amount = 1
                     };
                     taskViewModel.Model.UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
@@ -393,7 +393,7 @@ namespace HVTApp.UI.PriceEngineering
             block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
             var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1(new PriceEngineeringTaskProductBlockAdded())
             {
-                ProductBlock = new ProductBlockStructureCostWrapper(block, true)
+                ProductBlock = new ProductBlockStructureCostWrapper(block)
             };
             this.ProductBlocksAdded.Add(wrapper);
         }

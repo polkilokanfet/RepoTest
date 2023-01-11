@@ -360,6 +360,10 @@
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManagerBack.cs" />
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManagerBackBoss.cs" />
     <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelVisible.cs" />
+    <Compile Include="PriceEngineering\Task\PriceEngineeringTaskProductBlockAddedWrapper1Constructor.cs" />
+    <Compile Include="PriceEngineering\Task\PriceEngineeringTaskProductBlockAddedWrapper1Manager.cs" />
+    <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapperManager.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerBack.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\PriceEngineeringTaskViewModelManagerOld.cs" />
