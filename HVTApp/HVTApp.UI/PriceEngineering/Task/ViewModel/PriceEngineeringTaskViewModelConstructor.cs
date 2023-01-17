@@ -98,7 +98,7 @@ namespace HVTApp.UI.PriceEngineering
             var productBlockRequiredParameters = DesignDepartment
                 .Model
                 .ParameterSets
-                .FirstOrDefault(x => x.Parameters.AllContainsInById(ProductBlockManager.Model.Parameters))?
+                .FirstOrDefault(x => x.Parameters.AllContainsInById(Model.ProductBlockManager.Parameters))?
                 .Parameters.ToList();
 
             #region Commands

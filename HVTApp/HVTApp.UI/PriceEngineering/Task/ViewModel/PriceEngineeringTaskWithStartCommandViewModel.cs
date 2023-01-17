@@ -39,7 +39,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.IsValid &&
                     this.IsChanged &&
                     (Status == PriceEngineeringTaskStatusEnum.Created || Status == PriceEngineeringTaskStatusEnum.Stopped) &&
-                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) != null);
+                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null);
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
 

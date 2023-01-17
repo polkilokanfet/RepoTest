@@ -49,7 +49,7 @@ namespace HVTApp.UI.PriceEngineering
             : base(container, unitOfWork)
         {
             ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
-            ProductBlockManager = new ProductBlockEmptyWrapper(product.ProductBlock);
+            this.Model.ProductBlockManager = product.ProductBlock;
 
             //ב‏נמ
             var department = UnitOfWork.Repository<DesignDepartment>().Find(designDepartment => designDepartment.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
@@ -81,7 +81,7 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                     _priceEngineeringTasksViewModelManager != null &&
                     _priceEngineeringTasksViewModelManager.AllowEditProps &&
-                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Id) == null);
+                    UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) == null);
 
             SelectDesignDepartmentCommand = new DelegateLogCommand(
                 () =>
