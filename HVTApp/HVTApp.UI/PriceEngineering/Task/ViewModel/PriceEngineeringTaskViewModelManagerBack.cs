@@ -1,4 +1,5 @@
 using System;
+using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
@@ -11,6 +12,17 @@ namespace HVTApp.UI.PriceEngineering
 
         public PriceEngineeringTaskViewModelManagerBack(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
+        }
+
+        protected override void InitializeProductBlockEngineerProperty()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override PriceEngineeringTaskProductBlockAddedWrapper1 GetPriceEngineeringTaskProductBlockAddedWrapper(
+            PriceEngineeringTaskProductBlockAdded p)
+        {
+            throw new NotImplementedException();
         }
     }
 }

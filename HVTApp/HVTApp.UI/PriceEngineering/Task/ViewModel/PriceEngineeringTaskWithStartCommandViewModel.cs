@@ -7,13 +7,15 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class PriceEngineeringTaskWithStartCommandViewModel : PriceEngineeringTaskViewModel
+    public abstract class PriceEngineeringTaskWithStartCommandViewModel<TBlockAdded> : PriceEngineeringTaskViewModel<TBlockAdded>
+        where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
     {
         /// <summary>
         /// Событие старта задачи

@@ -1,16 +1,13 @@
 using System;
-using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 

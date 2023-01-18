@@ -1,4 +1,5 @@
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 
 namespace HVTApp.UI.PriceEngineering
@@ -7,6 +8,7 @@ namespace HVTApp.UI.PriceEngineering
     {
         protected PriceEngineeringTaskProductBlockAddedWrapper1(PriceEngineeringTaskProductBlockAdded model) : base(model)
         {
+            PriceEngineeringTaskProductBlockAddedEmptyWrapper
         }
     }
 }

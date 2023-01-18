@@ -9,218 +9,8 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class PriceEngineeringTaskWrapper1Constructor : PriceEngineeringTaskWrapper1
-    {
-        #region SimpleProperties
-
-        /// <summary>
-        /// Id группы
-        /// </summary>
-        public Guid? ParentPriceEngineeringTasksId
-        {
-            get => Model.ParentPriceEngineeringTasksId;
-            set => SetValue(value);
-        }
-        public Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
-        public bool ParentPriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTasksId));
-
-        #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-	    public UserEmptyWrapper UserConstructor
-        {
-            get => GetWrapper<UserEmptyWrapper>();
-            set => SetComplexValue<User, UserEmptyWrapper>(UserConstructor, value);
-        }
-
-        /// <summary>
-        /// Блок продукта от менеджера
-        /// </summary>
-	    public ProductBlockEmptyWrapper ProductBlockManager
-        {
-            get => GetWrapper<ProductBlockEmptyWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockManager, value);
-        }
-
-        /// <summary>
-        /// Блок продукта от инженера-конструктора
-        /// </summary>
-	    public ProductBlockStructureCostWrapper ProductBlockEngineer
-        {
-            get => GetWrapper<ProductBlockStructureCostWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapper>(ProductBlockEngineer, value);
-        }
-
-        #endregion
-
-        #region CollectionProperties
-
-        /// <summary>
-        /// Добавленные блоки продукта от инженера-конструктора
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper1> ProductBlocksAdded { get; private set; }
-
-        /// <summary>
-        /// Файлы технических требований
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
-
-        /// <summary>
-        /// Файлы ответов ОГК
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
-
-        ///// <summary>
-        ///// Переписка
-        ///// </summary>
-        //public MessagesCollection Messages { get; }
-
-        /// <summary>
-        /// Статусы проработки
-        /// </summary>
-        public StatusesCollection Statuses { get; private set; }
-
-        /// <summary>
-        /// SalesUnits
-        /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
-
-        #endregion
-
-        protected PriceEngineeringTaskWrapper1Constructor(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId) : base(unitOfWork, priceEngineeringTaskId)
-        {
-        }
-
-        protected PriceEngineeringTaskWrapper1Constructor(IUnitOfWork unitOfWork) : base(unitOfWork)
-        {
-        }
-
-        protected override void InitializeProductBlockEngineerProperty()
-        {
-            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null 
-                ? null 
-                : new ProductBlockStructureCostWrapperConstructor(Model.ProductBlockEngineer));
-        }
-
-        protected override PriceEngineeringTaskProductBlockAddedWrapper1 GetPriceEngineeringTaskProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded p)
-        {
-            return new PriceEngineeringTaskProductBlockAddedWrapper1Constructor(p);
-        }
-    }
-
-    public abstract class PriceEngineeringTaskWrapper1Manager : PriceEngineeringTaskWrapper1
-    {
-        #region SimpleProperties
-
-        /// <summary>
-        /// Id группы
-        /// </summary>
-        public Guid? ParentPriceEngineeringTasksId
-        {
-            get => Model.ParentPriceEngineeringTasksId;
-            set => SetValue(value);
-        }
-        public Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
-        public bool ParentPriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTasksId));
-
-
-        #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Бюро конструкторов
-        /// </summary>
-        public DesignDepartmentEmptyWrapper DesignDepartment
-        {
-            get => GetWrapper<DesignDepartmentEmptyWrapper>();
-            set => SetComplexValue<DesignDepartment, DesignDepartmentEmptyWrapper>(DesignDepartment, value);
-        }
-
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-	    public UserEmptyWrapper UserConstructor
-        {
-            get => GetWrapper<UserEmptyWrapper>();
-            set => SetComplexValue<User, UserEmptyWrapper>(UserConstructor, value);
-        }
-
-        /// <summary>
-        /// Блок продукта от менеджера
-        /// </summary>
-	    public ProductBlockEmptyWrapper ProductBlockManager
-        {
-            get => GetWrapper<ProductBlockEmptyWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockManager, value);
-        }
-
-        /// <summary>
-        /// Блок продукта от инженера-конструктора
-        /// </summary>
-	    public ProductBlockStructureCostWrapper ProductBlockEngineer
-        {
-            get => GetWrapper<ProductBlockStructureCostWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapper>(ProductBlockEngineer, value);
-        }
-
-        #endregion
-
-        #region CollectionProperties
-
-        /// <summary>
-        /// Добавленные блоки продукта от инженера-конструктора
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper1> ProductBlocksAdded { get; private set; }
-
-        /// <summary>
-        /// Файлы технических требований
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
-
-        /// <summary>
-        /// Файлы ответов ОГК
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
-
-        ///// <summary>
-        ///// Переписка
-        ///// </summary>
-        //public MessagesCollection Messages { get; }
-
-        /// <summary>
-        /// Статусы проработки
-        /// </summary>
-        public StatusesCollection Statuses { get; private set; }
-
-        /// <summary>
-        /// SalesUnits
-        /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
-
-        #endregion
-
-        protected PriceEngineeringTaskWrapper1Manager(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId) : base(unitOfWork, priceEngineeringTaskId)
-        {
-        }
-
-        protected PriceEngineeringTaskWrapper1Manager(IUnitOfWork unitOfWork) : base(unitOfWork)
-        {
-        }
-
-        protected override void InitializeProductBlockEngineerProperty()
-        {
-            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null
-                ? null
-                : new ProductBlockStructureCostWrapperConstructor(Model.ProductBlockEngineer));
-        }
-    }
-
-    public abstract class PriceEngineeringTaskWrapper1 : WrapperBase<PriceEngineeringTask>
+    public abstract class PriceEngineeringTaskWrapperBase<TBlockAdded> : WrapperBase<PriceEngineeringTask>
+        where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
     {
         protected readonly IUnitOfWork UnitOfWork;
 
@@ -341,7 +131,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// <summary>
         /// Добавленные блоки продукта от инженера-конструктора
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper1> ProductBlocksAdded { get; private set; }
+        public IValidatableChangeTrackingCollection<TBlockAdded> ProductBlocksAdded { get; private set; }
 
         /// <summary>
         /// Файлы технических требований
@@ -378,18 +168,18 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #region ctors
 
-        private PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
+        private PriceEngineeringTaskWrapperBase(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
             : base(priceEngineeringTask)
         {
             UnitOfWork = unitOfWork;
         }
 
-        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
+        protected PriceEngineeringTaskWrapperBase(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
             : this(unitOfWork, unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId))
         {
         }
 
-        protected PriceEngineeringTaskWrapper1(IUnitOfWork unitOfWork) 
+        protected PriceEngineeringTaskWrapperBase(IUnitOfWork unitOfWork) 
             : this(unitOfWork, new PriceEngineeringTask())
         {
         }
@@ -419,7 +209,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         protected override void InitializeCollectionProperties()
         {
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
-            ProductBlocksAdded = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper1>(Model.ProductBlocksAdded.Select(this.GetPriceEngineeringTaskProductBlockAddedWrapper));
+            ProductBlocksAdded = new ValidatableChangeTrackingCollection<TBlockAdded>(Model.ProductBlocksAdded.Select(this.GetPriceEngineeringTaskProductBlockAddedWrapper));
             RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
 
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
@@ -439,7 +229,10 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             RegisterCollection(SalesUnits, Model.SalesUnits);
         }
 
-        protected abstract PriceEngineeringTaskProductBlockAddedWrapper1 GetPriceEngineeringTaskProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded p);
+        private TBlockAdded GetPriceEngineeringTaskProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded p)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class StatusesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusEmptyWrapper>

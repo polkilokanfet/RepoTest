@@ -155,5 +155,16 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
         }
+
+        protected override void InitializeProductBlockEngineerProperty()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override PriceEngineeringTaskProductBlockAddedWrapper1 GetPriceEngineeringTaskProductBlockAddedWrapper(
+            PriceEngineeringTaskProductBlockAdded p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

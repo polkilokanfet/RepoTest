@@ -9,8 +9,10 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Messages;
 using HVTApp.UI.PriceEngineering.Wrapper;
@@ -19,10 +21,11 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class PriceEngineeringTaskViewModel : PriceEngineeringTaskWrapper1, IDisposable
+    public abstract class PriceEngineeringTaskViewModel<TBlockAdded> : PriceEngineeringTaskWrapperBase<TBlockAdded>, IDisposable
+        where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
     {
         protected readonly IUnityContainer Container;
-        private PriceEngineeringTaskViewModel _parent;
+        private PriceEngineeringTaskViewModel<TBlockAdded> _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequirementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
         private bool _isVisible = true;
@@ -61,7 +64,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Родительское задание
         /// </summary>
-        public PriceEngineeringTaskViewModel Parent
+        public PriceEngineeringTaskViewModel<TBlockAdded> Parent
         {
             get => _parent;
             set
@@ -278,7 +281,7 @@ namespace HVTApp.UI.PriceEngineering
             return this.IsValid && this.IsChanged;
         }
 
-        public IEnumerable<PriceEngineeringTaskViewModel> GetAllPriceEngineeringTaskViewModels()
+        public IEnumerable<PriceEngineeringTaskViewModel<TBlockAdded>> GetAllPriceEngineeringTaskViewModels()
         {
             yield return this;
 
@@ -297,4 +300,4 @@ namespace HVTApp.UI.PriceEngineering
             Messenger.Dispose();
         }
     }
-}
+} 

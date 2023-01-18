@@ -48,7 +48,7 @@ namespace HVTApp.UI.PriceEngineering
         public PriceEngineeringTaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
             : base(container, unitOfWork)
         {
-            ProductBlockEngineer = new ProductBlockStructureCostWrapper(product.ProductBlock);
+            ProductBlockEngineer = new ProductBlockStructureCostWrapperManager(product.ProductBlock);
             this.Model.ProductBlockManager = product.ProductBlock;
 
             //ב‏נמ

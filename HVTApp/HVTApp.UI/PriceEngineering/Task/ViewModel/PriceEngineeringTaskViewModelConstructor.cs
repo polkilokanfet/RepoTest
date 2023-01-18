@@ -16,14 +16,14 @@ using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceEngineering.Messages;
 using HVTApp.UI.PriceEngineering.ParametersService1;
+using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskWithStartCommandViewModel
+    public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskWrapperConstructor
     {
         private PriceEngineeringTaskProductBlockAddedWrapper1Constructor _selectedBlockAdded;
 
@@ -248,7 +248,7 @@ namespace HVTApp.UI.PriceEngineering
                         .AppendLine("Основной блок:")
                         .AppendLine($" - {this.ProductBlockEngineer.PrintToMessage()}");
 
-                    var pba = this.ProductBlocksAdded.Where(x => x.IsRemoved == false).ToList();
+                    var pba = this.ProductBlocksAdded.Where(x => x.Model.IsRemoved == false).ToList();
                     if (pba.Any())
                     {
                         sb.AppendLine("Добавленные блоки:");
@@ -342,7 +342,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     var fPath = Container.Resolve<IFilesStorageService>().GetFolderPath();
                     var blocks = Container.Resolve<IJsonService>().ReadJsonFile<List<PriceEngineeringTaskProductBlockAdded>>($"{fPath}\\test.json");
-                    this.ProductBlocksAdded.AddRange(blocks.Select(x => new PriceEngineeringTaskProductBlockAddedWrapper1(x)));
+                    this.ProductBlocksAdded.AddRange(blocks.Select(x => new PriceEngineeringTaskProductBlockAddedWrapper1Constructor(x)));
                 });
 
             #endregion
@@ -391,9 +391,9 @@ namespace HVTApp.UI.PriceEngineering
         private void AddAddedBlock(ProductBlock block)
         {
             block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
-            var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1(new PriceEngineeringTaskProductBlockAdded())
+            var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1Constructor(new PriceEngineeringTaskProductBlockAdded())
             {
-                ProductBlock = new ProductBlockStructureCostWrapper(block)
+                ProductBlock = new ProductBlockStructureCostWrapperConstructor(block)
             };
             this.ProductBlocksAdded.Add(wrapper);
         }

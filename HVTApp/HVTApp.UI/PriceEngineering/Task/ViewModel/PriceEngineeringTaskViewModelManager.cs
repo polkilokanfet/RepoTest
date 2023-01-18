@@ -9,11 +9,12 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskWithStartCommandViewModel
+    public abstract class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskWrapperManager
     {
         public override bool IsTarget => true;
 
