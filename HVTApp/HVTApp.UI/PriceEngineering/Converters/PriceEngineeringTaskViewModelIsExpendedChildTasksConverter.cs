@@ -10,12 +10,12 @@ namespace HVTApp.UI.PriceEngineering.Converters
     /// <summary>
     /// –азвернуть дочерние задачи при открытии?
     /// </summary>
-    [ValueConversion(typeof(TaskViewModel<>), typeof(bool))]
+    [ValueConversion(typeof(TaskViewModel), typeof(bool))]
     public class PriceEngineeringTaskViewModelIsExpendedChildTasksConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is TaskViewModel<> priceEngineeringTaskViewModel)
+            if (value is TaskViewModel priceEngineeringTaskViewModel)
             {
                 if (priceEngineeringTaskViewModel is TaskViewModelManager)
                 {

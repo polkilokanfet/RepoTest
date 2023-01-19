@@ -4,7 +4,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class TaskViewModelManagerBack : TaskViewModel<>
+    public class TaskViewModelManagerBack : TaskViewModel
     {
         public override bool IsTarget => true;
 
@@ -12,17 +12,6 @@ namespace HVTApp.UI.PriceEngineering
 
         public TaskViewModelManagerBack(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
-        }
-
-        protected override void InitializeProductBlockEngineerProperty()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override TaskProductBlockAddedWrapper GetPriceEngineeringTaskProductBlockAddedWrapper(
-            PriceEngineeringTaskProductBlockAdded p)
-        {
-            throw new NotImplementedException();
         }
     }
 }

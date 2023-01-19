@@ -92,7 +92,7 @@ namespace HVTApp.UI.PriceEngineering
         public TaskViewModelConstructor(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
             var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelConstructor(container, priceEngineeringTask.Id));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(vms);
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(vms);
 
             //Обязательные параметры главного блока продукта задачи
             var productBlockRequiredParameters = DesignDepartment

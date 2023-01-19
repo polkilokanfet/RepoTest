@@ -58,7 +58,7 @@ namespace HVTApp.UI.PriceEngineering
                 this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
             }
 
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(new List<TaskViewModel<>>());
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(new List<TaskViewModel>());
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             
             foreach (var dependentProduct in product.DependentProducts)

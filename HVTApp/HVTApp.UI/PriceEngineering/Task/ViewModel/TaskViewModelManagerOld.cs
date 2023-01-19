@@ -47,7 +47,7 @@ namespace HVTApp.UI.PriceEngineering
         public TaskViewModelManagerOld(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(container, priceEngineeringTask.Id)
         {
             var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new TaskViewModelManagerOld(Container, engineeringTask));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(vms);
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(vms);
             //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
 
             //реакция на событие принятия дочерней задачи

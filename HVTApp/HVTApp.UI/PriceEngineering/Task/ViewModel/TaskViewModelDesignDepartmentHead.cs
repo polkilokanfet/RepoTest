@@ -16,7 +16,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class TaskViewModelDesignDepartmentHead : TaskViewModel<>
+    public class TaskViewModelDesignDepartmentHead : TaskViewModel
     {
         #region Commands
 
@@ -73,7 +73,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             //Вложенные дочерние задачи
             var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new TaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(vms);
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(vms);
 
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
@@ -154,17 +154,6 @@ namespace HVTApp.UI.PriceEngineering
                     yield return child2;
                 }
             }
-        }
-
-        protected override void InitializeProductBlockEngineerProperty()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override TaskProductBlockAddedWrapper GetPriceEngineeringTaskProductBlockAddedWrapper(
-            PriceEngineeringTaskProductBlockAdded p)
-        {
-            throw new NotImplementedException();
         }
     }
 }

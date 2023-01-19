@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
     public abstract class PriceEngineeringTasksContainerWrapper<TPriceEngineeringTaskViewModel> : WrapperBase<PriceEngineeringTasks>
-        where TPriceEngineeringTaskViewModel : TaskViewModel<>
+        where TPriceEngineeringTaskViewModel : TaskViewModel
     {
         /// <summary>
         /// Задачи

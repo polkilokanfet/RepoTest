@@ -5,12 +5,12 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(TaskViewModel<>), typeof(string))]
+    [ValueConversion(typeof(TaskViewModel), typeof(string))]
     public class PriceEngineeringTaskViewModelToProductDesignationConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is TaskViewModel<> priceEngineeringTaskViewModel)
+            if (value is TaskViewModel priceEngineeringTaskViewModel)
             {
                 Product product = new Product
                 {
