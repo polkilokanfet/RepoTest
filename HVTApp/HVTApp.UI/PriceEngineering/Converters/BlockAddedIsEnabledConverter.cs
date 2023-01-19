@@ -4,12 +4,12 @@ using System.Windows.Data;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModelConstructor), typeof(bool))]
+    [ValueConversion(typeof(TaskViewModelConstructor), typeof(bool))]
     public class BlockAddedIsEnabledConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModelConstructor viewModel)
+            if (value is TaskViewModelConstructor viewModel)
             {
                 if (viewModel.IsTarget && viewModel.IsEditMode)
                 {

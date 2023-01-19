@@ -4,7 +4,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManagerBackBoss : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManagerBack, PriceEngineeringTaskViewModelManagerBack>
+    public class PriceEngineeringTasksViewModelManagerBackBoss : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManagerBack, TaskViewModelManagerBack>
     {
         public PriceEngineeringTasksViewModelManagerBackBoss(IUnityContainer container) : base(container)
         {

@@ -12,9 +12,9 @@ namespace HVTApp.UI.PriceEngineering.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
+            if (value is TaskViewModel<> priceEngineeringTaskViewModel)
             {
-                if (value is PriceEngineeringTaskViewModelManager)
+                if (value is TaskViewModelManager)
                     return new Thickness(0);
 
                 return priceEngineeringTaskViewModel.IsTarget

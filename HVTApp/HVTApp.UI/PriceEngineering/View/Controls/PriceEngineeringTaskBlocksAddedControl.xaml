@@ -11,7 +11,7 @@
 
     <!--Дополнительные блоки-->
     <GroupBox Header="Дополнительные блоки"
-              DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}">
+              DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

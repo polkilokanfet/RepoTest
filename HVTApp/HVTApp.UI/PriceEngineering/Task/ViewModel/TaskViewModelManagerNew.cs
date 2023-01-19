@@ -13,7 +13,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelManagerNew : PriceEngineeringTaskViewModelManager
+    public class TaskViewModelManagerNew : TaskViewModelManager
     {
         /// <summary>
         /// Контейнер задач, в которую вложена эта задача
@@ -32,7 +32,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <param name="salesUnits"></param>
         /// <param name="container"></param>
         /// <param name="priceEngineeringTasksViewModelManager">Контейнер задач, в которую вложена эта задача</param>
-        public PriceEngineeringTaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits, PriceEngineeringTasksViewModelManager priceEngineeringTasksViewModelManager) 
+        public TaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits, PriceEngineeringTasksViewModelManager priceEngineeringTasksViewModelManager) 
             : this(container, unitOfWork, salesUnits.First().Product)
         {
             _priceEngineeringTasksViewModelManager = priceEngineeringTasksViewModelManager;
@@ -45,7 +45,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
         /// <param name="product"></param>
-        public PriceEngineeringTaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
+        public TaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
             : base(container, unitOfWork)
         {
             ProductBlockEngineer = new ProductBlockStructureCostWrapperManager(product.ProductBlock);
@@ -58,14 +58,14 @@ namespace HVTApp.UI.PriceEngineering
                 this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
             }
 
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(new List<PriceEngineeringTaskViewModel>());
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(new List<TaskViewModel<>>());
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             
             foreach (var dependentProduct in product.DependentProducts)
             {
                 for (int i = 0; i < dependentProduct.Amount; i++)
                 {
-                    var vm = new PriceEngineeringTaskViewModelManagerNew(container, unitOfWork, dependentProduct.Product);
+                    var vm = new TaskViewModelManagerNew(container, unitOfWork, dependentProduct.Product);
                     this.ChildPriceEngineeringTasks.Add(vm);
                     vm.Parent = this;
                 }

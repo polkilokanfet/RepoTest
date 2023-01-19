@@ -21,11 +21,11 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class PriceEngineeringTaskViewModel<TBlockAdded> : PriceEngineeringTaskWrapperBase<TBlockAdded>, IDisposable
+    public abstract class TaskViewModel<TBlockAdded> : TaskWrapperBase<TBlockAdded>, IDisposable
         where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
     {
         protected readonly IUnityContainer Container;
-        private PriceEngineeringTaskViewModel<TBlockAdded> _parent;
+        private TaskViewModel<TBlockAdded> _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequirementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
         private bool _isVisible = true;
@@ -64,7 +64,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Родительское задание
         /// </summary>
-        public PriceEngineeringTaskViewModel<TBlockAdded> Parent
+        public TaskViewModel<TBlockAdded> Parent
         {
             get => _parent;
             set
@@ -150,7 +150,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         /// <param name="container"></param>
         /// <param name="priceEngineeringTaskId"></param>
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, Guid priceEngineeringTaskId) 
+        protected TaskViewModel(IUnityContainer container, Guid priceEngineeringTaskId) 
             : base(container.Resolve<IUnitOfWork>(), priceEngineeringTaskId)
         {
             Container = container;
@@ -162,7 +162,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
-        protected PriceEngineeringTaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) 
+        protected TaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) 
             : base(unitOfWork)
         {
             Container = container;
@@ -281,7 +281,7 @@ namespace HVTApp.UI.PriceEngineering
             return this.IsValid && this.IsChanged;
         }
 
-        public IEnumerable<PriceEngineeringTaskViewModel<TBlockAdded>> GetAllPriceEngineeringTaskViewModels()
+        public IEnumerable<TaskViewModel<TBlockAdded>> GetAllPriceEngineeringTaskViewModels()
         {
             yield return this;
 

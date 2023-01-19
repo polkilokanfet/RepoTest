@@ -11,7 +11,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public abstract class PriceEngineeringTasksViewModelVisible<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel> : PriceEngineeringTasksViewModel<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel>
         where TPriceEngineeringTasksWrapper : PriceEngineeringTasksContainerWrapper<TPriceEngineeringTaskViewModel>
-        where TPriceEngineeringTaskViewModel : PriceEngineeringTaskViewModel
+        where TPriceEngineeringTaskViewModel : TaskViewModel<>
     {
         private Guid? _taskId;
         private bool? _allTasksAreVisible = null;

@@ -13,7 +13,7 @@
     </UserControl.Resources>
 
     <!--Файлы-->
-    <Grid DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}">
+    <Grid DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>

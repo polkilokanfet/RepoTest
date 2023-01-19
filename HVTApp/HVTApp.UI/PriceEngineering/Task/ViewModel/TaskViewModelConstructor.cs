@@ -23,9 +23,9 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelConstructor : PriceEngineeringTaskWrapperConstructor
+    public class TaskViewModelConstructor : TaskWrapperConstructor
     {
-        private PriceEngineeringTaskProductBlockAddedWrapper1Constructor _selectedBlockAdded;
+        private TaskProductBlockAddedWrapperConstructor _selectedBlockAdded;
 
         public override bool IsTarget => Equals(Model.UserConstructor?.Id, GlobalAppProperties.User.Id);
 
@@ -48,7 +48,7 @@ namespace HVTApp.UI.PriceEngineering
 
         public override bool AllowEditAddedBlocks => IsEditMode;
 
-        public PriceEngineeringTaskProductBlockAddedWrapper1Constructor SelectedBlockAdded
+        public TaskProductBlockAddedWrapperConstructor SelectedBlockAdded
         {
             get => _selectedBlockAdded;
             set
@@ -89,10 +89,10 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        public PriceEngineeringTaskViewModelConstructor(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        public TaskViewModelConstructor(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
-            var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new PriceEngineeringTaskViewModelConstructor(container, priceEngineeringTask.Id));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
+            var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelConstructor(container, priceEngineeringTask.Id));
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(vms);
 
             //Обязательные параметры главного блока продукта задачи
             var productBlockRequiredParameters = DesignDepartment
@@ -157,7 +157,7 @@ namespace HVTApp.UI.PriceEngineering
                     var complect = Container.Resolve<IGetProductService>().GetComplect();
                     if (complect == null) return;
                     complect = UnitOfWork.Repository<Product>().GetById(complect.Id);
-                    var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1Constructor(new PriceEngineeringTaskProductBlockAdded())
+                    var wrapper = new TaskProductBlockAddedWrapperConstructor(new PriceEngineeringTaskProductBlockAdded())
                     {
                         ProductBlock = new ProductBlockStructureCostWrapperConstructor(complect.ProductBlock)
                     };
@@ -321,7 +321,7 @@ namespace HVTApp.UI.PriceEngineering
                     block = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
                     var product = getProductService.GetProduct(unitOfWork, new Product { ProductBlock = block });
 
-                    var taskViewModel = new PriceEngineeringTaskViewModelManagerNew(Container, unitOfWork, product)
+                    var taskViewModel = new TaskViewModelManagerNew(Container, unitOfWork, product)
                     {
                         ParentPriceEngineeringTaskId = this.Model.Id,
                         Amount = 1
@@ -331,7 +331,7 @@ namespace HVTApp.UI.PriceEngineering
 
                     if (taskViewModel.StartCommandExecute(true))
                     {
-                        this.ChildPriceEngineeringTasks.Add(new PriceEngineeringTaskViewModelConstructor(this.Container, taskViewModel.Model.Id));
+                        this.ChildPriceEngineeringTasks.Add(new TaskViewModelConstructor(this.Container, taskViewModel.Model.Id));
                     }
                 },
                 () => IsTarget && IsEditMode && this.Model.DesignDepartment.ParameterSetsSubTask.Any());
@@ -342,7 +342,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     var fPath = Container.Resolve<IFilesStorageService>().GetFolderPath();
                     var blocks = Container.Resolve<IJsonService>().ReadJsonFile<List<PriceEngineeringTaskProductBlockAdded>>($"{fPath}\\test.json");
-                    this.ProductBlocksAdded.AddRange(blocks.Select(x => new PriceEngineeringTaskProductBlockAddedWrapper1Constructor(x)));
+                    this.ProductBlocksAdded.AddRange(blocks.Select(x => new TaskProductBlockAddedWrapperConstructor(x)));
                 });
 
             #endregion
@@ -391,7 +391,7 @@ namespace HVTApp.UI.PriceEngineering
         private void AddAddedBlock(ProductBlock block)
         {
             block = UnitOfWork.Repository<ProductBlock>().GetById(block.Id);
-            var wrapper = new PriceEngineeringTaskProductBlockAddedWrapper1Constructor(new PriceEngineeringTaskProductBlockAdded())
+            var wrapper = new TaskProductBlockAddedWrapperConstructor(new PriceEngineeringTaskProductBlockAdded())
             {
                 ProductBlock = new ProductBlockStructureCostWrapperConstructor(block)
             };

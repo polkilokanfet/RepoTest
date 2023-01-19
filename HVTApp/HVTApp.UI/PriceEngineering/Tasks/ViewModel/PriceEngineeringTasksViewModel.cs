@@ -16,7 +16,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public abstract class PriceEngineeringTasksViewModel<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel> : ViewModelBase, IPriceEngineeringTasksViewModel
         where TPriceEngineeringTasksWrapper : PriceEngineeringTasksContainerWrapper<TPriceEngineeringTaskViewModel>
-        where TPriceEngineeringTaskViewModel : PriceEngineeringTaskViewModel
+        where TPriceEngineeringTaskViewModel : TaskViewModel<>
     {
         private TPriceEngineeringTasksWrapper _priceEngineeringTasksWrapper;
         private PriceEngineeringTasksFileTechnicalRequirementsWrapper _selectedFileTechnicalRequirements;

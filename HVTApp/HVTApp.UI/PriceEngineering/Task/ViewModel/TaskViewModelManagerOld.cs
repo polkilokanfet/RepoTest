@@ -13,7 +13,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelManagerOld : PriceEngineeringTaskViewModelManager
+    public class TaskViewModelManagerOld : TaskViewModelManager
     {
         #region Commands
 
@@ -44,16 +44,16 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        public PriceEngineeringTaskViewModelManagerOld(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(container, priceEngineeringTask.Id)
+        public TaskViewModelManagerOld(IUnityContainer container, PriceEngineeringTask priceEngineeringTask) : base(container, priceEngineeringTask.Id)
         {
-            var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new PriceEngineeringTaskViewModelManagerOld(Container, engineeringTask));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
+            var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new TaskViewModelManagerOld(Container, engineeringTask));
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(vms);
             //RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
 
             //реакция на событие принятия дочерней задачи
             foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
             {
-                if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManagerOld petvmm)
+                if (priceEngineeringTaskViewModel is TaskViewModelManagerOld petvmm)
                 {
                     petvmm.TaskAcceptedByManagerAction += OnTaskAcceptedByManagerAction;
                 }
@@ -62,9 +62,9 @@ namespace HVTApp.UI.PriceEngineering
             //подписка на событие принятия менеджером дочерней задачи
             foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
             {
-                if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManagerOld vmOld)
+                if (priceEngineeringTaskViewModel is TaskViewModelManagerOld vmOld)
                 {
-                    if (this is PriceEngineeringTaskViewModelManagerOld vmThis)
+                    if (this is TaskViewModelManagerOld vmThis)
 
                         //прокидываем событие выше
                         vmOld.TaskAcceptedByManagerAction += task => vmThis.TaskAcceptedByManagerAction?.Invoke(task);

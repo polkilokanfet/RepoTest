@@ -5,12 +5,12 @@ using System.Windows.Data;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(string))]
+    [ValueConversion(typeof(TaskViewModel<>), typeof(string))]
     public class PriceEngineeringTaskViewModelToFacilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
+            if (value is TaskViewModel<> priceEngineeringTaskViewModel)
             {
                 var facility = priceEngineeringTaskViewModel.SalesUnits.FirstOrDefault()?.Model.Facility;
                 return facility == null
@@ -27,12 +27,12 @@ namespace HVTApp.UI.PriceEngineering.Converters
         }
     }
 
-    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(string))]
+    [ValueConversion(typeof(TaskViewModel<>), typeof(string))]
     public class PriceEngineeringTaskViewModelToFacilityAddressConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
+            if (value is TaskViewModel<> priceEngineeringTaskViewModel)
             {
                 var facility = priceEngineeringTaskViewModel.SalesUnits.FirstOrDefault()?.Model.Facility;
                 return facility == null

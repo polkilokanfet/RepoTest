@@ -2,7 +2,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskProductBlockAddedWrapper1Constructor : PriceEngineeringTaskProductBlockAddedWrapper1
+    public class TaskProductBlockAddedWrapperConstructor : TaskProductBlockAddedWrapper
     {
         #region SimpleProperties
 
@@ -58,7 +58,7 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        public PriceEngineeringTaskProductBlockAddedWrapper1Constructor(PriceEngineeringTaskProductBlockAdded model) : base(model)
+        public TaskProductBlockAddedWrapperConstructor(PriceEngineeringTaskProductBlockAdded model) : base(model)
         {
         }
 

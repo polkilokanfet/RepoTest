@@ -14,7 +14,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class PriceEngineeringTaskViewModelManager : PriceEngineeringTaskWrapperManager
+    public abstract class TaskViewModelManager : TaskWrapperManager
     {
         public override bool IsTarget => true;
 
@@ -48,14 +48,14 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         /// <param name="container"></param>
         /// <param name="priceEngineeringTaskId"></param>
-        protected PriceEngineeringTaskViewModelManager(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId) { }
+        protected TaskViewModelManager(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId) { }
 
         /// <summary>
         /// Для создания новой задачи
         /// </summary>
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
-        protected PriceEngineeringTaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork) { }
+        protected TaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork) { }
         
         protected override void InCtor()
         {
@@ -146,7 +146,7 @@ namespace HVTApp.UI.PriceEngineering
 
             foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
             {
-                if (childPriceEngineeringTask is PriceEngineeringTaskViewModelManager vm)
+                if (childPriceEngineeringTask is TaskViewModelManager vm)
                     vm.LoadNewTechnicalRequirementFilesInStorage();
             }
         }

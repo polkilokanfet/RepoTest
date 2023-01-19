@@ -7,7 +7,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
     /// <summary>
     /// PriceEngineeringTasksViewModel для конструктора
     /// </summary>
-    public class PriceEngineeringTasksViewModelConstructor : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperConstructor, PriceEngineeringTaskViewModelConstructor>
+    public class PriceEngineeringTasksViewModelConstructor : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperConstructor, TaskViewModelConstructor>
     {
         public PriceEngineeringTasksViewModelConstructor(IUnityContainer container) : base(container)
         {

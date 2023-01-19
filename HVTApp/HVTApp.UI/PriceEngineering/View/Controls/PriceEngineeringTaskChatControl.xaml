@@ -25,7 +25,7 @@
 
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl 
-                    DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}"
+                    DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
                     ItemsSource="{Binding Messenger, Mode=OneWay}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -37,19 +37,19 @@
         </GroupBox>
 
         <Grid Grid.Row="1" 
-              Visibility="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel, Converter={StaticResource IsTargetTaskVisibilityConverter}}">
+              Visibility="{Binding ElementName=Root, Path=TaskViewModel, Converter={StaticResource IsTargetTaskVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Column="0" 
-                     DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}"
+                     DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
                      IsEnabled="{Binding Messenger.AllowTexting, UpdateSourceTrigger=PropertyChanged}" 
                      Text="{Binding Messenger.MessageText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             
             <Button Grid.Column="1" 
-                    DataContext="{Binding ElementName=Root, Path=PriceEngineeringTaskViewModel}"
+                    DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
                     Content="Отправить" 
                     Command="{Binding Messenger.SendMessageCommand}"/>
         </Grid>

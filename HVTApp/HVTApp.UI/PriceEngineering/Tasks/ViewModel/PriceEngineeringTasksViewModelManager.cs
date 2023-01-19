@@ -24,7 +24,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManager, PriceEngineeringTaskViewModelManager>
+    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManager, TaskViewModelManager>
     {
         public PriceCalculationWrapper SelectedCalculation { get; set; }
 
@@ -200,7 +200,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                 continue;
                             }
 
-                            if (viewModel is PriceEngineeringTaskViewModelManagerOld priceEngineeringTaskViewModelManager)
+                            if (viewModel is TaskViewModelManagerOld priceEngineeringTaskViewModelManager)
                             {
                                 priceEngineeringTaskViewModelManager.StopCommand.ExecuteWithoutConfirmation();
                             }
@@ -273,7 +273,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 {
                     foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsAcceptedTotal))
                     {
-                        if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManagerOld viewModel)
+                        if (priceEngineeringTaskViewModel is TaskViewModelManagerOld viewModel)
                         {
                             viewModel.ReplaceProductCommand.Execute();
                         }
@@ -332,7 +332,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             var vms = salesUnits
                 .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
                 .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer())
-                .Select(x => new PriceEngineeringTaskViewModelManagerNew(Container, UnitOfWork, x, this));
+                .Select(x => new TaskViewModelManagerNew(Container, UnitOfWork, x, this));
 
             PriceEngineeringTasksWrapper = new PriceEngineeringTasksContainerWrapperManager(vms)
             {
@@ -359,10 +359,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             }
         }
 
-        public void RemoveChildTask(PriceEngineeringTaskViewModelManager priceEngineeringTaskViewModel)
+        public void RemoveChildTask(TaskViewModelManager taskViewModel)
         {
-            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Contains(priceEngineeringTaskViewModel))
-                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(priceEngineeringTaskViewModel);
+            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Contains(taskViewModel))
+                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(taskViewModel);
         }
 
         #region PriceEngineeringTasksWrapperOn

@@ -7,12 +7,12 @@ using HVTApp.Model;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModelManagerNew), typeof(Visibility))]
+    [ValueConversion(typeof(TaskViewModelManagerNew), typeof(Visibility))]
     public class PriceEngineeringTaskViewModelManagerNewVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is PriceEngineeringTaskViewModelManagerNew && GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            return value is TaskViewModelManagerNew && GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

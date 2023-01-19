@@ -169,13 +169,13 @@
 
                                 <!--Файлы-->
                                 <view:PriceEngineeringTaskFilesControl Grid.Row="1"
-                                                                       PriceEngineeringTaskViewModel="{Binding}"/>
+                                                                       TaskViewModel="{Binding}"/>
 
                                 <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
                                 <!--Дополнительные блоки-->
                                 <view:PriceEngineeringTaskBlocksAddedControl Grid.Row="3"
-                                                                             PriceEngineeringTaskViewModel ="{Binding}"/>
+                                                                             TaskViewModel ="{Binding}"/>
 
                                 <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
                                     <Grid>
@@ -244,7 +244,7 @@
                             <!--Переписка-->
                             <view:PriceEngineeringTaskChatControl 
                                 Grid.Column="2" 
-                                PriceEngineeringTaskViewModel="{Binding}"/>
+                                TaskViewModel="{Binding}"/>
 
                         </Grid>
 

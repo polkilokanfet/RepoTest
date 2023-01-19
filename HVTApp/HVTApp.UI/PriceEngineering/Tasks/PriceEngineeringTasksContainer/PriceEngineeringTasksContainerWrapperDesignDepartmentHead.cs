@@ -5,15 +5,15 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
-    public class PriceEngineeringTasksContainerWrapperDesignDepartmentHead : PriceEngineeringTasksContainerWrapper<PriceEngineeringTaskViewModelDesignDepartmentHead>
+    public class PriceEngineeringTasksContainerWrapperDesignDepartmentHead : PriceEngineeringTasksContainerWrapper<TaskViewModelDesignDepartmentHead>
     {
         public PriceEngineeringTasksContainerWrapperDesignDepartmentHead(PriceEngineeringTasks model, IUnityContainer container) : base(model, container)
         {
         }
 
-        protected override IEnumerable<PriceEngineeringTaskViewModelDesignDepartmentHead> GetChildPriceEngineeringTasks(IUnityContainer container)
+        protected override IEnumerable<TaskViewModelDesignDepartmentHead> GetChildPriceEngineeringTasks(IUnityContainer container)
         {
-            return Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, priceEngineeringTask.Id));
+            return Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelDesignDepartmentHead(container, priceEngineeringTask.Id));
         }
     }
 }

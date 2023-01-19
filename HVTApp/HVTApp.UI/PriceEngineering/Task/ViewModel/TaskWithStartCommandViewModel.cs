@@ -14,7 +14,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class PriceEngineeringTaskWithStartCommandViewModel<TBlockAdded> : PriceEngineeringTaskViewModel<TBlockAdded>
+    public abstract class TaskWithStartCommandViewModel<TBlockAdded> : TaskViewModel<TBlockAdded>
         where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
     {
         /// <summary>
@@ -24,11 +24,11 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand StartCommand { get; private set; }
 
-        protected PriceEngineeringTaskWithStartCommandViewModel(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskWithStartCommandViewModel(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
-        protected PriceEngineeringTaskWithStartCommandViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        protected TaskWithStartCommandViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
         }
 
@@ -81,7 +81,7 @@ namespace HVTApp.UI.PriceEngineering
             {
                 foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
                 {
-                    if (childPriceEngineeringTask is PriceEngineeringTaskWithStartCommandViewModel vm)
+                    if (childPriceEngineeringTask is TaskWithStartCommandViewModel<> vm)
                     {
                         vm.StartCommandExecute(false);
                     }

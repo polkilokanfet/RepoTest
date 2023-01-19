@@ -6,10 +6,11 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.PriceEngineering.Messages;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class PriceEngineeringTaskWrapperBase<TBlockAdded> : WrapperBase<PriceEngineeringTask>
+    public abstract class TaskWrapperBase<TBlockAdded> : WrapperBase<PriceEngineeringTask>, IStatusesContainer
         where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
     {
         protected readonly IUnitOfWork UnitOfWork;
@@ -164,22 +165,22 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// Дочерние задачи
         /// ChildPriceEngineeringTasks инициализируются в дочерних классах
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
+        public IValidatableChangeTrackingCollection<TaskViewModel<TBlockAdded>> ChildPriceEngineeringTasks { get; protected set; }
 
         #region ctors
 
-        private PriceEngineeringTaskWrapperBase(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
+        private TaskWrapperBase(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask) 
             : base(priceEngineeringTask)
         {
             UnitOfWork = unitOfWork;
         }
 
-        protected PriceEngineeringTaskWrapperBase(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
+        protected TaskWrapperBase(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
             : this(unitOfWork, unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId))
         {
         }
 
-        protected PriceEngineeringTaskWrapperBase(IUnitOfWork unitOfWork) 
+        protected TaskWrapperBase(IUnitOfWork unitOfWork) 
             : this(unitOfWork, new PriceEngineeringTask())
         {
         }
@@ -192,7 +193,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             InitializeComplexProperty(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor));
 
             bool validateStructureCostNumber = false;
-            if (this is PriceEngineeringTaskViewModelConstructor vm)
+            if (this is TaskViewModelConstructor vm)
             {
                 //если задача целевая и редактируемая нужно проверять на то, чтобы в блоке был стракчакост
                 if (vm.IsTarget && vm.IsEditMode)

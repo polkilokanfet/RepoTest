@@ -5,12 +5,12 @@ using System.Windows.Data;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(Visibility))]
+    [ValueConversion(typeof(TaskViewModel<>), typeof(Visibility))]
     public class PriceEngineeringTaskViewModelConstructorVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is PriceEngineeringTaskViewModelConstructor
+            return value is TaskViewModelConstructor
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

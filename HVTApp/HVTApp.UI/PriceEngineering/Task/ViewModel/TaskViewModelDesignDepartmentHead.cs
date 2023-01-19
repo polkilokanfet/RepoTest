@@ -16,7 +16,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelDesignDepartmentHead : PriceEngineeringTaskViewModel
+    public class TaskViewModelDesignDepartmentHead : TaskViewModel<>
     {
         #region Commands
 
@@ -68,12 +68,12 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        public PriceEngineeringTaskViewModelDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) 
+        public TaskViewModelDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) 
             : base(container, priceEngineeringTaskId)
         {
             //¬ложенные дочерние задачи
-            var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new PriceEngineeringTaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModel>(vms);
+            var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new TaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel<>>(vms);
 
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
@@ -142,12 +142,12 @@ namespace HVTApp.UI.PriceEngineering
         /// ¬се задачи, проработку которых может поручить пользователь
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PriceEngineeringTaskViewModelDesignDepartmentHead> GetSuitableTasksForInstruct()
+        public IEnumerable<TaskViewModelDesignDepartmentHead> GetSuitableTasksForInstruct()
         {
             if (this.IsTarget && this.AllowInstruction)
                 yield return this;
 
-            foreach (var child in this.ChildPriceEngineeringTasks.Cast<PriceEngineeringTaskViewModelDesignDepartmentHead>())
+            foreach (var child in this.ChildPriceEngineeringTasks.Cast<TaskViewModelDesignDepartmentHead>())
             {
                 foreach (var child2 in child.GetSuitableTasksForInstruct())
                 {
@@ -161,7 +161,7 @@ namespace HVTApp.UI.PriceEngineering
             throw new NotImplementedException();
         }
 
-        protected override PriceEngineeringTaskProductBlockAddedWrapper1 GetPriceEngineeringTaskProductBlockAddedWrapper(
+        protected override TaskProductBlockAddedWrapper GetPriceEngineeringTaskProductBlockAddedWrapper(
             PriceEngineeringTaskProductBlockAdded p)
         {
             throw new NotImplementedException();

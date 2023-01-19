@@ -6,12 +6,12 @@ using System.Windows.Data;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(Visibility))]
+    [ValueConversion(typeof(TaskViewModel<>), typeof(Visibility))]
     public class PriceEngineeringTaskWrapperToChildTasksVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskWrapper)
+            if (value is TaskViewModel<> priceEngineeringTaskWrapper)
             {
                 return priceEngineeringTaskWrapper.Model.ChildPriceEngineeringTasks.Any() 
                     ? Visibility.Visible 

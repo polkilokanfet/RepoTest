@@ -15,13 +15,13 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
     /// <summary>
     /// PriceEngineeringTasksViewModel для руководителя КБ
     /// </summary>
-    public class PriceEngineeringTasksViewModelDesignDepartmentHead : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperDesignDepartmentHead, PriceEngineeringTaskViewModelDesignDepartmentHead>
+    public class PriceEngineeringTasksViewModelDesignDepartmentHead : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperDesignDepartmentHead, TaskViewModelDesignDepartmentHead>
     {
-        private List<PriceEngineeringTaskViewModelDesignDepartmentHead> AllTasksForInstruct
+        private List<TaskViewModelDesignDepartmentHead> AllTasksForInstruct
         {
             get
             {
-                var result = new List<PriceEngineeringTaskViewModelDesignDepartmentHead>();
+                var result = new List<TaskViewModelDesignDepartmentHead>();
                 if (this.PriceEngineeringTasksWrapper != null)
                 {
                     foreach (var childTask in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)

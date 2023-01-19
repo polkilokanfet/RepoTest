@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
-    public class PriceEngineeringTasksContainerWrapperManager : PriceEngineeringTasksContainerWrapper<PriceEngineeringTaskViewModelManager>
+    public class PriceEngineeringTasksContainerWrapperManager : PriceEngineeringTasksContainerWrapper<TaskViewModelManager>
     {
         #region SimpleProperties
 
@@ -71,7 +71,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         {
             foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
             {
-                if (priceEngineeringTaskViewModel is PriceEngineeringTaskViewModelManagerOld vmOld)
+                if (priceEngineeringTaskViewModel is TaskViewModelManagerOld vmOld)
                 {
                     vmOld.TaskAcceptedByManagerAction += task =>
                     {
@@ -89,9 +89,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         /// Для создания новой ТСП
         /// </summary>
         /// <param name="taskList"></param>
-        public PriceEngineeringTasksContainerWrapperManager(IEnumerable<PriceEngineeringTaskViewModelManager> taskList) : base()
+        public PriceEngineeringTasksContainerWrapperManager(IEnumerable<TaskViewModelManager> taskList) : base()
         {
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskViewModelManager>(new List<PriceEngineeringTaskViewModelManager>());
+            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModelManager>(new List<TaskViewModelManager>());
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             ChildPriceEngineeringTasks.AddRange(taskList);
         }
@@ -113,9 +113,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
             RegisterCollection(PriceCalculations, Model.PriceCalculations);
         }
         
-        protected override IEnumerable<PriceEngineeringTaskViewModelManager> GetChildPriceEngineeringTasks(IUnityContainer container)
+        protected override IEnumerable<TaskViewModelManager> GetChildPriceEngineeringTasks(IUnityContainer container)
         {
-            return Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new PriceEngineeringTaskViewModelManagerOld(container, priceEngineeringTask));
+            return Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelManagerOld(container, priceEngineeringTask));
         }
 
 

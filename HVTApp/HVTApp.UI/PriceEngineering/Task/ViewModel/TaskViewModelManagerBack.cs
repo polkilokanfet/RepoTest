@@ -4,13 +4,13 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class PriceEngineeringTaskViewModelManagerBack : PriceEngineeringTaskViewModel
+    public class TaskViewModelManagerBack : TaskViewModel<>
     {
         public override bool IsTarget => true;
 
         public override bool IsEditMode => true;
 
-        public PriceEngineeringTaskViewModelManagerBack(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        public TaskViewModelManagerBack(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
@@ -19,7 +19,7 @@ namespace HVTApp.UI.PriceEngineering
             throw new NotImplementedException();
         }
 
-        protected override PriceEngineeringTaskProductBlockAddedWrapper1 GetPriceEngineeringTaskProductBlockAddedWrapper(
+        protected override TaskProductBlockAddedWrapper GetPriceEngineeringTaskProductBlockAddedWrapper(
             PriceEngineeringTaskProductBlockAdded p)
         {
             throw new NotImplementedException();

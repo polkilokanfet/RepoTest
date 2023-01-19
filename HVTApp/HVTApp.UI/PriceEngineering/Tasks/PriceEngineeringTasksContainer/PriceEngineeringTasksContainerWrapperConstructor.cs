@@ -5,15 +5,15 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
-    public class PriceEngineeringTasksContainerWrapperConstructor : PriceEngineeringTasksContainerWrapper<PriceEngineeringTaskViewModelConstructor>
+    public class PriceEngineeringTasksContainerWrapperConstructor : PriceEngineeringTasksContainerWrapper<TaskViewModelConstructor>
     {
         public PriceEngineeringTasksContainerWrapperConstructor(PriceEngineeringTasks model, IUnityContainer container) : base(model, container)
         {
         }
 
-        protected override IEnumerable<PriceEngineeringTaskViewModelConstructor> GetChildPriceEngineeringTasks(IUnityContainer container)
+        protected override IEnumerable<TaskViewModelConstructor> GetChildPriceEngineeringTasks(IUnityContainer container)
         {
-            return Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new PriceEngineeringTaskViewModelConstructor(container, priceEngineeringTask.Id));
+            return Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelConstructor(container, priceEngineeringTask.Id));
         }
     }
 }

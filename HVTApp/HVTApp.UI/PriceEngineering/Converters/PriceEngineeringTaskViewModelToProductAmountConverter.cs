@@ -5,12 +5,12 @@ using System.Windows.Data;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskViewModel), typeof(int))]
+    [ValueConversion(typeof(TaskViewModel<>), typeof(int))]
     public class PriceEngineeringTaskViewModelToProductAmountConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskViewModel priceEngineeringTaskViewModel)
+            if (value is TaskViewModel<> priceEngineeringTaskViewModel)
             {
                 return priceEngineeringTaskViewModel.SalesUnits.Any()
                     ? priceEngineeringTaskViewModel.SalesUnits.Count

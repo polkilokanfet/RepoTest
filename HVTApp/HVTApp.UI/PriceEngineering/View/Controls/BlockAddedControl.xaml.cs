@@ -6,11 +6,11 @@ namespace HVTApp.UI.PriceEngineering.View
     public partial class BlockAddedControl : UserControl
     {
         public static readonly DependencyProperty ProductBlockAddedProperty = DependencyProperty.Register(
-            "ProductBlockAdded", typeof(PriceEngineeringTaskProductBlockAddedWrapper1), typeof(BlockAddedControl), new PropertyMetadata(default(PriceEngineeringTaskProductBlockAddedWrapper1)));
+            "ProductBlockAdded", typeof(TaskProductBlockAddedWrapper), typeof(BlockAddedControl), new PropertyMetadata(default(TaskProductBlockAddedWrapper)));
 
-        public PriceEngineeringTaskProductBlockAddedWrapper1 ProductBlockAdded
+        public TaskProductBlockAddedWrapper ProductBlockAdded
         {
-            get => (PriceEngineeringTaskProductBlockAddedWrapper1) GetValue(ProductBlockAddedProperty);
+            get => (TaskProductBlockAddedWrapper) GetValue(ProductBlockAddedProperty);
             set => SetValue(ProductBlockAddedProperty, value);
         }
         public BlockAddedControl()
