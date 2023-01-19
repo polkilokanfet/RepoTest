@@ -23,6 +23,22 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         public Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
         public bool ParentPriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTasksId));
 
+        #region RequestForVerificationFromConstructor
+
+        /// <summary>
+        /// Запрос на проверку от исполнителя
+        /// </summary>
+        public bool RequestForVerificationFromConstructor
+        {
+            get { return GetValue<System.Boolean>(); }
+            set { SetValue(value); }
+        }
+        public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
+        public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
+
+        #endregion
+
+
         #endregion
 
         #region ComplexProperties

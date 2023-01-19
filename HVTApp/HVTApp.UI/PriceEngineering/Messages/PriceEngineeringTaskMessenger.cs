@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Windows.Documents;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
@@ -12,7 +9,6 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -20,7 +16,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
 {
     public class PriceEngineeringTaskMessenger : ReadOnlyObservableCollection<IMessage>, IDisposable
     {
-        private readonly IStatusesContainer _viewModel;
+        private readonly TaskViewModel _viewModel;
         private readonly IUnityContainer _container;
         private IUnitOfWork _unitOfWork;
         private string _messageText;
@@ -61,7 +57,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
             }
         }
 
-        public PriceEngineeringTaskMessenger(IStatusesContainer viewModel, IUnityContainer container) 
+        public PriceEngineeringTaskMessenger(TaskViewModel viewModel, IUnityContainer container) 
             : base(new ObservableCollection<IMessage>())
         {
             this.Items.AddRange(viewModel.Model.GetMessages().OrderByDescending(x => x.Moment));
