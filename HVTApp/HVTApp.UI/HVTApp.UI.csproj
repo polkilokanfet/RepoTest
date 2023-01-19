@@ -324,6 +324,7 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelBase.cs" />
     <Compile Include="PriceEngineering\Task\Wrapper\IStatusesContainer.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemConstructor.cs" />
@@ -368,7 +369,8 @@
     <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelManagerBack.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelManagerOld.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskWithStartCommandViewModel.cs" />
+    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelWithStartCommand.cs" />
+    <Compile Include="PriceEngineering\Task\Wrapper\StatusesCollection.cs" />
     <Compile Include="PriceEngineering\Task\Wrapper\TaskWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\Task\Wrapper\TaskWrapperManager.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossIsUserConverter.cs" />

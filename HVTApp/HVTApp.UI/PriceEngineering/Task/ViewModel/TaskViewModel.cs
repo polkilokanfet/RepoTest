@@ -12,7 +12,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Messages;
 using HVTApp.UI.PriceEngineering.Wrapper;
@@ -21,11 +21,10 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class TaskViewModel<TBlockAdded> : TaskWrapperBase<TBlockAdded>, IDisposable
-        where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
+    public  abstract partial class TaskViewModel : TaskViewModelBase, IDisposable
     {
         protected readonly IUnityContainer Container;
-        private TaskViewModel<TBlockAdded> _parent;
+        private TaskViewModel _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequirementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
         private bool _isVisible = true;
@@ -64,7 +63,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Родительское задание
         /// </summary>
-        public TaskViewModel<TBlockAdded> Parent
+        public TaskViewModel Parent
         {
             get => _parent;
             set
@@ -281,7 +280,7 @@ namespace HVTApp.UI.PriceEngineering
             return this.IsValid && this.IsChanged;
         }
 
-        public IEnumerable<TaskViewModel<TBlockAdded>> GetAllPriceEngineeringTaskViewModels()
+        public IEnumerable<TaskViewModel> GetAllPriceEngineeringTaskViewModels()
         {
             yield return this;
 
@@ -300,4 +299,179 @@ namespace HVTApp.UI.PriceEngineering
             Messenger.Dispose();
         }
     }
-} 
+
+    public abstract partial class TaskViewModel : IStatusesContainer
+    {
+        #region SimpleProperties
+
+        #region Amount
+
+        /// <summary>
+        /// Количество блоков продукта
+        /// </summary>
+        public int Amount
+        {
+            get => Model.Amount;
+            set => SetValue(value);
+        }
+        public int AmountOriginalValue => GetOriginalValue<int>(nameof(Amount));
+        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
+
+        #endregion
+
+        #region ParentPriceEngineeringTaskId
+
+        /// <summary>
+        /// Id материнской задачи
+        /// </summary>
+        public Guid ParentPriceEngineeringTaskId
+        {
+            get => GetValue<Guid>();
+            set => SetValue(value);
+        }
+        public Guid ParentPriceEngineeringTaskIdOriginalValue => GetOriginalValue<Guid>(nameof(ParentPriceEngineeringTaskId));
+        public bool ParentPriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTaskId));
+
+        #endregion
+
+        ///// <summary>
+        ///// Id
+        ///// </summary>
+        //public System.Guid Id
+        //{
+        //    get { return GetValue<System.Guid>(); }
+        //    set { SetValue(value); }
+        //}
+        //public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        //public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #region RequestForVerificationFromHead
+
+        /// <summary>
+        /// Запрос на проверку от руководителя
+        /// </summary>
+        public bool RequestForVerificationFromHead
+        {
+            get => GetValue<bool>();
+            set => SetValue(value);
+        }
+        public bool RequestForVerificationFromHeadOriginalValue => GetOriginalValue<bool>(nameof(RequestForVerificationFromHead));
+        public bool RequestForVerificationFromHeadIsChanged => GetIsChanged(nameof(RequestForVerificationFromHead));
+
+        #endregion
+
+        #region RequestForVerificationFromConstructor
+
+        /// <summary>
+        /// Запрос на проверку от исполнителя
+        /// </summary>
+        public bool RequestForVerificationFromConstructor
+        {
+            get { return GetValue<System.Boolean>(); }
+            set { SetValue(value); }
+        }
+        public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
+        public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
+
+        #endregion
+
+
+        /// <summary>
+        /// Статус
+        /// </summary>
+        public PriceEngineeringTaskStatusEnum Status => this.Model.Status;
+
+        #endregion
+
+        #region ComplexProperties
+
+        /// <summary>
+        /// Бюро конструкторов
+        /// </summary>
+        public DesignDepartmentEmptyWrapper DesignDepartment
+        {
+            get => GetWrapper<DesignDepartmentEmptyWrapper>();
+            set => SetComplexValue<DesignDepartment, DesignDepartmentEmptyWrapper>(DesignDepartment, value);
+        }
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+	    public UserEmptyWrapper UserConstructor
+        {
+            get => GetWrapper<UserEmptyWrapper>();
+            set => SetComplexValue<User, UserEmptyWrapper>(UserConstructor, value);
+        }
+
+        /// <summary>
+        /// Блок продукта от инженера-конструктора
+        /// </summary>
+	    public ProductBlockStructureCostWrapper ProductBlockEngineer
+        {
+            get => GetWrapper<ProductBlockStructureCostWrapper>();
+            set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapper>(ProductBlockEngineer, value);
+        }
+
+        #endregion
+
+        #region CollectionProperties
+
+        /// <summary>
+        /// Файлы технических требований
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
+
+        /// <summary>
+        /// Файлы ответов ОГК
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
+
+        ///// <summary>
+        ///// Переписка
+        ///// </summary>
+        //public MessagesCollection Messages { get; }
+
+        /// <summary>
+        /// Статусы проработки
+        /// </summary>
+        public StatusesCollection Statuses { get; private set; }
+
+        /// <summary>
+        /// SalesUnits
+        /// </summary>
+        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
+
+        #endregion
+
+        /// <summary>
+        /// Дочерние задачи
+        /// ChildPriceEngineeringTasks инициализируются в дочерних классах
+        /// </summary>
+        public IValidatableChangeTrackingCollection<TaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentEmptyWrapper(Model.DesignDepartment));
+            InitializeComplexProperty(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor));
+        }
+
+        protected override void InitializeCollectionProperties()
+        {
+            if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
+            FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
+            RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
+
+            if (Model.FilesAnswers == null) throw new ArgumentException("FilesAnswers cannot be null");
+            FilesAnswers = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper>(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
+            RegisterCollection(FilesAnswers, Model.FilesAnswers);
+
+            if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
+            Statuses = new StatusesCollection(Model.Statuses);
+            RegisterCollection(Statuses, Model.Statuses);
+
+            if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
+            RegisterCollection(SalesUnits, Model.SalesUnits);
+        }
+    }
+}

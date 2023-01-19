@@ -1,21 +1,17 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class TaskWithStartCommandViewModel<TBlockAdded> : TaskViewModel<TBlockAdded>
-        where TBlockAdded : WrapperBase<PriceEngineeringTaskProductBlockAdded>
+    public abstract class TaskViewModelWithStartCommand : TaskViewModel
     {
         /// <summary>
         /// Событие старта задачи
@@ -24,11 +20,11 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand StartCommand { get; private set; }
 
-        protected TaskWithStartCommandViewModel(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskViewModelWithStartCommand(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
-        protected TaskWithStartCommandViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        protected TaskViewModelWithStartCommand(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
         }
 
@@ -44,7 +40,6 @@ namespace HVTApp.UI.PriceEngineering
                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null);
 
             this.PropertyChanged += (sender, args) => StartCommand.RaiseCanExecuteChanged();
-
         }
 
 
@@ -81,7 +76,7 @@ namespace HVTApp.UI.PriceEngineering
             {
                 foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
                 {
-                    if (childPriceEngineeringTask is TaskWithStartCommandViewModel<> vm)
+                    if (childPriceEngineeringTask is TaskViewModelWithStartCommand vm)
                     {
                         vm.StartCommandExecute(false);
                     }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -7,7 +8,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class TaskWrapperManager : TaskWithStartCommandViewModel<TaskProductBlockAddedWrapperManager>
+    public abstract class TaskWrapperManager : TaskViewModelWithStartCommand
     {
         #region SimpleProperties
 
@@ -40,6 +41,12 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #region CollectionProperties
 
+        /// <summary>
+        /// Добавленные блоки продукта от инженера-конструктора
+        /// </summary>
+        public IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperManager> ProductBlocksAdded { get; private set; }
+
+
         ///// <summary>
         ///// Переписка
         ///// </summary>
@@ -69,16 +76,22 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #endregion
 
-        protected override void InitializeProductBlockEngineerProperty()
+        public override void InitializeComplexProperties()
         {
+            base.InitializeComplexProperties();
+
             InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null
                 ? null
                 : new ProductBlockStructureCostWrapperConstructor(Model.ProductBlockEngineer));
         }
 
-        //protected override PriceEngineeringTaskProductBlockAddedWrapper1 GetPriceEngineeringTaskProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded p)
-        //{
-        //    return new PriceEngineeringTaskProductBlockAddedWrapper1Manager(p);
-        //}
+        protected override void InitializeCollectionProperties()
+        {
+            base.InitializeCollectionProperties();
+
+            if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
+            ProductBlocksAdded = new ValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperManager>(Model.ProductBlocksAdded.Select(x => new TaskProductBlockAddedWrapperManager(x)));
+            RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
+        }
     }
 }

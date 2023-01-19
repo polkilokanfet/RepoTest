@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -7,7 +8,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class TaskWrapperConstructor : TaskWithStartCommandViewModel<TaskProductBlockAddedWrapperConstructor>
+    public abstract class TaskWrapperConstructor : TaskViewModelWithStartCommand
     {
         #region SimpleProperties
 
@@ -60,7 +61,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// <summary>
         /// Добавленные блоки продукта от инженера-конструктора
         /// </summary>
-        public IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapper> ProductBlocksAdded { get; private set; }
+        public IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor> ProductBlocksAdded { get; private set; }
 
         /// <summary>
         /// Файлы технических требований
@@ -101,11 +102,22 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #endregion
 
-        protected override void InitializeProductBlockEngineerProperty()
+        public override void InitializeComplexProperties()
         {
+            base.InitializeComplexProperties();
+
             InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null 
                 ? null 
                 : new ProductBlockStructureCostWrapperConstructor(Model.ProductBlockEngineer));
+        }
+
+        protected override void InitializeCollectionProperties()
+        {
+            base.InitializeCollectionProperties();
+
+            if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
+            ProductBlocksAdded = new ValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor>(Model.ProductBlocksAdded.Select(x => new TaskProductBlockAddedWrapperConstructor(x)));
+            RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
         }
     }
 }

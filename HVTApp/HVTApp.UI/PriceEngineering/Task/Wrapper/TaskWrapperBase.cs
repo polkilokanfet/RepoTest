@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -165,7 +164,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// Дочерние задачи
         /// ChildPriceEngineeringTasks инициализируются в дочерних классах
         /// </summary>
-        public IValidatableChangeTrackingCollection<TaskViewModel<TBlockAdded>> ChildPriceEngineeringTasks { get; protected set; }
+        public IValidatableChangeTrackingCollection<TaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
 
         #region ctors
 
@@ -233,26 +232,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         private TBlockAdded GetPriceEngineeringTaskProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded p)
         {
             throw new NotImplementedException();
-        }
-    }
-
-    public class StatusesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusEmptyWrapper>
-    {
-        public StatusesCollection(IEnumerable<PriceEngineeringTaskStatus> items) 
-            : base(items.Select(x => new PriceEngineeringTaskStatusEmptyWrapper(x)))
-        {
-        }
-
-        public void Add(PriceEngineeringTaskStatusEnum statusEnum, string comment = null)
-        {
-            var status = new PriceEngineeringTaskStatus
-            {
-                StatusEnum = statusEnum,
-                Moment = DateTime.Now,
-                Comment = comment
-            };
-
-            this.Add(new PriceEngineeringTaskStatusEmptyWrapper(status));
         }
     }
 }
