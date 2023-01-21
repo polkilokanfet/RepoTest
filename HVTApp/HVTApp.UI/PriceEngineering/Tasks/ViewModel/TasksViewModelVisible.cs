@@ -9,9 +9,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public abstract class PriceEngineeringTasksViewModelVisible<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel> : PriceEngineeringTasksViewModel<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel>
-        where TPriceEngineeringTasksWrapper : TasksWrapper<TPriceEngineeringTaskViewModel>
-        where TPriceEngineeringTaskViewModel : TaskViewModel
+    public abstract class TasksViewModelVisible<TTasksWrapper, TTaskViewModel> : TasksViewModel<TTasksWrapper, TTaskViewModel>
+        where TTasksWrapper : TasksWrapper<TTaskViewModel>
+        where TTaskViewModel : TaskViewModel
     {
         private Guid? _taskId;
         private bool? _allTasksAreVisible = null;
@@ -24,14 +24,14 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 switch (value)
                 {
                     case true:
-                        this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = true);
+                        this.TasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = true);
                         break;
                     case false:
-                        this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = this.ChildTaskIsVisibleByDefault(x.Model));
+                        this.TasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = this.ChildTaskIsVisibleByDefault(x.Model));
                         break;
                     case null:
                         if (_taskId.HasValue)
-                            this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = x.Model.GetAllPriceEngineeringTasks().Any(t => t.Id == _taskId.Value));
+                            this.TasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = x.Model.GetAllPriceEngineeringTasks().Any(t => t.Id == _taskId.Value));
                         break;
                 }
 
@@ -40,7 +40,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             }
         }
 
-        protected PriceEngineeringTasksViewModelVisible(IUnityContainer container) : base(container)
+        protected TasksViewModelVisible(IUnityContainer container) : base(container)
         {
         }
 
@@ -68,6 +68,13 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     return priceEngineeringTask.GetSuitableTasksForWork(user).Any();
                 case Role.DesignDepartmentHead:
                     return priceEngineeringTask.GetSuitableTasksForInstruct(user).Any();
+                case Role.BackManagerBoss:
+                    return true;
+                case Role.BackManager:
+                {
+                    var bm = priceEngineeringTask.GetPriceEngineeringTasks(this.UnitOfWork).BackManager;
+                    return bm != null && user.Id == bm.Id;
+                }
                 default:
                     return false;
             }

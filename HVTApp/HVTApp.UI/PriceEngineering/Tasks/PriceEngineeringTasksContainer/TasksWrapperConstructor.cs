@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
@@ -11,9 +10,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         {
         }
 
-        protected override IEnumerable<TaskViewModelConstructor> GetChildPriceEngineeringTasks(IUnityContainer container)
+        protected override TaskViewModelConstructor GetChildPriceEngineeringTask(IUnityContainer container, Guid id)
         {
-            return Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelConstructor(container, priceEngineeringTask.Id));
+            return new TaskViewModelConstructor(container, id);
         }
     }
 }

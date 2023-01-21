@@ -7,7 +7,12 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Commands
 {
-    public class DelegateLogCommand : ICommand
+    public interface ICommandRaiseCanExecuteChanged : ICommand
+    {
+        void RaiseCanExecuteChanged();
+    }
+
+    public class DelegateLogCommand : ICommandRaiseCanExecuteChanged
     {
         private readonly Action _executeMethod;
         private readonly Func<bool> _canExecuteMethod;

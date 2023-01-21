@@ -159,7 +159,12 @@ namespace HVTApp.Model
             }
         }
 
-
+        /// <summary>
+        /// Вернуть головную сборку ТСП
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="unitOfWork"></param>
+        /// <returns></returns>
         public static PriceEngineeringTasks GetPriceEngineeringTasks(this PriceEngineeringTask task, IUnitOfWork unitOfWork)
         {
             while (task.ParentPriceEngineeringTasksId.HasValue == false)

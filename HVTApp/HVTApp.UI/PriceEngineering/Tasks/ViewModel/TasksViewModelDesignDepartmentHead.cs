@@ -12,19 +12,16 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    /// <summary>
-    /// PriceEngineeringTasksViewModel для руководителя КБ
-    /// </summary>
-    public class PriceEngineeringTasksViewModelDesignDepartmentHead : PriceEngineeringTasksViewModelVisible<TasksWrapperDesignDepartmentHead, TaskViewModelDesignDepartmentHead>
+    public class TasksViewModelDesignDepartmentHead : TasksViewModelVisible<TasksWrapperDesignDepartmentHead, TaskViewModelDesignDepartmentHead>
     {
         private List<TaskViewModelDesignDepartmentHead> AllTasksForInstruct
         {
             get
             {
                 var result = new List<TaskViewModelDesignDepartmentHead>();
-                if (this.PriceEngineeringTasksWrapper != null)
+                if (this.TasksWrapper != null)
                 {
-                    foreach (var childTask in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
+                    foreach (var childTask in this.TasksWrapper.ChildPriceEngineeringTasks)
                     {
                         result.AddRange(childTask.GetSuitableTasksForInstruct());
                     }
@@ -35,7 +32,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         }
         public ICommand InstructAllTasksCommand { get; }
 
-        public PriceEngineeringTasksViewModelDesignDepartmentHead(IUnityContainer container) : base(container)
+        public TasksViewModelDesignDepartmentHead(IUnityContainer container) : base(container)
         {
             InstructAllTasksCommand = new DelegateLogCommand(
                 () =>

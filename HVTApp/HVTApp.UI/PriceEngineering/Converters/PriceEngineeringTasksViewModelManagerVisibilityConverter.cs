@@ -8,12 +8,12 @@ using HVTApp.UI.PriceEngineering.ViewModel;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTasksViewModelManager), typeof(Visibility))]
+    [ValueConversion(typeof(TasksViewModelManager), typeof(Visibility))]
     public class PriceEngineeringTasksViewModelManagerVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is PriceEngineeringTasksViewModelManager && GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            return value is TasksViewModelManager && GlobalAppProperties.User.RoleCurrent == Role.SalesManager
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

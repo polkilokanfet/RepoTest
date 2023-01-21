@@ -89,11 +89,17 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         /// Для создания новой ТСП
         /// </summary>
         /// <param name="taskList"></param>
-        public TasksWrapperManager(IEnumerable<TaskViewModelManager> taskList) : base()
+        /// <param name="manager"></param>
+        public TasksWrapperManager(IEnumerable<TaskViewModelManager> taskList, User manager) : base()
         {
+            if (taskList == null || taskList.Any() == false)
+                throw new ArgumentException();
+
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModelManager>(new List<TaskViewModelManager>());
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
             ChildPriceEngineeringTasks.AddRange(taskList);
+
+            this.UserManager = new UserEmptyWrapper(manager);
         }
         
         #endregion

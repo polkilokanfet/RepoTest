@@ -13,9 +13,9 @@ namespace HVTApp.UI.PriceEngineering.View
     [RibbonTab(typeof(TabPriceEngineeringTask))]
     public partial class PriceEngineeringTasksBackOfficeBossView : ViewBaseConfirmNavigationRequest, IDisposable
     {
-        private PriceEngineeringTasksViewModelManagerBackBoss _viewModel;
+        private TasksViewModelManagerBackBoss _viewModel;
 
-        public PriceEngineeringTasksBackOfficeBossView(PriceEngineeringTasksViewModelManagerBackBoss viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) 
+        public PriceEngineeringTasksBackOfficeBossView(TasksViewModelManagerBackBoss viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) 
             : base(container, regionManager, eventAggregator)
         {
 

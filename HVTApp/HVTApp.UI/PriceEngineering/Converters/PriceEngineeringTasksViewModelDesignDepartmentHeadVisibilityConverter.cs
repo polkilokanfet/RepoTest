@@ -8,12 +8,12 @@ using HVTApp.UI.PriceEngineering.ViewModel;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTasksViewModelDesignDepartmentHead), typeof(Visibility))]
+    [ValueConversion(typeof(TasksViewModelDesignDepartmentHead), typeof(Visibility))]
     public class PriceEngineeringTasksViewModelDesignDepartmentHeadVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is PriceEngineeringTasksViewModelDesignDepartmentHead && GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead
+            return value is TasksViewModelDesignDepartmentHead && GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

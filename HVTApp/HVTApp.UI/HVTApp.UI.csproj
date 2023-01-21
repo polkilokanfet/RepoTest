@@ -355,13 +355,13 @@
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapperDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapperManager.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelConstructor.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelDesignDepartmentHead.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManager.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelManager.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManagerBack.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelManagerBackBoss.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModelVisible.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelManagerBack.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelManagerBackBoss.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelVisible.cs" />
     <Compile Include="PriceEngineering\Task\TaskProductBlockAddedWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\Task\TaskProductBlockAddedWrapperManager.cs" />
     <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapperConstructor.cs" />
@@ -1003,7 +1003,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemListControl.xaml.cs">
       <DependentUpon>HistoryItemListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\Tasks\ViewModel\PriceEngineeringTasksViewModel.cs" />
+    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
     </Compile>

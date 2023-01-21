@@ -1,5 +1,8 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -13,37 +16,67 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public abstract class PriceEngineeringTasksViewModel<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel> : ViewModelBase, IPriceEngineeringTasksViewModel
-        where TPriceEngineeringTasksWrapper : TasksWrapper<TPriceEngineeringTaskViewModel>
-        where TPriceEngineeringTaskViewModel : TaskViewModel
+    public abstract class TasksViewModel<TTasksWrapper, TTaskViewModel> : ViewModelBase, IPriceEngineeringTasksViewModel
+        where TTasksWrapper : TasksWrapper<TTaskViewModel>
+        where TTaskViewModel : TaskViewModel
     {
-        private TPriceEngineeringTasksWrapper _priceEngineeringTasksWrapper;
+        private TTasksWrapper _tasksWrapper;
         private PriceEngineeringTasksFileTechnicalRequirementsWrapper _selectedFileTechnicalRequirements;
+        private bool _isNew = false;
 
-        public bool IsNew { get; protected set; } = false;
+        /// <summary>
+        /// Можно ли корректировать свойства (дату проработки, комментарий и т.д.)
+        /// </summary>
+        public virtual bool AllowEditProps => false;
 
-        public TPriceEngineeringTasksWrapper PriceEngineeringTasksWrapper
+        public bool IsNew
         {
-            get => _priceEngineeringTasksWrapper;
+            get => _isNew;
+            protected set => this.SetProperty(ref _isNew, value);
+        }
+
+        public TTasksWrapper TasksWrapper
+        {
+            get => _tasksWrapper;
             protected set
             {
-                var originValue = _priceEngineeringTasksWrapper;
-                if (this.SetProperty(ref _priceEngineeringTasksWrapper, value))
+                var originValue = _tasksWrapper;
+                if (this.SetProperty(ref _tasksWrapper, value))
                 {
+                    if (originValue != null)
+                        _tasksWrapper.PropertyChanged -= CheckCommands;
+
+                    if (_tasksWrapper != null)
+                        _tasksWrapper.PropertyChanged += CheckCommands;
+
                     RaisePropertyChanged(nameof(AllowEditProps));
                     this.PriceEngineeringTasksWrapperChanged?.Invoke(originValue, value);
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Проверка всех команд модели на возможность исполнения
+        /// </summary>
+        private void CheckCommands(object sender, PropertyChangedEventArgs e)
+        {
+            this.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(x => typeof(ICommandRaiseCanExecuteChanged).IsAssignableFrom(x.PropertyType))
+                .Select(x => x.GetValue(this))
+                .Cast<ICommandRaiseCanExecuteChanged>()
+                .ForEach(x => x.RaiseCanExecuteChanged());
+        }
+
         public PriceEngineeringTasksFileTechnicalRequirementsWrapper SelectedFileTechnicalRequirements
         {
             get => _selectedFileTechnicalRequirements;
             set
             {
-                if (Equals(_selectedFileTechnicalRequirements, value)) return;
-                _selectedFileTechnicalRequirements = value;
-                this.SelectedFileTechnicalRequirementsChanged?.Invoke();
+                if (this.SetProperty(ref _selectedFileTechnicalRequirements, value))
+                {
+                    this.SelectedFileTechnicalRequirementsChanged?.Invoke();
+                }
             }
         }
         
@@ -58,18 +91,13 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         /// <summary>
         /// Событие замены списка задач
         /// </summary>
-        public event Action<TPriceEngineeringTasksWrapper, TPriceEngineeringTasksWrapper> PriceEngineeringTasksWrapperChanged;
+        public event Action<TTasksWrapper, TTasksWrapper> PriceEngineeringTasksWrapperChanged;
 
         public event Action SelectedFileTechnicalRequirementsChanged;
 
         #endregion
 
-        /// <summary>
-        /// Можно ли корректировать свойства (дату проработки, комментарий и т.д.)
-        /// </summary>
-        public virtual bool AllowEditProps => false;
-
-        protected PriceEngineeringTasksViewModel(IUnityContainer container) : base(container)
+        protected TasksViewModel(IUnityContainer container) : base(container)
         {
             OpenFileTechnicalRequirementsCommand = new DelegateLogCommand(
                 () =>
@@ -94,10 +122,12 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 });
         }
 
+        #region Load
+
         public virtual void Load(PriceEngineeringTasks priceEngineeringTasks)
         {
             var tasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
-            this.PriceEngineeringTasksWrapper = GetPriceEngineeringTasksWrapper(tasks, Container);
+            this.TasksWrapper = GetPriceEngineeringTasksWrapper(tasks, Container);
         }
 
         public virtual void Load(PriceEngineeringTask priceEngineeringTask)
@@ -105,13 +135,15 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             this.Load(priceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork));
         }
 
-        protected abstract TPriceEngineeringTasksWrapper GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container);
+        #endregion
+
+        protected abstract TTasksWrapper GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container);
 
         public virtual void Dispose()
         {
             UnitOfWork?.Dispose();
-            this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.ForEach(viewModel => viewModel.Dispose());
-            this.PriceEngineeringTasksWrapper = null;
+            this.TasksWrapper.ChildPriceEngineeringTasks.ForEach(viewModel => viewModel.Dispose());
+            this.TasksWrapper = null;
         }
     }
 }

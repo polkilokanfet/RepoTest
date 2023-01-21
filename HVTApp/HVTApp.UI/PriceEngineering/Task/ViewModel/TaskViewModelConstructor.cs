@@ -235,13 +235,13 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите завершить проработку?",
                 () =>
                 {
-                    if (this.RequestForVerificationFromHead == false)
+                    if (this.Model.RequestForVerificationFromHead == false)
                     {
                         var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
                         this.RequestForVerificationFromConstructor = dr == MessageDialogResult.Yes;
                     }
 
-                    var needVerification = this.RequestForVerificationFromHead || this.RequestForVerificationFromConstructor;
+                    var needVerification = this.Model.RequestForVerificationFromHead || this.RequestForVerificationFromConstructor;
 
                     var sb = new StringBuilder()
                         .AppendLine("Информация о результатах проработки.")

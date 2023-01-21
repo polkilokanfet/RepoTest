@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -24,7 +23,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModelVisible<TasksWrapperManager, TaskViewModelManager>
+    public class TasksViewModelManager : TasksViewModelVisible<TasksWrapperManager, TaskViewModelManager>
     {
         public PriceCalculationWrapper SelectedCalculation { get; set; }
 
@@ -52,10 +51,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             {
                 if (GlobalAppProperties.User.RoleCurrent != Role.SalesManager) return false;
 
-                if (this.PriceEngineeringTasksWrapper == null) return false;
+                if (this.TasksWrapper == null) return false;
 
-                return PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Created) ||
-                       PriceEngineeringTasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
+                return TasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Created) ||
+                       TasksWrapper.Model.StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Stopped);
             }
         }
 
@@ -64,7 +63,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             return new TasksWrapperManager(priceEngineeringTasks, container);
         }
 
-        public PriceEngineeringTasksViewModelManager(IUnityContainer container) : base(container)
+        public TasksViewModelManager(IUnityContainer container) : base(container)
         {
             #region Commands
 
@@ -87,7 +86,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                 Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50),
                                 Path = fileName
                             };
-                            this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.Add(fileWrapper);
+                            this.TasksWrapper.FilesTechnicalRequirements.Add(fileWrapper);
                         }
 
                         //RaisePropertyChanged(nameof(this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements));
@@ -106,7 +105,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     }
                     else
                     {
-                        this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.Remove(SelectedFileTechnicalRequirements);
+                        this.TasksWrapper.FilesTechnicalRequirements.Remove(SelectedFileTechnicalRequirements);
                     }
                 },
                 () => AllowEditProps && SelectedFileTechnicalRequirements != null);
@@ -139,30 +138,30 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     try
                     {
                         //если задание новое - добавляем его в базу
-                        if (UnitOfWork.Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Model.Id) == null)
+                        if (UnitOfWork.Repository<PriceEngineeringTasks>().GetById(this.TasksWrapper.Model.Id) == null)
                         {
-                            UnitOfWork.Repository<PriceEngineeringTasks>().Add(this.PriceEngineeringTasksWrapper.Model);
+                            UnitOfWork.Repository<PriceEngineeringTasks>().Add(this.TasksWrapper.Model);
                         }
 
                         //загрузка файлов в хранилище
-                        foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
+                        foreach (var priceEngineeringTaskViewModel in this.TasksWrapper.ChildPriceEngineeringTasks)
                         {
                             priceEngineeringTaskViewModel.LoadNewTechnicalRequirementFilesInStorage();
                         }
 
-                        this.PriceEngineeringTasksWrapper.AcceptChanges();
+                        this.TasksWrapper.AcceptChanges();
                         UnitOfWork.SaveChanges();
                         IsNew = false;
                         RaisePropertyChanged(nameof(IsNew));
-                        Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
-                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Publish(this.PriceEngineeringTasksWrapper.Model);
+                        Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(this.TasksWrapper.Model);
+                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Publish(this.TasksWrapper.Model);
                     }
                     catch (Exception e)
                     {
                         Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.PrintAllExceptions());
                     }
                 },
-                () => this.PriceEngineeringTasksWrapper != null && this.PriceEngineeringTasksWrapper.IsValid && this.PriceEngineeringTasksWrapper.IsChanged);
+                () => this.TasksWrapper != null && this.TasksWrapper.IsValid && this.TasksWrapper.IsChanged);
 
             StartCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(), 
@@ -170,7 +169,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 () =>
                 {
                     LoadNewTechnicalRequirementFilesInStorage();
-                    foreach (var priceEngineeringTaskViewModel in PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks)
+                    foreach (var priceEngineeringTaskViewModel in TasksWrapper.ChildPriceEngineeringTasks)
                     {
                         priceEngineeringTaskViewModel.StartCommandExecute(false);
                     }
@@ -180,9 +179,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(nameof(AllowEditProps));
                 },
-                () => this.PriceEngineeringTasksWrapper != null &&
-                      this.PriceEngineeringTasksWrapper.IsValid &&
-                      this.PriceEngineeringTasksWrapper.IsChanged &&
+                () => this.TasksWrapper != null &&
+                      this.TasksWrapper.IsValid &&
+                      this.TasksWrapper.IsChanged &&
                       AllowEditProps);
 
             StopCommand = new DelegateLogConfirmationCommand(
@@ -190,7 +189,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 "Вы уверены, что хотите остановить все задачи?",
                 () =>
                 {
-                    foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper
+                    foreach (var priceEngineeringTaskViewModel in this.TasksWrapper
                         .ChildPriceEngineeringTasks)
                     {
                         foreach (var viewModel in priceEngineeringTaskViewModel.GetAllPriceEngineeringTaskViewModels())
@@ -209,7 +208,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
                     StopCommand.RaiseCanExecuteChanged();
                 },
-                () => this.PriceEngineeringTasksWrapper != null && this.IsNew == false);
+                () => this.TasksWrapper != null && this.IsNew == false);
             //this.PriceEngineeringTasksWrapper != null &&
             //    this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.SelectMany(x => x.Model.Statuses).Any(x => x.StatusEnum != PriceEngineeringTaskStatusEnum.Stopped && x.StatusEnum != PriceEngineeringTaskStatusEnum.Created));
 
@@ -225,7 +224,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             CreatePriceCalculationCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(this.PriceEngineeringTasksWrapper.Model.Id);
+                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(this.TasksWrapper.Model.Id);
 
                     var isTceConnected = priceEngineeringTasks.ChildPriceEngineeringTasks
                                              .Any(x => x.IsAcceptedTotal) &&
@@ -239,7 +238,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                             isTceConnected = false;
                         }
                         else if (dr == MessageDialogResult.No && 
-                                 this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsAcceptedTotal))
+                                 this.TasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsAcceptedTotal))
                         {
                             isTceConnected = true;
                         }
@@ -252,11 +251,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
                         new NavigationParameters
                         {
-                            {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model},
+                            {nameof(PriceEngineeringTasks), this.TasksWrapper.Model},
                             {nameof(Boolean), isTceConnected}
                         });
                 },
-                () => this.PriceEngineeringTasksWrapper != null && this.IsNew == false);
+                () => this.TasksWrapper != null && this.IsNew == false);
 
 
             OpenTceCommand = new DelegateLogCommand(
@@ -264,14 +263,14 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 {
                     this.Container.Resolve<IRegionManager>().RequestNavigateContentRegion<TasksTceView>(new NavigationParameters
                     {
-                        {nameof(PriceEngineeringTasks), this.PriceEngineeringTasksWrapper.Model}
+                        {nameof(PriceEngineeringTasks), this.TasksWrapper.Model}
                     });
                 });
 
             ReplaceProductsCommand = new DelegateLogCommand(
                 () =>
                 {
-                    foreach (var priceEngineeringTaskViewModel in this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsAcceptedTotal))
+                    foreach (var priceEngineeringTaskViewModel in this.TasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsAcceptedTotal))
                     {
                         if (priceEngineeringTaskViewModel is TaskViewModelManagerOld viewModel)
                         {
@@ -279,12 +278,12 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         }
                     }
                 },
-                () => this.PriceEngineeringTasksWrapper != null);
+                () => this.TasksWrapper != null);
 
             PrintCommand = new DelegateLogCommand(
                 () =>
                 {
-                    Container.Resolve<IPrintPriceEngineering>().PrintPriceEngineeringTasks(this.PriceEngineeringTasksWrapper.Model.Id);
+                    Container.Resolve<IPrintPriceEngineering>().PrintPriceEngineeringTasks(this.TasksWrapper.Model.Id);
                 });
 
             #endregion
@@ -299,13 +298,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             {
                 if (valueOld != null)
                 {
-                    valueOld.PropertyChanged -= PriceEngineeringTasksWrapperOnPropertyChanged;
                     valueOld.AllTasksAcceptedByManagerAction -= PriceEngineeringTasksWrapperOnAllTasksAcceptedByManagerAction;
                 }
 
                 if (valueNew != null)
                 {
-                    valueNew.PropertyChanged += PriceEngineeringTasksWrapperOnPropertyChanged;
                     valueNew.AllTasksAcceptedByManagerAction += PriceEngineeringTasksWrapperOnAllTasksAcceptedByManagerAction;
                 }
 
@@ -329,18 +326,13 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         /// <param name="salesUnits"></param>
         public void Load(IEnumerable<SalesUnit> salesUnits)
         {
-            var vms = salesUnits
+            var _ = salesUnits
                 .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
                 .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer())
                 .Select(x => new TaskViewModelManagerNew(Container, UnitOfWork, x, this));
 
-            PriceEngineeringTasksWrapper = new TasksWrapperManager(vms)
-            {
-                UserManager = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id))
-            };
-
+            TasksWrapper = new TasksWrapperManager(_, UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
             IsNew = true;
-            RaisePropertyChanged(nameof(IsNew));
         }
 
         /// <summary>
@@ -348,7 +340,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         /// </summary>
         private void LoadNewTechnicalRequirementFilesInStorage()
         {
-            foreach (var fileWrapper in this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements.AddedItems)
+            foreach (var fileWrapper in this.TasksWrapper.FilesTechnicalRequirements.AddedItems)
             {
                 var destFileName = $"{GlobalAppProperties.Actual.TechnicalRequrementsFilesPath}\\{fileWrapper.Id}{Path.GetExtension(fileWrapper.Path)}";
                 if (File.Exists(destFileName) == false && string.IsNullOrEmpty(fileWrapper.Path) == false)
@@ -361,39 +353,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         public void RemoveChildTask(TaskViewModelManager taskViewModel)
         {
-            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Contains(taskViewModel))
-                this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.Remove(taskViewModel);
+            if (this.TasksWrapper.ChildPriceEngineeringTasks.Contains(taskViewModel))
+                this.TasksWrapper.ChildPriceEngineeringTasks.Remove(taskViewModel);
         }
-
-        #region PriceEngineeringTasksWrapperOn
-
-        private void OnPriceEngineeringTaskAccepted(PriceEngineeringTask priceEngineeringTask)
-        {
-            if (this.PriceEngineeringTasksWrapper == null)
-                return;
-            if (this.PriceEngineeringTasksWrapper.Model.ChildPriceEngineeringTasks.Any(x => x.Id == priceEngineeringTask.Id) == false)
-                return;
-
-            //если приняты все задачи
-            if (this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.All(x => x.Model.IsAcceptedTotal || x.Model.IsStoppedTotal))
-            {
-                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
-                if (dr == MessageDialogResult.Yes)
-                {
-                    CreatePriceCalculationCommand.Execute();
-                }
-            }
-        }
-
-        private void PriceEngineeringTasksWrapperOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            SaveCommand.RaiseCanExecuteChanged();
-            StartCommand.RaiseCanExecuteChanged();
-            StopCommand.RaiseCanExecuteChanged();
-            ReplaceProductsCommand.RaiseCanExecuteChanged();
-            CreatePriceCalculationCommand.RaiseCanExecuteChanged();
-        }
-
-        #endregion
     }
 }

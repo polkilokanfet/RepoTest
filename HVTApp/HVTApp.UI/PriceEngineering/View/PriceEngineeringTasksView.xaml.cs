@@ -22,19 +22,19 @@ namespace HVTApp.UI.PriceEngineering.View
             switch (GlobalAppProperties.User.RoleCurrent)
             {
                 case Role.SalesManager:
-                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelManager>();
+                    _viewModel = container.Resolve<TasksViewModelManager>();
                     break;
                 case Role.DesignDepartmentHead:
-                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelDesignDepartmentHead>();
+                    _viewModel = container.Resolve<TasksViewModelDesignDepartmentHead>();
                     break;
                 case Role.Constructor:
-                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelConstructor>();
+                    _viewModel = container.Resolve<TasksViewModelConstructor>();
                     break;
                 case Role.BackManager:
-                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelManagerBack>();
+                    _viewModel = container.Resolve<TasksViewModelManagerBack>();
                     break;
                 case Role.BackManagerBoss:
-                    _viewModel = container.Resolve<PriceEngineeringTasksViewModelManagerBackBoss>();
+                    _viewModel = container.Resolve<TasksViewModelManagerBackBoss>();
                     break;
             }
 
@@ -60,7 +60,7 @@ namespace HVTApp.UI.PriceEngineering.View
                         _viewModel.Load(priceEngineeringTask);
 
                     if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
-                        if (_viewModel is PriceEngineeringTasksViewModelManager viewModel)
+                        if (_viewModel is TasksViewModelManager viewModel)
                             viewModel.Load(salesUnits);
                 }
             }

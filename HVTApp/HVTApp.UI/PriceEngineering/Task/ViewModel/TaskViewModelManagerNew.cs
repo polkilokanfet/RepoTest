@@ -18,7 +18,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         ///  онтейнер задач, в которую вложена эта задача
         /// </summary>
-        private readonly PriceEngineeringTasksViewModelManager _priceEngineeringTasksViewModelManager;
+        private readonly TasksViewModelManager _tasksViewModelManager;
 
         public DelegateLogConfirmationCommand RemoveTaskCommand { get; }
 
@@ -31,11 +31,11 @@ namespace HVTApp.UI.PriceEngineering
         /// <param name="unitOfWork"></param>
         /// <param name="salesUnits"></param>
         /// <param name="container"></param>
-        /// <param name="priceEngineeringTasksViewModelManager"> онтейнер задач, в которую вложена эта задача</param>
-        public TaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits, PriceEngineeringTasksViewModelManager priceEngineeringTasksViewModelManager) 
+        /// <param name="tasksViewModelManager"> онтейнер задач, в которую вложена эта задача</param>
+        public TaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, IEnumerable<SalesUnit> salesUnits, TasksViewModelManager tasksViewModelManager) 
             : this(container, unitOfWork, salesUnits.First().Product)
         {
-            _priceEngineeringTasksViewModelManager = priceEngineeringTasksViewModelManager;
+            _tasksViewModelManager = tasksViewModelManager;
             this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
         }
 
@@ -76,11 +76,11 @@ namespace HVTApp.UI.PriceEngineering
                 "¬ы уверены, что хотите удалить эту задачу из списка?",
                 () =>
                 {
-                    _priceEngineeringTasksViewModelManager?.RemoveChildTask(this);
+                    _tasksViewModelManager?.RemoveChildTask(this);
                 },
                 () =>
-                    _priceEngineeringTasksViewModelManager != null &&
-                    _priceEngineeringTasksViewModelManager.AllowEditProps &&
+                    _tasksViewModelManager != null &&
+                    _tasksViewModelManager.AllowEditProps &&
                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) == null);
 
             SelectDesignDepartmentCommand = new DelegateLogCommand(
