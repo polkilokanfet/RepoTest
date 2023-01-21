@@ -15,7 +15,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
     /// <summary>
     /// PriceEngineeringTasksViewModel для руководителя КБ
     /// </summary>
-    public class PriceEngineeringTasksViewModelDesignDepartmentHead : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperDesignDepartmentHead, TaskViewModelDesignDepartmentHead>
+    public class PriceEngineeringTasksViewModelDesignDepartmentHead : PriceEngineeringTasksViewModelVisible<TasksWrapperDesignDepartmentHead, TaskViewModelDesignDepartmentHead>
     {
         private List<TaskViewModelDesignDepartmentHead> AllTasksForInstruct
         {
@@ -70,9 +70,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 });
         }
 
-        protected override PriceEngineeringTasksContainerWrapperDesignDepartmentHead GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
+        protected override TasksWrapperDesignDepartmentHead GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
         {
-            return new PriceEngineeringTasksContainerWrapperDesignDepartmentHead(priceEngineeringTasks, container);
+            return new TasksWrapperDesignDepartmentHead(priceEngineeringTasks, container);
         }
     }
 }

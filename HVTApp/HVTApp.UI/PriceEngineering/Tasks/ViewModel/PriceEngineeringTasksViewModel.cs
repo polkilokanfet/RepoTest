@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -15,7 +14,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public abstract class PriceEngineeringTasksViewModel<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel> : ViewModelBase, IPriceEngineeringTasksViewModel
-        where TPriceEngineeringTasksWrapper : PriceEngineeringTasksContainerWrapper<TPriceEngineeringTaskViewModel>
+        where TPriceEngineeringTasksWrapper : TasksWrapper<TPriceEngineeringTaskViewModel>
         where TPriceEngineeringTaskViewModel : TaskViewModel
     {
         private TPriceEngineeringTasksWrapper _priceEngineeringTasksWrapper;
@@ -29,12 +28,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             protected set
             {
                 var originValue = _priceEngineeringTasksWrapper;
-                if (Equals(_priceEngineeringTasksWrapper, value)) return;
-
-                _priceEngineeringTasksWrapper = value;
-
-                RaisePropertyChanged(nameof(AllowEditProps));
-                this.PriceEngineeringTasksWrapperChanged?.Invoke(originValue, value);
+                if (this.SetProperty(ref _priceEngineeringTasksWrapper, value))
+                {
+                    RaisePropertyChanged(nameof(AllowEditProps));
+                    this.PriceEngineeringTasksWrapperChanged?.Invoke(originValue, value);
+                }
             }
         }
         

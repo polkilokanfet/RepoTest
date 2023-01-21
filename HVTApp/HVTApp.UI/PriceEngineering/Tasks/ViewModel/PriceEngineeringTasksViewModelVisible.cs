@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public abstract class PriceEngineeringTasksViewModelVisible<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel> : PriceEngineeringTasksViewModel<TPriceEngineeringTasksWrapper, TPriceEngineeringTaskViewModel>
-        where TPriceEngineeringTasksWrapper : PriceEngineeringTasksContainerWrapper<TPriceEngineeringTaskViewModel>
+        where TPriceEngineeringTasksWrapper : TasksWrapper<TPriceEngineeringTaskViewModel>
         where TPriceEngineeringTaskViewModel : TaskViewModel
     {
         private Guid? _taskId;

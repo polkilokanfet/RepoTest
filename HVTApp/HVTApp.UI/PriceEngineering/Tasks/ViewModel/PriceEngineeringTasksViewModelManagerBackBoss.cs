@@ -4,16 +4,16 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManagerBackBoss : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManagerBack, TaskViewModelManagerBack>
+    public class PriceEngineeringTasksViewModelManagerBackBoss : PriceEngineeringTasksViewModelVisible<TasksWrapperManagerBack, TaskViewModelManagerBack>
     {
         public PriceEngineeringTasksViewModelManagerBackBoss(IUnityContainer container) : base(container)
         {
         }
 
-        protected override PriceEngineeringTasksContainerWrapperManagerBack GetPriceEngineeringTasksWrapper(
+        protected override TasksWrapperManagerBack GetPriceEngineeringTasksWrapper(
             PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
         {
-            return new PriceEngineeringTasksContainerWrapperManagerBack(priceEngineeringTasks, container);
+            return new TasksWrapperManagerBack(priceEngineeringTasks, container);
         }
     }
 }

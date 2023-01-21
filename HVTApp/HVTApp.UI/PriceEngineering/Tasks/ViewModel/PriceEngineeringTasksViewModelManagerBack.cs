@@ -5,13 +5,13 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManagerBack : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManagerBack, TaskViewModelManagerBack>
+    public class PriceEngineeringTasksViewModelManagerBack : PriceEngineeringTasksViewModelVisible<TasksWrapperManagerBack, TaskViewModelManagerBack>
     {
         public PriceEngineeringTasksViewModelManagerBack(IUnityContainer container) : base(container)
         {
         }
 
-        protected override PriceEngineeringTasksContainerWrapperManagerBack GetPriceEngineeringTasksWrapper(
+        protected override TasksWrapperManagerBack GetPriceEngineeringTasksWrapper(
             PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
         {
             throw new NotImplementedException();

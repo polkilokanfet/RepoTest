@@ -24,7 +24,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModelVisible<PriceEngineeringTasksContainerWrapperManager, TaskViewModelManager>
+    public class PriceEngineeringTasksViewModelManager : PriceEngineeringTasksViewModelVisible<TasksWrapperManager, TaskViewModelManager>
     {
         public PriceCalculationWrapper SelectedCalculation { get; set; }
 
@@ -59,9 +59,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             }
         }
 
-        protected override PriceEngineeringTasksContainerWrapperManager GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
+        protected override TasksWrapperManager GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
         {
-            return new PriceEngineeringTasksContainerWrapperManager(priceEngineeringTasks, container);
+            return new TasksWrapperManager(priceEngineeringTasks, container);
         }
 
         public PriceEngineeringTasksViewModelManager(IUnityContainer container) : base(container)
@@ -334,7 +334,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer())
                 .Select(x => new TaskViewModelManagerNew(Container, UnitOfWork, x, this));
 
-            PriceEngineeringTasksWrapper = new PriceEngineeringTasksContainerWrapperManager(vms)
+            PriceEngineeringTasksWrapper = new TasksWrapperManager(vms)
             {
                 UserManager = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id))
             };

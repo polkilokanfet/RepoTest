@@ -5,9 +5,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
-    public class PriceEngineeringTasksContainerWrapperConstructor : PriceEngineeringTasksContainerWrapper<TaskViewModelConstructor>
+    public class TasksWrapperConstructor : TasksWrapper<TaskViewModelConstructor>
     {
-        public PriceEngineeringTasksContainerWrapperConstructor(PriceEngineeringTasks model, IUnityContainer container) : base(model, container)
+        public TasksWrapperConstructor(PriceEngineeringTasks model, IUnityContainer container) : base(model, container)
         {
         }
 
