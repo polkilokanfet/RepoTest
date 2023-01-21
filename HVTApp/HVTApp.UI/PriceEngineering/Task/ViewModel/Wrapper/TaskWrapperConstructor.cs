@@ -30,8 +30,8 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// </summary>
         public bool RequestForVerificationFromConstructor
         {
-            get { return GetValue<System.Boolean>(); }
-            set { SetValue(value); }
+            get => GetValue<bool>();
+            set => SetValue(value);
         }
         public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
         public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
@@ -61,15 +61,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockManager, value);
         }
 
-        /// <summary>
-        /// Блок продукта от инженера-конструктора
-        /// </summary>
-        public ProductBlockStructureCostWrapper ProductBlockEngineer
-        {
-            get => GetWrapper<ProductBlockStructureCostWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapper>(ProductBlockEngineer, value);
-        }
-
         #endregion
 
         #region CollectionProperties
@@ -78,31 +69,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// Добавленные блоки продукта от инженера-конструктора
         /// </summary>
         public IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor> ProductBlocksAdded { get; private set; }
-
-        /// <summary>
-        /// Файлы технических требований
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
-
-        /// <summary>
-        /// Файлы ответов ОГК
-        /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
-
-        ///// <summary>
-        ///// Переписка
-        ///// </summary>
-        //public MessagesCollection Messages { get; }
-
-        /// <summary>
-        /// Статусы проработки
-        /// </summary>
-        public StatusesCollection Statuses { get; private set; }
-
-        /// <summary>
-        /// SalesUnits
-        /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
 
         #endregion
 

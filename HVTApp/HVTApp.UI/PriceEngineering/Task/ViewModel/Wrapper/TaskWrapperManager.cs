@@ -46,22 +46,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperManager> ProductBlocksAdded { get; private set; }
 
-
-        ///// <summary>
-        ///// Переписка
-        ///// </summary>
-        //public MessagesCollection Messages { get; }
-
-        /// <summary>
-        /// Статусы проработки
-        /// </summary>
-        public StatusesCollection Statuses { get; private set; }
-
-        /// <summary>
-        /// SalesUnits
-        /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
-
         #endregion
 
         #region ctors

@@ -306,7 +306,7 @@ namespace HVTApp.UI.ViewModels
                     EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(SelectedLookup.Entity);
                 }
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 
             }

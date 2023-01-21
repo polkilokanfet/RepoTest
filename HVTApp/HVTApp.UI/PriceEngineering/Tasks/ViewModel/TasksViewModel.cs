@@ -44,7 +44,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 if (this.SetProperty(ref _tasksWrapper, value))
                 {
                     if (originValue != null)
-                        _tasksWrapper.PropertyChanged -= CheckCommands;
+                        originValue.PropertyChanged -= CheckCommands;
 
                     if (_tasksWrapper != null)
                         _tasksWrapper.PropertyChanged += CheckCommands;
@@ -61,7 +61,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         private void CheckCommands(object sender, PropertyChangedEventArgs e)
         {
             this.GetType()
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Where(x => typeof(ICommandRaiseCanExecuteChanged).IsAssignableFrom(x.PropertyType))
                 .Select(x => x.GetValue(this))
                 .Cast<ICommandRaiseCanExecuteChanged>()

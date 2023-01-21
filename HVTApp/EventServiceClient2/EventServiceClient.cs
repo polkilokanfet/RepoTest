@@ -69,7 +69,7 @@ namespace EventServiceClient2
                     {
                         CheckMessagesInDb();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                     }
 
@@ -422,7 +422,7 @@ namespace EventServiceClient2
                     unitOfWork.Repository<EventServiceUnit>().Delete(unit);
                 }
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
                 unitOfWork.Repository<EventServiceUnit>().Delete(unit);
             }

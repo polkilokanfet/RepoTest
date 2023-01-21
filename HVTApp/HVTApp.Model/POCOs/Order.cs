@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [AllowEdit(Role.PlanMaker)]
     [Designation("Заводской заказ")]
-    public partial class Order : BaseEntity, IComparable
+    public partial class Order : BaseEntity
     {
         [Designation("Номер"), Required, MaxLength(10)]
         public string Number { get; set; }
@@ -20,7 +20,7 @@ namespace HVTApp.Model.POCOs
             return $"{Number}";
         }
 
-        public int CompareTo(object obj)
+        public override int CompareTo(object obj)
         {
             var other = (Order) obj;
             return this.DateOpen.CompareTo(other.DateOpen);
