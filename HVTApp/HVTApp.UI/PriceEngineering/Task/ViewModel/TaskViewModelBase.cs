@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HVTApp.Infrastructure;
@@ -83,17 +84,6 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        ///// <summary>
-        ///// Id
-        ///// </summary>
-        //public System.Guid Id
-        //{
-        //    get { return GetValue<System.Guid>(); }
-        //    set { SetValue(value); }
-        //}
-        //public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        //public bool IdIsChanged => GetIsChanged(nameof(Id));
-
         /// <summary>
         /// Статус
         /// </summary>
@@ -106,16 +96,12 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Конструктор
         /// </summary>
-        public UserEmptyWrapper UserConstructor => Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor);
+        public User UserConstructor => Model.UserConstructor;
 
         /// <summary>
         /// Бюро конструкторов
         /// </summary>
-        public DesignDepartmentEmptyWrapper DesignDepartment
-        {
-            get => GetWrapper<DesignDepartmentEmptyWrapper>();
-            set => SetComplexValue<DesignDepartment, DesignDepartmentEmptyWrapper>(DesignDepartment, value);
-        }
+        public DesignDepartment DesignDepartment => Model.DesignDepartment;
 
         /// <summary>
         /// Блок продукта от инженера-конструктора
@@ -136,11 +122,6 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
 
-        ///// <summary>
-        ///// Переписка
-        ///// </summary>
-        //public MessagesCollection Messages { get; }
-
         /// <summary>
         /// Статусы проработки
         /// </summary>
@@ -150,6 +131,11 @@ namespace HVTApp.UI.PriceEngineering
         /// SalesUnits
         /// </summary>
         public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
+
+        /// <summary>
+        /// Добавленные блоки продукта от инженера-конструктора
+        /// </summary>
+        public IEnumerable<PriceEngineeringTaskProductBlockAdded> ProductBlocksAdded => Model.ProductBlocksAdded;
 
         #endregion
 
@@ -161,7 +147,6 @@ namespace HVTApp.UI.PriceEngineering
 
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentEmptyWrapper(Model.DesignDepartment));
         }
 
         protected override void InitializeCollectionProperties()

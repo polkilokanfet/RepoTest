@@ -95,8 +95,7 @@ namespace HVTApp.UI.PriceEngineering
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(vms);
 
             //Обязательные параметры главного блока продукта задачи
-            var productBlockRequiredParameters = DesignDepartment
-                .Model
+            var productBlockRequiredParameters = Model.DesignDepartment
                 .ParameterSets
                 .FirstOrDefault(x => x.Parameters.AllContainsInById(Model.ProductBlockManager.Parameters))?
                 .Parameters.ToList();
@@ -145,7 +144,7 @@ namespace HVTApp.UI.PriceEngineering
             AddBlockAddedCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var block = Container.Resolve<IGetProductService>().GetProductBlock(DesignDepartment.Model.ParameterSetsAddedBlocks);
+                    var block = Container.Resolve<IGetProductService>().GetProductBlock(Model.DesignDepartment.ParameterSetsAddedBlocks);
                     if (block == null) return;
                     AddAddedBlock(block);
                 },
@@ -298,7 +297,7 @@ namespace HVTApp.UI.PriceEngineering
             BlockAddedNewParameterCommand = new DelegateLogCommand(
                 () =>
                 {
-                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.DesignDepartment.Model));
+                    Container.Resolve<IDialogService>().ShowDialog(new ParametersServiceViewModel(Container, this.Model.DesignDepartment));
                 },
                 () => IsEditMode);
 
@@ -314,7 +313,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     var getProductService = Container.Resolve<IGetProductService>();
 
-                    var block = getProductService.GetProductBlock(DesignDepartment.Model.ParameterSetsSubTask);
+                    var block = getProductService.GetProductBlock(Model.DesignDepartment.ParameterSetsSubTask);
                     if (block == null) return;
 
                     var unitOfWork = this.Container.Resolve<IUnitOfWork>();

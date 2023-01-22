@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.Unity;
 
@@ -13,19 +12,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         #region SimpleProperties
 
         /// <summary>
-        /// Id группы
-        /// </summary>
-        public Guid? ParentPriceEngineeringTasksId
-        {
-            get => Model.ParentPriceEngineeringTasksId;
-            set => SetValue(value);
-        }
-        public Guid ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParentPriceEngineeringTasksId));
-        public bool ParentPriceEngineeringTasksIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTasksId));
-
-        #region RequestForVerificationFromConstructor
-
-        /// <summary>
         /// Запрос на проверку от исполнителя
         /// </summary>
         public bool RequestForVerificationFromConstructor
@@ -33,23 +19,12 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             get => GetValue<bool>();
             set => SetValue(value);
         }
-        public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
+        public bool RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<bool>(nameof(RequestForVerificationFromConstructor));
         public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
 
         #endregion
 
-        #endregion
-
         #region ComplexProperties
-
-        /// <summary>
-        /// Блок продукта от менеджера
-        /// </summary>
-        public ProductBlockEmptyWrapper ProductBlockManager
-        {
-            get => GetWrapper<ProductBlockEmptyWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockManager, value);
-        }
 
         /// <summary>
         /// Блок продукта от инженера-конструктора
@@ -60,7 +35,6 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapperConstructor>(ProductBlockEngineer, value);
         }
 
-
         #endregion
 
         #region CollectionProperties
@@ -68,7 +42,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// <summary>
         /// Добавленные блоки продукта от инженера-конструктора
         /// </summary>
-        public IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor> ProductBlocksAdded { get; private set; }
+        public new IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor> ProductBlocksAdded { get; private set; }
 
         #endregion
 

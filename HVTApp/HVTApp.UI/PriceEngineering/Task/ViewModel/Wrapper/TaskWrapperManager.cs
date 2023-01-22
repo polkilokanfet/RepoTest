@@ -29,22 +29,13 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         #region ComplexProperties
 
         /// <summary>
-        /// Блок продукта от менеджера
+        /// Бюро конструкторов
         /// </summary>
-        public ProductBlockEmptyWrapper ProductBlockManager
+        public new DesignDepartmentEmptyWrapper DesignDepartment
         {
-            get => GetWrapper<ProductBlockEmptyWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockManager, value);
+            get => GetWrapper<DesignDepartmentEmptyWrapper>();
+            set => SetComplexValue<DesignDepartment, DesignDepartmentEmptyWrapper>(DesignDepartment, value);
         }
-
-        #endregion
-
-        #region CollectionProperties
-
-        /// <summary>
-        /// Добавленные блоки продукта от инженера-конструктора
-        /// </summary>
-        public IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperManager> ProductBlocksAdded { get; private set; }
 
         #endregion
 
@@ -64,18 +55,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         {
             base.InitializeComplexProperties();
 
-            InitializeComplexProperty(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null
-                ? null
-                : new ProductBlockStructureCostWrapperConstructor(Model.ProductBlockEngineer));
-        }
-
-        protected override void InitializeCollectionProperties()
-        {
-            base.InitializeCollectionProperties();
-
-            if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
-            ProductBlocksAdded = new ValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperManager>(Model.ProductBlocksAdded.Select(x => new TaskProductBlockAddedWrapperManager(x)));
-            RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
+            InitializeComplexProperty(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentEmptyWrapper(Model.DesignDepartment));
         }
     }
 }

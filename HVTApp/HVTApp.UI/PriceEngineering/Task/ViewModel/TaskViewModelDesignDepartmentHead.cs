@@ -40,7 +40,7 @@ namespace HVTApp.UI.PriceEngineering
 
         public override bool IsTarget => 
             DesignDepartment != null && 
-            DesignDepartment.Model.Head.Id == GlobalAppProperties.User.Id;
+            DesignDepartment.Head.Id == GlobalAppProperties.User.Id;
 
         public override bool IsEditMode
         {
@@ -81,7 +81,7 @@ namespace HVTApp.UI.PriceEngineering
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Model.Staff);
+                    var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Staff);
                     if (user == null) return;
 
                     var needVerification = MessageDialogResult.Yes == Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
