@@ -71,6 +71,8 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
+            #region Commands
+
             RemoveTaskCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),
                 "Вы уверены, что хотите удалить эту задачу из списка?",
@@ -94,6 +96,8 @@ namespace HVTApp.UI.PriceEngineering
                     }
                 },
                 () => IsEditMode);
+
+            #endregion
 
             //задача в процессе создания, нужно добавить соответствующий статус
             this.Statuses.Add(new PriceEngineeringTaskStatusEmptyWrapper(new PriceEngineeringTaskStatus { StatusEnum = PriceEngineeringTaskStatusEnum.Created }));

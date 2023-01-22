@@ -1,10 +1,13 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Wrapper;
 
 namespace HVTApp.UI.PriceEngineering
@@ -19,6 +22,11 @@ namespace HVTApp.UI.PriceEngineering
             : base(priceEngineeringTask)
         {
             UnitOfWork = unitOfWork;
+
+            this.PropertyChanged += (sender, args) =>
+            {
+                this.RaiseCommandsCanExecuteChanged();
+            };
         }
 
         protected TaskViewModelBase(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
@@ -165,5 +173,17 @@ namespace HVTApp.UI.PriceEngineering
             RegisterCollection(SalesUnits, Model.SalesUnits);
         }
 
+        /// <summary>
+        /// ѕроверка всех команд на возможность исполнени€
+        /// </summary>
+        private void RaiseCommandsCanExecuteChanged()
+        {
+            this.GetType()
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                .Where(x => typeof(ICommandRaiseCanExecuteChanged).IsAssignableFrom(x.PropertyType))
+                .Select(x => x.GetValue(this))
+                .Cast<ICommandRaiseCanExecuteChanged>()
+                .ForEach(x => x.RaiseCanExecuteChanged());
+        }
     }
 }

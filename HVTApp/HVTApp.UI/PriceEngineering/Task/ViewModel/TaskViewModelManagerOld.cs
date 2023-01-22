@@ -71,7 +71,6 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
-
             #region Commands
 
             var messageService = this.Container.Resolve<IMessageService>();
@@ -119,14 +118,6 @@ namespace HVTApp.UI.PriceEngineering
                 () => { });
 
             #endregion
-
-            this.Statuses.CollectionChanged += (sender, args) =>
-            {
-                StopCommand.RaiseCanExecuteChanged();
-                AcceptCommand.RaiseCanExecuteChanged();
-                RejectCommand.RaiseCanExecuteChanged();
-            };
-
         }
 
         /// <summary>

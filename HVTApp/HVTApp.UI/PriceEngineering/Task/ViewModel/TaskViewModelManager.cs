@@ -112,13 +112,6 @@ namespace HVTApp.UI.PriceEngineering
             {
                 RemoveTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
             };
-
-            this.Statuses.CollectionChanged += (sender, args) =>
-            {
-                StartCommand.RaiseCanExecuteChanged();
-                AddTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
-                RemoveTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
-            };
         }
 
         #endregion

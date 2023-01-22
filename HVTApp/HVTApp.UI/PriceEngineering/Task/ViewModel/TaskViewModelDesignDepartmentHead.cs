@@ -76,6 +76,8 @@ namespace HVTApp.UI.PriceEngineering
             var vms = Model.ChildPriceEngineeringTasks.Select(engineeringTask => new TaskViewModelDesignDepartmentHead(container, engineeringTask.Id));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(vms);
 
+            #region Commands
+
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -112,13 +114,7 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsEditMode);
 
-
-            this.Statuses.CollectionChanged += (sender, args) =>
-            {
-                InstructPriceEngineeringTaskCommand.RaiseCanExecuteChanged();
-                AcceptPriceEngineeringTaskCommand.RaiseCanExecuteChanged();
-                RejectPriceEngineeringTaskCommand.RaiseCanExecuteChanged();
-            };
+            #endregion
         }
 
         #endregion

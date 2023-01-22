@@ -347,30 +347,6 @@ namespace HVTApp.UI.PriceEngineering
 
             #endregion
 
-            this.PropertyChanged += (sender, args) =>
-            {
-                SaveCommand.RaiseCanExecuteChanged();
-                FinishCommand.RaiseCanExecuteChanged();
-                RejectCommand.RaiseCanExecuteChanged();
-                CreateSubTaskCommand.RaiseCanExecuteChanged();
-                //BlockAddedNewParameterCommand.RaiseCanExecuteChanged();
-            };
-
-            this.Statuses.CollectionChanged += (sender, args) =>
-            {
-                SelectProductBlockCommand.RaiseCanExecuteChanged();
-
-                AddAnswerFilesCommand.RaiseCanExecuteChanged();
-                RemoveAnswerFileCommand.RaiseCanExecuteChanged();
-
-                AddBlockAddedCommand.RaiseCanExecuteChanged();
-                RemoveBlockAddedCommand.RaiseCanExecuteChanged();
-                AddBlockAddedComplectCommand.RaiseCanExecuteChanged();
-
-                BlockAddedNewParameterCommand.RaiseCanExecuteChanged();
-                BlockNewParameterCommand.RaiseCanExecuteChanged();
-            };
-
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();
         }
 
