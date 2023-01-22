@@ -9,35 +9,45 @@ using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Wrapper;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
     public abstract class TaskViewModelBase : WrapperBase<PriceEngineeringTask>
     {
         protected readonly IUnitOfWork UnitOfWork;
+        protected readonly IUnityContainer Container;
 
         #region ctors
 
-        private TaskViewModelBase(IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask)
+        private TaskViewModelBase(IUnityContainer container, IUnitOfWork unitOfWork, PriceEngineeringTask priceEngineeringTask)
             : base(priceEngineeringTask)
         {
+            Container = container;
             UnitOfWork = unitOfWork;
 
             this.PropertyChanged += (sender, args) =>
             {
                 this.RaiseCommandsCanExecuteChanged();
             };
+
+            this.InCtor();
         }
 
-        protected TaskViewModelBase(IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
-            : this(unitOfWork, unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId))
+        protected TaskViewModelBase(IUnityContainer container, IUnitOfWork unitOfWork, Guid priceEngineeringTaskId)
+            : this(container, unitOfWork, unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId))
         {
         }
 
-        protected TaskViewModelBase(IUnitOfWork unitOfWork)
-            : this(unitOfWork, new PriceEngineeringTask())
+        protected TaskViewModelBase(IUnityContainer container, IUnitOfWork unitOfWork)
+            : this(container, unitOfWork, new PriceEngineeringTask())
         {
         }
+
+        /// <summary>
+        /// ћетод запускаетс€ в конце каждого конструктора
+        /// </summary>
+        protected virtual void InCtor() { }
 
         #endregion
 

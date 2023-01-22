@@ -20,7 +20,6 @@ namespace HVTApp.UI.PriceEngineering
 {
     public abstract class TaskViewModel : TaskViewModelBase, IDisposable
     {
-        protected readonly IUnityContainer Container;
         private TaskViewModel _parent;
         private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedTechnicalRequirementsFile;
         private PriceEngineeringTaskFileAnswerWrapper _selectedFileAnswer;
@@ -146,11 +145,8 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         /// <param name="container"></param>
         /// <param name="priceEngineeringTaskId"></param>
-        protected TaskViewModel(IUnityContainer container, Guid priceEngineeringTaskId) 
-            : base(container.Resolve<IUnitOfWork>(), priceEngineeringTaskId)
+        protected TaskViewModel(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, container.Resolve<IUnitOfWork>(), priceEngineeringTaskId)
         {
-            Container = container;
-            InCtor();
         }
 
         /// <summary>
@@ -158,18 +154,14 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
-        protected TaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) 
-            : base(unitOfWork)
+        protected TaskViewModel(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
-            Container = container;
-            InCtor();
         }
 
-        /// <summary>
-        /// ћетод запускаетс€ в конце каждого конструктора
-        /// </summary>
-        protected virtual void  InCtor()
+        protected override void InCtor()
         {
+            base.InCtor();
+
             #region Commands
 
             OpenTechnicalRequirementsFileCommand = new DelegateLogCommand(
@@ -259,7 +251,6 @@ namespace HVTApp.UI.PriceEngineering
             {
                 OnPropertyChanged(nameof(Status));
                 OnPropertyChanged(nameof(IsEditMode));
-                OnPropertyChanged(nameof(AllowEditAddedBlocks));
             };
         }
 

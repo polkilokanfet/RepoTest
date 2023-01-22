@@ -348,6 +348,12 @@ namespace HVTApp.UI.PriceEngineering
             #endregion
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();
+
+            this.Statuses.CollectionChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(AllowEditAddedBlocks));
+            };
+
         }
 
         #endregion
