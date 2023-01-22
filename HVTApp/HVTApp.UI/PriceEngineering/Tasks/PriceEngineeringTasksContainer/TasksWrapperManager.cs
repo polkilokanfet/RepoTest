@@ -69,7 +69,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         /// <param name="container"></param>
         public TasksWrapperManager(PriceEngineeringTasks model, IUnityContainer container) : base(model, container)
         {
-            foreach (var priceEngineeringTaskViewModel in ChildPriceEngineeringTasks)
+            foreach (var priceEngineeringTaskViewModel in ChildTasks)
             {
                 if (priceEngineeringTaskViewModel is TaskViewModelManagerOld vmOld)
                 {
@@ -95,9 +95,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
             if (taskList == null || taskList.Any() == false)
                 throw new ArgumentException();
 
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModelManager>(new List<TaskViewModelManager>());
-            RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-            ChildPriceEngineeringTasks.AddRange(taskList);
+            ChildTasks = new ValidatableChangeTrackingCollection<TaskViewModelManager>(new List<TaskViewModelManager>());
+            RegisterCollection(ChildTasks, Model.ChildPriceEngineeringTasks);
+            ChildTasks.AddRange(taskList);
 
             this.UserManager = new UserEmptyWrapper(manager);
         }

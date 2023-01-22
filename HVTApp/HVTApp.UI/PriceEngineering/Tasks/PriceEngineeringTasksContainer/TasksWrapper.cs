@@ -13,7 +13,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         /// <summary>
         /// Задачи
         /// </summary>
-        public IValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
+        public IValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel> ChildTasks { get; protected set; }
 
         #region ctors
 
@@ -32,7 +32,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         protected TasksWrapper(PriceEngineeringTasks model, IUnityContainer container) : base(model)
         {
             if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel>(this.Model.ChildPriceEngineeringTasks.Select(x => this.GetChildPriceEngineeringTask(container, x.Id)));
+            ChildTasks = new ValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel>(this.Model.ChildPriceEngineeringTasks.Select(x => this.GetChildPriceEngineeringTask(container, x.Id)));
             //ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel>(this.Model.ChildPriceEngineeringTasks.Select(x => container.Resolve<TasksWrapperFactory>().GetTaskViewModel<TPriceEngineeringTaskViewModel>(x.Id)));
             ////RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
         }

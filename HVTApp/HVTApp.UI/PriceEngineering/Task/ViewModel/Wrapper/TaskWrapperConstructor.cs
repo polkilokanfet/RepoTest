@@ -38,19 +38,9 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #endregion
 
-
         #endregion
 
         #region ComplexProperties
-
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        public UserEmptyWrapper UserConstructor
-        {
-            get => GetWrapper<UserEmptyWrapper>();
-            set => SetComplexValue<User, UserEmptyWrapper>(UserConstructor, value);
-        }
 
         /// <summary>
         /// Блок продукта от менеджера
@@ -60,6 +50,16 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             get => GetWrapper<ProductBlockEmptyWrapper>();
             set => SetComplexValue<ProductBlock, ProductBlockEmptyWrapper>(ProductBlockManager, value);
         }
+
+        /// <summary>
+        /// Блок продукта от инженера-конструктора
+        /// </summary>
+        public new ProductBlockStructureCostWrapperConstructor ProductBlockEngineer
+        {
+            get => GetWrapper<ProductBlockStructureCostWrapperConstructor>();
+            set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapperConstructor>(ProductBlockEngineer, value);
+        }
+
 
         #endregion
 

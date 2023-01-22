@@ -48,11 +48,11 @@ namespace HVTApp.UI.PriceEngineering
         public TaskViewModelManagerNew(IUnityContainer container, IUnitOfWork unitOfWork, Product product) 
             : base(container, unitOfWork)
         {
-            ProductBlockEngineer = new ProductBlockStructureCostWrapperManager(product.ProductBlock);
+            this.Model.ProductBlockEngineer = product.ProductBlock;
             this.Model.ProductBlockManager = product.ProductBlock;
 
             //ב‏נמ
-            var department = UnitOfWork.Repository<DesignDepartment>().Find(designDepartment => designDepartment.ProductBlockIsSuitable(this.ProductBlockEngineer.Model)).FirstOrDefault();
+            var department = UnitOfWork.Repository<DesignDepartment>().Find(designDepartment => designDepartment.ProductBlockIsSuitable(this.Model.ProductBlockEngineer)).FirstOrDefault();
             if (department != null)
             {
                 this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);

@@ -14,7 +14,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
             {
                 Product product = new Product
                 {
-                    ProductBlock = priceEngineeringTaskViewModel.ProductBlockEngineer.Model
+                    ProductBlock = priceEngineeringTaskViewModel.Model.ProductBlockEngineer
                 };
                 return product.ToString();
             }

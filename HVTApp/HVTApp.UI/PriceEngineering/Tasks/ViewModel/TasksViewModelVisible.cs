@@ -24,14 +24,14 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 switch (value)
                 {
                     case true:
-                        this.TasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = true);
+                        this.TasksWrapper.ChildTasks.ForEach(x => x.IsVisible = true);
                         break;
                     case false:
-                        this.TasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = this.ChildTaskIsVisibleByDefault(x.Model));
+                        this.TasksWrapper.ChildTasks.ForEach(x => x.IsVisible = this.ChildTaskIsVisibleByDefault(x.Model));
                         break;
                     case null:
                         if (_taskId.HasValue)
-                            this.TasksWrapper.ChildPriceEngineeringTasks.ForEach(x => x.IsVisible = x.Model.GetAllPriceEngineeringTasks().Any(t => t.Id == _taskId.Value));
+                            this.TasksWrapper.ChildTasks.ForEach(x => x.IsVisible = x.Model.GetAllPriceEngineeringTasks().Any(t => t.Id == _taskId.Value));
                         break;
                 }
 

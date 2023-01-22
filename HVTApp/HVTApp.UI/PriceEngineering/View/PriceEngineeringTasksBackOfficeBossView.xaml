@@ -8,7 +8,7 @@
     xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View">
 
     <Border Background="White" Padding="5">
-        <GroupBox Header="{Binding PriceEngineeringTasksWrapper}">
+        <GroupBox Header="{Binding TasksWrapper}">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -44,11 +44,11 @@
                             <Label Grid.Column="0" Content="Проработать до:"/>
                             <editors:XamDateTimeEditor Grid.Column="1"
                                                          Width="120"
-                                                         Value="{Binding PriceEngineeringTasksWrapper.WorkUpTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                         Value="{Binding TasksWrapper.WorkUpTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Column="2" Content=" Комментарий:"/>
                             <TextBox Grid.Column="3" 
-                                     Text="{Binding PriceEngineeringTasksWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding TasksWrapper.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsReadOnly="{Binding AllowEditProps, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
                         </Grid>
@@ -56,7 +56,7 @@
                         <GroupBox Grid.Row="1" Header="Общие файлы технического задания" >
                             <!--Visibility="{Binding PriceEngineeringTasksWrapper.FilesTechnicalRequirements, Converter={StaticResource FilesTechnicalRequirementsToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">-->
                             <dataPresenter:XamDataGrid
-                                                DataSource="{Binding PriceEngineeringTasksWrapper.FilesTechnicalRequirements}"
+                                                DataSource="{Binding TasksWrapper.FilesTechnicalRequirements}"
                                                 ActiveDataItem="{Binding SelectedFileTechnicalRequirements, Mode=TwoWay}"
                                                 Style="{StaticResource XamDataGridWithoutGroupByArea}">
 
@@ -88,7 +88,7 @@
                             </Grid.RowDefinitions>
 
                             <ItemsControl Grid.Row="0" 
-                                          ItemsSource="{Binding PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks}" 
+                                          ItemsSource="{Binding TasksWrapper.ChildTasks}" 
                                           HorizontalAlignment="Stretch"
                                           BorderThickness="0">
                                 <ItemsControl.ItemTemplate>

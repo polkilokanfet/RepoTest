@@ -21,7 +21,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 var result = new List<TaskViewModelDesignDepartmentHead>();
                 if (this.TasksWrapper != null)
                 {
-                    foreach (var childTask in this.TasksWrapper.ChildPriceEngineeringTasks)
+                    foreach (var childTask in this.TasksWrapper.ChildTasks)
                     {
                         result.AddRange(childTask.GetSuitableTasksForInstruct());
                     }

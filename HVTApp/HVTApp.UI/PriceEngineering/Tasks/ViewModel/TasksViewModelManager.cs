@@ -144,7 +144,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         }
 
                         //загрузка файлов в хранилище
-                        foreach (var priceEngineeringTaskViewModel in this.TasksWrapper.ChildPriceEngineeringTasks)
+                        foreach (var priceEngineeringTaskViewModel in this.TasksWrapper.ChildTasks)
                         {
                             priceEngineeringTaskViewModel.LoadNewTechnicalRequirementFilesInStorage();
                         }
@@ -169,7 +169,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 () =>
                 {
                     LoadNewTechnicalRequirementFilesInStorage();
-                    foreach (var priceEngineeringTaskViewModel in TasksWrapper.ChildPriceEngineeringTasks)
+                    foreach (var priceEngineeringTaskViewModel in TasksWrapper.ChildTasks)
                     {
                         priceEngineeringTaskViewModel.StartCommandExecute(false);
                     }
@@ -190,7 +190,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 () =>
                 {
                     foreach (var priceEngineeringTaskViewModel in this.TasksWrapper
-                        .ChildPriceEngineeringTasks)
+                        .ChildTasks)
                     {
                         foreach (var viewModel in priceEngineeringTaskViewModel.GetAllPriceEngineeringTaskViewModels())
                         {
@@ -238,7 +238,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                             isTceConnected = false;
                         }
                         else if (dr == MessageDialogResult.No && 
-                                 this.TasksWrapper.ChildPriceEngineeringTasks.Any(x => x.Model.IsAcceptedTotal))
+                                 this.TasksWrapper.ChildTasks.Any(x => x.Model.IsAcceptedTotal))
                         {
                             isTceConnected = true;
                         }
@@ -270,7 +270,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             ReplaceProductsCommand = new DelegateLogCommand(
                 () =>
                 {
-                    foreach (var priceEngineeringTaskViewModel in this.TasksWrapper.ChildPriceEngineeringTasks.Where(x => x.Model.IsAcceptedTotal))
+                    foreach (var priceEngineeringTaskViewModel in this.TasksWrapper.ChildTasks.Where(x => x.Model.IsAcceptedTotal))
                     {
                         if (priceEngineeringTaskViewModel is TaskViewModelManagerOld viewModel)
                         {
@@ -353,8 +353,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         public void RemoveChildTask(TaskViewModelManager taskViewModel)
         {
-            if (this.TasksWrapper.ChildPriceEngineeringTasks.Contains(taskViewModel))
-                this.TasksWrapper.ChildPriceEngineeringTasks.Remove(taskViewModel);
+            if (this.TasksWrapper.ChildTasks.Contains(taskViewModel))
+                this.TasksWrapper.ChildTasks.Remove(taskViewModel);
         }
     }
 }

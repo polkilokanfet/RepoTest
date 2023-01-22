@@ -86,6 +86,11 @@ namespace HVTApp.UI.PriceEngineering
         #region ComplexProperties
 
         /// <summary>
+        /// Конструктор
+        /// </summary>
+        public UserEmptyWrapper UserConstructor => Model.UserConstructor == null ? null : new UserEmptyWrapper(Model.UserConstructor);
+
+        /// <summary>
         /// Бюро конструкторов
         /// </summary>
         public DesignDepartmentEmptyWrapper DesignDepartment
@@ -97,11 +102,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Блок продукта от инженера-конструктора
         /// </summary>
-	    public ProductBlockStructureCostWrapper ProductBlockEngineer
-        {
-            get => GetWrapper<ProductBlockStructureCostWrapper>();
-            set => SetComplexValue<ProductBlock, ProductBlockStructureCostWrapper>(ProductBlockEngineer, value);
-        }
+	    public ProductBlock ProductBlockEngineer => Model.ProductBlockEngineer;
 
         #endregion
 

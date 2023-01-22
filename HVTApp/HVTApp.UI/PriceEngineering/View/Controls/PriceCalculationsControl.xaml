@@ -7,7 +7,7 @@
     <Expander Header="Расчеты переменных затрат" IsExpanded="False">
 
         <ribbon:XamDataGrid x:Name="PriceCalculationsGrid"
-                            DataSource="{Binding PriceEngineeringTasksWrapper.PriceCalculations}"
+                            DataSource="{Binding TasksWrapper.PriceCalculations}"
                             ActiveDataItem="{Binding SelectedCalculation}">
 
             <ribbon:XamDataGrid.InputBindings>
