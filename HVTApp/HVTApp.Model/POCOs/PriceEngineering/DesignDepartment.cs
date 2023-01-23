@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
@@ -35,15 +36,7 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public bool ProductBlockIsSuitable(ProductBlock productBlock)
         {
-            foreach (var parameterSet in ParameterSets)
-            {
-                if (parameterSet.Parameters.AllContainsInById(productBlock.Parameters))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return ParameterSets.Any(designDepartmentParameters => designDepartmentParameters.Parameters.AllContainsInById(productBlock.Parameters));
         }
 
         public override string ToString()
