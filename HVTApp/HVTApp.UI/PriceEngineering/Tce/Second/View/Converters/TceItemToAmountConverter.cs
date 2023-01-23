@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
@@ -11,6 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
         {
             if (value is TasksTceItem tasksTceItem)
             {
+                if (tasksTceItem.Model.SalesUnits.Any() == false) return 0;
                 return tasksTceItem.Model.SalesUnits.Count;
             }
 

@@ -12,6 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
         {
             if (value is TasksTceItem tasksTceItem)
             {
+                if (tasksTceItem.Model.SalesUnits.Any() == false) return "unit removed by manager";
                 return tasksTceItem.Model.SalesUnits.First().RealizationDateCalculated.ToShortDateString();
             }
 

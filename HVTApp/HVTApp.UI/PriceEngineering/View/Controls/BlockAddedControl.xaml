@@ -9,10 +9,6 @@
              x:Name="Root"
              MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ribbon:RibbonWindowContentHost}}, Path=ActualWidth, Converter={StaticResource BlockAddedWidthConverter}}">
 
-    <UserControl.Resources>
-        <converters:BlockAddedIsEnabledConverter x:Key="BlockAddedIsEnabledConverter" />
-    </UserControl.Resources>
-
     <Border 
         DataContext="{Binding ElementName=Root, Path=ProductBlockAdded}"
         Background="AliceBlue"  

@@ -28,12 +28,12 @@ namespace HVTApp.Modules.Products.Menus
 
             if (GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead)
             {
-                Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewDepartmentHead)));
+                //Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewDepartmentHead)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewDesignDepartmentHead)));
             }
             else
             {
-                Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewConstructor)));
+                //Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewConstructor)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
             }
 

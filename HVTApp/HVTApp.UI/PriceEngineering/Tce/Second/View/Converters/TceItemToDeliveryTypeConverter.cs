@@ -12,6 +12,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
         {
             if (value is TasksTceItem tasksTceItem)
             {
+                if (tasksTceItem.Model.SalesUnits.Any() == false) return 0;
+
                 var deliveryCost = tasksTceItem.Model.SalesUnits.First().CostDelivery;
                 if (deliveryCost > 0)
                 {

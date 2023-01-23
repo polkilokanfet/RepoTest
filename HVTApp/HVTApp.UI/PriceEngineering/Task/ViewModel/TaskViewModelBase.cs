@@ -106,7 +106,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Блок продукта от инженера-конструктора
         /// </summary>
-	    public ProductBlock ProductBlockEngineer => Model.ProductBlockEngineer;
+	    public ProductBlockEmptyWrapper ProductBlockEngineer => Model.ProductBlockEngineer == null ? null : new ProductBlockEmptyWrapper(Model.ProductBlockEngineer);
 
         #endregion
 
@@ -135,7 +135,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Добавленные блоки продукта от инженера-конструктора
         /// </summary>
-        public IEnumerable<PriceEngineeringTaskProductBlockAdded> ProductBlocksAdded => Model.ProductBlocksAdded;
+        public IEnumerable<TaskProductBlockAddedWrapperConstructor> ProductBlocksAdded => Model.ProductBlocksAdded.Select(x => new TaskProductBlockAddedWrapperConstructor(x));
 
         #endregion
 

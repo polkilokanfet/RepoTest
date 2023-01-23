@@ -12,6 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View.Converters
         {
             if (value is TasksTceItem taskTceItem)
             {
+                if (taskTceItem.Model.SalesUnits.Any() == false) return "unit removed by manager";
                 return taskTceItem.Model.SalesUnits.First().Facility.Address.ToString();
             }
 
