@@ -14,6 +14,15 @@ namespace HVTApp.UI.PriceEngineering.View
             set => SetValue(TaskViewModelProperty, value);
         }
 
+        public static readonly DependencyProperty ButtonsAreaProperty = DependencyProperty.Register(
+            "ButtonsArea", typeof(object), typeof(PriceEngineeringTaskBlocksAddedControl), new UIPropertyMetadata(default(object)));
+
+        public object ButtonsArea
+        {
+            get => (object) GetValue(ButtonsAreaProperty);
+            set => SetValue(ButtonsAreaProperty, value);
+        }
+
         public PriceEngineeringTaskBlocksAddedControl()
         {
             InitializeComponent();

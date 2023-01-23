@@ -147,10 +147,10 @@
                                             </Grid.ColumnDefinitions>
 
                                             <Button Grid.Column="0" 
-                                            Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
-                                            Content="..." 
-                                            Command="{Binding InstructPriceEngineeringTaskCommand}" 
-                                            Padding="5 0"/>
+                                                    Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
+                                                    Content="..." 
+                                                    Command="{Binding InstructPriceEngineeringTaskCommand}" 
+                                                    Padding="5 0"/>
                                             <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 
                                             <Label Grid.Column="2" Content=" Бюро:"></Label>
