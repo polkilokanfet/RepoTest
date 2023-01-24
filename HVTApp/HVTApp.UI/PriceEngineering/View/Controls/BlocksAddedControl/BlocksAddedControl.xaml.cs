@@ -5,13 +5,13 @@ namespace HVTApp.UI.PriceEngineering.View
 {
     public partial class BlocksAddedControl : UserControl
     {
-        public static readonly DependencyProperty TaskViewModelProperty = DependencyProperty.Register(
-            "TaskViewModel", typeof(TaskViewModel), typeof(BlocksAddedControl), new PropertyMetadata(default(TaskViewModel)));
+        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
+            "ViewModel", typeof(TaskViewModel), typeof(BlocksAddedControl), new PropertyMetadata(default(TaskViewModel)));
 
-        public TaskViewModel TaskViewModel
+        public TaskViewModel ViewModel
         {
-            get => (TaskViewModel)GetValue(TaskViewModelProperty);
-            set => SetValue(TaskViewModelProperty, value);
+            get => (TaskViewModel)GetValue(ViewModelProperty);
+            set => SetValue(ViewModelProperty, value);
         }
 
         public static readonly DependencyProperty ButtonsAreaProperty = DependencyProperty.Register(

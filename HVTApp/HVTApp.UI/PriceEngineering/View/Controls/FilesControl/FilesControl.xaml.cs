@@ -5,6 +5,8 @@ namespace HVTApp.UI.PriceEngineering.View
 {
     public partial class FilesControl : UserControl
     {
+        #region TaskViewModel
+
         public static readonly DependencyProperty TaskViewModelProperty = DependencyProperty.Register(
             "TaskViewModel", typeof(TaskViewModel), typeof(FilesControl), new PropertyMetadata(default(TaskViewModel)));
 
@@ -13,6 +15,8 @@ namespace HVTApp.UI.PriceEngineering.View
             get => (TaskViewModel)GetValue(TaskViewModelProperty);
             set => SetValue(TaskViewModelProperty, value);
         }
+
+        #endregion
 
         #region ButtonsAreaFiles
 

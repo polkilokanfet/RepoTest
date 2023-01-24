@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTaskChatControl"
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TaskChatControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"

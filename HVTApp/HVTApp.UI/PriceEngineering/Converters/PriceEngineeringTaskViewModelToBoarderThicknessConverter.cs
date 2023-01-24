@@ -8,7 +8,7 @@ using HVTApp.Model.Wrapper;
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     [ValueConversion(typeof(IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper>), typeof(Thickness))]
-    public class PriceEngineeringTaskViewModelToBoarderTricknessConverter : IValueConverter
+    public class PriceEngineeringTaskViewModelToBoarderThicknessConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.ProductTaskControlManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:PriceEngineeringTaskViewModelManagerNewVisibilityConverter x:Key="ManagerVisibilityConverterNew" />
+    </UserControl.Resources>
+
+    <view:ProductTaskControlHeader DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}">
+
+        <view:ProductTaskControlHeader.TasksArea>
+            <!--Проработка блоков-->
+            <view:PriceEngineeringTaskControl TaskViewModel="{Binding ElementName=Root, Path=TaskViewModelManager}"/>
+        </view:ProductTaskControlHeader.TasksArea>
+
+        <view:ProductTaskControlHeader.ButtonsArea>
+            <Grid Grid.Column="1" 
+                  Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" 
+                        Content="Удалить" 
+                        Command="{Binding RemoveTaskCommand}" 
+                        Padding="2" 
+                        Margin="0, 0, 0, 2"
+                        Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}"/>
+
+                <Button Grid.Row="1" 
+                        Content="Синхронизировать" Command="{Binding ReplaceProductCommand}" 
+                        Padding="2"/>
+            </Grid>
+
+        </view:ProductTaskControlHeader.ButtonsArea>
+
+    </view:ProductTaskControlHeader>
+</UserControl>

@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
-             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters">
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             x:Name="Root">
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
@@ -11,11 +12,11 @@
         <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
         <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelManagerOldVisibilityConverter x:Key="ManagerVisibilityConverterOld" />
-        <converters:PriceEngineeringTaskViewModelToBoarderTricknessConverter x:Key="PriceEngineeringTaskViewModelToBoarderTricknessConverter" />
+        <converters:PriceEngineeringTaskViewModelToBoarderThicknessConverter x:Key="BoarderThicknessConverter" />
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
+    <Border DataContext="{Binding ElementName=Root, Path=TaskViewModel}" Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -27,7 +28,7 @@
             <Border Grid.Row="0" 
                     MaxHeight="500"
                     BorderBrush="Blue"  
-                    BorderThickness="{Binding Converter={StaticResource PriceEngineeringTaskViewModelToBoarderTricknessConverter}}">
+                    BorderThickness="{Binding Converter={StaticResource BoarderThicknessConverter}}">
 
                 <Expander 
                     Header="{Binding}"
@@ -165,14 +166,12 @@
                                 </Grid>
 
                                 <!--Файлы-->
-                                <view:FilesControl Grid.Row="1"
-                                                                       TaskViewModel="{Binding}"/>
+                                <view:FilesControl Grid.Row="1" TaskViewModel="{Binding}"/>
 
                                 <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
                                 <!--Дополнительные блоки-->
-                                <view:BlocksAddedControl Grid.Row="3"
-                                                                             TaskViewModel ="{Binding}"/>
+                                <view:BlocksAddedControl Grid.Row="3" ViewModel ="{Binding}"/>
 
                                 <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
                                     <Grid>
@@ -239,7 +238,7 @@
                             <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
                             <!--Переписка-->
-                            <view:PriceEngineeringTaskChatControl 
+                            <view:TaskChatControl 
                                 Grid.Column="2" 
                                 TaskViewModel="{Binding}"/>
 

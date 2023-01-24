@@ -3,10 +3,10 @@ using System.Windows.Controls;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    public partial class PriceEngineeringTaskChatControl : UserControl
+    public partial class TaskChatControl : UserControl
     {
         public static readonly DependencyProperty TaskViewModelProperty = DependencyProperty.Register(
-            "TaskViewModel", typeof(TaskViewModel), typeof(PriceEngineeringTaskChatControl), new PropertyMetadata(default(TaskViewModel)));
+            "TaskViewModel", typeof(TaskViewModel), typeof(TaskChatControl), new PropertyMetadata(default(TaskViewModel)));
 
         public TaskViewModel TaskViewModel
         {
@@ -14,7 +14,7 @@ namespace HVTApp.UI.PriceEngineering.View
             set => SetValue(TaskViewModelProperty, value);
         }
 
-        public PriceEngineeringTaskChatControl()
+        public TaskChatControl()
         {
             InitializeComponent();
         }

@@ -383,7 +383,7 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsTargetTaskVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerVisibilityConverter.cs" />
-    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToBoarderTricknessConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToBoarderThicknessConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToFacilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductAmountConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductDesignationConverter.cs" />
@@ -473,6 +473,9 @@
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.xaml.cs">
+      <DependentUpon>ProductTaskControlManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlHeader.xaml.cs">
       <DependentUpon>ProductTaskControlHeader.xaml</DependentUpon>
     </Compile>
@@ -482,8 +485,8 @@
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlocksAddedControlConstructor.xaml.cs">
       <DependentUpon>BlocksAddedControlConstructor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\View\Controls\PriceEngineeringTaskChatControl.xaml.cs">
-      <DependentUpon>PriceEngineeringTaskChatControl.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\View\Controls\Chat\TaskChatControl.xaml.cs">
+      <DependentUpon>TaskChatControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlocksAddedControl.xaml.cs">
       <DependentUpon>BlocksAddedControl.xaml</DependentUpon>
@@ -1926,6 +1929,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlHeader.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1938,7 +1945,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\View\Controls\PriceEngineeringTaskChatControl.xaml">
+    <Page Include="PriceEngineering\View\Controls\Chat\TaskChatControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

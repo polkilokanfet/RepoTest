@@ -6,7 +6,7 @@
 
     <!--Дополнительные блоки-->
     <GroupBox Header="Дополнительные блоки"
-              DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
+              DataContext="{Binding ElementName=Root, Path=ViewModel}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -32,7 +32,7 @@
             </ScrollViewer>
 
             <ContentControl Grid.Row="1"
-                            DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
+                            DataContext="{Binding ElementName=Root, Path=ViewModel}"
                             Content="{Binding ElementName=Root, Path=ButtonsArea}"/>
         </Grid>
     </GroupBox>

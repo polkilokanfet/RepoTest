@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
-             x:Name="Control">
+             x:Name="Root">
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskViewModelToProductDesignationConverter x:Key="ToProductDesignationConverter" />
@@ -26,10 +26,9 @@
             Header="{Binding}" 
             IsExpanded="{Binding Mode=OneTime, Converter={StaticResource IsExpendedConverter}}">
 
+            <!--Шапка-->
             <Expander.HeaderTemplate>
                 <DataTemplate>
-
-                    <!--Шапка-->
                     <Border 
                         HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
                         BorderBrush="Black" 
@@ -66,32 +65,17 @@
                                 <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductAmountConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
                             </Grid>
 
-                            <Grid Grid.Column="1" 
-                                  Margin="5"
-                                  Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-
-                                <Button Grid.Row="0" Content="Удалить" Command="{Binding RemoveTaskCommand}" Padding="2" Margin="0, 0, 0, 2"
-                                        Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}"/>
-                                <Button Grid.Row="1" Content="Синхронизировать" Command="{Binding ReplaceProductCommand}" Padding="2"/>
-                                <!--<Button Grid.Row="2" Content="Произвести" Command="{Binding StartProductionCommand}"/>-->
-                            </Grid>
+                            <ContentControl Grid.Column="1" Content="{Binding ButtonsArea, ElementName=Root}"/>
 
                         </Grid>
                     </Border>
-
                 </DataTemplate>
             </Expander.HeaderTemplate>
 
             <!--Проработка блоков-->
             <ContentControl 
                 DataContext="{Binding}"
-                Content="{Binding TasksArea, ElementName=Control}"/>
+                Content="{Binding TasksArea, ElementName=Root}"/>
 
         </Expander>
     </Border>
