@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.FilesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+        <Style TargetType="dataPresenter:XamDataGrid" BasedOn="{StaticResource XamDataGridWithoutGroupByArea}"/>
+    </UserControl.Resources>
+
+    <!--Файлы-->
+    <Grid DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Техническое задание-->
+        <view:FilesSingleControl 
+            Grid.Column="0"
+            Caption="Файлы технического задания (от ОП ВВА) "
+            LoadAllFilesCommand="{Binding LoadTechnicalRequirementsFilesCommand}"
+            OpenFileCommand="{Binding OpenTechnicalRequirementsFileCommand}"
+            Files="{Binding FilesTechnicalRequirements}"
+            SelectedFile="{Binding SelectedTechnicalRequrementsFile}">
+             <view:FilesSingleControl.ButtonsArea>
+                 <ContentControl Content="{Binding ButtonsAreaFiles, ElementName=Root}"/>
+             </view:FilesSingleControl.ButtonsArea>
+        </view:FilesSingleControl>
+
+        <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+        <!--Проработка ОГК-->
+        <view:FilesSingleControl 
+            Grid.Column="2"
+            Caption="Файлы проработки (от ОГК ВВА) "
+            LoadAllFilesCommand="{Binding LoadAnswerFilesCommand}"
+            OpenFileCommand="{Binding OpenAnswerFileCommand}"
+            Files="{Binding FilesAnswers}"
+            SelectedFile="{Binding SelectedFileAnswer}">
+            <view:FilesSingleControl.ButtonsArea>
+                <ContentControl Content="{Binding ButtonsAreaAnswers, ElementName=Root}"/>
+            </view:FilesSingleControl.ButtonsArea>
+        </view:FilesSingleControl>
+
+    </Grid>
+
+</UserControl>

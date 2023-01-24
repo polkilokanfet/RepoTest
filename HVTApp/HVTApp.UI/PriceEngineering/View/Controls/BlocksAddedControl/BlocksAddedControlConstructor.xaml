@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTaskBlocksAddedControlConstructor"
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.BlocksAddedControlConstructor"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
@@ -9,8 +9,8 @@
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
     </UserControl.Resources>
 
-    <view:PriceEngineeringTaskBlocksAddedControl>
-        <view:PriceEngineeringTaskBlocksAddedControl.ButtonsArea>
+    <view:BlocksAddedControl>
+        <view:BlocksAddedControl.ButtonsArea>
             <Grid
                 Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
@@ -23,6 +23,6 @@
                 <Button Grid.Column="1" Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}"/>
                 <Button Grid.Column="2" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}"/>
             </Grid>
-        </view:PriceEngineeringTaskBlocksAddedControl.ButtonsArea>
-    </view:PriceEngineeringTaskBlocksAddedControl>
+        </view:BlocksAddedControl.ButtonsArea>
+    </view:BlocksAddedControl>
 </UserControl>

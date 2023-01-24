@@ -2,9 +2,9 @@
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    public partial class PriceEngineeringProductTaskControl : UserControl
+    public partial class ProductTaskControl : UserControl
     {
-        public PriceEngineeringProductTaskControl()
+        public ProductTaskControl()
         {
             InitializeComponent();
         }

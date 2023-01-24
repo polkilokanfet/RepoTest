@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    public partial class PriceEngineeringTaskBlocksAddedControlConstructor : UserControl
+    public partial class BlocksAddedControlConstructor : UserControl
     {
-        public PriceEngineeringTaskBlocksAddedControlConstructor()
+        public BlocksAddedControlConstructor()
         {
             InitializeComponent();
         }

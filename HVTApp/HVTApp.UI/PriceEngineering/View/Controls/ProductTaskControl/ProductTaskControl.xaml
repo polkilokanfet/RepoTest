@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.ProductTaskControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View">
+
+    <view:ProductTaskControlHeader DataContext="{Binding}">
+        <view:ProductTaskControlHeader.TasksArea>
+            <!--Проработка блоков-->
+            <view:PriceEngineeringTaskControl/>
+        </view:ProductTaskControlHeader.TasksArea>
+    </view:ProductTaskControlHeader>
+</UserControl>
