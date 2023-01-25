@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTasksControlManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             x:Name="Root">
+
+    <Border DataContext="{Binding TasksViewModelManager, ElementName=Root}" Background="White" Padding="5">
+        <GroupBox Header="{Binding}">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Технико-стоимостная проработка сборки задач с Id"/>
+                        <TextBox Text="{Binding Path=TasksWrapper.Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                 IsReadOnly="True"
+                                 BorderThickness="0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Общая информация для всего оборудования в заданиях-->
+                <view:CommonInformationControl DataContext="{Binding}"/>
+
+                <!--Оборудование-->
+                <GroupBox Grid.Row="1" Header="Оборудование">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
+                        <ItemsControl
+                            ItemsSource="{Binding TasksWrapper.ChildTasks}" 
+                            HorizontalAlignment="Stretch"
+                            BorderThickness="0">
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <view:ProductTaskControlManager 
+                                        TaskViewModelManager="{Binding}"
+                                        Margin="2 5 2 0"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>
+
+                    </ScrollViewer>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Border>
+
+</UserControl>

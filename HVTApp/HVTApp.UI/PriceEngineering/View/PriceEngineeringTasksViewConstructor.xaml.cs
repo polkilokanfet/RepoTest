@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -12,11 +11,11 @@ using Prism.Regions;
 namespace HVTApp.UI.PriceEngineering.View
 {
     [RibbonTab(typeof(TabPriceEngineeringTask))]
-    public partial class PriceEngineeringTasksManagerView : ViewBaseConfirmNavigationRequest, IDisposable
+    public partial class PriceEngineeringTasksViewConstructor : IDisposable
     {
-        private TasksViewModelManager _viewModel;
+        private TasksViewModelConstructor _viewModel;
 
-        public PriceEngineeringTasksManagerView(TasksViewModelManager viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
+        public PriceEngineeringTasksViewConstructor(TasksViewModelConstructor viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             _viewModel = viewModel;
             InitializeComponent();
@@ -39,9 +38,6 @@ namespace HVTApp.UI.PriceEngineering.View
 
                     if (navigationContext.Parameters.First().Value is PriceEngineeringTask priceEngineeringTask)
                         _viewModel.Load(priceEngineeringTask);
-
-                    if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
-                        _viewModel.Load(salesUnits);
                 }
             }
 

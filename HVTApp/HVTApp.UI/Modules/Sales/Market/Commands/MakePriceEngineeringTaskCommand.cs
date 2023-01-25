@@ -43,7 +43,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
                     salesUnits = projectUnitsGroup.SalesUnits.ToList();
                 }
 
-                _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(
+                _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(
                     new NavigationParameters
                     {
                         { nameof(SalesUnit), salesUnits }

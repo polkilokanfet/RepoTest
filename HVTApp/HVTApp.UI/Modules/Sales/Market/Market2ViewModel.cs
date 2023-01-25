@@ -233,8 +233,8 @@ namespace HVTApp.UI.Modules.Sales.Market
             EditPriceEngineeringTasksCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var prms = new NavigationParameters { { nameof(Model.POCOs.PriceEngineeringTasks), PriceEngineeringTasks.SelectedItem.Entity } };
-                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(prms);
+                    var parameters = new NavigationParameters { { nameof(Model.POCOs.PriceEngineeringTasks), PriceEngineeringTasks.SelectedItem.Entity } };
+                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(parameters);
                 });
 
             EditTechnicalRequrementsTaskCommand = new EditTechnicalRequrementsTaskCommand(this, this.RegionManager);

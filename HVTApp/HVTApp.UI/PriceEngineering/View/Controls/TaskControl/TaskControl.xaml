@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTaskControl"
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TaskControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
@@ -7,23 +7,24 @@
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
-        <converters:PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter x:Key="DesignDepartmentHeadVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
-        <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
-        <converters:PriceEngineeringTaskViewModelManagerOldVisibilityConverter x:Key="ManagerVisibilityConverterOld" />
         <converters:PriceEngineeringTaskViewModelToBoarderThicknessConverter x:Key="BoarderThicknessConverter" />
     </UserControl.Resources>
     
     <!--Задача на блок продукта-->
-    <Border DataContext="{Binding ElementName=Root, Path=TaskViewModel}" Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
+    <Border 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModel}" 
+        Margin="2" 
+        BorderThickness="1" 
+        BorderBrush="Black" 
+        CornerRadius="5">
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
 
             <Border Grid.Row="0" 
                     MaxHeight="500"
@@ -52,12 +53,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0" 
-                                            Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
-                                            Content="..." 
-                                            Command="{Binding SelectProductBlockCommand}" 
-                                            Padding="5 0"/>
-
+                                    <ContentControl Grid.Column="0" Content="{Binding ElementName=Root, Path=AreaSelectProductBlock}"/>
                                     <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
 
                                     <Grid Grid.Column="2" 
@@ -144,19 +140,16 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Button Grid.Column="0" 
-                                                    Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}"
-                                                    Content="..." 
-                                                    Command="{Binding InstructPriceEngineeringTaskCommand}" 
-                                                    Padding="5 0"/>
+                                            <ContentControl Grid.Column="0" Content="{Binding ElementName=Root, Path=AreaInstruct}"/>
+
                                             <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 
                                             <Label Grid.Column="2" Content=" Бюро:"></Label>
-                                            <Button Grid.Column="3" 
+                                            <!--<Button Grid.Column="3" 
                                             Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
                                             Content="..." 
                                             Command="{Binding SelectDesignDepartmentCommand}" 
-                                            Padding="5 0"/>
+                                            Padding="5 0"/>-->
                                             <TextBox Grid.Column="4" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 
                                         </Grid>
@@ -166,71 +159,15 @@
                                 </Grid>
 
                                 <!--Файлы-->
-                                <view:FilesControl Grid.Row="1" TaskViewModel="{Binding}"/>
+                                <ContentControl Grid.Row="1" Content="{Binding ElementName=Root, Path=AreaFiles}"/>
 
                                 <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
                                 <!--Дополнительные блоки-->
                                 <view:BlocksAddedControl Grid.Row="3" ViewModel ="{Binding}"/>
 
-                                <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
-                                        <Button Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
-                                        <Button Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                                        <Button Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
-                                    </Grid>
-                                </GroupBox>
-
-                                <GroupBox Grid.Row="4" Header="Действия" Visibility="{Binding Converter={StaticResource DesignDepartmentHeadVisibilityConverter}}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="0" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
-                                        <Button Grid.Column="1" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
-                                    </Grid>
-                                </GroupBox>
-
-                                <Grid Grid.Row="4" Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <GroupBox Grid.Column="0" Header="Новый параметр">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}"/>
-                                            <Button Grid.Column="1" Content="Добавленное" Command="{Binding BlockAddedNewParameterCommand}"/>
-                                        </Grid>
-                                    </GroupBox>
-
-                                    <GroupBox Grid.Column="1" Header="Действия в задаче">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                                            <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
-                                            <Button Grid.Column="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
-                                            <Button Grid.Column="3" Content="Подзадача" Command="{Binding CreateSubTaskCommand}"/>
-                                        </Grid>
-                                    </GroupBox>
-                                </Grid>
+                                <!--Действия-->
+                                <ContentControl Grid.Row="4" Content="{Binding ElementName=Root, Path=AreaActionButtons}"></ContentControl>
 
                                 <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
                             </Grid>
@@ -261,16 +198,6 @@
                     Background="Transparent" 
                     HorizontalAlignment="Stretch" 
                     ItemsSource="{Binding ChildPriceEngineeringTasks}">
-                    <!--<ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Rows="1"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>-->
-                    <!--<ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>-->
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border 
@@ -278,7 +205,11 @@
                                 Margin="10 0 0 0" 
                                 Padding="5 2">
                                 <StackPanel>
-                                    <view:PriceEngineeringTaskControl DataContext="{Binding}" />
+                                    <ContentControl 
+                                        DataContext=""
+
+                                        Content="{Binding ElementName=Root}"/>
+                                    <!--<view:TaskControl DataContext="{Binding }" />-->
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

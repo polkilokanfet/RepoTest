@@ -5,13 +5,13 @@ namespace HVTApp.UI.PriceEngineering.View
 {
     public partial class FilesControlManager : UserControl
     {
-        public static readonly DependencyProperty TaskViewModelProperty = DependencyProperty.Register(
-            "TaskViewModel", typeof(TaskViewModelManager), typeof(FilesControl), new PropertyMetadata(default(TaskViewModel)));
+        public static readonly DependencyProperty TaskViewModelManagerProperty = DependencyProperty.Register(
+            "TaskViewModelManager", typeof(TaskViewModelManager), typeof(FilesControlManager), new PropertyMetadata(default(TaskViewModelManager)));
 
-        public TaskViewModelManager TaskViewModel
+        public TaskViewModelManager TaskViewModelManager
         {
-            get => (TaskViewModelManager)GetValue(TaskViewModelProperty);
-            set => SetValue(TaskViewModelProperty, value);
+            get { return (TaskViewModelManager) GetValue(TaskViewModelManagerProperty); }
+            set { SetValue(TaskViewModelManagerProperty, value); }
         }
 
         public FilesControlManager()

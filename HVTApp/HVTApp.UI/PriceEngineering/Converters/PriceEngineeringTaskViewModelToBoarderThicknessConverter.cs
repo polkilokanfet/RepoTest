@@ -22,6 +22,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     : new Thickness(0);
             }
 
+            return new Thickness(0);
             throw new ArgumentException();
         }
 

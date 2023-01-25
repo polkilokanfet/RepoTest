@@ -11,11 +11,11 @@ using Prism.Regions;
 namespace HVTApp.UI.PriceEngineering.View
 {
     [RibbonTab(typeof(TabPriceEngineeringTask))]
-    public partial class PriceEngineeringTasksBackOfficeBossView : ViewBaseConfirmNavigationRequest, IDisposable
+    public partial class PriceEngineeringTasksViewBackOfficeBoss : ViewBaseConfirmNavigationRequest, IDisposable
     {
         private TasksViewModelManagerBackBoss _viewModel;
 
-        public PriceEngineeringTasksBackOfficeBossView(TasksViewModelManagerBackBoss viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) 
+        public PriceEngineeringTasksViewBackOfficeBoss(TasksViewModelManagerBackBoss viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) 
             : base(container, regionManager, eventAggregator)
         {
 

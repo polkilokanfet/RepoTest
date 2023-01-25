@@ -9,11 +9,12 @@
         <converters:PriceEngineeringTaskViewModelManagerNewVisibilityConverter x:Key="ManagerVisibilityConverterNew" />
     </UserControl.Resources>
 
-    <view:ProductTaskControlHeader DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}">
+    <view:ProductTaskControlHeader 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}">
 
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->
-            <view:PriceEngineeringTaskControl TaskViewModel="{Binding ElementName=Root, Path=TaskViewModelManager}"/>
+            <view:TaskControlManager TaskViewModelManager="{Binding}"/>
         </view:ProductTaskControlHeader.TasksArea>
 
         <view:ProductTaskControlHeader.ButtonsArea>

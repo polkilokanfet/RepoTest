@@ -39,6 +39,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
                 return true;
             }
 
+            return true;
             throw new ArgumentException("В конвертер передан не тот тип");
         }
 

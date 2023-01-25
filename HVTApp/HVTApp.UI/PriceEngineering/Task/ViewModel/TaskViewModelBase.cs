@@ -177,6 +177,7 @@ namespace HVTApp.UI.PriceEngineering
                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Where(x => typeof(ICommandRaiseCanExecuteChanged).IsAssignableFrom(x.PropertyType))
                 .Select(x => x.GetValue(this))
+                .Where(x => x != null)
                 .Cast<ICommandRaiseCanExecuteChanged>()
                 .ForEach(x => x.RaiseCanExecuteChanged());
         }

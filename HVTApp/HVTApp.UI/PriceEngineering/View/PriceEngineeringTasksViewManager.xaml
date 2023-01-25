@@ -1,10 +1,9 @@
 ﻿<inf:ViewBaseConfirmNavigationRequest 
-    x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTasksManagerView"
+    x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTasksViewManager"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
     xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View">
-
 
     <Grid>
         <Grid.RowDefinitions>
@@ -13,7 +12,7 @@
         </Grid.RowDefinitions>
 
         <!--Задачи-->
-        <view:PriceEngineeringTasksControl Grid.Row="0" DataContext="{Binding}"/>
+        <view:PriceEngineeringTasksControlManager Grid.Row="0" TasksViewModelManager="{Binding}"/>
 
         <!--Расчеты переменных затрат-->
         <view:PriceCalculationsControl Grid.Row="1" DataContext="{Binding}"/>

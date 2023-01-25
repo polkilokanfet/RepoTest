@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.View
 
         public TaskViewModel TaskViewModel
         {
-            get => (TaskViewModel)GetValue(TaskViewModelProperty);
+            get => (TaskViewModel) GetValue(TaskViewModelProperty);
             set => SetValue(TaskViewModelProperty, value);
         }
 

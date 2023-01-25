@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.ViewModels;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Items;
+using HVTApp.UI.PriceEngineering.Tce.List.ViewModel;
 using HVTApp.UI.PriceEngineering.View;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -56,22 +59,44 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             OpenCommand = new DelegateLogCommand(
                 () =>
                 {
-                    object paremeter = null;
+                    object parameter = null;
                     if (SelectedItem is TTasks tTasks)
                     {
-                        paremeter = tTasks.Entity;
+                        parameter = tTasks.Entity;
                     }
                     else if (SelectedItem is TTask tTask)
                     {
-                        paremeter = tTask.Entity;
+                        parameter = tTask.Entity;
                     }
 
-                    if (paremeter != null)
+                    if (parameter != null)
                     {
-                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters
+                        var parameters = new NavigationParameters {{nameof(PriceEngineeringTasks), parameter}};
+                        switch (GlobalAppProperties.User.RoleCurrent)
                         {
-                            { nameof(PriceEngineeringTasks), paremeter }
-                        });
+                            case Role.SalesManager:
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(parameters);
+                                break;
+
+                            case Role.Constructor:
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
+                                break;
+
+                            case Role.BackManager:
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManager>(parameters);
+                                break;
+
+                            case Role.BackManagerBoss:
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackOfficeBoss>(parameters);
+                                break;
+
+                            case Role.DesignDepartmentHead:
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(parameters);
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
                     }
                 },
                 () => SelectedItem != null);

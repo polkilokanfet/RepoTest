@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TaskControlConstructor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
+    </UserControl.Resources>
+
+    <view:TaskControl TaskViewModel="{Binding}">
+
+        <view:TaskControl.AreaFiles>
+            <view:FilesControlConstructor TaskViewModel="{Binding}"/>
+        </view:TaskControl.AreaFiles>
+
+        <view:TaskControl.AreaSelectProductBlock>
+            <Button Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
+                    Content="..." 
+                    Command="{Binding TaskViewModel.SelectProductBlockCommand, ElementName=Root}" 
+                    Padding="5 0"/>
+        </view:TaskControl.AreaSelectProductBlock>
+
+        <view:TaskControl.AreaActionButtons>
+            <Grid 
+                DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
+                Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Column="0" Header="Новый параметр">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}"/>
+                        <Button Grid.Column="1" Content="Добавленное" Command="{Binding BlockAddedNewParameterCommand}"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Column="1" Header="Действия в задаче">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                        <Button Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
+                        <Button Grid.Column="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
+                        <Button Grid.Column="3" Content="Подзадача" Command="{Binding CreateSubTaskCommand}"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+
+        </view:TaskControl.AreaActionButtons>
+
+    </view:TaskControl>
+
+</UserControl>

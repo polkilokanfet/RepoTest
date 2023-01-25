@@ -18,6 +18,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     : Visibility.Collapsed;
             }
 
+            return Visibility.Visible;
             throw new ArgumentException();
         }
 

@@ -4,24 +4,29 @@
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              x:Name="Root">
 
-    <view:FilesControl TaskViewModel="{Binding ElementName=Root, Path=TaskViewModel}">
+    <view:FilesControl 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}"
+        TaskViewModel="{Binding}">
+
         <view:FilesControl.ButtonsAreaFiles>
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" 
-                        Content="Добавить" 
-                        Command="{Binding ElementName=Root, Path=TaskViewModel.AddTechnicalRequirementsFilesCommand}"/>
-                <Button Grid.Column="1" 
-                        Content="Удалить" 
-                        Command="{Binding ElementName=Root, Path=TaskViewModel.RemoveTechnicalRequirementsFilesCommand}"/>
+                <Button Grid.Column="0"
+                        Content="Добавить"
+                        Command="{Binding AddTechnicalRequirementsFilesCommand}" />
+                <Button Grid.Column="1"
+                        Content="Удалить"
+                        Command="{Binding RemoveTechnicalRequirementsFilesCommand}" />
             </Grid>
 
+
         </view:FilesControl.ButtonsAreaFiles>
+
     </view:FilesControl>
 
 </UserControl>
