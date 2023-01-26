@@ -482,6 +482,9 @@
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlDesignDepartmentHead.xaml.cs">
       <DependentUpon>ProductTaskControlDesignDepartmentHead.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlConstructor.xaml.cs">
+      <DependentUpon>ProductTaskControlConstructor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.xaml.cs">
       <DependentUpon>ProductTaskControlManager.xaml</DependentUpon>
     </Compile>
@@ -514,6 +517,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
       <DependentUpon>TaskControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlConstructor.xaml.cs">
+      <DependentUpon>TasksControlConstructor.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlDesignDepartmentHead.xaml.cs">
       <DependentUpon>TasksControlDesignDepartmentHead.xaml</DependentUpon>
@@ -1980,6 +1986,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlConstructor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2021,6 +2031,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlConstructor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

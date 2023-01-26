@@ -9,7 +9,10 @@
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
     </UserControl.Resources>
 
-    <view:BlocksAddedControl>
+    <view:BlocksAddedControl 
+        DataContext="{Binding TaskViewModel, ElementName=Root}"
+        ViewModel="{Binding}">
+
         <view:BlocksAddedControl.ButtonsArea>
             <Grid
                 Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
@@ -24,5 +27,6 @@
                 <Button Grid.Column="2" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}"/>
             </Grid>
         </view:BlocksAddedControl.ButtonsArea>
+
     </view:BlocksAddedControl>
 </UserControl>

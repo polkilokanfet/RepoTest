@@ -33,24 +33,24 @@
             <TextBox Grid.Column="2" 
                      Width="120" 
                      Text="{Binding ProductBlock.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
+                     IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=TaskViewModel.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Grid.Column="3" Content="SCC: " Margin="5 0 0 0"/>
             <TextBox Grid.Column="4" 
                      Width="120" 
                      Text="{Binding ProductBlock.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
+                     IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=TaskViewModel.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
 
             <editors:XamNumericEditor Grid.Column="5" 
                                       Width="37" 
                                       Margin="10 0 0 0" 
                                       Value="{Binding Amount}" ValueType="system:Int32"
-                                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
+                                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=TaskViewModel.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="6" Content=" шт.: "/>
 
             <CheckBox Grid.Column="7" 
                       IsChecked="{Binding IsOnBlock, Mode=TwoWay}" Margin="5 0 0 0"
-                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=DataContext.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
+                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TaskControl}}, Path=TaskViewModel.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="8" Content=" - на блок"/>
         </Grid>
     </Border>
