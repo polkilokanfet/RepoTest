@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.FilesControlConstructor1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             x:Name="Root">
+
+
+    <!--Файлы-->
+    <Grid DataContext="{Binding ElementName=Root, Path=TaskViewModelConstructor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Техническое задание-->
+        <view:FilesSingleControl 
+            Grid.Column="0"
+            Caption="Файлы технического задания (от ОП ВВА) "
+            LoadAllFilesCommand="{Binding LoadTechnicalRequirementsFilesCommand}"
+            OpenFileCommand="{Binding OpenTechnicalRequirementsFileCommand}"
+            Files="{Binding FilesTechnicalRequirements}"
+            SelectedFile="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}">
+        </view:FilesSingleControl>
+
+        <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+        <!--Проработка ОГК-->
+        <view:FilesSingleControl 
+            Grid.Column="2"
+            Caption="Файлы проработки (от ОГК ВВА) "
+            LoadAllFilesCommand="{Binding LoadAnswerFilesCommand}"
+            OpenFileCommand="{Binding OpenAnswerFileCommand}"
+            Files="{Binding FilesAnswers}"
+            SelectedFile="{Binding SelectedFileAnswer, Mode=TwoWay}">
+            <view:FilesSingleControl.ButtonsArea>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                            Content="Добавить" 
+                            Command="{Binding Path=AddAnswerFilesCommand}"/>
+                    <Button Grid.Column="1" 
+                            Content="Удалить" 
+                            Command="{Binding Path=RemoveAnswerFileCommand}"/>
+                </Grid>
+            </view:FilesSingleControl.ButtonsArea>
+        </view:FilesSingleControl>
+    </Grid>
+
+</UserControl>

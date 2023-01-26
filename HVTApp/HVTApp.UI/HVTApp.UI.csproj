@@ -461,6 +461,12 @@
     <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlConstructor.xaml.cs">
       <DependentUpon>FilesControlConstructor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlConstructor1.xaml.cs">
+      <DependentUpon>FilesControlConstructor1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlManager1.xaml.cs">
+      <DependentUpon>FilesControlManager1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesSingleControl.xaml.cs">
       <DependentUpon>FilesSingleControl.xaml</DependentUpon>
     </Compile>
@@ -499,6 +505,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlConstructor.xaml.cs">
       <DependentUpon>TaskControlConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager1.xaml.cs">
+      <DependentUpon>TaskControlManager1.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
       <DependentUpon>TaskControlManager.xaml</DependentUpon>
@@ -1937,6 +1946,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\FilesControl\FilesControlConstructor1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\FilesControl\FilesControlManager1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\FilesControl\FilesSingleControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1986,6 +2003,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlConstructor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

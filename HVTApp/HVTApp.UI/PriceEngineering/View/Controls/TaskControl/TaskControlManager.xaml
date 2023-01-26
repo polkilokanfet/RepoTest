@@ -13,8 +13,188 @@
         <converters:PriceEngineeringTaskViewModelManagerOldVisibilityConverter x:Key="ManagerVisibilityConverterOld" />
         <converters:PriceEngineeringTaskViewModelToBoarderThicknessConverter x:Key="BoarderThicknessConverter" />
     </UserControl.Resources>
-    
+
     <!--Задача на блок продукта-->
+    <Border 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}" 
+        Margin="2" 
+        BorderThickness="1" 
+        BorderBrush="Black" 
+        CornerRadius="5">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" 
+                    MaxHeight="500"
+                    BorderBrush="Blue"  
+                    BorderThickness="{Binding Converter={StaticResource BoarderThicknessConverter}}">
+
+                <Expander 
+                    Header="{Binding}"
+                    IsExpanded="{Binding IsTarget, Mode=OneTime}">
+                    <Expander.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Блок продукта-->
+                                <Label Grid.Column="0" Content="Блок: "/>
+                                <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
+
+                                <Label Grid.Column="2" Content=" Id задачи: "/>
+                                <TextBox Grid.Column="3" Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </Expander.HeaderTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Панель статуса-->
+                        <view:PriceEngineeringTaskStatusControl 
+                            Grid.Column="0"
+                            StatusEnum="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="400" MinWidth="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*" MinHeight="70"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0" Margin="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Исполнитель-->
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
+                                        <Grid Grid.Row="1" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                                            <Label Grid.Column="2" Content=" Бюро:"></Label>
+                                            <TextBox Grid.Column="3" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                                        </Grid>
+
+                                    </Grid>
+
+                                </Grid>
+
+                                <!--Файлы-->
+                                <view:FilesControlManager1 Grid.Row="1" TaskViewModelManager="{Binding}"/>
+
+                                <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+
+                                <!--Дополнительные блоки-->
+                                <view:BlocksAddedControl Grid.Row="3" ViewModel ="{Binding}"/>
+
+                                <!--Действия-->
+                                <Grid Grid.Row="4" 
+                                      Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
+                                    <Button Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
+                                    <Button Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                                    <Button Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
+                                </Grid>
+
+                                <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
+                            </Grid>
+
+                            <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+                            <!--Переписка-->
+                            <view:TaskChatControl 
+                                Grid.Column="2" 
+                                TaskViewModel="{Binding}"/>
+
+                        </Grid>
+
+                    </Grid>
+                </Expander>
+
+            </Border>
+
+            <!--Вложенные блоки-->
+            <Expander Grid.Row="1"
+                        IsExpanded="{Binding Mode=OneTime, Converter={StaticResource IsExpendedChildTasksConverter}}"
+                        Header="Вложенные блоки"
+                        Margin="5"
+                        BorderBrush="Black"
+                        Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
+
+                <ItemsControl 
+                    Background="Transparent" 
+                    HorizontalAlignment="Stretch" 
+                    ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border 
+                                Background="Transparent" 
+                                Margin="10 0 0 0" 
+                                Padding="5 2">
+                                <StackPanel>
+                                    <view:TaskControlManager TaskViewModelManager="{Binding }"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </Expander>
+
+        </Grid>
+
+    </Border>
+
+
+    <!--Задача на блок продукта--><!--
     <view:TaskControl 
         DataContext="{Binding TaskViewModelManager, ElementName=Root}"
         TaskViewModel="{Binding}">
@@ -39,6 +219,6 @@
 
         </view:TaskControl.AreaActionButtons>
 
-    </view:TaskControl>
+    </view:TaskControl>-->
 
 </UserControl>

@@ -10,7 +10,7 @@
     </UserControl.Resources>
 
     <view:ProductTaskControlHeader 
-        DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}">
+        DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
 
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->

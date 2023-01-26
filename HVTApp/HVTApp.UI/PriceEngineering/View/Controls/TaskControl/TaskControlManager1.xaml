@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TaskControlManager1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
+        <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelManagerOldVisibilityConverter x:Key="ManagerVisibilityConverterOld" />
+        <converters:PriceEngineeringTaskViewModelToBoarderThicknessConverter x:Key="BoarderThicknessConverter" />
+    </UserControl.Resources>
+    
+    <!--Задача на блок продукта-->
+    <view:TaskControl 
+        DataContext="{Binding TaskViewModelManager, ElementName=Root}"
+        TaskViewModel="{Binding}">
+
+        <view:TaskControl.AreaFiles>
+            <view:FilesControlManager TaskViewModelManager="{Binding}"/>
+        </view:TaskControl.AreaFiles>
+
+        <view:TaskControl.AreaActionButtons>
+            <Grid Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
+                <Button Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
+                <Button Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                <Button Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
+            </Grid>
+
+        </view:TaskControl.AreaActionButtons>
+
+    </view:TaskControl>
+
+</UserControl>

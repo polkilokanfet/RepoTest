@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.FilesControlManager1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             x:Name="Root">
+
+
+    <!--Файлы-->
+    <Grid DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Техническое задание-->
+        <view:FilesSingleControl 
+            Grid.Column="0"
+            Caption="Файлы технического задания (от ОП ВВА) "
+            LoadAllFilesCommand="{Binding LoadTechnicalRequirementsFilesCommand}"
+            OpenFileCommand="{Binding OpenTechnicalRequirementsFileCommand}"
+            Files="{Binding FilesTechnicalRequirements}"
+            SelectedFile="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}">
+            <view:FilesSingleControl.ButtonsArea>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0"
+                            Content="Добавить"
+                            Command="{Binding AddTechnicalRequirementsFilesCommand}" />
+                    <Button Grid.Column="1"
+                            Content="Удалить"
+                            Command="{Binding RemoveTechnicalRequirementsFilesCommand}" />
+                </Grid>
+            </view:FilesSingleControl.ButtonsArea>
+        </view:FilesSingleControl>
+
+        <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+        <!--Проработка ОГК-->
+        <view:FilesSingleControl 
+            Grid.Column="2"
+            Caption="Файлы проработки (от ОГК ВВА) "
+            LoadAllFilesCommand="{Binding LoadAnswerFilesCommand}"
+            OpenFileCommand="{Binding OpenAnswerFileCommand}"
+            Files="{Binding FilesAnswers}"
+            SelectedFile="{Binding SelectedFileAnswer, Mode=TwoWay}">
+            <view:FilesSingleControl.ButtonsArea>
+                <ContentControl Content="{Binding ButtonsAreaAnswers, ElementName=Root}"/>
+            </view:FilesSingleControl.ButtonsArea>
+        </view:FilesSingleControl>
+    </Grid>
+
+    <!--<view:FilesControl 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModelManager}"
+        TaskViewModel="{Binding}">
+
+        <view:FilesControl.ButtonsAreaFiles>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Content="Добавить"
+                        Command="{Binding AddTechnicalRequirementsFilesCommand}" />
+                <Button Grid.Column="1"
+                        Content="Удалить"
+                        Command="{Binding RemoveTechnicalRequirementsFilesCommand}" />
+            </Grid>
+
+
+        </view:FilesControl.ButtonsAreaFiles>
+
+    </view:FilesControl>-->
+
+</UserControl>
