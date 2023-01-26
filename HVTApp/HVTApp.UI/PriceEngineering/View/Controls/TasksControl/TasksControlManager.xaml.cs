@@ -4,9 +4,9 @@ using HVTApp.UI.PriceEngineering.ViewModel;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    public partial class PriceEngineeringTasksControlManager : UserControl
+    public partial class TasksControlManager : UserControl
     {
-        public static readonly DependencyProperty TasksViewModelManagerProperty = DependencyProperty.Register("TasksViewModelManager", typeof(TasksViewModelManager), typeof(PriceEngineeringTasksControlManager), new PropertyMetadata(default(TasksViewModelManager)));
+        public static readonly DependencyProperty TasksViewModelManagerProperty = DependencyProperty.Register("TasksViewModelManager", typeof(TasksViewModelManager), typeof(TasksControlManager), new PropertyMetadata(default(TasksViewModelManager)));
 
         public TasksViewModelManager TasksViewModelManager
         {
@@ -14,7 +14,7 @@ namespace HVTApp.UI.PriceEngineering.View
             set => SetValue(TasksViewModelManagerProperty, value);
         }
 
-        public PriceEngineeringTasksControlManager()
+        public TasksControlManager()
         {
             InitializeComponent();
         }

@@ -46,21 +46,8 @@
 
                                 <!--Блок продукта-->
                                 <Label Grid.Column="0" Content="Блок: "/>
-                                <Grid Grid.Column="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Button Grid.Column="0" 
-                                            Content="..." 
-                                            Command="{Binding InstructPriceEngineeringTaskCommand}" 
-                                            Padding="5 0"/>
                                     <view:ProductBlockControl Grid.Column="1" 
                                                               ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
-
-                                </Grid>
 
                                 <Label Grid.Column="2" Content=" Id задачи: "/>
                                 <TextBox Grid.Column="3" Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
@@ -124,7 +111,10 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <ContentControl Grid.Column="0" Content="{Binding ElementName=Root, Path=AreaInstruct}"/>
+                                            <Button Grid.Column="0" 
+                                                    Content="..." 
+                                                    Command="{Binding InstructPriceEngineeringTaskCommand}" 
+                                                    Padding="5 0"/>
 
                                             <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 

@@ -479,6 +479,9 @@
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlDesignDepartmentHead.xaml.cs">
+      <DependentUpon>ProductTaskControlDesignDepartmentHead.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.xaml.cs">
       <DependentUpon>ProductTaskControlManager.xaml</DependentUpon>
     </Compile>
@@ -512,11 +515,14 @@
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
       <DependentUpon>TaskControlManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\View\Controls\TasksControl\PriceEngineeringTasksControlManager.xaml.cs">
-      <DependentUpon>PriceEngineeringTasksControlManager.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlDesignDepartmentHead.xaml.cs">
+      <DependentUpon>TasksControlDesignDepartmentHead.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\View\Controls\TasksControl\PriceEngineeringTasksControl.xaml.cs">
-      <DependentUpon>PriceEngineeringTasksControl.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlManager.xaml.cs">
+      <DependentUpon>TasksControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControl.xaml.cs">
+      <DependentUpon>TasksControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControl.xaml.cs">
       <DependentUpon>FilesControl.xaml</DependentUpon>
@@ -1970,6 +1976,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlDesignDepartmentHead.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2014,11 +2024,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\View\Controls\TasksControl\PriceEngineeringTasksControlManager.xaml">
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlDesignDepartmentHead.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\View\Controls\TasksControl\PriceEngineeringTasksControl.xaml">
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

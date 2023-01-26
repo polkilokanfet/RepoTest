@@ -12,7 +12,7 @@
         </Grid.RowDefinitions>
 
         <!--Задачи-->
-        <view:PriceEngineeringTasksControlManager Grid.Row="0" TasksViewModelManager="{Binding}"/>
+        <view:TasksControlManager Grid.Row="0" TasksViewModelManager="{Binding}"/>
 
         <!--Расчеты переменных затрат-->
         <view:PriceCalculationsControl Grid.Row="1" DataContext="{Binding}"/>
