@@ -163,7 +163,7 @@
                                 </Grid>
 
                                 <!--Файлы-->
-                                <ContentControl Grid.Row="1" Content="{Binding ElementName=Root, Path=AreaFiles}"/>
+                                <view:FilesControlConstructor1 Grid.Row="1" TaskViewModelConstructor="{Binding}"/>
 
                                 <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 

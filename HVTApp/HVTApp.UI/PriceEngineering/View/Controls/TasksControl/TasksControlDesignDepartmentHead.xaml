@@ -24,7 +24,7 @@
                 </Grid.RowDefinitions>
 
                 <!--Общая информация для всего оборудования в заданиях-->
-                <view:CommonInformationControl DataContext="{Binding}"/>
+                <view:CommonInformationControlConstructor DataContext="{Binding}"/>
 
                 <!--Оборудование-->
                 <GroupBox Grid.Row="1" Header="Оборудование">

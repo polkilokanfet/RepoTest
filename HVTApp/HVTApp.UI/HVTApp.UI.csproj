@@ -458,6 +458,9 @@
     </Compile>
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModel.cs" />
+    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlConstructor.xaml.cs">
+      <DependentUpon>CommonInformationControlConstructor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlConstructor.xaml.cs">
       <DependentUpon>FilesControlConstructor.xaml</DependentUpon>
     </Compile>
@@ -1948,6 +1951,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\CommonInformationControlConstructor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
