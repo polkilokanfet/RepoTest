@@ -554,9 +554,6 @@
     <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewConstructor.xaml.cs">
       <DependentUpon>PriceEngineeringTasksViewConstructor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\View\PriceEngineeringTasksView.xaml.cs">
-      <DependentUpon>PriceEngineeringTasksView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControl.xaml.cs">
       <DependentUpon>TaskControl.xaml</DependentUpon>
     </Compile>
@@ -2079,10 +2076,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\PriceEngineeringTasksViewConstructor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PriceEngineering\View\PriceEngineeringTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

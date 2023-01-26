@@ -2,6 +2,7 @@
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.BookRegistration.Views;
@@ -47,12 +48,47 @@ namespace HVTApp.Services.PopupNotificationsService1
                 return () => _regionManager.RequestNavigateContentRegion<IncomingRequestsView>(new NavigationParameters());
 
             if (typeof(TModel) == typeof(PriceEngineeringTasks))
-                return () => _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTasks), model } });
+                return () => OpenPriceEngineeringTasks(_regionManager, model);
+            //return () => _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTasks), model } });
 
             if (typeof(TModel) == typeof(PriceEngineeringTask))
-                return () => _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTask), model } });
+                return () => OpenPriceEngineeringTasks(_regionManager, model);
+            //return () => _regionManager.RequestNavigateContentRegion<PriceEngineeringTasksView>(new NavigationParameters { { nameof(PriceEngineeringTask), model } });
 
             return () => { };
+        }
+
+        private void OpenPriceEngineeringTasks(IRegionManager regionManager, object parameter)
+        {
+            if (parameter != null)
+            {
+                var parameters = new NavigationParameters { { string.Empty, parameter } };
+                switch (GlobalAppProperties.User.RoleCurrent)
+                {
+                    case Role.SalesManager:
+                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(parameters);
+                        break;
+
+                    case Role.Constructor:
+                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
+                        break;
+
+                    case Role.BackManager:
+                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManager>(parameters);
+                        break;
+
+                    case Role.BackManagerBoss:
+                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackOfficeBoss>(parameters);
+                        break;
+
+                    case Role.DesignDepartmentHead:
+                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(parameters);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
     }
 }

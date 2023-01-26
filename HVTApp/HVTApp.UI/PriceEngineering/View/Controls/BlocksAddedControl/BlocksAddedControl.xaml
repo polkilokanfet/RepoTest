@@ -25,7 +25,10 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <view:BlockAddedControl ProductBlockAdded="{Binding}" Margin="5" Visibility="{Binding IsRemoved, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
+                            <view:BlockAddedControl 
+                                ProductBlockAdded="{Binding}" 
+                                Margin="5" 
+                                Visibility="{Binding IsRemoved, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

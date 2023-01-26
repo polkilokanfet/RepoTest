@@ -13,6 +13,7 @@ namespace HVTApp.UI.PriceEngineering.View
             get => (TaskProductBlockAddedWrapperConstructor) GetValue(ProductBlockAddedProperty);
             set => SetValue(ProductBlockAddedProperty, value);
         }
+
         public BlockAddedControl()
         {
             InitializeComponent();
