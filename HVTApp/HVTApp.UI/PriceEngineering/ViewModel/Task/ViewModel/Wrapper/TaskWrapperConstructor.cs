@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class TaskWrapperConstructor : TaskViewModelWithStartCommand
+    public abstract class TaskWrapperConstructor : TaskViewModelBaseWithStartCommand
     {
         #region SimpleProperties
 

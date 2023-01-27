@@ -11,7 +11,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class TaskViewModelWithStartCommand : TaskViewModel
+    public abstract class TaskViewModelBaseWithStartCommand : TaskViewModel
     {
         /// <summary>
         /// Событие старта задачи
@@ -20,11 +20,11 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand StartCommand { get; private set; }
 
-        protected TaskViewModelWithStartCommand(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskViewModelBaseWithStartCommand(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
-        protected TaskViewModelWithStartCommand(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        protected TaskViewModelBaseWithStartCommand(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
         }
 
@@ -74,7 +74,7 @@ namespace HVTApp.UI.PriceEngineering
             {
                 foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
                 {
-                    if (childPriceEngineeringTask is TaskViewModelWithStartCommand vm)
+                    if (childPriceEngineeringTask is TaskViewModelBaseWithStartCommand vm)
                     {
                         vm.StartCommandExecute(false);
                     }

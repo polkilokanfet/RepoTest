@@ -324,8 +324,8 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
-    <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelBase.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemConstructor.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemDesignDepartmentHead.cs" />
@@ -350,30 +350,30 @@
     </Compile>
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\WorkloadItem.cs" />
-    <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapperManagerBack.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\IPriceEngineeringTasksViewModel.cs" />
-    <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapperConstructor.cs" />
-    <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapperDesignDepartmentHead.cs" />
-    <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapperManager.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelConstructor.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelDesignDepartmentHead.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperManagerBack.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\IPriceEngineeringTasksViewModel.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManager.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelManagerBack.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelManagerBackBoss.cs" />
-    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModelVisible.cs" />
-    <Compile Include="PriceEngineering\Task\TaskProductBlockAddedWrapperConstructor.cs" />
-    <Compile Include="PriceEngineering\Task\TaskProductBlockAddedWrapperManager.cs" />
-    <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapperConstructor.cs" />
-    <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapperManager.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelManagerBack.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelManagerNew.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelManagerOld.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelWithStartCommand.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\Wrapper\StatusesCollection.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\Wrapper\TaskWrapperConstructor.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\Wrapper\TaskWrapperDesignDepartmentHead.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\Wrapper\TaskWrapperManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManagerBack.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManagerBackBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelVisible.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAddedWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAddedWrapperManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCostWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCostWrapperManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerBack.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBaseWithStartCommand.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Wrapper\StatusesCollection.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Wrapper\TaskWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Wrapper\TaskWrapperDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Wrapper\TaskWrapperManager.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossIsUserConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerVisibilityConverter.cs" />
@@ -410,13 +410,13 @@
     <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListView.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\Tasks\PriceEngineeringTasksContainer\TasksWrapper.cs" />
-    <Compile Include="PriceEngineering\Task\TaskProductBlockAddedWrapper.cs" />
-    <Compile Include="PriceEngineering\Task\ProductBlockStructureCostWrapper.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAddedWrapper.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCostWrapper.cs" />
     <Compile Include="PriceEngineering\ParametersService1\ParametersServiceViewModel.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelConstructor.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelDesignDepartmentHead.cs" />
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModelManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManager.cs" />
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml.cs">
       <DependentUpon>TabPriceEngineeringTask.xaml</DependentUpon>
     </Compile>
@@ -560,7 +560,7 @@
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControl.xaml.cs">
       <DependentUpon>TaskControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\Task\ViewModel\TaskViewModel.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModel.cs" />
     <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
     <Compile Include="Tabs\TabDesignDepartments.xaml.cs">
       <DependentUpon>TabDesignDepartments.xaml</DependentUpon>
@@ -1069,7 +1069,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemListControl.xaml.cs">
       <DependentUpon>HistoryItemListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\Tasks\ViewModel\TasksViewModel.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModel.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml.cs">
       <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
     </Compile>
