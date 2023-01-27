@@ -50,7 +50,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
                 //то, что может идти через ТСП должно идти там
                 var departments = _unitOfWork.Repository<DesignDepartment>().GetAll();
-                var salesUnits1 = salesUnits.Where(salesUnit => salesUnit.Product.GetBlocks().Any(block => this.HasDesignDepartment(departments, block) == false)).ToList();
+                var salesUnits1 = salesUnits.Where(salesUnit => salesUnit.Product.GetBlocks().All(block => this.HasDesignDepartment(departments, block))).ToList();
                 if (salesUnits1.Any())
                 {
                     _messageService.ShowOkMessageDialog("ТСП", $"Проработайте следующее оборудование через ТСП:\n{salesUnits1.ToStringEnum()}");
