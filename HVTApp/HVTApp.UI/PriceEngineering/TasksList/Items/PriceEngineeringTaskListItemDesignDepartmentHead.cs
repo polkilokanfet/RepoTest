@@ -21,7 +21,7 @@ namespace HVTApp.UI.PriceEngineering.Items
 
                 if (Entity.StartMoment.HasValue)
                 {
-                    if (Entity.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification)
+                    if (Entity.Status == PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor)
                         return "Требует проверки";
 
                     if (Entity.Status == PriceEngineeringTaskStatusEnum.RejectedByConstructor)
@@ -38,6 +38,6 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         public override bool ToShow => Entity.Status != PriceEngineeringTaskStatusEnum.Stopped &&
                                        (Entity.UserConstructor == null ||
-                                        Entity.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification);
+                                        Entity.Status == PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor);
     }
 }

@@ -28,11 +28,11 @@ namespace HVTApp.UI.PriceEngineering.Converters
                         return "»сполнитель завершил проработку задачи";
                     case PriceEngineeringTaskStatusEnum.Accepted:
                         return "ѕроработка прин€та менеджером";
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                    case PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor:
                         return "ѕроработка задачи направлена на проверку руководителю";
                     case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
                         return "ѕроработка задачи прин€та руководителем";
-                    case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
+                    case PriceEngineeringTaskStatusEnum.VerificationRejectedByHead:
                         return "ѕроработка задачи не прин€та руководителем (отправлена на доработку исполнителю)";
                     default:
                         throw new ArgumentOutOfRangeException();

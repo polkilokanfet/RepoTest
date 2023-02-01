@@ -177,34 +177,5 @@ namespace HVTApp.Model
 
             return unitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value);
         }
-
-        public static string StatusToString(this PriceEngineeringTaskStatusEnum status)
-        {
-            switch (status)
-            {
-                case PriceEngineeringTaskStatusEnum.Created:
-                    return "Создано";
-                case PriceEngineeringTaskStatusEnum.Started:
-                    return "Запущено на проработку";
-                case PriceEngineeringTaskStatusEnum.Stopped:
-                    return "Остановлено менеджером";
-                case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                    return "Проработка отклонена менеджером";
-                case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
-                    return "Проработка отклонена исполнителем";
-                case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                    return "Проработано исполнителем";
-                case PriceEngineeringTaskStatusEnum.Accepted:
-                    return "Принято менеджером";
-                case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
-                    return "На проверке у руководителя КБ";
-                case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
-                    return "Согласовано руководителем КБ";
-                case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
-                    return "Проработка отклонена руководителем КБ";
-                default:
-                    return "Статус вышел за пределы";
-            }
-        }
     }
 }

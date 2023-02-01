@@ -28,11 +28,11 @@ namespace HVTApp.UI.PriceEngineering.Converters
                         return Colors.GreenYellow;
                     case PriceEngineeringTaskStatusEnum.Accepted:
                         return Colors.LightGreen;
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                    case PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor:
                         return Colors.DarkSeaGreen;
                     case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
                         return Colors.GreenYellow;
-                    case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
+                    case PriceEngineeringTaskStatusEnum.VerificationRejectedByHead:
                         return Colors.OrangeRed;
                 }
             }

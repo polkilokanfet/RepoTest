@@ -39,7 +39,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     case PriceEngineeringTaskStatusEnum.Started:
                     case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                    case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
+                    case PriceEngineeringTaskStatusEnum.VerificationRejectedByHead:
                         return true;
                 }
                 return false;
@@ -262,7 +262,7 @@ namespace HVTApp.UI.PriceEngineering
                     }
 
                     var statusEnum = needVerification
-                        ? PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification
+                        ? PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor
                         : PriceEngineeringTaskStatusEnum.FinishedByConstructor;
                     Statuses.Add(statusEnum);
                     Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));

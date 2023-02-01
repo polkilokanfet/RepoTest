@@ -50,7 +50,7 @@ namespace HVTApp.UI.PriceEngineering
 
                 switch (Status)
                 {
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                    case PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor:
                         return true;
                 }
 
@@ -62,7 +62,7 @@ namespace HVTApp.UI.PriceEngineering
             IsTarget &&
             Status != PriceEngineeringTaskStatusEnum.FinishedByConstructor &&
             Status != PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead &&
-            Status != PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification &&
+            Status != PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor &&
             Status != PriceEngineeringTaskStatusEnum.Created &&
             Status != PriceEngineeringTaskStatusEnum.Stopped &&
             Status != PriceEngineeringTaskStatusEnum.Accepted;
@@ -108,7 +108,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите отправить задачу на доработку исполнителю?",
                 () =>
                 {
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.VerificationRejectededByHead);
+                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.VerificationRejectedByHead);
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(this.Model);
                 },

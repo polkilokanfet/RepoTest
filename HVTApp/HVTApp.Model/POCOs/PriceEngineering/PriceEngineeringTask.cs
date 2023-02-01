@@ -127,11 +127,11 @@ namespace HVTApp.Model.POCOs
                         return false;
                     case PriceEngineeringTaskStatusEnum.Accepted:
                         return false;
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                    case PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor:
                         return false;
                     case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
                         return false;
-                    case PriceEngineeringTaskStatusEnum.VerificationRejectededByHead:
+                    case PriceEngineeringTaskStatusEnum.VerificationRejectedByHead:
                         return true;
                     default:
                         return false;
@@ -146,7 +146,7 @@ namespace HVTApp.Model.POCOs
                 switch (Status)
                 {
                     case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructorGoToVerification:
+                    case PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor:
                     case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
                     case PriceEngineeringTaskStatusEnum.Accepted:
                         return true;
