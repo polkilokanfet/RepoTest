@@ -413,6 +413,10 @@
     <Compile Include="Migrations\202212121611368_TermPriorityInPrEnTask.designer.cs">
       <DependentUpon>202212121611368_TermPriorityInPrEnTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302021136567_PriceEngineeringTaskConfigurationStatuses.cs" />
+    <Compile Include="Migrations\202302021136567_PriceEngineeringTaskConfigurationStatuses.designer.cs">
+      <DependentUpon>202302021136567_PriceEngineeringTaskConfigurationStatuses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -673,6 +677,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212121611368_TermPriorityInPrEnTask.resx">
       <DependentUpon>202212121611368_TermPriorityInPrEnTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302021136567_PriceEngineeringTaskConfigurationStatuses.resx">
+      <DependentUpon>202302021136567_PriceEngineeringTaskConfigurationStatuses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

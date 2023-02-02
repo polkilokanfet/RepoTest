@@ -18,7 +18,7 @@ namespace HVTApp.DataAccess
             HasMany(x => x.Messages).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
             HasMany(x => x.ChildPriceEngineeringTasks).WithOptional().HasForeignKey(x => x.ParentPriceEngineeringTaskId).WillCascadeOnDelete(false);
 
-            HasMany(x => x.Statuses).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(x => x.Statuses).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(true);
 
             HasMany(x => x.SalesUnits).WithMany();
 

@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 
         protected override TaskViewModelConstructor GetChildPriceEngineeringTask(IUnityContainer container, Guid id)
         {
-            return new TaskViewModelConstructor(container, id);
+            return new TaskViewModelConstructor(container, id, null);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace HVTApp.UI.PriceEngineering
     public class TaskViewModelConstructor : TaskWrapperConstructor
     {
         private TaskProductBlockAddedWrapperConstructor _selectedBlockAdded;
+        private readonly TaskViewModelConstructor _parentTask;
 
         public override bool IsTarget => Equals(Model.UserConstructor?.Id, GlobalAppProperties.User.Id);
 
@@ -82,6 +83,10 @@ namespace HVTApp.UI.PriceEngineering
         /// Команда создания подзадачи (например, добавление площадки обслуживания).
         /// </summary>
         public DelegateLogCommand CreateSubTaskCommand { get; private set; }
+        /// <summary>
+        /// Команда удаления подзадачи (например, добавление площадки обслуживания).
+        /// </summary>
+        public DelegateLogConfirmationCommand RemoveSubTaskCommand { get; }
 
         public DelegateLogCommand LoadJsonFileCommand { get; private set; }
 
@@ -89,9 +94,12 @@ namespace HVTApp.UI.PriceEngineering
 
         #region ctors
 
-        public TaskViewModelConstructor(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        public TaskViewModelConstructor(IUnityContainer container, Guid priceEngineeringTaskId, TaskViewModelConstructor parentTask) : base(container, priceEngineeringTaskId)
         {
-            var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelConstructor(container, priceEngineeringTask.Id));
+            _parentTask = parentTask;
+            var messageService = container.Resolve<IMessageService>();
+
+            var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelConstructor(container, priceEngineeringTask.Id, this));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(vms);
 
             //Обязательные параметры главного блока продукта задачи
@@ -115,7 +123,7 @@ namespace HVTApp.UI.PriceEngineering
                         var emptyParameter = GlobalAppProperties.Actual.EmptyParameterCurrentTransformersSet;
                         if (emptyParameter != null && selectedProductBlock.Parameters.ContainsById(emptyParameter))
                         {
-                            var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
+                            var dr = messageService.ShowYesNoMessageDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
                             if (dr == MessageDialogResult.Yes)
                             {
                                 var rp = productBlockRequiredParameters.ToList();
@@ -165,7 +173,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsTarget && IsEditMode);
 
             RemoveBlockAddedCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(), 
+                messageService, 
                 "Вы уверены, что хотите удалить выделенное дополнительное оборудование?",
                 () =>
                 {
@@ -214,7 +222,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsTarget && IsEditMode == true);
 
             RemoveAnswerFileCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
+                messageService,
                 "Вы уверены, что хотите удалить выделенный файл?",
                 () =>
                 {
@@ -230,13 +238,13 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsTarget && IsEditMode && SelectedFileAnswer != null);
 
             FinishCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
+                messageService,
                 "Вы уверены, что хотите завершить проработку?",
                 () =>
                 {
                     if (this.Model.RequestForVerificationFromHead == false)
                     {
-                        var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
+                        var dr = messageService.ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
                         this.RequestForVerificationFromConstructor = dr == MessageDialogResult.Yes;
                     }
 
@@ -283,7 +291,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsTarget && IsEditMode && this.IsValid);
 
             RejectCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
+                messageService,
 "Вы уверены, что хотите отклонить проработку задачи?",
                 () =>
                 {
@@ -330,11 +338,19 @@ namespace HVTApp.UI.PriceEngineering
 
                     if (taskViewModel.StartCommandExecute(true))
                     {
-                        this.ChildPriceEngineeringTasks.Add(new TaskViewModelConstructor(this.Container, taskViewModel.Model.Id));
+                        this.ChildPriceEngineeringTasks.Add(new TaskViewModelConstructor(this.Container, taskViewModel.Model.Id, this));
                     }
                 },
                 () => IsTarget && IsEditMode && this.Model.DesignDepartment.ParameterSetsSubTask.Any());
 
+            RemoveSubTaskCommand = new DelegateLogConfirmationCommand(
+                messageService,
+                "Вы уверены, что хотите удалить созданную Вами подзадачу?",
+                () =>
+                {
+                    _parentTask.RemoveChildTask(this.Model);
+                },
+                () => _parentTask != null && this.Model.UserConstructorInitiator?.Id == GlobalAppProperties.User.Id);
 
             LoadJsonFileCommand = new DelegateLogCommand(
                 () =>
@@ -352,7 +368,6 @@ namespace HVTApp.UI.PriceEngineering
             {
                 OnPropertyChanged(nameof(AllowEditAddedBlocks));
             };
-
         }
 
         #endregion
@@ -388,6 +403,25 @@ namespace HVTApp.UI.PriceEngineering
             {
                 file.LoadToStorage(GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
             }
+        }
+
+        public void RemoveChildTask(PriceEngineeringTask priceEngineeringTask)
+        {
+            var taskViewModel = this.ChildPriceEngineeringTasks.Single(x => x.Model.Id == priceEngineeringTask.Id);
+            ChildPriceEngineeringTasks.Remove(taskViewModel);
+
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var task = unitOfWork.Repository<PriceEngineeringTask>().GetById(taskViewModel.Model.Id);
+            task.FilesTechnicalRequirements.Clear();
+
+            //task.FilesAnswers.ForEach(x => unitOfWork.RemoveEntity(x));
+            //task.Messages.ForEach(x => unitOfWork.RemoveEntity(x));
+            //task.ProductBlocksAdded.ForEach(x => unitOfWork.RemoveEntity(x));
+            //task.Statuses.ForEach(x => unitOfWork.RemoveEntity(x));
+
+            unitOfWork.RemoveEntity(task);
+
+            unitOfWork.SaveChanges();
         }
     }
 }

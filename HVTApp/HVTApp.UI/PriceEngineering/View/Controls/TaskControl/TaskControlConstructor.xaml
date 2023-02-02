@@ -8,6 +8,7 @@
     <UserControl.Resources>
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
+        <converters:PriceEngineeringTaskViewModelConstructorIsTargetSubTaskVisibilityConverter x:Key="ConstructorIsTargetSubTaskVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
         <converters:PriceEngineeringTaskViewModelToBoarderThicknessConverter x:Key="BoarderThicknessConverter" />
     </UserControl.Resources>
@@ -115,6 +116,7 @@
                                     <RowDefinition Height="*" MinHeight="70"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
                                 <Grid Grid.Row="0">
@@ -171,7 +173,8 @@
                                 <view:BlocksAddedControlConstructor Grid.Row="3" TaskViewModel="{Binding}"/>
 
                                 <!--Действия-->
-                                <Grid Grid.Row="4" DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
+                                <Grid Grid.Row="4" 
+                                      DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
                                       Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -205,9 +208,14 @@
                                     </GroupBox>
                                 </Grid>
 
+                                <!--Действия-->
+                                <Grid Grid.Row="5" 
+                                      DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
+                                      Visibility="{Binding Converter={StaticResource ConstructorIsTargetSubTaskVisibilityConverter}}">
+                                    <Button Content="Удалить" Command="{Binding RemoveSubTaskCommand}"/>
+                                </Grid>
 
-
-                                <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
+                                <Button Grid.Row="6" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
                             </Grid>
 
                             <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>

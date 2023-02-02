@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
@@ -66,7 +67,8 @@ namespace HVTApp.UI.PriceEngineering
             {
                 var text = GetStartMessageText();
                 this.SaveCommand.Execute();
-                Messenger.SendMessage(text);
+                if(GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                    Messenger.SendMessage(text);
                 Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStartedEvent>().Publish(this.Model);
             }
             //если запускаются все задачи в задании
