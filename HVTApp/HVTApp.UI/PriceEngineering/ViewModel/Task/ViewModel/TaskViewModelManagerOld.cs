@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -183,10 +184,17 @@ namespace HVTApp.UI.PriceEngineering
                 salesUnit.ProductsIncluded.AddRange(productsIncludedOnAmount);
             }
 
-            Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение",
-                unitOfWork.SaveChanges().OperationCompletedSuccessfully
-                    ? $"Заменен продукт в {salesUnits.First()}"
-                    : $"Не заменен продукт в {salesUnits.First()}");
+            try
+            {
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение",
+                    unitOfWork.SaveChanges().OperationCompletedSuccessfully
+                        ? $"Заменен продукт в {salesUnits.First()}"
+                        : $"Не заменен продукт в {salesUnits.First()}");
+            }
+            catch (Exception e)
+            {
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение", e.PrintAllExceptions());
+            }
         }
 
         protected void OnTaskAcceptedByManagerAction(PriceEngineeringTask task)
