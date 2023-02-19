@@ -30,13 +30,7 @@ namespace HVTApp.UI.PriceEngineering
         public bool IsVisible
         {
             get => _isVisible;
-            set
-            {
-                if (Equals(_isVisible, value))
-                    return;
-                _isVisible = value;
-                OnPropertyChanged();
-            }
+            set => this.SetProperty(ref _isVisible, value);
         }
 
         /// <summary>
@@ -89,23 +83,13 @@ namespace HVTApp.UI.PriceEngineering
         public PriceEngineeringTaskFileTechnicalRequirementsWrapper SelectedTechnicalRequrementsFile
         {
             get => _selectedTechnicalRequirementsFile;
-            set
-            {
-                if (Equals(value, _selectedTechnicalRequirementsFile)) return;
-                _selectedTechnicalRequirementsFile = value;
-                SelectedTechnicalRequrementsFileIsChanged?.Invoke();
-            }
+            set => this.SetProperty(ref _selectedTechnicalRequirementsFile, value, () => SelectedTechnicalRequrementsFileIsChanged?.Invoke());
         }
 
         public PriceEngineeringTaskFileAnswerWrapper SelectedFileAnswer
         {
             get => _selectedFileAnswer;
-            set
-            {
-                if (Equals(value, _selectedFileAnswer)) return;
-                _selectedFileAnswer = value;
-                SelectedAnswerFileIsChanged?.Invoke();
-            }
+            set => this.SetProperty(ref _selectedFileAnswer, value, () => SelectedAnswerFileIsChanged?.Invoke());
         }
 
         #endregion

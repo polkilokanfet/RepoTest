@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Model.Wrapper;
+using Prism.Mvvm;
 
 namespace HVTApp.Model.Wrapper.Base
 {
-    public abstract class NotifyDataErrorInfoBase : ObservableWrapper, INotifyDataErrorInfo
+    public abstract class NotifyDataErrorInfoBase : BindableBase, INotifyDataErrorInfo
     {
         /// <summary>
         /// Словарь ошибок, содержащихся в объекте.

@@ -163,9 +163,9 @@ namespace HVTApp.Model.Wrapper.Base
                 propertyInfo.SetValue(Model, newValue); //устанавливаем в свойство модели новое значение.
 
                 Validate();
-                OnPropertyChanged(propertyName);
-                OnPropertyChanged(propertyName + "IsChanged");
-                OnPropertyChanged(nameof(IsChanged));
+                RaisePropertyChanged(propertyName);
+                RaisePropertyChanged(propertyName + "IsChanged");
+                RaisePropertyChanged(nameof(IsChanged));
             }
         }
 

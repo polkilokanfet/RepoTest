@@ -145,6 +145,8 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public IValidatableChangeTrackingCollection<TaskViewModel> ChildPriceEngineeringTasks { get; protected set; }
 
+        #region InitializeProperties
+
         public override void InitializeComplexProperties()
         {
         }
@@ -167,6 +169,8 @@ namespace HVTApp.UI.PriceEngineering
             SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
         }
+
+        #endregion
 
         /// <summary>
         /// ѕроверка всех команд на возможность исполнени€
