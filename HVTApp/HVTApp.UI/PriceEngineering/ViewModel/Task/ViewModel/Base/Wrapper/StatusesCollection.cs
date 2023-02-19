@@ -9,11 +9,15 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 {
     public class StatusesCollection : ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusEmptyWrapper>
     {
-        public StatusesCollection(IEnumerable<PriceEngineeringTaskStatus> items) 
-            : base(items.Select(x => new PriceEngineeringTaskStatusEmptyWrapper(x)))
+        public StatusesCollection(IEnumerable<PriceEngineeringTaskStatus> items) : base(items.Select(taskStatus => new PriceEngineeringTaskStatusEmptyWrapper(taskStatus)))
         {
         }
 
+        /// <summary>
+        /// Добавление статуса в коллекцию
+        /// </summary>
+        /// <param name="statusEnum"></param>
+        /// <param name="comment"></param>
         public void Add(PriceEngineeringTaskStatusEnum statusEnum, string comment = null)
         {
             var status = new PriceEngineeringTaskStatus

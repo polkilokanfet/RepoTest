@@ -1,14 +1,12 @@
 using System;
-using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class TaskWrapperManager : TaskViewModelBaseWithStartCommand
+    public abstract class TaskViewModelBaseManager : TaskViewModelBaseWithStartCommand
     {
         #region SimpleProperties
 
@@ -41,11 +39,11 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #region ctors
 
-        protected TaskWrapperManager(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskViewModelBaseManager(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
-        protected TaskWrapperManager(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        protected TaskViewModelBaseManager(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
         }
 

@@ -14,7 +14,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class TaskViewModelManager : TaskWrapperManager
+    public abstract class TaskViewModelManager : TaskViewModelBaseManager
     {
         public override bool IsTarget => true;
 

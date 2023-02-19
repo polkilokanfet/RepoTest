@@ -17,7 +17,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class TaskViewModelDesignDepartmentHead : TaskWrapperDesignDepartmentHead
+    public class TaskViewModelDesignDepartmentHead : TaskViewModelBaseDesignDepartmentHead
     {
         #region Commands
 

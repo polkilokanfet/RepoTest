@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class TaskWrapperDesignDepartmentHead : TaskViewModel
+    public abstract class TaskViewModelBaseDesignDepartmentHead : TaskViewModel
     {
         #region SimpleProperties
 
@@ -32,7 +32,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// <summary>
         /// Конструктор
         /// </summary>
-        public UserEmptyWrapper UserConstructor
+        public new UserEmptyWrapper UserConstructor
         {
             get => GetWrapper<UserEmptyWrapper>();
             set => SetComplexValue<User, UserEmptyWrapper>(UserConstructor, value);
@@ -40,11 +40,11 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #endregion
 
-        protected TaskWrapperDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskViewModelBaseDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
-        protected TaskWrapperDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        protected TaskViewModelBaseDesignDepartmentHead(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
         }
 

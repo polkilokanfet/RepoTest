@@ -23,7 +23,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class TaskViewModelConstructor : TaskWrapperConstructor
+    public class TaskViewModelConstructor : TaskViewModelBaseConstructor
     {
         private TaskProductBlockAddedWrapperConstructor _selectedBlockAdded;
         private readonly TaskViewModelConstructor _parentTask;

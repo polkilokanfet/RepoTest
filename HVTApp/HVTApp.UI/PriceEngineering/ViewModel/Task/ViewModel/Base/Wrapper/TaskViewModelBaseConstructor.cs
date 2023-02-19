@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class TaskWrapperConstructor : TaskViewModelBaseWithStartCommand
+    public abstract class TaskViewModelBaseConstructor : TaskViewModelBaseWithStartCommand
     {
         #region SimpleProperties
 
@@ -48,11 +48,11 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #region ctors
 
-        protected TaskWrapperConstructor(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskViewModelBaseConstructor(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
-        protected TaskWrapperConstructor(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        protected TaskViewModelBaseConstructor(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
         }
 
