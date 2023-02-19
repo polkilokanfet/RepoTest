@@ -29,5 +29,10 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
             this.Add(new PriceEngineeringTaskStatusEmptyWrapper(status));
         }
+
+        public void StatusUp()
+        {
+
+        }
     }
 }

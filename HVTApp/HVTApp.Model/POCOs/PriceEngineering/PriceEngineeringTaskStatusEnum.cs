@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using HVTApp.Infrastructure;
-
-namespace HVTApp.Model.POCOs
+﻿namespace HVTApp.Model.POCOs
 {
     public enum PriceEngineeringTaskStatusEnum
     {
@@ -118,61 +114,5 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-    }
-
-    public class PriceEngineeringTaskScriptStepConstructor : PriceEngineeringTaskScriptStep
-    {
-        public PriceEngineeringTaskScriptStepConstructor(PriceEngineeringTaskStatusEnum status) : 
-            base(status, Role.Constructor)
-        {
-        }
-
-        public override bool AllowStep(User user, PriceEngineeringTask priceEngineeringTask)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-
-    /// <summary>
-    /// Этап выполнения задачи
-    /// </summary>
-    public abstract class PriceEngineeringTaskScriptStep
-    {
-        /// <summary>
-        /// Этапы, которые могут идти за этим
-        /// </summary>
-        private readonly IList<PriceEngineeringTaskScriptStep> _nextSteps = new List<PriceEngineeringTaskScriptStep>();
-
-        /// <summary>
-        /// Текущий статус задачи
-        /// </summary>
-        public PriceEngineeringTaskStatusEnum Status { get; }
-
-        /// <summary>
-        /// Роль пользователя, который может перейти на этот этап
-        /// </summary>
-        public Role Role { get; }
-
-        protected PriceEngineeringTaskScriptStep(PriceEngineeringTaskStatusEnum status, Role role)
-        {
-            Status = status;
-            Role = role;
-        }
-
-        /// <summary>
-        /// Добавление возможного следующего этапа
-        /// </summary>
-        /// <param name="step"></param>
-        public void AddNextStep(PriceEngineeringTaskScriptStep step)
-        {
-            if (step == null) throw new ArgumentNullException(nameof(step));
-            if (step.Status == this.Status) throw new ArgumentException(nameof(step));
-            if (_nextSteps.Contains(step)) throw new ArgumentException(nameof(step));
-
-            _nextSteps.Add(step);
-        }
-
-        public abstract bool AllowStep(User user, PriceEngineeringTask priceEngineeringTask);
     }
 }
