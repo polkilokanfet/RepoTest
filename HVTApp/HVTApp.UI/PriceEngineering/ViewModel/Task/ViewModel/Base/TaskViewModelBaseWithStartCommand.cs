@@ -37,7 +37,7 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                     this.IsValid &&
                     this.IsChanged &&
-                    (Status == PriceEngineeringTaskStatusEnum.Created || Status == PriceEngineeringTaskStatusEnum.Stopped) &&
+                    (Status.Equals(ScriptStep2.Created) || Status.Equals(ScriptStep2.Stopped)) &&
                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null);
         }
 

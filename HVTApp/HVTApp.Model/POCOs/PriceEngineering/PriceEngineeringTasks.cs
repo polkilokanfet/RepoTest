@@ -55,7 +55,7 @@ namespace HVTApp.Model.POCOs
         public virtual List<PriceCalculation> PriceCalculations { get; set; } = new List<PriceCalculation>();
 
         [Designation("Статусы задач"), NotMapped, NotForListView, NotForDetailsView]
-        public IEnumerable<PriceEngineeringTaskStatusEnum> StatusesAll
+        public IEnumerable<ScriptStep2> StatusesAll
         {
             get
             {
@@ -73,7 +73,7 @@ namespace HVTApp.Model.POCOs
         /// Задача (в т.ч. все дочернии задачи) принята менеджером
         /// </summary>
         [Designation("Всё принято?"), NotMapped, NotForListView, NotForDetailsView]
-        public bool IsAccepted => StatusesAll.All(x => x == PriceEngineeringTaskStatusEnum.Accepted);
+        public bool IsAccepted => StatusesAll.All(x => x.Equals(ScriptStep2.Accepted));
         
         [Designation("Старт"), NotMapped, OrderStatus(2000)]
         public DateTime? StartMoment 

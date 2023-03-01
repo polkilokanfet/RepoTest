@@ -842,9 +842,6 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.Guid> ParentPriceEngineeringTaskId => Entity.ParentPriceEngineeringTaskId;
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => Entity.Status;
-
-		[OrderStatus(1)]
         public System.Boolean IsFinishedByConstructor => Entity.IsFinishedByConstructor;
 
 		[OrderStatus(40)]
@@ -1102,7 +1099,7 @@ namespace HVTApp.UI.Lookup
         public System.String Comment => Entity.Comment;
 
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnum => Entity.StatusEnum;
+        public int StatusEnum => Entity.StatusEnum;
 
         #endregion
 	}

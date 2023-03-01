@@ -36,14 +36,14 @@ namespace HVTApp.UI.PriceEngineering
             {
                 if (IsTarget == false) return false;
 
-                switch (Status)
+                var ss = new List<ScriptStep2>
                 {
-                    case PriceEngineeringTaskStatusEnum.Started:
-                    case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                    case PriceEngineeringTaskStatusEnum.VerificationRejectedByHead:
-                        return true;
-                }
-                return false;
+                    ScriptStep2.Started,
+                    ScriptStep2.RejectedByManager,
+                    ScriptStep2.VerificationRejectedByHead
+                };
+
+                return ss.Contains(Status);
             }
         }
 

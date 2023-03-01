@@ -139,6 +139,7 @@
     <Compile Include="Interfaces\Services\SelectService\ISelectService.cs" />
     <Compile Include="IOutlookBarGroup.cs" />
     <Compile Include="Services\IPrintPriceEngineering.cs" />
+    <Compile Include="SmartEnumeration.cs" />
     <Compile Include="UnitOfWork\IRepository.cs" />
     <Compile Include="IRibbonTabItem.cs" />
     <Compile Include="IModelsStore.cs" />

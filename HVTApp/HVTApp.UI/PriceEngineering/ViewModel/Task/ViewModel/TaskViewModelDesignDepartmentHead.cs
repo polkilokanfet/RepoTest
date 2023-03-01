@@ -47,25 +47,18 @@ namespace HVTApp.UI.PriceEngineering
             get
             {
                 if (IsTarget == false) return false;
-
-                switch (Status)
-                {
-                    case PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor:
-                        return true;
-                }
-
-                return false;
+                return Status.Equals(ScriptStep2.VerificationRequestedByConstructor);
             }
         }
 
         public bool AllowInstruction =>
             IsTarget &&
-            Status != PriceEngineeringTaskStatusEnum.FinishedByConstructor &&
-            Status != PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead &&
-            Status != PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor &&
-            Status != PriceEngineeringTaskStatusEnum.Created &&
-            Status != PriceEngineeringTaskStatusEnum.Stopped &&
-            Status != PriceEngineeringTaskStatusEnum.Accepted;
+            Status != ScriptStep2.FinishedByConstructor &&
+            Status != ScriptStep2.VerificationAcceptedByHead &&
+            Status != ScriptStep2.VerificationRequestedByConstructor &&
+            Status != ScriptStep2.Created &&
+            Status != ScriptStep2.Stopped &&
+            Status != ScriptStep2.Accepted;
 
         #region ctors
 

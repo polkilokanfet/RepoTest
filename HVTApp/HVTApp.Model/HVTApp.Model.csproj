@@ -133,6 +133,7 @@
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTasksFileTechnicalRequirements.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskStatus.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskStatusEnum.cs" />
+    <Compile Include="POCOs\PriceEngineering\ScriptStep2.cs" />
     <Compile Include="POCOs\PriceEngineering\StructureCostVersion.cs" />
     <Compile Include="POCOs\ProductCategory.cs" />
     <Compile Include="POCOs\ProductCategoryPriceAndCost.cs" />

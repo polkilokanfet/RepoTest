@@ -87,7 +87,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.OnTaskAcceptedByManagerAction(this.Model);
                     eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
                 },
-                () => (this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor || this.Status == PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead) && this.IsValid);
+                () => (this.Status.Equals(ScriptStep2.FinishedByConstructor) || this.Status == ScriptStep2.VerificationAcceptedByHead) && this.IsValid);
 
             RejectCommand = new DelegateLogConfirmationCommand(
                 messageService,
@@ -98,7 +98,7 @@ namespace HVTApp.UI.PriceEngineering
                     SaveCommand.Execute();
                     eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
-                () => (this.Status == PriceEngineeringTaskStatusEnum.FinishedByConstructor || this.Status == PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead) && this.IsValid);
+                () => (this.Status == ScriptStep2.FinishedByConstructor || this.Status == ScriptStep2.VerificationAcceptedByHead) && this.IsValid);
 
             StopCommand = new DelegateLogConfirmationCommand(messageService,
                 "Вы уверены, что хотите остановить проработку задачи?",
@@ -108,7 +108,7 @@ namespace HVTApp.UI.PriceEngineering
                     SaveCommand.Execute();
                     eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
                 },
-                () => this.Status != PriceEngineeringTaskStatusEnum.Created && this.Status != PriceEngineeringTaskStatusEnum.Stopped && this.IsValid);
+                () => this.Status != ScriptStep2.Created && this.Status != ScriptStep2.Stopped && this.IsValid);
 
             ReplaceProductCommand = new DelegateLogConfirmationCommand(messageService,
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",

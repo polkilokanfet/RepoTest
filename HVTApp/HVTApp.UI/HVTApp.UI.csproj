@@ -366,7 +366,6 @@
     <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperManager.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\ScriptStep2.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\ScriptStepManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\IScriptStep.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\ScriptStep.cs" />

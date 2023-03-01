@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
 
-namespace HVTApp.UI.PriceEngineering.Wrapper.TaskScript
+namespace HVTApp.Model.POCOs
 {
     public abstract class ScriptStep2 : SmartEnumeration<ScriptStep2>
     {

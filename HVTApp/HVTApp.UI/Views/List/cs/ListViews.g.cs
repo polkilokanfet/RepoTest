@@ -4938,12 +4938,6 @@ namespace HVTApp.UI.Views
             set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.ParentPriceEngineeringTaskId)].Visibility = value; }
         }
 
-        public System.Windows.Visibility StatusVisibility
-        {
-            get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Status)].Visibility; }
-            set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Status)].Visibility = value; }
-        }
-
         public System.Windows.Visibility IsFinishedByConstructorVisibility
         {
             get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.IsFinishedByConstructor)].Visibility; }

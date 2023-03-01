@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,15 +23,14 @@ namespace HVTApp.UI.PriceEngineering
         {
             get
             {
-                switch (Status)
+                var statuses = new List<ScriptStep2>()
                 {
-                    case PriceEngineeringTaskStatusEnum.Created:
-                    case PriceEngineeringTaskStatusEnum.Stopped:
-                    case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
-                        return true;
-                }
+                    ScriptStep2.Created,
+                    ScriptStep2.Stopped,
+                    ScriptStep2.RejectedByConstructor
+                };
 
-                return false;
+                return statuses.Contains(Status);
             }
         }
 

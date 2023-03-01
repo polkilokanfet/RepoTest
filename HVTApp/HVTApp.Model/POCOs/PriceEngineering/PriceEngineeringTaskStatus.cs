@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
         public string Comment { get; set; }
 
         [Required]
-        public PriceEngineeringTaskStatusEnum StatusEnum { get; set; }
+        public int StatusEnum { get; set; }
 
         public override string ToString()
         {
@@ -39,7 +39,8 @@ namespace HVTApp.Model.POCOs
 
         public static PriceEngineeringTaskStatusMessage Convert(PriceEngineeringTaskStatus status)
         {
-            var sb = new StringBuilder(status.StatusEnum.ConvertToString());
+            //var sb = new StringBuilder(status.StatusEnum.ConvertToString());
+            var sb = new StringBuilder();
 
             if (string.IsNullOrWhiteSpace(status.Comment) == false)
             {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace HVTApp.UI.PriceEngineering.Wrapper.TaskScript
+namespace HVTApp.Infrastructure
 {
     public abstract class SmartEnumeration<TEnum> : IEquatable<SmartEnumeration<TEnum>>
-        where TEnum : SmartEnumeration<TEnum>
+    where TEnum : SmartEnumeration<TEnum>
     {
         private static readonly Dictionary<int, TEnum> Enumerations = GetEnumerations();
 
@@ -38,7 +38,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper.TaskScript
             Value = value;
         }
 
-        public TEnum FromValue(int value)
+        public static TEnum FromValue(int value)
         {
             return Enumerations[value];
         }

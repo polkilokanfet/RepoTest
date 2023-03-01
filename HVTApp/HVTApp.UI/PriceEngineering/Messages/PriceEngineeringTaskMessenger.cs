@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -29,15 +30,14 @@ namespace HVTApp.UI.PriceEngineering.Messages
         {
             get
             {
-                switch (_viewModel.Status)
+                var ss = new List<ScriptStep2>
                 {
-                    case PriceEngineeringTaskStatusEnum.Created:
-                    case PriceEngineeringTaskStatusEnum.Stopped:
-                    case PriceEngineeringTaskStatusEnum.Accepted:
-                        return false;
-                }
+                    ScriptStep2.Created,
+                    ScriptStep2.Stopped,
+                    ScriptStep2.Accepted
+                };
 
-                return true;
+                return ss.Contains(_viewModel.Status) == false;
             }
         }
 

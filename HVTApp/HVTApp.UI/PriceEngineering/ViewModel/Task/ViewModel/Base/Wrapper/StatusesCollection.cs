@@ -22,7 +22,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         {
             var status = new PriceEngineeringTaskStatus
             {
-                StatusEnum = statusEnum,
+                StatusEnum = (int)statusEnum,
                 Moment = DateTime.Now,
                 Comment = comment
             };
