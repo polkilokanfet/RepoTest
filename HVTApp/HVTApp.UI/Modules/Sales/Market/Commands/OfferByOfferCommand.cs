@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Views;
 using Prism.Regions;
@@ -18,8 +19,8 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            var prms = new NavigationParameters { { "offer", _viewModel.Offers.SelectedItem.Entity } };
-            _regionManager.RequestNavigateContentRegion<OfferView>(prms);
+            var parameters = new NavigationParameters { { nameof(Offer), _viewModel.Offers.SelectedItem.Entity } };
+            _regionManager.RequestNavigateContentRegion<OfferView>(parameters);
         }
 
         protected override bool CanExecuteMethod()

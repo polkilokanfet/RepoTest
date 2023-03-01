@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Events;
+using Prism.Events;
 
 namespace HVTApp.Model.POCOs
 {
     public abstract class ScriptStep2 : SmartEnumeration<ScriptStep2>
     {
         protected readonly Role Role;
+
+        public abstract string FullName { get; }
 
         /// <summary>
         /// С каких этапов можно перейти на данный (в текущей роли).
@@ -81,6 +85,8 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
+        #region ctors
+
         /// <summary>
         /// 
         /// </summary>
@@ -120,7 +126,8 @@ namespace HVTApp.Model.POCOs
                 .AddPossiblePreviousStep(FinishedByConstructor);
 
             VerificationRequestedByConstructor
-                .AddPossiblePreviousStep(Started);
+                .AddPossiblePreviousStep(Started)
+                .AddPossiblePreviousStep(VerificationRejectedByHead);
 
             VerificationAcceptedByHead
                 .AddPossiblePreviousStep(VerificationRequestedByConstructor);
@@ -129,16 +136,18 @@ namespace HVTApp.Model.POCOs
                 .AddPossiblePreviousStep(VerificationRequestedByConstructor);
         }
 
-    /// <summary>
-    /// Есть возможность перейти на данный этап с обозначенного (в текущей роли).
-    /// </summary>
-    /// <param name="currentStep">Этап, с которого предполагаемо возможен переход</param>
-    /// <returns></returns>
-    public virtual bool AllowDoStep(ScriptStep2 currentStep)
-        {
-            return this.Role == GlobalAppProperties.User.RoleCurrent && 
-                   PossiblePreviousSteps.Contains(currentStep);
-        }
+        #endregion
+
+        /// <summary>
+        /// Есть возможность перейти на данный этап с обозначенного (в текущей роли).
+        /// </summary>
+        /// <param name="currentStep">Этап, с которого предполагаемо возможен переход</param>
+        /// <returns></returns>
+        public virtual bool AllowDoStep(ScriptStep2 currentStep)
+            {
+                return this.Role == GlobalAppProperties.User.RoleCurrent && 
+                       PossiblePreviousSteps.Contains(currentStep);
+            }
 
         private ScriptStep2 AddPossiblePreviousStep(ScriptStep2 step)
         {
@@ -146,99 +155,146 @@ namespace HVTApp.Model.POCOs
             return this;
         }
 
+        public abstract void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask);
+
         #region Classes
 
-        /// <summary>
-        /// Задача создана
-        /// </summary>
         private sealed class CreatedStep : ScriptStep2
         {
+            public override string FullName => "Задача создана";
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+            }
+
             public CreatedStep() : base(0, Role.SalesManager)
             {
             }
         }
-        /// <summary>
-        /// Задача запущена на проработку
-        /// </summary>
+
         private sealed class StartedStep : ScriptStep2
         {
+            public override string FullName => "Задача запущена на проработку";
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskStartedEvent>().Publish(priceEngineeringTask);
+            }
+
             public StartedStep() : base(1, Role.SalesManager)
             {
             }
         }
-        /// <summary>
-        /// Задача остановлена менеджером
-        /// </summary>
+
         private sealed class StoppedStep : ScriptStep2
         {
+            public override string FullName => "Задача остановлена менеджером";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(priceEngineeringTask);
+            }
+
             public StoppedStep() : base(2, Role.SalesManager)
             {
             }
         }
-        /// <summary>
-        /// Проработка отклонена менеджером конструктору
-        /// </summary>
+
         private sealed class RejectedByManagerStep : ScriptStep2
         {
+            public override string FullName => "Проработка отклонена менеджером исполнителю";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(priceEngineeringTask);
+            }
+
             public RejectedByManagerStep() : base(3, Role.SalesManager)
             {
             }
         }
-        /// <summary>
-        /// Проработка отклонена конструктором менеджеру
-        /// </summary>
+
         private sealed class RejectedByConstructorStep : ScriptStep2
         {
+            public override string FullName => "Проработка отклонена исполнителем менеджеру";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(priceEngineeringTask);
+            }
+
             public RejectedByConstructorStep() : base(4, Role.Constructor)
             {
             }
         }
-        /// <summary>
-        /// Проработка завершена конструктором
-        /// </summary>
+
         private sealed class FinishedByConstructorStep : ScriptStep2
         {
+            public override string FullName => "Проработка завершена исполнителем";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(priceEngineeringTask);
+            }
+
             public FinishedByConstructorStep() : base(5, Role.Constructor)
             {
             }
         }
-        /// <summary>
-        /// Проработка задачи принята менеджером
-        /// </summary>
+
         private sealed class AcceptedStep : ScriptStep2
         {
+            public override string FullName => "Проработка задачи принята менеджером";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(priceEngineeringTask);
+            }
+
             public AcceptedStep() : base(6, Role.SalesManager)
             {
             }
         }
-        /// <summary>
-        /// Конструктор направил проработку руководителю на проверку
-        /// </summary>
+
         private sealed class VerificationRequestedByConstructorStep : ScriptStep2
         {
+            public override string FullName => "Исполнитель направил проработку руководителю на проверку";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(priceEngineeringTask);
+            }
+
             public VerificationRequestedByConstructorStep() : base(7, Role.Constructor)
             {
             }
         }
-        /// <summary>
-        /// Руководитель согласовал проработку конструктору
-        /// </summary>
+
         private sealed class VerificationAcceptedByHeadStep : ScriptStep2
         {
+            public override string FullName => "Руководитель согласовал проработку исполнителю";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(priceEngineeringTask);
+            }
+
             public VerificationAcceptedByHeadStep() : base(8, Role.DesignDepartmentHead)
             {
             }
         }
-        /// <summary>
-        /// Руководитель отклонил проработку конструктору
-        /// </summary>
+
         private sealed class VerificationRejectedByHeadStep : ScriptStep2
         {
+            public override string FullName => "Руководитель отклонил проработку исполнителю";
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(priceEngineeringTask);
+            }
+
             public VerificationRejectedByHeadStep() : base(9, Role.DesignDepartmentHead)
             {
             }
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return this.FullName;
+        }
     }
 }

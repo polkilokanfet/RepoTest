@@ -7,23 +7,35 @@ namespace HVTApp.UI.Commands
     public class DelegateLogConfirmationCommand : DelegateLogCommand
     {
         private readonly IMessageService _messageService;
-        private readonly string _confirmationMessage;
         private bool _showConfirmation = true;
 
-        public DelegateLogConfirmationCommand(IMessageService messageService, string confirmationMessage, Action executeMethod) : this(messageService, confirmationMessage, executeMethod, () => true)
+        protected virtual string ConfirmationMessage { get; set; }
+
+        #region ctors
+
+        public DelegateLogConfirmationCommand(IMessageService messageService, string confirmationMessage, Action executeMethod) 
+            : this(messageService, confirmationMessage, executeMethod, () => true)
         {
         }
-        public DelegateLogConfirmationCommand(IMessageService messageService, string confirmationMessage, Action executeMethod, Func<bool> canExecuteMethod) : base(executeMethod, canExecuteMethod)
+
+        public DelegateLogConfirmationCommand(IMessageService messageService, string confirmationMessage, Action executeMethod, Func<bool> canExecuteMethod) 
+            : base(executeMethod, canExecuteMethod)
         {
             _messageService = messageService;
-            _confirmationMessage = confirmationMessage;
+            ConfirmationMessage = confirmationMessage;
         }
-        
+
+        #endregion
+
         protected override void ExecuteMethod()
         {
-            if (_showConfirmation && _messageService.ShowYesNoMessageDialog("Подтвердите свои намерения", _confirmationMessage, defaultNo:true) != MessageDialogResult.Yes)
+            if (_showConfirmation)
             {
-                return;
+                var dr = _messageService.ShowYesNoMessageDialog("Подтвердите свои намерения", ConfirmationMessage, defaultNo: true);
+                if (dr != MessageDialogResult.Yes)
+                {
+                    return;
+                }
             }
 
             base.ExecuteMethod();

@@ -60,7 +60,7 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
-            this.Statuses.Add(PriceEngineeringTaskStatusEnum.Started);
+            this.Statuses.Add(ScriptStep2.Started);
 
             //если запускается только конкретная задача
             if (saveChanges)

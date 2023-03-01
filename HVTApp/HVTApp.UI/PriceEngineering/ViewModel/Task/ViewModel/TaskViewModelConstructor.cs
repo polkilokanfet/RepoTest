@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
@@ -16,6 +17,7 @@ using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.ParametersService1;
 using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
@@ -75,7 +77,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand AddAnswerFilesCommand { get; private set; }
         public DelegateLogConfirmationCommand RemoveAnswerFileCommand { get; private set; }
         public DelegateLogConfirmationCommand FinishCommand { get; private set; }
-        public DelegateLogConfirmationCommand RejectCommand { get; private set; }
+        public ICommandRaiseCanExecuteChanged RejectCommand { get; private set; }
         public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
         public DelegateLogCommand BlockNewParameterCommand { get; private set; }
 
@@ -269,10 +271,10 @@ namespace HVTApp.UI.PriceEngineering
                         fa.ForEach(x => sb.AppendLine($" - {x}"));
                     }
 
-                    var statusEnum = needVerification
-                        ? PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor
-                        : PriceEngineeringTaskStatusEnum.FinishedByConstructor;
-                    Statuses.Add(statusEnum);
+                    var step = needVerification
+                        ? ScriptStep2.VerificationRequestedByConstructor
+                        : ScriptStep2.FinishedByConstructor;
+                    Statuses.Add(step);
                     Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));
                     SaveCommand.Execute();
 
@@ -290,17 +292,7 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => IsTarget && IsEditMode && this.IsValid);
 
-            RejectCommand = new DelegateLogConfirmationCommand(
-                messageService,
-"Вы уверены, что хотите отклонить проработку задачи?",
-                () =>
-                {
-                    this.RejectChanges();
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.RejectedByConstructor);
-                    SaveCommand.Execute();
-                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(this.Model);
-                },
-                () => IsEditMode);
+            RejectCommand = new DoStepCommandRejectedByConstructor(this, container);
 
             BlockAddedNewParameterCommand = new DelegateLogCommand(
                 () =>
@@ -366,7 +358,7 @@ namespace HVTApp.UI.PriceEngineering
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {
-                OnPropertyChanged(nameof(AllowEditAddedBlocks));
+                RaisePropertyChanged(nameof(AllowEditAddedBlocks));
             };
         }
 

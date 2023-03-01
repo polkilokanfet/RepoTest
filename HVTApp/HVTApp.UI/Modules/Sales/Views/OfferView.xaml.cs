@@ -33,15 +33,17 @@ namespace HVTApp.UI.Modules.Sales.Views
             //if (IsNavigationTarget(navigationContext)) return;
 
             //по шаблону-проекту
-            var project = navigationContext.Parameters.First().Value as Project;
-            if (project != null) _viewModel.Load(new Offer(), true, project);
+            if (navigationContext.Parameters.First().Value is Project project)
+            {
+                _viewModel.Load(new Offer(), true, project);
+            }
 
-            
-            var offer = navigationContext.Parameters.First().Value as Offer;
-            if (offer != null)
+
+            if (navigationContext.Parameters.First().Value is Offer offer)
             {
                 //по шаблону-предложению
-                if (navigationContext.Parameters.Count() == 1) _viewModel.Load(new Offer(), true, offer);
+                if (navigationContext.Parameters.Count() == 1)
+                    _viewModel.Load(new Offer(), true, offer);
                 //для изменения
                 else _viewModel.Load(offer, false);
             }

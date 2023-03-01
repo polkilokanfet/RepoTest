@@ -41,7 +41,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// «адача в режиме редактировани€
         /// </summary>
-        public abstract bool IsEditMode { get; }
+        public virtual bool IsEditMode => this.Status.PossibleNextSteps.Any();
 
         /// <summary>
         /// ћожно ли редактировать добавленные блоки

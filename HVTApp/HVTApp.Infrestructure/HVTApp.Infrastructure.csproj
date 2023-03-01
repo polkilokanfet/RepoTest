@@ -121,6 +121,7 @@
     <Compile Include="ILookupItem.cs" />
     <Compile Include="ILookupItemNavigation.cs" />
     <Compile Include="INavigationItem.cs" />
+    <Compile Include="Interfaces\ICommandRaiseCanExecuteChanged.cs" />
     <Compile Include="Interfaces\Services\AuthenticationService\IAuthenticationService.cs" />
     <Compile Include="Interfaces\Services\ChooseService\ChooseDialogEventArgs.cs" />
     <Compile Include="Interfaces\Services\ChooseService\IChooseService.cs" />

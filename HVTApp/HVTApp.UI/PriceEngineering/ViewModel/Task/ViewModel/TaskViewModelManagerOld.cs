@@ -18,16 +18,16 @@ namespace HVTApp.UI.PriceEngineering
     {
         #region Commands
 
-        public DelegateLogConfirmationCommand AcceptCommand { get; private set; }
-        public DelegateLogConfirmationCommand RejectCommand { get; private set; }
-        public DelegateLogConfirmationCommand StopCommand { get; private set; }
+        public DelegateLogConfirmationCommand AcceptCommand { get; }
+        public DelegateLogConfirmationCommand RejectCommand { get; }
+        public DelegateLogConfirmationCommand StopCommand { get; }
 
-        public DelegateLogConfirmationCommand StartProductionCommand { get; private set; }
+        public DelegateLogConfirmationCommand StartProductionCommand { get; }
 
         /// <summary>
         /// Замена продукта в SalesUnit на продукты из ТСП
         /// </summary>
-        public DelegateLogConfirmationCommand ReplaceProductCommand { get; private set; }
+        public DelegateLogConfirmationCommand ReplaceProductCommand { get; }
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите принять проработку задачи?",
                 () =>
                 {
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.Accepted);
+                    this.Statuses.Add(ScriptStep2.Accepted);
                     SaveCommand.Execute();
                     this.OnTaskAcceptedByManagerAction(this.Model);
                     eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
@@ -94,7 +94,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите отклонить проработку задачи?",
                 () =>
                 {
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.RejectedByManager);
+                    this.Statuses.Add(ScriptStep2.RejectedByManager);
                     SaveCommand.Execute();
                     eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
                 },
@@ -104,11 +104,11 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите остановить проработку задачи?",
                 () =>
                 {
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.Stopped);
+                    this.Statuses.Add(ScriptStep2.Stopped);
                     SaveCommand.Execute();
                     eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
                 },
-                () => this.Status != ScriptStep2.Created && this.Status != ScriptStep2.Stopped && this.IsValid);
+                () => !this.Status.Equals(ScriptStep2.Created) && !this.Status.Equals(ScriptStep2.Stopped) && this.IsValid);
 
             ReplaceProductCommand = new DelegateLogConfirmationCommand(messageService,
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",

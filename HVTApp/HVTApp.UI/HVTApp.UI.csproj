@@ -366,10 +366,10 @@
     <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperManager.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\ScriptStepManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\IScriptStep.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\ScriptStep.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\SmartEnumeration.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandBase.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectedByConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerBack.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />

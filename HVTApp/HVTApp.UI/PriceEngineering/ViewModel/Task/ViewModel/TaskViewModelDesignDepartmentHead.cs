@@ -42,23 +42,14 @@ namespace HVTApp.UI.PriceEngineering
             DesignDepartment != null && 
             DesignDepartment.Head.Id == GlobalAppProperties.User.Id;
 
-        public override bool IsEditMode
-        {
-            get
-            {
-                if (IsTarget == false) return false;
-                return Status.Equals(ScriptStep2.VerificationRequestedByConstructor);
-            }
-        }
-
         public bool AllowInstruction =>
             IsTarget &&
-            Status != ScriptStep2.FinishedByConstructor &&
-            Status != ScriptStep2.VerificationAcceptedByHead &&
-            Status != ScriptStep2.VerificationRequestedByConstructor &&
-            Status != ScriptStep2.Created &&
-            Status != ScriptStep2.Stopped &&
-            Status != ScriptStep2.Accepted;
+            !Status.Equals(ScriptStep2.FinishedByConstructor) &&
+            !Status.Equals(ScriptStep2.VerificationAcceptedByHead) &&
+            !Status.Equals(ScriptStep2.VerificationRequestedByConstructor) &&
+            !Status.Equals(ScriptStep2.Created) &&
+            !Status.Equals(ScriptStep2.Stopped) &&
+            !Status.Equals(ScriptStep2.Accepted);
 
         #region ctors
 
@@ -88,24 +79,24 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите принять результаты проработки?",
                 () =>
                 {
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead);
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.FinishedByConstructor);
+                    this.Statuses.Add(ScriptStep2.VerificationAcceptedByHead);
+                    this.Statuses.Add(ScriptStep2.FinishedByConstructor);
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(this.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
                 },
-                () => IsEditMode);
+                () => ScriptStep2.VerificationAcceptedByHead.AllowDoStep(this.Status));
 
             RejectPriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
                 Container.Resolve<IMessageService>(),
                 "Вы уверены, что хотите отправить задачу на доработку исполнителю?",
                 () =>
                 {
-                    this.Statuses.Add(PriceEngineeringTaskStatusEnum.VerificationRejectedByHead);
+                    this.Statuses.Add(ScriptStep2.VerificationRejectedByHead);
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(this.Model);
                 },
-                () => IsEditMode);
+                () => ScriptStep2.VerificationRejectedByHead.AllowDoStep(this.Status));
 
             #endregion
         }

@@ -2535,6 +2535,17 @@ namespace HVTApp.Model.Wrapper
         public bool ParentPriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTaskId));
 
         /// <summary>
+        /// TermPriority
+        /// </summary>
+        public System.Nullable<System.DateTime> TermPriority
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> TermPriorityOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TermPriority));
+        public bool TermPriorityIsChanged => GetIsChanged(nameof(TermPriority));
+
+        /// <summary>
         /// Запрос на проверку от руководителя
         /// </summary>
         public System.Boolean RequestForVerificationFromHead
@@ -2667,14 +2678,9 @@ namespace HVTApp.Model.Wrapper
         #region GetProperties
 
         /// <summary>
-        /// Статус
+        /// IsInProcessByConstructor
         /// </summary>
-        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum Status => GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(); 
-
-        /// <summary>
-        /// InProcessByConstructor
-        /// </summary>
-        public System.Boolean InProcessByConstructor => GetValue<System.Boolean>(); 
+        public System.Boolean IsInProcessByConstructor => GetValue<System.Boolean>(); 
 
         /// <summary>
         /// IsFinishedByConstructor
@@ -2682,9 +2688,29 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsFinishedByConstructor => GetValue<System.Boolean>(); 
 
         /// <summary>
+        /// IsAccepted
+        /// </summary>
+        public System.Boolean IsAccepted => GetValue<System.Boolean>(); 
+
+        /// <summary>
+        /// IsAcceptedTotal
+        /// </summary>
+        public System.Boolean IsAcceptedTotal => GetValue<System.Boolean>(); 
+
+        /// <summary>
+        /// IsStoppedTotal
+        /// </summary>
+        public System.Boolean IsStoppedTotal => GetValue<System.Boolean>(); 
+
+        /// <summary>
         /// Старт
         /// </summary>
         public System.Nullable<System.DateTime> StartMoment => GetValue<System.Nullable<System.DateTime>>(); 
+
+        /// <summary>
+        /// IsStarted
+        /// </summary>
+        public System.Boolean IsStarted => GetValue<System.Boolean>(); 
 
         /// <summary>
         /// HasSccInTce
@@ -2692,19 +2718,14 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean HasSccInTce => GetValue<System.Boolean>(); 
 
         /// <summary>
-        /// IsTotalAccepted
+        /// Статус
         /// </summary>
-        public System.Boolean IsTotalAccepted => GetValue<System.Boolean>(); 
-
-        /// <summary>
-        /// IsTotalStopped
-        /// </summary>
-        public System.Boolean IsTotalStopped => GetValue<System.Boolean>(); 
+        public HVTApp.Model.POCOs.ScriptStep2 Status => GetValue<HVTApp.Model.POCOs.ScriptStep2>(); 
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
         /// </summary>
-        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>>(); 
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2>>(); 
 
         /// <summary>
         /// Блок
@@ -2758,7 +2779,7 @@ namespace HVTApp.Model.Wrapper
 	    public PriceEngineeringTaskEmptyWrapper(PriceEngineeringTask model) : base(model) { }
     }
 
-
+		
     public partial class PriceEngineeringTaskFileAnswerWrapper : WrapperBase<PriceEngineeringTaskFileAnswer>
 	{
 	    public PriceEngineeringTaskFileAnswerWrapper(PriceEngineeringTaskFileAnswer model) : base(model) { }
@@ -3224,7 +3245,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Статусы задач
         /// </summary>
-        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>>(); 
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2>>(); 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3375,12 +3396,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// StatusEnum
         /// </summary>
-        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnum
+        public System.Int32 StatusEnum
         {
-          get { return GetValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(); }
+          get { return GetValue<System.Int32>(); }
           set { SetValue(value); }
         }
-        public HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum StatusEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PriceEngineeringTaskStatusEnum>(nameof(StatusEnum));
+        public System.Int32 StatusEnumOriginalValue => GetOriginalValue<System.Int32>(nameof(StatusEnum));
         public bool StatusEnumIsChanged => GetIsChanged(nameof(StatusEnum));
 
         /// <summary>
