@@ -100,7 +100,7 @@ namespace HVTApp.UI.PriceEngineering
             #endregion
 
             //задача в процессе создания, нужно добавить соответствующий статус
-            this.Statuses.Add(new PriceEngineeringTaskStatusEmptyWrapper(new PriceEngineeringTaskStatus { StatusEnum = ScriptStep2.Created.Value }));
+            this.Statuses.Add(new PriceEngineeringTaskStatusEmptyWrapper(new PriceEngineeringTaskStatus { StatusEnum = ScriptStep2.Create.Value }));
         }
     }
 }

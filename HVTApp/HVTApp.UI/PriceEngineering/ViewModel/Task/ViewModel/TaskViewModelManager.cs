@@ -25,9 +25,9 @@ namespace HVTApp.UI.PriceEngineering
             {
                 var statuses = new List<ScriptStep2>()
                 {
-                    ScriptStep2.Created,
-                    ScriptStep2.Stopped,
-                    ScriptStep2.RejectedByConstructor
+                    ScriptStep2.Create,
+                    ScriptStep2.Stop,
+                    ScriptStep2.RejectByConstructor
                 };
 
                 return statuses.Contains(Status);

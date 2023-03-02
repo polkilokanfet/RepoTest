@@ -2,15 +2,14 @@ using System;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceEngineering.Wrapper;
+using HVTApp.UI.PriceEngineering.DoStepCommand;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -18,11 +17,11 @@ namespace HVTApp.UI.PriceEngineering
     {
         #region Commands
 
-        public DelegateLogConfirmationCommand AcceptCommand { get; }
-        public DelegateLogConfirmationCommand RejectCommand { get; }
-        public DelegateLogConfirmationCommand StopCommand { get; }
+        public ICommandRaiseCanExecuteChanged AcceptCommand { get; }
+        public ICommandRaiseCanExecuteChanged RejectCommand { get; }
+        public DoStepCommandStopByManager StopCommand { get; }
 
-        public DelegateLogConfirmationCommand StartProductionCommand { get; }
+        public ICommandRaiseCanExecuteChanged StartProductionCommand { get; }
 
         /// <summary>
         /// Замена продукта в SalesUnit на продукты из ТСП
@@ -75,40 +74,10 @@ namespace HVTApp.UI.PriceEngineering
             #region Commands
 
             var messageService = this.Container.Resolve<IMessageService>();
-            var eventAggregator = Container.Resolve<IEventAggregator>();
 
-            AcceptCommand = new DelegateLogConfirmationCommand(
-                messageService,
-                "Вы уверены, что хотите принять проработку задачи?",
-                () =>
-                {
-                    this.Statuses.Add(ScriptStep2.Accepted);
-                    SaveCommand.Execute();
-                    this.OnTaskAcceptedByManagerAction(this.Model);
-                    eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(this.Model);
-                },
-                () => (this.Status.Equals(ScriptStep2.FinishedByConstructor) || this.Status == ScriptStep2.VerificationAcceptedByHead) && this.IsValid);
-
-            RejectCommand = new DelegateLogConfirmationCommand(
-                messageService,
-                "Вы уверены, что хотите отклонить проработку задачи?",
-                () =>
-                {
-                    this.Statuses.Add(ScriptStep2.RejectedByManager);
-                    SaveCommand.Execute();
-                    eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(this.Model);
-                },
-                () => (this.Status == ScriptStep2.FinishedByConstructor || this.Status == ScriptStep2.VerificationAcceptedByHead) && this.IsValid);
-
-            StopCommand = new DelegateLogConfirmationCommand(messageService,
-                "Вы уверены, что хотите остановить проработку задачи?",
-                () =>
-                {
-                    this.Statuses.Add(ScriptStep2.Stopped);
-                    SaveCommand.Execute();
-                    eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(this.Model);
-                },
-                () => !this.Status.Equals(ScriptStep2.Created) && !this.Status.Equals(ScriptStep2.Stopped) && this.IsValid);
+            AcceptCommand = new DoStepCommandAcceptedByManager(this, container, () =>  this.OnTaskAcceptedByManagerAction(this.Model));
+            RejectCommand = new DoStepCommandRejectedByManager(this, container);
+            StopCommand = new DoStepCommandStopByManager(this, container);
 
             ReplaceProductCommand = new DelegateLogConfirmationCommand(messageService,
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",

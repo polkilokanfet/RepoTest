@@ -40,9 +40,9 @@ namespace HVTApp.UI.PriceEngineering
 
                 var ss = new List<ScriptStep2>
                 {
-                    ScriptStep2.Started,
-                    ScriptStep2.RejectedByManager,
-                    ScriptStep2.VerificationRejectedByHead
+                    ScriptStep2.Start,
+                    ScriptStep2.RejectByManager,
+                    ScriptStep2.VerificationRejectByHead
                 };
 
                 return ss.Contains(Status);
@@ -76,7 +76,7 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogConfirmationCommand RemoveBlockAddedCommand { get; private set; }
         public DelegateLogCommand AddAnswerFilesCommand { get; private set; }
         public DelegateLogConfirmationCommand RemoveAnswerFileCommand { get; private set; }
-        public DelegateLogConfirmationCommand FinishCommand { get; private set; }
+        public ICommandRaiseCanExecuteChanged FinishCommand { get; private set; }
         public ICommandRaiseCanExecuteChanged RejectCommand { get; private set; }
         public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
         public DelegateLogCommand BlockNewParameterCommand { get; private set; }
@@ -272,8 +272,8 @@ namespace HVTApp.UI.PriceEngineering
                     }
 
                     var step = needVerification
-                        ? ScriptStep2.VerificationRequestedByConstructor
-                        : ScriptStep2.FinishedByConstructor;
+                        ? ScriptStep2.VerificationRequestByConstructor
+                        : ScriptStep2.FinishByConstructor;
                     Statuses.Add(step);
                     Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));
                     SaveCommand.Execute();

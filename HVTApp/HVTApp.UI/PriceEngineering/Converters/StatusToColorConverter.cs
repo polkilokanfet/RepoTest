@@ -12,25 +12,25 @@ namespace HVTApp.UI.PriceEngineering.Converters
         {
             if (value is ScriptStep2 step)
             {
-                if(step.Equals(ScriptStep2.Created))
+                if(step.Equals(ScriptStep2.Create))
                     return Colors.White;
-                if(step.Equals(ScriptStep2.Started))
+                if(step.Equals(ScriptStep2.Start))
                     return Colors.LightSkyBlue;
-                if(step.Equals(ScriptStep2.Stopped))
+                if(step.Equals(ScriptStep2.Stop))
                     return Colors.LightGray;
-                if(step.Equals(ScriptStep2.RejectedByManager))
+                if(step.Equals(ScriptStep2.RejectByManager))
                     return Colors.Red;
-                if(step.Equals(ScriptStep2.RejectedByConstructor))
+                if(step.Equals(ScriptStep2.RejectByConstructor))
                     return Colors.Yellow;
-                if(step.Equals(ScriptStep2.FinishedByConstructor))
+                if(step.Equals(ScriptStep2.FinishByConstructor))
                     return Colors.GreenYellow;
-                if(step.Equals(ScriptStep2.Accepted))
+                if(step.Equals(ScriptStep2.Accept))
                     return Colors.LightGreen;
-                if(step.Equals(ScriptStep2.VerificationRequestedByConstructor))
+                if(step.Equals(ScriptStep2.VerificationRequestByConstructor))
                     return Colors.DarkSeaGreen;
-                if(step.Equals(ScriptStep2.VerificationAcceptedByHead))
+                if(step.Equals(ScriptStep2.VerificationAcceptByHead))
                     return Colors.GreenYellow;
-                if(step.Equals(ScriptStep2.VerificationRejectedByHead))
+                if(step.Equals(ScriptStep2.VerificationRejectByHead))
                     return Colors.OrangeRed;
             }
 

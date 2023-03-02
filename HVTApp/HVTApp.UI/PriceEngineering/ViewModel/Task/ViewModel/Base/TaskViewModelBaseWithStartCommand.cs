@@ -37,7 +37,7 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                     this.IsValid &&
                     this.IsChanged &&
-                    (Status.Equals(ScriptStep2.Created) || Status.Equals(ScriptStep2.Stopped)) &&
+                    (Status.Equals(ScriptStep2.Create) || Status.Equals(ScriptStep2.Stop)) &&
                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null);
         }
 
@@ -60,7 +60,7 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
-            this.Statuses.Add(ScriptStep2.Started);
+            this.Statuses.Add(ScriptStep2.Start);
 
             //если запускается только конкретная задача
             if (saveChanges)

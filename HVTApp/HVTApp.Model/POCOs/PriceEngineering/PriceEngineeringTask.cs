@@ -112,10 +112,10 @@ namespace HVTApp.Model.POCOs
 
                 var statuses = new List<ScriptStep2>
                 {
-                    ScriptStep2.Created,
-                    ScriptStep2.Started,
-                    ScriptStep2.RejectedByManager,
-                    ScriptStep2.VerificationRejectedByHead
+                    ScriptStep2.Create,
+                    ScriptStep2.Start,
+                    ScriptStep2.RejectByManager,
+                    ScriptStep2.VerificationRejectByHead
                 };
 
                 return statuses.Contains(Status);
@@ -128,27 +128,27 @@ namespace HVTApp.Model.POCOs
             {
                 var statuses = new List<ScriptStep2>
                 {
-                    ScriptStep2.FinishedByConstructor,
-                    ScriptStep2.VerificationRequestedByConstructor,
-                    ScriptStep2.VerificationAcceptedByHead,
-                    ScriptStep2.Accepted
+                    ScriptStep2.FinishByConstructor,
+                    ScriptStep2.VerificationRequestByConstructor,
+                    ScriptStep2.VerificationAcceptByHead,
+                    ScriptStep2.Accept
                 };
 
                 return statuses.Contains(Status);
             }
         }
 
-        public bool IsAccepted => this.Status.Equals(ScriptStep2.Accepted);
+        public bool IsAccepted => this.Status.Equals(ScriptStep2.Accept);
 
         /// <summary>
         /// Проработка задачи принята менеджером (со всеми вложенными задачами).
         /// </summary>
-        public bool IsAcceptedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep2.Accepted));
+        public bool IsAcceptedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep2.Accept));
 
         /// <summary>
         /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).
         /// </summary>
-        public bool IsStoppedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep2.Stopped));
+        public bool IsStoppedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep2.Stop));
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
@@ -178,15 +178,15 @@ namespace HVTApp.Model.POCOs
                     return default;
 
                 return this.Statuses
-                    .Where(x => x.StatusEnum == ScriptStep2.Started.Value)
+                    .Where(x => x.StatusEnum == ScriptStep2.Start.Value)
                     .OrderBy(x => x.Moment)
                     .Last()
                     .Moment;
             }
         }
 
-        public bool IsStarted => !Status.Equals(ScriptStep2.Stopped) && 
-                                 !Status.Equals(ScriptStep2.Created);
+        public bool IsStarted => !Status.Equals(ScriptStep2.Stop) && 
+                                 !Status.Equals(ScriptStep2.Create);
 
         public bool HasSccInTce
         {

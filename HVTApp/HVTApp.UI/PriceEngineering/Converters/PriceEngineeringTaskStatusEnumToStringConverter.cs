@@ -12,29 +12,31 @@ namespace HVTApp.UI.PriceEngineering.Converters
         {
             if (value is ScriptStep2 step)
             {
-                if (step.Equals(ScriptStep2.Created)) 
-                    return "Задача создана";
-                if (step.Equals(ScriptStep2.Started)) 
-                    return "Задача запущена на проработку";
-                if (step.Equals(ScriptStep2.Stopped)) 
-                    return "Задача остановлена менеджером";
-                if (step.Equals(ScriptStep2.RejectedByManager)) 
-                    return "Проработка не принята менеджером (дорабатывается исполнителем)";
-                if (step.Equals(ScriptStep2.RejectedByConstructor)) 
-                    return "Задача отклонена исполнителем (дорабатывается менеджером)";
-                if (step.Equals(ScriptStep2.FinishedByConstructor)) 
-                    return "Исполнитель завершил проработку задачи";
-                if (step.Equals(ScriptStep2.Accepted)) 
-                    return "Проработка принята менеджером";
-                if (step.Equals(ScriptStep2.VerificationRequestedByConstructor)) 
-                    return "Проработка задачи направлена на проверку руководителю";
-                if (step.Equals(ScriptStep2.VerificationAcceptedByHead)) 
-                    return "Проработка задачи принята руководителем";
-                if (step.Equals(ScriptStep2.VerificationRejectedByHead)) 
-                    return "Проработка задачи не принята руководителем (отправлена на доработку исполнителю)";
+                return step.Description;
+
+                //if (step.Equals(ScriptStep2.Create)) 
+                //    return "Задача создана";
+                //if (step.Equals(ScriptStep2.Start)) 
+                //    return "Задача запущена на проработку";
+                //if (step.Equals(ScriptStep2.Stop)) 
+                //    return "Задача остановлена менеджером";
+                //if (step.Equals(ScriptStep2.RejectByManager)) 
+                //    return "Проработка не принята менеджером (дорабатывается исполнителем)";
+                //if (step.Equals(ScriptStep2.RejectByConstructor)) 
+                //    return "Задача отклонена исполнителем (дорабатывается менеджером)";
+                //if (step.Equals(ScriptStep2.FinishByConstructor)) 
+                //    return "Исполнитель завершил проработку задачи";
+                //if (step.Equals(ScriptStep2.Accept)) 
+                //    return "Проработка принята менеджером";
+                //if (step.Equals(ScriptStep2.VerificationRequestByConstructor)) 
+                //    return "Проработка задачи направлена на проверку руководителю";
+                //if (step.Equals(ScriptStep2.VerificationAcceptByHead)) 
+                //    return "Проработка задачи принята руководителем";
+                //if (step.Equals(ScriptStep2.VerificationRejectByHead)) 
+                //    return "Проработка задачи не принята руководителем (отправлена на доработку исполнителю)";
             }
 
-            return "Статус не добавлен в коде";
+            return "";
             throw new ArgumentException();
         }
 

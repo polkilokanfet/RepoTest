@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -11,6 +12,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -34,7 +36,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Отклонить проработку
         /// </summary>
-        public DelegateLogConfirmationCommand RejectPriceEngineeringTaskCommand { get; private set; }
+        public ICommandRaiseCanExecuteChanged RejectPriceEngineeringTaskCommand { get; private set; }
 
         #endregion
 
@@ -44,12 +46,12 @@ namespace HVTApp.UI.PriceEngineering
 
         public bool AllowInstruction =>
             IsTarget &&
-            !Status.Equals(ScriptStep2.FinishedByConstructor) &&
-            !Status.Equals(ScriptStep2.VerificationAcceptedByHead) &&
-            !Status.Equals(ScriptStep2.VerificationRequestedByConstructor) &&
-            !Status.Equals(ScriptStep2.Created) &&
-            !Status.Equals(ScriptStep2.Stopped) &&
-            !Status.Equals(ScriptStep2.Accepted);
+            !Status.Equals(ScriptStep2.FinishByConstructor) &&
+            !Status.Equals(ScriptStep2.VerificationAcceptByHead) &&
+            !Status.Equals(ScriptStep2.VerificationRequestByConstructor) &&
+            !Status.Equals(ScriptStep2.Create) &&
+            !Status.Equals(ScriptStep2.Stop) &&
+            !Status.Equals(ScriptStep2.Accept);
 
         #region ctors
 
@@ -79,24 +81,15 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите принять результаты проработки?",
                 () =>
                 {
-                    this.Statuses.Add(ScriptStep2.VerificationAcceptedByHead);
-                    this.Statuses.Add(ScriptStep2.FinishedByConstructor);
+                    this.Statuses.Add(ScriptStep2.VerificationAcceptByHead);
+                    this.Statuses.Add(ScriptStep2.FinishByConstructor);
                     this.SaveCommand_ExecuteMethod();
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(this.Model);
                     Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
                 },
-                () => ScriptStep2.VerificationAcceptedByHead.AllowDoStep(this.Status));
+                () => ScriptStep2.VerificationAcceptByHead.AllowDoStep(this.Status));
 
-            RejectPriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите отправить задачу на доработку исполнителю?",
-                () =>
-                {
-                    this.Statuses.Add(ScriptStep2.VerificationRejectedByHead);
-                    this.SaveCommand_ExecuteMethod();
-                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(this.Model);
-                },
-                () => ScriptStep2.VerificationRejectedByHead.AllowDoStep(this.Status));
+            RejectPriceEngineeringTaskCommand = new DoStepCommandRejectByHeadToConstructor(this, container);
 
             #endregion
         }

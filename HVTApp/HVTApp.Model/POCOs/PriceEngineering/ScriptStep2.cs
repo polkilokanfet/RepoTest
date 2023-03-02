@@ -10,7 +10,7 @@ namespace HVTApp.Model.POCOs
     {
         protected readonly Role Role;
 
-        public abstract string FullName { get; }
+        public abstract string Description { get; }
 
         /// <summary>
         /// С каких этапов можно перейти на данный (в текущей роли).
@@ -36,52 +36,57 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Задача создана
         /// </summary>
-        public static readonly ScriptStep2 Created = new CreatedStep();
+        public static readonly ScriptStep2 Create = new CreatStep();
 
         /// <summary>
         /// Задача запущена на проработку
         /// </summary>
-        public static readonly ScriptStep2 Started = new StartedStep();
+        public static readonly ScriptStep2 Start = new StartStep();
 
         /// <summary>
         /// Задача остановлена менеджером
         /// </summary>
-        public static readonly ScriptStep2 Stopped = new StoppedStep();
+        public static readonly ScriptStep2 Stop = new StopStep();
 
         /// <summary>
         /// Проработка отклонена менеджером конструктору
         /// </summary>
-        public static readonly ScriptStep2 RejectedByManager = new RejectedByManagerStep();
+        public static readonly ScriptStep2 RejectByManager = new RejectByManagerStep();
 
         /// <summary>
         /// Проработка отклонена конструктором менеджеру
         /// </summary>
-        public static readonly ScriptStep2 RejectedByConstructor = new RejectedByConstructorStep();
+        public static readonly ScriptStep2 RejectByConstructor = new RejectByConstructorStep();
+
+        /// <summary>
+        /// Проработка отклонена руководителем КБ менеджеру
+        /// </summary>
+        public static readonly ScriptStep2 RejectByHead = new RejectByHeadStep();
 
         /// <summary>
         /// Проработка завершена конструктором
         /// </summary>
-        public static readonly ScriptStep2 FinishedByConstructor = new FinishedByConstructorStep();
+        public static readonly ScriptStep2 FinishByConstructor = new FinishByConstructorStep();
 
         /// <summary>
         /// Проработка задачи принята менеджером
         /// </summary>
-        public static readonly ScriptStep2 Accepted = new AcceptedStep();
+        public static readonly ScriptStep2 Accept = new AcceptStep();
 
         /// <summary>
         /// Конструктор направил проработку руководителю на проверку
         /// </summary>
-        public static readonly ScriptStep2 VerificationRequestedByConstructor = new VerificationRequestedByConstructorStep();
+        public static readonly ScriptStep2 VerificationRequestByConstructor = new VerificationRequestByConstructorStep();
 
         /// <summary>
         /// Руководитель согласовал проработку конструктору
         /// </summary>
-        public static readonly ScriptStep2 VerificationAcceptedByHead = new VerificationAcceptedByHeadStep();
+        public static readonly ScriptStep2 VerificationAcceptByHead = new VerificationAcceptByHeadStep();
 
         /// <summary>
         /// Руководитель отклонил проработку конструктору
         /// </summary>
-        public static readonly ScriptStep2 VerificationRejectedByHead = new VerificationRejectedByHeadStep();
+        public static readonly ScriptStep2 VerificationRejectByHead = new VerificationRejectByHeadStep();
 
         #endregion
 
@@ -99,41 +104,47 @@ namespace HVTApp.Model.POCOs
 
         static ScriptStep2()
         {
-            Started
-                .AddPossiblePreviousStep(Created)
-                .AddPossiblePreviousStep(RejectedByConstructor);
+            Start
+                .AddPossiblePreviousStep(Create)
+                .AddPossiblePreviousStep(RejectByHead)
+                .AddPossiblePreviousStep(RejectByConstructor);
 
-            Stopped
-                .AddPossiblePreviousStep(Started)
-                .AddPossiblePreviousStep(RejectedByManager)
-                .AddPossiblePreviousStep(RejectedByConstructor)
-                .AddPossiblePreviousStep(FinishedByConstructor)
-                .AddPossiblePreviousStep(VerificationRequestedByConstructor)
-                .AddPossiblePreviousStep(VerificationAcceptedByHead)
-                .AddPossiblePreviousStep(VerificationRejectedByHead);
+            Stop
+                .AddPossiblePreviousStep(Start)
+                .AddPossiblePreviousStep(RejectByManager)
+                .AddPossiblePreviousStep(RejectByConstructor)
+                .AddPossiblePreviousStep(FinishByConstructor)
+                .AddPossiblePreviousStep(VerificationRequestByConstructor)
+                .AddPossiblePreviousStep(VerificationAcceptByHead)
+                .AddPossiblePreviousStep(VerificationRejectByHead);
 
-            RejectedByManager
-                .AddPossiblePreviousStep(FinishedByConstructor);
+            RejectByManager
+                .AddPossiblePreviousStep(FinishByConstructor)
+                .AddPossiblePreviousStep(VerificationAcceptByHead);
 
-            RejectedByConstructor
-                .AddPossiblePreviousStep(Started);
+            RejectByHead
+                .AddPossiblePreviousStep(Start);
 
-            FinishedByConstructor
-                .AddPossiblePreviousStep(Started)
-                .AddPossiblePreviousStep(VerificationAcceptedByHead);
+            RejectByConstructor
+                .AddPossiblePreviousStep(Start);
 
-            Accepted
-                .AddPossiblePreviousStep(FinishedByConstructor);
+            FinishByConstructor
+                .AddPossiblePreviousStep(Start)
+                .AddPossiblePreviousStep(VerificationAcceptByHead);
 
-            VerificationRequestedByConstructor
-                .AddPossiblePreviousStep(Started)
-                .AddPossiblePreviousStep(VerificationRejectedByHead);
+            Accept
+                .AddPossiblePreviousStep(FinishByConstructor)
+                .AddPossiblePreviousStep(VerificationAcceptByHead);
 
-            VerificationAcceptedByHead
-                .AddPossiblePreviousStep(VerificationRequestedByConstructor);
+            VerificationRequestByConstructor
+                .AddPossiblePreviousStep(Start)
+                .AddPossiblePreviousStep(VerificationRejectByHead);
 
-            VerificationRejectedByHead
-                .AddPossiblePreviousStep(VerificationRequestedByConstructor);
+            VerificationAcceptByHead
+                .AddPossiblePreviousStep(VerificationRequestByConstructor);
+
+            VerificationRejectByHead
+                .AddPossiblePreviousStep(VerificationRequestByConstructor);
         }
 
         #endregion
@@ -159,134 +170,148 @@ namespace HVTApp.Model.POCOs
 
         #region Classes
 
-        private sealed class CreatedStep : ScriptStep2
+        private sealed class CreatStep : ScriptStep2
         {
-            public override string FullName => "Задача создана";
+            public override string Description => "Задача создана";
 
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
             }
 
-            public CreatedStep() : base(0, Role.SalesManager)
+            public CreatStep() : base(0, Role.SalesManager)
             {
             }
         }
 
-        private sealed class StartedStep : ScriptStep2
+        private sealed class StartStep : ScriptStep2
         {
-            public override string FullName => "Задача запущена на проработку";
+            public override string Description => "Задача запущена на проработку";
 
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskStartedEvent>().Publish(priceEngineeringTask);
             }
 
-            public StartedStep() : base(1, Role.SalesManager)
+            public StartStep() : base(1, Role.SalesManager)
             {
             }
         }
 
-        private sealed class StoppedStep : ScriptStep2
+        private sealed class StopStep : ScriptStep2
         {
-            public override string FullName => "Задача остановлена менеджером";
+            public override string Description => "Задача остановлена менеджером";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(priceEngineeringTask);
             }
 
-            public StoppedStep() : base(2, Role.SalesManager)
+            public StopStep() : base(2, Role.SalesManager)
             {
             }
         }
 
-        private sealed class RejectedByManagerStep : ScriptStep2
+        private sealed class RejectByManagerStep : ScriptStep2
         {
-            public override string FullName => "Проработка отклонена менеджером исполнителю";
+            public override string Description => "Проработка отклонена менеджером исполнителю";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(priceEngineeringTask);
             }
 
-            public RejectedByManagerStep() : base(3, Role.SalesManager)
+            public RejectByManagerStep() : base(3, Role.SalesManager)
             {
             }
         }
 
-        private sealed class RejectedByConstructorStep : ScriptStep2
+        private sealed class RejectByConstructorStep : ScriptStep2
         {
-            public override string FullName => "Проработка отклонена исполнителем менеджеру";
+            public override string Description => "Проработка отклонена исполнителем менеджеру";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(priceEngineeringTask);
             }
 
-            public RejectedByConstructorStep() : base(4, Role.Constructor)
+            public RejectByConstructorStep() : base(4, Role.Constructor)
             {
             }
         }
 
-        private sealed class FinishedByConstructorStep : ScriptStep2
+        private sealed class FinishByConstructorStep : ScriptStep2
         {
-            public override string FullName => "Проработка завершена исполнителем";
+            public override string Description => "Проработка завершена исполнителем";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(priceEngineeringTask);
             }
 
-            public FinishedByConstructorStep() : base(5, Role.Constructor)
+            public FinishByConstructorStep() : base(5, Role.Constructor)
             {
             }
         }
 
-        private sealed class AcceptedStep : ScriptStep2
+        private sealed class AcceptStep : ScriptStep2
         {
-            public override string FullName => "Проработка задачи принята менеджером";
+            public override string Description => "Проработка задачи принята менеджером";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(priceEngineeringTask);
             }
 
-            public AcceptedStep() : base(6, Role.SalesManager)
+            public AcceptStep() : base(6, Role.SalesManager)
             {
             }
         }
 
-        private sealed class VerificationRequestedByConstructorStep : ScriptStep2
+        private sealed class VerificationRequestByConstructorStep : ScriptStep2
         {
-            public override string FullName => "Исполнитель направил проработку руководителю на проверку";
+            public override string Description => "Исполнитель направил проработку руководителю на проверку";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(priceEngineeringTask);
             }
 
-            public VerificationRequestedByConstructorStep() : base(7, Role.Constructor)
+            public VerificationRequestByConstructorStep() : base(7, Role.Constructor)
             {
             }
         }
 
-        private sealed class VerificationAcceptedByHeadStep : ScriptStep2
+        private sealed class VerificationAcceptByHeadStep : ScriptStep2
         {
-            public override string FullName => "Руководитель согласовал проработку исполнителю";
+            public override string Description => "Руководитель согласовал проработку исполнителю";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(priceEngineeringTask);
             }
 
-            public VerificationAcceptedByHeadStep() : base(8, Role.DesignDepartmentHead)
+            public VerificationAcceptByHeadStep() : base(8, Role.DesignDepartmentHead)
             {
             }
         }
 
-        private sealed class VerificationRejectedByHeadStep : ScriptStep2
+        private sealed class VerificationRejectByHeadStep : ScriptStep2
         {
-            public override string FullName => "Руководитель отклонил проработку исполнителю";
+            public override string Description => "Руководитель отклонил проработку исполнителю";
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(priceEngineeringTask);
             }
 
-            public VerificationRejectedByHeadStep() : base(9, Role.DesignDepartmentHead)
+            public VerificationRejectByHeadStep() : base(9, Role.DesignDepartmentHead)
             {
+            }
+        }
+
+        private sealed class RejectByHeadStep : ScriptStep2
+        {
+            public override string Description => "Руководитель КБ отклонил задачу менеджеру";
+
+            public RejectByHeadStep() : base(10, Role.DesignDepartmentHead)
+            {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByHeadEvent>().Publish(priceEngineeringTask);
             }
         }
 
@@ -294,7 +319,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return this.FullName;
+            return this.Description;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
@@ -10,6 +11,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     public abstract class DoStepCommandBase : DelegateLogCommand
     {
         protected readonly TaskViewModel ViewModel;
+        private readonly Action _doAfterAction;
         private readonly IMessageService _messageService;
         private readonly IEventAggregator _eventAggregator;
         private bool _showConfirmation = true;
@@ -19,11 +21,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         #region ctors
 
-        protected DoStepCommandBase(TaskViewModel viewModel, IUnityContainer container)
+        protected DoStepCommandBase(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
         {
             ViewModel = viewModel;
             _messageService = container.Resolve<IMessageService>();
             _eventAggregator = container.Resolve<IEventAggregator>();
+            _doAfterAction = doAfterAction;
         }
 
         #endregion
@@ -40,6 +43,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
 
             this.DoStepAction();
+            _doAfterAction?.Invoke();
         }
 
         protected virtual void DoStepAction()
@@ -61,7 +65,8 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool CanExecuteMethod()
         {
-            return Step.AllowDoStep(ViewModel.Status);
+            return ViewModel.IsValid && 
+                   Step.AllowDoStep(ViewModel.Status);
         }
     }
 }
