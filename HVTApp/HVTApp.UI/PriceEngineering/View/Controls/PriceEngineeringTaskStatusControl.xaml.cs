@@ -7,11 +7,11 @@ namespace HVTApp.UI.PriceEngineering.View
     public partial class PriceEngineeringTaskStatusControl : UserControl
     {
         public static readonly DependencyProperty StatusEnumProperty = DependencyProperty.Register(
-            "StatusEnum", typeof(PriceEngineeringTaskStatusEnum), typeof(PriceEngineeringTaskStatusControl), new PropertyMetadata(default(PriceEngineeringTaskStatusEnum)));
+            "StatusEnum", typeof(ScriptStep2), typeof(PriceEngineeringTaskStatusControl), new PropertyMetadata(default(ScriptStep2)));
 
-        public PriceEngineeringTaskStatusEnum StatusEnum
+        public ScriptStep2 StatusEnum
         {
-            get => (PriceEngineeringTaskStatusEnum) GetValue(StatusEnumProperty);
+            get => (ScriptStep2) GetValue(StatusEnumProperty);
             set => SetValue(StatusEnumProperty, value);
         }
 

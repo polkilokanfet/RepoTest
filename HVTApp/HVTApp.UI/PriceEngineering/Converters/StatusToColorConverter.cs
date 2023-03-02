@@ -5,36 +5,33 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
-    [ValueConversion(typeof(PriceEngineeringTaskStatusEnum), typeof(Color))]
+    [ValueConversion(typeof(ScriptStep2), typeof(Color))]
     public class StatusToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is PriceEngineeringTaskStatusEnum statusEnum)
+            if (value is ScriptStep2 step)
             {
-                switch (statusEnum)
-                {
-                    case PriceEngineeringTaskStatusEnum.Created:
-                        return Colors.White;
-                    case PriceEngineeringTaskStatusEnum.Started:
-                        return Colors.LightSkyBlue;
-                    case PriceEngineeringTaskStatusEnum.Stopped:
-                        return Colors.LightGray;
-                    case PriceEngineeringTaskStatusEnum.RejectedByManager:
-                        return Colors.Red;
-                    case PriceEngineeringTaskStatusEnum.RejectedByConstructor:
-                        return Colors.Yellow;
-                    case PriceEngineeringTaskStatusEnum.FinishedByConstructor:
-                        return Colors.GreenYellow;
-                    case PriceEngineeringTaskStatusEnum.Accepted:
-                        return Colors.LightGreen;
-                    case PriceEngineeringTaskStatusEnum.VerificationRequestedByConstructor:
-                        return Colors.DarkSeaGreen;
-                    case PriceEngineeringTaskStatusEnum.VerificationAcceptedByHead:
-                        return Colors.GreenYellow;
-                    case PriceEngineeringTaskStatusEnum.VerificationRejectedByHead:
-                        return Colors.OrangeRed;
-                }
+                if(step.Equals(ScriptStep2.Created))
+                    return Colors.White;
+                if(step.Equals(ScriptStep2.Started))
+                    return Colors.LightSkyBlue;
+                if(step.Equals(ScriptStep2.Stopped))
+                    return Colors.LightGray;
+                if(step.Equals(ScriptStep2.RejectedByManager))
+                    return Colors.Red;
+                if(step.Equals(ScriptStep2.RejectedByConstructor))
+                    return Colors.Yellow;
+                if(step.Equals(ScriptStep2.FinishedByConstructor))
+                    return Colors.GreenYellow;
+                if(step.Equals(ScriptStep2.Accepted))
+                    return Colors.LightGreen;
+                if(step.Equals(ScriptStep2.VerificationRequestedByConstructor))
+                    return Colors.DarkSeaGreen;
+                if(step.Equals(ScriptStep2.VerificationAcceptedByHead))
+                    return Colors.GreenYellow;
+                if(step.Equals(ScriptStep2.VerificationRejectedByHead))
+                    return Colors.OrangeRed;
             }
 
             return Binding.DoNothing;
