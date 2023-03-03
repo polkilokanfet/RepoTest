@@ -10,8 +10,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second.View
 
         public TasksTceItem TasksTceItem
         {
-            get { return (TasksTceItem) GetValue(TasksTceItemProperty); }
-            set { SetValue(TasksTceItemProperty, value); }
+            get => (TasksTceItem) GetValue(TasksTceItemProperty);
+            set => SetValue(TasksTceItemProperty, value);
         }
 
         public TasksTceItemControl()

@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure;
+﻿using System;
+using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.UI.PriceEngineering.Tabs;
 using HVTApp.UI.PriceEngineering.ViewModel;
@@ -24,6 +25,11 @@ namespace HVTApp.UI.PriceEngineering.View
                 case Role.DesignDepartmentHead:
                     this.DataContext = container.Resolve<PriceEngineeringTasksListViewModelDesignDepartmentHead>();
                     break;
+                case Role.BackManager:
+                    this.DataContext = container.Resolve<PriceEngineeringTasksListViewModelBackManager>();
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
 
             InitializeComponent();

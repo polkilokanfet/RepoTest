@@ -324,6 +324,9 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
@@ -530,6 +533,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
       <DependentUpon>TaskControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManager.xaml.cs">
+      <DependentUpon>TasksControlBackManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlConstructor.xaml.cs">
       <DependentUpon>TasksControlConstructor.xaml</DependentUpon>
@@ -2045,6 +2051,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

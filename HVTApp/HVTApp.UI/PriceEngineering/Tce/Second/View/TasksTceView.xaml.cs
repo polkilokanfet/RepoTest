@@ -10,7 +10,7 @@ using Prism.Regions;
 namespace HVTApp.UI.PriceEngineering.Tce.Second.View
 {
     [RibbonTab(typeof(TabTaskTceView))]
-    public partial class TasksTceView : ViewBaseConfirmNavigationRequest, IDisposable
+    public partial class TasksTceView : IDisposable
     {
         private readonly TasksTceViewModel _viewModel;
 
