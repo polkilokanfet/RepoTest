@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -138,10 +139,10 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
-                                    <Button Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
-                                    <Button Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                                    <Button Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Text="Стартовать" Command="{Binding StartCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Text="Принять" Command="{Binding AcceptCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Text="Отклонить" Command="{Binding RejectCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="3" Text="Остановить" Command="{Binding StopCommand}"/>
                                 </Grid>
 
                                 <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>

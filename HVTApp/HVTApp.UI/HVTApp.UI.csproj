@@ -99,6 +99,9 @@
   <ItemGroup>
     <Compile Include="Commands\DelegateLogConfirmationCommand.cs" />
     <Compile Include="Components\ViewBaseSaveCustomization.cs" />
+    <Compile Include="Controls\ButtonIsVisibleWhenCanExecute.xaml.cs">
+      <DependentUpon>ButtonIsVisibleWhenCanExecute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LoadableContentControl.xaml.cs">
       <DependentUpon>LoadableContentControl.xaml</DependentUpon>
     </Compile>
@@ -1374,6 +1377,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ButtonIsVisibleWhenCanExecute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\ChooseItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

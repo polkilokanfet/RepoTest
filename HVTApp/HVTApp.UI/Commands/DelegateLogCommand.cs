@@ -4,10 +4,11 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
 using Prism.Commands;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.Commands
 {
-    public class DelegateLogCommand : ICommandRaiseCanExecuteChanged
+    public class DelegateLogCommand : BindableBase, ICommandIsVisibleWhenCanExecute
     {
         private readonly Action _executeMethod;
         private readonly Func<bool> _canExecuteMethod;
@@ -99,8 +100,11 @@ namespace HVTApp.UI.Commands
         public void RaiseCanExecuteChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            RaisePropertyChanged(nameof(IsVisible));
         }
 
         #endregion
+
+        public bool IsVisible => CanExecute();
     }
 }
