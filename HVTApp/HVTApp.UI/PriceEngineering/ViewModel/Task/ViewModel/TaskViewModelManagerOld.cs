@@ -96,52 +96,27 @@ namespace HVTApp.UI.PriceEngineering
         /// <param name="priceEngineeringTask"></param>
         private void ReplaceProduct(PriceEngineeringTask priceEngineeringTask)
         {
-            if (priceEngineeringTask.SalesUnits.Any() == false) return;
-
-            var getProductService = Container.Resolve<IGetProductService>();
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-
-            priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
-
-            var product = getProductService.GetProduct(unitOfWork, priceEngineeringTask.GetProduct());
-            var salesUnits = priceEngineeringTask.SalesUnits;
-
-            var productBlocksAdded = priceEngineeringTask
-                .GetAllPriceEngineeringTasks()
-                .SelectMany(x => x.ProductBlocksAdded)
-                .Where(x => x.IsRemoved == false)
-                .ToList();
-
-            //Включённое оборудование на всё количество
-            var productsIncludedOnAmount = productBlocksAdded
-                .Where(x => x.IsOnBlock == false)
-                .Select(x => new ProductIncluded
-                {
-                    Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
-                    Amount = x.Amount
-                })
-                .ToList();
-
-
-            foreach (var salesUnit in salesUnits)
+            try
             {
-                //заменяем продукт
-                salesUnit.Product = product;
+                if (priceEngineeringTask.SalesUnits.Any() == false) return;
 
-                //заменяем включёное оборудование
-                //удаляем старое
-                foreach (var productIncluded in
-                    salesUnit.ProductsIncluded
-                        .Where(x => x.Product == null || x.Product.ProductBlock.IsSupervision == false)
-                        .ToList())
-                {
-                    salesUnit.ProductsIncluded.Remove(productIncluded);
-                    unitOfWork.Repository<ProductIncluded>().Delete(productIncluded);
-                }
+                var getProductService = Container.Resolve<IGetProductService>();
+                var unitOfWork = Container.Resolve<IUnitOfWork>();
 
-                //Включённое оборудование на каждый блок
-                var productsIncludedOnBlock = productBlocksAdded
-                    .Where(x => x.IsOnBlock == true)
+                priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
+
+                var product = getProductService.GetProduct(unitOfWork, priceEngineeringTask.GetProduct());
+                var salesUnits = priceEngineeringTask.SalesUnits;
+
+                var productBlocksAdded = priceEngineeringTask
+                    .GetAllPriceEngineeringTasks()
+                    .SelectMany(x => x.ProductBlocksAdded)
+                    .Where(x => x.IsRemoved == false)
+                    .ToList();
+
+                //Включённое оборудование на всё количество
+                var productsIncludedOnAmount = productBlocksAdded
+                    .Where(x => x.IsOnBlock == false)
                     .Select(x => new ProductIncluded
                     {
                         Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
@@ -149,16 +124,48 @@ namespace HVTApp.UI.PriceEngineering
                     })
                     .ToList();
 
-                salesUnit.ProductsIncluded.AddRange(productsIncludedOnBlock);
-                salesUnit.ProductsIncluded.AddRange(productsIncludedOnAmount);
-            }
 
-            try
-            {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение",
-                    unitOfWork.SaveChanges().OperationCompletedSuccessfully
-                        ? $"Заменен продукт в {salesUnits.First()}"
-                        : $"Не заменен продукт в {salesUnits.First()}");
+                foreach (var salesUnit in salesUnits)
+                {
+                    //заменяем продукт
+                    salesUnit.Product = product;
+
+                    //заменяем включёное оборудование
+                    //удаляем старое
+                    foreach (var productIncluded in
+                        salesUnit.ProductsIncluded
+                            .Where(x => x.Product == null || x.Product.ProductBlock.IsSupervision == false)
+                            .ToList())
+                    {
+                        salesUnit.ProductsIncluded.Remove(productIncluded);
+                        unitOfWork.Repository<ProductIncluded>().Delete(productIncluded);
+                    }
+
+                    //Включённое оборудование на каждый блок
+                    var productsIncludedOnBlock = productBlocksAdded
+                        .Where(x => x.IsOnBlock == true)
+                        .Select(x => new ProductIncluded
+                        {
+                            Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
+                            Amount = x.Amount
+                        })
+                        .ToList();
+
+                    salesUnit.ProductsIncluded.AddRange(productsIncludedOnBlock);
+                    salesUnit.ProductsIncluded.AddRange(productsIncludedOnAmount);
+                }
+
+                try
+                {
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение",
+                        unitOfWork.SaveChanges().OperationCompletedSuccessfully
+                            ? $"Заменен продукт в {salesUnits.First()}"
+                            : $"Не заменен продукт в {salesUnits.First()}");
+                }
+                catch (Exception e)
+                {
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение", e.PrintAllExceptions());
+                }
             }
             catch (Exception e)
             {

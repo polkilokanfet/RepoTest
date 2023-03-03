@@ -208,10 +208,10 @@ namespace HVTApp.Model.POCOs
         /// <param name="currentStep">Этап, с которого предполагаемо возможен переход</param>
         /// <returns></returns>
         public virtual bool AllowDoStep(ScriptStep2 currentStep)
-            {
-                return this.Role == GlobalAppProperties.User.RoleCurrent && 
-                       PossiblePreviousSteps.Contains(currentStep);
-            }
+        {
+            return this.Role == GlobalAppProperties.User.RoleCurrent && 
+                    PossiblePreviousSteps.Contains(currentStep);
+        }
 
         private ScriptStep2 AddPossiblePreviousStep(ScriptStep2 step)
         {
