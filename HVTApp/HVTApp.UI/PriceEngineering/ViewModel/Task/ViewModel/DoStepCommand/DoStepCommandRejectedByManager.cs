@@ -1,5 +1,6 @@
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {

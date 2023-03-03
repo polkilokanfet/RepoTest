@@ -37,7 +37,7 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                     this.IsValid &&
                     this.IsChanged &&
-                    (Status.Equals(ScriptStep2.Create) || Status.Equals(ScriptStep2.Stop)) &&
+                    (Status.Equals(ScriptStep2.Create) || Status.Equals(ScriptStep2.Stop) || Status.Equals(ScriptStep2.RejectByHead) || Status.Equals(ScriptStep2.RejectByConstructor)) &&
                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null);
         }
 

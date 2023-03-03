@@ -13,7 +13,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected readonly TaskViewModel ViewModel;
         private readonly Action _doAfterAction;
         private readonly IMessageService _messageService;
-        private readonly IEventAggregator _eventAggregator;
+        protected readonly IEventAggregator EventAggregator;
         private bool _showConfirmation = true;
 
         protected abstract ScriptStep2 Step { get; }
@@ -25,7 +25,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             ViewModel = viewModel;
             _messageService = container.Resolve<IMessageService>();
-            _eventAggregator = container.Resolve<IEventAggregator>();
+            EventAggregator = container.Resolve<IEventAggregator>();
             _doAfterAction = doAfterAction;
         }
 
@@ -50,7 +50,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             ViewModel.Statuses.Add(Step);
             ViewModel.SaveCommand.Execute();
-            Step.PublishEvent(_eventAggregator, ViewModel.Model);
+            Step.PublishEvent(EventAggregator, ViewModel.Model);
         }
 
         /// <summary>

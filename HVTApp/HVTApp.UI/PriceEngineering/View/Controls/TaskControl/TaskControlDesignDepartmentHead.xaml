@@ -140,9 +140,11 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
-                                    <Button Grid.Column="1" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
+                                    <Button Grid.Column="0" Content="Отклонить менеджеру" Command="{Binding RejectPriceEngineeringTaskCommandToManager}"/>
+                                    <Button Grid.Column="1" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
+                                    <Button Grid.Column="2" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
                                 </Grid>
 
                                 <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>

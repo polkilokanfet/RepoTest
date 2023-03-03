@@ -12,5 +12,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         public DoStepCommandRejectByHeadToManager(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
+
+        protected override bool CanExecuteMethod()
+        {
+            return this.ViewModel.Model.UserConstructor == null && 
+                   base.CanExecuteMethod();
+        }
     }
 }

@@ -26,17 +26,22 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Поручить проработку задачи
         /// </summary>
-        public DelegateLogCommand InstructPriceEngineeringTaskCommand { get; private set; }
+        public DelegateLogCommand InstructPriceEngineeringTaskCommand { get; }
 
         /// <summary>
         /// Принять проработку
         /// </summary>
-        public DelegateLogConfirmationCommand AcceptPriceEngineeringTaskCommand { get; private set; }
+        public ICommandRaiseCanExecuteChanged AcceptPriceEngineeringTaskCommand { get; }
 
         /// <summary>
-        /// Отклонить проработку
+        /// Отклонить проработку конструктору
         /// </summary>
-        public ICommandRaiseCanExecuteChanged RejectPriceEngineeringTaskCommand { get; private set; }
+        public ICommandRaiseCanExecuteChanged RejectPriceEngineeringTaskCommand { get; }
+
+        /// <summary>
+        /// Отклонить проработку менеджеру
+        /// </summary>
+        public ICommandRaiseCanExecuteChanged RejectPriceEngineeringTaskCommandToManager { get; }
 
         #endregion
 
@@ -46,6 +51,7 @@ namespace HVTApp.UI.PriceEngineering
 
         public bool AllowInstruction =>
             IsTarget &&
+            !Status.Equals(ScriptStep2.RejectByHead) &&
             !Status.Equals(ScriptStep2.FinishByConstructor) &&
             !Status.Equals(ScriptStep2.VerificationAcceptByHead) &&
             !Status.Equals(ScriptStep2.VerificationRequestByConstructor) &&
@@ -76,20 +82,9 @@ namespace HVTApp.UI.PriceEngineering
                 },
                 () => AllowInstruction);
 
-            AcceptPriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
-                Container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите принять результаты проработки?",
-                () =>
-                {
-                    this.Statuses.Add(ScriptStep2.VerificationAcceptByHead);
-                    this.Statuses.Add(ScriptStep2.FinishByConstructor);
-                    this.SaveCommand_ExecuteMethod();
-                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(this.Model);
-                    Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
-                },
-                () => ScriptStep2.VerificationAcceptByHead.AllowDoStep(this.Status));
-
+            AcceptPriceEngineeringTaskCommand = new DoStepCommandAcceptByHead(this, container);
             RejectPriceEngineeringTaskCommand = new DoStepCommandRejectByHeadToConstructor(this, container);
+            RejectPriceEngineeringTaskCommandToManager = new DoStepCommandRejectByHeadToManager(this, container);
 
             #endregion
         }
