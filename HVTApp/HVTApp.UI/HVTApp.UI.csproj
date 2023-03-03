@@ -366,7 +366,6 @@
     <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperManager.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskScript\SmartEnumeration.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandAcceptedByManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectByHeadToConstructor.cs" />

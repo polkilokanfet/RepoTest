@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -31,12 +32,64 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        #region ShowToRole
+
+        /// <summary>
+        /// Показывать в списке задач
+        /// </summary>
+        public bool Show
+        {
+            get
+            {
+                switch (GlobalAppProperties.User.RoleCurrent)
+                {
+                    case Role.SalesManager:
+                        return this.ShowToSalesManager;
+
+                    case Role.Constructor:
+                        return this.ShowToConstructor;
+
+                    case Role.DesignDepartmentHead:
+                        return this.ShowToHead;
+
+                    case Role.Admin:
+                    case Role.Director:
+                    case Role.Economist:
+                    case Role.Pricer:
+                    case Role.DataBaseFiller:
+                    case Role.PlanMaker:
+                    case Role.ReportMaker:
+                    case Role.Supplier:
+                    case Role.BackManager:
+                    case Role.BackManagerBoss:
+                        return false;
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Показывать менеджеру (значение по умолчанию - true)
+        /// </summary>
+        protected virtual bool ShowToSalesManager => true;
+        /// <summary>
+        /// Показывать конструктору (значение по умолчанию - false)
+        /// </summary>
+        protected virtual bool ShowToConstructor => false;
+        /// <summary>
+        /// Показывать руководителю КБ (значение по умолчанию - false)
+        /// </summary>
+        protected virtual bool ShowToHead => false;
+
+        #endregion
+
         #region Steps
 
         /// <summary>
         /// Задача создана
         /// </summary>
-        public static readonly ScriptStep2 Create = new CreatStep();
+        public static readonly ScriptStep2 Create = new CreateStep();
 
         /// <summary>
         /// Задача запущена на проработку
@@ -59,7 +112,7 @@ namespace HVTApp.Model.POCOs
         public static readonly ScriptStep2 RejectByConstructor = new RejectByConstructorStep();
 
         /// <summary>
-        /// Проработка отклонена руководителем КБ менеджеру
+        /// Проработка отклонена менеджеру руководителем КБ
         /// </summary>
         public static readonly ScriptStep2 RejectByHead = new RejectByHeadStep();
 
@@ -170,15 +223,15 @@ namespace HVTApp.Model.POCOs
 
         #region Classes
 
-        private sealed class CreatStep : ScriptStep2
+        private sealed class CreateStep : ScriptStep2
         {
             public override string Description => "Задача создана";
 
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            public CreateStep() : base(0, Role.SalesManager)
             {
             }
 
-            public CreatStep() : base(0, Role.SalesManager)
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
             }
         }
@@ -186,6 +239,9 @@ namespace HVTApp.Model.POCOs
         private sealed class StartStep : ScriptStep2
         {
             public override string Description => "Задача запущена на проработку";
+
+            protected override bool ShowToHead => true;
+            protected override bool ShowToConstructor => true;
 
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
@@ -200,104 +256,122 @@ namespace HVTApp.Model.POCOs
         private sealed class StopStep : ScriptStep2
         {
             public override string Description => "Задача остановлена менеджером";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(priceEngineeringTask);
-            }
+
+            protected override bool ShowToSalesManager => false;
 
             public StopStep() : base(2, Role.SalesManager)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(priceEngineeringTask);
             }
         }
 
         private sealed class RejectByManagerStep : ScriptStep2
         {
             public override string Description => "Проработка отклонена менеджером исполнителю";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(priceEngineeringTask);
-            }
+
+            protected override bool ShowToConstructor => true;
 
             public RejectByManagerStep() : base(3, Role.SalesManager)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(priceEngineeringTask);
             }
         }
 
         private sealed class RejectByConstructorStep : ScriptStep2
         {
             public override string Description => "Проработка отклонена исполнителем менеджеру";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(priceEngineeringTask);
-            }
 
             public RejectByConstructorStep() : base(4, Role.Constructor)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(priceEngineeringTask);
             }
         }
 
         private sealed class FinishByConstructorStep : ScriptStep2
         {
             public override string Description => "Проработка завершена исполнителем";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(priceEngineeringTask);
-            }
 
             public FinishByConstructorStep() : base(5, Role.Constructor)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(priceEngineeringTask);
             }
         }
 
         private sealed class AcceptStep : ScriptStep2
         {
             public override string Description => "Проработка задачи принята менеджером";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(priceEngineeringTask);
-            }
+
+            protected override bool ShowToSalesManager => false;
 
             public AcceptStep() : base(6, Role.SalesManager)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(priceEngineeringTask);
             }
         }
 
         private sealed class VerificationRequestByConstructorStep : ScriptStep2
         {
             public override string Description => "Исполнитель направил проработку руководителю на проверку";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(priceEngineeringTask);
-            }
+
+            protected override bool ShowToHead => true;
 
             public VerificationRequestByConstructorStep() : base(7, Role.Constructor)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(priceEngineeringTask);
             }
         }
 
         private sealed class VerificationAcceptByHeadStep : ScriptStep2
         {
             public override string Description => "Руководитель согласовал проработку исполнителю";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(priceEngineeringTask);
-            }
 
             public VerificationAcceptByHeadStep() : base(8, Role.DesignDepartmentHead)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(priceEngineeringTask);
             }
         }
 
         private sealed class VerificationRejectByHeadStep : ScriptStep2
         {
             public override string Description => "Руководитель отклонил проработку исполнителю";
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(priceEngineeringTask);
-            }
+
+            protected override bool ShowToConstructor => true;
 
             public VerificationRejectByHeadStep() : base(9, Role.DesignDepartmentHead)
             {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(priceEngineeringTask);
             }
         }
 

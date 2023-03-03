@@ -8,8 +8,7 @@ namespace HVTApp.UI.PriceEngineering.Items
     {
         public virtual string StatusString => Entity?.Status.ToString();
 
-        public virtual bool ToShow => !Entity.Status.Equals(ScriptStep2.Stop) &&
-                                      !Entity.Status.Equals(ScriptStep2.Accept);
+        public virtual bool ToShow => Entity.Status.Show;
 
         protected PriceEngineeringTaskListItemBase(PriceEngineeringTask entity) : base(entity)
         {

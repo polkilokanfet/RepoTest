@@ -37,6 +37,7 @@ namespace HVTApp.UI.PriceEngineering.Items
         }
 
         public override bool ToShow => !Entity.Status.Equals(ScriptStep2.Stop) &&
+                                       !Entity.Status.Equals(ScriptStep2.RejectByHead) &&
                                        (Entity.UserConstructor == null ||
                                         Entity.Status.Equals(ScriptStep2.VerificationRequestByConstructor));
     }

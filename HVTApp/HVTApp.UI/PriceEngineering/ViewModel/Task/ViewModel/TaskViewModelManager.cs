@@ -27,6 +27,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     ScriptStep2.Create,
                     ScriptStep2.Stop,
+                    ScriptStep2.RejectByHead,
                     ScriptStep2.RejectByConstructor
                 };
 
