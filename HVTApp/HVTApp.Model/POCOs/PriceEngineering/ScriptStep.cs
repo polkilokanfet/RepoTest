@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
+using Microsoft.Practices.ObjectBuilder2;
 using Prism.Events;
 
 namespace HVTApp.Model.POCOs
@@ -16,7 +17,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// С каких этапов можно перейти на данный (в текущей роли).
         /// </summary>
-        public IEnumerable<ScriptStep> PossiblePreviousSteps { get; } = new List<ScriptStep>();
+        protected abstract IEnumerable<ScriptStep> PossiblePreviousSteps { get; } 
 
         /// <summary>
         /// На какие этапы можно перейти с данного (в текущей роли).
@@ -165,51 +166,6 @@ namespace HVTApp.Model.POCOs
             Role = role;
         }
 
-        static ScriptStep()
-        {
-            Start
-                .AddPossiblePreviousStep(Create)
-                .AddPossiblePreviousStep(RejectByHead)
-                .AddPossiblePreviousStep(RejectByConstructor);
-
-            Stop
-                .AddPossiblePreviousStep(Start)
-                .AddPossiblePreviousStep(RejectByManager)
-                .AddPossiblePreviousStep(RejectByConstructor)
-                .AddPossiblePreviousStep(FinishByConstructor)
-                .AddPossiblePreviousStep(VerificationRequestByConstructor)
-                .AddPossiblePreviousStep(VerificationAcceptByHead)
-                .AddPossiblePreviousStep(VerificationRejectByHead);
-
-            RejectByManager
-                .AddPossiblePreviousStep(FinishByConstructor)
-                .AddPossiblePreviousStep(VerificationAcceptByHead);
-
-            RejectByHead
-                .AddPossiblePreviousStep(Start);
-
-            RejectByConstructor
-                .AddPossiblePreviousStep(Start);
-
-            FinishByConstructor
-                .AddPossiblePreviousStep(Start)
-                .AddPossiblePreviousStep(VerificationAcceptByHead);
-
-            Accept
-                .AddPossiblePreviousStep(FinishByConstructor)
-                .AddPossiblePreviousStep(VerificationAcceptByHead);
-
-            VerificationRequestByConstructor
-                .AddPossiblePreviousStep(Start)
-                .AddPossiblePreviousStep(VerificationRejectByHead);
-
-            VerificationAcceptByHead
-                .AddPossiblePreviousStep(VerificationRequestByConstructor);
-
-            VerificationRejectByHead
-                .AddPossiblePreviousStep(VerificationRequestByConstructor);
-        }
-
         #endregion
 
         /// <summary>
@@ -219,14 +175,8 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public virtual bool AllowDoStep(ScriptStep currentStep)
         {
-            return this.Role == GlobalAppProperties.User.RoleCurrent && 
-                    PossiblePreviousSteps.Contains(currentStep);
-        }
-
-        private ScriptStep AddPossiblePreviousStep(ScriptStep step)
-        {
-            ((List<ScriptStep>)this.PossiblePreviousSteps).Add(step);
-            return this;
+            return this.Role == GlobalAppProperties.User.RoleCurrent &&
+                   PossiblePreviousSteps.Contains(currentStep);
         }
 
         public abstract void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask);
@@ -236,6 +186,11 @@ namespace HVTApp.Model.POCOs
         private sealed class CreateStep : ScriptStep
         {
             public override string Description => "Задача создана";
+
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+
+            };
 
             public CreateStep() : base(0, Role.SalesManager)
             {
@@ -249,6 +204,13 @@ namespace HVTApp.Model.POCOs
         private sealed class StartStep : ScriptStep
         {
             public override string Description => "Задача запущена на проработку";
+
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Create,
+                RejectByHead,
+                RejectByConstructor
+            };
 
             protected override bool ShowToHead => true;
             protected override bool ShowToConstructor => true;
@@ -267,6 +229,17 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Задача остановлена менеджером";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Start,
+                RejectByManager,
+                RejectByConstructor,
+                FinishByConstructor,
+                VerificationRequestByConstructor,
+                VerificationAcceptByHead,
+                VerificationRejectByHead
+            };
+
             protected override bool ShowToSalesManager => false;
 
             public StopStep() : base(2, Role.SalesManager)
@@ -282,6 +255,12 @@ namespace HVTApp.Model.POCOs
         private sealed class RejectByManagerStep : ScriptStep
         {
             public override string Description => "Проработка отклонена менеджером исполнителю";
+
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                FinishByConstructor,
+                VerificationAcceptByHead
+            };
 
             protected override bool ShowToConstructor => true;
 
@@ -299,6 +278,11 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Проработка отклонена исполнителем менеджеру";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Start
+            };
+
             public RejectByConstructorStep() : base(4, Role.Constructor)
             {
             }
@@ -313,6 +297,12 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Проработка завершена исполнителем";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Start,
+                VerificationAcceptByHead
+            };
+
             public FinishByConstructorStep() : base(5, Role.Constructor)
             {
             }
@@ -326,6 +316,12 @@ namespace HVTApp.Model.POCOs
         private sealed class AcceptStep : ScriptStep
         {
             public override string Description => "Проработка задачи принята менеджером";
+
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                FinishByConstructor,
+                VerificationAcceptByHead
+            };
 
             protected override bool ShowToSalesManager => false;
 
@@ -343,6 +339,12 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Исполнитель направил проработку руководителю на проверку";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Start,
+                VerificationRejectByHead
+            };
+
             protected override bool ShowToHead => true;
 
             public VerificationRequestByConstructorStep() : base(7, Role.Constructor)
@@ -359,6 +361,11 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Руководитель согласовал проработку исполнителю";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                VerificationRequestByConstructor
+            };
+
             public VerificationAcceptByHeadStep() : base(8, Role.DesignDepartmentHead)
             {
             }
@@ -372,6 +379,11 @@ namespace HVTApp.Model.POCOs
         private sealed class VerificationRejectByHeadStep : ScriptStep
         {
             public override string Description => "Руководитель отклонил проработку исполнителю";
+
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                VerificationRequestByConstructor
+            };
 
             protected override bool ShowToConstructor => true;
 
@@ -389,6 +401,11 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Руководитель КБ отклонил задачу менеджеру";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Start
+            };
+
             public RejectByHeadStep() : base(10, Role.DesignDepartmentHead)
             {
             }
@@ -403,13 +420,18 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Менеджер поставил задачу загрузить проработку в ТС";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Accept
+            };
+
             public LoadToTceStartStep() : base(11, Role.SalesManager)
             {
             }
 
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
-                throw new NotImplementedException();
+                eventAggregator.GetEvent<PriceEngineeringTaskLoadToTceStartEvent>().Publish(priceEngineeringTask);
             }
         }
 
@@ -417,13 +439,18 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Загрузка проработки в ТС завершена";
 
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                LoadToTceStart
+            };
+
             public LoadToTceFinishStep() : base(12, Role.BackManager)
             {
             }
 
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
-                throw new NotImplementedException();
+                eventAggregator.GetEvent<PriceEngineeringTaskLoadToTceFinishEvent>().Publish(priceEngineeringTask);
             }
         }
 
