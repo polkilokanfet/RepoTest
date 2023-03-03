@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -25,6 +26,11 @@ namespace HVTApp.UI.PriceEngineering.Items
                 this.SetProperty(ref _toShowFilt, value);
             }
         }
+
+        public DateTime TermPriority => this
+            .ChildPriceEngineeringTasks
+            .Select(x => x.Entity.TermPriority ?? this.Entity.WorkUpTo)
+            .Min();
 
         [Designation("Объекты"), OrderStatus(5000)]
         public abstract string Facilities { get; }

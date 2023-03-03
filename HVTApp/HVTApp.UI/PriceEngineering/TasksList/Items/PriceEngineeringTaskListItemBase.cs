@@ -1,4 +1,3 @@
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 

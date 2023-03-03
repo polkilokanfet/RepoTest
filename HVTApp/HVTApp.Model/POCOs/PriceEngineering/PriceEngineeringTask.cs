@@ -73,6 +73,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Строки расчётов ПЗ"), OrderStatus(80)]
         public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 
+        [Designation("Приоритет проработки задачи"), OrderStatus(81)]
         public virtual DateTime? TermPriority { get; set; }
 
         [Designation("Статусы проработки"), Required, OrderStatus(50)]

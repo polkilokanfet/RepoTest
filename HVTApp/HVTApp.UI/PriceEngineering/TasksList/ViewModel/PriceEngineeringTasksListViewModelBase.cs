@@ -112,6 +112,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Subscribe(OnItemChild);
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Subscribe(OnItemChild);
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Subscribe(OnItemChild);
+            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByHeadEvent>().Subscribe(OnItemChild);
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Subscribe(OnItemChild);
             container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Subscribe(OnItemChild);
 
@@ -159,8 +160,16 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             ((ICollection<TTasks>)Items).Clear();
-            var priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().Find(IsSuitable);
-            ((ICollection<TTasks>)Items).AddRange(priceEngineeringTasks.OrderByDescending(x => x.WorkUpTo).Select(this.GetItem));
+
+            var priceEngineeringTasks = UnitOfWork
+                .Repository<PriceEngineeringTasks>()
+                .Find(IsSuitable);
+            var tasks = priceEngineeringTasks
+                //.OrderByDescending(x => x.WorkUpTo)
+                .Select(this.GetItem)
+                .OrderBy(x => x.TermPriority);
+
+            ((ICollection<TTasks>)Items).AddRange(tasks);
         }
     }
 
