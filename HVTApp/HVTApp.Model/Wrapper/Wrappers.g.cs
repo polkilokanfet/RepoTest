@@ -2720,12 +2720,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Статус
         /// </summary>
-        public HVTApp.Model.POCOs.ScriptStep2 Status => GetValue<HVTApp.Model.POCOs.ScriptStep2>(); 
+        public HVTApp.Model.POCOs.ScriptStep Status => GetValue<HVTApp.Model.POCOs.ScriptStep>(); 
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
         /// </summary>
-        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2>>(); 
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep>>(); 
 
         /// <summary>
         /// Блок
@@ -3245,7 +3245,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Статусы задач
         /// </summary>
-        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep2>>(); 
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep>>(); 
         #endregion
 
         public override void InitializeComplexProperties()

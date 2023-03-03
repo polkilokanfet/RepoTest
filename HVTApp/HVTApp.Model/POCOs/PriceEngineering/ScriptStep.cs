@@ -7,7 +7,7 @@ using Prism.Events;
 
 namespace HVTApp.Model.POCOs
 {
-    public abstract class ScriptStep2 : SmartEnumeration<ScriptStep2>
+    public abstract class ScriptStep : SmartEnumeration<ScriptStep>
     {
         protected readonly Role Role;
 
@@ -16,16 +16,16 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// С каких этапов можно перейти на данный (в текущей роли).
         /// </summary>
-        public IEnumerable<ScriptStep2> PossiblePreviousSteps { get; } = new List<ScriptStep2>();
+        public IEnumerable<ScriptStep> PossiblePreviousSteps { get; } = new List<ScriptStep>();
 
         /// <summary>
         /// На какие этапы можно перейти с данного (в текущей роли).
         /// </summary>
-        public IEnumerable<ScriptStep2> PossibleNextSteps
+        public IEnumerable<ScriptStep> PossibleNextSteps
         {
             get
             {
-                return ScriptStep2
+                return ScriptStep
                     .GetMembers()
                     .Where(step => step.Equals(this) == false)
                     .Where(x => x.AllowDoStep(this));
@@ -89,57 +89,67 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Задача создана
         /// </summary>
-        public static readonly ScriptStep2 Create = new CreateStep();
+        public static readonly ScriptStep Create = new CreateStep();
 
         /// <summary>
         /// Задача запущена на проработку
         /// </summary>
-        public static readonly ScriptStep2 Start = new StartStep();
+        public static readonly ScriptStep Start = new StartStep();
 
         /// <summary>
         /// Задача остановлена менеджером
         /// </summary>
-        public static readonly ScriptStep2 Stop = new StopStep();
+        public static readonly ScriptStep Stop = new StopStep();
 
         /// <summary>
         /// Проработка отклонена менеджером конструктору
         /// </summary>
-        public static readonly ScriptStep2 RejectByManager = new RejectByManagerStep();
+        public static readonly ScriptStep RejectByManager = new RejectByManagerStep();
 
         /// <summary>
         /// Проработка отклонена конструктором менеджеру
         /// </summary>
-        public static readonly ScriptStep2 RejectByConstructor = new RejectByConstructorStep();
+        public static readonly ScriptStep RejectByConstructor = new RejectByConstructorStep();
 
         /// <summary>
         /// Проработка отклонена менеджеру руководителем КБ
         /// </summary>
-        public static readonly ScriptStep2 RejectByHead = new RejectByHeadStep();
+        public static readonly ScriptStep RejectByHead = new RejectByHeadStep();
 
         /// <summary>
         /// Проработка завершена конструктором
         /// </summary>
-        public static readonly ScriptStep2 FinishByConstructor = new FinishByConstructorStep();
+        public static readonly ScriptStep FinishByConstructor = new FinishByConstructorStep();
 
         /// <summary>
         /// Проработка задачи принята менеджером
         /// </summary>
-        public static readonly ScriptStep2 Accept = new AcceptStep();
+        public static readonly ScriptStep Accept = new AcceptStep();
 
         /// <summary>
         /// Конструктор направил проработку руководителю на проверку
         /// </summary>
-        public static readonly ScriptStep2 VerificationRequestByConstructor = new VerificationRequestByConstructorStep();
+        public static readonly ScriptStep VerificationRequestByConstructor = new VerificationRequestByConstructorStep();
 
         /// <summary>
         /// Руководитель согласовал проработку конструктору
         /// </summary>
-        public static readonly ScriptStep2 VerificationAcceptByHead = new VerificationAcceptByHeadStep();
+        public static readonly ScriptStep VerificationAcceptByHead = new VerificationAcceptByHeadStep();
 
         /// <summary>
         /// Руководитель отклонил проработку конструктору
         /// </summary>
-        public static readonly ScriptStep2 VerificationRejectByHead = new VerificationRejectByHeadStep();
+        public static readonly ScriptStep VerificationRejectByHead = new VerificationRejectByHeadStep();
+
+        /// <summary>
+        /// Загрузить проработку в ТСЕ (старт от менеджера)
+        /// </summary>
+        public static readonly ScriptStep LoadToTceStart = new LoadToTceStartStep();
+
+        /// <summary>
+        /// Загрузка проработки в ТСЕ завершена
+        /// </summary>
+        public static readonly ScriptStep LoadToTceFinish = new LoadToTceFinishStep();
 
         #endregion
 
@@ -150,12 +160,12 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         /// <param name="value"></param>
         /// <param name="role">Роль, в которой пожно перейти на данный этап</param>
-        private ScriptStep2(int value, Role role) : base(value)
+        private ScriptStep(int value, Role role) : base(value)
         {
             Role = role;
         }
 
-        static ScriptStep2()
+        static ScriptStep()
         {
             Start
                 .AddPossiblePreviousStep(Create)
@@ -207,15 +217,15 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         /// <param name="currentStep">Этап, с которого предполагаемо возможен переход</param>
         /// <returns></returns>
-        public virtual bool AllowDoStep(ScriptStep2 currentStep)
+        public virtual bool AllowDoStep(ScriptStep currentStep)
         {
             return this.Role == GlobalAppProperties.User.RoleCurrent && 
                     PossiblePreviousSteps.Contains(currentStep);
         }
 
-        private ScriptStep2 AddPossiblePreviousStep(ScriptStep2 step)
+        private ScriptStep AddPossiblePreviousStep(ScriptStep step)
         {
-            ((List<ScriptStep2>)this.PossiblePreviousSteps).Add(step);
+            ((List<ScriptStep>)this.PossiblePreviousSteps).Add(step);
             return this;
         }
 
@@ -223,7 +233,7 @@ namespace HVTApp.Model.POCOs
 
         #region Classes
 
-        private sealed class CreateStep : ScriptStep2
+        private sealed class CreateStep : ScriptStep
         {
             public override string Description => "Задача создана";
 
@@ -236,7 +246,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class StartStep : ScriptStep2
+        private sealed class StartStep : ScriptStep
         {
             public override string Description => "Задача запущена на проработку";
 
@@ -253,7 +263,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class StopStep : ScriptStep2
+        private sealed class StopStep : ScriptStep
         {
             public override string Description => "Задача остановлена менеджером";
 
@@ -269,7 +279,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class RejectByManagerStep : ScriptStep2
+        private sealed class RejectByManagerStep : ScriptStep
         {
             public override string Description => "Проработка отклонена менеджером исполнителю";
 
@@ -285,7 +295,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class RejectByConstructorStep : ScriptStep2
+        private sealed class RejectByConstructorStep : ScriptStep
         {
             public override string Description => "Проработка отклонена исполнителем менеджеру";
 
@@ -299,7 +309,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class FinishByConstructorStep : ScriptStep2
+        private sealed class FinishByConstructorStep : ScriptStep
         {
             public override string Description => "Проработка завершена исполнителем";
 
@@ -313,7 +323,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class AcceptStep : ScriptStep2
+        private sealed class AcceptStep : ScriptStep
         {
             public override string Description => "Проработка задачи принята менеджером";
 
@@ -329,7 +339,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class VerificationRequestByConstructorStep : ScriptStep2
+        private sealed class VerificationRequestByConstructorStep : ScriptStep
         {
             public override string Description => "Исполнитель направил проработку руководителю на проверку";
 
@@ -345,7 +355,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class VerificationAcceptByHeadStep : ScriptStep2
+        private sealed class VerificationAcceptByHeadStep : ScriptStep
         {
             public override string Description => "Руководитель согласовал проработку исполнителю";
 
@@ -359,7 +369,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class VerificationRejectByHeadStep : ScriptStep2
+        private sealed class VerificationRejectByHeadStep : ScriptStep
         {
             public override string Description => "Руководитель отклонил проработку исполнителю";
 
@@ -375,7 +385,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class RejectByHeadStep : ScriptStep2
+        private sealed class RejectByHeadStep : ScriptStep
         {
             public override string Description => "Руководитель КБ отклонил задачу менеджеру";
 
@@ -386,6 +396,34 @@ namespace HVTApp.Model.POCOs
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskRejectedByHeadEvent>().Publish(priceEngineeringTask);
+            }
+        }
+
+        private sealed class LoadToTceStartStep : ScriptStep
+        {
+            public override string Description => "Менеджер поставил задачу загрузить проработку в ТС";
+
+            public LoadToTceStartStep() : base(11, Role.SalesManager)
+            {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private sealed class LoadToTceFinishStep : ScriptStep
+        {
+            public override string Description => "Загрузка проработки в ТС завершена";
+
+            public LoadToTceFinishStep() : base(12, Role.BackManager)
+            {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                throw new NotImplementedException();
             }
         }
 

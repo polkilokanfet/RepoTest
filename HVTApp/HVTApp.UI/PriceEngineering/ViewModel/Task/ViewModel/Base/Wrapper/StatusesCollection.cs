@@ -18,7 +18,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// </summary>
         /// <param name="step"></param>
         /// <param name="comment"></param>
-        public void Add(ScriptStep2 step, string comment = null)
+        public void Add(ScriptStep step, string comment = null)
         {
             var status = new PriceEngineeringTaskStatus
             {

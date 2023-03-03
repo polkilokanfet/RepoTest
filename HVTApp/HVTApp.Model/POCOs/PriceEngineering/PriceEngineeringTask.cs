@@ -93,12 +93,12 @@ namespace HVTApp.Model.POCOs
     public partial class PriceEngineeringTask
     {
         [Designation("Статус"), NotMapped]
-        public ScriptStep2 Status
+        public ScriptStep Status
         {
             get
             {
                 var status1 = Statuses.Any() ? Statuses.OrderBy(status => status.Moment).Last().StatusEnum : 0;
-                return ScriptStep2.FromValue(status1);
+                return ScriptStep.FromValue(status1);
             }
         }
 
@@ -111,12 +111,12 @@ namespace HVTApp.Model.POCOs
             {
                 if (UserConstructor == null) return false;
 
-                var statuses = new List<ScriptStep2>
+                var statuses = new List<ScriptStep>
                 {
-                    ScriptStep2.Create,
-                    ScriptStep2.Start,
-                    ScriptStep2.RejectByManager,
-                    ScriptStep2.VerificationRejectByHead
+                    ScriptStep.Create,
+                    ScriptStep.Start,
+                    ScriptStep.RejectByManager,
+                    ScriptStep.VerificationRejectByHead
                 };
 
                 return statuses.Contains(Status);
@@ -127,35 +127,35 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                var statuses = new List<ScriptStep2>
+                var statuses = new List<ScriptStep>
                 {
-                    ScriptStep2.FinishByConstructor,
-                    ScriptStep2.VerificationRequestByConstructor,
-                    ScriptStep2.VerificationAcceptByHead,
-                    ScriptStep2.Accept
+                    ScriptStep.FinishByConstructor,
+                    ScriptStep.VerificationRequestByConstructor,
+                    ScriptStep.VerificationAcceptByHead,
+                    ScriptStep.Accept
                 };
 
                 return statuses.Contains(Status);
             }
         }
 
-        public bool IsAccepted => this.Status.Equals(ScriptStep2.Accept);
+        public bool IsAccepted => this.Status.Equals(ScriptStep.Accept);
 
         /// <summary>
         /// Проработка задачи принята менеджером (со всеми вложенными задачами).
         /// </summary>
-        public bool IsAcceptedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep2.Accept));
+        public bool IsAcceptedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep.Accept));
 
         /// <summary>
         /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).
         /// </summary>
-        public bool IsStoppedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep2.Stop));
+        public bool IsStoppedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep.Stop));
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
         /// </summary>
         [Designation("Статусы этой задачи и всех вложенных"), NotMapped, NotForListView]
-        public IEnumerable<ScriptStep2> StatusesAll
+        public IEnumerable<ScriptStep> StatusesAll
         {
             get
             {
@@ -179,15 +179,15 @@ namespace HVTApp.Model.POCOs
                     return default;
 
                 return this.Statuses
-                    .Where(x => x.StatusEnum == ScriptStep2.Start.Value)
+                    .Where(x => x.StatusEnum == ScriptStep.Start.Value)
                     .OrderBy(x => x.Moment)
                     .Last()
                     .Moment;
             }
         }
 
-        public bool IsStarted => !Status.Equals(ScriptStep2.Stop) && 
-                                 !Status.Equals(ScriptStep2.Create);
+        public bool IsStarted => !Status.Equals(ScriptStep.Stop) && 
+                                 !Status.Equals(ScriptStep.Create);
 
         public bool HasSccInTce
         {

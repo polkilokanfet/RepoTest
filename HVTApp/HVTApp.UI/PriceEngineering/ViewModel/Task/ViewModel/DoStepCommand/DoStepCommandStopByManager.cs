@@ -5,7 +5,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
     public class DoStepCommandStopByManager : DoStepCommandBase
     {
-        protected override ScriptStep2 Step => ScriptStep2.Stop;
+        protected override ScriptStep Step => ScriptStep.Stop;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите остановить проработку задачи?";
 

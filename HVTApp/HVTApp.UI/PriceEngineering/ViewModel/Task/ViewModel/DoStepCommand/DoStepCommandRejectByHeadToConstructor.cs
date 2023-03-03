@@ -5,7 +5,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
     public class DoStepCommandRejectByHeadToConstructor: DoStepCommandBase
     {
-        protected override ScriptStep2 Step => ScriptStep2.VerificationRejectByHead;
+        protected override ScriptStep Step => ScriptStep.VerificationRejectByHead;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите отправить задачу на доработку исполнителю?";
 

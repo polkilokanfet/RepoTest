@@ -16,7 +16,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected readonly IEventAggregator EventAggregator;
         private bool _showConfirmation = true;
 
-        protected abstract ScriptStep2 Step { get; }
+        protected abstract ScriptStep Step { get; }
         protected abstract string ConfirmationMessage { get; }
 
         #region ctors

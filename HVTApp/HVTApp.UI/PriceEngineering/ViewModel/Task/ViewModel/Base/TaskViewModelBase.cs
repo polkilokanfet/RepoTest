@@ -88,7 +88,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Статус
         /// </summary>
-        public ScriptStep2 Status => this.Model.Status;
+        public ScriptStep Status => this.Model.Status;
 
         #endregion
 

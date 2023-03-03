@@ -53,8 +53,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
                 if (this.TasksWrapper == null) return false;
 
-                return TasksWrapper.Model.StatusesAll.All(x => x.Equals(ScriptStep2.Create)) ||
-                       TasksWrapper.Model.StatusesAll.All(x => x.Equals(ScriptStep2.Stop));
+                return TasksWrapper.Model.StatusesAll.All(x => x.Equals(ScriptStep.Create)) ||
+                       TasksWrapper.Model.StatusesAll.All(x => x.Equals(ScriptStep.Stop));
             }
         }
 
@@ -194,7 +194,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     {
                         foreach (var viewModel in priceEngineeringTaskViewModel.GetAllPriceEngineeringTaskViewModels())
                         {
-                            if (viewModel.Model.Status.Equals(ScriptStep2.Stop))
+                            if (viewModel.Model.Status.Equals(ScriptStep.Stop))
                             {
                                 continue;
                             }

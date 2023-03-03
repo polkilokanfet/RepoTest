@@ -51,13 +51,13 @@ namespace HVTApp.UI.PriceEngineering
 
         public bool AllowInstruction =>
             IsTarget &&
-            !Status.Equals(ScriptStep2.RejectByHead) &&
-            !Status.Equals(ScriptStep2.FinishByConstructor) &&
-            !Status.Equals(ScriptStep2.VerificationAcceptByHead) &&
-            !Status.Equals(ScriptStep2.VerificationRequestByConstructor) &&
-            !Status.Equals(ScriptStep2.Create) &&
-            !Status.Equals(ScriptStep2.Stop) &&
-            !Status.Equals(ScriptStep2.Accept);
+            !Status.Equals(ScriptStep.RejectByHead) &&
+            !Status.Equals(ScriptStep.FinishByConstructor) &&
+            !Status.Equals(ScriptStep.VerificationAcceptByHead) &&
+            !Status.Equals(ScriptStep.VerificationRequestByConstructor) &&
+            !Status.Equals(ScriptStep.Create) &&
+            !Status.Equals(ScriptStep.Stop) &&
+            !Status.Equals(ScriptStep.Accept);
 
         #region ctors
 

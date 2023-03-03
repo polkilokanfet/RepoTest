@@ -39,7 +39,7 @@ namespace HVTApp.Model.POCOs
 
         public static PriceEngineeringTaskStatusMessage Convert(PriceEngineeringTaskStatus status)
         {
-            var sb = new StringBuilder(ScriptStep2.FromValue(status.StatusEnum).Description);
+            var sb = new StringBuilder(ScriptStep.FromValue(status.StatusEnum).Description);
 
             if (string.IsNullOrWhiteSpace(status.Comment) == false)
             {

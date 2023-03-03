@@ -23,12 +23,12 @@ namespace HVTApp.UI.PriceEngineering
         {
             get
             {
-                var statuses = new List<ScriptStep2>()
+                var statuses = new List<ScriptStep>()
                 {
-                    ScriptStep2.Create,
-                    ScriptStep2.Stop,
-                    ScriptStep2.RejectByHead,
-                    ScriptStep2.RejectByConstructor
+                    ScriptStep.Create,
+                    ScriptStep.Stop,
+                    ScriptStep.RejectByHead,
+                    ScriptStep.RejectByConstructor
                 };
 
                 return statuses.Contains(Status);

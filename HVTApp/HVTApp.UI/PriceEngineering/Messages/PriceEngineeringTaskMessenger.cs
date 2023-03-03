@@ -30,11 +30,11 @@ namespace HVTApp.UI.PriceEngineering.Messages
         {
             get
             {
-                var ss = new List<ScriptStep2>
+                var ss = new List<ScriptStep>
                 {
-                    ScriptStep2.Create,
-                    ScriptStep2.Stop,
-                    ScriptStep2.Accept
+                    ScriptStep.Create,
+                    ScriptStep.Stop,
+                    ScriptStep.Accept
                 };
 
                 return ss.Contains(_viewModel.Status) == false;

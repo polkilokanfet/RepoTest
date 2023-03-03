@@ -38,11 +38,11 @@ namespace HVTApp.UI.PriceEngineering
             {
                 if (IsTarget == false) return false;
 
-                var ss = new List<ScriptStep2>
+                var ss = new List<ScriptStep>
                 {
-                    ScriptStep2.Start,
-                    ScriptStep2.RejectByManager,
-                    ScriptStep2.VerificationRejectByHead
+                    ScriptStep.Start,
+                    ScriptStep.RejectByManager,
+                    ScriptStep.VerificationRejectByHead
                 };
 
                 return ss.Contains(Status);
@@ -272,8 +272,8 @@ namespace HVTApp.UI.PriceEngineering
                     }
 
                     var step = needVerification
-                        ? ScriptStep2.VerificationRequestByConstructor
-                        : ScriptStep2.FinishByConstructor;
+                        ? ScriptStep.VerificationRequestByConstructor
+                        : ScriptStep.FinishByConstructor;
                     Statuses.Add(step);
                     Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));
                     SaveCommand.Execute();

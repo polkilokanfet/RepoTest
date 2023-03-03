@@ -5,7 +5,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
     public class DoStepCommandRejectedByConstructor : DoStepCommandBase
     {
-        protected override ScriptStep2 Step => ScriptStep2.RejectByConstructor;
+        protected override ScriptStep Step => ScriptStep.RejectByConstructor;
         protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить проработку задачи?";
 
         public DoStepCommandRejectedByConstructor(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
