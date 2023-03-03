@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
-using Microsoft.Practices.ObjectBuilder2;
 using Prism.Events;
 
 namespace HVTApp.Model.POCOs
@@ -26,10 +24,9 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                return ScriptStep
-                    .GetMembers()
+                return GetMembers()
                     .Where(step => step.Equals(this) == false)
-                    .Where(x => x.AllowDoStep(this));
+                    .Where(step => step.AllowDoStep(this));
             }
         }
 

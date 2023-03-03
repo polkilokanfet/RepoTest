@@ -79,7 +79,7 @@ namespace HVTApp.UI.PriceEngineering
             AcceptCommand = new DoStepCommandAcceptedByManager(this, container, () =>  this.OnTaskAcceptedByManagerAction(this.Model));
             RejectCommand = new DoStepCommandRejectedByManager(this, container);
             StopCommand = new DoStepCommandStopByManager(this, container);
-            LoadToTceStartCommand = ne
+            LoadToTceStartCommand = new DoStepCommandLoadToTceStart(this, container);
 
             ReplaceProductCommand = new DelegateLogConfirmationCommand(messageService,
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",
