@@ -11,7 +11,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    [RibbonTab(typeof(TabPriceEngineeringTask))]
+    [RibbonTab(typeof(TabPriceEngineeringTaskBackManagerBoss))]
     public partial class PriceEngineeringTasksViewBackManagerBoss : IDisposable
     {
         private TasksViewModelBackManagerBoss _viewModel;
