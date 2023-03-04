@@ -4,32 +4,31 @@
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              x:Name="Root">
 
-    <Border DataContext="{Binding TasksViewModel, ElementName=Root}" Background="White" Padding="5">
+    <view:TasksControl DataContext="{Binding TasksViewModel, ElementName=Root}">
 
-        <view:TasksControl>
+        <!--Общая информация для всего оборудования в заданиях-->
+        <view:TasksControl.CommonInformation>
+            <view:CommonInformationControl DataContext="{Binding}"/>
+        </view:TasksControl.CommonInformation>
 
-            <view:TasksControl.CommonInformation>
-                <view:CommonInformationControl DataContext="{Binding}"/>
-            </view:TasksControl.CommonInformation>
+        <!--Оборудование-->
+        <view:TasksControl.Products>
+            <ItemsControl
+                ItemsSource="{Binding TasksWrapper.ChildTasks}" 
+                HorizontalAlignment="Stretch"
+                BorderThickness="0">
 
-            <view:TasksControl.Products>
-                <ItemsControl
-                    ItemsSource="{Binding TasksWrapper.ChildTasks}" 
-                    HorizontalAlignment="Stretch"
-                    BorderThickness="0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <view:ProductTaskControlManager 
+                            TaskViewModel="{Binding}"
+                            Margin="2 5 2 0"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <view:ProductTaskControlManager 
-                                TaskViewModel="{Binding}"
-                                Margin="2 5 2 0"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </view:TasksControl.Products>
 
-                </ItemsControl>
-            </view:TasksControl.Products>
-        </view:TasksControl>
-
-    </Border>
+    </view:TasksControl>
 
 </UserControl>
