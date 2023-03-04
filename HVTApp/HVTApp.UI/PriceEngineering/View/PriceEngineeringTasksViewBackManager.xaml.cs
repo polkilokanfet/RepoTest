@@ -13,9 +13,9 @@ namespace HVTApp.UI.PriceEngineering.View
     [RibbonTab(typeof(TabPriceEngineeringTask))]
     public partial class PriceEngineeringTasksViewBackManager : IDisposable
     {
-        private TasksViewModelConstructor _viewModel;
+        private TasksViewModelBackManager _viewModel;
 
-        public PriceEngineeringTasksViewBackManager(TasksViewModelConstructor viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
+        public PriceEngineeringTasksViewBackManager(TasksViewModelBackManager viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             _viewModel = viewModel;
             InitializeComponent();
