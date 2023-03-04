@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class TasksViewModelManagerBack : TasksViewModelVisible<TasksWrapperManagerBack, TaskViewModelManagerBack>
+    public class TasksViewModelManagerBack : TasksViewModelVisible<TasksWrapperBackManager, TaskViewModelBackManager>
     {
         public TasksTceWrapper TasksTceWrapper { get; }
 
@@ -14,9 +14,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             TasksTceWrapper = new TasksTceWrapper(this.TasksWrapper.Model);
         }
 
-        protected override TasksWrapperManagerBack GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
+        protected override TasksWrapperBackManager GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
         {
-            return new TasksWrapperManagerBack(priceEngineeringTasks, container);
+            return new TasksWrapperBackManager(priceEngineeringTasks, container);
         }
     }
 }

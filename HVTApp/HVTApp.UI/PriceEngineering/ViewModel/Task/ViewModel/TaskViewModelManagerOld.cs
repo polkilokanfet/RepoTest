@@ -17,12 +17,12 @@ namespace HVTApp.UI.PriceEngineering
     {
         #region Commands
 
-        public ICommandRaiseCanExecuteChanged AcceptCommand { get; }
-        public ICommandRaiseCanExecuteChanged RejectCommand { get; }
+        public ICommandIsVisibleWhenCanExecute AcceptCommand { get; }
+        public ICommandIsVisibleWhenCanExecute RejectCommand { get; }
         public DoStepCommandStopByManager StopCommand { get; }
 
-        public ICommandRaiseCanExecuteChanged LoadToTceStartCommand { get; set; }
-        public ICommandRaiseCanExecuteChanged StartProductionCommand { get; }
+        public ICommandIsVisibleWhenCanExecute LoadToTceStartCommand { get; set; }
+        public ICommandIsVisibleWhenCanExecute StartProductionCommand { get; }
 
         /// <summary>
         /// Замена продукта в SalesUnit на продукты из ТСП

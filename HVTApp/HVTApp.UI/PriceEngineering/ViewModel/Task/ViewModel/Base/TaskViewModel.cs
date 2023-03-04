@@ -229,13 +229,16 @@ namespace HVTApp.UI.PriceEngineering
             #endregion
 
             //синхронизация сообщений
-            Messenger = new PriceEngineeringTaskMessenger(this, Container);
-
-            this.Statuses.CollectionChanged += (sender, args) =>
+            if (this.Statuses != null)
             {
-                OnPropertyChanged(nameof(Status));
-                OnPropertyChanged(nameof(IsEditMode));
-            };
+                Messenger = new PriceEngineeringTaskMessenger(this, Container);
+
+                this.Statuses.CollectionChanged += (sender, args) =>
+                {
+                    RaisePropertyChanged(nameof(Status));
+                    RaisePropertyChanged(nameof(IsEditMode));
+                };
+            }
         }
 
         #endregion
@@ -268,7 +271,7 @@ namespace HVTApp.UI.PriceEngineering
         public void Dispose()
         {
             UnitOfWork?.Dispose();
-            Messenger.Dispose();
+            Messenger?.Dispose();
         }
     }
 }

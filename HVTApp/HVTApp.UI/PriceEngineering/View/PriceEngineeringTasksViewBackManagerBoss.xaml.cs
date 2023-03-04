@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.Tabs;
@@ -11,11 +12,11 @@ using Prism.Regions;
 namespace HVTApp.UI.PriceEngineering.View
 {
     [RibbonTab(typeof(TabPriceEngineeringTask))]
-    public partial class PriceEngineeringTasksViewBackOfficeBoss : ViewBaseConfirmNavigationRequest, IDisposable
+    public partial class PriceEngineeringTasksViewBackManagerBoss : IDisposable
     {
-        private TasksViewModelManagerBackBoss _viewModel;
+        private TasksViewModelBackManagerBoss _viewModel;
 
-        public PriceEngineeringTasksViewBackOfficeBoss(TasksViewModelManagerBackBoss viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) 
+        public PriceEngineeringTasksViewBackManagerBoss(TasksViewModelBackManagerBoss viewModel, IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) 
             : base(container, regionManager, eventAggregator)
         {
 

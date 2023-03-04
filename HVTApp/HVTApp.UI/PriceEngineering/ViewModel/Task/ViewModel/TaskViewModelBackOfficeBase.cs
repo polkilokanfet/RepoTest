@@ -11,26 +11,21 @@ using Prism.Commands;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class TaskViewModelManagerBack : TaskViewModel
+    public abstract class TaskViewModelBackOfficeBase : TaskViewModel
     {
-        public override bool IsTarget => true;
-
-        public override bool IsEditMode => true;
-
-        public TaskViewModelManagerBack(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskViewModelBackOfficeBase(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
-            var originalStructureCostNumber = this.Model.ProductBlock.StructureCostNumber;
-
             //если нет актуального scc, добавляем его
-            if (this.StructureCostVersions.Any(x => x.OriginalStructureCostNumber == originalStructureCostNumber) == false)
+            var originalSccNumber = this.Model.ProductBlock.StructureCostNumber;
+            if (this.StructureCostVersions.Any(scc => scc.OriginalStructureCostNumber == originalSccNumber) == false)
             {
-                var scc = new SccVersionWrapper(new StructureCostVersion(), this.Model.ProductBlock.ToString(), true);
-                this.StructureCostVersions.Add(scc);
-                scc.OriginalStructureCostNumber = originalStructureCostNumber;
+                var sccVersionWrapper = new SccVersionWrapper(new StructureCostVersion(), this.Model.ProductBlock.ToString(), true);
+                this.StructureCostVersions.Add(sccVersionWrapper);
+                sccVersionWrapper.OriginalStructureCostNumber = originalSccNumber;
                 StructureCostVersions.AcceptChanges();
             }
 
-            this.StructureCostVersions.ForEach(x => x.Constructor = this.Model.UserConstructor.Employee.Person.ToString());
+            this.StructureCostVersions.ForEach(sccVersionWrapper => sccVersionWrapper.Constructor = this.Model.UserConstructor.Employee.Person.ToString());
 
             LoadFilesCommand = new DelegateCommand(() =>
             {

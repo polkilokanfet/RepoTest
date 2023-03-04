@@ -28,6 +28,9 @@ namespace HVTApp.UI.PriceEngineering.View
                 case Role.BackManager:
                     this.DataContext = container.Resolve<PriceEngineeringTasksListViewModelBackManager>();
                     break;
+                case Role.BackManagerBoss:
+                    this.DataContext = container.Resolve<PriceEngineeringTasksListViewModelBackManagerBoss>();
+                    break;
                 default:
                     throw new NotImplementedException();
             }

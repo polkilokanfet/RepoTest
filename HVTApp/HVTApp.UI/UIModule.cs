@@ -98,11 +98,11 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<LaborHoursView>();
             Container.RegisterViewForNavigation<PaymentConditionSetLookupListView1>();
 
-            Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackOfficeBoss>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewConstructor>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewDesignDepartmentHead>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewManager>();
-            Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackOfficeBoss>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackManager>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackManagerBoss>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksListView>();
 
             Container.RegisterViewForNavigation<DesignDepartmentView>();

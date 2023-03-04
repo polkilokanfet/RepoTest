@@ -328,9 +328,14 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackOfficeBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemConstructor.cs" />
@@ -356,7 +361,7 @@
     </Compile>
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\WorkloadItem.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperManagerBack.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\IPriceEngineeringTasksViewModel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperDesignDepartmentHead.cs" />
@@ -366,7 +371,7 @@
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManager.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManagerBack.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManagerBackBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelVisible.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperManager.cs" />
@@ -382,7 +387,9 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectedByConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectedByManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopByManager.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerBack.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackOfficeBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBaseWithStartCommand.cs" />
@@ -537,6 +544,9 @@
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
       <DependentUpon>TaskControlManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManagerBoss.xaml.cs">
+      <DependentUpon>TasksControlBackManagerBoss.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManager.xaml.cs">
       <DependentUpon>TasksControlBackManager.xaml</DependentUpon>
     </Compile>
@@ -564,8 +574,8 @@
     <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewManager.xaml.cs">
       <DependentUpon>PriceEngineeringTasksViewManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewBackOfficeBoss.xaml.cs">
-      <DependentUpon>PriceEngineeringTasksViewBackOfficeBoss.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewBackManagerBoss.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewBackManagerBoss.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductBlockControl.xaml.cs">
       <DependentUpon>ProductBlockControl.xaml</DependentUpon>
@@ -2061,6 +2071,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManagerBoss.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2097,7 +2111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\View\PriceEngineeringTasksViewBackOfficeBoss.xaml">
+    <Page Include="PriceEngineering\View\PriceEngineeringTasksViewBackManagerBoss.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

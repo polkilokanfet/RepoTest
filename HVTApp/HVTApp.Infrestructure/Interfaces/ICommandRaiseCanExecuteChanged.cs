@@ -10,7 +10,9 @@ namespace HVTApp.Infrastructure.Interfaces
     {
         bool IsVisible { get; }
     }
-    public interface ICommandIsVisibleWhenCanExecute : IIsVisible, ICommandRaiseCanExecuteChanged
-    { }
 
+    public interface ICommandIsVisibleWhenCanExecute : IIsVisible, ICommandRaiseCanExecuteChanged
+    {
+
+    }
 }

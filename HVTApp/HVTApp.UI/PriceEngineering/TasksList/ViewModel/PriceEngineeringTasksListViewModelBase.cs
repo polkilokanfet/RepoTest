@@ -87,7 +87,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                 break;
 
                             case Role.BackManagerBoss:
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackOfficeBoss>(parameters);
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManagerBoss>(parameters);
                                 break;
 
                             case Role.DesignDepartmentHead:

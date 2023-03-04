@@ -78,7 +78,7 @@ namespace HVTApp.Services.PopupNotificationsService1
                         break;
 
                     case Role.BackManagerBoss:
-                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackOfficeBoss>(parameters);
+                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManagerBoss>(parameters);
                         break;
 
                     case Role.DesignDepartmentHead:

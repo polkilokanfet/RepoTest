@@ -207,6 +207,21 @@ namespace HVTApp.Model.POCOs
         }
 
         /// <summary>
+        /// Задача подходит для загрузки в ТС
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSuitableForLoadInTce()
+        {
+            var scriptSteps = new List<ScriptStep>
+            {
+                ScriptStep.LoadToTceStart,
+                ScriptStep.LoadToTceFinish
+            };
+
+            return GetAllPriceEngineeringTasks().All(priceEngineeringTask => scriptSteps.Contains(priceEngineeringTask.Status));
+        }
+
+        /// <summary>
         /// Вернуть все задачи, которые прорабатывает данный User
         /// </summary>
         /// <param name="user"></param>

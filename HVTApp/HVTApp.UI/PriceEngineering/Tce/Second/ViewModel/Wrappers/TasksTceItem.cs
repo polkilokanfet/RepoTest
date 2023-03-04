@@ -53,7 +53,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 StructureCostVersions.AcceptChanges();
             }
 
-            this.StructureCostVersions.ForEach(x => x.Constructor = this.Model.UserConstructor.Employee.Person.ToString());
+            this.StructureCostVersions.ForEach(sccVersionWrapper => sccVersionWrapper.Constructor = this.Model.UserConstructor?.Employee.Person.ToString());
 
             LoadFilesCommand = new DelegateCommand(() =>
             {
