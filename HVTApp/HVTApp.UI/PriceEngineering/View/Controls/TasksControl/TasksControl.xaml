@@ -11,8 +11,8 @@
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Технико-стоимостная проработка сборки задач с Id"/>
                         <TextBox Text="{Binding Path=Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                 IsReadOnly="True"
-                                 BorderThickness="0"/>
+                                    IsReadOnly="True"
+                                    BorderThickness="0"/>
                     </StackPanel>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
@@ -24,28 +24,19 @@
                 </Grid.RowDefinitions>
 
                 <!--Общая информация для всего оборудования в заданиях-->
-                <view:CommonInformationControl DataContext="{Binding}"/>
+                <ContentPresenter Grid.Row="0" Content="{Binding CommonInformation, ElementName=Root}"/>
 
                 <!--Оборудование-->
                 <GroupBox Grid.Row="1" Header="Оборудование">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
-                        <ItemsControl
-                            ItemsSource="{Binding TasksWrapper.ChildTasks}" 
-                            HorizontalAlignment="Stretch"
-                            BorderThickness="0">
-
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <view:ProductTaskControl DataContext="{Binding}" Margin="2 5 2 0"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-
-                        </ItemsControl>
-
+                        <ContentPresenter Content="{Binding Products, ElementName=Root}"/>
                     </ScrollViewer>
                 </GroupBox>
             </Grid>
+
+
         </GroupBox>
     </Border>
+
 
 </UserControl>

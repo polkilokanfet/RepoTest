@@ -1,17 +1,20 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using HVTApp.UI.PriceEngineering.ViewModel;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    public partial class TasksControlManager : UserControl
+    public partial class TasksControlManager
     {
-        public static readonly DependencyProperty TasksViewModelManagerProperty = DependencyProperty.Register("TasksViewModelManager", typeof(TasksViewModelManager), typeof(TasksControlManager), new PropertyMetadata(default(TasksViewModelManager)));
+        public static readonly DependencyProperty TasksViewModelProperty = DependencyProperty.Register(
+            "TasksViewModel", 
+            typeof(TasksViewModelManager), 
+            typeof(TasksControlManager), 
+            new PropertyMetadata(default(TasksViewModelManager)));
 
-        public TasksViewModelManager TasksViewModelManager
+        public TasksViewModelManager TasksViewModel
         {
-            get => (TasksViewModelManager) GetValue(TasksViewModelManagerProperty);
-            set => SetValue(TasksViewModelManagerProperty, value);
+            get => (TasksViewModelManager) GetValue(TasksViewModelProperty);
+            set => SetValue(TasksViewModelProperty, value);
         }
 
         public TasksControlManager()
