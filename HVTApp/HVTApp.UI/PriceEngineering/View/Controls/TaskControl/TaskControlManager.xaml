@@ -140,11 +140,11 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Text="Стартовать" Command="{Binding StartCommand}"/>
-                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Text="Принять" Command="{Binding AcceptCommand}"/>
-                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Text="Отклонить" Command="{Binding RejectCommand}"/>
-                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="3" Text="Загрузить в ТС" Command="{Binding LoadToTceStartCommand}"/>
-                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="4" Text="Остановить" Command="{Binding StopCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="3" Content="Загрузить в ТС" Command="{Binding LoadToTceStartCommand}"/>
+                                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="4" Content="Остановить" Command="{Binding StopCommand}"/>
                                 </Grid>
 
                                 <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>

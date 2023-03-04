@@ -4,12 +4,15 @@
              x:Name="Root">
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
     </UserControl.Resources>
 
-    <Button 
-        Content="{Binding Text, ElementName=Root}"
-        Command="{Binding Command, ElementName=Root}"
-        Visibility="{Binding Command.IsVisible, ElementName=Root, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <Button Content="{Binding Content, ElementName=Root}"        
+                    Command="{Binding Command, ElementName=Root}"
+                    Visibility="{Binding Command.IsVisible, ElementName=Root, Converter={StaticResource VisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+        </ControlTemplate>
+    </UserControl.Template>
 
 </UserControl>

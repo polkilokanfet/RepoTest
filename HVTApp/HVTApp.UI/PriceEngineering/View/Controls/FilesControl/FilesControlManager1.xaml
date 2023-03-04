@@ -31,12 +31,12 @@
 
                     <controls:ButtonIsVisibleWhenCanExecute 
                         Grid.Column="0"
-                        Text="Добавить"
-                        Command="{Binding AddTechnicalRequirementsFilesCommand}" />
+                        Content="Добавить"
+                        Command="{Binding AddTechnicalRequirementsFilesCommand}"/>
                     <controls:ButtonIsVisibleWhenCanExecute 
                         Grid.Column="1"
-                        Text="Удалить"
-                        Command="{Binding RemoveTechnicalRequirementsFilesCommand}" />
+                        Content="Удалить"
+                        Command="{Binding RemoveTechnicalRequirementsFilesCommand}"/>
                 </Grid>
             </view:FilesSingleControl.ButtonsArea>
         </view:FilesSingleControl>
