@@ -5,71 +5,26 @@
              xmlns:view1="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View"
              x:Name="Root">
 
-    <Border DataContext="{Binding TasksViewModel, ElementName=Root}" Background="White" Padding="5">
-        <GroupBox Header="{Binding}">
-            <GroupBox.HeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Технико-стоимостная проработка сборки задач с Id"/>
-                        <TextBox Text="{Binding Path=TasksWrapper.Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                 IsReadOnly="True"
-                                 BorderThickness="0"/>
-                    </StackPanel>
-                </DataTemplate>
-            </GroupBox.HeaderTemplate>
+    <view:TasksControl DataContext="{Binding TasksViewModel, ElementName=Root}">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <!--Общая информация для всего оборудования в заданиях-->
+        <view:TasksControl.CommonInformation>
+            <view:CommonInformationControlConstructor DataContext="{Binding}"/>
+        </view:TasksControl.CommonInformation>
 
-                <!--Общая информация для всего оборудования в заданиях-->
-                <view:CommonInformationControlConstructor DataContext="{Binding}"/>
-
-                <!--Оборудование-->
-                <GroupBox Grid.Row="1" Header="Оборудование">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                                  VerticalScrollBarVisibility="Auto">
-                        <Grid>
-                            <ItemsControl 
-                                ItemsSource="{Binding TasksWrapper.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <!--Оборудование-->
+        <view:TasksControl.Products>
+            <ItemsControl 
+                ItemsSource="{Binding TasksWrapper.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                 
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <view1:TasksTceItemControl TasksTceItem="{Binding }"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <view1:TasksTceItemControl TasksTceItem="{Binding }"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </view:TasksControl.Products>
 
-                        </Grid>
-                    </ScrollViewer>
-                </GroupBox>
-
-                <!--Оборудование-->
-                <!--<GroupBox Grid.Row="1" Header="Оборудование">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
-
-
-                        <ItemsControl
-                            ItemsSource="{Binding TasksWrapper.ChildTasks}" 
-                            HorizontalAlignment="Stretch"
-                            BorderThickness="0">
-
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <view:ProductTaskControlConstructor 
-                                        TaskViewModel="{Binding}" 
-                                        Margin="2 5 2 0"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-
-                        </ItemsControl>
-
-                    </ScrollViewer>
-                </GroupBox>-->
-            </Grid>
-        </GroupBox>
-    </Border>
+    </view:TasksControl>
 
 </UserControl>

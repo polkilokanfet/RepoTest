@@ -2,29 +2,27 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view1="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              x:Name="Root">
 
-    <GroupBox Header="Заявка в ТСЕ" DataContext="{Binding TasksViewModel, ElementName=Root}">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                      VerticalScrollBarVisibility="Auto">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+    <view:TasksControl DataContext="{Binding TasksViewModel, ElementName=Root}">
 
-                <ItemsControl ItemsSource="{Binding TasksWrapper.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <view1:TasksTceItemControl TasksTceItem="{Binding }"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
-        </ScrollViewer>
-    </GroupBox>
+        <!--Общая информация для всего оборудования в заданиях-->
+        <view:TasksControl.CommonInformation>
+            <view:CommonInformationControlConstructor DataContext="{Binding}"/>
+        </view:TasksControl.CommonInformation>
+
+        <!--Оборудование-->
+        <view:TasksControl.Products>
+            <ItemsControl ItemsSource="{Binding TasksWrapper.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <view1:TasksTceItemControl TasksTceItem="{Binding }"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </view:TasksControl.Products>
+
+    </view:TasksControl>
 
 </UserControl>

@@ -373,7 +373,7 @@
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelDesignDepartmentHead.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManager.cs" />
     <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManagerBack.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelVisible.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperConstructor.cs" />
