@@ -9,7 +9,7 @@
 
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->
-            <view:TaskControlDesignDepartmentHead TaskViewModel="{Binding}"/>
+            <view:TaskControlDesignDepartmentHead TaskViewModelHead="{Binding}"/>
         </view:ProductTaskControlHeader.TasksArea>
 
     </view:ProductTaskControlHeader>
