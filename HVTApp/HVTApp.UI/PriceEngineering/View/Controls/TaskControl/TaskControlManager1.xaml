@@ -16,7 +16,7 @@
         TaskViewModel="{Binding}">
 
         <view:TaskControl.AreaFiles>
-            <view:FilesControlManager TaskViewModelManager="{Binding}"/>
+            <view:FilesControlManager1 Grid.Row="1" TaskViewModelManager="{Binding}"/>
         </view:TaskControl.AreaFiles>
 
         <view:TaskControl.AreaActionButtons>

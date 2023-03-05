@@ -9,7 +9,7 @@
 
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->
-            <view:TaskControlConstructor TaskViewModel="{Binding}"/>
+            <view:TaskControlConstructor TaskViewModelConstructor="{Binding}"/>
         </view:ProductTaskControlHeader.TasksArea>
 
     </view:ProductTaskControlHeader>
