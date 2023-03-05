@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected readonly TaskViewModel ViewModel;
         private readonly Action _doAfterAction;
-        private readonly IMessageService _messageService;
+        protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
         private bool _showConfirmation = true;
 
@@ -24,7 +24,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected DoStepCommandBase(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
         {
             ViewModel = viewModel;
-            _messageService = container.Resolve<IMessageService>();
+            MessageService = container.Resolve<IMessageService>();
             EventAggregator = container.Resolve<IEventAggregator>();
             _doAfterAction = doAfterAction;
         }
@@ -35,7 +35,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             if (_showConfirmation)
             {
-                var dr = _messageService.ShowYesNoMessageDialog("Подтвердите свои намерения", ConfirmationMessage, defaultNo: true);
+                var dr = MessageService.ShowYesNoMessageDialog("Подтверждение", ConfirmationMessage, defaultNo: true);
                 if (dr != MessageDialogResult.Yes)
                 {
                     return;
@@ -49,6 +49,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected virtual void DoStepAction()
         {
             ViewModel.Statuses.Add(Step);
+            ViewModel.AcceptChanges();
             ViewModel.SaveCommand.Execute();
             Step.PublishEvent(EventAggregator, ViewModel.Model);
         }

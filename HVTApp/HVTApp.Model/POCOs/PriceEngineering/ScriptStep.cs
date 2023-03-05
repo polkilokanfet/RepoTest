@@ -15,7 +15,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// С каких этапов можно перейти на данный (в текущей роли).
         /// </summary>
-        protected abstract IEnumerable<ScriptStep> PossiblePreviousSteps { get; } 
+        public abstract IEnumerable<ScriptStep> PossiblePreviousSteps { get; } 
 
         /// <summary>
         /// На какие этапы можно перейти с данного (в текущей роли).
@@ -195,7 +195,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Задача создана";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
 
             };
@@ -213,7 +213,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Задача запущена на проработку";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Create,
                 RejectByHead,
@@ -237,7 +237,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Задача остановлена менеджером";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start,
                 RejectByManager,
@@ -265,7 +265,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Проработка отклонена менеджером исполнителю";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 FinishByConstructor,
                 VerificationAcceptByHead
@@ -287,7 +287,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Проработка отклонена исполнителем менеджеру";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start
             };
@@ -306,7 +306,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Проработка завершена исполнителем";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start,
                 VerificationAcceptByHead
@@ -326,7 +326,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Проработка задачи принята менеджером";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 FinishByConstructor,
                 VerificationAcceptByHead
@@ -348,7 +348,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Исполнитель направил проработку руководителю на проверку";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start,
                 VerificationRejectByHead
@@ -370,7 +370,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Руководитель согласовал проработку исполнителю";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 VerificationRequestByConstructor
             };
@@ -389,7 +389,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Руководитель отклонил проработку исполнителю";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 VerificationRequestByConstructor
             };
@@ -410,7 +410,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Руководитель КБ отклонил задачу менеджеру";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start
             };
@@ -429,7 +429,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Менеджер поставил задачу загрузить проработку в ТС";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Accept
             };
@@ -448,7 +448,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Загрузка проработки в ТС завершена";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 LoadToTceStart
             };
@@ -467,7 +467,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Запрос на открытие производства";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Accept,
                 LoadToTceFinish
@@ -487,7 +487,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Производство открыто";
 
-            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new []
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new []
             {
                 ProductionRequestStart
             };
