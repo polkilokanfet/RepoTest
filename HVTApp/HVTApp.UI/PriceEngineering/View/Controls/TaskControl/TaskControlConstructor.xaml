@@ -13,7 +13,8 @@
     <!--Задача на блок продукта-->
     <view:TaskControl 
         DataContext="{Binding TaskViewModelConstructor, ElementName=Root}"
-        TaskViewModel="{Binding}">
+        TaskViewModel="{Binding}"
+        SccProductVisibility="Visible">
 
         <view:TaskControl.AreaFiles>
             <view:FilesControlConstructor1 Grid.Row="1" TaskViewModelConstructor="{Binding}"/>

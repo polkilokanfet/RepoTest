@@ -7,7 +7,6 @@
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskWrapperToChildTasksVisibilityConverter x:Key="ToChildTasksVisibilityConverter" />
-        <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
         <converters:PriceEngineeringTaskViewModelIsExpendedChildTasksConverter x:Key="IsExpendedChildTasksConverter" />
         <converters:PriceEngineeringTaskViewModelToBoarderThicknessConverter x:Key="BoarderThicknessConverter" />
     </UserControl.Resources>
@@ -59,8 +58,9 @@
                                     <ContentControl Grid.Column="0" Content="{Binding ElementName=Root, Path=AreaSelectProductBlock}"/>
                                     <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
 
-                                    <Grid Grid.Column="2" 
-                                          Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
+                                    <!--SCC и чертёж-->
+                                    <Grid Grid.Column="2"
+                                          Visibility="{Binding SccProductVisibility, ElementName=Root}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>

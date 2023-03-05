@@ -54,6 +54,22 @@ namespace HVTApp.UI.PriceEngineering.View
 
         #endregion
 
+        #region SccProductVisibility
+
+        public static readonly DependencyProperty SccProductVisibilityProperty = DependencyProperty.Register(
+            "SccProductVisibility", 
+            typeof(Visibility), 
+            typeof(TaskControl), 
+            new PropertyMetadata(Visibility.Collapsed));
+
+        public Visibility SccProductVisibility
+        {
+            get => (Visibility) GetValue(SccProductVisibilityProperty);
+            set => SetValue(SccProductVisibilityProperty, value);
+        }
+
+        #endregion
+
         public TaskControl()
         {
             InitializeComponent();
