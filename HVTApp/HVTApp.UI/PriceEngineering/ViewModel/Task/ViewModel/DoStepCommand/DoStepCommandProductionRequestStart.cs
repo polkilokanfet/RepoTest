@@ -21,7 +21,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             var notAccepted = tasks.Where(task => Step.PossiblePreviousSteps.Contains(task.Status) == false).ToList();
             if (notAccepted.Any())
             {
-                MessageService.ShowOkMessageDialog("Отказ", $"Сначала примите блоки:\n{notAccepted.ToStringEnum()}");
+                MessageService.ShowOkMessageDialog("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(x => x.ProductBlock).ToStringEnum()}");
                 return;
             }
 

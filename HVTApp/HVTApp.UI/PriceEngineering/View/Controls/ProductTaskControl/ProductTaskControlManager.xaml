@@ -19,33 +19,26 @@
         </view:ProductTaskControlHeader.TasksArea>
 
         <view:ProductTaskControlHeader.ButtonsArea>
-            <Grid Grid.Column="1" 
-                  Margin="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <StackPanel>
 
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Row="0" 
-                                                        Content="Удалить" 
-                                                        Command="{Binding RemoveTaskCommand}" 
-                                                        Padding="2" 
-                                                        Margin="0, 0, 0, 2"
-                                                        Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}"/>
+                <controls:ButtonIsVisibleWhenCanExecute
+                    Content="Удалить" 
+                    Command="{Binding RemoveTaskCommand}" 
+                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}"/>
 
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Row="1" 
-                                                        Content="Синхронизировать" 
-                                                        Command="{Binding ReplaceProductCommand}" 
-                                                        Padding="2"/>
+                <controls:ButtonIsVisibleWhenCanExecute
+                    Content="Синхронизировать" 
+                    Command="{Binding ReplaceProductCommand}"/>
 
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Row="3" 
-                                                        Content="Произвести" 
-                                                        Command="{Binding StartProductionCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute 
+                    Content="Загрузить в ТС" 
+                    Command="{Binding LoadToTceStartCommand}"/>
 
-            </Grid>
+                <controls:ButtonIsVisibleWhenCanExecute
+                    Content="Произвести" 
+                    Command="{Binding StartProductionCommand}"/>
+
+            </StackPanel>
 
         </view:ProductTaskControlHeader.ButtonsArea>
 
