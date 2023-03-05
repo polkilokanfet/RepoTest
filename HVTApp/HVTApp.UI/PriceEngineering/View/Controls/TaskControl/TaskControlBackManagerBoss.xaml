@@ -2,20 +2,145 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
-             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
-             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              x:Name="Root">
 
     <!--Задача на блок продукта-->
-    <view:TaskControl 
+    <Border 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModelBackManagerBoss}" 
+        Margin="2" 
+        BorderThickness="1" 
+        BorderBrush="Black" 
+        CornerRadius="5">
+
+        <Border>
+
+            <Expander 
+                Header="{Binding}"
+                IsExpanded="{Binding IsTarget, Mode=OneTime}">
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--Блок продукта-->
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <Label Content="Блок (Id задачи"/>
+                                <TextBox Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
+                                <Label Content="): "/>
+                            </StackPanel>
+
+                            <view:ProductBlockControl Grid.Column="1"
+                                                      ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
+
+                            <!--Отчёт-->
+                            <Button Grid.Column="2" 
+                                    Content="Отчёт" 
+                                    Command="{Binding ShowReportCommand}"/>
+
+                        </Grid>
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" MinWidth="250"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="400" MinWidth="150"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Панель статуса-->
+                    <view:PriceEngineeringTaskStatusControl 
+                        Grid.Column="0"
+                        StatusEnum="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Grid Grid.Column="1">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*" MinHeight="70"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Margin="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--Исполнитель-->
+                                <Label Grid.Row="1" Grid.Column="0" Content="Исполнитель: "/>
+                                <Grid Grid.Row="1" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                                    <Label Grid.Column="2" Content=" Бюро:"/>
+                                    <TextBox Grid.Column="3" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+
+                                </Grid>
+
+                            </Grid>
+
+                        </Grid>
+
+                        <!--Дополнительные блоки-->
+                        <!--<view:BlocksAddedControl Grid.Row="3" ViewModel ="{Binding}"/>-->
+
+                        <!--Действия-->
+                        <!--<ContentPresenter Grid.Row="4" Content="{Binding ElementName=Root, Path=AreaActionButtons}"/>-->
+
+                    </Grid>
+
+                    <!--Переписка-->
+                    <GridSplitter Grid.Column="2" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    <view:TaskChatControl 
+                        Grid.Column="3" 
+                        TaskViewModel="{Binding}"/>
+
+                </Grid>
+            </Expander>
+
+        </Border>
+
+
+    </Border>
+
+
+
+
+
+    <!--<view:TaskControl 
         DataContext="{Binding TaskViewModelBackManagerBoss, ElementName=Root}"
         TaskViewModel="{Binding}">
 
-        <!--<view:TaskControl.AreaFiles>
+        <view:TaskControl.AreaFiles>
             <view:FilesControl Grid.Row="1" TaskViewModel="{Binding}"/>
-        </view:TaskControl.AreaFiles>-->
+        </view:TaskControl.AreaFiles>
 
-        <!--<view:TaskControl.AreaActionButtons>
+        <view:TaskControl.AreaActionButtons>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -26,9 +151,9 @@
                 <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
                 <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
             </Grid>
-        </view:TaskControl.AreaActionButtons>-->
+        </view:TaskControl.AreaActionButtons>
 
-        <!--<view:TaskControl.AreaIncludedBlocks>
+        <view:TaskControl.AreaIncludedBlocks>
             <ItemsControl 
                 Background="Transparent" 
                 HorizontalAlignment="Stretch" 
@@ -46,8 +171,8 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </view:TaskControl.AreaIncludedBlocks>-->
+        </view:TaskControl.AreaIncludedBlocks>
 
-    </view:TaskControl>
+    </view:TaskControl>-->
 
 </UserControl>

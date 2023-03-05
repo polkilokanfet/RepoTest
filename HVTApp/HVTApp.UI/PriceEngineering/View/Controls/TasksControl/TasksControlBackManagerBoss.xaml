@@ -8,9 +8,9 @@
     <view:TasksControl DataContext="{Binding TasksViewModel, ElementName=Root}">
 
         <!--Общая информация для всего оборудования в заданиях-->
-        <view:TasksControl.CommonInformation>
+        <!--<view:TasksControl.CommonInformation>
             <view:CommonInformationControlConstructor DataContext="{Binding}"/>
-        </view:TasksControl.CommonInformation>
+        </view:TasksControl.CommonInformation>-->
 
         <!--Оборудование-->
         <view:TasksControl.Products>
