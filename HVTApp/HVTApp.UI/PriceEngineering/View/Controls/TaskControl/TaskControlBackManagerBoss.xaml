@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TaskControlBackManagerBoss"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             x:Name="Root">
+
+    <!--Задача на блок продукта-->
+    <view:TaskControl 
+        DataContext="{Binding TaskViewModelBackManagerBoss, ElementName=Root}"
+        TaskViewModel="{Binding}">
+
+        <!--<view:TaskControl.AreaFiles>
+            <view:FilesControl Grid.Row="1" TaskViewModel="{Binding}"/>
+        </view:TaskControl.AreaFiles>-->
+
+        <!--<view:TaskControl.AreaActionButtons>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Отклонить менеджеру" Command="{Binding RejectPriceEngineeringTaskCommandToManager}"/>
+                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
+            </Grid>
+        </view:TaskControl.AreaActionButtons>-->
+
+        <!--<view:TaskControl.AreaIncludedBlocks>
+            <ItemsControl 
+                Background="Transparent" 
+                HorizontalAlignment="Stretch" 
+                ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border 
+                            Background="Transparent" 
+                            Margin="10 0 0 0" 
+                            Padding="5 2">
+                            <StackPanel>
+                                <view:TaskControlDesignBackManagerBoss TaskViewModelBackManagerBoss="{Binding }" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </view:TaskControl.AreaIncludedBlocks>-->
+
+    </view:TaskControl>
+
+</UserControl>

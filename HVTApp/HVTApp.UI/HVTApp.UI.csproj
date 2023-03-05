@@ -510,6 +510,9 @@
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManagerBoss.xaml.cs">
+      <DependentUpon>ProductTaskControlBackManagerBoss.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlDesignDepartmentHead.xaml.cs">
       <DependentUpon>ProductTaskControlDesignDepartmentHead.xaml</DependentUpon>
     </Compile>
@@ -536,6 +539,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\CommonInformationControl.xaml.cs">
       <DependentUpon>CommonInformationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlBackManagerBoss.xaml.cs">
+      <DependentUpon>TaskControlBackManagerBoss.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlDesignDepartmentHead.xaml.cs">
       <DependentUpon>TaskControlDesignDepartmentHead.xaml</DependentUpon>
@@ -2028,6 +2034,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManagerBoss.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlDesignDepartmentHead.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2061,6 +2071,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\CommonInformationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlBackManagerBoss.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
