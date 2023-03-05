@@ -20,12 +20,12 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Принять техническую проработку задачи
         /// </summary>
-        public ICommandIsVisibleWhenCanExecute AcceptCommand { get; }
+        public override ICommandIsVisibleWhenCanExecute AcceptCommand { get; }
 
         /// <summary>
         /// Отклонить техническую проработку задачи
         /// </summary>
-        public ICommandIsVisibleWhenCanExecute RejectCommand { get; }
+        public override ICommandIsVisibleWhenCanExecute RejectCommand { get; }
 
         /// <summary>
         /// Остановить техническую проработку задачи
@@ -35,17 +35,17 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Загрузить техническую проработку задачи в ТСЕ
         /// </summary>
-        public ICommandIsVisibleWhenCanExecute LoadToTceStartCommand { get; }
+        public override ICommandIsVisibleWhenCanExecute LoadToTceStartCommand { get; }
 
         /// <summary>
         /// Запросить открытие производства
         /// </summary>
-        public ICommandIsVisibleWhenCanExecute StartProductionCommand { get; }
+        public override ICommandIsVisibleWhenCanExecute StartProductionCommand { get; }
 
         /// <summary>
         /// Замена продукта в SalesUnit на продукты из ТСП
         /// </summary>
-        public DelegateLogConfirmationCommand ReplaceProductCommand { get; }
+        public override DelegateLogConfirmationCommand ReplaceProductCommand { get; }
 
         #endregion
 

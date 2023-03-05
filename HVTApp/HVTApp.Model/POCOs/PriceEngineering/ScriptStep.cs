@@ -245,7 +245,8 @@ namespace HVTApp.Model.POCOs
                 FinishByConstructor,
                 VerificationRequestByConstructor,
                 VerificationAcceptByHead,
-                VerificationRejectByHead
+                VerificationRejectByHead,
+                Accept
             };
 
             protected override bool ShowToSalesManager => false;

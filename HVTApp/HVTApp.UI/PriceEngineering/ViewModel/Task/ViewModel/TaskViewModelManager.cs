@@ -5,11 +5,13 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 
@@ -41,6 +43,36 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogConfirmationCommand RemoveTechnicalRequirementsFilesCommand { get; private set; }
 
         #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Принять техническую проработку задачи
+        /// </summary>
+        public virtual ICommandIsVisibleWhenCanExecute AcceptCommand { get; } = new DelegateLogCommand(() => { }, () => false);
+
+        /// <summary>
+        /// Отклонить техническую проработку задачи
+        /// </summary>
+        public virtual ICommandIsVisibleWhenCanExecute RejectCommand { get; } = new DelegateLogCommand(() => { }, () => false);
+
+        /// <summary>
+        /// Загрузить техническую проработку задачи в ТСЕ
+        /// </summary>
+        public virtual ICommandIsVisibleWhenCanExecute LoadToTceStartCommand { get; } = new DelegateLogCommand(() => { }, () => false);
+
+        /// <summary>
+        /// Запросить открытие производства
+        /// </summary>
+        public virtual ICommandIsVisibleWhenCanExecute StartProductionCommand { get; } = new DelegateLogCommand(() => { }, () => false);
+
+        /// <summary>
+        /// Замена продукта в SalesUnit на продукты из ТСП
+        /// </summary>
+        public virtual DelegateLogConfirmationCommand ReplaceProductCommand { get; } = new DelegateLogConfirmationCommand(null, String.Empty,() => { }, () => false);
+
+        #endregion
+
 
         #region ctors
 
