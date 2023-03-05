@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -24,6 +25,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -35,8 +37,14 @@
                         Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}"/>
 
                 <Button Grid.Row="1" 
-                        Content="Синхронизировать" Command="{Binding ReplaceProductCommand}" 
+                        Content="Синхронизировать" 
+                        Command="{Binding ReplaceProductCommand}" 
                         Padding="2"/>
+
+                <controls:ButtonIsVisibleWhenCanExecute Grid.Row="3" 
+                                                        Content="Произвести" 
+                                                        Command="{Binding StartProductionCommand}"/>
+
             </Grid>
 
         </view:ProductTaskControlHeader.ButtonsArea>

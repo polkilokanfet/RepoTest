@@ -385,6 +385,8 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandLoadToTceFinish.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandLoadToTceStart.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandProductionRequestFinish.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandProductionRequestStart.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectByHeadToConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectByHeadToManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectedByConstructor.cs" />

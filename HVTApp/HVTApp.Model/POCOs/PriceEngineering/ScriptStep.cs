@@ -149,6 +149,17 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         public static readonly ScriptStep LoadToTceFinish = new LoadToTceFinishStep();
 
+        /// <summary>
+        /// Запрос на открытие производства
+        /// </summary>
+        public static readonly ScriptStep ProductionRequestStart = new ProductionRequestStartStep();
+
+        /// <summary>
+        /// Запрос на открытие производства обработан
+        /// </summary>
+        public static readonly ScriptStep ProductionRequestFinish = new ProductionRequestFinishStep();
+
+
         #endregion
 
         #region ctors
@@ -448,6 +459,45 @@ namespace HVTApp.Model.POCOs
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
                 eventAggregator.GetEvent<PriceEngineeringTaskLoadToTceFinishEvent>().Publish(priceEngineeringTask);
+            }
+        }
+
+        private sealed class ProductionRequestStartStep : ScriptStep
+        {
+            public override string Description => "Запрос на открытие производства";
+
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                Accept,
+                LoadToTceFinish
+            };
+
+            public ProductionRequestStartStep() : base(13, Role.SalesManager)
+            {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskProductionRequestStartEvent>().Publish(priceEngineeringTask);
+            }
+        }
+
+        private sealed class ProductionRequestFinishStep : ScriptStep
+        {
+            public override string Description => "Производство открыто";
+
+            protected override IEnumerable<ScriptStep> PossiblePreviousSteps => new []
+            {
+                ProductionRequestStart
+            };
+
+            public ProductionRequestFinishStep() : base(14, Role.BackManager)
+            {
+            }
+
+            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
+            {
+                eventAggregator.GetEvent<PriceEngineeringTaskProductionRequestFinishEvent>().Publish(priceEngineeringTask);
             }
         }
 

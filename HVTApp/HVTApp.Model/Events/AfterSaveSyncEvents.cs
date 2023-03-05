@@ -71,6 +71,9 @@ namespace HVTApp.Model.Events
     public class PriceEngineeringTaskLoadToTceStartEvent : PubSubEvent<PriceEngineeringTask> { }
     public class PriceEngineeringTaskLoadToTceFinishEvent : PubSubEvent<PriceEngineeringTask> { }
 
+    public class PriceEngineeringTaskProductionRequestStartEvent : PubSubEvent<PriceEngineeringTask> { }
+    public class PriceEngineeringTaskProductionRequestFinishEvent : PubSubEvent<PriceEngineeringTask> { }
+
 
 
     public class PriceEngineeringTaskSendMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }

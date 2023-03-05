@@ -17,11 +17,29 @@ namespace HVTApp.UI.PriceEngineering
     {
         #region Commands
 
+        /// <summary>
+        /// Принять техническую проработку задачи
+        /// </summary>
         public ICommandIsVisibleWhenCanExecute AcceptCommand { get; }
+
+        /// <summary>
+        /// Отклонить техническую проработку задачи
+        /// </summary>
         public ICommandIsVisibleWhenCanExecute RejectCommand { get; }
+
+        /// <summary>
+        /// Остановить техническую проработку задачи
+        /// </summary>
         public DoStepCommandStopByManager StopCommand { get; }
 
-        public ICommandIsVisibleWhenCanExecute LoadToTceStartCommand { get; set; }
+        /// <summary>
+        /// Загрузить техническую проработку задачи в ТСЕ
+        /// </summary>
+        public ICommandIsVisibleWhenCanExecute LoadToTceStartCommand { get; }
+
+        /// <summary>
+        /// Запросить открытие производства
+        /// </summary>
         public ICommandIsVisibleWhenCanExecute StartProductionCommand { get; }
 
         /// <summary>
@@ -74,20 +92,15 @@ namespace HVTApp.UI.PriceEngineering
 
             #region Commands
 
-            var messageService = this.Container.Resolve<IMessageService>();
-
             AcceptCommand = new DoStepCommandAcceptedByManager(this, container, () =>  this.OnTaskAcceptedByManagerAction(this.Model));
             RejectCommand = new DoStepCommandRejectedByManager(this, container);
             StopCommand = new DoStepCommandStopByManager(this, container);
             LoadToTceStartCommand = new DoStepCommandLoadToTceStart(this, container);
+            StartProductionCommand = new DoStepCommandProductionRequestStart(this, container);
 
-            ReplaceProductCommand = new DelegateLogConfirmationCommand(messageService,
+            ReplaceProductCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",
                 () => { this.ReplaceProduct(this.Model); });
-
-            StartProductionCommand = new DelegateLogConfirmationCommand(messageService,
-                "Вы уверены, что хотите запустить производство этого оборудования?",
-                () => { });
 
             #endregion
         }
