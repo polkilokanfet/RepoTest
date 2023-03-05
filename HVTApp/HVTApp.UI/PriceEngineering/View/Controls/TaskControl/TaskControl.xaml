@@ -178,13 +178,17 @@
             </Border>
 
             <!--Вложенные блоки-->
+            <!--<view:IncludedBlocksControl Grid.Row="1" 
+                                        TaskViewModel="{Binding}">
+                <ContentPresenter Content="{Binding ElementName=Root, Path=AreaIncludedBlocks}"/>
+            </view:IncludedBlocksControl>-->
             <Expander Grid.Row="1"
                         IsExpanded="{Binding Mode=OneTime, Converter={StaticResource IsExpendedChildTasksConverter}}"
                         Header="Вложенные блоки"
                         Margin="5"
                         BorderBrush="Black"
                         Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
-                
+
                 <ContentPresenter Content="{Binding ElementName=Root, Path=AreaIncludedBlocks}"/>
 
             </Expander>
