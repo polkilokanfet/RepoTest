@@ -41,11 +41,14 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!--Блок продукта-->
-                                <Label Grid.Column="0" Content="Блок: "/>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <Label Content="Блок (Id задачи"/>
+                                    <TextBox Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
+                                    <Label Content="): "/>
+                                </StackPanel>
                                 <Grid Grid.Column="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -78,8 +81,11 @@
 
                                 </Grid>
 
-                                <Label Grid.Column="2" Content=" Id задачи: "/>
-                                <TextBox Grid.Column="3" Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
+                                <Button Grid.Column="2" 
+                                        VerticalAlignment="Center"
+                                        Margin="5 0"
+                                        Content="Отчёт" 
+                                        Command="{Binding ShowReportCommand}"/>
 
                             </Grid>
                         </DataTemplate>
@@ -140,11 +146,11 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <ContentControl Grid.Column="0" Content="{Binding ElementName=Root, Path=AreaInstruct}"/>
+                                            <ContentPresenter Grid.Column="0" Content="{Binding ElementName=Root, Path=AreaInstruct}"/>
 
                                             <TextBox Grid.Column="1" FontWeight="DemiBold" Text="{Binding UserConstructor, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
 
-                                            <Label Grid.Column="2" Content=" Бюро:"></Label>
+                                            <Label Grid.Column="2" Content=" Бюро:"/>
                                             <!--<Button Grid.Column="3" 
                                             Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}"
                                             Content="..." 
@@ -167,9 +173,8 @@
                                 <view:BlocksAddedControl Grid.Row="3" ViewModel ="{Binding}"/>
 
                                 <!--Действия-->
-                                <ContentControl Grid.Row="4" Content="{Binding ElementName=Root, Path=AreaActionButtons}"></ContentControl>
+                                <ContentPresenter Grid.Row="4" Content="{Binding ElementName=Root, Path=AreaActionButtons}"/>
 
-                                <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
                             </Grid>
 
                             <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
@@ -193,28 +198,8 @@
                         Margin="5"
                         BorderBrush="Black"
                         Visibility="{Binding UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToChildTasksVisibilityConverter}}">
-
-                <ItemsControl 
-                    Background="Transparent" 
-                    HorizontalAlignment="Stretch" 
-                    ItemsSource="{Binding ChildPriceEngineeringTasks}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border 
-                                Background="Transparent" 
-                                Margin="10 0 0 0" 
-                                Padding="5 2">
-                                <StackPanel>
-                                    <ContentControl 
-                                        DataContext=""
-
-                                        Content="{Binding ElementName=Root}"/>
-                                    <!--<view:TaskControl DataContext="{Binding }" />-->
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                
+                <ContentPresenter Content="{Binding ElementName=Root, Path=AreaIncludedBlocks}"/>
 
             </Expander>
 

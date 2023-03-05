@@ -14,7 +14,7 @@
 
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->
-            <view:TaskControlManager TaskViewModelManager="{Binding}"/>
+            <view:TaskControlManager1 TaskViewModelManager="{Binding}"/>
         </view:ProductTaskControlHeader.TasksArea>
 
         <view:ProductTaskControlHeader.ButtonsArea>

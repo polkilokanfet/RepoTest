@@ -41,6 +41,19 @@ namespace HVTApp.UI.PriceEngineering.View
             set { SetValue(AreaFilesProperty, value); }
         }
 
+        #region AreaIncludedBlocks
+
+        public static readonly DependencyProperty AreaIncludedBlocksProperty = DependencyProperty.Register(
+    "AreaIncludedBlocks", typeof(object), typeof(TaskControl), new UIPropertyMetadata(default(object)));
+
+        public object AreaIncludedBlocks
+        {
+            get { return (object)GetValue(AreaIncludedBlocksProperty); }
+            set { SetValue(AreaIncludedBlocksProperty, value); }
+        }
+
+        #endregion
+
         public TaskControl()
         {
             InitializeComponent();

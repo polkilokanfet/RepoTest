@@ -20,7 +20,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{Binding ElementName=Root, Path=Caption}"/>
-                        <Button Content="Скачать всё" 
+                        <Button Content="Скачать всё" VerticalAlignment="Center" Padding="5 0"
                                 Command="{Binding ElementName=Root, Path=LoadAllFilesCommand}"/>
                     </StackPanel>
                 </DataTemplate>
