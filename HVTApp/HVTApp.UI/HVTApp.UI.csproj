@@ -338,7 +338,6 @@
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManagerBoss.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackOfficeBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemConstructor.cs" />
@@ -394,7 +393,6 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopByManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManagerBoss.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackOfficeBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBaseWithStartCommand.cs" />

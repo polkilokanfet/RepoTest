@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
-    public class TasksWrapperBackManagerBoss : TasksWrapperBackOfficeBase<TaskViewModelBackManagerBoss>
+    public class TasksWrapperBackManagerBoss : TasksWrapper<TaskViewModelBackManagerBoss>
     {
         /// <summary>
         /// Номер ТСЕ

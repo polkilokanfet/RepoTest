@@ -22,6 +22,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Column="0" 
+                         Background="Transparent"
                          Text="{Binding ElementName=Root, Path=SccVersion.Name, Mode=OneWay}" 
                          BorderThickness="0"
                          IsReadOnly="True"/>
@@ -29,6 +30,7 @@
                 <Label Grid.Column="1" Content="ОГК:"/>
 
                 <TextBox Grid.Column="2"
+                         Background="Transparent"
                          Text="{Binding ElementName=Root, Path=SccVersion.Constructor, Mode=OneWay}" 
                          BorderThickness="0"
                          IsReadOnly="True"/>
@@ -36,6 +38,7 @@
                 <Label Grid.Column="3" Content=" SCC от ОГК:"/>
 
                 <TextBox Grid.Column="4"
+                         Background="Transparent"
                          Text="{Binding ElementName=Root, Path=SccVersion.OriginalStructureCostNumber, Mode=OneWay}" 
                          BorderThickness="0"
                          IsReadOnly="True"/>

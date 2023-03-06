@@ -52,6 +52,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             ViewModel.AcceptChanges();
             ViewModel.SaveCommand.Execute();
             Step.PublishEvent(EventAggregator, ViewModel.Model);
+            this.RaiseCanExecuteChanged();
         }
 
         /// <summary>

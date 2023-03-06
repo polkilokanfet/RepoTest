@@ -17,6 +17,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         {
             Name = name;
             IsActual = isActual;
+            this.Validate();
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()

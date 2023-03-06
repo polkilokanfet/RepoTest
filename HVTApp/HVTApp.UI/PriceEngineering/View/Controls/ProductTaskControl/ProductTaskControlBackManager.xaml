@@ -7,6 +7,14 @@
     <view:ProductTaskControlHeader 
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
 
+        <view:ProductTaskControlHeader.ButtonsArea>
+            <StackPanel>
+                <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                <Button Content="Завершить" Command="{Binding LoadToTceFinishCommand}"/>
+                <Button Content="Файлы" Command="{Binding LoadFilesCommand}"/>
+            </StackPanel>
+        </view:ProductTaskControlHeader.ButtonsArea>
+
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->
             <view:TaskControlBackManager TaskViewModelBackManager="{Binding}"/>

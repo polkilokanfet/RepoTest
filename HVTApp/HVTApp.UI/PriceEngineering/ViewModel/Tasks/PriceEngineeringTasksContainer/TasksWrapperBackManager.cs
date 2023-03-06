@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
-    public class TasksWrapperBackManager : TasksWrapperBackOfficeBase<TaskViewModelBackManager>
+    public class TasksWrapperBackManager : TasksWrapper<TaskViewModelBackManager>
     {
         #region TceNumber
 
@@ -45,13 +45,12 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 
         protected override TaskViewModelBackManager GetChildPriceEngineeringTask(IUnityContainer container, Guid id)
         {
-            return new TaskViewModelBackManager(container, id);
+            return new TaskViewModelBackManager(this, container, id);
         }
-
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (TceNumber == null)
+            if (string.IsNullOrWhiteSpace(TceNumber))
                 yield return new ValidationResult("TceNumber is required", new[] {nameof(TceNumber)});
         }
     }

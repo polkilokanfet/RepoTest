@@ -340,7 +340,7 @@ namespace HVTApp.Model.Wrapper.Base
         /// <summary>
         /// Валидация всех свойств объекта.
         /// </summary>
-        private void Validate()
+        protected void Validate()
         {
             ClearErrors();
 

@@ -79,6 +79,14 @@ namespace HVTApp.Model.POCOs
         /// Показывать руководителю КБ (значение по умолчанию - false)
         /// </summary>
         protected virtual bool ShowToHead => false;
+        /// <summary>
+        /// Показывать BackManager (значение по умолчанию - false)
+        /// </summary>
+        protected virtual bool ShowToBackManager => false;
+        /// <summary>
+        /// Показывать BackManagerBoss (значение по умолчанию - false)
+        /// </summary>
+        protected virtual bool ShowToBackManagerBoss => false;
 
         #endregion
 
@@ -428,6 +436,8 @@ namespace HVTApp.Model.POCOs
         private sealed class LoadToTceStartStep : ScriptStep
         {
             public override string Description => "Менеджер поставил задачу загрузить проработку в ТС";
+
+            protected override bool ShowToBackManager => true;
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
