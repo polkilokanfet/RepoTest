@@ -14,10 +14,11 @@
 
         <!--Оборудование-->
         <view:TasksControl.Products>
-            <ItemsControl ItemsSource="{Binding TasksWrapper.Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl ItemsSource="{Binding TasksWrapper.ChildTasks, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <view1:TasksTceItemControl TasksTceItem="{Binding }"/>
+                        <!--<view1:TasksTceItemControl TasksTceItem="{Binding }"/>-->
+                        <view:TaskControlBackManagerBoss TaskViewModelBackManagerBoss="{Binding }"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

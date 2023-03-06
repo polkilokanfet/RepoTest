@@ -4,7 +4,7 @@ using HVTApp.UI.PriceEngineering.Tce.Second;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
-    public partial class TaskControlBackManagerBoss : UserControl
+    public partial class TaskControlBackManager : UserControl
     {
         public static readonly DependencyProperty TaskViewModelBackManagerBossProperty = DependencyProperty.Register(
             "TaskViewModelBackManagerBoss", 
@@ -32,7 +32,7 @@ namespace HVTApp.UI.PriceEngineering.View
 
         #endregion
 
-        public TaskControlBackManagerBoss()
+        public TaskControlBackManager()
         {
             InitializeComponent();
         }

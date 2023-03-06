@@ -543,6 +543,9 @@
     <Compile Include="PriceEngineering\View\Controls\TaskControl\IncludedBlocksControl.xaml.cs">
       <DependentUpon>IncludedBlocksControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlBackManager.xaml.cs">
+      <DependentUpon>TaskControlBackManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlBackManagerBoss.xaml.cs">
       <DependentUpon>TaskControlBackManagerBoss.xaml</DependentUpon>
     </Compile>
@@ -2078,6 +2081,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\TaskControl\IncludedBlocksControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlBackManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

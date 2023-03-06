@@ -32,6 +32,10 @@ namespace HVTApp.UI.PriceEngineering
                 this.RaiseCommandsCanExecuteChanged();
             };
 
+            if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
+            Statuses = new StatusesCollection(Model.Statuses);
+            RegisterCollection(Statuses, Model.Statuses);
+
             this.InCtor();
         }
 
@@ -160,10 +164,6 @@ namespace HVTApp.UI.PriceEngineering
             if (Model.FilesAnswers == null) throw new ArgumentException("FilesAnswers cannot be null");
             FilesAnswers = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper>(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
-
-            if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
-            Statuses = new StatusesCollection(Model.Statuses);
-            RegisterCollection(Statuses, Model.Statuses);
 
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
             SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.PriceEngineering.Tce.Second;
+using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -79,6 +80,5 @@ namespace HVTApp.UI.PriceEngineering
             StructureCostVersions = new ValidatableChangeTrackingCollection<SccVersionWrapper>(Model.StructureCostVersions.Select(x => new SccVersionWrapper(x, structureCostName, originalStructureCostNumber == x.OriginalStructureCostNumber)));
             RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
         }
-
     }
 }

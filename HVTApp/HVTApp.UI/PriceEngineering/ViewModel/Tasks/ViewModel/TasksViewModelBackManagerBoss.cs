@@ -1,7 +1,9 @@
+using System;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -23,10 +25,23 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     var backManager = container.Resolve<ISelectService>().SelectItem(users);
                     if (backManager != null)
                     {
+                        var author = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
+                        foreach (var task in this.TasksWrapper.Model.ChildPriceEngineeringTasks.Where(x => x.Status.Equals(ScriptStep.LoadToTceStart)))
+                        {
+                            foreach (var priceEngineeringTask in task.GetAllPriceEngineeringTasks().Where(x => x.Status.Equals(ScriptStep.LoadToTceStart)))
+                            {
+                                priceEngineeringTask.Messages.Add(new PriceEngineeringTaskMessage()
+                                {
+                                    Moment = DateTime.Now,
+                                    Author = author,
+                                    Message = $"Назначен BackManager: {backManager}"
+                                });
+                            }
+                        }
+
                         this.TasksWrapper.BackManager = new UserEmptyWrapper(backManager);
                         this.TasksWrapper.AcceptChanges();
                         UnitOfWork.SaveChanges();
-                        InstructCommand.RaiseCanExecuteChanged();
                     }
                 },
                 () =>
