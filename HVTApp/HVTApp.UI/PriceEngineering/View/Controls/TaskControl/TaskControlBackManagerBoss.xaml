@@ -12,56 +12,23 @@
         BorderBrush="Black" 
         CornerRadius="5">
 
-        <Expander 
-            Header="{Binding}"
-            IsExpanded="False">
-            <Expander.HeaderTemplate>
-                <DataTemplate>
-                    <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" MinWidth="250"/>
+            </Grid.ColumnDefinitions>
 
-                        <!--Блок продукта-->
-                        <StackPanel Grid.Column="0" Orientation="Horizontal">
-                            <Label Content="Блок (Id задачи"/>
-                            <TextBox Text="{Binding Model.Number, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0"/>
-                            <Label Content="): "/>
-                        </StackPanel>
+            <!--Панель статуса-->
+            <view:PriceEngineeringTaskStatusControl 
+                Grid.Column="0"
+                StatusEnum="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <view:ProductBlockControl Grid.Column="1"
-                                                  ProductBlock="{Binding ProductBlockEngineer.Model, Mode=OneWay}"/>
+            <!--Переписка-->
+            <view:TaskChatControl 
+                Grid.Column="1" 
+                TaskViewModel="{Binding}"/>
 
-                        <!--Отчёт-->
-                        <Button Grid.Column="2" 
-                                Content="Отчёт" 
-                                Command="{Binding ShowReportCommand}"/>
-
-                    </Grid>
-                </DataTemplate>
-            </Expander.HeaderTemplate>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*" MinWidth="250"/>
-                </Grid.ColumnDefinitions>
-
-                <!--Панель статуса-->
-                <view:PriceEngineeringTaskStatusControl 
-                    Grid.Column="0"
-                    StatusEnum="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
-
-                <!--Переписка-->
-                <view:TaskChatControl 
-                    Grid.Column="1" 
-                    TaskViewModel="{Binding}"/>
-
-            </Grid>
-        </Expander>
-
+        </Grid>
 
     </Border>
 
