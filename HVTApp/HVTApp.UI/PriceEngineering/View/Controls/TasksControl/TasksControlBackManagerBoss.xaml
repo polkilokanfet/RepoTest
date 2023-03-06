@@ -18,7 +18,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <!--<view1:TasksTceItemControl TasksTceItem="{Binding }"/>-->
-                        <view:TaskControlBackManagerBoss TaskViewModelBackManagerBoss="{Binding }"/>
+                        <view:ProductTaskControlBackManagerBoss TaskViewModel="{Binding }"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

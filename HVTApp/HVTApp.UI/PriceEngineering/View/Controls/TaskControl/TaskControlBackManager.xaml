@@ -18,7 +18,7 @@
 
     <!--Задача на блок продукта-->
     <Border 
-        DataContext="{Binding ElementName=Root, Path=TaskViewModelBackManagerBoss}" 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModelBackManager}" 
         Margin="2" 
         BorderThickness="1" 
         BorderBrush="Black" 
@@ -118,7 +118,7 @@
 
                     <!--Единица задачи ТСЕ-->
                     <Border Grid.Row="1" 
-                            DataContext="{Binding ElementName=Root, Path=TasksTceItem}"
+                            DataContext="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Mode=OneWay}"
                             Background="DarkGray" 
                             BorderBrush="Black" 
                             BorderThickness="1" 
@@ -159,17 +159,17 @@
                                             <Label Grid.Row="0" Grid.Column="0" Content="Объект:"/>
                                             <TextBox Grid.Row="0" Grid.Column="1" 
                                                      IsReadOnly="True"
-                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManagerBoss. TasksTceItem, Converter={StaticResource ToFacilityConverter}}"/>
+                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToFacilityConverter}, Mode=OneWay}"/>
 
                                             <Label Grid.Row="1" Grid.Column="0" Content="Продукт:"/>
                                             <TextBox Grid.Row="1" Grid.Column="1" 
                                                      IsReadOnly="True"
-                                                     Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToProductConverter}}"/>
+                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToProductConverter}, Mode=OneWay}"/>
 
                                             <Label Grid.Row="2" Grid.Column="0" Content="Количество:"/>
                                             <TextBox Grid.Row="2" Grid.Column="1" 
                                                      IsReadOnly="True"
-                                                     Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToAmountConverter}}"/>
+                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToAmountConverter}, Mode=OneWay}"/>
                                         </Grid>
 
                                         <Expander Grid.Row="1" IsExpanded="False" Header="Дополнительная информация">
@@ -188,22 +188,22 @@
                                                 <Label Grid.Row="0" Grid.Column="0" Content="Владелец объекта:"/>
                                                 <TextBox Grid.Row="0" Grid.Column="1" 
                                                          IsReadOnly="True"
-                                                         Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToFacilityOwnerConverter}}"/>
+                                                         Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToFacilityOwnerConverter}, Mode=OneWay}"/>
 
                                                 <Label Grid.Row="1" Grid.Column="0" Content="Адрес объекта:"/>
                                                 <TextBox Grid.Row="1" Grid.Column="1" 
                                                          IsReadOnly="True"
-                                                         Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToFacilityAddressConverter}}"/>
+                                                         Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToFacilityAddressConverter}, Mode=OneWay}"/>
 
                                                 <Label Grid.Row="2" Grid.Column="0" Content="Дата реализации:"/>
                                                 <TextBox Grid.Row="2" Grid.Column="1" 
                                                          IsReadOnly="True"
-                                                         Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToRealizationDateConverter}}"/>
+                                                         Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToRealizationDateConverter}, Mode=OneWay}"/>
 
                                                 <Label Grid.Row="3" Grid.Column="0" Content="Тип доставки:"/>
                                                 <TextBox Grid.Row="3" Grid.Column="1" 
                                                          IsReadOnly="True"
-                                                         Text="{Binding ElementName=Root, Path=TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}}"/>
+                                                         Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}, Mode=OneWay}"/>
                                             </Grid>
 
                                         </Expander>
@@ -221,7 +221,7 @@
 
                             <!--SCC-->
                             <GroupBox Grid.Row="1" Header="Соответствие стракчакостов">
-                                <ItemsControl ItemsSource="{Binding ElementName=Root, Path=TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl ItemsSource="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <view1:SccVersionControl SccVersion="{Binding  UpdateSourceTrigger=PropertyChanged}" Margin="0 1"/>

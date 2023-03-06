@@ -12,8 +12,8 @@ namespace HVTApp.UI.PriceEngineering.Converters
         {
             if (value is TaskViewModel priceEngineeringTaskViewModel)
             {
-                return priceEngineeringTaskViewModel.SalesUnits.Any()
-                    ? priceEngineeringTaskViewModel.SalesUnits.Count
+                return priceEngineeringTaskViewModel.Model.SalesUnits.Any()
+                    ? priceEngineeringTaskViewModel.Model.SalesUnits.Count
                     : 0;
             }
 

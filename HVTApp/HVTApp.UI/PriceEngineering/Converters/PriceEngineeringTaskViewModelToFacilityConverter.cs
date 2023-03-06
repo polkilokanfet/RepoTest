@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
         {
             if (value is TaskViewModel priceEngineeringTaskViewModel)
             {
-                var facility = priceEngineeringTaskViewModel.SalesUnits.FirstOrDefault()?.Model.Facility;
+                var facility = priceEngineeringTaskViewModel.Model.SalesUnits.FirstOrDefault()?.Facility;
                 return facility == null
                     ? "У задания нет SalesUnits"
                     : facility.ToString();
@@ -34,7 +34,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
         {
             if (value is TaskViewModel priceEngineeringTaskViewModel)
             {
-                var facility = priceEngineeringTaskViewModel.SalesUnits.FirstOrDefault()?.Model.Facility;
+                var facility = priceEngineeringTaskViewModel.Model.SalesUnits.FirstOrDefault()?.Facility;
                 return facility == null
                     ? "У задания нет SalesUnits"
                     : facility.Address.ToString();

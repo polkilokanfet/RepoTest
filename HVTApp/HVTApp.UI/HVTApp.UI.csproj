@@ -510,6 +510,9 @@
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManager.xaml.cs">
+      <DependentUpon>ProductTaskControlBackManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManagerBoss.xaml.cs">
       <DependentUpon>ProductTaskControlBackManagerBoss.xaml</DependentUpon>
     </Compile>
@@ -2037,6 +2040,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
