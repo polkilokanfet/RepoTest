@@ -18,6 +18,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     : facility.ToString();
             }
 
+            //return string.Empty;
             throw new ArgumentException();
         }
 

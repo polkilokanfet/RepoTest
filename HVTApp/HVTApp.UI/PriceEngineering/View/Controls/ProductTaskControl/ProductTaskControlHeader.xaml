@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:converters1="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View.Converters"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -10,9 +11,15 @@
         <converters:PriceEngineeringTaskViewModelToFacilityAddressConverter x:Key="ToFacilityAddressConverter" />
         <converters:PriceEngineeringTaskViewModelToProductAmountConverter x:Key="ToProductAmountConverter" />
         <converters:PriceEngineeringTaskViewModelIsExpendedConverter x:Key="IsExpendedConverter" />
-        <converters:PriceEngineeringTaskViewModelManagerVisibilityConverter x:Key="ManagerVisibilityConverter" />
-        <converters:PriceEngineeringTaskViewModelManagerNewVisibilityConverter x:Key="ManagerVisibilityConverterNew" />
+        <converters1:TceItemToFacilityOwnerConverter x:Key="ToFacilityOwnerConverter" />
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="Style1">
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        </Style>
+
     </UserControl.Resources>
+
 
     <Border 
         Visibility="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" 
@@ -44,28 +51,48 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <Label Grid.Row="0" Grid.Column="0" Content="Объект: "/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                                <Label Grid.Row="0" Grid.Column="0" Content="Объект: " VerticalAlignment="Center"/>
+                                <Expander Grid.Row="0" Grid.Column="1" IsExpanded="False">
+                                    <Expander.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ElementName=Root, Path=DataContext, Mode=OneWay, Converter={StaticResource ToFacilityConverter}}" Style="{StaticResource Style1}"/>
+                                        </DataTemplate>
+                                    </Expander.HeaderTemplate>
 
-                                <Label Grid.Row="0" Grid.Column="2" Content=" Адрес: "/>
-                                <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityAddressConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                <Label Grid.Row="1" Grid.Column="0" Content="Продукт: "/>
-                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductDesignationConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Адрес: "/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityAddressConverter}}" Style="{StaticResource Style1}" />
 
-                                <Label Grid.Row="1" Grid.Column="2" Content=" Кол-во: "/>
-                                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductAmountConverter}}" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Владелец: "/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityOwnerConverter}}" Style="{StaticResource Style1}" />
+
+                                    </Grid>
+                                </Expander>
+
+                                <Label Grid.Row="1" Grid.Column="0" Content="Продукт: " VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductDesignationConverter}}" Style="{StaticResource Style1}"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Content="Кол-во: " VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductAmountConverter}}" Style="{StaticResource Style1}"/>
                             </Grid>
 
-                            <ContentControl Grid.Column="1" Content="{Binding ButtonsArea, ElementName=Root}"/>
+                            <ContentPresenter Grid.Column="1" Content="{Binding ButtonsArea, ElementName=Root}"/>
 
                         </Grid>
                     </Border>
@@ -73,7 +100,7 @@
             </Expander.HeaderTemplate>
 
             <!--Проработка блоков-->
-            <ContentControl 
+            <ContentPresenter 
                 DataContext="{Binding}"
                 Content="{Binding TasksArea, ElementName=Root}"/>
 

@@ -7,11 +7,6 @@
              x:Name="Root">
 
     <UserControl.Resources>
-        <converters:TceItemToFacilityConverter x:Key="ToFacilityConverter" />
-        <converters:TceItemToFacilityAddressConverter x:Key="ToFacilityAddressConverter" />
-        <converters:TceItemToFacilityOwnerConverter x:Key="ToFacilityOwnerConverter" />
-        <converters:TceItemToProductConverter x:Key="ToProductConverter" />
-        <converters:TceItemToAmountConverter x:Key="ToAmountConverter" />
         <converters:TceItemToRealizationDateConverter x:Key="ToRealizationDateConverter" />
         <converters:TceItemToDeliveryTypeConverter x:Key="ToDeliveryTypeConverter" />
     </UserControl.Resources>
@@ -65,90 +60,32 @@
 
                         <!--Шапка-->
                         <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="AliceBlue" CornerRadius="5">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
 
+                            <Expander IsExpanded="False" Header="Дополнительная информация">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Label Grid.Row="0" Grid.Column="0" Content="Объект:"/>
-                                        <TextBox Grid.Row="0" Grid.Column="1" 
-                                                 IsReadOnly="True"
-                                                 Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToFacilityConverter}, Mode=OneWay}"/>
-
-                                        <Label Grid.Row="1" Grid.Column="0" Content="Продукт:"/>
-                                        <TextBox Grid.Row="1" Grid.Column="1" 
-                                                 IsReadOnly="True"
-                                                 Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToProductConverter}, Mode=OneWay}"/>
-
-                                        <Label Grid.Row="2" Grid.Column="0" Content="Количество:"/>
-                                        <TextBox Grid.Row="2" Grid.Column="1" 
-                                                 IsReadOnly="True"
-                                                 Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToAmountConverter}, Mode=OneWay}"/>
-                                    </Grid>
-
-                                    <Expander Grid.Row="1" IsExpanded="False" Header="Дополнительная информация">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Владелец объекта:"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1" 
-                                                     IsReadOnly="True"
-                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToFacilityOwnerConverter}, Mode=OneWay}"/>
-
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Адрес объекта:"/>
-                                            <TextBox Grid.Row="1" Grid.Column="1" 
-                                                     IsReadOnly="True"
-                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToFacilityAddressConverter}, Mode=OneWay}"/>
-
-                                            <Label Grid.Row="2" Grid.Column="0" Content="Дата реализации:"/>
-                                            <TextBox Grid.Row="2" Grid.Column="1" 
-                                                     IsReadOnly="True"
-                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToRealizationDateConverter}, Mode=OneWay}"/>
-
-                                            <Label Grid.Row="3" Grid.Column="0" Content="Тип доставки:"/>
-                                            <TextBox Grid.Row="3" Grid.Column="1" 
-                                                     IsReadOnly="True"
-                                                     Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}, Mode=OneWay}"/>
-                                        </Grid>
-
-                                    </Expander>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
 
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Дата реализации:"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" 
+                                             IsReadOnly="True"
+                                             Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToRealizationDateConverter}, Mode=OneWay}"/>
 
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Тип доставки:"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" 
+                                             IsReadOnly="True"
+                                             Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}, Mode=OneWay}"/>
                                 </Grid>
 
-                                <GroupBox Grid.Column="1" Header="Действия" Background="Transparent">
-                                    <Button Content="Загрузить файлы ТЗ" Command="{Binding LoadFilesCommand}" VerticalAlignment="Top"/>
-                                </GroupBox>
+                            </Expander>
 
-                            </Grid>
                         </Border>
 
                         <!--SCC-->

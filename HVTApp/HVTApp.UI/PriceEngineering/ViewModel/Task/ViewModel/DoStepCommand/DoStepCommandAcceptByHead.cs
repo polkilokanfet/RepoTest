@@ -17,7 +17,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             ViewModel.Statuses.Add(ScriptStep.VerificationAcceptByHead);
             ViewModel.Statuses.Add(ScriptStep.FinishByConstructor);
-            ViewModel.SaveCommand.CanExecute();
+            ViewModel.SaveCommand.Execute();
             this.EventAggregator.GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(ViewModel.Model);
             this.EventAggregator.GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(ViewModel.Model);
         }
