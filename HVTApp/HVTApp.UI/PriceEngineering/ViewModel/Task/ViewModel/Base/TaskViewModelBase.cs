@@ -93,6 +93,11 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public ScriptStep Status => this.Model.Status;
 
+        /// <summary>
+        /// ТЗ валидно для производства
+        /// </summary>
+        public bool IsValidForProduction => Model.IsValidForProduction;
+
         #endregion
 
         #region ComplexProperties

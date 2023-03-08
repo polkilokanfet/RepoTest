@@ -2535,7 +2535,7 @@ namespace HVTApp.Model.Wrapper
         public bool ParentPriceEngineeringTaskIdIsChanged => GetIsChanged(nameof(ParentPriceEngineeringTaskId));
 
         /// <summary>
-        /// TermPriority
+        /// Приоритет проработки задачи
         /// </summary>
         public System.Nullable<System.DateTime> TermPriority
         {
@@ -2566,6 +2566,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
         public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
+
+        /// <summary>
+        /// ТЗ валидно для производства
+        /// </summary>
+        public System.Boolean IsValidForProduction
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsValidForProductionOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsValidForProduction));
+        public bool IsValidForProductionIsChanged => GetIsChanged(nameof(IsValidForProduction));
 
         /// <summary>
         /// Id

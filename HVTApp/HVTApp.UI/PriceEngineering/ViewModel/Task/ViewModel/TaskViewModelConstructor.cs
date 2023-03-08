@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -11,7 +10,6 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
@@ -21,7 +19,6 @@ using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.ParametersService1;
 using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -37,15 +34,15 @@ namespace HVTApp.UI.PriceEngineering
             get
             {
                 if (IsTarget == false) return false;
-
-                var ss = new List<ScriptStep>
+                
+                var steps = new List<ScriptStep>
                 {
                     ScriptStep.Start,
                     ScriptStep.RejectByManager,
                     ScriptStep.VerificationRejectByHead
                 };
 
-                return ss.Contains(Status);
+                return steps.Contains(Status);
             }
         }
 
@@ -54,12 +51,8 @@ namespace HVTApp.UI.PriceEngineering
         public TaskProductBlockAddedWrapperConstructor SelectedBlockAdded
         {
             get => _selectedBlockAdded;
-            set
-            {
-                if (Equals(_selectedBlockAdded, value)) return;
-                _selectedBlockAdded = value;
-                RemoveBlockAddedCommand.RaiseCanExecuteChanged();
-            }
+            set => this.SetProperty(ref _selectedBlockAdded, value,
+                () => RemoveBlockAddedCommand.RaiseCanExecuteChanged());
         }
 
         #region Commands
@@ -67,30 +60,30 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Выбрать блок продукта
         /// </summary>
-        public DelegateLogCommand SelectProductBlockCommand { get; private set; }
+        public DelegateLogCommand SelectProductBlockCommand { get; }
         /// <summary>
         /// Команда добавления зависиммых блоков (например ЗИПов)
         /// </summary>
-        public DelegateLogCommand AddBlockAddedCommand { get; private set; }
-        public DelegateLogCommand AddBlockAddedComplectCommand { get; private set; }
-        public DelegateLogConfirmationCommand RemoveBlockAddedCommand { get; private set; }
-        public DelegateLogCommand AddAnswerFilesCommand { get; private set; }
-        public DelegateLogConfirmationCommand RemoveAnswerFileCommand { get; private set; }
-        public ICommandRaiseCanExecuteChanged FinishCommand { get; private set; }
-        public ICommandRaiseCanExecuteChanged RejectCommand { get; private set; }
-        public DelegateLogCommand BlockAddedNewParameterCommand { get; private set; }
-        public DelegateLogCommand BlockNewParameterCommand { get; private set; }
+        public DelegateLogCommand AddBlockAddedCommand { get; }
+        public DelegateLogCommand AddBlockAddedComplectCommand { get; }
+        public DelegateLogConfirmationCommand RemoveBlockAddedCommand { get; }
+        public DelegateLogCommand AddAnswerFilesCommand { get; }
+        public DelegateLogConfirmationCommand RemoveAnswerFileCommand { get; }
+        public ICommandRaiseCanExecuteChanged FinishCommand { get; }
+        public ICommandRaiseCanExecuteChanged RejectCommand { get; }
+        public DelegateLogCommand BlockAddedNewParameterCommand { get; }
+        public DelegateLogCommand BlockNewParameterCommand { get; }
 
         /// <summary>
         /// Команда создания подзадачи (например, добавление площадки обслуживания).
         /// </summary>
-        public DelegateLogCommand CreateSubTaskCommand { get; private set; }
+        public DelegateLogCommand CreateSubTaskCommand { get; }
         /// <summary>
         /// Команда удаления подзадачи (например, добавление площадки обслуживания).
         /// </summary>
         public DelegateLogConfirmationCommand RemoveSubTaskCommand { get; }
 
-        public DelegateLogCommand LoadJsonFileCommand { get; private set; }
+        public DelegateLogCommand LoadJsonFileCommand { get; }
 
         #endregion
 
@@ -239,58 +232,7 @@ namespace HVTApp.UI.PriceEngineering
                 }, 
                 () => IsTarget && IsEditMode && SelectedFileAnswer != null);
 
-            FinishCommand = new DelegateLogConfirmationCommand(
-                messageService,
-                "Вы уверены, что хотите завершить проработку?",
-                () =>
-                {
-                    if (this.Model.RequestForVerificationFromHead == false)
-                    {
-                        var dr = messageService.ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
-                        this.RequestForVerificationFromConstructor = dr == MessageDialogResult.Yes;
-                    }
-
-                    var needVerification = this.Model.RequestForVerificationFromHead || this.RequestForVerificationFromConstructor;
-
-                    var sb = new StringBuilder()
-                        .AppendLine("Информация о результатах проработки.")
-                        .AppendLine("Основной блок:")
-                        .AppendLine($" - {this.ProductBlockEngineer.PrintToMessage()}");
-
-                    var pba = this.ProductBlocksAdded.Where(x => x.Model.IsRemoved == false).ToList();
-                    if (pba.Any())
-                    {
-                        sb.AppendLine("Добавленные блоки:");
-                        pba.ForEach(x => sb.AppendLine($" - {x}"));
-                    }
-
-                    var fa = this.FilesAnswers.Where(x => x.IsActual).ToList();
-                    if (fa.Any())
-                    {
-                        sb.AppendLine("Актуальные приложенные файлы ОГК:");
-                        fa.ForEach(x => sb.AppendLine($" - {x}"));
-                    }
-
-                    var step = needVerification
-                        ? ScriptStep.VerificationRequestByConstructor
-                        : ScriptStep.FinishByConstructor;
-                    Statuses.Add(step);
-                    Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));
-                    SaveCommand.Execute();
-
-                    AddAnswerFilesCommand.RaiseCanExecuteChanged();
-                    RemoveAnswerFileCommand.RaiseCanExecuteChanged();
-
-                    if (needVerification)
-                    {
-                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(this.Model);
-                    }
-                    else
-                    {
-                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(this.Model);
-                    }
-                },
-                () => IsTarget && IsEditMode && this.IsValid);
+            FinishCommand = new DoStepCommandFinishByConstructor(this, container);
 
             RejectCommand = new DoStepCommandRejectedByConstructor(this, container);
 

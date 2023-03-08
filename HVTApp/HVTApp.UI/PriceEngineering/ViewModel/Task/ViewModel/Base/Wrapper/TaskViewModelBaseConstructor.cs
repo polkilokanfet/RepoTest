@@ -22,6 +22,17 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         public bool RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<bool>(nameof(RequestForVerificationFromConstructor));
         public bool RequestForVerificationFromConstructorIsChanged => GetIsChanged(nameof(RequestForVerificationFromConstructor));
 
+        /// <summary>
+        /// ТЗ валидно для производства
+        /// </summary>
+        public new bool IsValidForProduction
+        {
+            get => GetValue<bool>();
+            set => SetValue(value);
+        }
+        public bool IsValidForProductionOriginalValue => GetOriginalValue<bool>(nameof(IsValidForProduction));
+        public bool IsValidForProductionIsChanged => GetIsChanged(nameof(IsValidForProduction));
+
         #endregion
 
         #region ComplexProperties
