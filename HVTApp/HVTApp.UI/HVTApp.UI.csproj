@@ -542,8 +542,8 @@
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlocksAddedControl.xaml.cs">
       <DependentUpon>BlocksAddedControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PriceEngineering\View\Controls\CommonInformationControl.xaml.cs">
-      <DependentUpon>CommonInformationControl.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlManager.xaml.cs">
+      <DependentUpon>CommonInformationControlManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\IncludedBlocksControl.xaml.cs">
       <DependentUpon>IncludedBlocksControl.xaml</DependentUpon>
@@ -2089,7 +2089,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\View\Controls\CommonInformationControl.xaml">
+    <Page Include="PriceEngineering\View\Controls\CommonInformationControlManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -70,6 +70,19 @@ namespace HVTApp.UI.PriceEngineering.View
 
         #endregion
 
+        #region AreaActionButtonsTop
+
+        public static readonly DependencyProperty AreaActionButtonsTopProperty = DependencyProperty.Register(
+            "AreaActionButtonsTop", typeof(object), typeof(TaskControl), new PropertyMetadata(default(object)));
+
+        public object AreaActionButtonsTop
+        {
+            get { return (object) GetValue(AreaActionButtonsTopProperty); }
+            set { SetValue(AreaActionButtonsTopProperty, value); }
+        }
+
+        #endregion
+
         public TaskControl()
         {
             InitializeComponent();

@@ -40,6 +40,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!--Блок продукта-->
@@ -81,8 +82,11 @@
 
                                 </Grid>
 
+                                <!--Действия-->
+                                <ContentPresenter Grid.Column="2" Content="{Binding ElementName=Root, Path=AreaActionButtonsTop}"/>
+
                                 <!--Отчёт-->
-                                <Button Grid.Column="2" 
+                                <Button Grid.Column="3" 
                                         Content="Отчёт" 
                                         Command="{Binding ShowReportCommand}"/>
 

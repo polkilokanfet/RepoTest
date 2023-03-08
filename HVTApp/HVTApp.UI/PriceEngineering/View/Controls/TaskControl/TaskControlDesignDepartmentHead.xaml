@@ -29,9 +29,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Отклонить менеджеру" Command="{Binding RejectPriceEngineeringTaskCommandToManager}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
+                <Button Grid.Column="0" Content="Отклонить менеджеру" Command="{Binding RejectPriceEngineeringTaskCommandToManager}"/>
+                <Button Grid.Column="1" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
+                <Button Grid.Column="2" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
             </Grid>
         </view:TaskControl.AreaActionButtons>
 

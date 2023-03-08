@@ -33,8 +33,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}"/>
-                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}"/>
+                    <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}"/>
+                    <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}"/>
 
                 </Grid>
 
@@ -64,13 +64,13 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Отклонить"
+                            <Button Grid.Column="0" Content="Отклонить"
                                                                     Command="{Binding RejectCommand}" />
-                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Завершить"
+                            <Button Grid.Column="1" Content="Завершить"
                                                                     Command="{Binding FinishCommand}" />
-                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Сохранить"
+                            <Button Grid.Column="2" Content="Сохранить"
                                                                     Command="{Binding SaveCommand}" />
-                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="3" Content="Подзадача"
+                            <Button Grid.Column="3" Content="Подзадача"
                                                                     Command="{Binding CreateSubTaskCommand}" />
                         </Grid>
                     </GroupBox>

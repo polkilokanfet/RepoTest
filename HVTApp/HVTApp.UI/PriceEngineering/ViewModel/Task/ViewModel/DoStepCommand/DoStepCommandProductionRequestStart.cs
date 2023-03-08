@@ -37,7 +37,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             //проверка на наличие з/з
             if (this.ViewModel.Model.SalesUnits.Any(salesUnit => salesUnit.Order != null))
             {
-                MessageService.ShowOkMessageDialog("Отказ", "В перечне оборудования уже есть отрытые з/з");
+                MessageService.ShowOkMessageDialog("Отказ", "В перечне оборудования уже есть открытые з/з");
                 return;
             }
 

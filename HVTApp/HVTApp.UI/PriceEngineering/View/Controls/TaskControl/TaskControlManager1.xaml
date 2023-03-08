@@ -19,23 +19,16 @@
             <view:FilesControlManager1 Grid.Row="1" TaskViewModelManager="{Binding}"/>
         </view:TaskControl.AreaFiles>
 
-        <view:TaskControl.AreaActionButtons>
-            <Grid Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Стартовать" Command="{Binding StartCommand}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Принять" Command="{Binding AcceptCommand}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Grid.Column="3" Content="Остановить" Command="{Binding StopCommand}"/>
-            </Grid>
-
-        </view:TaskControl.AreaActionButtons>
+        <view:TaskControl.AreaActionButtonsTop>
+            <StackPanel 
+                Orientation="Horizontal"
+                Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
+                <controls:ButtonIsVisibleWhenCanExecute Content="Стартовать" Command="{Binding StartCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute Content="Принять" Command="{Binding AcceptCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute Content="Отклонить" Command="{Binding RejectCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute Content="Остановить" Command="{Binding StopCommand}"/>
+            </StackPanel>
+        </view:TaskControl.AreaActionButtonsTop>
 
         <view:TaskControl.AreaIncludedBlocks>
             <ItemsControl 

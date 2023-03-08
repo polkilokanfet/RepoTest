@@ -100,6 +100,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
             ChildTasks.AddRange(taskList);
 
             this.UserManager = new UserEmptyWrapper(manager);
+            this.WorkUpTo = DateTime.Now.AddDays(3);
         }
         
         #endregion

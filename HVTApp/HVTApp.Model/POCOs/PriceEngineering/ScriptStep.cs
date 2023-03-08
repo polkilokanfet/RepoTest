@@ -204,7 +204,10 @@ namespace HVTApp.Model.POCOs
                 VerificationRequestByConstructor,
                 VerificationAcceptByHead,
                 VerificationRejectByHead,
-                Accept
+                Accept, 
+                LoadToTceStart,
+                LoadToTceFinish,
+                ProductionRequestStart
             };
 
             protected override IEnumerable<Role> RolesForShow => new List<Role>();
