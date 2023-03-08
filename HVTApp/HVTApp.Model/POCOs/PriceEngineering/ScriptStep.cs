@@ -30,65 +30,12 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        #region ShowToRole
-
         /// <summary>
         /// Показывать в списке задач
         /// </summary>
-        public bool Show
-        {
-            get
-            {
-                switch (GlobalAppProperties.User.RoleCurrent)
-                {
-                    case Role.SalesManager:
-                        return this.ShowToSalesManager;
+        public bool Show => RolesForShow.Contains(GlobalAppProperties.User.RoleCurrent);
 
-                    case Role.Constructor:
-                        return this.ShowToConstructor;
-
-                    case Role.DesignDepartmentHead:
-                        return this.ShowToHead;
-
-                    case Role.Admin:
-                    case Role.Director:
-                    case Role.Economist:
-                    case Role.Pricer:
-                    case Role.DataBaseFiller:
-                    case Role.PlanMaker:
-                    case Role.ReportMaker:
-                    case Role.Supplier:
-                    case Role.BackManager:
-                    case Role.BackManagerBoss:
-                        return false;
-                }
-
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Показывать менеджеру (значение по умолчанию - true)
-        /// </summary>
-        protected virtual bool ShowToSalesManager => true;
-        /// <summary>
-        /// Показывать конструктору (значение по умолчанию - false)
-        /// </summary>
-        protected virtual bool ShowToConstructor => false;
-        /// <summary>
-        /// Показывать руководителю КБ (значение по умолчанию - false)
-        /// </summary>
-        protected virtual bool ShowToHead => false;
-        /// <summary>
-        /// Показывать BackManager (значение по умолчанию - false)
-        /// </summary>
-        protected virtual bool ShowToBackManager => false;
-        /// <summary>
-        /// Показывать BackManagerBoss (значение по умолчанию - false)
-        /// </summary>
-        protected virtual bool ShowToBackManagerBoss => false;
-
-        #endregion
+        protected abstract IEnumerable<Role> RolesForShow { get; }
 
         #region Steps
 
@@ -203,10 +150,9 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Задача создана";
 
-            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
-            {
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>();
 
-            };
+            protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
             public CreateStep() : base(0, Role.SalesManager)
             {
@@ -221,15 +167,19 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Задача запущена на проработку";
 
-            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new []
             {
                 Create,
                 RejectByHead,
                 RejectByConstructor
             };
 
-            protected override bool ShowToHead => true;
-            protected override bool ShowToConstructor => true;
+            protected override IEnumerable<Role> RolesForShow => new []
+            {
+                Role.SalesManager,
+                Role.Constructor,
+                Role.DesignDepartmentHead
+            };
 
             public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
@@ -257,7 +207,7 @@ namespace HVTApp.Model.POCOs
                 Accept
             };
 
-            protected override bool ShowToSalesManager => false;
+            protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
             public StopStep() : base(2, Role.SalesManager)
             {
@@ -279,7 +229,11 @@ namespace HVTApp.Model.POCOs
                 VerificationAcceptByHead
             };
 
-            protected override bool ShowToConstructor => true;
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager,
+                Role.Constructor
+            };
 
             public RejectByManagerStep() : base(3, Role.SalesManager)
             {
@@ -298,6 +252,11 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start
+            };
+
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager
             };
 
             public RejectByConstructorStep() : base(4, Role.Constructor)
@@ -321,6 +280,11 @@ namespace HVTApp.Model.POCOs
                 VerificationAcceptByHead
             };
 
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager
+            };
+
             public FinishByConstructorStep() : base(5, Role.Constructor)
             {
             }
@@ -341,7 +305,7 @@ namespace HVTApp.Model.POCOs
                 VerificationAcceptByHead
             };
 
-            protected override bool ShowToSalesManager => false;
+            protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
             public AcceptStep() : base(6, Role.SalesManager)
             {
@@ -363,7 +327,11 @@ namespace HVTApp.Model.POCOs
                 VerificationRejectByHead
             };
 
-            protected override bool ShowToHead => true;
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager,
+                Role.DesignDepartmentHead
+            };
 
             public VerificationRequestByConstructorStep() : base(7, Role.Constructor)
             {
@@ -382,6 +350,11 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 VerificationRequestByConstructor
+            };
+
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager
             };
 
             public VerificationAcceptByHeadStep() : base(8, Role.DesignDepartmentHead)
@@ -403,7 +376,10 @@ namespace HVTApp.Model.POCOs
                 VerificationRequestByConstructor
             };
 
-            protected override bool ShowToConstructor => true;
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.Constructor
+            };
 
             public VerificationRejectByHeadStep() : base(9, Role.DesignDepartmentHead)
             {
@@ -424,6 +400,11 @@ namespace HVTApp.Model.POCOs
                 Start
             };
 
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager
+            };
+
             public RejectByHeadStep() : base(10, Role.DesignDepartmentHead)
             {
             }
@@ -438,7 +419,12 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Менеджер поставил задачу загрузить проработку в ТС";
 
-            protected override bool ShowToBackManager => true;
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager,
+                Role.BackManager,
+                Role.BackManagerBoss
+            };
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
@@ -464,6 +450,11 @@ namespace HVTApp.Model.POCOs
                 LoadToTceStart
             };
 
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager
+            };
+
             public LoadToTceFinishStep() : base(12, Role.BackManager)
             {
             }
@@ -484,6 +475,12 @@ namespace HVTApp.Model.POCOs
                 LoadToTceFinish
             };
 
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.SalesManager,
+                Role.BackManager
+            };
+
             public ProductionRequestStartStep() : base(13, Role.SalesManager)
             {
             }
@@ -502,6 +499,8 @@ namespace HVTApp.Model.POCOs
             {
                 ProductionRequestStart
             };
+
+            protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
             public ProductionRequestFinishStep() : base(14, Role.BackManager)
             {
