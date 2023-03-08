@@ -1,5 +1,4 @@
 using System.Linq;
-using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using Microsoft.Practices.Unity;
