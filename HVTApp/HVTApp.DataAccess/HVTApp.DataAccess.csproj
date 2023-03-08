@@ -417,6 +417,10 @@
     <Compile Include="Migrations\202302021136567_PriceEngineeringTaskConfigurationStatuses.designer.cs">
       <DependentUpon>202302021136567_PriceEngineeringTaskConfigurationStatuses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303080821102_TaskIsValidForProduction.cs" />
+    <Compile Include="Migrations\202303080821102_TaskIsValidForProduction.designer.cs">
+      <DependentUpon>202303080821102_TaskIsValidForProduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -680,6 +684,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302021136567_PriceEngineeringTaskConfigurationStatuses.resx">
       <DependentUpon>202302021136567_PriceEngineeringTaskConfigurationStatuses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303080821102_TaskIsValidForProduction.resx">
+      <DependentUpon>202303080821102_TaskIsValidForProduction.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
