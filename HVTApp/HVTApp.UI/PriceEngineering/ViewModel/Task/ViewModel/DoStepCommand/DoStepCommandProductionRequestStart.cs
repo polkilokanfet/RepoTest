@@ -30,7 +30,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             var notValidForProduction = tasks.Where(task => task.IsValidForProduction == false).ToList();
             if (notValidForProduction.Any())
             {
-                MessageService.ShowOkMessageDialog("Отказ", $"Сначала досогласуйте ТЗ в блоках:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
+                MessageService.ShowOkMessageDialog("Отказ", $"Сначала досогласуйте ТЗ в блоках:\n{notValidForProduction.Select(task => task.ProductBlock).ToStringEnum()}");
                 return;
             }
 

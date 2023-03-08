@@ -41,7 +41,8 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             var vm = (TaskViewModelBackManager) ViewModel;
             return vm.TasksWrapperBackManager.IsValid && 
-                   vm.TasksTceItem.IsValid;
+                   vm.TasksTceItem.IsValid &&
+                   ViewModel.Status.Equals(ScriptStep.LoadToTceStart);
         }
     }
 }

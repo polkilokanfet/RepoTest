@@ -313,11 +313,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         private void PriceEngineeringTasksWrapperOnAllTasksAcceptedByManagerAction()
         {
-            var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
-            if (dr == MessageDialogResult.Yes)
-            {
-                CreatePriceCalculationCommand.Execute();
-            }
+            //var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Вы приняли все задания. Хотите ли Вы загрузить результаты в ТСЕ и создать расчёт ПЗ?");
+            //if (dr == MessageDialogResult.Yes)
+            //{
+            //    CreatePriceCalculationCommand.Execute();
+            //}
         }
 
         /// <summary>
