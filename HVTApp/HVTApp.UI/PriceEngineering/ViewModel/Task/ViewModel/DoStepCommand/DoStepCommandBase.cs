@@ -10,6 +10,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
     public abstract class DoStepCommandBase : DelegateLogCommand
     {
+        public IUnityContainer Container { get; }
         protected readonly TaskViewModel ViewModel;
         private readonly Action _doAfterAction;
         protected readonly IMessageService MessageService;
@@ -23,6 +24,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected DoStepCommandBase(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
         {
+            Container = container;
             ViewModel = viewModel;
             MessageService = container.Resolve<IMessageService>();
             EventAggregator = container.Resolve<IEventAggregator>();
