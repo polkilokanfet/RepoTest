@@ -34,7 +34,7 @@
                 </ListBox>
             </ScrollViewer>
 
-            <ContentControl Grid.Row="1"
+            <ContentPresenter Grid.Row="1"
                             DataContext="{Binding ElementName=Root, Path=ViewModel}"
                             Content="{Binding ElementName=Root, Path=ButtonsArea}"/>
         </Grid>

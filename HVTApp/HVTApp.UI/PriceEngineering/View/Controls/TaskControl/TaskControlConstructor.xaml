@@ -22,38 +22,60 @@
 
         <view:TaskControl.AreaActionButtons>
             <Grid Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-                <GroupBox Grid.Column="0" Header="Новый параметр">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}"/>
-                        <Button Grid.Column="1" Content="Добавленное" Command="{Binding BlockAddedNewParameterCommand}"/>
-                    </Grid>
-                </GroupBox>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <GroupBox Grid.Column="1" Header="Действия в задаче">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Отклонить" Command="{Binding RejectCommand}"/>
-                        <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Завершить" Command="{Binding FinishCommand}"/>
-                        <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Сохранить" Command="{Binding SaveCommand}"/>
-                        <controls:ButtonIsVisibleWhenCanExecute Grid.Column="3" Content="Подзадача" Command="{Binding CreateSubTaskCommand}"/>
-                    </Grid>
-                </GroupBox>
+                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}"/>
+                    <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}"/>
+
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Column="0" Header="Новый параметр">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}" />
+                            <Button Grid.Column="1" Content="Добавленное"
+                                    Command="{Binding BlockAddedNewParameterCommand}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="1" Header="Действия в задаче">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="0" Content="Отклонить"
+                                                                    Command="{Binding RejectCommand}" />
+                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="1" Content="Завершить"
+                                                                    Command="{Binding FinishCommand}" />
+                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="2" Content="Сохранить"
+                                                                    Command="{Binding SaveCommand}" />
+                            <controls:ButtonIsVisibleWhenCanExecute Grid.Column="3" Content="Подзадача"
+                                                                    Command="{Binding CreateSubTaskCommand}" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </Grid>
-
         </view:TaskControl.AreaActionButtons>
 
         <view:TaskControl.AreaIncludedBlocks>
