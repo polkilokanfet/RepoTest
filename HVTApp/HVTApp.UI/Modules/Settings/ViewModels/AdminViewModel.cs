@@ -49,16 +49,16 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     var engineeringTasks = unitOfWork.Repository<PriceEngineeringTask>().GetAll();
                     engineeringTasks.ForEach(x => x.IsValidForProduction = true);
 
-                    User ignat = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Игнатенко").First();
+                    User backManagerBoss = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Игнатенко").First();
 
-                    var ttt = engineeringTasks
+                    var priceEngineeringTasks = engineeringTasks
                         .Where(x => x.ParentPriceEngineeringTaskId == null)
                         .Where(x => x.SalesUnits.Any())
                         .Where(x => x.GetPriceEngineeringTasks(unitOfWork).BackManager != null)
                         .Where(x => x.GetAllPriceEngineeringTasks().All(x1 => x1.Status.Equals(ScriptStep.Accept)))
                         .ToList();
 
-                    foreach (var task in ttt)
+                    foreach (var task in priceEngineeringTasks)
                     {
                         var t = task.GetAllPriceEngineeringTasks();
                         var tasks = task.GetPriceEngineeringTasks(unitOfWork);
@@ -73,7 +73,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                             tItem.Messages.Add(new PriceEngineeringTaskMessage()
                             {
-                                Author = ignat,
+                                Author = backManagerBoss,
                                 Moment = moment.AddSeconds(2),
                                 Message = $"Назначен бэк-менеджер: {tasks.BackManager.Employee.Person}"
                             });
@@ -82,7 +82,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                             {
                                 tItem.Messages.Add(new PriceEngineeringTaskMessage()
                                 {
-                                    Author = ignat,
+                                    Author = backManagerBoss,
                                     Moment = moment.AddSeconds(2),
                                     Message = $"{tasks.CommentBackOfficeBoss}"
                                 });
@@ -92,7 +92,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     unitOfWork.SaveChanges();
 
-                    foreach (var task in ttt)
+                    foreach (var task in priceEngineeringTasks)
                     {
                         var tasks = task.GetPriceEngineeringTasks(unitOfWork);
 
@@ -121,6 +121,49 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                                 StatusEnum = ScriptStep.LoadToTceFinish.Value
                             });
                         }
+                    }
+
+                    unitOfWork.SaveChanges();
+
+                    priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTask>()
+                        .Find(x => x.ParentPriceEngineeringTaskId == null)
+                        .Where(x => x.GetAllPriceEngineeringTasks().All(x1 => x1.Status.Equals(ScriptStep.LoadToTceFinish)))
+                        .Where(x => x.SalesUnits.All(s => s.Order != null))
+                        .Where(x => x.SalesUnits.Select(s => s.Order).Distinct().Count() == 1)
+                        .ToList();
+
+                    foreach (var task in priceEngineeringTasks)
+                    {
+                        var mom = task.Statuses.Max(x => x.Moment).AddSeconds(1);
+                        var dt = task.SalesUnits.First().SignalToStartProduction;
+                        if (dt.HasValue && dt.Value > mom)
+                            mom = dt.Value;
+
+                        task.Statuses.Add(new PriceEngineeringTaskStatus
+                        {
+                            Moment = mom,
+                            StatusEnum = ScriptStep.ProductionRequestStart.Value
+                        });
+
+                        task.Messages.Add(new PriceEngineeringTaskMessage()
+                        {
+                            Author = task.GetPriceEngineeringTasks(unitOfWork).BackManager,
+                            Moment = mom.AddSeconds(1),
+                            Message = $"Открыт з/з: {task.SalesUnits.First().Order.Number}"
+                        });
+
+
+                        dt = task.SalesUnits.First().SignalToStartProductionDone;
+                        if (dt.HasValue && dt.Value > mom)
+                            mom = dt.Value;
+                        else
+                            mom = mom.AddSeconds(2);
+
+                        task.Statuses.Add(new PriceEngineeringTaskStatus
+                        {
+                            Moment = mom,
+                            StatusEnum = ScriptStep.ProductionRequestFinish.Value
+                        });
                     }
 
                     unitOfWork.SaveChanges();
