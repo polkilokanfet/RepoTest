@@ -61,7 +61,7 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         public string Numbers { get; }
 
-        public bool ToShow => ChildPriceEngineeringTasks.Any(x => x.ToShow);
+        public virtual bool ToShow => ChildPriceEngineeringTasks.Any(x => x.ToShow);
 
         #region Model props
 
