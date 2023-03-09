@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Model.POCOs;
@@ -59,6 +60,17 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             {
                 LoadFilesRequest?.Invoke(this.Model);
             });
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            var sccVersionWrappers = this.SccVersions
+                .Where(x => x.IsActual)
+                .Where(x => x.IsValid == false);
+            foreach (var sccVersionWrapper in sccVersionWrappers)
+            {
+                yield return new ValidationResult($"{nameof(SccVersions)} has not valid items", new[] {nameof(SccVersions)});
+            }
         }
 
         protected override void InitializeCollectionProperties()

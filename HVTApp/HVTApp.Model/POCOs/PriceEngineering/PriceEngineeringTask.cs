@@ -283,10 +283,10 @@ namespace HVTApp.Model.POCOs
         {
             salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
 
-            var structureCostVersion = this.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
-            var structureCostNumber = structureCostVersion == null
+            var mainBlockSccVersion = this.StructureCostVersions.FirstOrDefault(version => version.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
+            var structureCostNumber = mainBlockSccVersion == null
                 ? ProductBlockEngineer.StructureCostNumber
-                : $"{tceNumber} V{structureCostVersion.Version:D2}";
+                : $"{tceNumber} V{mainBlockSccVersion.Version:D2}";
 
             if (tceNumber == null && priceService != null)
             {

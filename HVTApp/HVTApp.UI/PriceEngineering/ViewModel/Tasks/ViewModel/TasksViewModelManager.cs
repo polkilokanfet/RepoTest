@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
@@ -35,7 +36,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         public DelegateLogConfirmationCommand StartCommand { get; }
         public DelegateLogConfirmationCommand StopCommand { get; }
         public DelegateLogCommand OpenPriceCalculationCommand { get; }
-        public DelegateLogCommand CreatePriceCalculationCommand { get; }
+        public ICommandRaiseCanExecuteChanged CreatePriceCalculationCommand { get; }
         public DelegateLogCommand OpenTceCommand { get; }
         public DelegateLogCommand ReplaceProductsCommand { get; }
         public DelegateLogCommand PrintCommand { get; }
