@@ -201,35 +201,9 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        public class SalesUnitWithOrderWrapper : WrapperBase<SalesUnit>
+        public class SalesUnitWithOrderWrapper : SalesUnitWithSignalToStartProductionWrapper
         {
             private readonly bool _orderIsRequired;
-
-            #region SimpleProperties
-
-            /// <summary>
-            /// Сигнал менеджера о производстве
-            /// </summary>
-            public DateTime SignalToStartProduction
-            {
-                get { return GetValue<DateTime>(); }
-                set { SetValue(value); }
-            }
-            public DateTime SignalToStartProductionOriginalValue => GetOriginalValue<DateTime>(nameof(SignalToStartProduction));
-            public bool SignalToStartProductionIsChanged => GetIsChanged(nameof(SignalToStartProduction));
-
-            /// <summary>
-            /// Дата размещения в производстве
-            /// </summary>
-            public DateTime SignalToStartProductionDone
-            {
-                get { return GetValue<DateTime>(); }
-                set { SetValue(value); }
-            }
-            public DateTime SignalToStartProductionDoneOriginalValue => GetOriginalValue<DateTime>(nameof(SignalToStartProductionDone));
-            public bool SignalToStartProductionDoneIsChanged => GetIsChanged(nameof(SignalToStartProductionDone));
-
-            #endregion
 
             #region ComplexProperties
 
@@ -238,8 +212,8 @@ namespace HVTApp.UI.PriceEngineering
             /// </summary>
 	        public OrderWrapper Order
             {
-                get { return GetWrapper<OrderWrapper>(); }
-                set { SetComplexValue<Order, OrderWrapper>(Order, value); }
+                get => GetWrapper<OrderWrapper>();
+                set => SetComplexValue<Order, OrderWrapper>(Order, value);
             }
 
             #endregion

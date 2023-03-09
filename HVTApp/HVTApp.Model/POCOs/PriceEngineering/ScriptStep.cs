@@ -453,10 +453,7 @@ namespace HVTApp.Model.POCOs
                 LoadToTceStart
             };
 
-            protected override IEnumerable<Role> RolesForShow => new[]
-            {
-                Role.SalesManager
-            };
+            protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
             public LoadToTceFinishStep() : base(12, Role.BackManager)
             {

@@ -139,7 +139,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// SalesUnits
         /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitEmptyWrapper> SalesUnits { get; private set; }
+        public IValidatableChangeTrackingCollection<SalesUnitWithSignalToStartProductionWrapper> SalesUnits { get; private set; }
 
         /// <summary>
         /// Добавленные блоки продукта от инженера-конструктора
@@ -171,7 +171,7 @@ namespace HVTApp.UI.PriceEngineering
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitEmptyWrapper>(Model.SalesUnits.Select(e => new SalesUnitEmptyWrapper(e)));
+            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWithSignalToStartProductionWrapper>(Model.SalesUnits.Select(e => new SalesUnitWithSignalToStartProductionWrapper(e)));
             RegisterCollection(SalesUnits, Model.SalesUnits);
         }
 
@@ -189,6 +189,41 @@ namespace HVTApp.UI.PriceEngineering
                 .Where(x => x != null)
                 .Cast<ICommandRaiseCanExecuteChanged>()
                 .ForEach(x => x.RaiseCanExecuteChanged());
+        }
+
+
+    }
+
+    public class SalesUnitWithSignalToStartProductionWrapper : WrapperBase<SalesUnit>
+    {
+        #region SimpleProperties
+
+        /// <summary>
+        /// Сигнал менеджера о производстве
+        /// </summary>
+        public DateTime? SignalToStartProduction
+        {
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
+        }
+        public DateTime? SignalToStartProductionOriginalValue => GetOriginalValue<DateTime?>(nameof(SignalToStartProduction));
+        public bool SignalToStartProductionIsChanged => GetIsChanged(nameof(SignalToStartProduction));
+
+        /// <summary>
+        /// Дата размещения в производстве
+        /// </summary>
+        public DateTime? SignalToStartProductionDone
+        {
+            get => GetValue<DateTime?>();
+            set => SetValue(value);
+        }
+        public DateTime? SignalToStartProductionDoneOriginalValue => GetOriginalValue<DateTime?>(nameof(SignalToStartProductionDone));
+        public bool SignalToStartProductionDoneIsChanged => GetIsChanged(nameof(SignalToStartProductionDone));
+
+        #endregion
+
+        public SalesUnitWithSignalToStartProductionWrapper(SalesUnit model) : base(model)
+        {
         }
     }
 }
