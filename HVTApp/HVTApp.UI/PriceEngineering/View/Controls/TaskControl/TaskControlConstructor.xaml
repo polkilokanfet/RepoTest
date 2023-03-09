@@ -31,9 +31,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}"/>
+                    <Button Grid.Column="1" Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}"/>
                     <Button Grid.Column="1" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}"/>
 
                 </Grid>

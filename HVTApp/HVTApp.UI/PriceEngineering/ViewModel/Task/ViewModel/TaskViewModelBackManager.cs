@@ -9,6 +9,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
@@ -34,6 +35,8 @@ namespace HVTApp.UI.PriceEngineering
         public ICommandRaiseCanExecuteChanged LoadFilesCommand { get; }
 
         #endregion
+
+        public OrderWrapper Order { get; }
 
         public event Action SavedEvent;
         public event Action LoadToTceFinishedEvent;
@@ -66,6 +69,10 @@ namespace HVTApp.UI.PriceEngineering
             LoadFilesCommand = new DelegateLogCommand(
                 LoadZipInfo,
                 () => Model.Status.Equals(ScriptStep.ProductionRequestStart) || Model.Status.Equals(ScriptStep.ProductionRequestFinish));
+
+            Order = this.Model.SalesUnits.FirstOrDefault()?.Order == null
+                ? null
+                : new OrderWrapper(this.Model.SalesUnits.FirstOrDefault().Order);
         }
 
         protected override void SaveCommand_ExecuteMethod()
@@ -79,7 +86,9 @@ namespace HVTApp.UI.PriceEngineering
 
         protected override bool SaveCommand_CanExecuteMethod()
         {
-            return TasksTceItem.IsChanged;
+            if (this.Model.Status.Equals(ScriptStep.LoadToTceStart) == false)
+                return false;
+            return TasksTceItem.IsChanged || this.TasksWrapperBackManager.IsChanged;
         }
 
         private void LoadZipInfo()

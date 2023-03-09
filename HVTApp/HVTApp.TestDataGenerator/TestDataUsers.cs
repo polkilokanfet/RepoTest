@@ -305,6 +305,7 @@ namespace HVTApp.TestDataGenerator
         public DesignDepartment DesignDepartmentDeadTanks;
         public DesignDepartment DesignDepartmentDrives;
         public DesignDepartment DesignDepartmentCurrentTransformers;
+        public DesignDepartment DesignDepartmentVoltageTransformers;
 
         private void GenerateDesignDepartments()
         {
@@ -404,6 +405,35 @@ namespace HVTApp.TestDataGenerator
                         Parameters = new List<Parameter>
                         {
                             ParameterTransformersBlockTargetVeb110, ParameterPartTransformersCurrentBlock, ParameterProductParts
+                        }
+                    }
+                },
+                ParameterSetsAddedBlocks = new List<DesignDepartmentParametersAddedBlocks>()
+                {
+                    new DesignDepartmentParametersAddedBlocks()
+                    {
+                        Name = "ЗИП",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterDependentEquipmentTypeZip
+                        }
+                    }
+                }
+            });
+
+            DesignDepartmentVoltageTransformers.Clone(new DesignDepartment
+            {
+                Name = "ТН",
+                Head = UserVedernikov,
+                Staff = new List<User> { UserSivkov, UserBaranova },
+                ParameterSets = new List<DesignDepartmentParameters>()
+                {
+                    new DesignDepartmentParameters
+                    {
+                        Name = "ЗНГ-110",
+                        Parameters = new List<Parameter>
+                        {
+                            ParameterVoltage110kV, ParameterTransformerVoltage
                         }
                     }
                 },

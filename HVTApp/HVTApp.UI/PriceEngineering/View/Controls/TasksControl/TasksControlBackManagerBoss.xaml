@@ -8,9 +8,13 @@
     <view:TasksControl DataContext="{Binding TasksViewModel, ElementName=Root}">
 
         <!--Общая информация для всего оборудования в заданиях-->
-        <!--<view:TasksControl.CommonInformation>
-            <view:CommonInformationControlConstructor DataContext="{Binding}"/>
-        </view:TasksControl.CommonInformation>-->
+        <view:TasksControl.CommonInformation>
+            <GroupBox Header="Бэк-менеджер">
+                <TextBox
+                    IsReadOnly="True"
+                    Text="{Binding TasksWrapper.BackManager, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </GroupBox>
+        </view:TasksControl.CommonInformation>
 
         <!--Оборудование-->
         <view:TasksControl.Products>

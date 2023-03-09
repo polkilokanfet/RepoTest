@@ -23,10 +23,10 @@
             <StackPanel 
                 Orientation="Horizontal"
                 Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
-                <controls:ButtonIsVisibleWhenCanExecute Content="Стартовать" Command="{Binding StartCommand}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Content="Принять" Command="{Binding AcceptCommand}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Content="Отклонить" Command="{Binding RejectCommand}"/>
-                <controls:ButtonIsVisibleWhenCanExecute Content="Остановить" Command="{Binding StopCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute Content="Стартовать" Command="{Binding StartCommand}" Margin="2 0"/>
+                <controls:ButtonIsVisibleWhenCanExecute Content="Принять" Command="{Binding AcceptCommand}" Margin="2 0"/>
+                <controls:ButtonIsVisibleWhenCanExecute Content="Отклонить" Command="{Binding RejectCommand}" Margin="2 0"/>
+                <controls:ButtonIsVisibleWhenCanExecute Content="Остановить" Command="{Binding StopCommand}" Margin="2 0"/>
             </StackPanel>
         </view:TaskControl.AreaActionButtonsTop>
 
