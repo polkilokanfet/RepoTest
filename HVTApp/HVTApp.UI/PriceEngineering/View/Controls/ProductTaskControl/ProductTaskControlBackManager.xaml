@@ -42,6 +42,7 @@
                 <StackPanel Grid.Column="1">
                     <Button Content="Сохранить" Command="{Binding SaveCommand}" />
                     <Button Content="Завершить" Command="{Binding LoadToTceFinishCommand}" />
+                    <Button Content="Разместить" Command="{Binding ProductionRequestFinishCommand}" />
                     <controls:ButtonIsVisibleWhenCanExecute Content="Файлы" Command="{Binding LoadFilesCommand}" />
                 </StackPanel>
             </Grid>

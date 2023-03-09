@@ -1,6 +1,6 @@
-using System.Linq;
-using HVTApp.Infrastructure.Interfaces.Services;
+using System;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
@@ -17,22 +17,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
-            //проверка на открытые з/з
-            if (ViewModel.Model.SalesUnits.Any(x => x.Order != null))
-            {
-                MessageService.ShowOkMessageDialog("ќтказ", "¬ списке оборудовани€ уже есть открытые заказы.");
-                return;
-            }
-
-            var order = new Order();
-            if (this.Container.Resolve<IUpdateDetailsService>().UpdateDetails(order) == false)
-                return;
-
-            foreach (var salesUnit in ViewModel.Model.SalesUnits)
-            {
-                salesUnit.Order = order;
-            }
-
+            var vm = (TaskViewModelBackManager) ViewModel;
+            var now = DateTime.Now;
+            vm.SalesUnits.ForEach(x => x.SignalToStartProductionDone = now);
             base.DoStepAction();
         }
     }

@@ -35,6 +35,8 @@ namespace HVTApp.UI.PriceEngineering
         #region Commands
 
         public ICommandRaiseCanExecuteChanged LoadToTceFinishCommand { get; }
+        public ICommandRaiseCanExecuteChanged ProductionRequestFinishCommand { get; }
+        
         public ICommandRaiseCanExecuteChanged LoadFilesCommand { get; }
 
         #endregion
@@ -84,6 +86,7 @@ namespace HVTApp.UI.PriceEngineering
             };
 
             LoadToTceFinishCommand = new DoStepCommandLoadToTceFinish(this, container, () => LoadToTceFinishedEvent?.Invoke());
+            ProductionRequestFinishCommand  = new DoStepCommandProductionRequestFinish(this, container);
             LoadFilesCommand = new DelegateLogCommand(
                 LoadZipInfo,
                 () => Model.Status.Equals(ScriptStep.ProductionRequestStart) || Model.Status.Equals(ScriptStep.ProductionRequestFinish));
