@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
@@ -10,6 +11,8 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
@@ -36,7 +39,22 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        public OrderWrapper Order { get; }
+        #region Order
+
+        public OrderWrapper Order => SalesUnits.First().Order;
+
+        public new SalesUnitsCollection SalesUnits { get; private set; }
+
+        protected override void InitializeCollectionProperties()
+        {
+            base.InitializeCollectionProperties();
+
+            if (Model.SalesUnits == null) throw new ArgumentException("SU cannot be null");
+            SalesUnits = new SalesUnitsCollection(this.Model, Model.Status.Equals(ScriptStep.ProductionRequestStart));
+            RegisterCollection(SalesUnits, Model.SalesUnits);
+        }
+
+        #endregion
 
         public event Action SavedEvent;
         public event Action LoadToTceFinishedEvent;
@@ -70,9 +88,10 @@ namespace HVTApp.UI.PriceEngineering
                 LoadZipInfo,
                 () => Model.Status.Equals(ScriptStep.ProductionRequestStart) || Model.Status.Equals(ScriptStep.ProductionRequestFinish));
 
-            Order = this.Model.SalesUnits.FirstOrDefault()?.Order == null
-                ? null
-                : new OrderWrapper(this.Model.SalesUnits.FirstOrDefault().Order);
+            if (Model.Status.Equals(ScriptStep.ProductionRequestStart) && Order == null)
+            {
+                SalesUnits.AddOrder(new Order(){DateOpen = DateTime.Now});
+            }
         }
 
         protected override void SaveCommand_ExecuteMethod()
@@ -179,5 +198,81 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        public class SalesUnitWithOrderWrapper : WrapperBase<SalesUnit>
+        {
+            private readonly bool _orderIsRequired;
+
+            #region SimpleProperties
+
+            /// <summary>
+            /// Сигнал менеджера о производстве
+            /// </summary>
+            public DateTime SignalToStartProduction
+            {
+                get { return GetValue<DateTime>(); }
+                set { SetValue(value); }
+            }
+            public DateTime SignalToStartProductionOriginalValue => GetOriginalValue<DateTime>(nameof(SignalToStartProduction));
+            public bool SignalToStartProductionIsChanged => GetIsChanged(nameof(SignalToStartProduction));
+
+            /// <summary>
+            /// Дата размещения в производстве
+            /// </summary>
+            public DateTime SignalToStartProductionDone
+            {
+                get { return GetValue<DateTime>(); }
+                set { SetValue(value); }
+            }
+            public DateTime SignalToStartProductionDoneOriginalValue => GetOriginalValue<DateTime>(nameof(SignalToStartProductionDone));
+            public bool SignalToStartProductionDoneIsChanged => GetIsChanged(nameof(SignalToStartProductionDone));
+
+            #endregion
+
+            #region ComplexProperties
+
+            /// <summary>
+            /// Заказ
+            /// </summary>
+	        public OrderWrapper Order
+            {
+                get { return GetWrapper<OrderWrapper>(); }
+                set { SetComplexValue<Order, OrderWrapper>(Order, value); }
+            }
+
+            #endregion
+
+            public SalesUnitWithOrderWrapper(SalesUnit model, bool orderIsRequired) : base(model)
+            {
+                _orderIsRequired = orderIsRequired;
+            }
+
+            public override void InitializeComplexProperties()
+            {
+                InitializeComplexProperty(nameof(Order), Model.Order == null ? null : new OrderWrapper(Model.Order));
+            }
+
+            protected override IEnumerable<ValidationResult> ValidateOther()
+            {
+                if (_orderIsRequired)
+                {
+                    if(Order == null)
+                        yield return new ValidationResult($"{nameof(Order)} is required", new[] {nameof(Order)});
+                }
+            }
+        }
+
+        public class SalesUnitsCollection : ValidatableChangeTrackingCollection<SalesUnitWithOrderWrapper>
+        {
+            public SalesUnitsCollection(PriceEngineeringTask priceEngineeringTask, bool orderIsRequired) 
+                : base(priceEngineeringTask.SalesUnits.Select(salesUnit => new SalesUnitWithOrderWrapper(salesUnit, orderIsRequired)))
+            {
+            }
+
+            public void AddOrder(Order order)
+            {
+                var orderWrapper = new OrderWrapper(order);
+                this.Items.ForEach(x => x.Order = orderWrapper);
+            }
+        }
     }
 }
