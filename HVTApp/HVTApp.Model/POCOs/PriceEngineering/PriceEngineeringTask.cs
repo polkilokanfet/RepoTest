@@ -324,15 +324,7 @@ namespace HVTApp.Model.POCOs
             }
 
             //стракчакост основного блока
-            yield return new StructureCost
-            {
-                Comment = ProductBlockEngineer.ToString().LimitLength(200),
-                Number = structureCostNumber,
-                OriginalStructureCostProductBlock = ProductBlockEngineer,
-                OriginalStructureCostNumber = ProductBlockEngineer.StructureCostNumber,
-                AmountNumerator = 1,
-                AmountDenomerator = 1
-            };
+            yield return GetStructureCost(ProductBlockEngineer, structureCostNumber, 1, 1);
 
             //стракчакосты добавленных блоков
             foreach (var blockAdded in ProductBlocksAdded.Where(x => x.IsRemoved == false))
@@ -343,15 +335,7 @@ namespace HVTApp.Model.POCOs
                     ? blockAdded.ProductBlock.StructureCostNumber
                     : $"{tceNumber} V{structureCostVersion1.Version:D2}";
 
-                yield return new StructureCost
-                {
-                    Comment = blockAdded.ProductBlock.ToString().LimitLength(200),
-                    Number = structureCostNumber1,
-                    OriginalStructureCostProductBlock = blockAdded.ProductBlock,
-                    OriginalStructureCostNumber = blockAdded.ProductBlock.StructureCostNumber,
-                    AmountNumerator = blockAdded.Amount,
-                    AmountDenomerator = blockAdded.IsOnBlock ? 1 : salesUnitsAmount.Value
-                };
+                yield return GetStructureCost(blockAdded.ProductBlock, structureCostNumber1, blockAdded.Amount, blockAdded.IsOnBlock ? 1 : salesUnitsAmount.Value);
             }
 
             //стракчакосты вложенных задач
@@ -362,6 +346,19 @@ namespace HVTApp.Model.POCOs
                     yield return structureCost;
                 }
             }
+        }
+
+        private StructureCost GetStructureCost(ProductBlock productBlock, string structureCostNumber, double amountNumerator, double amountDenomerator)
+        {
+            return new StructureCost
+            {
+                Comment = productBlock.ToString().LimitLength(200),
+                Number = structureCostNumber,
+                OriginalStructureCostProductBlock = productBlock,
+                OriginalStructureCostNumber = productBlock.StructureCostNumber,
+                AmountNumerator = amountNumerator,
+                AmountDenomerator = amountDenomerator
+            };
         }
 
         public IEnumerable<PriceEngineeringTask> GetAllPriceEngineeringTasks()
