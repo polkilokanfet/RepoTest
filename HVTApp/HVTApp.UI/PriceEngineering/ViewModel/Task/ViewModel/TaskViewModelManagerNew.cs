@@ -36,7 +36,7 @@ namespace HVTApp.UI.PriceEngineering
             : this(container, unitOfWork, salesUnits.First().Product)
         {
             _tasksViewModelManager = tasksViewModelManager;
-            this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
+            this.SalesUnits.AddRange(salesUnits.Select(salesUnit => new SalesUnitWithSignalToStartProductionWrapper(salesUnit)));
         }
 
         /// <summary>

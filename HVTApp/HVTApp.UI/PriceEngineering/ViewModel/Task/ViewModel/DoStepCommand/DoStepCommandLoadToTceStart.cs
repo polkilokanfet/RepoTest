@@ -27,6 +27,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 return;
             }
 
+            var now = DateTime.Now;
+            foreach (var salesUnit in ViewModel.Model.SalesUnits)
+            {
+                salesUnit.SignalToStartProduction = now;
+            }
+
             foreach (var childPriceEngineeringTask in this.ViewModel.ChildPriceEngineeringTasks)
             {
                 if (childPriceEngineeringTask is TaskViewModelManagerOld task)

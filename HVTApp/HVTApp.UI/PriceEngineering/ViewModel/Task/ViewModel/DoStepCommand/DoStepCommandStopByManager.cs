@@ -12,5 +12,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         public DoStepCommandStopByManager(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
+
+        protected override void DoStepAction()
+        {
+            foreach (var salesUnit in ViewModel.SalesUnits)
+            {
+                salesUnit.SignalToStartProduction = null;
+                salesUnit.SignalToStartProductionDone = null;
+            }
+            base.DoStepAction();
+        }
     }
 }

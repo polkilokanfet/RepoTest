@@ -1,6 +1,7 @@
+using System;
 using System.Linq;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
@@ -17,22 +18,18 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
-            //проверка на открытые з/з
-            if (ViewModel.Model.SalesUnits.Any(x => x.Order != null))
+            var vm = (TaskViewModelBackManager) ViewModel;
+            var now = DateTime.Now;
+            vm.SalesUnits.ForEach(x => x.SignalToStartProductionDone = now);
+            vm.Messenger.SendMessage($"Открыт з/з {vm.Order.Number}");
+            foreach (var priceEngineeringTask in vm.Model.GetAllPriceEngineeringTasks().Where(x => x.Id != vm.Model.Id))
             {
-                MessageService.ShowOkMessageDialog("Отказ", "В списке оборудования уже есть открытые заказы.");
-                return;
+                priceEngineeringTask.Statuses.Add(new PriceEngineeringTaskStatus
+                {
+                    Moment = now, 
+                    StatusEnum = ScriptStep.ProductionRequestFinish.Value
+                });
             }
-
-            var order = new Order();
-            if (this.Container.Resolve<IUpdateDetailsService>().UpdateDetails(order) == false)
-                return;
-
-            foreach (var salesUnit in ViewModel.Model.SalesUnits)
-            {
-                salesUnit.Order = order;
-            }
-
             base.DoStepAction();
         }
     }

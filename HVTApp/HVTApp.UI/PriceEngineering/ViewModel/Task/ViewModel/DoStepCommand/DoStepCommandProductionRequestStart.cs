@@ -19,6 +19,13 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
+            //проверка на наличие з/з
+            if (this.ViewModel.Model.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
+            {
+                MessageService.ShowOkMessageDialog("ќтказ", "¬ перечне оборудовани€ уже есть позиции с запросом на открытие з/з");
+                return;
+            }
+
             //проверка на неприн€тые блоки
             var tasks = this.ViewModel.Model.GetAllPriceEngineeringTasks().ToList();
             var notAccepted = tasks.Where(task => Step.PossiblePreviousSteps.Contains(task.Status) == false).ToList();
@@ -36,15 +43,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 return;
             }
 
-            //проверка на наличие з/з
-            if (this.ViewModel.Model.SalesUnits.Any(salesUnit => salesUnit.Order != null))
+            var now = DateTime.Now;
+            foreach (var salesUnit in ViewModel.SalesUnits)
             {
-                MessageService.ShowOkMessageDialog("ќтказ", "¬ перечне оборудовани€ уже есть открытые з/з");
-                return;
+                salesUnit.SignalToStartProduction = now;
             }
 
-            var now = DateTime.Now;
-            ViewModel.Model.SalesUnits.ForEach(x => x.SignalToStartProduction = now);
             base.DoStepAction();
         }
     }
