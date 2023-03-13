@@ -33,11 +33,19 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InCtor();
 
+            var statuses = new []
+            {
+                ScriptStep.Create,
+                ScriptStep.Stop,
+                ScriptStep.RejectByHead,
+                ScriptStep.RejectByConstructor
+            };
+
             StartCommand = new DelegateLogCommand(() => { StartCommandExecute(true); },
                 () =>
                     this.IsValid &&
-                    this.IsChanged &&
-                    (Status.Equals(ScriptStep.Create) || Status.Equals(ScriptStep.Stop) || Status.Equals(ScriptStep.RejectByHead) || Status.Equals(ScriptStep.RejectByConstructor)) &&
+                    //this.IsChanged &&
+                    statuses.Contains(this.Status) &&
                     UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) != null);
         }
 

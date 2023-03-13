@@ -58,7 +58,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
             if (vm.IsValidForProduction == false)
             {
-                sb.AppendLine("\nДля производства потребуется досаглосовать техническое задание.");
+                sb.AppendLine("\nДля производства потребуется досогласовать техническое задание.");
             }
 
             var step = needVerification

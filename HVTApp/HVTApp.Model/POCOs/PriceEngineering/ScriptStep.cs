@@ -279,7 +279,7 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start,
-                VerificationRejectByHead,
+                RejectByManager,
                 VerificationAcceptByHead
             };
 
