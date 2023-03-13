@@ -5,6 +5,7 @@ using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -41,38 +42,47 @@ namespace HVTApp.Services.GetProductService
 
         private Product GetProduct(Bank bank, Product originProduct = null)
         {
-            //предварительно выбранный продукт
-            var selectedProduct = originProduct?.ChangeUnitOfWork(UnitOfWork);
-
-            var productSelector = new ProductSelector(bank, bank.Parameters, selectedProduct);
-            var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
-            window.ShowDialog();
-
-            //если необходимо выбрать комплект
-            if (window.ShouldSelectComplect)
+            try
             {
-                return Container.Resolve<IGetProductService>().GetComplect(originProduct);
+                //предварительно выбранный продукт
+                var selectedProduct = originProduct?.ChangeUnitOfWork(UnitOfWork);
+
+                var productSelector = new ProductSelector(bank, bank.Parameters, selectedProduct);
+                var owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+                var window = new SelectProductWindow { DataContext = productSelector, Owner = owner };
+                window.ShowDialog();
+
+                //если необходимо выбрать комплект
+                if (window.ShouldSelectComplect)
+                {
+                    return Container.Resolve<IGetProductService>().GetComplect(originProduct);
+                }
+
+                //выходим, если пользователь отменил выбор продукта.
+                if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProduct;
+
+                var result = productSelector.SelectedProduct;
+                productSelector.Dispose();
+
+                //если выбранного продукта нет в базе
+                if (((IProductRepository)UnitOfWork.Repository<Product>()).CanAdd(result).OperationCompletedSuccessfully)
+                {
+                    SaveProduct(result);
+                }
+                else
+                {
+                    var result1 = result;
+                    result = UnitOfWork.Repository<Product>().FindAsNoTracking(x => x.Equals(result1)).Single();
+                }
+
+                return result;
+
             }
-
-            //выходим, если пользователь отменил выбор продукта.
-            if (window.DialogResult.HasValue == false || window.DialogResult.Value == false) return originProduct;
-
-            var result = productSelector.SelectedProduct;
-            productSelector.Dispose();
-
-            //если выбранного продукта нет в базе
-            if (((IProductRepository)UnitOfWork.Repository<Product>()).CanAdd(result).OperationCompletedSuccessfully)
+            catch (DependencyParameterException e)
             {
-                SaveProduct(result);
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.Message);
+                return this.GetProduct(originProduct: null);
             }
-            else
-            {
-                var result1 = result;
-                result = UnitOfWork.Repository<Product>().FindAsNoTracking(x => x.Equals(result1)).Single();
-            }
-
-            return result;
         }
 
         public Product GetProduct(IUnitOfWork unitOfWork, Product product)

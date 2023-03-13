@@ -210,7 +210,7 @@ namespace HVTApp.Services.GetProductService
                     continue;
                 }
 
-                throw new Exception("Не найдена подходящая зависимость для продукта");
+                throw new DependencyParameterException("Не найдена подходящая зависимость для продукта");
             }
 
             return result;
@@ -226,6 +226,13 @@ namespace HVTApp.Services.GetProductService
         {
             BlockSelector?.Dispose();
             ProductSelectors.ForEach(productSelector => productSelector.Dispose());
+        }
+    }
+
+    public class DependencyParameterException : Exception
+    {
+        public DependencyParameterException(string s) : base(s)
+        {
         }
     }
 }
