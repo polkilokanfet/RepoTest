@@ -124,8 +124,7 @@
                                     </infgDp:Field.Settings>
                                 </infgDp:Field>
 
-                                <infgDp:Field Name="StructureCosts" 
-                                              IsExpandable="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.SccIsExpandable}"/>
+                                <infgDp:Field Name="StructureCosts" IsExpandable="True"/>
 					        </infgDp:FieldLayout.Fields>
 				        </infgDp:FieldLayout>
 

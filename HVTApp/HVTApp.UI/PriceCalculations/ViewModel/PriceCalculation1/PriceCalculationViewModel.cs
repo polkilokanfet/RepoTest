@@ -190,7 +190,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         public void GenerateNewHistoryItem()
         {
             HistoryItem = new PriceCalculationHistoryItemWrapper(
-                new PriceCalculationHistoryItem()
+                new PriceCalculationHistoryItem
                 {
                     User = UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id)
                 });
@@ -219,8 +219,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         public void CreateCopy(PriceCalculation priceCalculation, TechnicalRequrementsTask technicalRequrementsTask2)
         {
             CreateCopy(priceCalculation);
-            var technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask2.Id);
-            technicalRequrementsTask.PriceCalculations.Add(PriceCalculationWrapper.Model);
+            var technicalRequirementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask2.Id);
+            technicalRequirementsTask.PriceCalculations.Add(PriceCalculationWrapper.Model);
         }
 
         /// <summary>
@@ -289,18 +289,18 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 this.PriceCalculationWrapper.Initiator = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
         }
 
-        public void Load(TechnicalRequrementsTask technicalRequrementsTask)
+        public void Load(TechnicalRequrementsTask technicalRequirementsTask)
         {
             //Загружаем задачу ТСЕ
-            technicalRequrementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequrementsTask.Id);
+            technicalRequirementsTask = UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(technicalRequirementsTask.Id);
             //добавляем расчет ПЗ в загруженную задачу, если он еще не добавлен
-            if (!technicalRequrementsTask.PriceCalculations.ContainsById(PriceCalculationWrapper.Model))
+            if (!technicalRequirementsTask.PriceCalculations.ContainsById(PriceCalculationWrapper.Model))
             {
-                technicalRequrementsTask.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
+                technicalRequirementsTask.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
             }
 
             //добавляем в расчет ПЗ оборудование
-            foreach (var technicalRequrements in technicalRequrementsTask.Requrements.Where(technicalRequrements => technicalRequrements.IsActual))
+            foreach (var technicalRequrements in technicalRequirementsTask.Requrements.Where(technicalRequrements => technicalRequrements.IsActual))
             {
                 var saleUnits = technicalRequrements.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit));
                 PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits, technicalRequrements.OrderInTakeDate.Value, technicalRequrements.RealizationDate.Value));
@@ -311,9 +311,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 this.PriceCalculationWrapper.Initiator = new UserEmptyWrapper(UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
 
             //необходимость файла excel
-            this.PriceCalculationWrapper.IsNeedExcelFile = technicalRequrementsTask.ExcelFileIsRequired;
+            this.PriceCalculationWrapper.IsNeedExcelFile = technicalRequirementsTask.ExcelFileIsRequired;
         }
 
+        /// <summary>
+        /// Создание расчёта из ТСП
+        /// </summary>
+        /// <param name="priceEngineeringTasks"></param>
+        /// <param name="isTceConnected"></param>
         public void Load(PriceEngineeringTasks priceEngineeringTasks, bool isTceConnected)
         {
             //Загружаем задачу

@@ -20,10 +20,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         {
             FinishCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
                 "Вы уверены, что хотите завершить синхронизацию задач с ТСЕ?",
-                () =>
-                {
-                    throw new NotImplementedException();
-                }, 
+                () => throw new NotImplementedException(), 
                 () => throw new NotImplementedException());
         }
 
