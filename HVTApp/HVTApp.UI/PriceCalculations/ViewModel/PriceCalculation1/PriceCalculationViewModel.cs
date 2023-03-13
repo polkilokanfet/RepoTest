@@ -344,7 +344,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             this.PriceCalculationWrapper.Model.IsTceConnected = isTceConnected;
         }
 
-
         public void RegenerateScc(PriceCalculation calculation)
         {
             this.Load(calculation);

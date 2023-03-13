@@ -13,7 +13,7 @@ namespace HVTApp.Model.POCOs
     //то, что фиксируется в БД
     [Designation("Технико-стоимостная проработка")]
     [DesignationPlural("Технико-стоимостные проработки")]
-    public partial class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBasePriorityTask
+    public partial class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBasePriorityTask, IStructureCostVersionsContainer
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Designation("№"), OrderStatus(3000)]
@@ -91,8 +91,7 @@ namespace HVTApp.Model.POCOs
         [Designation("ТЗ валидно для производства"), OrderStatus(36)]
         public bool IsValidForProduction { get; set; }
     }
-
-
+    
     public partial class PriceEngineeringTask
     {
         [Designation("Статус"), NotMapped]
@@ -313,29 +312,15 @@ namespace HVTApp.Model.POCOs
         {
             salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
 
-            var mainBlockSccVersion = this.StructureCostVersions.FirstOrDefault(version => version.OriginalStructureCostNumber == ProductBlockEngineer.StructureCostNumber);
-            var structureCostNumber = mainBlockSccVersion == null
-                ? ProductBlockEngineer.StructureCostNumber
-                : $"{tceNumber} V{mainBlockSccVersion.Version:D2}";
-
-            if (tceNumber == null && priceService != null)
-            {
-                structureCostNumber = priceService.GetAnalogWithPrice(this.ProductBlock)?.StructureCostNumber;
-            }
-
             //стракчакост основного блока
-            yield return GetStructureCost(ProductBlockEngineer, structureCostNumber, 1, 1);
+            var structureCostNumber = GetStructureCostNumber(this, tceNumber, priceService);
+            yield return GetNewStructureCost(ProductBlockEngineer, structureCostNumber, 1, 1);
 
             //стракчакосты добавленных блоков
-            foreach (var blockAdded in ProductBlocksAdded.Where(x => x.IsRemoved == false))
+            foreach (var blockAdded in ProductBlocksAdded.Where(productBlockAdded => productBlockAdded.IsRemoved == false))
             {
-
-                var structureCostVersion1 = blockAdded.StructureCostVersions.FirstOrDefault(x => x.OriginalStructureCostNumber == blockAdded.ProductBlock.StructureCostNumber);
-                var structureCostNumber1 = structureCostVersion1 == null
-                    ? blockAdded.ProductBlock.StructureCostNumber
-                    : $"{tceNumber} V{structureCostVersion1.Version:D2}";
-
-                yield return GetStructureCost(blockAdded.ProductBlock, structureCostNumber1, blockAdded.Amount, blockAdded.IsOnBlock ? 1 : salesUnitsAmount.Value);
+                var structureCostNumber1 = GetStructureCostNumber(blockAdded, tceNumber, priceService);
+                yield return GetNewStructureCost(blockAdded.ProductBlock, structureCostNumber1, blockAdded.Amount, blockAdded.IsOnBlock ? 1 : salesUnitsAmount.Value);
             }
 
             //стракчакосты вложенных задач
@@ -348,7 +333,27 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private StructureCost GetStructureCost(ProductBlock productBlock, string structureCostNumber, double amountNumerator, double amountDenomerator)
+        private string GetStructureCostNumber(IStructureCostVersionsContainer structureCostVersionsContainer, string tceNumber, IPriceService priceService)
+        {
+            if (tceNumber != null && structureCostVersionsContainer.GetStructureCostVersion() != null)
+            {
+                return $"{tceNumber} V{structureCostVersionsContainer.GetStructureCostVersion().Version:D2}";
+            }
+
+            if (string.IsNullOrWhiteSpace(structureCostVersionsContainer.ProductBlock.StructureCostNumber) == false)
+            {
+                return structureCostVersionsContainer.ProductBlock.StructureCostNumber;
+            }
+
+            if (priceService != null)
+            {
+                return priceService.GetAnalogWithPrice(this.ProductBlock)?.StructureCostNumber;
+            }
+
+            return "no scc";
+        }
+
+        private StructureCost GetNewStructureCost(ProductBlock productBlock, string structureCostNumber, double amountNumerator, double amountDenomerator)
         {
             return new StructureCost
             {
