@@ -142,12 +142,42 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        public bool IsAccepted => this.Status.Equals(ScriptStep.Accept);
+        public bool IsAccepted
+        {
+            get
+            {
+                var steps = new[]
+                {
+                    ScriptStep.Accept,
+                    ScriptStep.LoadToTceStart,
+                    ScriptStep.LoadToTceFinish,
+                    ScriptStep.ProductionRequestStart,
+                    ScriptStep.ProductionRequestFinish
+                };
+
+                return steps.Contains(this.Status);
+            }
+        }
 
         /// <summary>
         /// Проработка задачи принята менеджером (со всеми вложенными задачами).
         /// </summary>
-        public bool IsAcceptedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep.Accept));
+        public bool IsAcceptedTotal
+        {
+            get
+            {
+                var steps = new[]
+                {
+                    ScriptStep.Accept,
+                    ScriptStep.LoadToTceStart,
+                    ScriptStep.LoadToTceFinish,
+                    ScriptStep.ProductionRequestStart,
+                    ScriptStep.ProductionRequestFinish
+                };
+
+                return this.StatusesAll.All(step => steps.Contains(step));
+            }
+        }
 
         /// <summary>
         /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).

@@ -325,12 +325,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
 
             //добавляем в расчет ПЗ оборудование
-            foreach (var priceEngineeringTask in priceEngineeringTasks.ChildPriceEngineeringTasks)
+            foreach (var task in priceEngineeringTasks.ChildPriceEngineeringTasks)
             {
-                if (isTceConnected && priceEngineeringTask.IsAcceptedTotal == false)
-                    continue;
-
-                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(priceEngineeringTasks, priceEngineeringTask));
+                var priceCalculationItem = GetPriceCalculationItem2Wrapper(priceEngineeringTasks, task);
+                PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem);
             }
 
             //добавляем расчет ПЗ в загруженную задачу
@@ -344,14 +342,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
             //связь расчёта с ТСЕ
             this.PriceCalculationWrapper.Model.IsTceConnected = isTceConnected;
-
-            if (priceEngineeringTasks.IsAccepted == false || 
-                priceEngineeringTasks.ChildPriceEngineeringTasks.Any(x => x.HasSccInTce == false))
-            {
-                //добавдение статуса "Создано"
-                HistoryItem.Type = PriceCalculationHistoryItemType.Create;
-                PriceCalculationWrapper.History.Add(HistoryItem);
-            }
         }
 
 
@@ -415,9 +405,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(PriceEngineeringTasks priceEngineeringTasks, PriceEngineeringTask priceEngineeringTask)
         {
             var item = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
-            item.SalesUnits.AddRange(priceEngineeringTask.SalesUnits.Select(x => new SalesUnitEmptyWrapper(x)));
+            item.SalesUnits.AddRange(priceEngineeringTask.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
             item.OrderInTakeDate = priceEngineeringTask.SalesUnits.First().OrderInTakeDate;
+            if (item.OrderInTakeDate.Value < DateTime.Today) item.OrderInTakeDate = DateTime.Today;
             item.RealizationDate = priceEngineeringTask.SalesUnits.First().RealizationDateCalculated;
+            if (item.RealizationDate.Value < item.OrderInTakeDate.Value) item.RealizationDate = item.OrderInTakeDate.Value.AddDays(120);
             item.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(priceEngineeringTask.SalesUnits.First().PaymentConditionSet);
             item.Model.PriceEngineeringTaskId = priceEngineeringTask.Id;
 

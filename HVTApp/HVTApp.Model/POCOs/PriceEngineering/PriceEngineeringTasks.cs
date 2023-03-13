@@ -73,8 +73,23 @@ namespace HVTApp.Model.POCOs
         /// Задача (в т.ч. все дочернии задачи) принята менеджером
         /// </summary>
         [Designation("Всё принято?"), NotMapped, NotForListView, NotForDetailsView]
-        public bool IsAccepted => StatusesAll.All(x => x.Equals(ScriptStep.Accept));
-        
+        public bool IsAccepted
+        {
+            get
+            {
+                var steps = new[]
+                {
+                    ScriptStep.Accept,
+                    ScriptStep.LoadToTceStart,
+                    ScriptStep.LoadToTceFinish,
+                    ScriptStep.ProductionRequestStart,
+                    ScriptStep.ProductionRequestFinish
+                };
+
+                return StatusesAll.All(step => steps.Contains(step));
+            }
+        }
+
         [Designation("Старт"), NotMapped, OrderStatus(2000)]
         public DateTime? StartMoment 
         {

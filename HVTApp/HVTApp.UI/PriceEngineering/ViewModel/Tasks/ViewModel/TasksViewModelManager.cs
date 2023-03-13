@@ -233,19 +233,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                              .All(x => x.IsAcceptedTotal || x.IsStoppedTotal);
                     if (isTceConnected == false)
                     {
-                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Не все задачи приняты (из неостановленных).\nХотите ли Вы создать расчёт ПЗ по аналогам?");
-                        if (dr == MessageDialogResult.Yes)
-                        {
-                            isTceConnected = false;
-                        }
-                        else if (dr == MessageDialogResult.No && 
-                                 this.TasksWrapper.ChildTasks.Any(x => x.Model.IsAcceptedTotal))
+                        if (this.TasksWrapper.ChildTasks.Any(x => x.Model.IsAcceptedTotal))
                         {
                             isTceConnected = true;
-                        }
-                        else
-                        {
-                            return;
                         }
                     }
 
