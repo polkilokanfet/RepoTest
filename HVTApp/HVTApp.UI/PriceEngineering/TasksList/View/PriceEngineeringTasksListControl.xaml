@@ -63,10 +63,12 @@
                         <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.UserManager.Employee.Person}" Label="Менеджер" Width="200" AllowResize="True" 
                                       Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToManagerConverter}}"/>
                         <dataPresenter:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
+                        <dataPresenter:TextField Name="BackManagerString" Label="Бэк-менеджер" Width="200" AllowResize="True" />
                         <dataPresenter:CheckBoxField Name="ToShow" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShow}" Visibility="Collapsed"/>
                         <dataPresenter:CheckBoxField Name="ToShowFilt" BindingType="UseAlternateBinding" AlternateBinding="{Binding ToShowFilt}" Visibility="Collapsed"/>
                         <dataPresenter:TextField Label="№ сборки (№№ задач)" BindingType="UseAlternateBinding" AlternateBinding="{Binding Numbers}" Width="175" AllowResize="True" />
                         <dataPresenter:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
+                        <dataPresenter:TextField Name="Orders" Label="Заказы" Width="200" AllowResize="True" />
                         <dataPresenter:Field Name="ChildPriceEngineeringTasks" IsExpandable="True"/>
                     </dataPresenter:FieldLayout.Fields>
 

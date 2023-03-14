@@ -21,10 +21,7 @@ namespace HVTApp.UI.PriceEngineering.Items
         public bool ToShowFilt
         {
             get => _toShowFilt;
-            set
-            {
-                this.SetProperty(ref _toShowFilt, value);
-            }
+            set => this.SetProperty(ref _toShowFilt, value);
         }
 
         public DateTime TermPriority => this
@@ -33,8 +30,26 @@ namespace HVTApp.UI.PriceEngineering.Items
             .Min();
 
         [Designation("Объекты"), OrderStatus(5000)]
-        public abstract string Facilities { get; }
-            
+        public string Facilities =>
+            GetSalesUnits()
+                .Where(x => x != null)
+                .Select(x => x.Facility)
+                .Distinct()
+                .OrderBy(x => x.Name)
+                .ToStringEnum();
+
+        [Designation("Заказы"), OrderStatus(2000)]
+        public string Orders =>
+            GetSalesUnits()
+                .Where(x => x != null)
+                .Select(x => x.Order)
+                .Where(x => x != null)
+                .Distinct()
+                .OrderBy(x => x.Number)
+                .ToStringEnum();
+
+        protected abstract IEnumerable<SalesUnit> GetSalesUnits();
+
         [Designation("Блоки"), OrderStatus(4000)]
         public string ProductBlocks =>
             this.ChildPriceEngineeringTasks
@@ -88,6 +103,8 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         [OrderStatus(1800)]
         public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
+
+        public string BackManagerString => Entity.BackManager?.Employee.Person.ToString();
 
         #endregion
 
