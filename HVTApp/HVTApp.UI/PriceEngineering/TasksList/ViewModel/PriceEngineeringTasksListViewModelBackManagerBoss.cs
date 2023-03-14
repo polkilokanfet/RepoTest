@@ -1,4 +1,4 @@
-using HVTApp.Model;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.Items;
 using Microsoft.Practices.Unity;
@@ -18,7 +18,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         protected override bool IsSuitable(PriceEngineeringTasks engineeringTasks)
         {
-            return true;
+            return engineeringTasks
+                .ChildPriceEngineeringTasks
+                .SelectMany(x => x.StatusesAll)
+                .Contains(ScriptStep.LoadToTceStart);
         }
     }
 }

@@ -21,7 +21,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             InstructCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var users = UnitOfWork.Repository<User>().Find(user => user.Roles.Select(role => role.Role).Contains(Role.BackManager));
+                    var users = UnitOfWork.Repository<User>()
+                        .Find(user => user.Roles.Select(role => role.Role).Contains(Role.BackManager))
+                        .Where(user => user.IsActual);
                     var backManager = container.Resolve<ISelectService>().SelectItem(users);
                     if (backManager == null) return;
 
@@ -34,7 +36,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                             {
                                 Moment = DateTime.Now,
                                 Author = author,
-                                Message = $"Назначен BackManager: {backManager}"
+                                Message = $"Назначен бэк-менеджер: {backManager.Employee.Person}"
                             });
                         }
                     }
@@ -45,9 +47,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 },
                 () =>
                     TasksWrapper != null &&
+                    TasksWrapper.ChildTasks.Any(x => x.Model.Status.Equals(ScriptStep.LoadToTceStart)) &&
                     TasksWrapper.IsValid);
         }
-
+        
         protected override TasksWrapperBackManagerBoss GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
         {
             return new TasksWrapperBackManagerBoss(priceEngineeringTasks, container);

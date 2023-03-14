@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TasksControlPlanMaker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             x:Name="Root">
+
+    <view:TasksControl DataContext="{Binding TasksViewModel, ElementName=Root}">
+
+        <!--Общая информация для всего оборудования в заданиях-->
+        <view:TasksControl.CommonInformation>
+            <GroupBox Header="Заявка в Team Center">
+                <TextBox 
+                    IsReadOnly="{Binding TasksViewModel.NumberIsReadOnly, ElementName=Root, Mode=OneWay}"
+                    Text="{Binding TasksWrapper.TceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </GroupBox>
+        </view:TasksControl.CommonInformation>
+
+        <!--Оборудование-->
+        <view:TasksControl.Products>
+            <ItemsControl 
+                ItemsSource="{Binding TasksWrapper.ChildTasks, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <view:ProductTaskControlPlanMaker TaskViewModel="{Binding }"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </view:TasksControl.Products>
+
+    </view:TasksControl>
+
+</UserControl>

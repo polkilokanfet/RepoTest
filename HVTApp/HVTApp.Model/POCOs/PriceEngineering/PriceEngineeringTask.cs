@@ -29,6 +29,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Конструктор"), OrderStatus(1800)]
         public virtual User UserConstructor { get; set; }
 
+        [Designation("Конструктор"), OrderStatus(1800), NotMapped]
+        public virtual User UserPlanMaker { get; set; }
+
         /// <summary>
         /// Если задача инициирована конструктором (например, для добавления площадки обслуживания выключателя)
         /// </summary>

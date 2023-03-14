@@ -1,0 +1,10 @@
+﻿<inf:ViewBaseConfirmNavigationRequest 
+    x:Class="HVTApp.UI.PriceEngineering.View.PriceEngineeringTasksViewPlanMaker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+    xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View">
+
+    <view:TasksControlPlanMaker TasksViewModel="{Binding}"/>
+
+</inf:ViewBaseConfirmNavigationRequest>

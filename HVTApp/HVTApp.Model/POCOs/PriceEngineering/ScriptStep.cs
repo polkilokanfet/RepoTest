@@ -479,7 +479,8 @@ namespace HVTApp.Model.POCOs
             protected override IEnumerable<Role> RolesForShow => new[]
             {
                 Role.SalesManager,
-                Role.BackManager
+                Role.BackManagerBoss,
+                Role.PlanMaker
             };
 
             public ProductionRequestStartStep() : base(13, Role.SalesManager)
@@ -503,7 +504,7 @@ namespace HVTApp.Model.POCOs
 
             protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
-            public ProductionRequestFinishStep() : base(14, Role.BackManager)
+            public ProductionRequestFinishStep() : base(14, Role.PlanMaker)
             {
             }
 

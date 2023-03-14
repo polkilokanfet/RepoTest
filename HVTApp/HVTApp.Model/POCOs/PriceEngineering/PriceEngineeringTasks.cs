@@ -102,7 +102,17 @@ namespace HVTApp.Model.POCOs
                     .LastOrDefault();
             }
         }
-        
+
+        /// <summary>
+        /// Вернуть все задачи, которые прорабатывает данный User (открывает з/з)
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForOpenOrder(User user)
+        {
+            return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.UserPlanMaker?.Id == user.Id);
+        }
+
         /// <summary>
         /// Вернуть все задачи, которые прорабатывает данный User
         /// </summary>

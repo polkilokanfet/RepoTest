@@ -336,12 +336,17 @@
     </Compile>
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManager.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemPlanMaker.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBackManager.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemPlanMaker.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelPlanMaker.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperPlanMaker.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelPlanMaker.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemConstructor.cs" />
@@ -398,6 +403,7 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopByManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelLoadFilesCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBaseWithStartCommand.cs" />
@@ -489,6 +495,7 @@
     </Compile>
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModel.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelPlanMaker.cs" />
     <Compile Include="PriceEngineering\View\Controls\CommonInformationControlConstructor.xaml.cs">
       <DependentUpon>CommonInformationControlConstructor.xaml</DependentUpon>
     </Compile>
@@ -512,6 +519,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlPlanMaker.xaml.cs">
+      <DependentUpon>ProductTaskControlPlanMaker.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManager.xaml.cs">
       <DependentUpon>ProductTaskControlBackManager.xaml</DependentUpon>
@@ -567,6 +577,9 @@
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
       <DependentUpon>TaskControlManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlPlanMaker.xaml.cs">
+      <DependentUpon>TasksControlPlanMaker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManagerBoss.xaml.cs">
       <DependentUpon>TasksControlBackManagerBoss.xaml</DependentUpon>
     </Compile>
@@ -590,6 +603,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\PriceEngineeringTaskStatusControl.xaml.cs">
       <DependentUpon>PriceEngineeringTaskStatusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewPlanMaker.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewPlanMaker.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewBackManager.xaml.cs">
       <DependentUpon>PriceEngineeringTasksViewBackManager.xaml</DependentUpon>
@@ -2050,6 +2066,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlPlanMaker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2122,6 +2142,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlPlanMaker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManagerBoss.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2151,6 +2175,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\PriceEngineeringTaskStatusControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\PriceEngineeringTasksViewPlanMaker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

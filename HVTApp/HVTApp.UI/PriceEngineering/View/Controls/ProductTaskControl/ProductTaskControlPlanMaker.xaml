@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.ProductTaskControlPlanMaker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             x:Name="Root">
+
+    <view:ProductTaskControlHeader 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
+
+        <view:ProductTaskControlHeader.ButtonsArea>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox 
+                    Grid.Column="0"
+                    Background="Transparent"
+                    Header="Заводской заказ">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row ="0" Content="Номер"/>
+                        <TextBox Grid.Column="1" Grid.Row="0" 
+                                 Text="{Binding Order.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Label Grid.Column="0" Grid.Row ="1" Content="Дата открытия"/>
+                        <DatePicker Grid.Column="1" Grid.Row="1" 
+                                    SelectedDate="{Binding Order.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    </Grid>
+
+                </GroupBox>
+                <StackPanel Grid.Column="1">
+                    <Button Content="Сохранить" Command="{Binding SaveCommand}" />
+                    <Button Content="Завершить" Command="{Binding LoadToTceFinishCommand}" />
+                    <Button Content="Разместить" Command="{Binding ProductionRequestFinishCommand}" />
+                    <controls:ButtonIsVisibleWhenCanExecute Content="Файлы" Command="{Binding LoadFilesCommand}" />
+                </StackPanel>
+            </Grid>
+        </view:ProductTaskControlHeader.ButtonsArea>
+
+        <view:ProductTaskControlHeader.TasksArea>
+            <!--Проработка блоков-->
+            <view:TaskControlBackManager TaskViewModelBackManager="{Binding}"/>
+        </view:ProductTaskControlHeader.TasksArea>
+
+    </view:ProductTaskControlHeader>
+</UserControl>
