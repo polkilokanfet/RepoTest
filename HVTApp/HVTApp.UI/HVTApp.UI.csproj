@@ -327,6 +327,7 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\ToFacilityOwnerConverter.cs" />
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTaskBackManager.xaml.cs">
       <DependentUpon>TabPriceEngineeringTaskBackManager.xaml</DependentUpon>
     </Compile>
