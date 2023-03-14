@@ -280,6 +280,7 @@ namespace HVTApp.Model.POCOs
             {
                 Start,
                 RejectByManager,
+                VerificationRejectByHead,
                 VerificationAcceptByHead
             };
 
