@@ -89,7 +89,7 @@ namespace HVTApp.UI.PriceEngineering
             ProductionRequestFinishCommand  = new DoStepCommandProductionRequestFinish(this, container);
             LoadFilesCommand = new DelegateLogCommand(
                 LoadZipInfo,
-                () => Model.Status.Equals(ScriptStep.ProductionRequestStart) || Model.Status.Equals(ScriptStep.ProductionRequestFinish));
+                () => true);
 
             if (Model.Status.Equals(ScriptStep.ProductionRequestStart) && Order == null)
             {
