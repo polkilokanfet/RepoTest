@@ -110,7 +110,8 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public IEnumerable<PriceEngineeringTask> GetSuitableTasksForOpenOrder(User user)
         {
-            return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.UserPlanMaker?.Id == user.Id);
+            return ChildPriceEngineeringTasks
+                .SelectMany(priceEngineeringTask => priceEngineeringTask.GetSuitableTasksForOpenOrder(user));
         }
 
         /// <summary>

@@ -15,7 +15,7 @@
     <infRib:RibbonGroup Caption="Действия">
 
         <infRib:ButtonTool Caption="Поручить"
-                           Command="{Binding InstructCommand}"
+                           Command="{Binding InstructBackManagerCommand}"
                            SmallImage="/HVTApp.UI;component/Images/in.png" />
 
     </infRib:RibbonGroup>

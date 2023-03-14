@@ -14,11 +14,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public class TasksViewModelBackManagerBoss : TasksViewModelVisible<TasksWrapperBackManagerBoss, TaskViewModelBackManagerBoss>
     {
-        public ICommandRaiseCanExecuteChanged InstructCommand { get; }
+        public ICommandRaiseCanExecuteChanged InstructBackManagerCommand { get; }
 
         public TasksViewModelBackManagerBoss(IUnityContainer container) : base(container)
         {
-            InstructCommand = new DelegateLogCommand(
+            InstructBackManagerCommand = new DelegateLogCommand(
                 () =>
                 {
                     var users = UnitOfWork.Repository<User>()

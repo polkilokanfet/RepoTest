@@ -256,6 +256,17 @@ namespace HVTApp.Model.POCOs
             return GetAllPriceEngineeringTasks().All(priceEngineeringTask => scriptSteps.Contains(priceEngineeringTask.Status));
         }
 
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForOpenOrder(User user)
+        {
+            foreach (var priceEngineeringTask in this.GetAllPriceEngineeringTasks())
+            {
+                if (priceEngineeringTask.Status.Equals(ScriptStep.ProductionRequestStart) &&
+                    priceEngineeringTask.UserPlanMaker?.Id == user.Id)
+                    yield return priceEngineeringTask;
+            }
+        }
+
+
         /// <summary>
         /// Вернуть все задачи, которые прорабатывает данный User
         /// </summary>
