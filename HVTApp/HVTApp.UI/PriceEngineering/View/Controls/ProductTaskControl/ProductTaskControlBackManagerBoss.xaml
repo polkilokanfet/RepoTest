@@ -7,6 +7,13 @@
     <view:ProductTaskControlHeader 
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
 
+        <view:ProductTaskControlHeader.ButtonsArea>
+            <StackPanel>
+                <Button Content="Назначить плановика" Command="{Binding InstructOpenOrderCommand}"/>
+                <TextBox Text="{Binding Model.UserPlanMaker.Employee.Person}"/>
+            </StackPanel>
+        </view:ProductTaskControlHeader.ButtonsArea>
+
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->
             <view:TaskControlBackManagerBoss TaskViewModelBackManagerBoss="{Binding}"/>

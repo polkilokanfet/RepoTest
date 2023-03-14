@@ -35,16 +35,15 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 //Items.Add(new NavigationItem("Услуги", typeof(ServiceRealizationDatesView)));
             }
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager 
-                || GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss 
-                || GlobalAppProperties.User.RoleCurrent == Role.Admin)
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager || 
+                GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss || 
+                GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 //Items.Add(new NavigationItem("Задачи в ТСЕ (новое)", typeof(PriceEngineeringTasksTceView2)));
-                Items.Add(new NavigationItem("Задачи в ТСЕ (новое 2)", typeof(PriceEngineeringTasksListView)));
-                Items.Add(new NavigationItem("Задачи в ТСЕ (старое)", typeof(TechnicalRequrementsTasksView)));
+                Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
+                Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
                 Items.Add(new NavigationItem("Расчеты ПЗ", typeof(PriceCalculationsView)));
             }
-
         }
     }
 }

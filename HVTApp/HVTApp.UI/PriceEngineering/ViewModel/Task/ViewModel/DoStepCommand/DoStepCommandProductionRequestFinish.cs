@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override string ConfirmationMessage => "¬ы уверены, что открыли производство?";
 
-        public DoStepCommandProductionRequestFinish(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandProductionRequestFinish(TaskViewModel viewModel, IUnityContainer container, Action doAfter) : base(viewModel, container, doAfter)
         {
         }
 

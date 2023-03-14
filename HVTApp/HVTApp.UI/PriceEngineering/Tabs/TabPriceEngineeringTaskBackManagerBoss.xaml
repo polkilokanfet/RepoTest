@@ -14,7 +14,7 @@
 
     <infRib:RibbonGroup Caption="Действия">
 
-        <infRib:ButtonTool Caption="Поручить"
+        <infRib:ButtonTool Caption="Назначит бэк-менеджера"
                            Command="{Binding InstructBackManagerCommand}"
                            SmallImage="/HVTApp.UI;component/Images/in.png" />
 

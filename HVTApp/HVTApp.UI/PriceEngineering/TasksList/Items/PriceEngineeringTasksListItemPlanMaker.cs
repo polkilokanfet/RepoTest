@@ -8,15 +8,15 @@ namespace HVTApp.UI.PriceEngineering.Items
     public class PriceEngineeringTasksListItemPlanMaker : 
         PriceEngineeringTasksListItemBase<PriceEngineeringTaskListItemPlanMaker>
     {
-        protected override IEnumerable<SalesUnit> GetSalesUnits()
-        {
-            //return Entity.ChildPriceEngineeringTasks
-            //    .Where(x => x.GetSuitableTasksForWork(GlobalAppProperties.User).Any())
-            //    .SelectMany(x => x.SalesUnits);
-        }
-
         public PriceEngineeringTasksListItemPlanMaker(PriceEngineeringTasks entity) : base(entity)
         {
+        }
+
+        protected override IEnumerable<SalesUnit> GetSalesUnits()
+        {
+            return Entity.ChildPriceEngineeringTasks
+                .Where(task => task.GetSuitableTasksForOpenOrder(GlobalAppProperties.User).Any())
+                .SelectMany(task => task.SalesUnits);
         }
 
         protected override IEnumerable<PriceEngineeringTaskListItemPlanMaker> GetChildTasks()

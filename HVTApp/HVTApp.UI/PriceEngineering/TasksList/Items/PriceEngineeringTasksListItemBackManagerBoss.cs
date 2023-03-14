@@ -19,8 +19,8 @@ namespace HVTApp.UI.PriceEngineering.Items
         {
             return Entity
                 .ChildPriceEngineeringTasks
-                .SelectMany(x => x.GetAllPriceEngineeringTasks())
-                .Select(x => new PriceEngineeringTaskListItemBackManagerBoss(x));
+                .SelectMany(priceEngineeringTask => priceEngineeringTask.GetAllPriceEngineeringTasks())
+                .Select(priceEngineeringTask => new PriceEngineeringTaskListItemBackManagerBoss(priceEngineeringTask));
         }
 
         public override bool ToShow => base.ToShow && Entity.BackManager == null;

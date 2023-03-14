@@ -35,6 +35,8 @@ namespace HVTApp.UI.PriceEngineering
 
         public new SalesUnitsCollection SalesUnits { get; private set; }
 
+        public event Action ProductionRequestFinishedEvent;
+
         protected override void InitializeCollectionProperties()
         {
             base.InitializeCollectionProperties();
@@ -53,7 +55,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             TasksWrapper = tasksWrapper;
 
-            ProductionRequestFinishCommand = new DoStepCommandProductionRequestFinish(this, container);
+            ProductionRequestFinishCommand = new DoStepCommandProductionRequestFinish(this, container, () => this.ProductionRequestFinishedEvent?.Invoke());
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {

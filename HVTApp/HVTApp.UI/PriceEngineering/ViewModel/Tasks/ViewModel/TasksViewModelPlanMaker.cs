@@ -25,7 +25,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     this.TasksWrapper.AcceptChanges();
                     this.UnitOfWork.SaveChanges();
                 };
-                task.LoadToTceFinishedEvent += () =>
+                task.ProductionRequestFinishedEvent += () =>
                 {
                     this.TasksWrapper.AcceptChanges();
                     this.UnitOfWork.SaveChanges();

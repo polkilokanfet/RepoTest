@@ -18,10 +18,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         protected override bool IsSuitable(PriceEngineeringTasks engineeringTasks)
         {
-            return engineeringTasks
-                .ChildPriceEngineeringTasks
-                .SelectMany(x => x.StatusesAll)
-                .Contains(ScriptStep.LoadToTceStart);
+            return
+                engineeringTasks
+                    .ChildPriceEngineeringTasks
+                    .SelectMany(task => task.StatusesAll)
+                    .Contains(ScriptStep.LoadToTceStart);
         }
     }
 }
