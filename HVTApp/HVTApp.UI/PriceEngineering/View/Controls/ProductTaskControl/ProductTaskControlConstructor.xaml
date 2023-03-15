@@ -5,6 +5,7 @@
              x:Name="Root">
 
     <view:ProductTaskControlHeader 
+        TaskViewModel="{Binding ElementName=Root, Path=TaskViewModel}"
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
 
         <view:ProductTaskControlHeader.TasksArea>
