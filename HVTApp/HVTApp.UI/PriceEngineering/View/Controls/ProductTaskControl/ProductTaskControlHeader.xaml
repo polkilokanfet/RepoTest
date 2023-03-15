@@ -20,7 +20,7 @@
     </UserControl.Resources>
 
 
-    <Border
+    <Border 
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
         Visibility="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" 
         Background="#dceaf5"  

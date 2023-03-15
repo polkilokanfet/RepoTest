@@ -51,12 +51,12 @@ namespace HVTApp.UI.PriceEngineering
         public DateTime EndProductionPlanDate
         {
             get => this.SalesUnits.FirstOrDefault()?.EndProductionPlanDate?.Date ?? DateTime.Today.AddDays(120);
-            set => SalesUnits.ForEach(x => x.EndProductionPlanDate = value);
+            set => SalesUnits.ForEach(salesUnit => salesUnit.EndProductionPlanDate = value);
         }
 
         public DateTime SignalToStartProductionDone
         {
-            set => SalesUnits.ForEach(x => x.SignalToStartProductionDone = value);
+            set => SalesUnits.ForEach(salesUnit => salesUnit.SignalToStartProductionDone = value);
         }
 
         public event Action SavedEvent;
@@ -82,6 +82,19 @@ namespace HVTApp.UI.PriceEngineering
             if (Model.Status.Equals(ScriptStep.ProductionRequestStart) && Order == null)
             {
                 SalesUnits.AddOrder(new Order { DateOpen = DateTime.Now });
+            }
+
+            if (Model.Status.Equals(ScriptStep.ProductionRequestStart))
+            {
+                int i = 1;
+                foreach (var salesUnit in this.SalesUnits)
+                {
+                    salesUnit.EndProductionPlanDate = salesUnit.Model.EndProductionDateCalculated.Date;
+                    salesUnit.OrderPosition = i.ToString();
+                    i++;
+                }
+
+                RaisePropertyChanged(nameof(EndProductionPlanDate));
             }
         }
 

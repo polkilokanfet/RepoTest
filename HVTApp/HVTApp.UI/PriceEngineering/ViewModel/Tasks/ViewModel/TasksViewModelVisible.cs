@@ -62,6 +62,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             var user = GlobalAppProperties.User;
             switch (user.RoleCurrent)
             {
+                case Role.PlanMaker:
+                    return true;
                 case Role.SalesManager:
                     return true;
                 case Role.Constructor:
