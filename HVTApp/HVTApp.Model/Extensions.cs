@@ -68,9 +68,14 @@ namespace HVTApp.Model
         /// <returns></returns>
         public static ISumOnDate GetClosedSumOnDate(this IEnumerable<ISumOnDate> sumsOnDates, DateTime date)
         {
-            var sumOnDates = sumsOnDates as ISumOnDate[] ?? sumsOnDates.ToArray();
-            var dif = sumOnDates.Select(sumOnDate => Math.Abs((sumOnDate.Date - date).Days)).Min();
-            return sumOnDates.First(sumOnDate => sumOnDate.Date == date.AddDays(-dif) || sumOnDate.Date == date.AddDays(dif));
+            if (sumsOnDates == null)
+                throw new ArgumentNullException(nameof(sumsOnDates));
+
+            return
+                sumsOnDates
+                    .OrderBy(sumOnDate => Math.Abs((sumOnDate.Date - date).Days))
+                    .First();
+
             //SumOnDate result = null;
             //double? currentDif = null;
             //foreach (var sumOnDate in sumsOnDates)
