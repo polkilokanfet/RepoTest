@@ -45,7 +45,9 @@
                                       Width="37" 
                                       Margin="10 0 0 0" 
                                       Value="{Binding Amount}" ValueType="system:Int32"
-                                      IsEnabled="{Binding ElementName=Root, Path=AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>
+                                      IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:BlocksAddedControl}}, Path=ViewModel.AllowEditAddedBlocks, UpdateSourceTrigger=PropertyChanged}"/>
+
+<!--IsEnabled="{Binding ElementName=Root, Path=AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>-->
             <Label Grid.Column="6" Content=" шт.: "/>
 
             <CheckBox Grid.Column="7" 

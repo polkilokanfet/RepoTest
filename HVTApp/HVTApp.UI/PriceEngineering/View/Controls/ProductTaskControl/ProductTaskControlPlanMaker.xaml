@@ -5,7 +5,8 @@
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              x:Name="Root">
 
-    <view:ProductTaskControlHeader 
+    <view:ProductTaskControlHeader
+        TaskViewModel="{Binding}"
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
 
         <view:ProductTaskControlHeader.ButtonsArea>
@@ -14,16 +15,18 @@
                     <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
+
                     <Button Content="Разместить" Command="{Binding ProductionRequestFinishCommand}" />
                     <controls:ButtonIsVisibleWhenCanExecute Content="Файлы" Command="{Binding LoadFilesCommand}" />
                 </StackPanel>
             </Grid>
         </view:ProductTaskControlHeader.ButtonsArea>
 
+        <!--Проработка блоков-->
         <view:ProductTaskControlHeader.TasksArea>
-            <!--Проработка блоков-->
-            <view:TaskControlPlanMaker TaskViewModelPlanMaker="{Binding}"/>
+            <view:TaskControlPlanMaker TaskViewModel="{Binding}"/>
         </view:ProductTaskControlHeader.TasksArea>
 
     </view:ProductTaskControlHeader>
+
 </UserControl>

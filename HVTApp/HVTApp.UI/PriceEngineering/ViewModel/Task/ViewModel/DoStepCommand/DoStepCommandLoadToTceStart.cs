@@ -10,7 +10,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.LoadToTceStart;
 
-        protected override string ConfirmationMessage => "Вы уверены, что хотите загрузить результаты проработки в ТС?";
+        protected override string ConfirmationMessage => "Вы уверены, что хотите загрузить результаты проработки в Team Center?";
 
         public DoStepCommandLoadToTceStart(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
@@ -25,12 +25,6 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             {
                 MessageService.ShowOkMessageDialog("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
                 return;
-            }
-
-            var now = DateTime.Now;
-            foreach (var salesUnit in ViewModel.Model.SalesUnits)
-            {
-                salesUnit.SignalToStartProduction = now;
             }
 
             foreach (var childPriceEngineeringTask in this.ViewModel.ChildPriceEngineeringTasks)

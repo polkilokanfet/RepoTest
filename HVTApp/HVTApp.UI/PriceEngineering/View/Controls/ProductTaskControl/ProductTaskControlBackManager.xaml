@@ -6,6 +6,7 @@
              x:Name="Root">
 
     <view:ProductTaskControlHeader 
+        TaskViewModel="{Binding}"
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
 
         <view:ProductTaskControlHeader.ButtonsArea>
@@ -23,8 +24,9 @@
 
         <view:ProductTaskControlHeader.TasksArea>
             <!--Проработка блоков-->
-            <view:TaskControlBackManager TaskViewModelBackManager="{Binding}"/>
+            <view:TaskControlBackManager TaskViewModel="{Binding}"/>
         </view:ProductTaskControlHeader.TasksArea>
 
     </view:ProductTaskControlHeader>
+
 </UserControl>

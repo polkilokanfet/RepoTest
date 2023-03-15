@@ -48,6 +48,17 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
+        public DateTime EndProductionPlanDate
+        {
+            get => this.SalesUnits.FirstOrDefault()?.EndProductionPlanDate?.Date ?? DateTime.Today.AddDays(120);
+            set => SalesUnits.ForEach(x => x.EndProductionPlanDate = value);
+        }
+
+        public DateTime SignalToStartProductionDone
+        {
+            set => SalesUnits.ForEach(x => x.SignalToStartProductionDone = value);
+        }
+
         public event Action SavedEvent;
 
         public TaskViewModelPlanMaker(TasksWrapperPlanMaker tasksWrapper, IUnityContainer container, Guid priceEngineeringTaskId)
@@ -93,6 +104,40 @@ namespace HVTApp.UI.PriceEngineering
         public class SalesUnitWithOrderWrapper : SalesUnitWithSignalToStartProductionWrapper
         {
             private readonly bool _orderIsRequired;
+
+            #region SimpleProperties
+
+            #region OrderPosition
+
+            /// <summary>
+            /// Позиция
+            /// </summary>
+            public string OrderPosition
+            {
+                get => GetValue<string>();
+                set => SetValue(value);
+            }
+            public string OrderPositionOriginalValue => GetOriginalValue<string>(nameof(OrderPosition));
+            public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
+
+            #endregion
+
+            #region EndProductionPlanDate;
+
+            /// <summary>
+            /// Плановая дата окончания производства
+            /// </summary>
+            public DateTime? EndProductionPlanDate
+            {
+                get => GetValue<DateTime?>();
+                set => SetValue(value);
+            }
+            public DateTime? EndProductionPlanDateOriginalValue => GetOriginalValue<DateTime?>(nameof(EndProductionPlanDate));
+            public bool EndProductionPlanDateIsChanged => GetIsChanged(nameof(EndProductionPlanDate));
+
+            #endregion
+
+            #endregion
 
             #region ComplexProperties
 

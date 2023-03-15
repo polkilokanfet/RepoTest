@@ -5,16 +5,16 @@ namespace HVTApp.UI.PriceEngineering.View
     public partial class TaskControlPlanMaker
     {
 
-        public static readonly DependencyProperty TaskViewModelPlanMakerProperty = DependencyProperty.Register(
-            "TaskViewModelPlanMaker", 
+        public static readonly DependencyProperty TaskViewModelProperty = DependencyProperty.Register(
+            "TaskViewModel", 
             typeof(TaskViewModelPlanMaker), 
             typeof(TaskControlPlanMaker), 
             new PropertyMetadata(default(TaskViewModelPlanMaker)));
 
-        public TaskViewModelPlanMaker TaskViewModelPlanMaker
+        public TaskViewModelPlanMaker TaskViewModel
         {
-            get => (TaskViewModelPlanMaker) GetValue(TaskViewModelPlanMakerProperty);
-            set => SetValue(TaskViewModelPlanMakerProperty, value);
+            get => (TaskViewModelPlanMaker) GetValue(TaskViewModelProperty);
+            set => SetValue(TaskViewModelProperty, value);
         }
 
         public TaskControlPlanMaker()

@@ -94,6 +94,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                 RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(parameters);
                                 break;
 
+                            case Role.PlanMaker:
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewPlanMaker>(parameters);
+                                break;
+
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }

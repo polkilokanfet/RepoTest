@@ -99,6 +99,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PaymentConditionSetLookupListView1>();
 
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewConstructor>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksViewPlanMaker>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewDesignDepartmentHead>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewManager>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackManager>();

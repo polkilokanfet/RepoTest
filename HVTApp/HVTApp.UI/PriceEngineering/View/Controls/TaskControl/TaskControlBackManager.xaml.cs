@@ -4,16 +4,16 @@ namespace HVTApp.UI.PriceEngineering.View
 {
     public partial class TaskControlBackManager
     {
-        public static readonly DependencyProperty TaskViewModelBackManagerProperty = DependencyProperty.Register(
-            "TaskViewModelBackManager", 
+        public static readonly DependencyProperty TaskViewModelProperty = DependencyProperty.Register(
+            "TaskViewModel", 
             typeof(TaskViewModelBackManager), 
             typeof(TaskControlBackManager), 
             new PropertyMetadata(default(TaskViewModelBackManager)));
 
-        public TaskViewModelBackManager TaskViewModelBackManager
+        public TaskViewModelBackManager TaskViewModel
         {
-            get => (TaskViewModelBackManager) GetValue(TaskViewModelBackManagerProperty);
-            set => SetValue(TaskViewModelBackManagerProperty, value);
+            get => (TaskViewModelBackManager) GetValue(TaskViewModelProperty);
+            set => SetValue(TaskViewModelProperty, value);
         }
 
         public TaskControlBackManager()

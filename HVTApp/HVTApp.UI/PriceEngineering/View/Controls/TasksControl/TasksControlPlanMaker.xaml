@@ -10,7 +10,7 @@
         <view:TasksControl.CommonInformation>
             <GroupBox Header="Заявка в Team Center">
                 <TextBox 
-                    IsReadOnly="{Binding TasksViewModel.NumberIsReadOnly, ElementName=Root, Mode=OneWay}"
+                    IsReadOnly="{Binding NumberIsReadOnly, Mode=OneWay}"
                     Text="{Binding TasksWrapper.TceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </GroupBox>
         </view:TasksControl.CommonInformation>

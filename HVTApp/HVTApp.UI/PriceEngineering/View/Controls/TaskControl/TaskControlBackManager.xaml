@@ -13,7 +13,7 @@
 
     <!--Задача на блок продукта-->
     <Border 
-        DataContext="{Binding ElementName=Root, Path=TaskViewModelBackManager}" 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModel}" 
         Margin="2" 
         BorderThickness="1" 
         BorderBrush="Black" 
@@ -45,7 +45,7 @@
 
                 <!--Единица задачи ТСЕ-->
                 <Border Grid.Row="1" 
-                        DataContext="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Mode=OneWay}"
+                        DataContext="{Binding ElementName=Root, Path=TaskViewModel.TasksTceItem, Mode=OneWay}"
                         Background="DarkGray" 
                         BorderBrush="Black" 
                         BorderThickness="1" 
@@ -76,12 +76,12 @@
                                     <Label Grid.Row="0" Grid.Column="0" Content="Дата реализации:"/>
                                     <TextBox Grid.Row="0" Grid.Column="1" 
                                              IsReadOnly="True"
-                                             Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToRealizationDateConverter}, Mode=OneWay}"/>
+                                             Text="{Binding ElementName=Root, Path=TaskViewModel.TasksTceItem, Converter={StaticResource ToRealizationDateConverter}, Mode=OneWay}"/>
 
                                     <Label Grid.Row="1" Grid.Column="0" Content="Тип доставки:"/>
                                     <TextBox Grid.Row="1" Grid.Column="1" 
                                              IsReadOnly="True"
-                                             Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}, Mode=OneWay}"/>
+                                             Text="{Binding ElementName=Root, Path=TaskViewModel.TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}, Mode=OneWay}"/>
                                 </Grid>
 
                             </Expander>
@@ -91,8 +91,8 @@
                         <!--SCC-->
                         <GroupBox Grid.Row="1" Header="Соответствие стракчакостов">
                             <ItemsControl 
-                                IsEnabled="{Binding TaskViewModelBackManager.IsEditMode, ElementName=Root}"
-                                ItemsSource="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                                IsEnabled="{Binding TaskViewModel.IsEditMode, ElementName=Root}"
+                                ItemsSource="{Binding ElementName=Root, Path=TaskViewModel.TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <view1:SccVersionControl SccVersion="{Binding  UpdateSourceTrigger=PropertyChanged}" Margin="0 1"/>

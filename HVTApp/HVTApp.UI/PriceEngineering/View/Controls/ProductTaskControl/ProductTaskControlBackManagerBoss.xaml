@@ -8,10 +8,16 @@
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
 
         <view:ProductTaskControlHeader.ButtonsArea>
-            <StackPanel>
-                <Button Content="Назначить плановика" Command="{Binding InstructOpenOrderCommand}"/>
-                <TextBox Text="{Binding UserPlanMaker.Model.Employee.Person}"/>
-            </StackPanel>
+            <GroupBox Header="Менеджер по планированию"
+                      Background="Transparent">
+                <StackPanel>
+                    <Button Content="Назначить" Command="{Binding InstructOpenOrderCommand}"/>
+                    <TextBox Text="{Binding UserPlanMaker.Model.Employee.Person, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsReadOnly="True"
+                             BorderThickness="0"
+                             Background="Transparent"/>
+                </StackPanel>
+            </GroupBox>
         </view:ProductTaskControlHeader.ButtonsArea>
 
         <view:ProductTaskControlHeader.TasksArea>

@@ -13,7 +13,7 @@
 
     <!--Задача на блок продукта-->
     <Border 
-        DataContext="{Binding ElementName=Root, Path=TaskViewModelPlanMaker}" 
+        DataContext="{Binding ElementName=Root, Path=TaskViewModel}" 
         Margin="2" 
         BorderThickness="1" 
         BorderBrush="Black" 
@@ -45,7 +45,7 @@
 
                 <!--Единица задачи ТСЕ-->
                 <Border Grid.Row="1" 
-                        DataContext="{Binding ElementName=Root, Path=TaskViewModelPlanMaker, Mode=OneWay}"
+                        DataContext="{Binding ElementName=Root, Path=TaskViewModel, Mode=OneWay}"
                         Background="DarkGray" 
                         BorderBrush="Black" 
                         BorderThickness="1" 
@@ -116,7 +116,7 @@
                         </GroupBox>
 
                         <GroupBox Grid.Row="1" Header="Соответствие стракчакостов">
-                            <ItemsControl 
+                            <!--<ItemsControl 
                                 IsEnabled="{Binding TaskViewModelBackManager.IsEditMode, ElementName=Root}"
                                 ItemsSource="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
@@ -124,7 +124,7 @@
                                         <view1:SccVersionControl SccVersion="{Binding  UpdateSourceTrigger=PropertyChanged}" Margin="0 1"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                            </ItemsControl>-->
                         </GroupBox>
 
                     </Grid>
