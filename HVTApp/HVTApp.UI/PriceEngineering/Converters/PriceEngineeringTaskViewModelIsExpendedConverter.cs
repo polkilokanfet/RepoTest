@@ -21,6 +21,11 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     return true;
                 }
 
+                if (priceEngineeringTaskViewModel is TaskViewModelBackManagerBoss)
+                {
+                    return false;
+                }
+
                 if (priceEngineeringTaskViewModel is TaskViewModelConstructor viewModelConstructor)
                 {
                     return viewModelConstructor.Model.GetSuitableTasksForWork(GlobalAppProperties.User).Any();
