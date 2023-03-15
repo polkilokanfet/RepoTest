@@ -202,14 +202,17 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
                             if (viewModel is TaskViewModelManagerOld priceEngineeringTaskViewModelManager)
                             {
-                                priceEngineeringTaskViewModelManager.StopCommand.ExecuteWithoutConfirmation();
+                                if (priceEngineeringTaskViewModelManager.StopCommand.CanExecute())
+                                    priceEngineeringTaskViewModelManager.StopCommand.ExecuteWithoutConfirmation();
                             }
                         }
                     }
 
                     StopCommand.RaiseCanExecuteChanged();
                 },
-                () => this.TasksWrapper != null && this.IsNew == false);
+                () => 
+                    this.TasksWrapper != null && 
+                    this.IsNew == false);
             //this.PriceEngineeringTasksWrapper != null &&
             //    this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.SelectMany(x => x.Model.Statuses).Any(x => x.StatusEnum != PriceEngineeringTaskStatusEnum.Stopped && x.StatusEnum != PriceEngineeringTaskStatusEnum.Created));
 
