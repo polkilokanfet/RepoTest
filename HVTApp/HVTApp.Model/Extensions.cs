@@ -73,7 +73,7 @@ namespace HVTApp.Model
 
             return
                 sumsOnDates
-                    .OrderBy(sumOnDate => Math.Abs((sumOnDate.Date - date).Days))
+                    .OrderBy(sumOnDate => Math.Abs((sumOnDate.Date - date).Ticks))
                     .First();
 
             //SumOnDate result = null;

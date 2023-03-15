@@ -421,6 +421,10 @@
     <Compile Include="Migrations\202303080821102_TaskIsValidForProduction.designer.cs">
       <DependentUpon>202303080821102_TaskIsValidForProduction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303151717170_UserPlanMaker.cs" />
+    <Compile Include="Migrations\202303151717170_UserPlanMaker.designer.cs">
+      <DependentUpon>202303151717170_UserPlanMaker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -687,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303080821102_TaskIsValidForProduction.resx">
       <DependentUpon>202303080821102_TaskIsValidForProduction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303151717170_UserPlanMaker.resx">
+      <DependentUpon>202303151717170_UserPlanMaker.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

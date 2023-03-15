@@ -10,7 +10,7 @@
         <view:ProductTaskControlHeader.ButtonsArea>
             <StackPanel>
                 <Button Content="Назначить плановика" Command="{Binding InstructOpenOrderCommand}"/>
-                <TextBox Text="{Binding Model.UserPlanMaker.Employee.Person}"/>
+                <TextBox Text="{Binding UserPlanMaker.Model.Employee.Person}"/>
             </StackPanel>
         </view:ProductTaskControlHeader.ButtonsArea>
 

@@ -29,7 +29,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Конструктор"), OrderStatus(1800)]
         public virtual User UserConstructor { get; set; }
 
-        [Designation("Конструктор"), OrderStatus(1800), NotMapped]
+        [Designation("Плановик"), OrderStatus(1700)]
         public virtual User UserPlanMaker { get; set; }
 
         /// <summary>

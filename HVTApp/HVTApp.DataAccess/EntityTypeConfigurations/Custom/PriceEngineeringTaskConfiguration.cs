@@ -4,27 +4,28 @@ namespace HVTApp.DataAccess
     {
         public PriceEngineeringTaskConfiguration()
         {
-            HasOptional(x => x.UserConstructor).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.UserConstructorInitiator).WithMany().WillCascadeOnDelete(false);
+            HasOptional(task => task.UserPlanMaker).WithMany().WillCascadeOnDelete(false);
+            HasOptional(task => task.UserConstructor).WithMany().WillCascadeOnDelete(false);
+            HasOptional(task => task.UserConstructorInitiator).WithMany().WillCascadeOnDelete(false);
 
-            HasRequired(x => x.ProductBlockManager).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.ProductBlockEngineer).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.DesignDepartment).WithMany().WillCascadeOnDelete();
-            HasMany(x => x.ProductBlocksAdded).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasRequired(task => task.ProductBlockManager).WithMany().WillCascadeOnDelete(false);
+            HasRequired(task => task.ProductBlockEngineer).WithMany().WillCascadeOnDelete(false);
+            HasRequired(task => task.DesignDepartment).WithMany().WillCascadeOnDelete();
+            HasMany(task => task.ProductBlocksAdded).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
 
-            HasMany(x => x.FilesTechnicalRequirements).WithMany();
-            HasMany(x => x.FilesAnswers).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.FilesTechnicalRequirements).WithMany();
+            HasMany(task => task.FilesAnswers).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
 
-            HasMany(x => x.Messages).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
-            HasMany(x => x.ChildPriceEngineeringTasks).WithOptional().HasForeignKey(x => x.ParentPriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.Messages).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.ChildPriceEngineeringTasks).WithOptional().HasForeignKey(task => task.ParentPriceEngineeringTaskId).WillCascadeOnDelete(false);
 
-            HasMany(x => x.Statuses).WithRequired().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(true);
+            HasMany(task => task.Statuses).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(true);
 
-            HasMany(x => x.SalesUnits).WithMany();
+            HasMany(task => task.SalesUnits).WithMany();
 
-            HasMany(x => x.StructureCostVersions).WithOptional().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.StructureCostVersions).WithOptional().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
 
-            HasMany(x => x.PriceCalculationItems).WithOptional().HasForeignKey(x => x.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.PriceCalculationItems).WithOptional().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
         }
     }
 }

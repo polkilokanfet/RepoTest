@@ -4,6 +4,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 
@@ -22,31 +23,45 @@ namespace HVTApp.UI.PriceEngineering
 
         public ICommandRaiseCanExecuteChanged InstructOpenOrderCommand { get; }
 
+        /// <summary>
+        /// Плановик
+        /// </summary>
+        public UserEmptyWrapper UserPlanMaker
+        {
+            get => GetWrapper<UserEmptyWrapper>();
+            set
+            {
+                SetComplexValue<User, UserEmptyWrapper>(UserPlanMaker, value);
+                foreach (var priceEngineeringTask in this.Model.GetAllPriceEngineeringTasks())
+                {
+                    priceEngineeringTask.UserPlanMaker = value?.Model;
+                }
+            }
+        }
+
+
         public TaskViewModelBackManagerBoss(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
+            InitializeComplexProperty(nameof(UserPlanMaker), Model.UserPlanMaker == null ? null : new UserEmptyWrapper(Model.UserPlanMaker));
+
             InstructOpenOrderCommand = new DelegateLogCommand(
                 () =>
                 {
                     var users = UnitOfWork.Repository<User>()
-                        .Find(user1 => user1.Roles.Select(role => role.Role).Contains(Role.PlanMaker))
-                        .Where(user1 => user1.IsActual);
+                        .Find(user => user.Roles.Select(role => role.Role).Contains(Role.PlanMaker))
+                        .Where(user => user.IsActual);
                     
-                    var user = container.Resolve<ISelectService>().SelectItem(users);
+                    var planMaker = container.Resolve<ISelectService>().SelectItem(users);
 
-                    if (user == null) return;
+                    if (planMaker == null) return;
 
-                    foreach (var priceEngineeringTask in this.Model.GetAllPriceEngineeringTasks())
-                    {
-                        priceEngineeringTask.UserPlanMaker = user;
-                    }
+                    this.UserPlanMaker = new UserEmptyWrapper(planMaker);
 
                     this.AcceptChanges();
 
                     UnitOfWork.SaveChanges();
 
-                    this.Messenger.SendMessage($"Назначен плановик: {user.Employee.Person}");
-
-                    RaisePropertyChanged(nameof(this.Model.UserPlanMaker));
+                    this.Messenger.SendMessage($"Назначен плановик: {planMaker.Employee.Person}");
                 },
                 () => this.Model.Status.Equals(ScriptStep.ProductionRequestStart));
         }
