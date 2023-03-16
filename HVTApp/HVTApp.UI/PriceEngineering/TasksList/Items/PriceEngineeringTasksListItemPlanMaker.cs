@@ -25,5 +25,11 @@ namespace HVTApp.UI.PriceEngineering.Items
                 .GetSuitableTasksForOpenOrder(GlobalAppProperties.User)
                 .Select(task => new PriceEngineeringTaskListItemPlanMaker(task));
         }
+
+        public override bool ToShow =>
+            base.ToShow &&
+            Entity.ChildPriceEngineeringTasks.Any(x =>
+                x.UserPlanMaker?.Id == GlobalAppProperties.User.Id &&
+                x.Status.Equals(ScriptStep.ProductionRequestStart));
     }
 }

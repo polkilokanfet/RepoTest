@@ -256,11 +256,21 @@ namespace HVTApp.Model.POCOs
             return GetAllPriceEngineeringTasks().All(priceEngineeringTask => scriptSteps.Contains(priceEngineeringTask.Status));
         }
 
+        /// <summary>
+        /// Задачи в которых пользователь имеет право назначить з/з
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public IEnumerable<PriceEngineeringTask> GetSuitableTasksForOpenOrder(User user)
         {
+            var steps = new[]
+            {
+                ScriptStep.ProductionRequestStart,
+                ScriptStep.ProductionRequestFinish
+            };
             foreach (var priceEngineeringTask in this.GetAllPriceEngineeringTasks())
             {
-                if (priceEngineeringTask.Status.Equals(ScriptStep.ProductionRequestStart) &&
+                if (steps.Contains(priceEngineeringTask.Status) &&
                     priceEngineeringTask.UserPlanMaker?.Id == user.Id)
                     yield return priceEngineeringTask;
             }
