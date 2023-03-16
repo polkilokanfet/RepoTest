@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -19,6 +20,7 @@ using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
+using HVTApp.UI.PriceEngineering.ViewModel;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -57,6 +59,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 RemoveGroupCommand.RaiseCanExecuteChanged();
                 DivideCommand.RaiseCanExecuteChanged();
                 LoadFileCommand.RaiseCanExecuteChanged();
+                StartProductionCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -220,6 +223,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public FinishCommand FinishCommand { get; }
 
         public AcceptCommand AcceptCommand { get; }
+
+        public ICommandRaiseCanExecuteChanged StartProductionCommand { get; }
 
         /// <summary>
         /// Разбить строку
@@ -428,6 +433,58 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             LoadShippingCalculationFileCommand = new LoadShippingCalculationFileCommand(this, this.Container);
             OpenShippingCalculationFileCommand = new OpenShippingCalculationFileCommand(this, this.Container);
             RemoveShippingCalculationFileCommand = new RemoveShippingCalculationFileCommand(this, this.Container);
+
+            StartProductionCommand = new DelegateLogConfirmationCommand(messageService,
+                "Вы уверены, что хотите открыть производство?",
+                () =>
+                {
+                    var item = (TechnicalRequrements2Wrapper) SelectedItem;
+
+                    var unitOfWork = container.Resolve<IUnitOfWork>();
+                    var salesUnits = item.Model.SalesUnits
+                        .Select(salesUnit => unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
+                        .ToList();
+                    var files = item.Model.Files
+                        .Where(file => file.IsActual)
+                        .Select(file => unitOfWork.Repository<TechnicalRequrementsFile>().GetById(file.Id))
+                        .ToList();
+
+                    //создаём задачу
+                    var taskWrapper = new PriceEngineeringTaskWrapper(new PriceEngineeringTask());
+                    taskWrapper.ProductBlockManager = taskWrapper.ProductBlockEngineer = new ProductBlockWrapper(salesUnits.First().Product.ProductBlock);
+                    taskWrapper.Amount = salesUnits.Count;
+                    taskWrapper.SalesUnits.AddRange(salesUnits.Select(su => new SalesUnitWrapper(su)));
+                    taskWrapper.FilesTechnicalRequirements.AddRange(files.Select(file => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(new PriceEngineeringTaskFileTechnicalRequirements()
+                    {
+                        CreationMoment = file.Date,
+                        Name = file.Name
+                    })));
+                    taskWrapper.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus()
+                    {
+                        Moment = DateTime.Now,
+                        StatusEnum = ScriptStep.Create.Value
+                    }));
+                    taskWrapper.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus()
+                    {
+                        Moment = DateTime.Now,
+                        StatusEnum = ScriptStep.ProductionRequestStart.Value
+                    }));
+                    taskWrapper.DesignDepartment = new DesignDepartmentWrapper(unitOfWork.Repository<DesignDepartment>().GetAll().First());
+
+                    //формируем сборку задач
+                    var tasksWrapper = new PriceEngineeringTasksWrapper(new PriceEngineeringTasks());
+                    tasksWrapper.ChildPriceEngineeringTasks.Add(taskWrapper);
+                    tasksWrapper.UserManager = new UserWrapper(unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+
+                    //сохраняем сборку
+                    if (unitOfWork.SaveEntity(tasksWrapper.Model).OperationCompletedSuccessfully)
+                    {
+                        tasksWrapper.AcceptChanges();
+                    }
+                },
+                () => 
+                    GlobalAppProperties.User.RoleCurrent == Role.SalesManager && 
+                    SelectedItem is TechnicalRequrements2Wrapper);
 
             SetNewHistoryElement();
         }

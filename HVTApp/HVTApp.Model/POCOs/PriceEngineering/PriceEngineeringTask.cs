@@ -222,7 +222,8 @@ namespace HVTApp.Model.POCOs
         }
 
         public bool IsStarted => !Status.Equals(ScriptStep.Stop) && 
-                                 !Status.Equals(ScriptStep.Create);
+                                 !Status.Equals(ScriptStep.Create) &&
+                                 Statuses.Select(x => x.StatusEnum).Contains(ScriptStep.Start.Value);
 
         public bool HasSccInTce
         {

@@ -80,6 +80,9 @@
         <infRib:ButtonTool Caption="Принять"
                            Command="{Binding AcceptCommand}"
                            SmallImage="/HVTApp.UI;component/Images/done.png" />
+        <infRib:ButtonTool Caption="Открыть производство"
+                           Command="{Binding StartProductionCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/done.png" />
     </infRib:RibbonGroup>
 
     <!--Действия БМ-->
