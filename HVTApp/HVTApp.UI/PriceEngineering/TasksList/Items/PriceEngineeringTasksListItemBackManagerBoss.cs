@@ -23,6 +23,14 @@ namespace HVTApp.UI.PriceEngineering.Items
                 .Select(priceEngineeringTask => new PriceEngineeringTaskListItemBackManagerBoss(priceEngineeringTask));
         }
 
-        public override bool ToShow => base.ToShow && Entity.BackManager == null;
+        public override bool ToShow
+        {
+            get
+            {
+                if (base.ToShow) return true;
+                return Entity.BackManager == null &&
+                       Entity.ChildPriceEngineeringTasks.Any(task => task.Status.Equals(ScriptStep.LoadToTceStart));
+            }
+        }
     }
 }
