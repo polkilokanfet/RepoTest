@@ -34,7 +34,7 @@ namespace HVTApp.UI.Modules.Sales.Production
             set
             {
                 this.DeliveryDateExpected = value.AddDays(Model.DeliveryPeriodCalculated);
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

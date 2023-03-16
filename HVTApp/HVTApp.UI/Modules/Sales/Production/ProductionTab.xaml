@@ -11,8 +11,9 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Редактирование">
-        <infRib:ButtonTool Caption="Разместить" Command="{Binding ProductUnitCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Отозвать" Command="{Binding RemoveFromProductionCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Открыть задачу" Command="{Binding OpenOrderTaskCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
+        <!--<infRib:ButtonTool Caption="Разместить" Command="{Binding ProductUnitCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Отозвать" Command="{Binding RemoveFromProductionCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>-->
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>
