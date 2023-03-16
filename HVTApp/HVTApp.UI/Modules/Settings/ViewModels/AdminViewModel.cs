@@ -46,28 +46,26 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var messageService = _container.Resolve<IMessageService>();
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    var engineeringTasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(x => x.ParentPriceEngineeringTaskId == null)
-                        .Where(x => x.Status.Equals(ScriptStep.ProductionRequestFinish));
+                    var salesUnits = unitOfWork.Repository<PriceEngineeringTask>()
+                        .Find(x => x.ParentPriceEngineeringTaskId == null && x.SalesUnits.Any())
+                        .Where(x => x.SalesUnits.All(s => s.Order == null) && x.SalesUnits.Any(s => s.SignalToStartProduction.HasValue))
+                        .Where(x => x.Status.Equals(ScriptStep.ProductionRequestFinish) == false && x.Status.Equals(ScriptStep.ProductionRequestStart) == false)
+                        .SelectMany(x => x.SalesUnits)
+                        .Where(x => x.SignalToStartProduction.HasValue)
+                        .ToList();
 
-                    foreach (var task in engineeringTasks)
-                    {
-                        var status = task.Statuses
-                            .OrderBy(x => x.Moment)
-                            .Last(x => x.StatusEnum == ScriptStep.ProductionRequestFinish.Value);
+                    salesUnits.ForEach(x => x.SignalToStartProduction = null);
 
-                        foreach (var priceEngineeringTask in task.GetAllPriceEngineeringTasks().Where(x => x.Id != task.Id))
-                        {
-                            priceEngineeringTask.Statuses.Add(new PriceEngineeringTaskStatus
-                            {
-                                Moment = status.Moment, StatusEnum = status.StatusEnum
-                            });
-                        }
-                    }
+                    var priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTask>()
+                        .Find(x => x.Status.Equals(ScriptStep.ProductionRequestFinish) && x.UserPlanMaker == null)
+                        .ToList();
+
+                    var user = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Игнатенко").Single();
+                    priceEngineeringTasks.ForEach(x => x.UserPlanMaker = user);
 
                     unitOfWork.SaveChanges();
 
-                    messageService.ShowOkMessageDialog("", "Finish");
+                    messageService.ShowOkMessageDialog("", $"Finish {salesUnits.ToStringEnum()}");
 
                     //unitOfWork.SaveChanges();
                     //unitOfWork.Dispose();
