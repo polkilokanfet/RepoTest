@@ -1,6 +1,7 @@
 using System;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
@@ -45,6 +46,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
 
             this.DoStepAction();
+            this.EventAggregator.GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.ViewModel.Model);
             _doAfterAction?.Invoke();
         }
 
