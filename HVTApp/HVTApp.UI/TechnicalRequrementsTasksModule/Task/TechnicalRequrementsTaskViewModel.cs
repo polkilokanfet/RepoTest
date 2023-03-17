@@ -20,11 +20,13 @@ using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
 using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
+using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.PriceEngineering.ViewModel;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
@@ -307,6 +309,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     {
                         this.RaiseCanExecuteChangeInAllCommands();
                         RaisePropertyChanged(nameof(ValidationResult));
+                        this.StartProductionCommand.RaiseCanExecuteChanged();
                     };
                 }
 
@@ -439,6 +442,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 () =>
                 {
                     var item = (TechnicalRequrements2Wrapper) SelectedItem;
+                    if (item.Model.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
+                    {
+                        messageService.ShowOkMessageDialog("Информация", "Отказ. Среди оборудования уже есть то, которое в производстве");
+                        return;
+                    }
 
                     var unitOfWork = container.Resolve<IUnitOfWork>();
                     var salesUnits = item.Model.SalesUnits
@@ -448,42 +456,58 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         .Where(file => file.IsActual)
                         .Select(file => unitOfWork.Repository<TechnicalRequrementsFile>().GetById(file.Id))
                         .ToList();
+                    var manager = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
 
                     //создаём задачу
-                    var taskWrapper = new PriceEngineeringTaskWrapper(new PriceEngineeringTask());
-                    taskWrapper.ProductBlockManager = taskWrapper.ProductBlockEngineer = new ProductBlockWrapper(salesUnits.First().Product.ProductBlock);
-                    taskWrapper.Amount = salesUnits.Count;
-                    taskWrapper.SalesUnits.AddRange(salesUnits.Select(su => new SalesUnitWrapper(su)));
-                    taskWrapper.FilesTechnicalRequirements.AddRange(files.Select(file => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(new PriceEngineeringTaskFileTechnicalRequirements()
+                    var task = new PriceEngineeringTask();
+                    task.ProductBlockManager = task.ProductBlockEngineer = salesUnits.First().Product.ProductBlock;
+                    task.Amount = salesUnits.Count;
+                    task.SalesUnits.AddRange(salesUnits);
+                    task.SalesUnits.ForEach(salesUnit => salesUnit.SignalToStartProduction = DateTime.Now);
+                    task.FilesTechnicalRequirements.AddRange(files.Select(file => new PriceEngineeringTaskFileTechnicalRequirements
                     {
                         CreationMoment = file.Date,
-                        Name = file.Name
-                    })));
-                    taskWrapper.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus()
+                        Name = file.Name,
+                        Id = file.Id
+                    }));
+                    task.Statuses.Add(new PriceEngineeringTaskStatus
                     {
                         Moment = DateTime.Now,
                         StatusEnum = ScriptStep.Create.Value
-                    }));
-                    taskWrapper.Statuses.Add(new PriceEngineeringTaskStatusWrapper(new PriceEngineeringTaskStatus()
+                    });
+                    task.Messages.Add(new PriceEngineeringTaskMessage
                     {
-                        Moment = DateTime.Now,
+                        Author = manager,
+                        Message = "Техника прорабатывалась напрямую в Team Center.",
+                        Moment = DateTime.Now.AddSeconds(1)
+                    });
+                    task.Statuses.Add(new PriceEngineeringTaskStatus
+                    {
+                        Moment = DateTime.Now.AddSeconds(1),
                         StatusEnum = ScriptStep.ProductionRequestStart.Value
-                    }));
-                    taskWrapper.DesignDepartment = new DesignDepartmentWrapper(unitOfWork.Repository<DesignDepartment>().GetAll().First());
+                    });
 
                     //формируем сборку задач
-                    var tasksWrapper = new PriceEngineeringTasksWrapper(new PriceEngineeringTasks());
-                    tasksWrapper.ChildPriceEngineeringTasks.Add(taskWrapper);
-                    tasksWrapper.UserManager = new UserWrapper(unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+                    var tasks = new PriceEngineeringTasks();
+                    tasks.ChildPriceEngineeringTasks.Add(task);
+                    tasks.UserManager = manager;
+                    tasks.TceNumber = this.TechnicalRequrementsTaskWrapper.Model.TceNumber;
 
                     //сохраняем сборку
-                    if (unitOfWork.SaveEntity(tasksWrapper.Model).OperationCompletedSuccessfully)
+                    if (unitOfWork.SaveEntity(tasks).OperationCompletedSuccessfully)
                     {
-                        tasksWrapper.AcceptChanges();
+                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(
+                            new NavigationParameters
+                            {
+                                { nameof(PriceEngineeringTasks), tasks }
+                            });
                     }
                 },
                 () => 
-                    GlobalAppProperties.User.RoleCurrent == Role.SalesManager && 
+                    GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+                    this.TechnicalRequrementsTaskWrapper != null &&
+                    this.TechnicalRequrementsTaskWrapper.HistoryElements.Any() &&
+                    this.TechnicalRequrementsTaskWrapper.HistoryElements.OrderBy(historyItem => historyItem.Moment).Last().Model.Type == TechnicalRequrementsTaskHistoryElementType.Accept &&
                     SelectedItem is TechnicalRequrements2Wrapper);
 
             SetNewHistoryElement();

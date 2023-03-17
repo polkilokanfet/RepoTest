@@ -23,7 +23,7 @@ namespace HVTApp.Model.POCOs
         public virtual Guid? ParentPriceEngineeringTasksId { get; set; }
 
 
-        [Designation("Бюро конструкторов"), Required, OrderStatus(1900)]
+        [Designation("Бюро конструкторов"), OrderStatus(1900)]
         public virtual DesignDepartment DesignDepartment { get; set; }
 
         [Designation("Конструктор"), OrderStatus(1800)]

@@ -18,17 +18,17 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         protected override bool IsSuitable(PriceEngineeringTasks engineeringTasks)
         {
-            return
+            var steps = new[]
+            {
+                ScriptStep.LoadToTceStart,
+                ScriptStep.ProductionRequestStart
+            };
 
-                engineeringTasks
-                    .ChildPriceEngineeringTasks
-                    .Select(task => task.Status)
-                    .Contains(ScriptStep.LoadToTceStart) ||
-
-                engineeringTasks
-                    .ChildPriceEngineeringTasks
-                    .Select(task => task.Status)
-                    .Contains(ScriptStep.ProductionRequestStart);
+            return engineeringTasks
+                .ChildPriceEngineeringTasks
+                .SelectMany(task => task.Statuses)
+                .Select(status => ScriptStep.FromValue(status.StatusEnum))
+                .Any(step => steps.Contains(step));
         }
     }
 }

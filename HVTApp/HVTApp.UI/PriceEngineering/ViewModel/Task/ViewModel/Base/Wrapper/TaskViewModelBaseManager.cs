@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -52,8 +54,13 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         public override void InitializeComplexProperties()
         {
             base.InitializeComplexProperties();
-
             InitializeComplexProperty(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentEmptyWrapper(Model.DesignDepartment));
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (this.DesignDepartment == null)
+                yield return new ValidationResult($"{nameof(DesignDepartment)} is required", new []{nameof(DesignDepartment)});
         }
     }
 }
