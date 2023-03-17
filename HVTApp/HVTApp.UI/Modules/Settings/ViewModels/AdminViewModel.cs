@@ -46,26 +46,52 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var messageService = _container.Resolve<IMessageService>();
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    var salesUnits = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(x => x.ParentPriceEngineeringTaskId == null && x.SalesUnits.Any())
-                        .Where(x => x.SalesUnits.All(s => s.Order == null) && x.SalesUnits.Any(s => s.SignalToStartProduction.HasValue))
-                        .Where(x => x.Status.Equals(ScriptStep.ProductionRequestFinish) == false && x.Status.Equals(ScriptStep.ProductionRequestStart) == false)
-                        .SelectMany(x => x.SalesUnits)
-                        .Where(x => x.SignalToStartProduction.HasValue)
+
+                    var tasks = unitOfWork.Repository<PriceEngineeringTask>()
+                        .Find(task => task.DesignDepartment == null)
                         .ToList();
 
-                    salesUnits.ForEach(x => x.SignalToStartProduction = null);
+                    foreach (var task in tasks)
+                    {
+                        var moment = task.Statuses.Max(x => x.Moment);
+                        task.Statuses.Single(x => x.StatusEnum == ScriptStep.Create.Value).Moment = moment;
+                        task.Statuses.Single(x => x.StatusEnum == ScriptStep.ProductionRequestStart.Value).Moment = moment.AddSeconds(2);
+                        task.Statuses.Add(new PriceEngineeringTaskStatus
+                        {
+                            Moment = moment.AddSeconds(1), StatusEnum = ScriptStep.Start.Value
+                        });
 
-                    var priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(x => x.Status.Equals(ScriptStep.ProductionRequestFinish) && x.UserPlanMaker == null)
-                        .ToList();
+                        var technicalRequrements = unitOfWork.Repository<TechnicalRequrements>()
+                            .Find(x =>
+                                x.IsActual &&
+                                x.SalesUnits.AllContainsIn(task.SalesUnits))
+                            .First();
 
-                    var user = unitOfWork.Repository<User>().Find(x => x.Employee.Person.Surname == "Игнатенко").Single();
-                    priceEngineeringTasks.ForEach(x => x.UserPlanMaker = user);
+                        var trt = unitOfWork.Repository<TechnicalRequrementsTask>()
+                            .Find(x => x.Requrements.Contains(technicalRequrements)).First();
+
+                        var priceEngineeringTasks = task.GetPriceEngineeringTasks(unitOfWork);
+                        priceEngineeringTasks.BackManager = trt.BackManager;
+
+                        foreach (var file in task.FilesTechnicalRequirements.ToList())
+                        {
+                            task.FilesTechnicalRequirements.Remove(file);
+                            unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().Delete(file);
+                        }
+
+                        foreach (var file in technicalRequrements.Files.Where(x => x.IsActual))
+                        {
+                            var f = new PriceEngineeringTaskFileTechnicalRequirements
+                            {
+                                Name = file.Name, CreationMoment = file.Date, Id = file.Id
+                            };
+                            task.FilesTechnicalRequirements.Add(f);
+                        }
+                    }
 
                     unitOfWork.SaveChanges();
 
-                    messageService.ShowOkMessageDialog("", $"Finish {salesUnits.ToStringEnum()}");
+                    messageService.ShowOkMessageDialog("", $"Finish {tasks.ToStringEnum()}");
 
                     //unitOfWork.SaveChanges();
                     //unitOfWork.Dispose();

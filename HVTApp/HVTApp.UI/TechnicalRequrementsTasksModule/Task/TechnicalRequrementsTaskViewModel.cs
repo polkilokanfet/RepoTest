@@ -1,15 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
@@ -17,14 +12,9 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceCalculations.ViewModel;
-using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
-using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands;
 using HVTApp.UI.PriceEngineering.View;
-using HVTApp.UI.PriceEngineering.ViewModel;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
 
@@ -483,7 +473,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     });
                     task.Statuses.Add(new PriceEngineeringTaskStatus
                     {
-                        Moment = DateTime.Now.AddSeconds(1),
+                        Moment = DateTime.Now.AddSeconds(2),
+                        StatusEnum = ScriptStep.Start.Value
+                    });
+                    task.Statuses.Add(new PriceEngineeringTaskStatus
+                    {
+                        Moment = DateTime.Now.AddSeconds(3),
                         StatusEnum = ScriptStep.ProductionRequestStart.Value
                     });
 
