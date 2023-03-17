@@ -12,9 +12,12 @@
         <converters:PriceEngineeringTaskViewModelIsExpendedConverter x:Key="IsExpendedConverter" />
         <converters:ToFacilityOwnerConverter x:Key="ToFacilityOwnerConverter" />
 
-        <Style TargetType="{x:Type TextBlock}" x:Key="Style1">
+        <Style TargetType="{x:Type TextBox}" x:Key="Style1">
             <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
 
     </UserControl.Resources>
@@ -62,7 +65,7 @@
                                 <Expander Grid.Row="0" Grid.Column="1" IsExpanded="False">
                                     <Expander.HeaderTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding ElementName=Root, Path=DataContext, Mode=OneWay, Converter={StaticResource ToFacilityConverter}}" Style="{StaticResource Style1}"/>
+                                            <TextBox Text="{Binding ElementName=Root, Path=DataContext, Mode=OneWay, Converter={StaticResource ToFacilityConverter}}" Style="{StaticResource Style1}"/>
                                         </DataTemplate>
                                     </Expander.HeaderTemplate>
 
@@ -77,19 +80,19 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Grid.Column="0" Content="Адрес: " VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityAddressConverter}}" Style="{StaticResource Style1}" />
+                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityAddressConverter}}" Style="{StaticResource Style1}" />
 
                                         <Label Grid.Row="1" Grid.Column="0" Content="Владелец: " VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityOwnerConverter}}" Style="{StaticResource Style1}" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToFacilityOwnerConverter}}" Style="{StaticResource Style1}" />
 
                                     </Grid>
                                 </Expander>
 
                                 <Label Grid.Row="1" Grid.Column="0" Content="Продукт: " VerticalAlignment="Center"/>
-                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductDesignationConverter}}" Style="{StaticResource Style1}"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductDesignationConverter}}" Style="{StaticResource Style1}"/>
 
                                 <Label Grid.Row="2" Grid.Column="0" Content="Кол-во: " VerticalAlignment="Center"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductAmountConverter}}" Style="{StaticResource Style1}"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToProductAmountConverter}}" Style="{StaticResource Style1}"/>
                             </Grid>
 
                             <ContentPresenter Grid.Column="1" Content="{Binding ButtonsArea, ElementName=Root}"/>
