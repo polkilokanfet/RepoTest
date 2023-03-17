@@ -25,14 +25,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         private IValidatableChangeTrackingCollection<SalesUnitOrderItem> _unitsWrappers;
 
         public SalesUnitOrderGroupsCollection GroupsInOrder { get; } = new SalesUnitOrderGroupsCollection();
-        public SalesUnitOrderGroupsCollection GroupsPotential { get; } = new SalesUnitOrderGroupsCollection();
+        //public SalesUnitOrderGroupsCollection GroupsPotential { get; } = new SalesUnitOrderGroupsCollection();
 
         public DelegateLogCommand SaveOrderCommand { get; }
-        public DelegateLogCommand RemoveOrderCommand { get; }
-        public DelegateLogCommand AddGroupCommand { get; }
-        public DelegateLogCommand RemoveGroupCommand { get; }
+        //public DelegateLogCommand RemoveOrderCommand { get; }
+        //public DelegateLogCommand AddGroupCommand { get; }
+        //public DelegateLogCommand RemoveGroupCommand { get; }
 
-        public DelegateLogCommand ShowProductStructureCommand { get; }
+        //public DelegateLogCommand ShowProductStructureCommand { get; }
 
         public OrderViewModel(IUnityContainer container) : base(container)
         {
@@ -76,46 +76,46 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     return _unitsWrappers.IsChanged || Item.IsChanged;
                 });
 
-            RemoveOrderCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить этот заказ?");
-                    if (dr != MessageDialogResult.Yes) return;
+            //RemoveOrderCommand = new DelegateLogCommand(
+            //    () =>
+            //    {
+            //        var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить этот заказ?");
+            //        if (dr != MessageDialogResult.Yes) return;
 
-                    var order = Item.Model;
+            //        var order = Item.Model;
 
-                    _unitsWrappers.ForEach(x => x.RejectChanges());
+            //        _unitsWrappers.ForEach(x => x.RejectChanges());
 
-                    foreach (var groupInOrder in GroupsInOrder)
-                    {
-                        groupInOrder.EndProductionPlanDate = null;
-                        groupInOrder.SignalToStartProductionDone = null;
-                        groupInOrder.Order = null;
-                        groupInOrder.Units.ForEach(x => x.OrderPosition = string.Empty);
-                    }
+            //        foreach (var groupInOrder in GroupsInOrder)
+            //        {
+            //            groupInOrder.EndProductionPlanDate = null;
+            //            groupInOrder.SignalToStartProductionDone = null;
+            //            groupInOrder.Order = null;
+            //            groupInOrder.Units.ForEach(x => x.OrderPosition = string.Empty);
+            //        }
 
-                    _unitsWrappers.ForEach(salesUnitOrderItem => salesUnitOrderItem.AcceptChanges());
+            //        _unitsWrappers.ForEach(salesUnitOrderItem => salesUnitOrderItem.AcceptChanges());
 
-                    if (UnitOfWork.RemoveEntity(order).OperationCompletedSuccessfully)
-                    {
-                        Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveOrderEvent>().Publish(order);
-                        GoBackCommand.Execute(null);
-                    }
-                });
+            //        if (UnitOfWork.RemoveEntity(order).OperationCompletedSuccessfully)
+            //        {
+            //            Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveOrderEvent>().Publish(order);
+            //            GoBackCommand.Execute(null);
+            //        }
+            //    });
 
-            AddGroupCommand = new DelegateLogCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedItem != null);
+            //AddGroupCommand = new DelegateLogCommand(AddGroupCommand_Execute, () => GroupsPotential.SelectedItem != null);
 
-            RemoveGroupCommand = new DelegateLogCommand(RemoveGroupCommand_Execute, () => GroupsInOrder.SelectedItem != null);
+            //RemoveGroupCommand = new DelegateLogCommand(RemoveGroupCommand_Execute, () => GroupsInOrder.SelectedItem != null);
 
-            ShowProductStructureCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var salesUnit = GroupsPotential.SelectedUnit?.Model ??
-                                    GroupsPotential.SelectedGroup.Unit;
-                    var productStructureViewModel = new ProductStructureViewModel(salesUnit);
-                    Container.Resolve<IDialogService>().Show(productStructureViewModel, "Структура продукта");
-                }, 
-                () => GroupsPotential.SelectedItem != null);
+            //ShowProductStructureCommand = new DelegateLogCommand(
+            //    () =>
+            //    {
+            //        var salesUnit = GroupsPotential.SelectedUnit?.Model ??
+            //                        GroupsPotential.SelectedGroup.Unit;
+            //        var productStructureViewModel = new ProductStructureViewModel(salesUnit);
+            //        Container.Resolve<IDialogService>().Show(productStructureViewModel, "Структура продукта");
+            //    }, 
+            //    () => GroupsPotential.SelectedItem != null);
         }
 
         protected override void AfterLoading()
@@ -128,9 +128,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             var salesUnitsInOrder = ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetByOrder(Item.Id).ToList();
             salesUnits.AddRange(salesUnitsInOrder);
 
-            List<PriceCalculation> calculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
-            List<SalesUnitOrderItem> salesUnitOrderItems = salesUnits
-                .Select(salesUnit => new SalesUnitOrderItem(salesUnit, salesUnit.ActualPriceCalculationItem(calculations)))
+            //List<PriceCalculation> calculations = UnitOfWork.Repository<PriceCalculation>().GetAll();
+            var salesUnitOrderItems = salesUnits
+                //.Select(salesUnit => new SalesUnitOrderItem(salesUnit, salesUnit.ActualPriceCalculationItem(calculations)))
+                .Select(salesUnit => new SalesUnitOrderItem(salesUnit, null))
                 .ToList();
             _unitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitOrderItem>(salesUnitOrderItems);
 
@@ -148,32 +149,32 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             }).OrderBy(x => x.Key.EndProductionPlanDate);
             GroupsInOrder.AddRange(groupsInOrder.Select(x => new SalesUnitOrderGroup(x)));
 
-            //юниты для размещения в производстве
-            var unitsToProduct = _unitsWrappers.Where(item => !item.Model.IsLoosen).Except(unitsInOrder).ToList();
-            var groupsToProduct = unitsToProduct.GroupBy(item => new
-            {
-                FacilityId = item.Model.Facility.Id,
-                ProductId = item.Model.Product.Id,
-                OrderId = item.Order?.Id,
-                ProjectId = item.Model.Project.Id,
-                SpecificationId = item.Model.Specification?.Id,
-                item.Model.EndProductionDateCalculated,
-                item.Model.Cost
-            }).OrderBy(x => x.Key.EndProductionDateCalculated);
-            GroupsPotential.AddRange(groupsToProduct.Select(x => new SalesUnitOrderGroup(x)));
+            ////юниты для размещения в производстве
+            //var unitsToProduct = _unitsWrappers.Where(item => !item.Model.IsLoosen).Except(unitsInOrder).ToList();
+            //var groupsToProduct = unitsToProduct.GroupBy(item => new
+            //{
+            //    FacilityId = item.Model.Facility.Id,
+            //    ProductId = item.Model.Product.Id,
+            //    OrderId = item.Order?.Id,
+            //    ProjectId = item.Model.Project.Id,
+            //    SpecificationId = item.Model.Specification?.Id,
+            //    item.Model.EndProductionDateCalculated,
+            //    item.Model.Cost
+            //}).OrderBy(x => x.Key.EndProductionDateCalculated);
+            //GroupsPotential.AddRange(groupsToProduct.Select(x => new SalesUnitOrderGroup(x)));
 
-            //подписка на смену выбранной потенциальной группы в производстве
-            GroupsPotential.SelectedGroupChanged += group =>
-            {
-                (AddGroupCommand).RaiseCanExecuteChanged();
-                (ShowProductStructureCommand).RaiseCanExecuteChanged();
-            };
+            ////подписка на смену выбранной потенциальной группы в производстве
+            //GroupsPotential.SelectedGroupChanged += group =>
+            //{
+            //    (AddGroupCommand).RaiseCanExecuteChanged();
+            //    (ShowProductStructureCommand).RaiseCanExecuteChanged();
+            //};
 
-            //подписка на смену выбранной группы в производстве
-            GroupsInOrder.SelectedGroupChanged += group =>
-            {
-                (RemoveGroupCommand).RaiseCanExecuteChanged();
-            };
+            ////подписка на смену выбранной группы в производстве
+            //GroupsInOrder.SelectedGroupChanged += group =>
+            //{
+            //    (RemoveGroupCommand).RaiseCanExecuteChanged();
+            //};
 
             //подписка на изменение свойств заказа и юнитов
             Item.PropertyChanged += OnPropertyChanged;
@@ -182,87 +183,87 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             base.AfterLoading();
         }
 
-        private void AddGroupCommand_Execute()
-        {
-            if (GroupsPotential.IsGroupSelected)
-                AddGroup(GroupsPotential.SelectedGroup);
+        //private void AddGroupCommand_Execute()
+        //{
+        //    if (GroupsPotential.IsGroupSelected)
+        //        AddGroup(GroupsPotential.SelectedGroup);
 
-            if (GroupsPotential.IsUnitSelected)
-                AddUnit(GroupsPotential.SelectedUnit);
-        }
+        //    if (GroupsPotential.IsUnitSelected)
+        //        AddUnit(GroupsPotential.SelectedUnit);
+        //}
 
-        private void AddGroup(SalesUnitOrderGroup unitsGroup)
-        {
-            //фиксируем заказ
-            unitsGroup.Order = Item;
-            //фиксируем дату действия и заказ
-            unitsGroup.SignalToStartProductionDone = DateTime.Today;
-            //ставим предполагаемую дату производства
-            unitsGroup.EndProductionPlanDate = unitsGroup.Units.First().EndProductionDateExpected;
-            unitsGroup.Units.ForEach(x => x.EndProductionPlanDate = x.EndProductionDateExpected);
-            //заполняем позиции заказа
-            int orderPosition = 1;
-            unitsGroup.Units.ForEach(x => x.OrderPosition = orderPosition++.ToString());
-            //переносим группу в план производства
-            GroupsInOrder.Add(unitsGroup);
-            GroupsPotential.Remove(unitsGroup);
-            SaveOrderCommand.RaiseCanExecuteChanged();
-        }
+        //private void AddGroup(SalesUnitOrderGroup unitsGroup)
+        //{
+        //    //фиксируем заказ
+        //    unitsGroup.Order = Item;
+        //    //фиксируем дату действия и заказ
+        //    unitsGroup.SignalToStartProductionDone = DateTime.Today;
+        //    //ставим предполагаемую дату производства
+        //    unitsGroup.EndProductionPlanDate = unitsGroup.Units.First().EndProductionDateExpected;
+        //    unitsGroup.Units.ForEach(x => x.EndProductionPlanDate = x.EndProductionDateExpected);
+        //    //заполняем позиции заказа
+        //    int orderPosition = 1;
+        //    unitsGroup.Units.ForEach(x => x.OrderPosition = orderPosition++.ToString());
+        //    //переносим группу в план производства
+        //    GroupsInOrder.Add(unitsGroup);
+        //    GroupsPotential.Remove(unitsGroup);
+        //    SaveOrderCommand.RaiseCanExecuteChanged();
+        //}
 
-        private void AddUnit(SalesUnitOrderItem unit)
-        {
-            //фиксируем заказ
-            unit.Order = Item;
-            //фиксируем дату действия и заказ
-            unit.SignalToStartProductionDone = DateTime.Today;
-            //ставим предполагаемую дату производства
-            unit.EndProductionPlanDate = unit.EndProductionDateExpected;
-            //заполняем позиции заказа
-            unit.OrderPosition = "1";
-            //добавляем группу в план производства
-            GroupsInOrder.Add(new SalesUnitOrderGroup(new List<SalesUnitOrderItem> {unit}));
-            //удаляем в подгруппах
-            RemoveUnitFromGroup(GroupsPotential, unit);
-        }
+        //private void AddUnit(SalesUnitOrderItem unit)
+        //{
+        //    //фиксируем заказ
+        //    unit.Order = Item;
+        //    //фиксируем дату действия и заказ
+        //    unit.SignalToStartProductionDone = DateTime.Today;
+        //    //ставим предполагаемую дату производства
+        //    unit.EndProductionPlanDate = unit.EndProductionDateExpected;
+        //    //заполняем позиции заказа
+        //    unit.OrderPosition = "1";
+        //    //добавляем группу в план производства
+        //    GroupsInOrder.Add(new SalesUnitOrderGroup(new List<SalesUnitOrderItem> {unit}));
+        //    //удаляем в подгруппах
+        //    RemoveUnitFromGroup(GroupsPotential, unit);
+        //}
 
-        private void RemoveUnitFromGroup(SalesUnitOrderGroupsCollection collection, SalesUnitOrderItem unit)
-        {
-            //группа из которой необходимо удалить юнит
-            var group = collection.Single(x => x.Units.Contains(unit));
-            //удаление
-            group.Units.Remove(unit);
-            //если в группе не осталось юнитов, удаляем группу из коллекции
-            if (!group.Units.Any())
-                collection.Remove(group);
-        }
+        //private void RemoveUnitFromGroup(SalesUnitOrderGroupsCollection collection, SalesUnitOrderItem unit)
+        //{
+        //    //группа из которой необходимо удалить юнит
+        //    var group = collection.Single(x => x.Units.Contains(unit));
+        //    //удаление
+        //    group.Units.Remove(unit);
+        //    //если в группе не осталось юнитов, удаляем группу из коллекции
+        //    if (!group.Units.Any())
+        //        collection.Remove(group);
+        //}
 
-        private void RemoveGroupCommand_Execute()
-        {
-            var salesUnitOrder = GroupsInOrder.SelectedUnit ?? (ISalesUnitOrder) GroupsInOrder.SelectedGroup;
+        //private void RemoveGroupCommand_Execute()
+        //{
+        //    var salesUnitOrder = GroupsInOrder.SelectedUnit ?? (ISalesUnitOrder) GroupsInOrder.SelectedGroup;
 
-            salesUnitOrder.Order = null;
-            salesUnitOrder.SignalToStartProductionDone = null;
-            salesUnitOrder.EndProductionPlanDate = null;
+        //    salesUnitOrder.Order = null;
+        //    salesUnitOrder.SignalToStartProductionDone = null;
+        //    salesUnitOrder.EndProductionPlanDate = null;
 
-            if (GroupsInOrder.IsGroupSelected)
-            {
-                var salesUnitOrderGroup = GroupsInOrder.SelectedGroup;
-                GroupsPotential.Add(salesUnitOrderGroup);
-                GroupsInOrder.Remove(salesUnitOrderGroup);
-            }
+        //    if (GroupsInOrder.IsGroupSelected)
+        //    {
+        //        var salesUnitOrderGroup = GroupsInOrder.SelectedGroup;
+        //        GroupsPotential.Add(salesUnitOrderGroup);
+        //        GroupsInOrder.Remove(salesUnitOrderGroup);
+        //    }
 
-            if (GroupsInOrder.IsUnitSelected)
-            {
-                var unit = GroupsInOrder.SelectedUnit;
-                GroupsPotential.Add(new SalesUnitOrderGroup(new List<SalesUnitOrderItem> { unit }));
-                RemoveUnitFromGroup(GroupsInOrder, unit);
-            }
-        }
+        //    if (GroupsInOrder.IsUnitSelected)
+        //    {
+        //        var unit = GroupsInOrder.SelectedUnit;
+        //        GroupsPotential.Add(new SalesUnitOrderGroup(new List<SalesUnitOrderItem> { unit }));
+        //        RemoveUnitFromGroup(GroupsInOrder, unit);
+        //    }
+        //}
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             SaveOrderCommand.RaiseCanExecuteChanged();
-            AddGroupCommand.RaiseCanExecuteChanged();
+            //AddGroupCommand.RaiseCanExecuteChanged();
         }
 
         protected override void GoBackCommand_Execute()

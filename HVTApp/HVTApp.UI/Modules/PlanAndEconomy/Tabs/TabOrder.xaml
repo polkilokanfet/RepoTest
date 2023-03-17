@@ -11,17 +11,17 @@
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Оборудование">
+    <!--<infRib:RibbonGroup Caption="Оборудование">
         <infRib:ButtonTool Caption="Разместить" Command="{Binding AddGroupCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveGroupCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
         <infRib:ButtonTool Caption="Структура" Command="{Binding ShowProductStructureCommand}" SmallImage="/HVTApp.UI;component/Images/structure.png"/>
-    </infRib:RibbonGroup>
+    </infRib:RibbonGroup>-->
     
-    <infRib:RibbonGroup Caption="Заказ">
+    <!--<infRib:RibbonGroup Caption="Заказ">
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOrderCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-    </infRib:RibbonGroup>
+    </infRib:RibbonGroup>-->
 
-        <infRib:RibbonGroup Caption="Действия">
+    <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveOrderCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 

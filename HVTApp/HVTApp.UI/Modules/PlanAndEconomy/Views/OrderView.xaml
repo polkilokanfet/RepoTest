@@ -12,8 +12,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 
                 <!--Детали заводского заказа-->
@@ -52,51 +50,13 @@
                                     <infg:TextField AlternateBinding="{Binding OrderPosition, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Позиция заказа" Width="Auto" AllowEdit="True"/>
                                     <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
                                     <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая" Width="Auto" AllowResize="False" AllowEdit="True"/>
-                                    <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="ТСЕ" Width="Auto"/>
+                                    <!--<infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="ТСЕ" Width="Auto"/>-->
                                 </infg:FieldLayout.Fields>
                                 
                             </infg:FieldLayout>
 
 			            </infg:XamDataGrid.FieldLayouts>
 		            </infg:XamDataGrid>
-                </GroupBox>
-            
-                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3"/>
-
-                <GroupBox Grid.Row="3" Header="Оборудование для производства">
-                    <infg:XamDataGrid x:Name="PotentialListGrid"
-                                      DataSource="{Binding GroupsPotential}"
-                                      ActiveDataItem="{Binding GroupsPotential.SelectedItem, Mode=TwoWay}">
-
-                        <infg:XamDataGrid.FieldLayouts>
-                            <infg:FieldLayout Key="UnitsPotential">
-                                <infg:FieldLayout.Fields>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="200"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
-                                    <infg:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Количество" Width="Auto"/>
-                                    <infg:NumericField AlternateBinding="{Binding Unit.Cost}" BindingType="UseAlternateBinding" Label="Цена за ед. без НДС" Width="Auto"/>
-                                    <infg:TextField AlternateBinding="{Binding Unit.Project.Manager.Employee.Person}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                    <infg:Field Name="Units" IsExpandable="True"/>
-                                </infg:FieldLayout.Fields>
-                            </infg:FieldLayout>
-
-                            <infg:FieldLayout ParentFieldLayoutKey="UnitsPotential" ParentFieldName="Units">
-                                                               
-                                <infg:FieldLayout.Fields>
-                                    <infg:DateTimeField AlternateBinding="{Binding EndProductionDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto" AllowResize="False"/>
-                                    <infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="ТСЕ" Width="Auto"/>
-                                </infg:FieldLayout.Fields>
-                                
-                            </infg:FieldLayout>
-
-
-                        </infg:XamDataGrid.FieldLayouts>
-                    </infg:XamDataGrid>
                 </GroupBox>
 
             </Grid>

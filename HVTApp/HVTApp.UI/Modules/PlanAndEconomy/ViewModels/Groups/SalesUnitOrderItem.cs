@@ -42,7 +42,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels.Groups
         public DateTime EndProductionDateExpected => Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated);
 
 
-        public string TceInfo => _priceCalculationItem?.ToString() ?? "–асчет переменных затрат еще не делалс€";
+        //public string TceInfo => _priceCalculationItem?.ToString() ?? "–асчет переменных затрат еще не делалс€";
 
 
         public SalesUnitOrderItem(SalesUnit model, PriceCalculationItem priceCalculationItem) : base(model)
