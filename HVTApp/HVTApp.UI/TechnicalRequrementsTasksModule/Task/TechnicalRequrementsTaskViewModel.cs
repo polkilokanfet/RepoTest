@@ -491,6 +491,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     var tasks = new PriceEngineeringTasks();
                     tasks.ChildPriceEngineeringTasks.Add(task);
                     tasks.UserManager = manager;
+                    tasks.BackManager = this.TechnicalRequrementsTaskWrapper.Model.BackManager == null
+                        ? null
+                        : unitOfWork.Repository<User>().GetById(this.TechnicalRequrementsTaskWrapper.Model.BackManager.Id);
                     tasks.TceNumber = this.TechnicalRequrementsTaskWrapper.Model.TceNumber;
 
                     //сохраняем сборку
