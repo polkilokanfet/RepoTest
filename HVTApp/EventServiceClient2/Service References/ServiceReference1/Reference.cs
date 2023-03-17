@@ -16,10 +16,10 @@ namespace EventServiceClient2.ServiceReference1 {
     public interface IEventService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Connect", ReplyAction="http://tempuri.org/IEventService/ConnectResponse")]
-        bool Connect(System.Guid appSessionId, System.Guid userId);
+        bool Connect(System.Guid appSessionId, System.Guid userId, HVTApp.Infrastructure.Role userRole);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Connect", ReplyAction="http://tempuri.org/IEventService/ConnectResponse")]
-        System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSessionId, System.Guid userId);
+        System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSessionId, System.Guid userId, HVTApp.Infrastructure.Role userRole);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/Disconnect", ReplyAction="http://tempuri.org/IEventService/DisconnectResponse")]
         void Disconnect(System.Guid appSessionId);
@@ -485,12 +485,12 @@ namespace EventServiceClient2.ServiceReference1 {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public bool Connect(System.Guid appSessionId, System.Guid userId) {
-            return base.Channel.Connect(appSessionId, userId);
+        public bool Connect(System.Guid appSessionId, System.Guid userId, HVTApp.Infrastructure.Role userRole) {
+            return base.Channel.Connect(appSessionId, userId, userRole);
         }
         
-        public System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSessionId, System.Guid userId) {
-            return base.Channel.ConnectAsync(appSessionId, userId);
+        public System.Threading.Tasks.Task<bool> ConnectAsync(System.Guid appSessionId, System.Guid userId, HVTApp.Infrastructure.Role userRole) {
+            return base.Channel.ConnectAsync(appSessionId, userId, userRole);
         }
         
         public void Disconnect(System.Guid appSessionId) {

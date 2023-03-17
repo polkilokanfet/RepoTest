@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 
@@ -22,16 +23,17 @@ namespace EventService
         /// </summary>
         /// <param name="appSessionId">Id сессии приложения</param>
         /// <param name="userId">Id юзера</param>
+        /// <param name="userRole"></param>
         /// <returns></returns>
-        public bool Connect(Guid appSessionId, Guid userId)
+        public bool Connect(Guid appSessionId, Guid userId, Role userRole)
         {
             //если приложение уже подключено к сервису
-            if (_appSessions.Select(appSession => appSession.AppSessionId).Contains(appSessionId))
-                return false;
+            if (_appSessions.Any(session => session.AppSessionId == appSessionId)) return false;
 
             //подключаем новое приложение к сервису
-            _appSessions.Add(new AppSession(appSessionId, userId, OperationContext.Current));
-            PrintMessageEvent?.Invoke($"Connected (appSessionId: {appSessionId} userId: {userId}).");
+            var appSession = new AppSession(appSessionId, userId, userRole, OperationContext.Current);
+            _appSessions.Add(appSession);
+            PrintMessageEvent?.Invoke($"Connected ({appSession}).");
             return true;
         }
 
@@ -42,11 +44,9 @@ namespace EventService
         public void Disconnect(Guid appSessionId)
         {
             var appSession = _appSessions.SingleOrDefault(session => session.AppSessionId == appSessionId);
-            if (appSession != null)
-            {
-                _appSessions.Remove(appSession);
-                PrintMessageEvent?.Invoke($"Disconnected (appSessionId: {appSessionId} userId: {appSession.UserId})");
-            }
+            if (appSession == null) return;
+            _appSessions.Remove(appSession);
+            PrintMessageEvent?.Invoke($"Disconnected ({appSession})");
         }
 
         public bool HostIsAlive()
@@ -56,7 +56,7 @@ namespace EventService
 
         public bool UserIsConnected(Guid userId)
         {
-            return _appSessions.Select(appSession => appSession.UserId).Contains(userId);
+            return _appSessions.Any(appSession => appSession.UserId == userId);
         }
 
         public bool CopyProjectAttachments(Guid userId, Guid projectId, string targetDirectory)

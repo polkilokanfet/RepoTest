@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
@@ -11,10 +10,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         /// Подключение к сервису
         /// </summary>
         /// <param name="appSessionId">Id сессии приложения</param>
-        /// <param name="userId">Id юзера</param>
+        /// <param name="userId">Id пользователя</param>
+        /// <param name="userRole">Роль пользователя</param>
         /// <returns></returns>
         [OperationContract]
-        bool Connect(Guid appSessionId, Guid userId);
+        bool Connect(Guid appSessionId, Guid userId, Role userRole);
 
         /// <summary>
         /// Отключение от сервиса

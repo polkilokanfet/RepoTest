@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="Role">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SalesManager" />
+      <xs:enumeration value="Admin" />
+      <xs:enumeration value="Director" />
+      <xs:enumeration value="Economist" />
+      <xs:enumeration value="Pricer" />
+      <xs:enumeration value="DataBaseFiller" />
+      <xs:enumeration value="PlanMaker" />
+      <xs:enumeration value="Constructor" />
+      <xs:enumeration value="ReportMaker" />
+      <xs:enumeration value="Supplier" />
+      <xs:enumeration value="BackManager" />
+      <xs:enumeration value="BackManagerBoss" />
+      <xs:enumeration value="DesignDepartmentHead" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+</xs:schema>

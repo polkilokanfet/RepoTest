@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure" />
   <xs:element name="Connect">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q1:guid" />
         <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="userId" type="q2:guid" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure" minOccurs="0" name="userRole" type="q3:Role" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -19,7 +21,7 @@
   <xs:element name="Disconnect">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q3:guid" />
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="appSessionId" type="q4:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -43,7 +45,7 @@
   <xs:element name="UserIsConnected">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="userId" type="q4:guid" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="userId" type="q5:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -57,8 +59,8 @@
   <xs:element name="CopyProjectAttachments">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="userId" type="q5:guid" />
-        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="projectId" type="q6:guid" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="userId" type="q6:guid" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="projectId" type="q7:guid" />
         <xs:element minOccurs="0" name="targetDirectory" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -73,7 +75,7 @@
   <xs:element name="SendMessageToChat">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q7:guid" />
+        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q8:guid" />
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -86,8 +88,8 @@
   <xs:element name="SendMessageToUser">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q8:guid" />
-        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="recipientId" type="q9:guid" />
+        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q9:guid" />
+        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="recipientId" type="q10:guid" />
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -100,9 +102,9 @@
   <xs:element name="SaveDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q10:guid" />
-        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q11:guid" />
-        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q12:guid" />
+        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q11:guid" />
+        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q12:guid" />
+        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q13:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -116,9 +118,9 @@
   <xs:element name="StartDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q13:guid" />
-        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q14:guid" />
-        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q15:guid" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q14:guid" />
+        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q15:guid" />
+        <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q16:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -132,9 +134,9 @@
   <xs:element name="StopDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q16:guid" />
-        <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q17:guid" />
-        <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q18:guid" />
+        <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q17:guid" />
+        <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q18:guid" />
+        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q19:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -148,9 +150,9 @@
   <xs:element name="PerformDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q19:guid" />
-        <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q20:guid" />
-        <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q21:guid" />
+        <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q20:guid" />
+        <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q21:guid" />
+        <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q22:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -164,9 +166,9 @@
   <xs:element name="AcceptDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q22:guid" />
-        <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q23:guid" />
-        <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q24:guid" />
+        <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q23:guid" />
+        <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q24:guid" />
+        <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q25:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -180,9 +182,9 @@
   <xs:element name="RejectDirectumTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q25:guid" />
-        <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q26:guid" />
-        <xs:element xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q27:guid" />
+        <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q26:guid" />
+        <xs:element xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q27:guid" />
+        <xs:element xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q28:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -196,9 +198,9 @@
   <xs:element name="SavePriceCalculationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q28:guid" />
-        <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q29:guid" />
-        <xs:element xmlns:q30="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q30:guid" />
+        <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q29:guid" />
+        <xs:element xmlns:q30="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q30:guid" />
+        <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q31:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -212,9 +214,9 @@
   <xs:element name="StartPriceCalculationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q31:guid" />
-        <xs:element xmlns:q32="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q32:guid" />
-        <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q33:guid" />
+        <xs:element xmlns:q32="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q32:guid" />
+        <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q33:guid" />
+        <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q34:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -228,9 +230,9 @@
   <xs:element name="FinishPriceCalculationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q34:guid" />
-        <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q35:guid" />
-        <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q36:guid" />
+        <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q35:guid" />
+        <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q36:guid" />
+        <xs:element xmlns:q37="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q37:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -244,9 +246,9 @@
   <xs:element name="CancelPriceCalculationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q37="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q37:guid" />
-        <xs:element xmlns:q38="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q38:guid" />
-        <xs:element xmlns:q39="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q39:guid" />
+        <xs:element xmlns:q38="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q38:guid" />
+        <xs:element xmlns:q39="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q39:guid" />
+        <xs:element xmlns:q40="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q40:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -260,9 +262,9 @@
   <xs:element name="RejectPriceCalculationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q40="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q40:guid" />
-        <xs:element xmlns:q41="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q41:guid" />
-        <xs:element xmlns:q42="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q42:guid" />
+        <xs:element xmlns:q41="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q41:guid" />
+        <xs:element xmlns:q42="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q42:guid" />
+        <xs:element xmlns:q43="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceCalculationId" type="q43:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -276,9 +278,9 @@
   <xs:element name="SaveIncomingRequestPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q43="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q43:guid" />
-        <xs:element xmlns:q44="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q44:guid" />
-        <xs:element xmlns:q45="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q45:guid" />
+        <xs:element xmlns:q44="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q44:guid" />
+        <xs:element xmlns:q45="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q45:guid" />
+        <xs:element xmlns:q46="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q46:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -292,9 +294,9 @@
   <xs:element name="SaveIncomingDocumentPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q46="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q46:guid" />
-        <xs:element xmlns:q47="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q47:guid" />
-        <xs:element xmlns:q48="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q48:guid" />
+        <xs:element xmlns:q47="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q47:guid" />
+        <xs:element xmlns:q48="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q48:guid" />
+        <xs:element xmlns:q49="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q49:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -308,9 +310,9 @@
   <xs:element name="SaveTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q49="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q49:guid" />
-        <xs:element xmlns:q50="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q50:guid" />
-        <xs:element xmlns:q51="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q51:guid" />
+        <xs:element xmlns:q50="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q50:guid" />
+        <xs:element xmlns:q51="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q51:guid" />
+        <xs:element xmlns:q52="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q52:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -324,9 +326,9 @@
   <xs:element name="StartTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q52="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q52:guid" />
-        <xs:element xmlns:q53="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q53:guid" />
-        <xs:element xmlns:q54="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q54:guid" />
+        <xs:element xmlns:q53="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q53:guid" />
+        <xs:element xmlns:q54="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q54:guid" />
+        <xs:element xmlns:q55="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q55:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -340,9 +342,9 @@
   <xs:element name="InstructTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q55="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q55:guid" />
-        <xs:element xmlns:q56="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q56:guid" />
-        <xs:element xmlns:q57="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q57:guid" />
+        <xs:element xmlns:q56="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q56:guid" />
+        <xs:element xmlns:q57="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q57:guid" />
+        <xs:element xmlns:q58="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q58:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -356,9 +358,9 @@
   <xs:element name="StopTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q58="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q58:guid" />
-        <xs:element xmlns:q59="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q59:guid" />
-        <xs:element xmlns:q60="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q60:guid" />
+        <xs:element xmlns:q59="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q59:guid" />
+        <xs:element xmlns:q60="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q60:guid" />
+        <xs:element xmlns:q61="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q61:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -372,9 +374,9 @@
   <xs:element name="RejectTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q61="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q61:guid" />
-        <xs:element xmlns:q62="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q62:guid" />
-        <xs:element xmlns:q63="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q63:guid" />
+        <xs:element xmlns:q62="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q62:guid" />
+        <xs:element xmlns:q63="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q63:guid" />
+        <xs:element xmlns:q64="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q64:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -388,9 +390,9 @@
   <xs:element name="RejectByFrontManagerTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q64="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q64:guid" />
-        <xs:element xmlns:q65="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q65:guid" />
-        <xs:element xmlns:q66="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q66:guid" />
+        <xs:element xmlns:q65="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q65:guid" />
+        <xs:element xmlns:q66="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q66:guid" />
+        <xs:element xmlns:q67="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q67:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -404,9 +406,9 @@
   <xs:element name="FinishTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q67="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q67:guid" />
-        <xs:element xmlns:q68="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q68:guid" />
-        <xs:element xmlns:q69="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q69:guid" />
+        <xs:element xmlns:q68="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q68:guid" />
+        <xs:element xmlns:q69="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q69:guid" />
+        <xs:element xmlns:q70="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q70:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -420,9 +422,9 @@
   <xs:element name="AcceptTechnicalRequarementsTaskPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q70="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q70:guid" />
-        <xs:element xmlns:q71="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q71:guid" />
-        <xs:element xmlns:q72="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q72:guid" />
+        <xs:element xmlns:q71="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q71:guid" />
+        <xs:element xmlns:q72="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q72:guid" />
+        <xs:element xmlns:q73="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q73:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -436,9 +438,9 @@
   <xs:element name="PriceEngineeringTasksStartPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q73="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q73:guid" />
-        <xs:element xmlns:q74="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q74:guid" />
-        <xs:element xmlns:q75="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTasksId" type="q75:guid" />
+        <xs:element xmlns:q74="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q74:guid" />
+        <xs:element xmlns:q75="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q75:guid" />
+        <xs:element xmlns:q76="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTasksId" type="q76:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -452,9 +454,9 @@
   <xs:element name="PriceEngineeringTaskStartPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q76="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q76:guid" />
-        <xs:element xmlns:q77="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q77:guid" />
-        <xs:element xmlns:q78="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q78:guid" />
+        <xs:element xmlns:q77="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q77:guid" />
+        <xs:element xmlns:q78="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q78:guid" />
+        <xs:element xmlns:q79="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q79:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -468,9 +470,9 @@
   <xs:element name="PriceEngineeringTaskInstructPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q79="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q79:guid" />
-        <xs:element xmlns:q80="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q80:guid" />
-        <xs:element xmlns:q81="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q81:guid" />
+        <xs:element xmlns:q80="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q80:guid" />
+        <xs:element xmlns:q81="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q81:guid" />
+        <xs:element xmlns:q82="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q82:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -484,9 +486,9 @@
   <xs:element name="PriceEngineeringTaskFinishPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q82="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q82:guid" />
-        <xs:element xmlns:q83="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q83:guid" />
-        <xs:element xmlns:q84="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q84:guid" />
+        <xs:element xmlns:q83="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q83:guid" />
+        <xs:element xmlns:q84="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q84:guid" />
+        <xs:element xmlns:q85="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q85:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -500,9 +502,9 @@
   <xs:element name="PriceEngineeringTaskFinishGoToVerificationPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q85="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q85:guid" />
-        <xs:element xmlns:q86="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q86:guid" />
-        <xs:element xmlns:q87="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q87:guid" />
+        <xs:element xmlns:q86="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q86:guid" />
+        <xs:element xmlns:q87="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q87:guid" />
+        <xs:element xmlns:q88="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q88:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -516,9 +518,9 @@
   <xs:element name="PriceEngineeringTaskVerificationRejectedByHeadPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q88="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q88:guid" />
-        <xs:element xmlns:q89="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q89:guid" />
-        <xs:element xmlns:q90="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q90:guid" />
+        <xs:element xmlns:q89="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q89:guid" />
+        <xs:element xmlns:q90="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q90:guid" />
+        <xs:element xmlns:q91="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q91:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -532,9 +534,9 @@
   <xs:element name="PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q91="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q91:guid" />
-        <xs:element xmlns:q92="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q92:guid" />
-        <xs:element xmlns:q93="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q93:guid" />
+        <xs:element xmlns:q92="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q92:guid" />
+        <xs:element xmlns:q93="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q93:guid" />
+        <xs:element xmlns:q94="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q94:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -548,9 +550,9 @@
   <xs:element name="PriceEngineeringTaskAcceptPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q94="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q94:guid" />
-        <xs:element xmlns:q95="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q95:guid" />
-        <xs:element xmlns:q96="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q96:guid" />
+        <xs:element xmlns:q95="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q95:guid" />
+        <xs:element xmlns:q96="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q96:guid" />
+        <xs:element xmlns:q97="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q97:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -564,9 +566,9 @@
   <xs:element name="PriceEngineeringTaskRejectByManagerPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q97="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q97:guid" />
-        <xs:element xmlns:q98="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q98:guid" />
-        <xs:element xmlns:q99="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q99:guid" />
+        <xs:element xmlns:q98="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q98:guid" />
+        <xs:element xmlns:q99="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q99:guid" />
+        <xs:element xmlns:q100="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q100:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -580,9 +582,9 @@
   <xs:element name="PriceEngineeringTaskRejectByConstructorPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q100="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q100:guid" />
-        <xs:element xmlns:q101="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q101:guid" />
-        <xs:element xmlns:q102="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q102:guid" />
+        <xs:element xmlns:q101="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q101:guid" />
+        <xs:element xmlns:q102="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q102:guid" />
+        <xs:element xmlns:q103="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q103:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -596,9 +598,9 @@
   <xs:element name="PriceEngineeringTaskStopPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q103="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q103:guid" />
-        <xs:element xmlns:q104="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q104:guid" />
-        <xs:element xmlns:q105="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q105:guid" />
+        <xs:element xmlns:q104="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q104:guid" />
+        <xs:element xmlns:q105="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q105:guid" />
+        <xs:element xmlns:q106="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q106:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -612,9 +614,9 @@
   <xs:element name="PriceEngineeringTaskSendMessagePublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q106="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q106:guid" />
-        <xs:element xmlns:q107="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q107:guid" />
-        <xs:element xmlns:q108="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="messageId" type="q108:guid" />
+        <xs:element xmlns:q107="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q107:guid" />
+        <xs:element xmlns:q108="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q108:guid" />
+        <xs:element xmlns:q109="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="messageId" type="q109:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -628,9 +630,9 @@
   <xs:element name="SavePaymentDocumentPublishEvent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q109="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q109:guid" />
-        <xs:element xmlns:q110="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q110:guid" />
-        <xs:element xmlns:q111="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="paymentDocumentId" type="q111:guid" />
+        <xs:element xmlns:q110="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q110:guid" />
+        <xs:element xmlns:q111="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="targetUserId" type="q111:guid" />
+        <xs:element xmlns:q112="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="paymentDocumentId" type="q112:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -649,7 +651,7 @@
   <xs:element name="CopyProjectAttachmentsCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q112="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="projectId" type="q112:guid" />
+        <xs:element xmlns:q113="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="projectId" type="q113:guid" />
         <xs:element minOccurs="0" name="targetDirectory" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -657,7 +659,7 @@
   <xs:element name="OnSendMessageToChat">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q113="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q113:guid" />
+        <xs:element xmlns:q114="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q114:guid" />
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -665,7 +667,7 @@
   <xs:element name="OnSendMessageToUser">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q114="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q114:guid" />
+        <xs:element xmlns:q115="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="authorId" type="q115:guid" />
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -673,7 +675,7 @@
   <xs:element name="OnSaveDirectumTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q115="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q115:guid" />
+        <xs:element xmlns:q116="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q116:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -687,7 +689,7 @@
   <xs:element name="OnStartDirectumTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q116="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q116:guid" />
+        <xs:element xmlns:q117="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q117:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -701,7 +703,7 @@
   <xs:element name="OnStopDirectumTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q117="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q117:guid" />
+        <xs:element xmlns:q118="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q118:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -715,7 +717,7 @@
   <xs:element name="OnPerformDirectumTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q118="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q118:guid" />
+        <xs:element xmlns:q119="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q119:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -729,7 +731,7 @@
   <xs:element name="OnAcceptDirectumTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q119="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q119:guid" />
+        <xs:element xmlns:q120="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q120:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -743,7 +745,7 @@
   <xs:element name="OnRejectDirectumTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q120="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q120:guid" />
+        <xs:element xmlns:q121="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="taskId" type="q121:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -757,7 +759,7 @@
   <xs:element name="OnPriceEngineeringTasksStartServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q121="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTasksId" type="q121:guid" />
+        <xs:element xmlns:q122="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTasksId" type="q122:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -771,7 +773,7 @@
   <xs:element name="OnPriceEngineeringTaskStartServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q122="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q122:guid" />
+        <xs:element xmlns:q123="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q123:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -785,7 +787,7 @@
   <xs:element name="OnPriceEngineeringTaskStopServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q123="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q123:guid" />
+        <xs:element xmlns:q124="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q124:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -799,7 +801,7 @@
   <xs:element name="OnPriceEngineeringTaskInstructServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q124="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q124:guid" />
+        <xs:element xmlns:q125="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q125:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -813,7 +815,7 @@
   <xs:element name="OnPriceEngineeringTaskFinishServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q125="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q125:guid" />
+        <xs:element xmlns:q126="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q126:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -827,7 +829,7 @@
   <xs:element name="OnPriceEngineeringTaskFinishGoToVerificationServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q126="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q126:guid" />
+        <xs:element xmlns:q127="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q127:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -841,7 +843,7 @@
   <xs:element name="OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q127="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q127:guid" />
+        <xs:element xmlns:q128="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q128:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -855,7 +857,7 @@
   <xs:element name="OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q128="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q128:guid" />
+        <xs:element xmlns:q129="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q129:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -869,7 +871,7 @@
   <xs:element name="OnPriceEngineeringTaskRejectByManagerServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q129="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q129:guid" />
+        <xs:element xmlns:q130="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q130:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -883,7 +885,7 @@
   <xs:element name="OnPriceEngineeringTaskRejectByConstructorServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q130="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q130:guid" />
+        <xs:element xmlns:q131="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q131:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -897,7 +899,7 @@
   <xs:element name="OnPriceEngineeringTaskAcceptServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q131="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q131:guid" />
+        <xs:element xmlns:q132="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="priceEngineeringTaskId" type="q132:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -911,7 +913,7 @@
   <xs:element name="OnPriceEngineeringTaskSendMessageServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q132="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="messageId" type="q132:guid" />
+        <xs:element xmlns:q133="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="messageId" type="q133:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -925,7 +927,7 @@
   <xs:element name="OnSavePaymentDocumentServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q133="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="paymentDocumentId" type="q133:guid" />
+        <xs:element xmlns:q134="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="paymentDocumentId" type="q134:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -939,7 +941,7 @@
   <xs:element name="OnSavePriceCalculationServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q134="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q134:guid" />
+        <xs:element xmlns:q135="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q135:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -953,7 +955,7 @@
   <xs:element name="OnStartPriceCalculationServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q135="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q135:guid" />
+        <xs:element xmlns:q136="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q136:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -967,7 +969,7 @@
   <xs:element name="OnFinishPriceCalculationServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q136="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q136:guid" />
+        <xs:element xmlns:q137="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q137:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -981,7 +983,7 @@
   <xs:element name="OnCancelPriceCalculationServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q137="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q137:guid" />
+        <xs:element xmlns:q138="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q138:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -995,7 +997,7 @@
   <xs:element name="OnRejectPriceCalculationServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q138="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q138:guid" />
+        <xs:element xmlns:q139="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="calculationId" type="q139:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1009,7 +1011,7 @@
   <xs:element name="OnSaveIncomingRequestServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q139="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q139:guid" />
+        <xs:element xmlns:q140="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="requestId" type="q140:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1023,7 +1025,7 @@
   <xs:element name="OnSaveIncomingDocumentServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q140="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q140:guid" />
+        <xs:element xmlns:q141="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="documentId" type="q141:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1037,7 +1039,7 @@
   <xs:element name="OnSaveTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q141="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q141:guid" />
+        <xs:element xmlns:q142="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q142:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1051,7 +1053,7 @@
   <xs:element name="OnStartTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q142="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q142:guid" />
+        <xs:element xmlns:q143="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q143:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1065,7 +1067,7 @@
   <xs:element name="OnInstructTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q143="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q143:guid" />
+        <xs:element xmlns:q144="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q144:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1079,7 +1081,7 @@
   <xs:element name="OnStopTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q144="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q144:guid" />
+        <xs:element xmlns:q145="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q145:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1093,7 +1095,7 @@
   <xs:element name="OnRejectTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q145="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q145:guid" />
+        <xs:element xmlns:q146="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q146:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1107,7 +1109,7 @@
   <xs:element name="OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q146="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q146:guid" />
+        <xs:element xmlns:q147="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q147:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1121,7 +1123,7 @@
   <xs:element name="OnFinishTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q147="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q147:guid" />
+        <xs:element xmlns:q148="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q148:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1135,7 +1137,7 @@
   <xs:element name="OnAcceptTechnicalRequarementsTaskServiceCallback">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q148="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q148:guid" />
+        <xs:element xmlns:q149="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="technicalRequarementsTaskId" type="q149:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

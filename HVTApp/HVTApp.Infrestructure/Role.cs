@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace HVTApp.Infrastructure
+﻿namespace HVTApp.Infrastructure
 {
-    //[Flags]
     public enum Role
     {
         SalesManager,

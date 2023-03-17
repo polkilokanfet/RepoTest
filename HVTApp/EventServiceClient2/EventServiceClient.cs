@@ -23,6 +23,7 @@ namespace EventServiceClient2
         private readonly IFileManagerService _fileManagerService;
         private readonly IFilesStorageService _filesStorageService;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
+        private readonly Role _userRole = GlobalAppProperties.User.RoleCurrent;
 
         private readonly EndpointAddress _endpointAddress;
         private readonly NetTcpBinding _netTcpBinding;
@@ -87,7 +88,7 @@ namespace EventServiceClient2
                         _appSessionId = Guid.NewGuid();
 
                         //коннектимся к сервису
-                        if (EventServiceHost.Connect(_appSessionId, _userId))
+                        if (EventServiceHost.Connect(_appSessionId, _userId, _userRole))
                         {
                             //Подключение контейнера синхронизации
                             SyncContainer.Connect(EventServiceHost, _appSessionId);

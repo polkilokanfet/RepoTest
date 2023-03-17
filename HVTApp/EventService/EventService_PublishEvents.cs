@@ -88,19 +88,15 @@ namespace EventService
                     //отключаем приложение от сервиса
                     catch (CommunicationObjectAbortedException e)
                     {
-                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} (appId: {appSession.AppSessionId})");
-                        PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
-                        this.Disconnect(appSession.AppSessionId);
+                        OnPublishEventByServiceForUserException(e, appSession);
                     }
                     catch (TimeoutException e)
                     {
-                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} (appId: {appSession.AppSessionId})");
-                        PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
-                        this.Disconnect(appSession.AppSessionId);
+                        OnPublishEventByServiceForUserException(e, appSession);
                     }
                     catch (Exception e)
                     {
-                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} (appId: {appSession.AppSessionId})");
+                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} ({appSession})");
                         PrintMessageEvent?.Invoke($"!Exception on Invoke {publishEvent.GetMethodInfo().Name} ({this.GetType().FullName}) by appSession {sourceEventAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
                         this.Disconnect(appSession.AppSessionId);
                     }
@@ -112,6 +108,12 @@ namespace EventService
             return result;
         }
 
+        private void OnPublishEventByServiceForUserException(Exception e, AppSession appSession)
+        {
+            PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} ({appSession})");
+            PrintMessageEvent?.Invoke($"{this.GetType().FullName}. {e.GetType().FullName}.");
+            this.Disconnect(appSession.AppSessionId);
+        }
 
         #region Directum
 
