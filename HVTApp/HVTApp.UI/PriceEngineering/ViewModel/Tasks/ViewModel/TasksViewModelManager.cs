@@ -149,7 +149,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         IsNew = false;
                         RaisePropertyChanged(nameof(IsNew));
                         Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Publish(this.TasksWrapper.Model);
-                        Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Publish(this.TasksWrapper.Model);
+                        //Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Publish(this.TasksWrapper.Model);
                     }
                     catch (Exception e)
                     {
@@ -211,7 +211,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     StopCommand.RaiseCanExecuteChanged();
                 },
                 () => 
-                    this.TasksWrapper != null && 
+                    this.TasksWrapper != null &&
+                    this.TasksWrapper.ChildTasks.SelectMany(x => x.GetAllPriceEngineeringTaskViewModels()).All(x => x is TaskViewModelManagerOld) &&
+                    this.TasksWrapper.ChildTasks.SelectMany(x => x.GetAllPriceEngineeringTaskViewModels()).Cast<TaskViewModelManagerOld>().All(x => x.StopCommand.CanExecute()) &&
                     this.IsNew == false);
             //this.PriceEngineeringTasksWrapper != null &&
             //    this.PriceEngineeringTasksWrapper.ChildPriceEngineeringTasks.SelectMany(x => x.Model.Statuses).Any(x => x.StatusEnum != PriceEngineeringTaskStatusEnum.Stopped && x.StatusEnum != PriceEngineeringTaskStatusEnum.Created));

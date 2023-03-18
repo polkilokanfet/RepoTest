@@ -8,7 +8,7 @@
 
         <!--Общая информация для всего оборудования в заданиях-->
         <view:TasksControl.CommonInformation>
-            <view:CommonInformationControlConstructor DataContext="{Binding}"/>
+            <view:CommonInformationControlConstructor TasksViewModelConstructor="{Binding}"/>
         </view:TasksControl.CommonInformation>
 
         <!--Оборудование-->
