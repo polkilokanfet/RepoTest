@@ -4,7 +4,7 @@ using System.ServiceModel;
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
     [ServiceContract(CallbackContract = typeof(IEventServiceCallback))]
-    public interface IEventService
+    public partial interface IEventService
     {
         /// <summary>
         /// Подключение к сервису

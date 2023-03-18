@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
     [ServiceContract]
-    public interface IEventServiceCallback
+    public partial interface IEventServiceCallback
     {
         /// <summary>
         /// Реакция клиента на остановку сервиса

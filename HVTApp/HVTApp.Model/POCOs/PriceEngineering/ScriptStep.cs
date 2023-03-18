@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
+using HVTApp.Model.Events.EventServiceEvents;
 using Prism.Events;
 
 namespace HVTApp.Model.POCOs
@@ -142,8 +143,6 @@ namespace HVTApp.Model.POCOs
                    PossiblePreviousSteps.Contains(currentStep);
         }
 
-        public abstract void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask);
-
         #region Classes
 
         private sealed class CreateStep : ScriptStep
@@ -155,10 +154,6 @@ namespace HVTApp.Model.POCOs
             protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
             public CreateStep() : base(0, Role.SalesManager)
-            {
-            }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
             {
             }
         }
@@ -180,11 +175,6 @@ namespace HVTApp.Model.POCOs
                 Role.Constructor,
                 Role.DesignDepartmentHead
             };
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskStartedEvent>().Publish(priceEngineeringTask);
-            }
 
             public StartStep() : base(1, Role.SalesManager)
             {
@@ -215,11 +205,6 @@ namespace HVTApp.Model.POCOs
             public StopStep() : base(2, Role.SalesManager)
             {
             }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskStoppedEvent>().Publish(priceEngineeringTask);
-            }
         }
 
         private sealed class RejectByManagerStep : ScriptStep
@@ -241,11 +226,6 @@ namespace HVTApp.Model.POCOs
             public RejectByManagerStep() : base(3, Role.SalesManager)
             {
             }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Publish(priceEngineeringTask);
-            }
         }
 
         private sealed class RejectByConstructorStep : ScriptStep
@@ -264,11 +244,6 @@ namespace HVTApp.Model.POCOs
 
             public RejectByConstructorStep() : base(4, Role.Constructor)
             {
-            }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Publish(priceEngineeringTask);
             }
         }
 
@@ -292,11 +267,6 @@ namespace HVTApp.Model.POCOs
             public FinishByConstructorStep() : base(5, Role.Constructor)
             {
             }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(priceEngineeringTask);
-            }
         }
 
         private sealed class AcceptStep : ScriptStep
@@ -313,11 +283,6 @@ namespace HVTApp.Model.POCOs
 
             public AcceptStep() : base(6, Role.SalesManager)
             {
-            }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskAcceptedEvent>().Publish(priceEngineeringTask);
             }
         }
 
@@ -340,11 +305,6 @@ namespace HVTApp.Model.POCOs
             public VerificationRequestByConstructorStep() : base(7, Role.Constructor)
             {
             }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(priceEngineeringTask);
-            }
         }
 
         private sealed class VerificationAcceptByHeadStep : ScriptStep
@@ -363,11 +323,6 @@ namespace HVTApp.Model.POCOs
 
             public VerificationAcceptByHeadStep() : base(8, Role.DesignDepartmentHead)
             {
-            }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskVerificationAcceptedByHeadEvent>().Publish(priceEngineeringTask);
             }
         }
 
@@ -388,11 +343,6 @@ namespace HVTApp.Model.POCOs
             public VerificationRejectByHeadStep() : base(9, Role.DesignDepartmentHead)
             {
             }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskVerificationRejectedByHeadEvent>().Publish(priceEngineeringTask);
-            }
         }
 
         private sealed class RejectByHeadStep : ScriptStep
@@ -411,11 +361,6 @@ namespace HVTApp.Model.POCOs
 
             public RejectByHeadStep() : base(10, Role.DesignDepartmentHead)
             {
-            }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskRejectedByHeadEvent>().Publish(priceEngineeringTask);
             }
         }
 
@@ -438,11 +383,6 @@ namespace HVTApp.Model.POCOs
             public LoadToTceStartStep() : base(11, Role.SalesManager)
             {
             }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskLoadToTceStartEvent>().Publish(priceEngineeringTask);
-            }
         }
 
         private sealed class LoadToTceFinishStep : ScriptStep
@@ -458,11 +398,6 @@ namespace HVTApp.Model.POCOs
 
             public LoadToTceFinishStep() : base(12, Role.BackManager)
             {
-            }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskLoadToTceFinishEvent>().Publish(priceEngineeringTask);
             }
         }
 
@@ -486,11 +421,6 @@ namespace HVTApp.Model.POCOs
             public ProductionRequestStartStep() : base(13, Role.SalesManager)
             {
             }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskProductionRequestStartEvent>().Publish(priceEngineeringTask);
-            }
         }
 
         private sealed class ProductionRequestFinishStep : ScriptStep
@@ -506,11 +436,6 @@ namespace HVTApp.Model.POCOs
 
             public ProductionRequestFinishStep() : base(14, Role.PlanMaker)
             {
-            }
-
-            public override void PublishEvent(IEventAggregator eventAggregator, PriceEngineeringTask priceEngineeringTask)
-            {
-                eventAggregator.GetEvent<PriceEngineeringTaskProductionRequestFinishEvent>().Publish(priceEngineeringTask);
             }
         }
 

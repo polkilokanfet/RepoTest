@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandProductionRequestStart : DoStepCommandBase
+    public class DoStepCommandProductionRequestStart : DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.ProductionRequestStart;
 
@@ -14,6 +17,14 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         public DoStepCommandProductionRequestStart(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
+        }
+
+        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        {
+            foreach (var user in Container.Resolve<IUnitOfWork>().Repository<User>().Find(x => x.Roles.Any(r => r.Role == Role.BackManagerBoss)))
+            {
+                yield return new NotificationArgsItem(user, Role.BackManagerBoss, $"Назначьте плановика: {ViewModel.Model}");
+            }
         }
 
         protected override void DoStepAction()

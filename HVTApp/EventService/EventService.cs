@@ -103,7 +103,7 @@ namespace EventService
 
         public void SendMessageToChat(Guid authorId, string message)
         {
-            foreach (var appSession in _appSessions.Where(x => x.UserId != authorId).ToList())
+            foreach (var appSession in _appSessions.Where(appSession => appSession.UserId != authorId))
             {
                 try
                 {
@@ -135,6 +135,11 @@ namespace EventService
                 {
                 }
             }
+        }
+
+        public bool PriceEngineeringTaskStatusChangedEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

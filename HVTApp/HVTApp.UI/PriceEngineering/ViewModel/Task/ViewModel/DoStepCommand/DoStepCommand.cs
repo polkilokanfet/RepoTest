@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model.Events;
+using HVTApp.Model.Events.EventServiceEvents;
+using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
@@ -9,7 +11,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public abstract class DoStepCommandBase : DelegateLogCommand
+    public abstract class DoStepCommand : DelegateLogCommand
     {
         public IUnityContainer Container { get; }
         protected readonly TaskViewModel ViewModel;
@@ -23,7 +25,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         #region ctors
 
-        protected DoStepCommandBase(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
+        protected DoStepCommand(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
         {
             Container = container;
             ViewModel = viewModel;
@@ -46,16 +48,17 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
 
             this.DoStepAction();
-            this.EventAggregator.GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.ViewModel.Model);
+            this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
             _doAfterAction?.Invoke();
         }
+
+        protected abstract IEnumerable<NotificationArgsItem> GetEventServiceItems();
 
         protected virtual void DoStepAction()
         {
             ViewModel.Statuses.Add(Step);
             ViewModel.AcceptChanges();
             ViewModel.SaveCommand.Execute();
-            Step.PublishEvent(EventAggregator, ViewModel.Model);
             this.RaiseCanExecuteChanged();
         }
 

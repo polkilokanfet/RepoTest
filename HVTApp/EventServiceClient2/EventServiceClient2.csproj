@@ -75,8 +75,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventServiceClient_Callbacks.cs" />
-    <Compile Include="EventServiceClient_Chat.cs" />
+    <Compile Include="EventServiceClientPriceEngineering.cs" />
+    <Compile Include="EventServiceClientCallbacks.cs" />
+    <Compile Include="EventServiceClientChat.cs" />
     <Compile Include="EventServiceUnitWatcher.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskAccept.cs" />
     <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskPerform.cs" />

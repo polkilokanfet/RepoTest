@@ -1,11 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
+using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandLoadToTceFinish : DoStepCommandBase
+    public class DoStepCommandLoadToTceFinish : DoStepCommand
     {
         private readonly Action _doAfter;
         protected override ScriptStep Step => ScriptStep.LoadToTceFinish;
@@ -17,11 +21,17 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             _doAfter = doAfter;
         }
 
+        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        {
+            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
+            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ТСП загружено в TeamCenter: {ViewModel.Model}");
+        }
+
         protected override void DoStepAction()
         {
             var tasks = ViewModel.Model.ChildPriceEngineeringTasks
-                .SelectMany(x => x.GetAllPriceEngineeringTasks())
-                .Where(x => x.Status.Equals(ScriptStep.LoadToTceStart));
+                .SelectMany(task => task.GetAllPriceEngineeringTasks())
+                .Where(task => task.Status.Equals(ScriptStep.LoadToTceStart));
             foreach (var task in tasks)
             {
                 task.Statuses.Add(new PriceEngineeringTaskStatus()
