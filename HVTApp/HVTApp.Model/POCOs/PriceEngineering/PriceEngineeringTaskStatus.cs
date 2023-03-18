@@ -43,7 +43,7 @@ namespace HVTApp.Model.POCOs
 
             if (string.IsNullOrWhiteSpace(status.Comment) == false)
             {
-                sb.AppendLine(status.Comment);
+                sb.AppendLine($"\n{status.Comment}");
             }
 
             return new PriceEngineeringTaskStatusMessage(status.Moment, sb.ToString());

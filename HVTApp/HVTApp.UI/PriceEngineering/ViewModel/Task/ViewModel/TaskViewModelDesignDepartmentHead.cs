@@ -8,6 +8,8 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.Model.Events.EventServiceEvents;
+using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -57,6 +59,10 @@ namespace HVTApp.UI.PriceEngineering
             !Status.Equals(ScriptStep.VerificationRequestByConstructor) &&
             !Status.Equals(ScriptStep.Create) &&
             !Status.Equals(ScriptStep.Stop) &&
+            !Status.Equals(ScriptStep.LoadToTceStart) &&
+            !Status.Equals(ScriptStep.LoadToTceFinish) &&
+            !Status.Equals(ScriptStep.ProductionRequestStart) &&
+            !Status.Equals(ScriptStep.ProductionRequestFinish) &&
             !Status.Equals(ScriptStep.Accept);
 
         #region ctors
@@ -104,7 +110,9 @@ namespace HVTApp.UI.PriceEngineering
             this.UserConstructor = new UserEmptyWrapper(this.UnitOfWork.Repository<User>().GetById(user.Id));
             Messenger.SendMessage(sb.ToString());
             this.SaveCommand.Execute();
-            Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
+
+            var argsItem = new NotificationArgsItem(user, Role.Constructor, $"Проработайте ТСП: {this.Model}");
+            Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.Model, new[] { argsItem }));
         }
 
         /// <summary>

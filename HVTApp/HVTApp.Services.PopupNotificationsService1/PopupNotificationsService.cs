@@ -85,6 +85,10 @@ namespace HVTApp.Services.PopupNotificationsService1
                         regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(parameters);
                         break;
 
+                    case Role.PlanMaker:
+                        regionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewPlanMaker>(parameters);
+                        break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

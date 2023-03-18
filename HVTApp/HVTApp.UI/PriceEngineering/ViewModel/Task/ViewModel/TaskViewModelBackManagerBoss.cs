@@ -3,10 +3,13 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model.Events.EventServiceEvents;
+using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -62,6 +65,9 @@ namespace HVTApp.UI.PriceEngineering
                     UnitOfWork.SaveChanges();
 
                     this.Messenger.SendMessage($"Назначен плановик: {planMaker.Employee.Person}");
+
+                    var argsItem = new NotificationArgsItem(planMaker, Role.PlanMaker, $"Откройте производство по ТСП: {this.Model}");
+                    container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.Model, new []{argsItem}));
                 },
                 () => this.Model.Status.Equals(ScriptStep.ProductionRequestStart));
         }

@@ -34,7 +34,8 @@ namespace HVTApp.UI.PriceEngineering.Messages
                 {
                     ScriptStep.Create,
                     ScriptStep.Stop,
-                    ScriptStep.Accept
+                    ScriptStep.Accept, 
+                    ScriptStep.ProductionRequestFinish
                 };
 
                 return ss.Contains(_viewModel.Status) == false;

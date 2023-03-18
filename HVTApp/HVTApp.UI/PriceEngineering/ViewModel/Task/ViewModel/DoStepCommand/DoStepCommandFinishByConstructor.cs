@@ -56,6 +56,20 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
             var needVerification = vm.Model.RequestForVerificationFromHead || vm.RequestForVerificationFromConstructor;
 
+            var step = needVerification
+                ? ScriptStep.VerificationRequestByConstructor
+                : ScriptStep.FinishByConstructor;
+            vm.Statuses.Add(step, GetStatusComment());
+            vm.SaveCommand.Execute();
+
+            vm.AddAnswerFilesCommand.RaiseCanExecuteChanged();
+            vm.RemoveAnswerFileCommand.RaiseCanExecuteChanged();
+        }
+
+        protected override string GetStatusComment()
+        {
+            var vm = (TaskViewModelConstructor)ViewModel;
+
             var sb = new StringBuilder()
                 .AppendLine("Информация о результатах проработки.")
                 .AppendLine("Основной блок:")
@@ -75,29 +89,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 fa.ForEach(fileAnswer => sb.AppendLine($" - {fileAnswer}"));
             }
 
-            if (vm.IsValidForProduction == false)
-            {
-                sb.AppendLine("\nДля производства потребуется досогласовать техническое задание.");
-            }
+            sb.AppendLine(vm.IsValidForProduction
+                ? "\nДля производства НЕ потребуется досогласовать техническое задание."
+                : "\nДля производства потребуется досогласовать техническое задание.");
 
-            var step = needVerification
-                ? ScriptStep.VerificationRequestByConstructor
-                : ScriptStep.FinishByConstructor;
-            vm.Statuses.Add(step);
-            vm.Messenger.SendMessage(sb.ToString().TrimEnd('\n', '\r'));
-            vm.SaveCommand.Execute();
-
-            vm.AddAnswerFilesCommand.RaiseCanExecuteChanged();
-            vm.RemoveAnswerFileCommand.RaiseCanExecuteChanged();
-
-            if (needVerification)
-            {
-                EventAggregator.GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Publish(vm.Model);
-            }
-            else
-            {
-                EventAggregator.GetEvent<PriceEngineeringTaskFinishedEvent>().Publish(vm.Model);
-            }
+            return sb.ToString().TrimEnd('\n', '\r');
         }
 
         protected override bool CanExecuteMethod()

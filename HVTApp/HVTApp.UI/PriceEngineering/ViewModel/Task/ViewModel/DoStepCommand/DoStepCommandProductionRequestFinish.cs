@@ -30,16 +30,22 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             var vm = (TaskViewModelPlanMaker) ViewModel;
             var now = DateTime.Now;
             vm.SignalToStartProductionDone = now;
-            vm.Messenger.SendMessage($"Открыт з/з {vm.Order.Number}");
-            foreach (var priceEngineeringTask in vm.Model.GetAllPriceEngineeringTasks().Where(x => x.Id != vm.Model.Id))
+            foreach (var priceEngineeringTask in vm.Model.GetAllPriceEngineeringTasks().Where(priceEngineeringTask => priceEngineeringTask.Id != vm.Model.Id))
             {
                 priceEngineeringTask.Statuses.Add(new PriceEngineeringTaskStatus
                 {
                     Moment = now, 
-                    StatusEnum = ScriptStep.ProductionRequestFinish.Value
+                    StatusEnum = ScriptStep.ProductionRequestFinish.Value,
+                    Comment = GetStatusComment()
                 });
             }
             base.DoStepAction();
+        }
+
+        protected override string GetStatusComment()
+        {
+            var vm = (TaskViewModelPlanMaker)ViewModel;
+            return $"з/з {vm.Order.Number}";
         }
     }
 }
