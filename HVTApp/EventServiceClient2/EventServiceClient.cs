@@ -69,25 +69,42 @@ namespace EventServiceClient2
                     {
                         bool notificated = false;
                         if (this.HostIsEnabled)
+                        {
                             try
                             {
                                 notificated = EventServiceHost.PriceEngineeringTaskNotificationEvent(
                                     this._appSessionId,
                                     GlobalAppProperties.User.Id,
-                                    item.User.Id, GlobalAppProperties.User.RoleCurrent,
+                                    item.User.Id, 
+                                    item.Role,
                                     notificationArgsPriceEngineeringTask.Entity.Id,
                                     item.Message);
+                            }
+                            //хост недоступен
+                            catch (TimeoutException)
+                            {
+                                DisableWaitRestart();
                             }
                             catch
                             {
                             }
+                        }
 
+                        //Если уведомление не дошло, сохраняем его в базе данных
                         if (notificated == false)
                         {
-                            //throw new NotImplementedException();
+                            var unitOfWork = container.Resolve<IUnitOfWork>();
+                            var unit = new EventServiceUnit
+                            {
+                                User = unitOfWork.Repository<User>().GetById(item.User.Id),
+                                TargetEntityId = notificationArgsPriceEngineeringTask.Entity.Id,
+                                EventServiceActionType = EventServiceActionType.PriceEngineeringTaskNotification
+                            };
+                            unitOfWork.SaveEntity(unit);
+                            unitOfWork.Dispose();
                         }
                     }
-                });
+                }, true);
         }
 
         public void Start()

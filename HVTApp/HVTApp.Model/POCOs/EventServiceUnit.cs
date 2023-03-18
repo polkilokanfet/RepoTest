@@ -60,6 +60,8 @@ namespace HVTApp.Model.POCOs
         PriceEngineeringTaskVerificationRejectedByHead,
         PriceEngineeringTaskVerificationAcceptedByHead,
 
-        SavePaymentDocument
+        SavePaymentDocument,
+
+        PriceEngineeringTaskNotification
     }
 }

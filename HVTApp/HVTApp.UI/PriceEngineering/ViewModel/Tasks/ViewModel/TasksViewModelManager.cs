@@ -159,7 +159,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 () => this.TasksWrapper != null && this.TasksWrapper.IsValid && this.TasksWrapper.IsChanged);
 
             StartCommand = new DelegateLogConfirmationCommand(
-                container.Resolve<IMessageService>(), 
+                container.Resolve<IMessageService>(),
                 "¬ы уверены, что хотите стартовать все задачи?",
                 () =>
                 {
@@ -168,19 +168,22 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     {
                         foreach (var taskViewModel in childTask.GetAllPriceEngineeringTaskViewModels())
                         {
-                            ((TaskViewModelBaseStartable)taskViewModel).StartCommand.ExecuteWithoutConfirmation();
+                            ((TaskViewModelBaseStartable) taskViewModel).StartCommand.ExecuteWithoutConfirmation();
                         }
                     }
+
                     SaveCommand.Execute();
                     StartCommand.RaiseCanExecuteChanged();
                     AddFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
                     RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(nameof(AllowEditProps));
                 },
-                () => this.TasksWrapper != null &&
-                      this.TasksWrapper.IsValid &&
-                      this.TasksWrapper.IsChanged &&
-                      AllowEditProps);
+                () =>
+                    this.TasksWrapper != null &&
+                    this.TasksWrapper.IsValid &&
+                    this.TasksWrapper.IsChanged &&
+                    this.TasksWrapper.ChildTasks.First() is TaskViewModelManagerNew &&
+                    AllowEditProps);
 
             StopCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),
