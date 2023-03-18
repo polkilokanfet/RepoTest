@@ -333,7 +333,7 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public void LoadNewAnswerFilesInStorage()
         {
-            foreach (var file in this.FilesAnswers.AddedItems.Where(x => string.IsNullOrWhiteSpace(x.Path) == false))
+            foreach (var file in this.FilesAnswers.AddedItems.Where(answer => string.IsNullOrWhiteSpace(answer.Path) == false))
             {
                 file.LoadToStorage(GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
             }

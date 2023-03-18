@@ -144,12 +144,6 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                             UnitOfWork.Repository<PriceEngineeringTasks>().Add(this.TasksWrapper.Model);
                         }
 
-                        //загрузка файлов в хранилище
-                        foreach (var priceEngineeringTaskViewModel in this.TasksWrapper.ChildTasks)
-                        {
-                            priceEngineeringTaskViewModel.LoadNewTechnicalRequirementFilesInStorage();
-                        }
-
                         this.TasksWrapper.AcceptChanges();
                         UnitOfWork.SaveChanges();
                         IsNew = false;
@@ -174,7 +168,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     {
                         foreach (var taskViewModel in childTask.GetAllPriceEngineeringTaskViewModels())
                         {
-                            taskViewModel.Statuses.Add(ScriptStep.Start);
+                            ((TaskViewModelBaseStartable)taskViewModel).StartCommand.ExecuteWithoutConfirmation();
                         }
                     }
                     SaveCommand.Execute();
@@ -345,6 +339,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     File.Copy(fileWrapper.Path, destFileName);
                     fileWrapper.Path = null;
                 }
+            }
+
+            foreach (var childTask in this.TasksWrapper.ChildTasks)
+            {
+                childTask.LoadNewTechnicalRequirementFilesInStorage();
             }
         }
 

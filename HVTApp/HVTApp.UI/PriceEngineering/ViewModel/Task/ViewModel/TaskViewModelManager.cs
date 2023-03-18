@@ -142,11 +142,14 @@ namespace HVTApp.UI.PriceEngineering
             {
                 RemoveTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
             };
-
-            this.SavedEvent += LoadNewTechnicalRequirementFilesInStorage;
         }
 
         #endregion
+
+        protected override void SaveCommandExecuteBefore()
+        {
+            this.LoadNewTechnicalRequirementFilesInStorage();
+        }
 
         /// <summary>
         /// Загрузить все добавленные файлы ТЗ в хранилище

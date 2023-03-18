@@ -5,15 +5,15 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public abstract class TaskViewModelBaseWithStartCommand : TaskViewModel
+    public abstract class TaskViewModelBaseStartable : TaskViewModel
     {
         public DoStepCommandStart StartCommand { get; private set; }
 
-        protected TaskViewModelBaseWithStartCommand(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        protected TaskViewModelBaseStartable(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
         {
         }
 
-        protected TaskViewModelBaseWithStartCommand(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
+        protected TaskViewModelBaseStartable(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork)
         {
         }
 

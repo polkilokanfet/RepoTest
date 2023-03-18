@@ -39,7 +39,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             var sb = new StringBuilder();
             if (this.ViewModel.FilesTechnicalRequirements.IsChanged)
             {
-                sb.AppendLine("Внесены изменения в Техническое Задание.");
+                sb.AppendLine("Изменения в Техническом Задании.");
 
                 var actualFiles = this.ViewModel.FilesTechnicalRequirements
                     .Where(file => file.IsActual)

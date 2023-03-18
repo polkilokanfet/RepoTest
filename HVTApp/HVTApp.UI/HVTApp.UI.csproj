@@ -407,7 +407,7 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelLoadFilesCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBaseWithStartCommand.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBaseStartable.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\StatusesCollection.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskViewModelBaseConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskViewModelBaseDesignDepartmentHead.cs" />
