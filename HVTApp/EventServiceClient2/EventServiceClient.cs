@@ -9,9 +9,11 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace EventServiceClient2
 {
@@ -59,6 +61,33 @@ namespace EventServiceClient2
 
             SyncContainer = new SyncContainer(_container);
             SyncContainer.ServiceHostIsDisabled += DisableWaitRestart;
+
+            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Subscribe(
+                notificationArgsPriceEngineeringTask =>
+                {
+                    foreach (var item in notificationArgsPriceEngineeringTask.EventServiceItems)
+                    {
+                        bool notificated = false;
+                        if (this.HostIsEnabled)
+                            try
+                            {
+                                notificated = EventServiceHost.PriceEngineeringTaskNotificationEvent(
+                                    this._appSessionId,
+                                    GlobalAppProperties.User.Id,
+                                    item.User.Id, GlobalAppProperties.User.RoleCurrent,
+                                    notificationArgsPriceEngineeringTask.Entity.Id,
+                                    item.Message);
+                            }
+                            catch
+                            {
+                            }
+
+                        if (notificated == false)
+                        {
+                            throw new NotImplementedException();
+                        }
+                    }
+                });
         }
 
         public void Start()

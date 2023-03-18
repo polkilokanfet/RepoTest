@@ -143,6 +143,15 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 
         #endregion
 
+        [OperationContract]
+        bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid paymentDocumentId);
+    }
+
+    public partial interface IEventService
+    {
+        [OperationContract]
+        bool PriceEngineeringTaskNotificationEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, string message);
+
         #region PriceEngineeringTasks
 
         [OperationContract]
@@ -187,10 +196,6 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid messageId);
 
         #endregion
-
-
-        [OperationContract]
-        bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid paymentDocumentId);
-
     }
+
 }

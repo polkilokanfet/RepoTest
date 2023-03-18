@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 
@@ -261,6 +261,59 @@ namespace EventService
         #endregion
 
         #region PriceEngineeringTasks
+
+        public bool PriceEngineeringTaskNotificationEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, string message)
+        {
+            bool result = false;
+
+            //целевые приложения (без того, которое и послало событие).
+            var targetAppSessions = _appSessions
+                .Where(appSession => appSession.UserId == userTargetId)
+                .Where(appSession => appSession.UserRole == userTargetRole)
+                .Where(appSession => appSession.AppSessionId != eventSourceAppSessionId)
+                .ToList();
+
+            PrintMessageEvent?.Invoke("-------------------");
+            PrintMessageEvent?.Invoke($"Invoke {nameof(PriceEngineeringTaskNotificationEvent)} (sourceEventAppSessionId: {eventSourceAppSessionId} targetUserId: {userTargetId}");
+
+            if (targetAppSessions.Any() == false)
+            {
+                PrintMessageEvent?.Invoke(" - Service have no target connected user");
+            }
+            else
+            {
+                foreach (var appSession in targetAppSessions)
+                {
+                    try
+                    {
+                        if (appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringNotificationServiceCallback(priceEngineeringTaskId, message))
+                        {
+                            result = true;
+                            PrintMessageEvent?.Invoke($" + Success ({appSession})");
+                        }
+                    }
+                    //отключаем приложение от сервиса
+                    catch (CommunicationObjectAbortedException e)
+                    {
+                        OnPublishEventByServiceForUserException(e, appSession);
+                    }
+                    catch (TimeoutException e)
+                    {
+                        OnPublishEventByServiceForUserException(e, appSession);
+                    }
+                    catch (Exception e)
+                    {
+                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} ({appSession})");
+                        PrintMessageEvent?.Invoke($"!Exception on Invoke {nameof(PriceEngineeringTaskNotificationEvent)} ({this.GetType().FullName}) by appSession {eventSourceAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
+                        this.Disconnect(appSession.AppSessionId);
+                    }
+                }
+            }
+
+            PrintMessageEvent?.Invoke("-------------------");
+
+            return result;
+        }
 
         public bool PriceEngineeringTasksStartPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTasksId)
         {

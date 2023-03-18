@@ -201,6 +201,18 @@ namespace EventServiceClient2.ServiceReference1 {
             "nse")]
         System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
+        bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
+        System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEventResponse")]
+        bool PriceEngineeringTaskNotificationEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEventResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskNotificationEventAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, string message);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEventResponse")]
         bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId);
         
@@ -295,11 +307,11 @@ namespace EventServiceClient2.ServiceReference1 {
             "nse")]
         System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
-        bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEventResponse")]
+        bool PriceEngineeringTaskStatusChangedEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEventResponse")]
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskStatusChangedEventAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -334,6 +346,10 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallbackResponse")]
         bool OnRejectDirectumTaskServiceCallback(System.Guid taskId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallbackRes" +
+            "ponse")]
+        bool OnPriceEngineeringNotificationServiceCallback(System.Guid priceEngineeringTaskId, string message);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallback", ReplyAction="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallbackRespo" +
             "nse")]
@@ -709,6 +725,22 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.AcceptTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
         }
         
+        public bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
+            return base.Channel.SavePaymentDocumentPublishEvent(eventSourceAppSessionId, targetUserId, paymentDocumentId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
+            return base.Channel.SavePaymentDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, paymentDocumentId);
+        }
+        
+        public bool PriceEngineeringTaskNotificationEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, string message) {
+            return base.Channel.PriceEngineeringTaskNotificationEvent(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, message);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskNotificationEventAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, string message) {
+            return base.Channel.PriceEngineeringTaskNotificationEventAsync(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, message);
+        }
+        
         public bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId) {
             return base.Channel.PriceEngineeringTasksStartPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTasksId);
         }
@@ -805,12 +837,12 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.PriceEngineeringTaskSendMessagePublishEventAsync(eventSourceAppSessionId, targetUserId, messageId);
         }
         
-        public bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
-            return base.Channel.SavePaymentDocumentPublishEvent(eventSourceAppSessionId, targetUserId, paymentDocumentId);
+        public bool PriceEngineeringTaskStatusChangedEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStatusChangedEvent(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
-            return base.Channel.SavePaymentDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, paymentDocumentId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStatusChangedEventAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStatusChangedEventAsync(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId);
         }
     }
 }

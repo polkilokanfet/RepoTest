@@ -52,6 +52,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         #region PriceEngineeringTask
 
         [OperationContract]
+        bool OnPriceEngineeringNotificationServiceCallback(Guid priceEngineeringTaskId, string message);
+
+
+
+        [OperationContract]
         bool OnPriceEngineeringTasksStartServiceCallback(Guid priceEngineeringTasksId);
 
 

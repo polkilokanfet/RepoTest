@@ -187,6 +187,18 @@
   <wsdl:message name="IEventService_AcceptTechnicalRequarementsTaskPublishEvent_OutputMessage">
     <wsdl:part name="parameters" element="tns:AcceptTechnicalRequarementsTaskPublishEventResponse" />
   </wsdl:message>
+  <wsdl:message name="IEventService_SavePaymentDocumentPublishEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:SavePaymentDocumentPublishEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_SavePaymentDocumentPublishEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SavePaymentDocumentPublishEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskNotificationEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskNotificationEvent" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_PriceEngineeringTaskNotificationEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskNotificationEventResponse" />
+  </wsdl:message>
   <wsdl:message name="IEventService_PriceEngineeringTasksStartPublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTasksStartPublishEvent" />
   </wsdl:message>
@@ -259,11 +271,11 @@
   <wsdl:message name="IEventService_PriceEngineeringTaskSendMessagePublishEvent_OutputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTaskSendMessagePublishEventResponse" />
   </wsdl:message>
-  <wsdl:message name="IEventService_SavePaymentDocumentPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:SavePaymentDocumentPublishEvent" />
+  <wsdl:message name="IEventService_PriceEngineeringTaskStatusChangedEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskStatusChangedEvent" />
   </wsdl:message>
-  <wsdl:message name="IEventService_SavePaymentDocumentPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SavePaymentDocumentPublishEventResponse" />
+  <wsdl:message name="IEventService_PriceEngineeringTaskStatusChangedEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskStatusChangedEventResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
@@ -312,6 +324,12 @@
   </wsdl:message>
   <wsdl:message name="IEventService_OnRejectDirectumTaskServiceCallback_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnRejectDirectumTaskServiceCallbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringNotificationServiceCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringNotificationServiceCallback" />
+  </wsdl:message>
+  <wsdl:message name="IEventService_OnPriceEngineeringNotificationServiceCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnPriceEngineeringNotificationServiceCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnPriceEngineeringTasksStartServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnPriceEngineeringTasksStartServiceCallback" />
@@ -603,6 +621,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_AcceptTechnicalRequarementsTaskPublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_AcceptTechnicalRequarementsTaskPublishEvent_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SavePaymentDocumentPublishEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent" message="tns:IEventService_SavePaymentDocumentPublishEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse" message="tns:IEventService_SavePaymentDocumentPublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskNotificationEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEvent" message="tns:IEventService_PriceEngineeringTaskNotificationEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEventResponse" message="tns:IEventService_PriceEngineeringTaskNotificationEvent_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="PriceEngineeringTasksStartPublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent" message="tns:IEventService_PriceEngineeringTasksStartPublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEventResponse" message="tns:IEventService_PriceEngineeringTasksStartPublishEvent_OutputMessage" />
@@ -651,9 +677,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventResponse" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SavePaymentDocumentPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent" message="tns:IEventService_SavePaymentDocumentPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse" message="tns:IEventService_SavePaymentDocumentPublishEvent_OutputMessage" />
+    <wsdl:operation name="PriceEngineeringTaskStatusChangedEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEvent" message="tns:IEventService_PriceEngineeringTaskStatusChangedEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEventResponse" message="tns:IEventService_PriceEngineeringTaskStatusChangedEvent_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
@@ -690,6 +716,10 @@
     <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" message="tns:IEventService_OnRejectDirectumTaskServiceCallback_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnRejectDirectumTaskServiceCallback_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringNotificationServiceCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallback" message="tns:IEventService_OnPriceEngineeringNotificationServiceCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringNotificationServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnPriceEngineeringTasksStartServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTasksStartServiceCallback" message="tns:IEventService_OnPriceEngineeringTasksStartServiceCallback_OutputCallbackMessage" />
@@ -1066,6 +1096,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SavePaymentDocumentPublishEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PriceEngineeringTaskNotificationEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="PriceEngineeringTasksStartPublishEvent">
       <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent" style="document" />
       <wsdl:input>
@@ -1174,8 +1222,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="SavePaymentDocumentPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent" style="document" />
+    <wsdl:operation name="PriceEngineeringTaskStatusChangedEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEvent" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1254,6 +1302,15 @@
     </wsdl:operation>
     <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnPriceEngineeringNotificationServiceCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

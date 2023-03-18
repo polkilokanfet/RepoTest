@@ -1,12 +1,18 @@
 ﻿using System;
+using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
 
 namespace EventServiceClient2
 {
     public partial class EventServiceClient
     {
-        public bool OnPriceEngineeringEventCallback(Guid userAuthorId, Guid priceEngineeringTaskId)
+        public bool OnPriceEngineeringNotificationServiceCallback(Guid priceEngineeringTaskId, string message)
         {
-            throw new NotImplementedException();
+            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+            return true;
         }
     }
 }

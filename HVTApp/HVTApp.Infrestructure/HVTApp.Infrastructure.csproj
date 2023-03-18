@@ -131,7 +131,6 @@
     <Compile Include="Interfaces\Services\EventService\EventServiceAddresses.cs" />
     <Compile Include="Interfaces\Services\EventService\IEventService.cs" />
     <Compile Include="Interfaces\Services\EventService\IEventServiceCallback.cs" />
-    <Compile Include="Interfaces\Services\EventService\IEventServiceCallbackPriceEngineering.cs" />
     <Compile Include="Interfaces\Services\EventService\IEventServiceClient.cs" />
     <Compile Include="Interfaces\Services\EventService\IEventServicePriceEngineering.cs" />
     <Compile Include="Interfaces\Services\IAllowStartService.cs" />
