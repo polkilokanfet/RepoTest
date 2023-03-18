@@ -164,7 +164,8 @@ namespace HVTApp.Model.POCOs
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new []
             {
-                Create,
+                Create, 
+                Stop,
                 RejectByHead,
                 RejectByConstructor
             };

@@ -103,7 +103,7 @@ namespace HVTApp.UI.PriceEngineering
             this.RequestForVerificationFromHead = needVerification;
             this.UserConstructor = new UserEmptyWrapper(this.UnitOfWork.Repository<User>().GetById(user.Id));
             Messenger.SendMessage(sb.ToString());
-            this.SaveCommand_ExecuteMethod();
+            this.SaveCommand.Execute();
             Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Publish(this.Model);
         }
 

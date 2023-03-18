@@ -30,7 +30,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Остановить техническую проработку задачи
         /// </summary>
-        public DoStepCommandStopByManager StopCommand { get; }
+        public DoStepCommandStop StopCommand { get; }
 
         /// <summary>
         /// Загрузить техническую проработку задачи в ТСЕ
@@ -94,7 +94,7 @@ namespace HVTApp.UI.PriceEngineering
 
             AcceptCommand = new DoStepCommandAcceptedByManager(this, container, () =>  this.OnTaskAcceptedByManagerAction(this.Model));
             RejectCommand = new DoStepCommandRejectedByManager(this, container);
-            StopCommand = new DoStepCommandStopByManager(this, container);
+            StopCommand = new DoStepCommandStop(this, container);
             LoadToTceStartCommand = new DoStepCommandLoadToTceStart(this, container);
             StartProductionCommand = new DoStepCommandProductionRequestStart(this, container);
 

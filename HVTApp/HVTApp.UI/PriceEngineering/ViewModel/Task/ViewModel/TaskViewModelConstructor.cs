@@ -253,6 +253,12 @@ namespace HVTApp.UI.PriceEngineering
             CreateSubTaskCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (this.Model.DesignDepartment.ParameterSetsSubTask.Any() == false)
+                    {
+                        messageService.ShowOkMessageDialog("Информация", "Ваше КБ не имеет продуктов для поручения.");
+                        return;
+                    }
+
                     var getProductService = Container.Resolve<IGetProductService>();
 
                     var block = getProductService.GetProductBlock(Model.DesignDepartment.ParameterSetsSubTask);
@@ -268,14 +274,12 @@ namespace HVTApp.UI.PriceEngineering
                         Amount = 1
                     };
                     taskViewModel.Model.UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
-                    taskViewModel.FilesTechnicalRequirements.AddRange(this.FilesTechnicalRequirements.Where(x => x.IsActual).Select(x => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(x.Id))));
+                    taskViewModel.FilesTechnicalRequirements.AddRange(this.FilesTechnicalRequirements.Where(file => file.IsActual).Select(fileWrapper => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(fileWrapper.Id))));
 
-                    if (taskViewModel.StartCommandExecute(true))
-                    {
-                        this.ChildPriceEngineeringTasks.Add(new TaskViewModelConstructor(this.Container, taskViewModel.Model.Id, this));
-                    }
+                    taskViewModel.StartCommand.ExecuteWithoutConfirmation();
+                    this.ChildPriceEngineeringTasks.Add(new TaskViewModelConstructor(this.Container, taskViewModel.Model.Id, this));
                 },
-                () => IsTarget && IsEditMode && this.Model.DesignDepartment.ParameterSetsSubTask.Any());
+                () => IsTarget && IsEditMode);
 
             RemoveSubTaskCommand = new DelegateLogConfirmationCommand(
                 messageService,
@@ -302,15 +306,11 @@ namespace HVTApp.UI.PriceEngineering
             {
                 RaisePropertyChanged(nameof(AllowEditAddedBlocks));
             };
+
+            this.SavedEvent += LoadNewAnswerFilesInStorage;
         }
 
         #endregion
-
-        protected override void SaveCommand_ExecuteMethod()
-        {
-            this.LoadNewAnswerFilesInStorage();
-            base.SaveCommand_ExecuteMethod();
-        }
 
         protected override bool SaveCommand_CanExecuteMethod()
         {

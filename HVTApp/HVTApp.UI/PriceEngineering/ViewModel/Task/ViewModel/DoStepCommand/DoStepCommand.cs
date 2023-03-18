@@ -56,8 +56,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected virtual void DoStepAction()
         {
-            ViewModel.Statuses.Add(Step);
-            ViewModel.AcceptChanges();
+            ViewModel.Statuses.Add(this.Step, this.GetStatusComment());
             ViewModel.SaveCommand.Execute();
             this.RaiseCanExecuteChanged();
         }
@@ -76,6 +75,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             return ViewModel.IsValid && 
                    Step.AllowDoStep(ViewModel.Status);
+        }
+
+        protected virtual string GetStatusComment()
+        {
+            return null;
         }
     }
 }

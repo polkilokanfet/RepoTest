@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,7 +10,6 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 
@@ -25,7 +23,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             get
             {
-                var statuses = new List<ScriptStep>()
+                var statuses = new []
                 {
                     ScriptStep.Create,
                     ScriptStep.Stop,
@@ -72,7 +70,6 @@ namespace HVTApp.UI.PriceEngineering
         public virtual DelegateLogConfirmationCommand ReplaceProductCommand { get; } = new DelegateLogConfirmationCommand(null, String.Empty,() => { }, () => false);
 
         #endregion
-
 
         #region ctors
 
@@ -145,15 +142,11 @@ namespace HVTApp.UI.PriceEngineering
             {
                 RemoveTechnicalRequirementsFilesCommand.RaiseCanExecuteChanged();
             };
+
+            this.SavedEvent += LoadNewTechnicalRequirementFilesInStorage;
         }
 
         #endregion
-
-        protected override void SaveCommand_ExecuteMethod()
-        {
-            LoadNewTechnicalRequirementFilesInStorage();
-            base.SaveCommand_ExecuteMethod();
-        }
 
         /// <summary>
         /// Загрузить все добавленные файлы ТЗ в хранилище
@@ -163,7 +156,7 @@ namespace HVTApp.UI.PriceEngineering
             //новые файлы ТЗ, которые нужно загрузить (в них пути к файлу не пустые)
             var filesToLoad = 
                 this.FilesTechnicalRequirements.AddedItems
-                    .Where(x => string.IsNullOrWhiteSpace(x.Path) == false);
+                    .Where(file => string.IsNullOrWhiteSpace(file.Path) == false);
 
             foreach (var file in filesToLoad)
             {

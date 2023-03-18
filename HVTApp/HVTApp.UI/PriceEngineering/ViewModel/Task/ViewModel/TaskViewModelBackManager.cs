@@ -1,12 +1,10 @@
 using System;
 using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using HVTApp.UI.PriceEngineering.Tce.Second;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -26,7 +24,6 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        public event Action SavedEvent;
         public event Action LoadToTceFinishedEvent;
 
         public TaskViewModelBackManager(TasksWrapperBackManager tasksWrapperBackManager, IUnityContainer container, Guid priceEngineeringTaskId) 
@@ -54,15 +51,6 @@ namespace HVTApp.UI.PriceEngineering
                 SaveCommand.RaiseCanExecuteChanged();
                 LoadToTceFinishCommand.RaiseCanExecuteChanged();
             };
-        }
-
-        protected override void SaveCommand_ExecuteMethod()
-        {
-            TasksTceItem.AcceptChanges();
-            UnitOfWork.SaveChanges();
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
-            SaveCommand.RaiseCanExecuteChanged();
-            SavedEvent?.Invoke();
         }
 
         protected override bool SaveCommand_CanExecuteMethod()

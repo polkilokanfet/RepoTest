@@ -59,8 +59,6 @@ namespace HVTApp.UI.PriceEngineering
             set => SalesUnits.ForEach(salesUnit => salesUnit.SignalToStartProductionDone = value);
         }
 
-        public event Action SavedEvent;
-
         public TaskViewModelPlanMaker(TasksWrapperPlanMaker tasksWrapper, IUnityContainer container, Guid priceEngineeringTaskId)
             : base(container, priceEngineeringTaskId)
         {
@@ -96,15 +94,6 @@ namespace HVTApp.UI.PriceEngineering
 
                 RaisePropertyChanged(nameof(EndProductionPlanDate));
             }
-        }
-
-        protected override void SaveCommand_ExecuteMethod()
-        {
-            this.AcceptChanges();
-            UnitOfWork.SaveChanges();
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
-            SaveCommand.RaiseCanExecuteChanged();
-            SavedEvent?.Invoke();
         }
 
         protected override bool SaveCommand_CanExecuteMethod()

@@ -170,9 +170,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 () =>
                 {
                     LoadNewTechnicalRequirementFilesInStorage();
-                    foreach (var priceEngineeringTaskViewModel in TasksWrapper.ChildTasks)
+                    foreach (var childTask in TasksWrapper.ChildTasks)
                     {
-                        priceEngineeringTaskViewModel.StartCommandExecute(false);
+                        childTask.GetAllPriceEngineeringTaskViewModels().ForEach(x => ((TaskViewModelBaseWithStartCommand)x).StartCommand.ExecuteWithoutConfirmation());
                     }
                     SaveCommand.Execute();
                     StartCommand.RaiseCanExecuteChanged();

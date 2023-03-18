@@ -9,6 +9,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -121,6 +122,8 @@ namespace HVTApp.UI.PriceEngineering
         protected event Action SelectedAnswerFileIsChanged;
 
         #endregion
+
+        public event Action SavedEvent;
 
         #region ctors
 
@@ -240,10 +243,15 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        protected virtual void SaveCommand_ExecuteMethod()
+        private void SaveCommand_ExecuteMethod()
         {
+            if (this.UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) == null)
+                this.UnitOfWork.Repository<PriceEngineeringTask>().Add(this.Model);
+
             this.AcceptChanges();
             UnitOfWork.SaveChanges();
+            SaveCommand.RaiseCanExecuteChanged();
+            SavedEvent?.Invoke();
             Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
         }
 
@@ -252,6 +260,10 @@ namespace HVTApp.UI.PriceEngineering
             return this.IsValid && this.IsChanged;
         }
 
+        /// <summary>
+        /// Вернуть эту задачу и все вложенные
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<TaskViewModel> GetAllPriceEngineeringTaskViewModels()
         {
             yield return this;

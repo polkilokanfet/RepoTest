@@ -84,7 +84,7 @@ namespace EventServiceClient2
 
                         if (notificated == false)
                         {
-                            throw new NotImplementedException();
+                            //throw new NotImplementedException();
                         }
                     }
                 });
