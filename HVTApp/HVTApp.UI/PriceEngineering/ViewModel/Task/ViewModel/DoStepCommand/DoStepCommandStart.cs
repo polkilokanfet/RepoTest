@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -32,6 +33,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override string GetStatusComment()
         {
+            if (this.ViewModel is TaskViewModelManagerNew)
+                return null;
+
             var sb = new StringBuilder();
             if (this.ViewModel.FilesTechnicalRequirements.IsChanged)
             {
