@@ -306,8 +306,6 @@ namespace HVTApp.UI.PriceEngineering
             {
                 RaisePropertyChanged(nameof(AllowEditAddedBlocks));
             };
-
-            this.SavedEvent += LoadNewAnswerFilesInStorage;
         }
 
         #endregion
@@ -326,6 +324,11 @@ namespace HVTApp.UI.PriceEngineering
                 ProductBlock = new ProductBlockStructureCostWrapperConstructor(block)
             };
             this.ProductBlocksAdded.Add(wrapper);
+        }
+
+        protected override void SaveCommandExecuteBefore()
+        {
+            this.LoadNewAnswerFilesInStorage();
         }
 
         /// <summary>
