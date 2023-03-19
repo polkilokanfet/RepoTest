@@ -137,13 +137,20 @@ namespace HVTApp.Model.POCOs
                     ScriptStep.FinishByConstructor,
                     ScriptStep.VerificationRequestByConstructor,
                     ScriptStep.VerificationAcceptByHead,
-                    ScriptStep.Accept
+                    ScriptStep.Accept,
+                    ScriptStep.LoadToTceStart,
+                    ScriptStep.LoadToTceFinish,
+                    ScriptStep.ProductionRequestStart,
+                    ScriptStep.ProductionRequestFinish
                 };
 
                 return statuses.Contains(Status);
             }
         }
 
+        /// <summary>
+        /// ТСП принята менеджером у ОГК
+        /// </summary>
         public bool IsAccepted
         {
             get
@@ -184,7 +191,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Проработка задачи остановлена менеджером (со всеми вложенными задачами).
         /// </summary>
-        public bool IsStoppedTotal => this.StatusesAll.All(x => x.Equals(ScriptStep.Stop));
+        public bool IsStoppedTotal => this.StatusesAll.All(step => step.Equals(ScriptStep.Stop));
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
@@ -214,16 +221,17 @@ namespace HVTApp.Model.POCOs
                     return default;
 
                 return this.Statuses
-                    .Where(x => x.StatusEnum == ScriptStep.Start.Value)
-                    .OrderBy(x => x.Moment)
+                    .Where(status => status.StatusEnum == ScriptStep.Start.Value)
+                    .OrderBy(status => status.Moment)
                     .Last()
                     .Moment;
             }
         }
 
-        public bool IsStarted => !Status.Equals(ScriptStep.Stop) && 
-                                 !Status.Equals(ScriptStep.Create) &&
-                                 Statuses.Select(x => x.StatusEnum).Contains(ScriptStep.Start.Value);
+        public bool IsStarted =>
+            Status.Equals(ScriptStep.Stop) == false &&
+            Status.Equals(ScriptStep.Create) == false &&
+            Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.Start.Value);
 
         public bool HasSccInTce
         {

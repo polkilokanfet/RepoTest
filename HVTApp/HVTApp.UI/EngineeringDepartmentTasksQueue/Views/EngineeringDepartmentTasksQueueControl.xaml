@@ -21,6 +21,10 @@
             SelectedDataItem="{Binding SelectedItem}"
             Style="{StaticResource ListViewGrid}">
 
+            <dataPresenter:XamDataGrid.FieldSettings>
+                <dataPresenter:FieldSettings LabelClickAction="Nothing" />
+            </dataPresenter:XamDataGrid.FieldSettings>
+
             <dataPresenter:XamDataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem 
@@ -39,6 +43,7 @@
             <dataPresenter:XamDataGrid.FieldLayouts>
 
                 <dataPresenter:FieldLayout Key="MnL">
+
 
                     <dataPresenter:FieldLayout.Fields>
                         <dataPresenter:DateTimeField Name="TermOriginal" Label="Срок" Width="Auto" AllowResize="False" />

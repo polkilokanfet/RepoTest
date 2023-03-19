@@ -6,13 +6,25 @@
              x:Class="HVTApp.UI.EngineeringDepartmentTasksQueue.Views.Tabs.TabEngineeringDepartmentTasksQueueAdmin"
              Header="Приоритет">
 
-    <infRib:RibbonGroup Caption="Изменить">
+    <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Перезагрузить" 
+                           Command="{Binding ReloadCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Приоритет проработки">
         <infRib:ButtonTool Caption="Повысить" 
                            Command="{Binding PriorityUpCommand}" 
                            SmallImage="/HVTApp.UI;component/Images/arrow_back.png"/>
         <infRib:ButtonTool Caption="Понизить" 
                            Command="{Binding PriorityDownCommand}" 
                            SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Приоритет проработки">
+        <infRib:ButtonTool Caption="Повысить максимально" 
+                           Command="{Binding PriorityUpToTopCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/arrow_back.png"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

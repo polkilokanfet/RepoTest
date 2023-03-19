@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
+using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.EngineeringDepartmentTasksQueue.Items;
@@ -10,11 +11,26 @@ namespace HVTApp.UI.EngineeringDepartmentTasksQueue.ViewModels
 {
     public class EngineeringDepartmentTasksQueueViewModelAdmin : EngineeringDepartmentTasksQueueViewModel
     {
-        public ICommand PriorityUpCommand { get; }
-        public ICommand PriorityDownCommand { get; }
+        public ICommandRaiseCanExecuteChanged PriorityUpToTopCommand { get; }
+        public ICommandRaiseCanExecuteChanged PriorityUpCommand { get; }
+        public ICommandRaiseCanExecuteChanged PriorityDownCommand { get; }
 
         public EngineeringDepartmentTasksQueueViewModelAdmin(IUnityContainer container) : base(container)
         {
+            PriorityUpToTopCommand = new DelegateLogCommand(
+                () =>
+                {
+                    if (Equals(SelectedItem, Items.First())) return;
+
+                    //назначаем срок проработки (на 1 тик меньший, чем у первой задачи)
+                    SelectedItem.BaseTask.TermPriority = Items.First().Term.AddTicks(-1);
+
+                    UnitOfWork.SaveChanges();
+
+                    Items.Move(Items.IndexOf(SelectedItem), 0);
+                },
+                () => this.SelectedItem != null);
+
             PriorityUpCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -78,20 +94,26 @@ namespace HVTApp.UI.EngineeringDepartmentTasksQueue.ViewModels
 
         protected override IEnumerable<EngineeringDepartmentTask> GetAllItems()
         {
-            return UnitOfWork.Repository<PriceEngineeringTask>()
-                .Find(x => x.IsStarted && x.IsAccepted == false)
-                .Select(GetTopTask)
+            var tasks = UnitOfWork.Repository<PriceEngineeringTask>()
+                .Find(task => task.IsStarted && task.IsAccepted == false)
+                .Select(task => task.GetPriceEngineeringTasks(UnitOfWork))
+                .Distinct();
+
+            return tasks
+                .SelectMany(priceEngineeringTasks => priceEngineeringTasks.ChildPriceEngineeringTasks)
                 .Distinct()
-                .Where(x => x.SalesUnits.Any())
-                .Select(x => new EngineeringDepartmentTaskPrice(x, UnitOfWork.Repository<PriceEngineeringTasks>().GetById(x.ParentPriceEngineeringTasksId.Value).WorkUpTo))
-                .OrderBy(x => x);
+                .Where(task => task.SalesUnits.Any())
+                .Where(task => task.ParentPriceEngineeringTasksId.HasValue)
+                .Select(task => new EngineeringDepartmentTaskPrice(task, UnitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value).WorkUpTo))
+                .OrderBy(taskPrice => taskPrice);
         }
 
         protected override void OnSelectedItemChanged()
         {
             base.OnSelectedItemChanged();
-            ((DelegateLogCommand)PriorityUpCommand).RaiseCanExecuteChanged();
-            ((DelegateLogCommand)PriorityDownCommand).RaiseCanExecuteChanged();
+            PriorityUpToTopCommand.RaiseCanExecuteChanged();
+            PriorityUpCommand.RaiseCanExecuteChanged();
+            PriorityDownCommand.RaiseCanExecuteChanged();
         }
     }
 }
