@@ -4,6 +4,7 @@ using HVTApp.UI.Modules.Director.Views;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.PriceCalculations.View;
+using HVTApp.UI.PriceEngineering.Statistics;
 
 namespace HVTApp.Modules.Director.Menus
 {
@@ -16,6 +17,7 @@ namespace HVTApp.Modules.Director.Menus
             Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
             Items.Add(new NavigationItem("Расчет ПЗ", typeof(PriceCalculationsView)));
             Items.Add(new NavigationItem("Приоритетность задач ОГК", typeof(EngineeringDepartmentTasksQueueViewAdmin)));
+            Items.Add(new NavigationItem("Статистика работы в ТСП", typeof(PriceEngineeringStatisticsView)));
         }
     }
 }

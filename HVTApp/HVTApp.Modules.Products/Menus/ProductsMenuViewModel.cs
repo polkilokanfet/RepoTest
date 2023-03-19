@@ -6,6 +6,7 @@ using HVTApp.UI.Modules.Products.Parameters;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Reference;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.Statistics;
 using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.Views;
 
@@ -30,6 +31,7 @@ namespace HVTApp.Modules.Products.Menus
             {
                 //Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewDepartmentHead)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewDesignDepartmentHead)));
+                Items.Add(new NavigationItem("Статистика работы в ТСП", typeof(PriceEngineeringStatisticsView)));
             }
             else
             {

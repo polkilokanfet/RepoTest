@@ -328,6 +328,10 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\ToFacilityOwnerConverter.cs" />
+    <Compile Include="PriceEngineering\Statistics\PriceEngineeringStatisticsView.xaml.cs">
+      <DependentUpon>PriceEngineeringStatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Statistics\PriceEngineeringStatisticsViewModel.cs" />
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTaskBackManager.xaml.cs">
       <DependentUpon>TabPriceEngineeringTaskBackManager.xaml</DependentUpon>
     </Compile>
@@ -1982,6 +1986,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Report\BlockReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Statistics\PriceEngineeringStatisticsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

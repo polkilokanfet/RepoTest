@@ -35,6 +35,7 @@ using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.PriceEngineering.ParametersService1;
 using HVTApp.UI.PriceEngineering.Report;
+using HVTApp.UI.PriceEngineering.Statistics;
 using HVTApp.UI.PriceEngineering.Tce.List.View;
 using HVTApp.UI.PriceEngineering.Tce.Second.View;
 using HVTApp.UI.PriceEngineering.Tce.Unit;
@@ -114,6 +115,8 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<EngineeringDepartmentTasksQueueViewAdmin>();
             Container.RegisterViewForNavigation<EngineeringDepartmentTasksQueueViewDepartmentHead>();
             Container.RegisterViewForNavigation<EngineeringDepartmentTasksQueueViewConstructor>();
+
+            Container.RegisterViewForNavigation<PriceEngineeringStatisticsView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
             Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();
