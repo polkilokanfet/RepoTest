@@ -22,7 +22,10 @@
             Style="{StaticResource ListViewGrid}">
 
             <dataPresenter:XamDataGrid.FieldSettings>
-                <dataPresenter:FieldSettings LabelClickAction="Nothing" />
+                <dataPresenter:FieldSettings 
+                    LabelClickAction="Nothing" 
+                    AllowRecordFiltering="True"
+                    FilterLabelIconDropDownType="MultiSelectExcelStyle"/>
             </dataPresenter:XamDataGrid.FieldSettings>
 
             <dataPresenter:XamDataGrid.ContextMenu>
