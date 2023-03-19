@@ -1,5 +1,6 @@
 ﻿using System;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.EngineeringDepartmentTasksQueue.Items
 {
@@ -21,6 +22,11 @@ namespace HVTApp.UI.EngineeringDepartmentTasksQueue.Items
         protected abstract DateTime GetTermOriginal();
         protected abstract string GetFacility();
         protected abstract string GetProduct();
+
+        public void SetTermPriority(DateTime termPriority)
+        {
+            BaseTask.GetAllPriceEngineeringTasks().ForEach(task => task.TermPriority = termPriority);
+        }
 
         public int CompareTo(EngineeringDepartmentTask other)
         {

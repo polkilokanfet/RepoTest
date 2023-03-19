@@ -297,7 +297,7 @@ namespace HVTApp.Model.POCOs
             {
                 yield return this;
             }
-
+            
             foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
             {
                 foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForWork(user))

@@ -23,7 +23,7 @@ namespace HVTApp.UI.EngineeringDepartmentTasksQueue.ViewModels
                     if (Equals(SelectedItem, Items.First())) return;
 
                     //назначаем срок проработки (на 1 тик меньший, чем у первой задачи)
-                    SelectedItem.BaseTask.TermPriority = Items.First().Term.AddTicks(-1);
+                    SelectedItem.SetTermPriority(Items.First().Term.AddTicks(-1));
 
                     UnitOfWork.SaveChanges();
 
@@ -41,7 +41,7 @@ namespace HVTApp.UI.EngineeringDepartmentTasksQueue.ViewModels
                     var itemIndex = Items.IndexOf(SelectedItem);
                     var targetItemIndex = GetTargetItemIndexUp(itemIndex);
                     var targetItem = Items[targetItemIndex];
-                    SelectedItem.BaseTask.TermPriority = targetItem.Term.AddTicks(-1);
+                    SelectedItem.SetTermPriority(targetItem.Term.AddTicks(-1));
 
                     UnitOfWork.SaveChanges();
 
@@ -59,7 +59,7 @@ namespace HVTApp.UI.EngineeringDepartmentTasksQueue.ViewModels
                     var itemIndex = Items.IndexOf(SelectedItem);
                     var targetItemIndex = GetTargetItemIndexDown(itemIndex);
                     var targetItem = Items[targetItemIndex];
-                    SelectedItem.BaseTask.TermPriority = targetItem.Term.AddTicks(1);
+                    SelectedItem.SetTermPriority(targetItem.Term.AddTicks(1));
 
                     UnitOfWork.SaveChanges();
 
