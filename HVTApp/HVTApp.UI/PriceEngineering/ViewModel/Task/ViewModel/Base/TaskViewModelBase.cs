@@ -5,6 +5,7 @@ using System.Reflection;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -163,11 +164,11 @@ namespace HVTApp.UI.PriceEngineering
         protected override void InitializeCollectionProperties()
         {
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
-            FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
+            FilesTechnicalRequirements = new FilesContainerTechnicalRequrements(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
             RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
 
             if (Model.FilesAnswers == null) throw new ArgumentException("FilesAnswers cannot be null");
-            FilesAnswers = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper>(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
+            FilesAnswers = new FilesContainerAnswers(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
@@ -184,14 +185,63 @@ namespace HVTApp.UI.PriceEngineering
         {
             this.GetType()
                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(x => typeof(ICommandRaiseCanExecuteChanged).IsAssignableFrom(x.PropertyType))
-                .Select(x => x.GetValue(this))
+                .Where(propertyInfo => typeof(ICommandRaiseCanExecuteChanged).IsAssignableFrom(propertyInfo.PropertyType))
+                .Select(propertyInfo => propertyInfo.GetValue(this))
                 .Where(x => x != null)
                 .Cast<ICommandRaiseCanExecuteChanged>()
-                .ForEach(x => x.RaiseCanExecuteChanged());
+                .ForEach(command => command.RaiseCanExecuteChanged());
         }
 
+        #region FilesContainer
 
+        public abstract class FilesContainer<TItemWrapper> : ValidatableChangeTrackingCollection<TItemWrapper> 
+            where TItemWrapper : class, IValidatableChangeTracking, IFilePathContainer
+        {
+            protected abstract string StoragePath { get; }
+
+            protected FilesContainer(IEnumerable<TItemWrapper> items) : base(items)
+            {
+            }
+
+            public override void AcceptChanges()
+            {
+                LoadNewFilesInStorage();
+                base.AcceptChanges();
+            }
+
+            /// <summary>
+            /// Загрузить все добавленные файлы в хранилище
+            /// </summary>
+            private void LoadNewFilesInStorage()
+            {
+                //новые файлы, которые нужно загрузить (в них пути к файлу не пустые)
+                foreach (var file in this.AddedItems.Where(file => string.IsNullOrWhiteSpace(file.Path) == false))
+                {
+                    file.LoadToStorage(this.StoragePath);
+                }
+            }
+
+        }
+
+        public class FilesContainerTechnicalRequrements : FilesContainer<PriceEngineeringTaskFileTechnicalRequirementsWrapper>
+        {
+            protected override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+
+            public FilesContainerTechnicalRequrements(IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> items) : base(items)
+            {
+            }
+        }
+
+        public class FilesContainerAnswers : FilesContainer<PriceEngineeringTaskFileAnswerWrapper>
+        {
+            protected override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
+
+            public FilesContainerAnswers(IEnumerable<PriceEngineeringTaskFileAnswerWrapper> items) : base(items)
+            {
+            }
+        }
+
+        #endregion
     }
 
     public class SalesUnitWithSignalToStartProductionWrapper : WrapperBase<SalesUnit>

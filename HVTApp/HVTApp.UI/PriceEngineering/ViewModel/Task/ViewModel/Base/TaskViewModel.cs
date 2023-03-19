@@ -243,13 +243,11 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        protected virtual void SaveCommandExecuteBefore() { }
         private void SaveCommand_ExecuteMethod()
         {
             if (this.UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) == null)
                 this.UnitOfWork.Repository<PriceEngineeringTask>().Add(this.Model);
 
-            this.SaveCommandExecuteBefore();
             this.AcceptChanges();
             UnitOfWork.SaveChanges();
             SaveCommand.RaiseCanExecuteChanged();

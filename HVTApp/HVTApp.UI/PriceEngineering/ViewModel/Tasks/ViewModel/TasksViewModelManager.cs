@@ -345,11 +345,6 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     fileWrapper.Path = null;
                 }
             }
-
-            foreach (var childTask in this.TasksWrapper.ChildTasks)
-            {
-                childTask.LoadNewTechnicalRequirementFilesInStorage();
-            }
         }
 
         public void RemoveChildTask(TaskViewModelManager taskViewModel)

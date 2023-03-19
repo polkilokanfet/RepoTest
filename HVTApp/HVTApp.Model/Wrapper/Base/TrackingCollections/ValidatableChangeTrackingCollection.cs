@@ -53,7 +53,7 @@ namespace HVTApp.Model.Wrapper.Base.TrackingCollections
         /// <summary>
         /// Принять все изменения в коллекции
         /// </summary>
-        public void AcceptChanges()
+        public virtual void AcceptChanges()
         {
             _addedItems.Clear();
             _modifiedItems.Clear();

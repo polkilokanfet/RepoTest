@@ -6,7 +6,6 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -145,32 +144,5 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
-
-        protected override void SaveCommandExecuteBefore()
-        {
-            this.LoadNewTechnicalRequirementFilesInStorage();
-        }
-
-        /// <summary>
-        /// Загрузить все добавленные файлы ТЗ в хранилище
-        /// </summary>
-        public void LoadNewTechnicalRequirementFilesInStorage()
-        {
-            //новые файлы ТЗ, которые нужно загрузить (в них пути к файлу не пустые)
-            var filesToLoad = 
-                this.FilesTechnicalRequirements.AddedItems
-                    .Where(file => string.IsNullOrWhiteSpace(file.Path) == false);
-
-            foreach (var file in filesToLoad)
-            {
-                file.LoadToStorage(GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
-            }
-
-            foreach (var childPriceEngineeringTask in this.ChildPriceEngineeringTasks)
-            {
-                if (childPriceEngineeringTask is TaskViewModelManager vm)
-                    vm.LoadNewTechnicalRequirementFilesInStorage();
-            }
-        }
     }
 }

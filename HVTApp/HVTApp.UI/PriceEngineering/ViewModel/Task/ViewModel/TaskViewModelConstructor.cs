@@ -326,22 +326,6 @@ namespace HVTApp.UI.PriceEngineering
             this.ProductBlocksAdded.Add(wrapper);
         }
 
-        protected override void SaveCommandExecuteBefore()
-        {
-            this.LoadNewAnswerFilesInStorage();
-        }
-
-        /// <summary>
-        /// Загрузить все добавленные ответы ОГК в хранилище
-        /// </summary>
-        public void LoadNewAnswerFilesInStorage()
-        {
-            foreach (var file in this.FilesAnswers.AddedItems.Where(answer => string.IsNullOrWhiteSpace(answer.Path) == false))
-            {
-                file.LoadToStorage(GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
-            }
-        }
-
         public void RemoveChildTask(PriceEngineeringTask priceEngineeringTask)
         {
             var taskViewModel = this.ChildPriceEngineeringTasks.Single(x => x.Model.Id == priceEngineeringTask.Id);
