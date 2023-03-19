@@ -68,7 +68,7 @@ namespace HVTApp.Model.Wrapper.Base
         /// <summary>
         /// Принять изменения объекта.
         /// </summary>
-        public void AcceptChanges()
+        public virtual void AcceptChanges()
         {
             foreach (var originalValue in _originalValues)
             {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents.Args;
@@ -29,22 +30,34 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
+            var moment = DateTime.Now;
             var tasks = ViewModel.Model.ChildPriceEngineeringTasks
                 .SelectMany(task => task.GetAllPriceEngineeringTasks())
                 .Where(task => task.Status.Equals(ScriptStep.LoadToTceStart));
             foreach (var task in tasks)
             {
-                task.Statuses.Add(new PriceEngineeringTaskStatus()
+                task.Statuses.Add(new PriceEngineeringTaskStatus
                 {
-                    Moment = DateTime.Now,
+                    Moment = moment,
                     StatusEnum = ScriptStep.LoadToTceFinish.Value
                 });
             }
 
-            var vm = (TaskViewModelBackManager)ViewModel;
-            vm.TasksTceItem.AcceptChanges();
             base.DoStepAction();
             _doAfter?.Invoke();
+        }
+
+        protected override string GetStatusComment()
+        {
+            var vm = (TaskViewModelBackManager)ViewModel;
+            var sb = new StringBuilder();
+            sb.AppendLine($"Заявка в TeamCenter: {vm.TasksWrapperBackManager.TceNumber}");
+            foreach (var sccVersion in vm.TasksTceItem.SccVersions.Where(x => x.IsActual))
+            {
+                sb.AppendLine($" - {sccVersion.Name}: [{sccVersion.OriginalStructureCostNumber} => {sccVersion.Version}]");
+            }
+
+            return sb.ToString();
         }
 
         protected override bool CanExecuteMethod()

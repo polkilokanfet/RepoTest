@@ -51,6 +51,13 @@ namespace HVTApp.UI.PriceEngineering
                 SaveCommand.RaiseCanExecuteChanged();
                 LoadToTceFinishCommand.RaiseCanExecuteChanged();
             };
+            
+        }
+
+        public override void AcceptChanges()
+        {
+            TasksTceItem.AcceptChanges();
+            base.AcceptChanges();
         }
 
         protected override bool SaveCommand_CanExecuteMethod()
