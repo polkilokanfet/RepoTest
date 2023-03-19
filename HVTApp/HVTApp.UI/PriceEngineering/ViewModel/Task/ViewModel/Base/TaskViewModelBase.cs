@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using HVTApp.Infrastructure;
@@ -34,7 +35,7 @@ namespace HVTApp.UI.PriceEngineering
             };
 
             if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
-            Statuses = new StatusesCollection(Model.Statuses);
+            Statuses = new StatusesContainer(Model.Statuses);
             RegisterCollection(Statuses, Model.Statuses);
 
             this.InCtor();
@@ -125,17 +126,17 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Файлы технических требований
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
+        public FilesContainerTechnicalRequrements FilesTechnicalRequirements { get; private set; }
 
         /// <summary>
         /// Файлы ответов ОГК
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper> FilesAnswers { get; private set; }
+        public FilesContainerAnswers FilesAnswers { get; private set; }
 
         /// <summary>
         /// Статусы проработки
         /// </summary>
-        public StatusesCollection Statuses { get; private set; }
+        public StatusesContainer Statuses { get; private set; }
 
         /// <summary>
         /// SalesUnits
@@ -195,12 +196,23 @@ namespace HVTApp.UI.PriceEngineering
         #region FilesContainer
 
         public abstract class FilesContainer<TItemWrapper> : ValidatableChangeTrackingCollection<TItemWrapper> 
-            where TItemWrapper : class, IValidatableChangeTracking, IFilePathContainer
+            where TItemWrapper : class, IValidatableChangeTracking, IFilePathContainer, IIsActual
         {
             protected abstract string StoragePath { get; }
 
             protected FilesContainer(IEnumerable<TItemWrapper> items) : base(items)
             {
+            }
+
+            public new void Remove(TItemWrapper item)
+            {
+                if (string.IsNullOrEmpty(item.Path))
+                {
+                    item.IsActual = false;
+                    return;
+                }
+
+                base.Remove(item);
             }
 
             public override void AcceptChanges()
@@ -240,6 +252,35 @@ namespace HVTApp.UI.PriceEngineering
             {
             }
         }
+
+        #endregion
+
+        #region StatusesContainer
+
+        public class StatusesContainer : ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusEmptyWrapper>
+        {
+            public StatusesContainer(IEnumerable<PriceEngineeringTaskStatus> items) : base(items.Select(taskStatus => new PriceEngineeringTaskStatusEmptyWrapper(taskStatus)))
+            {
+            }
+
+            /// <summary>
+            /// Добавление статуса в коллекцию
+            /// </summary>
+            /// <param name="step"></param>
+            /// <param name="comment"></param>
+            public void Add(ScriptStep step, string comment = null)
+            {
+                var status = new PriceEngineeringTaskStatus
+                {
+                    StatusEnum = step.Value,
+                    Moment = DateTime.Now,
+                    Comment = comment
+                };
+
+                this.Add(new PriceEngineeringTaskStatusEmptyWrapper(status));
+            }
+        }
+
 
         #endregion
     }

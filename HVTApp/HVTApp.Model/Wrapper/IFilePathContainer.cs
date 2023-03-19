@@ -32,4 +32,9 @@ namespace HVTApp.Model.Wrapper
         }
 
     }
+
+    public interface IIsActual
+    {
+        bool IsActual { get; set; }
+    }
 }

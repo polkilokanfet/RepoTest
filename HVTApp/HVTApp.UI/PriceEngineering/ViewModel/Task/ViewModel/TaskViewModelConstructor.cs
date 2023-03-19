@@ -219,17 +219,7 @@ namespace HVTApp.UI.PriceEngineering
             RemoveAnswerFileCommand = new DelegateLogConfirmationCommand(
                 messageService,
                 "Вы уверены, что хотите удалить выделенный файл?",
-                () =>
-                {
-                    if (string.IsNullOrEmpty(SelectedFileAnswer.Path))
-                    {
-                        SelectedFileAnswer.IsActual = false;
-                    }
-                    else
-                    {
-                        this.FilesAnswers.Remove(SelectedFileAnswer);
-                    }
-                }, 
+                () => { this.FilesAnswers.Remove(SelectedFileAnswer); }, 
                 () => IsTarget && IsEditMode && SelectedFileAnswer != null);
 
             FinishCommand = new DoStepCommandFinishByConstructor(this, container);

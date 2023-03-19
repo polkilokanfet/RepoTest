@@ -122,17 +122,7 @@ namespace HVTApp.UI.PriceEngineering
             RemoveTechnicalRequirementsFilesCommand = new DelegateLogConfirmationCommand(
                 messageService,
                 "Вы уверены, что хотите удалить выделенное техническое задание?",
-                () =>
-                {
-                    if (string.IsNullOrEmpty(SelectedTechnicalRequrementsFile.Path))
-                    {
-                        SelectedTechnicalRequrementsFile.IsActual = false;
-                    }
-                    else
-                    {
-                        this.FilesTechnicalRequirements.Remove(SelectedTechnicalRequrementsFile);
-                    }
-                },
+                () => { this.FilesTechnicalRequirements.Remove(SelectedTechnicalRequrementsFile); },
                 () => IsEditMode && this.SelectedTechnicalRequrementsFile != null);
 
             #endregion
