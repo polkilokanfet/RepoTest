@@ -1,13 +1,7 @@
 ﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.FilesSingleControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
-             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              x:Name="Root">
-
-    <UserControl.Resources>
-        <Style TargetType="dataPresenter:XamDataGrid" BasedOn="{StaticResource XamDataGridWithoutGroupByArea}"/>
-    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -45,37 +39,39 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
 
-                                <Border 
-                                    BorderThickness="1" 
-                                    BorderBrush="Black"
-                                    Padding="2"
-                                    Background="AliceBlue"
-                                    CornerRadius="2">
-
-                                    <Border.InputBindings>
-                                        <MouseBinding 
-                                            MouseAction="LeftDoubleClick" 
-                                            Command="{Binding OpenFileCommand, ElementName=Root, Mode=OneWay}" />
-                                    </Border.InputBindings>
+                                <Grid>
+                                    <Border 
+                                        BorderThickness="1" 
+                                        BorderBrush="Black"
+                                        Padding="2"
+                                        Background="AliceBlue"
+                                        CornerRadius="2">
 
 
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
+                                        <Border.InputBindings>
+                                            <MouseBinding 
+                                                MouseAction="LeftDoubleClick" 
+                                                Command="{Binding OpenFileCommand, ElementName=Root, Mode=OneWay}" />
+                                        </Border.InputBindings>
 
-                                        <TextBlock Grid.Column="0" Text="{Binding CreationMoment, Mode=OneTime, Converter={StaticResource DateTimeToStringConverter}}"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Name, Mode=OneTime}" Margin="10 0"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Model.Id, Mode=OneTime}"/>
-                                    </Grid>
-                                </Border>
 
-                                <!--<view:BlockAddedControl 
-                                    ProductBlockAdded="{Binding}" 
-                                    Margin="5" 
-                                    Visibility="{Binding IsRemoved, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>-->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="{Binding CreationMoment, Mode=OneTime, Converter={StaticResource DateTimeToStringConverter}}"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Name, Mode=OneTime}" Margin="10 0"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Model.Id, Mode=OneTime}"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <Separator Background="Black" Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityReverseConverter}}" Margin="-2 0"/>
+
+                                </Grid>
+
                             </DataTemplate>
                         </ListBox.ItemTemplate>
 
@@ -83,25 +79,6 @@
 
                 </ScrollViewer>
             </Border>
-
-            <!--<dataPresenter:XamDataGrid DataSource="{Binding Files, ElementName=Root}"
-                                       ActiveDataItem="{Binding SelectedFile, ElementName=Root, Mode=TwoWay}">
-
-                <dataPresenter:XamDataGrid.InputBindings>
-                    <MouseBinding MouseAction="LeftDoubleClick" 
-                                  Command="{Binding OpenFileCommand, ElementName=Root, Mode=OneWay}" />
-                </dataPresenter:XamDataGrid.InputBindings>
-
-                <dataPresenter:XamDataGrid.FieldLayouts>
-                    <dataPresenter:FieldLayout>
-                        <dataPresenter:FieldLayout.Fields>
-                            <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
-                            <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
-                            <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
-                        </dataPresenter:FieldLayout.Fields>
-                    </dataPresenter:FieldLayout>
-                </dataPresenter:XamDataGrid.FieldLayouts>
-            </dataPresenter:XamDataGrid>-->
 
         </GroupBox>
 
