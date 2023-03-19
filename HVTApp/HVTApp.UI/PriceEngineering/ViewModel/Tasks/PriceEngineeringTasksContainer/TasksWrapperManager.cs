@@ -20,8 +20,17 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         public DateTime WorkUpTo
         {
             get => GetValue<DateTime>();
-            set => SetValue(value);
+            set
+            {
+                if (value < DateTime.Today)
+                {
+                    SetValue(DateTime.Today);
+                    return;
+                }
+                SetValue(value);
+            }
         }
+
         public DateTime WorkUpToOriginalValue => GetOriginalValue<DateTime>(nameof(WorkUpTo));
         public bool WorkUpToIsChanged => GetIsChanged(nameof(WorkUpTo));
 
