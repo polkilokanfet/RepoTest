@@ -70,6 +70,13 @@ namespace HVTApp.UI.PriceEngineering.Statistics
 
                             result += (status.Moment - startPoint).Value.TotalHours;
                             startPoint = null;
+
+                            continue;
+                        }
+
+                        if (status.StatusEnum.Equals(ScriptStep.Stop.Value))
+                        {
+                            startPoint = null;
                         }
                     }
 
