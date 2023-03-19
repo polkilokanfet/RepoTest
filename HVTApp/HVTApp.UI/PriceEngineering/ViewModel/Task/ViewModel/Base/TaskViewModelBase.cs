@@ -164,11 +164,11 @@ namespace HVTApp.UI.PriceEngineering
         protected override void InitializeCollectionProperties()
         {
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
-            FilesTechnicalRequirements = new FilesContainerTechnicalRequrements(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
+            FilesTechnicalRequirements = new FilesContainerTechnicalRequrements(Model.FilesTechnicalRequirements.OrderBy(x => x.CreationMoment).Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
             RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
 
             if (Model.FilesAnswers == null) throw new ArgumentException("FilesAnswers cannot be null");
-            FilesAnswers = new FilesContainerAnswers(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
+            FilesAnswers = new FilesContainerAnswers(Model.FilesAnswers.OrderBy(x => x.CreationMoment).Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
