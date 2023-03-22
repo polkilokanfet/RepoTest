@@ -26,50 +26,63 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         public DateTime TermPriority => this
             .ChildPriceEngineeringTasks
-            .Select(x => x.Entity.TermPriority ?? this.Entity.WorkUpTo)
+            .Select(childTask => childTask.Entity.TermPriority ?? this.Entity.WorkUpTo)
             .Min();
 
         [Designation("Объекты"), OrderStatus(5000)]
         public string Facilities =>
             GetSalesUnits()
-                .Where(x => x != null)
-                .Select(x => x.Facility)
+                .Where(salesUnit => salesUnit != null)
+                .Select(salesUnit => salesUnit.Facility)
                 .Distinct()
-                .OrderBy(x => x.Name)
+                .OrderBy(facility => facility.Name)
                 .ToStringEnum();
 
         [Designation("Заказы"), OrderStatus(2000)]
         public string Orders =>
             GetSalesUnits()
-                .Where(x => x != null)
-                .Select(x => x.Order)
-                .Where(x => x != null)
+                .Where(salesUnit => salesUnit != null)
+                .Select(salesUnit => salesUnit.Order)
+                .Where(order => order != null)
                 .Distinct()
-                .OrderBy(x => x.Number)
+                .OrderBy(order => order.Number)
                 .ToStringEnum();
 
         protected abstract IEnumerable<SalesUnit> GetSalesUnits();
 
         [Designation("Блоки"), OrderStatus(4000)]
-        public string ProductBlocks =>
-            this.ChildPriceEngineeringTasks
-                .Select(x => x.Entity.ProductBlock)
-                .Distinct()
-                .OrderBy(x => x.Designation)
-                .ToStringEnum();
+        public string ProductBlocks
+        {
+            get
+            {
+                var childPriceEngineeringTasks = this.ChildPriceEngineeringTasks;
+                if (GlobalAppProperties.User.RoleCurrent != Role.Constructor &&
+                    GlobalAppProperties.User.RoleCurrent != Role.DesignDepartmentHead)
+                {
+                    childPriceEngineeringTasks = childPriceEngineeringTasks.Where(task => task.Entity.ParentPriceEngineeringTaskId.HasValue == false);
+                }
+
+                return
+                    childPriceEngineeringTasks
+                        .Select(childTask => childTask.Entity.ProductBlock)
+                        .Distinct()
+                        .OrderBy(productBlock => productBlock.Designation)
+                        .ToStringEnum();
+            }
+        }
 
         [Designation("Исполнители"), OrderStatus(3000)]
         public string Users =>
             this.ChildPriceEngineeringTasks
-                .Select(x => x.Entity.UserConstructor?.Employee.Person)
-                .Where(x => x != null)
+                .Select(childTask => childTask.Entity.UserConstructor?.Employee.Person)
+                .Where(person => person != null)
                 .Distinct()
-                .OrderBy(x => x.ToString())
+                .OrderBy(person => person.ToString())
                 .ToStringEnum();
 
         public string StatusString =>
             this.ChildPriceEngineeringTasks
-                .Select(x => x.StatusString)
+                .Select(childTask => childTask.StatusString)
                 .Distinct()
                 .OrderBy(x => x)
                 .ToStringEnum();

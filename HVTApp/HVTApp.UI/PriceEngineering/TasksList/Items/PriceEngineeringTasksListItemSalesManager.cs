@@ -19,8 +19,8 @@ namespace HVTApp.UI.PriceEngineering.Items
         {
             return Entity
                 .ChildPriceEngineeringTasks
-                .SelectMany(x => x.GetAllPriceEngineeringTasks())
-                .Select(x => new PriceEngineeringTaskListItemSalesManager(x));
+                .SelectMany(task => task.GetAllPriceEngineeringTasks())
+                .Select(task => new PriceEngineeringTaskListItemSalesManager(task));
         }
     }
 }
