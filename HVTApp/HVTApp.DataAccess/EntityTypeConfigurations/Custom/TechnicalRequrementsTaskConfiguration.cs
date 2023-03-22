@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public TechnicalRequrementsTaskConfiguration()
         {
-            HasMany(requrementsTask => requrementsTask.Requrements).WithRequired().WillCascadeOnDelete(false);
+            HasMany(requrementsTask => requrementsTask.Requrements).WithRequired().HasForeignKey(x => x.TaskId).WillCascadeOnDelete(false);
             HasMany(requrementsTask => requrementsTask.PriceCalculations).WithOptional().WillCascadeOnDelete(false);
             HasMany(requrementsTask => requrementsTask.AnswerFiles).WithRequired().HasForeignKey(answerFileTce => answerFileTce.TechnicalRequrementsTaskId).WillCascadeOnDelete(false);
             HasOptional(requrementsTask => requrementsTask.BackManager).WithMany().WillCascadeOnDelete(false);

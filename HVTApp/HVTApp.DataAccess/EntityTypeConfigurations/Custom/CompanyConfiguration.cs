@@ -12,4 +12,13 @@ namespace HVTApp.DataAccess
             HasOptional(company => company.ParentCompany).WithMany().WillCascadeOnDelete(false);
         }
     }
+
+    public partial class InvoiceForPaymentTaskConfiguration
+    {
+        public InvoiceForPaymentTaskConfiguration()
+        {
+            HasOptional(invoiceForPaymentTask => invoiceForPaymentTask.PriceEngineeringTask).WithOptionalPrincipal().WillCascadeOnDelete(false);
+            HasOptional(invoiceForPaymentTask => invoiceForPaymentTask.TechnicalRequrements).WithOptionalPrincipal().WillCascadeOnDelete(false);
+        }
+    }
 }

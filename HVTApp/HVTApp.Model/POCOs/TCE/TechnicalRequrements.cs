@@ -13,6 +13,8 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Тех.задания")]
     public partial class TechnicalRequrements: BaseEntity
     {
+        public Guid TaskId { get; set; }
+
         [Designation("Юниты"), Required, OrderStatus(20)]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 

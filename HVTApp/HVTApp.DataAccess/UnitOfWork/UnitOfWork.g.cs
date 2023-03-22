@@ -31,6 +31,9 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context);
             CreateNewProductTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            InvoiceForPaymentTaskRepository = new InvoiceForPaymentTaskRepository(_context);
+            InvoiceForPaymentTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             DesignDepartmentRepository = new DesignDepartmentRepository(_context);
             DesignDepartmentRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -329,6 +332,7 @@ namespace HVTApp.DataAccess
             ConstructorsParametersRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CostsPercentsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CreateNewProductTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            InvoiceForPaymentTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskGroupRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -436,6 +440,7 @@ namespace HVTApp.DataAccess
         protected IConstructorsParametersRepository ConstructorsParametersRepository;
         protected ICostsPercentsRepository CostsPercentsRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
+        protected IInvoiceForPaymentTaskRepository InvoiceForPaymentTaskRepository;
         protected IDesignDepartmentRepository DesignDepartmentRepository;
         protected IDirectumTaskRepository DirectumTaskRepository;
         protected IDirectumTaskGroupRepository DirectumTaskGroupRepository;

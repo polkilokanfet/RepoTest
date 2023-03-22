@@ -67,6 +67,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class InvoiceForPaymentTaskRepository : BaseRepository<InvoiceForPaymentTask>, IInvoiceForPaymentTaskRepository
+    {
+		public InvoiceForPaymentTaskRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class DesignDepartmentRepository : BaseRepository<DesignDepartment>, IDesignDepartmentRepository
     {
 		public DesignDepartmentRepository(DbContext context) : base(context) 

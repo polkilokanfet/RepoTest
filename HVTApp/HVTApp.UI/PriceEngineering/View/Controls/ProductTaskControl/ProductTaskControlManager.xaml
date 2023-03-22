@@ -35,6 +35,10 @@
                     Content="Загрузить в ТС" 
                     Command="{Binding LoadToTceStartCommand}"/>
 
+                <controls:ButtonIsVisibleWhenCanExecute 
+                    Content="Счёт" 
+                    Command="{Binding MakeInvoiceForPaymentTaskCommand}"/>
+
                 <controls:ButtonIsVisibleWhenCanExecute
                     Content="Произвести" 
                     Command="{Binding StartProductionCommand}"/>

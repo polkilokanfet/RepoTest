@@ -4,6 +4,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -46,6 +47,13 @@ namespace HVTApp.UI.PriceEngineering
         /// Замена продукта в SalesUnit на продукты из ТСП
         /// </summary>
         public override DelegateLogConfirmationCommand ReplaceProductCommand { get; }
+
+        /// <summary>
+        /// Задача на формирование счёта
+        /// </summary>
+        public virtual DelegateLogConfirmationCommand MakeInvoiceForPaymentTaskCommand { get; }
+
+        
 
         #endregion
 
@@ -101,6 +109,32 @@ namespace HVTApp.UI.PriceEngineering
             ReplaceProductCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",
                 () => { this.ReplaceProduct(this.Model); });
+
+            MakeInvoiceForPaymentTaskCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите запросить создание счёта?",
+                () =>
+                {
+                    if (string.IsNullOrEmpty(this.Model.GetPriceEngineeringTasks(UnitOfWork).TceNumber))
+                    {
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Отказ", "Вашей проработки нет в Team Center");
+                        return;
+                    }
+
+                    if (this.Model.SalesUnits.Any(x => x.Specification == null))
+                    {
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Отказ", "Создайте перед этим спецификацию");
+                        return;
+                    }
+
+                    var unitOfWork = container.Resolve<IUnitOfWork>();
+
+                    unitOfWork.SaveEntity(new InvoiceForPaymentTask
+                    {
+                        PriceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id)
+                    });
+
+                    container.Resolve<IMessageService>().ShowOkMessageDialog("Успех!", "Запрос на создание счёта успешно создан!");
+                });
 
             #endregion
         }

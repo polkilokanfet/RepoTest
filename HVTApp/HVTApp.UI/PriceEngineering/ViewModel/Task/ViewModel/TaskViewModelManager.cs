@@ -68,6 +68,12 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public virtual DelegateLogConfirmationCommand ReplaceProductCommand { get; } = new DelegateLogConfirmationCommand(null, String.Empty,() => { }, () => false);
 
+        /// <summary>
+        /// Задача на формирование счёта
+        /// </summary>
+        public DelegateLogConfirmationCommand MakeInvoiceForPaymentTaskCommand { get; } = new DelegateLogConfirmationCommand(null, String.Empty, () => { }, () => false);
+
+
         #endregion
 
         #region ctors

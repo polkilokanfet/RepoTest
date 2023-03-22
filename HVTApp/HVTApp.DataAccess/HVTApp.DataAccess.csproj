@@ -433,6 +433,10 @@
     <Compile Include="Migrations\202303181750411_EventServiceUnitUpdate.designer.cs">
       <DependentUpon>202303181750411_EventServiceUnitUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303221854294_InvoiceForPaymentTasks.cs" />
+    <Compile Include="Migrations\202303221854294_InvoiceForPaymentTasks.designer.cs">
+      <DependentUpon>202303221854294_InvoiceForPaymentTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -708,6 +712,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303181750411_EventServiceUnitUpdate.resx">
       <DependentUpon>202303181750411_EventServiceUnitUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303221854294_InvoiceForPaymentTasks.resx">
+      <DependentUpon>202303221854294_InvoiceForPaymentTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

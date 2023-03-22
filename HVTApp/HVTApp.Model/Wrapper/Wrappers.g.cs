@@ -635,6 +635,69 @@ namespace HVTApp.Model.Wrapper
     }
 
 		
+    public partial class InvoiceForPaymentTaskWrapper : WrapperBase<InvoiceForPaymentTask>
+	{
+	    public InvoiceForPaymentTaskWrapper(InvoiceForPaymentTask model) : base(model) { }
+
+        #region SimpleProperties
+
+        /// <summary>
+        /// Moment
+        /// </summary>
+        public System.DateTime Moment
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+
+        #region ComplexProperties
+
+        /// <summary>
+        /// Задача ТСЕ
+        /// </summary>
+	    public PriceEngineeringTaskWrapper PriceEngineeringTask 
+        {
+            get { return GetWrapper<PriceEngineeringTaskWrapper>(); }
+            set { SetComplexValue<PriceEngineeringTask, PriceEngineeringTaskWrapper>(PriceEngineeringTask, value); }
+        }
+
+        /// <summary>
+        /// Задача ТСЕ
+        /// </summary>
+	    public TechnicalRequrementsWrapper TechnicalRequrements 
+        {
+            get { return GetWrapper<TechnicalRequrementsWrapper>(); }
+            set { SetComplexValue<TechnicalRequrements, TechnicalRequrementsWrapper>(TechnicalRequrements, value); }
+        }
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<PriceEngineeringTaskWrapper>(nameof(PriceEngineeringTask), Model.PriceEngineeringTask == null ? null : new PriceEngineeringTaskWrapper(Model.PriceEngineeringTask));
+            InitializeComplexProperty<TechnicalRequrementsWrapper>(nameof(TechnicalRequrements), Model.TechnicalRequrements == null ? null : new TechnicalRequrementsWrapper(Model.TechnicalRequrements));
+        }
+	}
+
+    public class InvoiceForPaymentTaskEmptyWrapper : WrapperBase<InvoiceForPaymentTask>
+	{
+	    public InvoiceForPaymentTaskEmptyWrapper(InvoiceForPaymentTask model) : base(model) { }
+    }
+
+		
     public partial class DesignDepartmentWrapper : WrapperBase<DesignDepartment>
 	{
 	    public DesignDepartmentWrapper(DesignDepartment model) : base(model) { }
@@ -1202,6 +1265,17 @@ namespace HVTApp.Model.Wrapper
         #region SimpleProperties
 
         /// <summary>
+        /// Роль
+        /// </summary>
+        public System.Nullable<HVTApp.Infrastructure.Role> Role
+        {
+          get { return GetValue<System.Nullable<HVTApp.Infrastructure.Role>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<HVTApp.Infrastructure.Role> RoleOriginalValue => GetOriginalValue<System.Nullable<HVTApp.Infrastructure.Role>>(nameof(Role));
+        public bool RoleIsChanged => GetIsChanged(nameof(Role));
+
+        /// <summary>
         /// Id целевой сущности
         /// </summary>
         public System.Guid TargetEntityId
@@ -1222,6 +1296,17 @@ namespace HVTApp.Model.Wrapper
         }
         public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionTypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.EventServiceActionType>(nameof(EventServiceActionType));
         public bool EventServiceActionTypeIsChanged => GetIsChanged(nameof(EventServiceActionType));
+
+        /// <summary>
+        /// Сообщение
+        /// </summary>
+        public System.String Message
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
+        public bool MessageIsChanged => GetIsChanged(nameof(Message));
 
         /// <summary>
         /// Id

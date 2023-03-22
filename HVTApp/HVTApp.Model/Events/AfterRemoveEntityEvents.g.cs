@@ -12,6 +12,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
 	public partial class AfterRemoveCostsPercentsEvent : PubSubEvent<CostsPercents> { }
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
+	public partial class AfterRemoveInvoiceForPaymentTaskEvent : PubSubEvent<InvoiceForPaymentTask> { }
 	public partial class AfterRemoveDesignDepartmentEvent : PubSubEvent<DesignDepartment> { }
 	public partial class AfterRemoveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
 	public partial class AfterRemoveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }

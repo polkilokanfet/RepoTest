@@ -21,6 +21,7 @@ namespace HVTApp.DataAccess
             context.ConstructorsParametersDbSet.AddRange(testData.GetAll<ConstructorsParameters>());
             context.CostsPercentsDbSet.AddRange(testData.GetAll<CostsPercents>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
+            context.InvoiceForPaymentTaskDbSet.AddRange(testData.GetAll<InvoiceForPaymentTask>());
             context.DesignDepartmentDbSet.AddRange(testData.GetAll<DesignDepartment>());
             context.DirectumTaskDbSet.AddRange(testData.GetAll<DirectumTask>());
             context.DirectumTaskGroupDbSet.AddRange(testData.GetAll<DirectumTaskGroup>());

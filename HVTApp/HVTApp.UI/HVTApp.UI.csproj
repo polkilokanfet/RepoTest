@@ -328,6 +328,13 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\ToFacilityOwnerConverter.cs" />
+    <Compile Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksView.xaml.cs">
+      <DependentUpon>InvoiceForPaymentTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksViewModel.cs" />
+    <Compile Include="PriceEngineering\InvoiceForPayment\TabInvoiceForPaymentTasksView.xaml.cs">
+      <DependentUpon>TabInvoiceForPaymentTasksView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\Statistics\PriceEngineeringStatisticsView.xaml.cs">
       <DependentUpon>PriceEngineeringStatisticsView.xaml</DependentUpon>
     </Compile>
@@ -1969,6 +1976,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceCalculations\Tabs\TabPriceCalculations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\InvoiceForPayment\TabInvoiceForPaymentTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

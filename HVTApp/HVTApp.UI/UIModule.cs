@@ -33,6 +33,7 @@ using HVTApp.UI.PaymentConditionsSet;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceCalculations.ViewModel;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.InvoiceForPayment;
 using HVTApp.UI.PriceEngineering.ParametersService1;
 using HVTApp.UI.PriceEngineering.Report;
 using HVTApp.UI.PriceEngineering.Statistics;
@@ -74,6 +75,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PickingDatesView>();
             Container.RegisterViewForNavigation<SupplyPlanView>();
             Container.RegisterViewForNavigation<PaymentsPlanView>();
+            Container.RegisterViewForNavigation<InvoiceForPaymentTasksView>();
             Container.RegisterViewForNavigation<IncomingRequestsView>();
             Container.RegisterViewForNavigation<MarketReportView>();
             Container.RegisterViewForNavigation<FlatReportView>();
