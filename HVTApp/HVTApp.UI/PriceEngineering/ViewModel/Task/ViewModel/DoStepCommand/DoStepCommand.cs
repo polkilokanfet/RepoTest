@@ -48,10 +48,22 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
 
             this.DoStepAction();
-            this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
+            this.SendNotification();
             _doAfterAction?.Invoke();
         }
 
+        /// <summary>
+        /// Отправка уведомлений
+        /// </summary>
+        protected virtual void SendNotification()
+        {
+            this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
+        }
+
+        /// <summary>
+        /// Формирование аргументов для отправки уведомлений
+        /// </summary>
+        /// <returns></returns>
         protected abstract IEnumerable<NotificationArgsItem> GetEventServiceItems();
 
         protected virtual void DoStepAction()

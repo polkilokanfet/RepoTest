@@ -21,7 +21,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            foreach (var user in Container.Resolve<IUnitOfWork>().Repository<User>().Find(x => x.Roles.Any(r => r.Role == Role.BackManagerBoss)))
+            foreach (var user in Container.Resolve<IUnitOfWork>().Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
             {
                 yield return new NotificationArgsItem(user, Role.BackManagerBoss, $"Ќазначьте плановика: {ViewModel.Model}");
             }
@@ -29,15 +29,17 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
+            var priceEngineeringTask = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id);
+
             //проверка на наличие з/з
-            if (this.ViewModel.Model.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
+            if (priceEngineeringTask.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
             {
                 MessageService.ShowOkMessageDialog("ќтказ", "¬ перечне оборудовани€ уже есть позиции с запросом на открытие з/з");
                 return;
             }
 
             //проверка на неприн€тые блоки
-            var tasks = this.ViewModel.Model.GetAllPriceEngineeringTasks().ToList();
+            var tasks = priceEngineeringTask.GetAllPriceEngineeringTasks().ToList();
             var notAccepted = tasks.Where(task => Step.PossiblePreviousSteps.Contains(task.Status) == false).ToList();
             if (notAccepted.Any())
             {

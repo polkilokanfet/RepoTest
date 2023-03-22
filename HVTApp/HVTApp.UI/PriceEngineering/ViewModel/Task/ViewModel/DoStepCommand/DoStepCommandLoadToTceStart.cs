@@ -4,6 +4,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -18,6 +19,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         public DoStepCommandLoadToTceStart(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
+        }
+
+        protected override void SendNotification()
+        {
+            if (this.ViewModel.Model.ParentPriceEngineeringTaskId.HasValue == false)
+                this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
         }
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
@@ -39,8 +46,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
+
             var steps = new [] {ScriptStep.Accept, ScriptStep.LoadToTceStart, ScriptStep.LoadToTceFinish};
-            var tasks = this.ViewModel.Model.GetAllPriceEngineeringTasks().ToList();
+            var tasks = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
             var notAccepted = tasks.Where(task => steps.Contains(task.Status) == false).ToList();
             if (notAccepted.Any())
             {
