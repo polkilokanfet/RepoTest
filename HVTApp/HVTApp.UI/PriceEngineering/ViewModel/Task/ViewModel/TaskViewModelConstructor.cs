@@ -263,6 +263,7 @@ namespace HVTApp.UI.PriceEngineering
                         ParentPriceEngineeringTaskId = this.Model.Id,
                         Amount = 1
                     };
+                    taskViewModel.Model.Statuses.Where(x => x.StatusEnum == ScriptStep.Create.Value).ForEach(x => x.Moment = DateTime.Now.AddSeconds(-3));
                     taskViewModel.Model.UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
                     taskViewModel.FilesTechnicalRequirements.AddRange(this.FilesTechnicalRequirements.Where(file => file.IsActual).Select(fileWrapper => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(fileWrapper.Id))));
 
