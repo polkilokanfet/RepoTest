@@ -454,6 +454,17 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     task.Amount = salesUnits.Count;
                     task.SalesUnits.AddRange(salesUnits);
                     task.SalesUnits.ForEach(salesUnit => salesUnit.SignalToStartProduction = DateTime.Now);
+                    foreach (var file in files)
+                    {
+                        var file1 = unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(file.Id) ??
+                            new PriceEngineeringTaskFileTechnicalRequirements
+                            {
+                                CreationMoment = file.Date,
+                                Name = file.Name,
+                                Id = file.Id
+                            };
+                        task.FilesTechnicalRequirements.Add(file1);
+                    }
                     task.FilesTechnicalRequirements.AddRange(files.Select(file => new PriceEngineeringTaskFileTechnicalRequirements
                     {
                         CreationMoment = file.Date,
