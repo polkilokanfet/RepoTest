@@ -444,7 +444,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         .ToList();
                     var files = item.Model.Files
                         .Where(file => file.IsActual)
-                        .Select(file => unitOfWork.Repository<TechnicalRequrementsFile>().GetById(file.Id))
+                        //.Select(file => unitOfWork.Repository<TechnicalRequrementsFile>().GetById(file.Id))
                         .ToList();
                     var manager = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
 
@@ -465,12 +465,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                             };
                         task.FilesTechnicalRequirements.Add(file1);
                     }
-                    task.FilesTechnicalRequirements.AddRange(files.Select(file => new PriceEngineeringTaskFileTechnicalRequirements
-                    {
-                        CreationMoment = file.Date,
-                        Name = file.Name,
-                        Id = file.Id
-                    }));
                     task.Statuses.Add(new PriceEngineeringTaskStatus
                     {
                         Moment = DateTime.Now,
