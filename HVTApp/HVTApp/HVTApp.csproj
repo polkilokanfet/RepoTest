@@ -19,7 +19,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>G:\app\</PublishUrl>
+    <PublishUrl>D:\app\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -32,8 +32,8 @@
     <InstallUrl>\\uetm\data\ОП ВВА\BaseVVA\Storage\App\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.393</MinimumRequiredVersion>
-    <ApplicationRevision>394</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.394</MinimumRequiredVersion>
+    <ApplicationRevision>395</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

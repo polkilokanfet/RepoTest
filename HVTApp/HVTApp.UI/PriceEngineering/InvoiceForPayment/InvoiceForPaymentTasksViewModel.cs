@@ -155,8 +155,14 @@ namespace HVTApp.UI.PriceEngineering.InvoiceForPayment
                 var costDelivery = salesUnits.Select(unit => unit.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
                 CostDelivery = -1.0 * costDelivery;
 
-                var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.OrderInTakeDate, true);
-                FixedCost = -1.0 * price.SumFixedTotal * Amount;
+                //var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.OrderInTakeDate, true);
+                var sv = salesUnits
+                    .SelectMany(x => x.ProductsIncluded)
+                    .Where(x => x.Product.ProductBlock.IsSupervision)
+                    .Where(x => x.Product.ProductBlock.FixedCosts.Any())
+                    .Select(x => x.Product.ProductBlock.FixedCosts.Last().Sum)
+                    .Sum();
+                FixedCost = -1.0 * sv;
 
                 Manager = $"{salesUnit.Project.Manager.Employee.Person}";
 
