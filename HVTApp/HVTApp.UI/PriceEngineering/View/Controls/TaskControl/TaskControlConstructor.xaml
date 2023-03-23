@@ -109,6 +109,12 @@
                     Padding="5 0"/>
         </view:TaskControl.AreaSelectProductBlock>
 
+        <view:TaskControl.AreaActionButtonsTop>
+            <controls:ButtonIsVisibleWhenCanExecute 
+                Content="Удалить" 
+                Command="{Binding RemoveSubTaskCommand}"/>
+        </view:TaskControl.AreaActionButtonsTop>
+
     </view:TaskControl>
 
 </UserControl>
