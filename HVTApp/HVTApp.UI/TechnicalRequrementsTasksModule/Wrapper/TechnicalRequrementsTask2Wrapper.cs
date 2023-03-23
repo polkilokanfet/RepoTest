@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -126,6 +129,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             if (Model.ShippingCostFiles == null) throw new ArgumentException("ShippingCostFiles cannot be null");
             ShippingCostFiles = new ValidatableChangeTrackingCollection<ShippingCostFileWrapper>(Model.ShippingCostFiles.Select(e => new ShippingCostFileWrapper(e)));
             RegisterCollection(ShippingCostFiles, Model.ShippingCostFiles);
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager &&
+                string.IsNullOrWhiteSpace(this.TceNumber))
+            {
+                yield return new ValidationResult($"{nameof(TceNumber)} is required", new[] {nameof(TceNumber)});
+            }
         }
 
         public string ValidationResult

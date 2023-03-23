@@ -47,7 +47,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.IsStarted && !ViewModel.IsFinished;
+            return ViewModel.IsStarted && 
+                   !ViewModel.IsFinished && 
+                   ViewModel.TechnicalRequrementsTaskWrapper.IsValid;
         }
     }
 }

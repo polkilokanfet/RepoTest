@@ -556,6 +556,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             LoadShippingCalculationFileCommand.RaiseCanExecuteChanged();
             OpenShippingCalculationFileCommand.RaiseCanExecuteChanged();
             RemoveShippingCalculationFileCommand.RaiseCanExecuteChanged();
+
+            RaisePropertyChanged(nameof(AllowFinish));
         }
 
         /// <summary>
