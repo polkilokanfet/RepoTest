@@ -4,6 +4,7 @@
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -22,26 +23,58 @@
         <view:ProductTaskControlHeader.ButtonsArea>
             <StackPanel>
 
+                <StackPanel.Resources>
+                    <Style TargetType="fa:FontAwesome">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5,0"/>
+                    </Style>
+                </StackPanel.Resources>
+
                 <controls:ButtonIsVisibleWhenCanExecute
-                    Content="Удалить" 
                     Command="{Binding RemoveTaskCommand}" 
-                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}"/>
+                    Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}">
+                    <controls:ButtonIsVisibleWhenCanExecute.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Remove" Foreground="Red"/>
+                            <TextBlock Text="Удалить"/>
+                        </StackPanel>
+                    </controls:ButtonIsVisibleWhenCanExecute.Content>
+                </controls:ButtonIsVisibleWhenCanExecute>
 
                 <controls:ButtonIsVisibleWhenCanExecute
-                    Content="Синхронизировать" 
-                    Command="{Binding ReplaceProductCommand}"/>
-
-                <controls:ButtonIsVisibleWhenCanExecute 
-                    Content="Загрузить в ТС" 
-                    Command="{Binding LoadToTceStartCommand}"/>
-
-                <controls:ButtonIsVisibleWhenCanExecute 
-                    Content="Счёт" 
-                    Command="{Binding MakeInvoiceForPaymentTaskCommand}"/>
+                    Command="{Binding ReplaceProductCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Refresh"/>
+                        <TextBlock Text="Синхронизировать"/>
+                    </StackPanel>
+                </controls:ButtonIsVisibleWhenCanExecute>
 
                 <controls:ButtonIsVisibleWhenCanExecute
-                    Content="Произвести" 
-                    Command="{Binding StartProductionCommand}"/>
+                    Command="{Binding LoadToTceStartCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="LongArrowDown"/>
+                        <TextBlock Text="Загрузить в Team Center"/>
+                    </StackPanel>
+                </controls:ButtonIsVisibleWhenCanExecute>
+
+                <controls:ButtonIsVisibleWhenCanExecute
+                    Command="{Binding MakeInvoiceForPaymentTaskCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Money"/>
+                        <TextBlock Text="Счёт"/>
+                    </StackPanel>
+
+                </controls:ButtonIsVisibleWhenCanExecute>
+
+                <controls:ButtonIsVisibleWhenCanExecute
+                    Command="{Binding StartProductionCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Industry"/>
+                        <TextBlock Text="Произвести"/>
+                    </StackPanel>
+
+                </controls:ButtonIsVisibleWhenCanExecute>
 
             </StackPanel>
 

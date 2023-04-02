@@ -4,10 +4,17 @@
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
+
+        <Style TargetType="fa:FontAwesome">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
     </UserControl.Resources>
 
     <!--Задача на блок продукта-->
@@ -27,18 +34,23 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <UniformGrid Rows="1" Grid.Row="0">
 
-                    <Button Grid.Column="0" Content="Добавить" Command="{Binding AddBlockAddedCommand}"/>
-                    <Button Grid.Column="1" Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}"/>
-                    <Button Grid.Column="2" Content="Удалить" Command="{Binding RemoveBlockAddedCommand}"/>
+                    <Button Command="{Binding AddBlockAddedCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Plus"/>
+                            <TextBlock Text="Добавить"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}"/>
+                    <Button Command="{Binding RemoveBlockAddedCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Remove"/>
+                            <TextBlock Text="Удалить"/>
+                        </StackPanel>
+                    </Button>
 
-                </Grid>
+                </UniformGrid>
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -47,34 +59,45 @@
                     </Grid.ColumnDefinitions>
 
                     <GroupBox Grid.Column="0" Header="Новый параметр">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="Основное" Command="{Binding BlockNewParameterCommand}" />
-                            <Button Grid.Column="1" Content="Добавленное"
-                                    Command="{Binding BlockAddedNewParameterCommand}" />
-                        </Grid>
+                        <UniformGrid Rows="1">
+                            <Button Content="Основное" Command="{Binding BlockNewParameterCommand}" />
+                            <Button Content="Добавленное" Command="{Binding BlockAddedNewParameterCommand}" />
+                        </UniformGrid>
                     </GroupBox>
 
                     <GroupBox Grid.Column="1" Header="Действия в задаче">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="Отклонить"
-                                                                    Command="{Binding RejectCommand}" />
-                            <Button Grid.Column="1" Content="Завершить"
-                                                                    Command="{Binding FinishCommand}" />
-                            <Button Grid.Column="2" Content="Сохранить"
-                                                                    Command="{Binding SaveCommand}" />
-                            <Button Grid.Column="3" Content="Подзадача"
-                                                                    Command="{Binding CreateSubTaskCommand}" />
-                        </Grid>
+                        <UniformGrid Rows="1">
+                            <Button Command="{Binding RejectCommand}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Ban" Foreground="Red"/>
+                                        <TextBlock Text="Отклонить"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{Binding FinishCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:FontAwesome Icon="FlagCheckered" Foreground="Green"/>
+                                    <TextBlock Text="Завершить"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Command="{Binding SaveCommand}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Save"/>
+                                        <TextBlock Text="Сохранить"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{Binding CreateSubTaskCommand}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="List"/>
+                                        <TextBlock Text="Подзадача"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </UniformGrid>
                     </GroupBox>
                 </Grid>
             </Grid>
