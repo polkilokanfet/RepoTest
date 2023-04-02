@@ -22,15 +22,6 @@
 
         <view:ProductTaskControlHeader.ButtonsArea>
             <StackPanel>
-
-                <StackPanel.Resources>
-                    <Style TargetType="fa:FontAwesome">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                        <Setter Property="Margin" Value="5,0"/>
-                    </Style>
-                </StackPanel.Resources>
-
                 <controls:ButtonIsVisibleWhenCanExecute
                     Command="{Binding RemoveTaskCommand}" 
                     Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterNew}}">
@@ -53,7 +44,7 @@
                 <controls:ButtonIsVisibleWhenCanExecute
                     Command="{Binding LoadToTceStartCommand}">
                     <StackPanel Orientation="Horizontal">
-                        <fa:FontAwesome Icon="LongArrowDown"/>
+                        <fa:FontAwesome Icon="Upload"/>
                         <TextBlock Text="Загрузить в Team Center"/>
                     </StackPanel>
                 </controls:ButtonIsVisibleWhenCanExecute>

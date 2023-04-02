@@ -9,12 +9,6 @@
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
-
-        <Style TargetType="fa:FontAwesome">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5,0"/>
-        </Style>
     </UserControl.Resources>
 
     <!--Задача на блок продукта-->
@@ -42,7 +36,12 @@
                             <TextBlock Text="Добавить"/>
                         </StackPanel>
                     </Button>
-                    <Button Content="Комплект" Command="{Binding AddBlockAddedComplectCommand}"/>
+                    <Button Command="{Binding AddBlockAddedComplectCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Gear"/>
+                            <TextBlock Text="Комплект"/>
+                        </StackPanel>
+                    </Button>
                     <Button Command="{Binding RemoveBlockAddedCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="Remove"/>

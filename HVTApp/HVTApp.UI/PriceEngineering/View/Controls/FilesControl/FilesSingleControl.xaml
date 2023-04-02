@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.FilesSingleControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <Grid>
@@ -15,8 +16,13 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{Binding ElementName=Root, Path=Caption}"/>
-                        <Button Content="Скачать всё" VerticalAlignment="Center" Padding="5 0"
-                                Command="{Binding ElementName=Root, Path=LoadAllFilesCommand}"/>
+                        <Button VerticalAlignment="Center" Padding="5 0"
+                                Command="{Binding ElementName=Root, Path=LoadAllFilesCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:FontAwesome Icon="Download"/>
+                                <TextBlock Text="Скачать всё"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
@@ -47,13 +53,11 @@
                                         Background="AliceBlue"
                                         CornerRadius="2">
 
-
                                         <Border.InputBindings>
                                             <MouseBinding 
                                                 MouseAction="LeftDoubleClick" 
                                                 Command="{Binding OpenFileCommand, ElementName=Root, Mode=OneWay}" />
                                         </Border.InputBindings>
-
 
                                         <Grid>
                                             <Grid.ColumnDefinitions>

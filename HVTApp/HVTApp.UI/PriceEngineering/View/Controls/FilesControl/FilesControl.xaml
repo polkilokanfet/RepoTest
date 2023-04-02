@@ -21,7 +21,7 @@
             Files="{Binding FilesTechnicalRequirements}"
             SelectedFile="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}">
              <view:FilesSingleControl.ButtonsArea>
-                 <ContentControl Content="{Binding ButtonsAreaFiles, ElementName=Root}"/>
+                 <ContentPresenter Content="{Binding ButtonsAreaFiles, ElementName=Root}"/>
              </view:FilesSingleControl.ButtonsArea>
         </view:FilesSingleControl>
 
@@ -36,7 +36,7 @@
             Files="{Binding FilesAnswers}"
             SelectedFile="{Binding SelectedFileAnswer, Mode=TwoWay}">
             <view:FilesSingleControl.ButtonsArea>
-                <ContentControl Content="{Binding ButtonsAreaAnswers, ElementName=Root}"/>
+                <ContentPresenter Content="{Binding ButtonsAreaAnswers, ElementName=Root}"/>
             </view:FilesSingleControl.ButtonsArea>
         </view:FilesSingleControl>
     </Grid>

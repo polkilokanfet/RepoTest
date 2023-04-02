@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
 
@@ -23,21 +24,20 @@
             Files="{Binding FilesTechnicalRequirements}"
             SelectedFile="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}">
             <view:FilesSingleControl.ButtonsArea>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <controls:ButtonIsVisibleWhenCanExecute 
-                        Grid.Column="0"
-                        Content="Добавить"
-                        Command="{Binding AddTechnicalRequirementsFilesCommand}"/>
-                    <controls:ButtonIsVisibleWhenCanExecute 
-                        Grid.Column="1"
-                        Content="Удалить"
-                        Command="{Binding RemoveTechnicalRequirementsFilesCommand}"/>
-                </Grid>
+                <UniformGrid Rows="1">
+                    <controls:ButtonIsVisibleWhenCanExecute Command="{Binding Path=AddTechnicalRequirementsFilesCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Plus" Foreground="Green"/>
+                            <TextBlock Text="Добавить"/>
+                        </StackPanel>
+                    </controls:ButtonIsVisibleWhenCanExecute>
+                    <controls:ButtonIsVisibleWhenCanExecute Command="{Binding Path=RemoveTechnicalRequirementsFilesCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Remove" Foreground="Red"/>
+                            <TextBlock Text="Удалить"/>
+                        </StackPanel>
+                    </controls:ButtonIsVisibleWhenCanExecute>
+                </UniformGrid>
             </view:FilesSingleControl.ButtonsArea>
         </view:FilesSingleControl>
 

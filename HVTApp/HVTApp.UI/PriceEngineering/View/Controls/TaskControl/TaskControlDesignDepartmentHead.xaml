@@ -2,8 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
-             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
-             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <!--Задача на блок продукта-->
@@ -23,16 +22,26 @@
         </view:TaskControl.AreaFiles>
 
         <view:TaskControl.AreaActionButtons>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Отклонить менеджеру" Command="{Binding RejectPriceEngineeringTaskCommandToManager}"/>
-                <Button Grid.Column="1" Content="Принять проработку" Command="{Binding AcceptPriceEngineeringTaskCommand}"/>
-                <Button Grid.Column="2" Content="Отправить на доработку" Command="{Binding RejectPriceEngineeringTaskCommand}"/>
-            </Grid>
+            <UniformGrid Rows="1">
+                <Button Command="{Binding RejectPriceEngineeringTaskCommandToManager}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Ban" Foreground="Red"/>
+                        <TextBlock Text="Отклонить менеджеру"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding AcceptPriceEngineeringTaskCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="CheckCircle" Foreground="Green"/>
+                        <TextBlock Text="Согласовать"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding RejectPriceEngineeringTaskCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Remove" Foreground="OrangeRed"/>
+                        <TextBlock Text="На доработку исполнителю"/>
+                    </StackPanel>
+                </Button>
+            </UniformGrid>
         </view:TaskControl.AreaActionButtons>
 
         <view:TaskControl.AreaIncludedBlocks>

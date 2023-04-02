@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <view:ProductTaskControlHeader 
@@ -15,9 +16,27 @@
                     <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <Button Content="Сохранить" Command="{Binding SaveCommand}" />
-                    <Button Content="Завершить" Command="{Binding LoadToTceFinishCommand}" />
-                    <controls:ButtonIsVisibleWhenCanExecute Content="Файлы" Command="{Binding LoadFilesCommand}" />
+
+                    <Button Command="{Binding SaveCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Save"/>
+                            <TextBlock Text="Сохранить"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding LoadToTceFinishCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="FlagCheckered"/>
+                            <TextBlock Text="Завершить"/>
+                        </StackPanel>
+                    </Button>
+
+                    <controls:ButtonIsVisibleWhenCanExecute Command="{Binding LoadFilesCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Download"/>
+                            <TextBlock Text="Файлы"/>
+                        </StackPanel>
+                    </controls:ButtonIsVisibleWhenCanExecute>
                 </StackPanel>
             </Grid>
         </view:ProductTaskControlHeader.ButtonsArea>

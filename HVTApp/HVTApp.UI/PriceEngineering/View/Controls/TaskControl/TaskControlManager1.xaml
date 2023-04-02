@@ -4,6 +4,7 @@
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -23,10 +24,30 @@
             <StackPanel 
                 Orientation="Horizontal"
                 Visibility="{Binding Converter={StaticResource ManagerVisibilityConverterOld}}">
-                <controls:ButtonIsVisibleWhenCanExecute Content="Стартовать" Command="{Binding StartCommand}" Margin="2 0"/>
-                <controls:ButtonIsVisibleWhenCanExecute Content="Принять" Command="{Binding AcceptCommand}" Margin="2 0"/>
-                <controls:ButtonIsVisibleWhenCanExecute Content="Отклонить" Command="{Binding RejectCommand}" Margin="2 0"/>
-                <controls:ButtonIsVisibleWhenCanExecute Content="Остановить" Command="{Binding StopCommand}" Margin="2 0"/>
+                <controls:ButtonIsVisibleWhenCanExecute Command="{Binding StartCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Play"/>
+                        <TextBlock Text="Стартовать"/>
+                    </StackPanel>
+                </controls:ButtonIsVisibleWhenCanExecute>
+                <controls:ButtonIsVisibleWhenCanExecute Command="{Binding AcceptCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="CheckCircle" Foreground="Green"/>
+                        <TextBlock Text="Принять"/>
+                    </StackPanel>
+                </controls:ButtonIsVisibleWhenCanExecute>
+                <controls:ButtonIsVisibleWhenCanExecute Command="{Binding RejectCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Ban" Foreground="Red"/>
+                        <TextBlock Text="Отклонить"/>
+                    </StackPanel>
+                </controls:ButtonIsVisibleWhenCanExecute>
+                <controls:ButtonIsVisibleWhenCanExecute Command="{Binding StopCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Stop"/>
+                        <TextBlock Text="Остановить"/>
+                    </StackPanel>
+                </controls:ButtonIsVisibleWhenCanExecute>
             </StackPanel>
         </view:TaskControl.AreaActionButtonsTop>
 
