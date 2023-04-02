@@ -4,11 +4,17 @@
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
              x:Name="Root">
+
+    <UserControl.Resources>
+        <converters:PriceEngineeringTaskViewModelBackManagerVisibilityConverter x:Key="VisibilityConverter"/>
+    </UserControl.Resources>
 
     <view:ProductTaskControlHeader 
         TaskViewModel="{Binding}"
-        DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
+        DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
+        Visibility="{Binding ElementName=Root, Path=TaskViewModel, Converter={StaticResource VisibilityConverter}}">
 
         <view:ProductTaskControlHeader.ButtonsArea>
             <Grid>

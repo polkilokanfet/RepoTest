@@ -326,6 +326,7 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusMessageVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelDesignDepartmentHeadVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelBackManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedChildTasksConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
