@@ -64,11 +64,13 @@
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <TextBlock Grid.Column="0" Text="{Binding CreationMoment, Mode=OneTime, Converter={StaticResource DateTimeToStringConverter}}"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding Name, Mode=OneTime}" Margin="10 0"/>
-                                            <TextBlock Grid.Column="2" Text="{Binding Model.Id, Mode=OneTime}"/>
+                                            <fa:FontAwesome Grid.Column="0" Icon="File" Foreground="CornflowerBlue"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding CreationMoment, Mode=OneTime, Converter={StaticResource DateTimeToStringConverter}}"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Name, Mode=OneTime}" Margin="10 0"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding Model.Id, Mode=OneTime}"/>
                                         </Grid>
                                     </Border>
 
