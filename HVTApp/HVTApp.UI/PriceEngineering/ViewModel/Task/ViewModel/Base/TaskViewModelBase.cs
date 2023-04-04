@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Comparers;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -165,11 +169,58 @@ namespace HVTApp.UI.PriceEngineering
         protected override void InitializeCollectionProperties()
         {
             if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
-            FilesTechnicalRequirements = new FilesContainerTechnicalRequrements(Model.FilesTechnicalRequirements.OrderBy(x => x.CreationMoment).Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
+            FilesTechnicalRequirements = new FilesContainerTechnicalRequrements(
+                Model.FilesTechnicalRequirements.OrderBy(x => x.CreationMoment).Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)),
+                () =>
+                {
+                    var uow = this.Container.Resolve<IUnitOfWork>();
+                    var task = uow.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
+                    var result = new List<PriceEngineeringTaskFileTechnicalRequirementsWrapper>();
+                    if (task != null)
+                    {
+                        var fs = this.Container.Resolve<IFilesStorageService>();
+                        var files = task
+                            .GetTopPriceEngineeringTask(uow)
+                            .GetAllPriceEngineeringTasks()
+                            .SelectMany(x => x.FilesTechnicalRequirements)
+                            .Distinct()
+                            .Select(x => this.UnitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(x.Id));
+                        foreach (var file in files)
+                        {
+                            try
+                            {
+                                result.Add(new PriceEngineeringTaskFileTechnicalRequirementsWrapper(file)
+                                {
+                                    Path = fs.FindFile(file.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath).FullName
+                                });
+                            }
+                            catch (FileNotFoundException)
+                            {
+                            }
+                        }
+                    }
+
+                    return result;
+                });
             RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
 
             if (Model.FilesAnswers == null) throw new ArgumentException("FilesAnswers cannot be null");
-            FilesAnswers = new FilesContainerAnswers(Model.FilesAnswers.OrderBy(x => x.CreationMoment).Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
+            FilesAnswers = new FilesContainerAnswers(
+                Model.FilesAnswers.OrderBy(x => x.CreationMoment).Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)),
+                () =>
+                {
+                    return new List<PriceEngineeringTaskFileAnswerWrapper>();
+                    var fs = this.Container.Resolve<IFilesStorageService>();
+                    return Model
+                        .GetTopPriceEngineeringTask(this.UnitOfWork)
+                        .GetAllPriceEngineeringTasks()
+                        .SelectMany(x => x.FilesAnswers)
+                        .Distinct()
+                        .Select(x => new PriceEngineeringTaskFileAnswerWrapper(x)
+                        {
+                            Path = fs.FindFile(x.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath).FullName
+                        });
+                });
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 
             if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
@@ -204,6 +255,16 @@ namespace HVTApp.UI.PriceEngineering
             {
             }
 
+            //public new void Add(TItemWrapper item)
+            //{
+            //    if (GetAllLoadedFileWrappers().SingleOrDefault(x => FileComparer.FileCompare(item.Path, x.Path)) != null)
+            //    {
+            //        //_messageService.ShowOkMessageDialog("No", $"ТЗ <{item}> уже добавлено");
+            //        return;
+            //    }
+            //    base.Add(item);
+            //}
+
             public new void Remove(TItemWrapper item)
             {
                 if (string.IsNullOrEmpty(item.Path))
@@ -226,30 +287,67 @@ namespace HVTApp.UI.PriceEngineering
             /// </summary>
             private void LoadNewFilesInStorage()
             {
+                if (this.AddedItems.Any(file => string.IsNullOrWhiteSpace(file.Path) == false) == false) return;
+
                 //новые файлы, которые нужно загрузить (в них пути к файлу не пустые)
-                foreach (var file in this.AddedItems.Where(file => string.IsNullOrWhiteSpace(file.Path) == false))
+                var addedFiles = this.AddedItems
+                    .Where(file => string.IsNullOrWhiteSpace(file.Path) == false)
+                    .ToList();
+
+                //уже загруженные в хранилище файлы
+                var allLoadedfiles = GetAllLoadedFileWrappers().ToList();
+
+                foreach (var file in addedFiles)
                 {
-                    file.LoadToStorage(this.StoragePath);
+                    var sameFile = allLoadedfiles.SingleOrDefault(x => FileComparer.CheckFilesEquality(file.Path, x.Path));
+                    if (sameFile != null)
+                    {
+                        this.Add(sameFile);
+                        this.Remove(file);
+                    }
+                    else
+                    {
+                        file.LoadToStorage(this.StoragePath);
+                        allLoadedfiles.Add(file);
+                    }
                 }
             }
 
+            /// <summary>
+            /// Получить все загруженные в настоящий момент файлы
+            /// </summary>
+            /// <returns></returns>
+            protected abstract IEnumerable<TItemWrapper> GetAllLoadedFileWrappers();
         }
 
         public class FilesContainerTechnicalRequrements : FilesContainer<PriceEngineeringTaskFileTechnicalRequirementsWrapper>
         {
+            private readonly Func<IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper>> _getAllLoadedFileWrappers;
             protected override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
 
-            public FilesContainerTechnicalRequrements(IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> items) : base(items)
+            protected override IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> GetAllLoadedFileWrappers()
             {
+                return _getAllLoadedFileWrappers.Invoke();
+            }
+
+            public FilesContainerTechnicalRequrements(IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> items, Func<IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper>> getAllLoadedFileWrappers) : base(items)
+            {
+                _getAllLoadedFileWrappers = getAllLoadedFileWrappers;
             }
         }
 
         public class FilesContainerAnswers : FilesContainer<PriceEngineeringTaskFileAnswerWrapper>
         {
+            private readonly Func<IEnumerable<PriceEngineeringTaskFileAnswerWrapper>> _getAllLoadedFileWrappers;
             protected override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
-
-            public FilesContainerAnswers(IEnumerable<PriceEngineeringTaskFileAnswerWrapper> items) : base(items)
+            protected override IEnumerable<PriceEngineeringTaskFileAnswerWrapper> GetAllLoadedFileWrappers()
             {
+                return _getAllLoadedFileWrappers.Invoke();
+            }
+
+            public FilesContainerAnswers(IEnumerable<PriceEngineeringTaskFileAnswerWrapper> items, Func<IEnumerable<PriceEngineeringTaskFileAnswerWrapper>> getAllLoadedFileWrappers) : base(items)
+            {
+                _getAllLoadedFileWrappers = getAllLoadedFileWrappers;
             }
         }
 

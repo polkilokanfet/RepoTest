@@ -97,6 +97,7 @@
     <Compile Include="Behaviors\ChangeBehavior.cs" />
     <Compile Include="Behaviors\DataGridChangeBehavior.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Comparers\FileComparer.cs" />
     <Compile Include="Comparers\ProductAmountComparer.cs" />
     <Compile Include="Comparers\ProductAmount.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />

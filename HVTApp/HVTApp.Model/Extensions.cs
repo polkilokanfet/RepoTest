@@ -165,7 +165,7 @@ namespace HVTApp.Model
         }
 
         /// <summary>
-        /// Вернуть головную сборку ТСП
+        /// Вернуть головную сборку задач ТСП
         /// </summary>
         /// <param name="task"></param>
         /// <param name="unitOfWork"></param>
@@ -174,13 +174,28 @@ namespace HVTApp.Model
         {
             while (task.ParentPriceEngineeringTasksId.HasValue == false)
             {
-                if (task.ParentPriceEngineeringTaskId.HasValue)
-                {
-                    task = unitOfWork.Repository<PriceEngineeringTask>().GetById(task.ParentPriceEngineeringTaskId.Value);
-                }
+                task = task.GetTopPriceEngineeringTask(unitOfWork);
             }
 
             return unitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value);
+        }
+
+        /// <summary>
+        /// Вернуть верхнюю задачу ТСП
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="unitOfWork"></param>
+        /// <returns></returns>
+        public static PriceEngineeringTask GetTopPriceEngineeringTask(this PriceEngineeringTask task, IUnitOfWork unitOfWork)
+        {
+            task = unitOfWork.Repository<PriceEngineeringTask>().GetById(task.Id);
+
+            while (task.ParentPriceEngineeringTaskId.HasValue)
+            {
+                task = unitOfWork.Repository<PriceEngineeringTask>().GetById(task.ParentPriceEngineeringTaskId.Value);
+            }
+
+            return task;
         }
     }
 }

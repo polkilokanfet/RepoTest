@@ -116,7 +116,7 @@ namespace HVTApp.UI.PriceEngineering
                         {
                             var fileWrapper = new PriceEngineeringTaskFileTechnicalRequirementsWrapper(new PriceEngineeringTaskFileTechnicalRequirements())
                             {
-                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50),
+                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(200),
                                 Path = fileName
                             };
                             this.FilesTechnicalRequirements.Add(fileWrapper);
