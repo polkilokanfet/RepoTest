@@ -295,11 +295,13 @@ namespace HVTApp.UI.PriceEngineering
                     .ToList();
 
                 //уже загруженные в хранилище файлы
-                var allLoadedfiles = GetAllLoadedFileWrappers().ToList();
+                var allLoadedfiles = GetAllLoadedFileWrappers().Where(x => string.IsNullOrEmpty(x.Path) == false).ToList();
 
                 foreach (var file in addedFiles)
                 {
-                    var sameFile = allLoadedfiles.SingleOrDefault(x => FileComparer.CheckFilesEquality(file.Path, x.Path));
+                    var sameFile = string.IsNullOrEmpty(file.Path) == false
+                        ? allLoadedfiles.Where(x => string.IsNullOrEmpty(x.Path) == false).SingleOrDefault(x => FileComparer.CheckFilesEquality(file.Path, x.Path))
+                        : null;
                     if (sameFile != null)
                     {
                         this.Add(sameFile);
