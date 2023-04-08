@@ -162,7 +162,7 @@
                 
                 </controls:LoadableContentControl>
                         
-                <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+                <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Center"/>
             
                 <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
                     <Grid.RowDefinitions>
@@ -196,7 +196,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="2"/>
+                    <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
                     <!--Переписка-->
                     <GroupBox Name="Messages" Header="Переписка" Grid.Row="2" AllowDrop="True" Drop="Messages_OnDrop">
@@ -230,7 +230,7 @@
                                 </dp:XamDataGrid.FieldLayouts>
                             </dp:XamDataGrid>
 
-                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+                            <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
                             <GroupBox Grid.Row="2" Header="{Binding Outlook.SelectedMessage, Mode=OneWay}">
                                 <!--<TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
@@ -244,7 +244,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Height="2"/>
+                    <GridSplitter Grid.Row="3" VerticalAlignment="Center"/>
 
                     <!--ТКП-->
                     <Border Grid.Row="4" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">

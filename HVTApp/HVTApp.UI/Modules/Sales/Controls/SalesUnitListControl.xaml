@@ -167,7 +167,7 @@
             
             </GroupBox>
 
-            <GridSplitter Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3" />
+            <GridSplitter Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"/>
 
             <GroupBox Grid.Column="2" Header="Включено (на единицу)" Name="ProductsIncludedGroupBox">
                 <dp:XamDataGrid x:Name="ProductsIncludedListGrid"
@@ -190,7 +190,7 @@
 
         </Grid>
 
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3" />
+        <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
         <Border Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
             <Expander Header="Затраты (на единицу)">

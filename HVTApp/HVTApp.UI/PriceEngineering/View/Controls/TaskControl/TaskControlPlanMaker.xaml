@@ -171,7 +171,7 @@
             </Grid>
 
             <!--Переписка-->
-            <GridSplitter Grid.Column="2" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <GridSplitter Grid.Column="2" HorizontalAlignment="Center"/>
             <view:TaskChatControl 
                 Grid.Column="3" 
                 TaskViewModel="{Binding}"/>

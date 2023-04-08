@@ -51,7 +51,7 @@
                     
                 </GroupBox>
                 
-                <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
+                <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
                 
                 <GroupBox Grid.Column="2" Header="Прайсы">
 

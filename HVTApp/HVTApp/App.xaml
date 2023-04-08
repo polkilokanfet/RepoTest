@@ -43,6 +43,7 @@
                 <ResourceDictionary Source="Styles/XamDataGrid.xaml" />
                 <ResourceDictionary Source="Styles/GroupBox.xaml" />
                 <ResourceDictionary Source="Styles/FontAwesome.xaml" />
+                <ResourceDictionary Source="Styles/GridSplitter.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

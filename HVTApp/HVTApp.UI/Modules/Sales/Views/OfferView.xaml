@@ -24,7 +24,7 @@
                                         VisibilityNumberOffer="Collapsed"/>
             </ScrollViewer>
         </GroupBox>
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+        <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
         <controls:OfferUnitListControl Grid.Row="2" DataContext="{Binding GroupsViewModel}"/>
 

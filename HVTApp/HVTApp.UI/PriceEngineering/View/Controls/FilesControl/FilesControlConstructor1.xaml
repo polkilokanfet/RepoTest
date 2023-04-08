@@ -24,7 +24,7 @@
             SelectedFile="{Binding SelectedTechnicalRequrementsFile, Mode=TwoWay}">
         </view:FilesSingleControl>
 
-        <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
 
         <!--Проработка ОГК-->
         <view:FilesSingleControl 

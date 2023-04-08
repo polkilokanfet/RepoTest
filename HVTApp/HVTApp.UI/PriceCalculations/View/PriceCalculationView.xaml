@@ -153,7 +153,7 @@
 			        </infgDp:XamDataGrid.FieldLayouts>
 		        </infgDp:XamDataGrid>
 
-                <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
 
                 <GroupBox Grid.Column="2" Header="История проработки">
 

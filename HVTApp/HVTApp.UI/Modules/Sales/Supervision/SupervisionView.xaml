@@ -45,7 +45,7 @@
                 </infg:XamDataGrid.FieldLayouts>
             </infg:XamDataGrid>
 
-            <GridSplitter Grid.Row="1" VerticalAlignment="Center" Height="5" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
             <TextBox Grid.Row="2" 
                     Text="{Binding SupervisionCall, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

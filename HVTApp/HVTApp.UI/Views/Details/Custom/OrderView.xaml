@@ -44,7 +44,7 @@
                     </infDp:XamDataGrid>
                 </GroupBox>
 
-                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+                <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
                 <GroupBox Grid.Row="2" Header="Оборудование не включенное в заказы">
                     <infDp:XamDataGrid x:Name="PotentialListGrid"

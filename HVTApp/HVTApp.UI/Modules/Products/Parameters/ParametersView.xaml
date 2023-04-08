@@ -31,7 +31,7 @@
             </infg:XamDataGrid>
         </GroupBox>
 
-        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
 
         <GroupBox Grid.Column="2" Header="Детали">
             <Grid>
@@ -68,7 +68,7 @@
                             </infg:XamDataGrid>
                         </GroupBox>
 
-                        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3"/>
+                        <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
 
                         <GroupBox Header="Параметры ограничения" Grid.Column="2">
                             <infg:XamDataGrid DataSource="{Binding SelectedRelation.RequiredParameters, UpdateSourceTrigger=PropertyChanged}" 
@@ -85,7 +85,7 @@
                             </infg:XamDataGrid>
                         </GroupBox>
 
-                        <GridSplitter Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3"/>
+                        <GridSplitter Grid.Column="3" HorizontalAlignment="Center"/>
 
                         <GroupBox Header="Потенциальные параметры ограничения" Grid.Column="4">
                             <infg:XamDataGrid DataSource="{Binding PotentialRelationParameters, UpdateSourceTrigger=PropertyChanged}"
@@ -105,7 +105,7 @@
                     </Grid>
                 </GroupBox>
 
-                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="3"/>
+                <GridSplitter Grid.Row="2" VerticalAlignment="Center"/>
 
                 <GroupBox Grid.Row="3" Header="Пути выбора">
                     <infg:XamDataGrid DataSource="{Binding Paths}" Style="{StaticResource ListViewGrid}" >

@@ -125,7 +125,7 @@
                                 <!--Файлы-->
                                 <view:FilesControlManager1 Grid.Row="1" TaskViewModelManager="{Binding}"/>
 
-                                <GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                <GridSplitter Grid.Row="2" VerticalAlignment="Center"/>
 
                                 <!--Дополнительные блоки-->
                                 <view:BlocksAddedControl Grid.Row="3" ViewModel ="{Binding}"/>
@@ -150,7 +150,7 @@
                                 <Button Grid.Row="5" Content="Отчёт" Command="{Binding ShowReportCommand}"/>
                             </Grid>
 
-                            <GridSplitter Grid.Column="1" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                            <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
 
                             <!--Переписка-->
                             <view:TaskChatControl 

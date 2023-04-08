@@ -128,7 +128,7 @@
                 </Grid>
             </GroupBox>
 
-            <GridSplitter Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3" />
+            <GridSplitter Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"/>
 
             <GroupBox Grid.Column="2"
                       Header="Включено в стоимость (на единицу)"
@@ -152,7 +152,7 @@
 
         </Grid>
 
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3" />
+        <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
         <GroupBox Grid.Row="2" Header="Структура себестоимости (на единицу):">
             <dp:XamDataGrid DataSource="{Binding Prices}">

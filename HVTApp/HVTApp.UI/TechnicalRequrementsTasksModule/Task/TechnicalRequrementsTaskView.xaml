@@ -201,7 +201,7 @@
 
                 </GroupBox>
 
-                <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
+                <GridSplitter Grid.Column="1" VerticalAlignment="Center"/>
 
                 <GroupBox Grid.Column="2" Header="История проработки">
                     <history:HistoryItemListControl Items="{Binding TechnicalRequrementsTaskWrapper.HistoryElements}"/>
@@ -260,7 +260,7 @@
                     </infgDp:XamDataGrid>
                 </GroupBox>
 
-                <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
+                <GridSplitter Grid.Column="1" VerticalAlignment="Center"/>
 
                 <Grid Grid.Column="2">
                     <Grid.ColumnDefinitions>

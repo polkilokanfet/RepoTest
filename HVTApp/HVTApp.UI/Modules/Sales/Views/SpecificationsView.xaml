@@ -17,7 +17,7 @@
                                            DataContext="{Binding}"
                                            UnitsVisibility="Collapsed"/>
             
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+        <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
         <GroupBox Grid.Row="2" Header="Оборудование">
             <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding Groups}" />

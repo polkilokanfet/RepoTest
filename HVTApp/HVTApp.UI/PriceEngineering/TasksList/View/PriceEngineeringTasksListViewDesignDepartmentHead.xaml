@@ -16,7 +16,7 @@
             <view:PriceEngineeringTasksListControl DataContext="{Binding}"/>
         </GroupBox>
 
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="2"/>
+        <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
         <GroupBox Grid.Row="2" Header="Нагрузка на сотрудников">
             <view:WorkloadOnEmployeesControl DataContext="{Binding}"/>

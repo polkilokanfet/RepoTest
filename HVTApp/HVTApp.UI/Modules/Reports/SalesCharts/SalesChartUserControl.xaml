@@ -57,7 +57,7 @@
                     </ig:XamPieChart.ToolTip>
                 </ig:XamPieChart>
                 
-                <GridSplitter Grid.Row="2" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                <GridSplitter Grid.Row="2" VerticalAlignment="Center"/>
                 
                 <GroupBox Grid.Row="3" Header="Данные">
                     
@@ -83,7 +83,7 @@
             </Grid>
             
             
-            <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
             
             <ig:XamDataChart Grid.Column="2" x:Name="StackedBarChart" Padding="10" Visibility="Visible"
                              DataContext="{Binding}"
