@@ -182,6 +182,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     this.TasksWrapper != null &&
                     this.TasksWrapper.IsValid &&
                     this.TasksWrapper.IsChanged &&
+                    this.TasksWrapper.ChildTasks.Any() &&
                     this.TasksWrapper.ChildTasks.First() is TaskViewModelManagerNew &&
                     AllowEditProps);
 
