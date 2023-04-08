@@ -1,13 +1,14 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using HVTApp.Infrastructure.Converters;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     [ValueConversion(typeof(double), typeof(double))]
-    public class BlockAddedWidthConverter : IValueConverter
+    public class BlockAddedWidthConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is double width)
             {
@@ -15,11 +16,6 @@ namespace HVTApp.UI.PriceEngineering.Converters
             }
 
             return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

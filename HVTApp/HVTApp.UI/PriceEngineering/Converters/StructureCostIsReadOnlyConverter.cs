@@ -1,13 +1,14 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using HVTApp.Infrastructure.Converters;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     [ValueConversion(typeof(TaskViewModel), typeof(bool))]
-    public class StructureCostIsReadOnlyConverter : IValueConverter
+    public class StructureCostIsReadOnlyConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is TaskViewModelConstructor viewModel)
             {
@@ -18,11 +19,6 @@ namespace HVTApp.UI.PriceEngineering.Converters
             }
 
             return true;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

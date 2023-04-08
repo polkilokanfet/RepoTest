@@ -1,14 +1,15 @@
 using System;
 using System.Windows.Data;
 using System.Windows.Media;
+using HVTApp.Infrastructure.Converters;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     [ValueConversion(typeof(ScriptStep), typeof(Color))]
-    public class StatusToColorConverter : IValueConverter
+    public class StatusToColorConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value is ScriptStep step)
             {
@@ -35,11 +36,6 @@ namespace HVTApp.UI.PriceEngineering.Converters
             }
 
             return Binding.DoNothing;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

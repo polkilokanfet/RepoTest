@@ -1,14 +1,15 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using HVTApp.Infrastructure.Converters;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     [ValueConversion(typeof(ScriptStep), typeof(string))]
-    public class PriceEngineeringTaskStatusEnumToStringConverter : IValueConverter
+    public class PriceEngineeringTaskStatusEnumToStringConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is ScriptStep step)
             {
@@ -38,11 +39,6 @@ namespace HVTApp.UI.PriceEngineering.Converters
 
             return "";
             throw new ArgumentException();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

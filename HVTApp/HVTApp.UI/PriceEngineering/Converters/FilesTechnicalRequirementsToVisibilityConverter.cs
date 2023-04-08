@@ -3,15 +3,16 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using HVTApp.Infrastructure.Converters;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     //[ValueConversion(typeof(PriceEngineeringTasksViewModel), typeof(Visibility))]
-    public class FilesTechnicalRequirementsToVisibilityConverter : IValueConverter
+    public class FilesTechnicalRequirementsToVisibilityConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is IValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper> collection)
             {
@@ -21,11 +22,6 @@ namespace HVTApp.UI.PriceEngineering.Converters
                 }
             }
             return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

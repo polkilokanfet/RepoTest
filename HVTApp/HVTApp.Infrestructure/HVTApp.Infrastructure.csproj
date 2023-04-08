@@ -107,6 +107,7 @@
     <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\ReverseBoolConverter.cs" />
     <Compile Include="Converters\TextToVisibilityConverter.cs" />
+    <Compile Include="Converters\ValueConverterBase.cs" />
     <Compile Include="Extansions\TaskExtansions.cs" />
     <Compile Include="Extansions\EnumerableExtansions.cs" />
     <Compile Include="Extansions\DateExtansions.cs" />

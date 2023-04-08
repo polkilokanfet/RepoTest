@@ -2,14 +2,15 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using HVTApp.Infrastructure.Converters;
 using HVTApp.Model;
 
 namespace HVTApp.UI.PriceEngineering.Converters
 {
     [ValueConversion(typeof(TaskViewModel), typeof(Visibility))]
-    public class PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter : IValueConverter
+    public class PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is TaskViewModelConstructor priceEngineeringTaskViewModel)
             {
@@ -20,17 +21,12 @@ namespace HVTApp.UI.PriceEngineering.Converters
             }
             return Visibility.Collapsed;
         }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     [ValueConversion(typeof(TaskViewModel), typeof(Visibility))]
-    public class PriceEngineeringTaskViewModelConstructorIsTargetSubTaskVisibilityConverter : IValueConverter
+    public class PriceEngineeringTaskViewModelConstructorIsTargetSubTaskVisibilityConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is TaskViewModelConstructor viewModel)
             {
@@ -40,11 +36,6 @@ namespace HVTApp.UI.PriceEngineering.Converters
                 }
             }
             return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

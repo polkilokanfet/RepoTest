@@ -6,19 +6,14 @@ using System.Windows;
 namespace HVTApp.Infrastructure.Converters
 {
     [ValueConversion(typeof(bool), typeof(Visibility))]
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class BooleanToVisibilityConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var val = value != null && (bool)value;
             return val 
                 ? Visibility.Visible 
                 : Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

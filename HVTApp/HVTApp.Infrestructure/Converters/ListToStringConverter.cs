@@ -7,9 +7,9 @@ using HVTApp.Infrastructure.Extansions;
 namespace HVTApp.Infrastructure.Converters
 {
     [ValueConversion(typeof(IEnumerable<object>), typeof(string))]
-    public class ListToStringConverter : IValueConverter
+    public class ListToStringConverter : ValueConverterBase
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is IEnumerable<object> objects)
             {
@@ -17,11 +17,6 @@ namespace HVTApp.Infrastructure.Converters
             }
 
             return string.Empty;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }
