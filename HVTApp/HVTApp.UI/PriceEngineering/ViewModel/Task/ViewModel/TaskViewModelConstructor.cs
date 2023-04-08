@@ -257,10 +257,6 @@ namespace HVTApp.UI.PriceEngineering
                     var unitOfWork = this.Container.Resolve<IUnitOfWork>();
                     block = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
                     var product = getProductService.GetProduct(unitOfWork, new Product { ProductBlock = block });
-                    if (unitOfWork.Repository<Product>().GetById(product.Id) == null)
-                    {
-                        unitOfWork.Repository<Product>().Add(product);
-                    }
 
                     var taskViewModel = new TaskViewModelManagerNew(Container, unitOfWork, product)
                     {

@@ -95,20 +95,21 @@ namespace HVTApp.Services.GetProductService
 
             //если выбранного продукта нет в базе, сохраняем его
             result = product;
-            this.SaveProduct(result);
+            this.SaveProduct(result, unitOfWork);
 
             return result;
         }
 
 
-        private void SaveProduct(Product product)
+        private void SaveProduct(Product product, IUnitOfWork unitOfWork = null)
         {
-            var products = UnitOfWork.Repository<Product>().GetAll();
-            var blocks = UnitOfWork.Repository<ProductBlock>().GetAll();
+            unitOfWork = unitOfWork ?? UnitOfWork;
+            var products = unitOfWork.Repository<Product>().GetAll();
+            var blocks = unitOfWork.Repository<ProductBlock>().GetAll();
 
             SubstitutionBlocksAndProducts(product, products, blocks);
 
-            var operationResult = UnitOfWork.SaveEntity(product);
+            var operationResult = unitOfWork.SaveEntity(product);
 
             if (operationResult.OperationCompletedSuccessfully == false)
                 throw new Exception("Ошибка при сохранении нового продукта в базу данных.", operationResult.Exception);
