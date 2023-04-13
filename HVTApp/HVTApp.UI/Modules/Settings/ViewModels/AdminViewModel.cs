@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows;
 using System.Windows.Documents;
 using System.Xml.Serialization;
 using HVTApp.Infrastructure;
@@ -47,51 +49,36 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     var messageService = _container.Resolve<IMessageService>();
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
+                    var salesUnits = unitOfWork.Repository<SalesUnit>()
+                        .Find(x => x.SignalToStartProduction.HasValue && x.Order == null);
+
+                    var res = new List<SalesUnit>();
                     var tasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(task => task.DesignDepartment == null)
-                        .ToList();
-
-                    foreach (var task in tasks)
+                        .Find(x => x.SalesUnits.Any());
+                    foreach (var salesUnit in salesUnits)
                     {
-                        var moment = task.Statuses.Max(x => x.Moment);
-                        task.Statuses.Single(x => x.StatusEnum == ScriptStep.Create.Value).Moment = moment;
-                        task.Statuses.Single(x => x.StatusEnum == ScriptStep.ProductionRequestStart.Value).Moment = moment.AddSeconds(2);
-                        task.Statuses.Add(new PriceEngineeringTaskStatus
+                        var tasks1 = tasks.Where(x => x.SalesUnits.Contains(salesUnit));
+
+                        if (tasks1.Any(x => x.Statuses.Any(s => s.StatusEnum == ScriptStep.ProductionRequestStart.Value)))
                         {
-                            Moment = moment.AddSeconds(1), StatusEnum = ScriptStep.Start.Value
-                        });
-
-                        var technicalRequrements = unitOfWork.Repository<TechnicalRequrements>()
-                            .Find(x =>
-                                x.IsActual &&
-                                x.SalesUnits.AllContainsIn(task.SalesUnits))
-                            .First();
-
-                        var trt = unitOfWork.Repository<TechnicalRequrementsTask>()
-                            .Find(x => x.Requrements.Contains(technicalRequrements)).First();
-
-                        var priceEngineeringTasks = task.GetPriceEngineeringTasks(unitOfWork);
-                        priceEngineeringTasks.BackManager = trt.BackManager;
-
-                        foreach (var file in task.FilesTechnicalRequirements.ToList())
-                        {
-                            task.FilesTechnicalRequirements.Remove(file);
-                            unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().Delete(file);
+                            continue;
                         }
-
-                        foreach (var file in technicalRequrements.Files.Where(x => x.IsActual))
-                        {
-                            var f = new PriceEngineeringTaskFileTechnicalRequirements
-                            {
-                                Name = file.Name, CreationMoment = file.Date, Id = file.Id
-                            };
-                            task.FilesTechnicalRequirements.Add(f);
-                        }
+                        salesUnit.SignalToStartProduction = null;
+                        salesUnit.SignalToStartProductionDone = null;
+                        res.Add(salesUnit);
                     }
 
-                    unitOfWork.SaveChanges();
 
-                    messageService.ShowOkMessageDialog("", $"Finish {tasks.ToStringEnum()}");
+                    unitOfWork.SaveChanges();
+                    StringBuilder sb = new StringBuilder();
+                    res
+                        .OrderBy(x => x.Project.Manager.Id)
+                        .ThenBy(x => x.Product.Id)
+                        .ToList()
+                        .ForEach(x => sb.AppendLine($"{x.Project.Manager.Employee.Person.Surname}: {x};"));
+                    Clipboard.SetText(sb.ToString());
+
+                    messageService.ShowOkMessageDialog("", $"Finish {sb.ToString()}");
 
                     //unitOfWork.SaveChanges();
                     //unitOfWork.Dispose();
