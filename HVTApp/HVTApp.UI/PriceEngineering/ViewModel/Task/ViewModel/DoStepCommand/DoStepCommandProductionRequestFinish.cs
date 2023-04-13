@@ -25,20 +25,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"Производство открыто: {ViewModel.Model}");
         }
 
+        protected override bool SetSameStatusOnSubTasks => true;
+
         protected override void DoStepAction()
         {
             var vm = (TaskViewModelPlanMaker) ViewModel;
-            var now = DateTime.Now;
-            vm.SignalToStartProductionDone = now;
-            foreach (var priceEngineeringTask in vm.Model.GetAllPriceEngineeringTasks().Where(priceEngineeringTask => priceEngineeringTask.Id != vm.Model.Id))
-            {
-                priceEngineeringTask.Statuses.Add(new PriceEngineeringTaskStatus
-                {
-                    Moment = now, 
-                    StatusEnum = ScriptStep.ProductionRequestFinish.Value,
-                    Comment = GetStatusComment()
-                });
-            }
+            vm.SignalToStartProductionDone = DateTime.Now;
             base.DoStepAction();
         }
 

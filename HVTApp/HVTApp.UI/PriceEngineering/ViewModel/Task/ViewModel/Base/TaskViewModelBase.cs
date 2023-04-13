@@ -368,7 +368,7 @@ namespace HVTApp.UI.PriceEngineering
             /// </summary>
             /// <param name="step"></param>
             /// <param name="comment"></param>
-            public void Add(ScriptStep step, string comment = null)
+            public PriceEngineeringTaskStatus Add(ScriptStep step, string comment = null)
             {
                 var status = new PriceEngineeringTaskStatus
                 {
@@ -378,6 +378,8 @@ namespace HVTApp.UI.PriceEngineering
                 };
 
                 this.Add(new PriceEngineeringTaskStatusEmptyWrapper(status));
+
+                return status;
             }
         }
 

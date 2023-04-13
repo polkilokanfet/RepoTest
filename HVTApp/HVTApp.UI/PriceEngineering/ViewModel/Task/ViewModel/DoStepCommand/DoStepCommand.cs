@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events.EventServiceEvents;
@@ -66,9 +67,25 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// <returns></returns>
         protected abstract IEnumerable<NotificationArgsItem> GetEventServiceItems();
 
+        protected virtual bool SetSameStatusOnSubTasks => false;
         protected virtual void DoStepAction()
         {
-            ViewModel.Statuses.Add(this.Step, this.GetStatusComment());
+            var status = ViewModel.Statuses.Add(this.Step, this.GetStatusComment());
+
+            //установка подобного статуса во все вложенные задачи
+            if (SetSameStatusOnSubTasks)
+            {
+                foreach (var task in ViewModel.Model.GetAllPriceEngineeringTasks().Where(t => t.Id != ViewModel.Model.Id))
+                {
+                    task.Statuses.Add(new PriceEngineeringTaskStatus
+                    {
+                        Moment = status.Moment,
+                        StatusEnum = status.StatusEnum,
+                        Comment = GetStatusComment()
+                    });
+                }
+            }
+
             ViewModel.SaveCommand.Execute();
             this.RaiseCanExecuteChanged();
         }

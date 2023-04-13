@@ -27,6 +27,8 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
         }
 
+        protected override bool SetSameStatusOnSubTasks => true;
+
         protected override void DoStepAction()
         {
             var priceEngineeringTask = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id);
