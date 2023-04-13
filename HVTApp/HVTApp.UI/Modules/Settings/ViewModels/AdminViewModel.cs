@@ -46,15 +46,37 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //}
 
 
-                    var messageService = _container.Resolve<IMessageService>();
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
+
+                    var tasks = unitOfWork.Repository<PriceEngineeringTask>()
+                        .Find(x => x.SalesUnits.Any());
+
+                    var engineeringTasks = tasks.Where(x =>
+                        x.Statuses.Any(s => s.StatusEnum == ScriptStep.ProductionRequestStart.Value));
+
+                    foreach (var task in engineeringTasks)
+                    {
+                        var status = task.Statuses
+                            .Where(x => x.StatusEnum == ScriptStep.ProductionRequestStart.Value)
+                            .OrderBy(x => x.Moment)
+                            .Last();
+
+                        foreach (var t in task.GetAllPriceEngineeringTasks())
+                        {
+                            if (t.Statuses.Any(x => x.StatusEnum == ScriptStep.ProductionRequestStart.Value) == false)
+                            {
+                                t.Statuses.Add(new PriceEngineeringTaskStatus
+                                {
+                                    Moment = status.Moment, StatusEnum = status.StatusEnum
+                                });
+                            }
+                        }
+                    }
 
                     var salesUnits = unitOfWork.Repository<SalesUnit>()
                         .Find(x => x.SignalToStartProduction.HasValue && x.Order == null);
 
                     var res = new List<SalesUnit>();
-                    var tasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(x => x.SalesUnits.Any());
                     foreach (var salesUnit in salesUnits)
                     {
                         var tasks1 = tasks.Where(x => x.SalesUnits.Contains(salesUnit));
@@ -73,40 +95,14 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     StringBuilder sb = new StringBuilder();
                     res
                         .OrderBy(x => x.Project.Manager.Id)
+                        .ThenBy(x => x.Project.Id)
                         .ThenBy(x => x.Product.Id)
                         .ToList()
                         .ForEach(x => sb.AppendLine($"{x.Project.Manager.Employee.Person.Surname}: {x};"));
                     Clipboard.SetText(sb.ToString());
 
-                    messageService.ShowOkMessageDialog("", $"Finish {sb.ToString()}");
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog("", $"Finish {sb.ToString()}");
 
-                    //unitOfWork.SaveChanges();
-                    //unitOfWork.Dispose();
-
-                    //_container.Resolve<IMessageService>().ShowOkMessageDialog("fin", "!!!");
-
-
-
-                    ////var unitOfWork = container.Resolve<IUnitOfWork>();
-
-                    //var dependent = new Dependent {Name = "dep1"};
-                    //var mList = new List<Main>();
-                    //for (int i = 0; i < 4; i++)
-                    //{
-                    //    mList.Add(new Main {Name = $"main{i}", Dependent = dependent});
-                    //}
-
-                    //var serializer = new XmlSerializer(typeof(List<Main>));
-                    //using (var fs = new FileStream(@"G:\main.xml", FileMode.Create))
-                    //{
-                    //    serializer.Serialize(fs, mList);
-                    //}
-
-                    //using (var fs = new FileStream(@"G:\main.xml", FileMode.Open))
-                    //{
-                    //    var list = (List<Main>)serializer.Deserialize(fs);
-                    //    var dep = list.Select(x => x.Dependent).Distinct().ToList();
-                    //}
                 });
         }
     }
