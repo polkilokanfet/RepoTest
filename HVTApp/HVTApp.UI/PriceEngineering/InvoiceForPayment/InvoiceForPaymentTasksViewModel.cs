@@ -77,7 +77,7 @@ namespace HVTApp.UI.PriceEngineering.InvoiceForPayment
                     if (Task.PriceEngineeringTask != null)
                         return Task.PriceEngineeringTask.GetPriceEngineeringTasks(_unitOfWork).TceNumber;
 
-                    return _unitOfWork.Repository<TechnicalRequrementsTask>().GetById(Task.TechnicalRequrements.Id).TceNumber;
+                    return _unitOfWork.Repository<TechnicalRequrementsTask>().GetById(Task.TechnicalRequrements.TaskId).TceNumber;
                 }
             }
 

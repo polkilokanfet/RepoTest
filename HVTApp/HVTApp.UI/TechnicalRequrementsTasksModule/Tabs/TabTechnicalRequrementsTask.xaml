@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Class="HVTApp.UI.TechnicalRequrementsTasksModule.Tabs.TabTechnicalRequrementsTask"
              Header="TCE">
 
@@ -65,24 +66,39 @@
     <!--Действия ФМ-->
     <infRib:RibbonGroup Caption="Задача"
                         Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <infRib:ButtonTool Caption="Стартовать"
-                           Command="{Binding StartCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/start.png" />
-        <!--<infRib:ButtonTool Caption="Изменить"
-                           Command="{Binding EditCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/edit.png" />-->
-        <infRib:ButtonTool Caption="Отклонить"
-                           Command="{Binding RejectCommandByFrontManager}"
-                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
-        <infRib:ButtonTool Caption="Остановить"
-                           Command="{Binding StopCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/stop.png" />
-        <infRib:ButtonTool Caption="Принять"
-                           Command="{Binding AcceptCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/done.png" />
-        <infRib:ButtonTool Caption="Открыть производство"
-                           Command="{Binding StartProductionCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/done.png" />
+        <WrapPanel Orientation="Vertical">
+            <infRib:ButtonTool Caption="Стартовать"
+                               Command="{Binding StartCommand}"
+                               SmallImage="/HVTApp.UI;component/Images/start.png" />
+            <!--<infRib:ButtonTool Caption="Изменить"
+                               Command="{Binding EditCommand}"
+                               SmallImage="/HVTApp.UI;component/Images/edit.png" />-->
+            <infRib:ButtonTool Caption="Отклонить"
+                               Command="{Binding RejectCommandByFrontManager}"
+                               SmallImage="/HVTApp.UI;component/Images/remove.png" />
+            <infRib:ButtonTool Caption="Остановить"
+                               Command="{Binding StopCommand}"
+                               SmallImage="/HVTApp.UI;component/Images/stop.png" />
+            <infRib:ButtonTool Caption="Принять"
+                               Command="{Binding AcceptCommand}"
+                               SmallImage="/HVTApp.UI;component/Images/done.png" />
+
+            <Button Command="{Binding StartProductionCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:FontAwesome Icon="Industry"/>
+                    <TextBlock Text="Произвести"/>
+                </StackPanel>
+            </Button>
+
+            <Button Command="{Binding MakeInvoiceForPaymentTaskCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:FontAwesome Icon="Money"/>
+                    <TextBlock Text="Счёт"/>
+                </StackPanel>
+            </Button>
+
+        </WrapPanel>
+
     </infRib:RibbonGroup>
 
     <!--Действия БМ-->
