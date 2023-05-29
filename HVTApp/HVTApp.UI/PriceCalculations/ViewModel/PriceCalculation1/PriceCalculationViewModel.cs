@@ -327,8 +327,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             //добавляем в расчет ПЗ оборудование
             foreach (var task in priceEngineeringTasks.ChildPriceEngineeringTasks)
             {
-                var priceCalculationItem = GetPriceCalculationItem2Wrapper(priceEngineeringTasks, task);
-                PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem);
+                if (task.SalesUnits.Any())
+                {
+                    var priceCalculationItem = GetPriceCalculationItem2Wrapper(priceEngineeringTasks, task);
+                    PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem);
+                }
             }
 
             //добавляем расчет ПЗ в загруженную задачу
