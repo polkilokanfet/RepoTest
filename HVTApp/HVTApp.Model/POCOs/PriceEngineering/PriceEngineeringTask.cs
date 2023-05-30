@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -343,6 +344,16 @@ namespace HVTApp.Model.POCOs
 
         public IEnumerable<StructureCost> GetStructureCosts(string tceNumber = null, int? salesUnitsAmount = null, IPriceService priceService = null)
         {
+            var g = GetStructureCosts0(tceNumber, salesUnitsAmount, priceService).GroupBy(x => x.OriginalStructureCostProductBlock.Id);
+            foreach (var grp in g)
+            {
+                var first = grp.First();
+                var f = Fraction.Sum(grp.Select(x => new Fraction(int.Parse(x.AmountNumerator.ToString(CultureInfo.InvariantCulture)), int.Parse(x.AmountDenomerator.ToString(CultureInfo.InvariantCulture)))).ToArray());
+                yield return GetNewStructureCost(first.OriginalStructureCostProductBlock, first.Number, f.Numerator, f.Denominator);
+            }
+        }
+        private IEnumerable<StructureCost> GetStructureCosts0(string tceNumber = null, int? salesUnitsAmount = null, IPriceService priceService = null)
+        {
             salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
 
             //стракчакост основного блока
@@ -359,7 +370,7 @@ namespace HVTApp.Model.POCOs
             //стракчакосты вложенных задач
             foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
             {
-                foreach (var structureCost in childPriceEngineeringTask.GetStructureCosts(tceNumber, salesUnitsAmount))
+                foreach (var structureCost in childPriceEngineeringTask.GetStructureCosts0(tceNumber, salesUnitsAmount))
                 {
                     yield return structureCost;
                 }
