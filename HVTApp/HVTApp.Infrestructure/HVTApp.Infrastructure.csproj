@@ -115,6 +115,7 @@
     <Compile Include="Extansions\IsTypeExtansions.cs" />
     <Compile Include="Extansions\RegionExt.cs" />
     <Compile Include="Extansions\StringExt.cs" />
+    <Compile Include="Fraction.cs" />
     <Compile Include="IBaseEntity.cs" />
     <Compile Include="IHvtAppLogger.cs" />
     <Compile Include="IId.cs" />
