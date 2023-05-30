@@ -46,7 +46,6 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
-
             var steps = new [] {ScriptStep.Accept, ScriptStep.LoadToTceStart, ScriptStep.LoadToTceFinish};
             var tasks = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
             var notAccepted = tasks.Where(task => steps.Contains(task.Status) == false).ToList();
@@ -80,5 +79,19 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 !this.ViewModel.Model.GetAllPriceEngineeringTasks().All(task => ScriptStep.LoadToTceFinish.Equals(ViewModel.Model.Status)) && 
                 base.CanExecuteMethod();
         }
+
+        protected override void CheckActualUsers()
+        {
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var tasks = ViewModel.Model.GetPriceEngineeringTasks(unitOfWork);
+            if (tasks.BackManager?.IsActual == false)
+            {
+                tasks.BackManager = null;
+                unitOfWork.SaveChanges();
+                MessageService.ShowOkMessageDialog("Info", "Back-manager удален из задачи, т.к. его профиль не актуален");
+                this.ViewModel.Messenger.SendMessage("Back-manager удален из задачи, т.к. его профиль не актуален. Необходимо назначить другого.");
+            }
+        }
+
     }
 }

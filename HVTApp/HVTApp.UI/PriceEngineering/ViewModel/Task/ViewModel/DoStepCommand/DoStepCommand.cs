@@ -48,9 +48,16 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 }
             }
 
+            this.CheckActualUsers();
             this.DoStepAction();
             this.SendNotification();
             _doAfterAction?.Invoke();
+        }
+
+        //Проверка исполнителей на актуальность
+        protected virtual void CheckActualUsers()
+        {
+            
         }
 
         /// <summary>

@@ -64,5 +64,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
             return sb.ToString().TrimEnd('\n', '\r');
         }
+
+        protected override void CheckActualUsers()
+        {
+            if (this.ViewModel.UserConstructor?.IsActual == false)
+            {
+                this.ViewModel.Model.UserConstructor = null;
+                MessageService.ShowOkMessageDialog("Info", "Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален");
+                this.ViewModel.Messenger.SendMessage("Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален. Руководителю КБ необходимо назначить другого исполнителя.");
+            }
+        }
     }
 }
