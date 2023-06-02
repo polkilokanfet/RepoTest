@@ -44,6 +44,20 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+                <!--Позиция в ТСЕ-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Позиция в ТСЕ:"/>
+                    <TextBox Grid.Column="1" 
+                             Text="{Binding Model.TcePosition, Mode=OneTime}"
+                             IsReadOnly="True"
+                             BorderThickness="0"
+                             Background="Transparent"/>
+                </Grid>
+
                 <!--Заводской заказ-->
                 <GroupBox
                     Grid.Row="1"
