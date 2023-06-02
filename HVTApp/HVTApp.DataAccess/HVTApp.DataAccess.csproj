@@ -437,6 +437,10 @@
     <Compile Include="Migrations\202303221854294_InvoiceForPaymentTasks.designer.cs">
       <DependentUpon>202303221854294_InvoiceForPaymentTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306020710278_TcePositionInTasks.cs" />
+    <Compile Include="Migrations\202306020710278_TcePositionInTasks.designer.cs">
+      <DependentUpon>202306020710278_TcePositionInTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -715,6 +719,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303221854294_InvoiceForPaymentTasks.resx">
       <DependentUpon>202303221854294_InvoiceForPaymentTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306020710278_TcePositionInTasks.resx">
+      <DependentUpon>202306020710278_TcePositionInTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

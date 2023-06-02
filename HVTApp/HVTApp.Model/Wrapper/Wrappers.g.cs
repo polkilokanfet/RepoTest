@@ -667,7 +667,7 @@ namespace HVTApp.Model.Wrapper
         #region ComplexProperties
 
         /// <summary>
-        /// Задача ТСЕ
+        /// Задача ТСП
         /// </summary>
 	    public PriceEngineeringTaskWrapper PriceEngineeringTask 
         {
@@ -2664,6 +2664,17 @@ namespace HVTApp.Model.Wrapper
         public bool IsValidForProductionIsChanged => GetIsChanged(nameof(IsValidForProduction));
 
         /// <summary>
+        /// Позиция в ТСЕ
+        /// </summary>
+        public System.String TcePosition
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TcePositionOriginalValue => GetOriginalValue<System.String>(nameof(TcePosition));
+        public bool TcePositionIsChanged => GetIsChanged(nameof(TcePosition));
+
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -4468,6 +4479,17 @@ namespace HVTApp.Model.Wrapper
 	    public TechnicalRequrementsWrapper(TechnicalRequrements model) : base(model) { }
 
         #region SimpleProperties
+
+        /// <summary>
+        /// TaskId
+        /// </summary>
+        public System.Guid TaskId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid TaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TaskId));
+        public bool TaskIdIsChanged => GetIsChanged(nameof(TaskId));
 
         /// <summary>
         /// ОИТ

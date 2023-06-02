@@ -13,6 +13,29 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 {
     public class TasksTceItem : WrapperBase<PriceEngineeringTask>
     {
+        #region TcePosition
+
+        /// <summary>
+        /// Позиция в ТСЕ
+        /// </summary>
+        public string TcePosition
+        {
+            get => GetValue<string>();
+            set
+            {
+                foreach (var childTask in ChildPriceEngineeringTasks)
+                {
+                    childTask.TcePosition = value;
+                }
+                SetValue(value);
+            }
+        }
+
+        public string TcePositionOriginalValue => GetOriginalValue<string>(nameof(TcePosition));
+        public bool TcePositionIsChanged => GetIsChanged(nameof(TcePosition));
+
+        #endregion
+
         /// <summary>
         /// Дочерние задачи
         /// </summary>
@@ -70,6 +93,11 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             foreach (var sccVersionWrapper in sccVersionWrappers)
             {
                 yield return new ValidationResult($"{nameof(SccVersions)} has not valid items", new[] {nameof(SccVersions)});
+            }
+
+            if (string.IsNullOrWhiteSpace(this.TcePosition))
+            {
+                yield return new ValidationResult("Позиция в ТСЕ не может быть пустой", new[] {nameof(TcePosition)});
             }
         }
 

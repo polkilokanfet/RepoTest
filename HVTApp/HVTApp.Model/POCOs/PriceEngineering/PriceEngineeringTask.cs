@@ -94,6 +94,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("ТЗ валидно для производства"), OrderStatus(36)]
         public bool IsValidForProduction { get; set; }
+
+        [Designation("Позиция в ТСЕ"), MaxLength(4)]
+        public string TcePosition { get; set; }
     }
     
     public partial class PriceEngineeringTask

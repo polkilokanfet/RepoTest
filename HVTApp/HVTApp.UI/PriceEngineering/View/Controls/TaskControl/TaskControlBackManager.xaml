@@ -56,6 +56,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <!--Шапка-->
@@ -88,8 +89,20 @@
 
                         </Border>
 
+                        <!--Позиция-->
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Позиция в ТСЕ"/>
+                            <TextBox Grid.Column="1" 
+                                     Text="{Binding TcePosition, UpdateSourceTrigger=PropertyChanged}"
+                                     IsEnabled="{Binding TaskViewModel.IsEditMode, ElementName=Root}"/>
+                        </Grid>
+
                         <!--SCC-->
-                        <GroupBox Grid.Row="1" Header="Соответствие стракчакостов">
+                        <GroupBox Grid.Row="2" Header="Соответствие стракчакостов">
                             <ItemsControl 
                                 IsEnabled="{Binding TaskViewModel.IsEditMode, ElementName=Root}"
                                 ItemsSource="{Binding ElementName=Root, Path=TaskViewModel.TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
