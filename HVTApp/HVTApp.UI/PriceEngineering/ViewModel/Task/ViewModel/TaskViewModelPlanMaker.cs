@@ -48,6 +48,13 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
+        #region IgnatenkoInfo
+
+        public Specification Specification => this.Model?.SalesUnits.FirstOrDefault()?.Specification;
+        public double? Cost => this.Model?.SalesUnits.FirstOrDefault()?.Cost;
+
+        #endregion
+
         public DateTime EndProductionPlanDate
         {
             get => this.SalesUnits.FirstOrDefault()?.EndProductionPlanDate?.Date ?? DateTime.Today.AddDays(120);

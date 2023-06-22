@@ -122,6 +122,47 @@
 
                 </GroupBox>
 
+                <Expander Grid.Row="2" Header="Дополнительная информация" IsExpanded="False">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                            </Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="IsReadOnly" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </Grid.Resources>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Контрагент:"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Specification.Contract.Contragent, Mode=OneTime}"/>
+                        
+                        <Label Grid.Row="1" Grid.Column="0" Content="Договор:"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Specification.Contract, Mode=OneTime}"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Спецификация:"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Specification, Mode=OneTime}"/>
+                        
+                        <Label Grid.Row="3" Grid.Column="0" Content="Цена:"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Cost, Mode=OneTime, StringFormat=N2}"/>
+
+                    </Grid>
+                </Expander>
+
                 <!--Единица задачи ТСЕ-->
                 <!--<Border Grid.Row="1" 
                         DataContext="{Binding ElementName=Root, Path=TaskViewModel, Mode=OneWay}"
