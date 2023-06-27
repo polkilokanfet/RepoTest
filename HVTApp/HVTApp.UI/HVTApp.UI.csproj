@@ -350,6 +350,9 @@
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTaskBackManagerBoss.xaml.cs">
       <DependentUpon>TabPriceEngineeringTaskBackManagerBoss.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasksAdmin.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTasksAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManager.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemPlanMaker.cs" />
@@ -358,7 +361,11 @@
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemPlanMaker.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelAdmin.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelPlanMaker.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewAdmin.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListViewAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperPlanMaker.cs" />
@@ -2020,11 +2027,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTasksAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewAdmin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
