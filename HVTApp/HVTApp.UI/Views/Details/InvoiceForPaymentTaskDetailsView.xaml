@@ -1,0 +1,53 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.InvoiceForPaymentTaskDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Задача ТСП" Visibility="{Binding VisibilityPriceEngineeringTaskInvoiceForPaymentTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.PriceEngineeringTask}" 
+                                    AddItemCommand="{Binding SelectPriceEngineeringTaskCommand}" 
+                                    RemoveItemCommand="{Binding ClearPriceEngineeringTaskCommand}"
+									Visibility="{Binding VisibilityPriceEngineeringTaskInvoiceForPaymentTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Задача ТСЕ" Visibility="{Binding VisibilityTechnicalRequrementsInvoiceForPaymentTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.TechnicalRequrements}" 
+                                    AddItemCommand="{Binding SelectTechnicalRequrementsCommand}" 
+                                    RemoveItemCommand="{Binding ClearTechnicalRequrementsCommand}"
+									Visibility="{Binding VisibilityTechnicalRequrementsInvoiceForPaymentTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Moment" Visibility="{Binding VisibilityMomentInvoiceForPaymentTask, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.Moment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityMomentInvoiceForPaymentTask, ElementName=Root}"/>
+
+
+    </Grid>
+</inf:ViewBase>

@@ -8,6 +8,17 @@
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
 			  x:Name="Root">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
@@ -20,22 +31,22 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Банк" Visibility="{Binding VisibilityBankNameBankDetails, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="0"
                  Text="{Binding Item.BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityBankNameBankDetails, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="1" Content="БИК" Visibility="{Binding VisibilityBankIdentificationCodeBankDetails, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="1"
                  Text="{Binding Item.BankIdentificationCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityBankIdentificationCodeBankDetails, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Кор.счет" Visibility="{Binding VisibilityCorrespondentAccountBankDetails, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="2"
                  Text="{Binding Item.CorrespondentAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCorrespondentAccountBankDetails, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Расч.счет" Visibility="{Binding VisibilityCheckingAccountBankDetails, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="3"
                  Text="{Binding Item.CheckingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCheckingAccountBankDetails, ElementName=Root}"/>
 

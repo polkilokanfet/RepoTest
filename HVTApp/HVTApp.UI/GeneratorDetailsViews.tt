@@ -276,6 +276,17 @@ namespace HVTApp.UI.Views
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
 			  x:Name="Root">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
@@ -308,7 +319,7 @@ namespace HVTApp.UI.Views
 		{
 #>
         <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#>, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="<#= rowNum #>" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="<#= rowNum #>"
                  Text="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#>, ElementName=Root}"/>
 

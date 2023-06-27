@@ -8,6 +8,17 @@
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
 			  x:Name="Root">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
@@ -51,37 +62,37 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Путь к папке с логами" Visibility="{Binding VisibilityLogsPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="0"
                  Text="{Binding Item.LogsPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityLogsPathGlobalProperties, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Путь к папке с расчетами себестоимости" Visibility="{Binding VisibilityPriceCalculationsFilesPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="1"
                  Text="{Binding Item.PriceCalculationsFilesPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityPriceCalculationsFilesPathGlobalProperties, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Путь к папке с файлами ответов из ТСЕ" Visibility="{Binding VisibilityTechnicalRequrementsFilesAnswersPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="2"
                  Text="{Binding Item.TechnicalRequrementsFilesAnswersPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityTechnicalRequrementsFilesAnswersPathGlobalProperties, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Путь к папке с расчетами транспортных затрат" Visibility="{Binding VisibilityShippingCostFilesPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="3"
                  Text="{Binding Item.ShippingCostFilesPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityShippingCostFilesPathGlobalProperties, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Путь к папке с файлами ТЗ" Visibility="{Binding VisibilityTechnicalRequrementsFilesPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="4"
                  Text="{Binding Item.TechnicalRequrementsFilesPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityTechnicalRequrementsFilesPathGlobalProperties, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Путь к папке с приложениями Directum" Visibility="{Binding VisibilityDirectumAttachmentsPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="5"
                  Text="{Binding Item.DirectumAttachmentsPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDirectumAttachmentsPathGlobalProperties, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="6" Content="Путь к папке с запросами" Visibility="{Binding VisibilityIncomingRequestsPathGlobalProperties, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="6" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="6"
                  Text="{Binding Item.IncomingRequestsPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityIncomingRequestsPathGlobalProperties, ElementName=Root}"/>
 

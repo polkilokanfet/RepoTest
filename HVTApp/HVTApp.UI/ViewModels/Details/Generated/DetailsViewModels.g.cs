@@ -371,6 +371,55 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class InvoiceForPaymentTaskDetailsViewModel : BaseDetailsViewModel<InvoiceForPaymentTaskWrapper, InvoiceForPaymentTask, AfterSaveInvoiceForPaymentTaskEvent>
+    {
+		//private Func<Task<List<PriceEngineeringTask>>> _getEntitiesForSelectPriceEngineeringTaskCommand;
+		private Func<List<PriceEngineeringTask>> _getEntitiesForSelectPriceEngineeringTaskCommand;
+		public DelegateLogCommand SelectPriceEngineeringTaskCommand { get; private set; }
+		public DelegateLogCommand ClearPriceEngineeringTaskCommand { get; private set; }
+
+		//private Func<Task<List<TechnicalRequrements>>> _getEntitiesForSelectTechnicalRequrementsCommand;
+		private Func<List<TechnicalRequrements>> _getEntitiesForSelectTechnicalRequrementsCommand;
+		public DelegateLogCommand SelectTechnicalRequrementsCommand { get; private set; }
+		public DelegateLogCommand ClearTechnicalRequrementsCommand { get; private set; }
+
+        public InvoiceForPaymentTaskDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectPriceEngineeringTaskCommand == null) _getEntitiesForSelectPriceEngineeringTaskCommand = () => { return UnitOfWork.Repository<PriceEngineeringTask>().GetAll(); };
+			if (SelectPriceEngineeringTaskCommand == null) SelectPriceEngineeringTaskCommand = new DelegateLogCommand(SelectPriceEngineeringTaskCommand_Execute_Default);
+			if (ClearPriceEngineeringTaskCommand == null) ClearPriceEngineeringTaskCommand = new DelegateLogCommand(ClearPriceEngineeringTaskCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectTechnicalRequrementsCommand == null) _getEntitiesForSelectTechnicalRequrementsCommand = () => { return UnitOfWork.Repository<TechnicalRequrements>().GetAll(); };
+			if (SelectTechnicalRequrementsCommand == null) SelectTechnicalRequrementsCommand = new DelegateLogCommand(SelectTechnicalRequrementsCommand_Execute_Default);
+			if (ClearTechnicalRequrementsCommand == null) ClearTechnicalRequrementsCommand = new DelegateLogCommand(ClearTechnicalRequrementsCommand_Execute_Default);
+
+		}
+
+		private void SelectPriceEngineeringTaskCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PriceEngineeringTask, PriceEngineeringTaskWrapper>(_getEntitiesForSelectPriceEngineeringTaskCommand(), nameof(Item.PriceEngineeringTask), Item.PriceEngineeringTask?.Id);
+		}
+
+		private void ClearPriceEngineeringTaskCommand_Execute_Default() 
+		{
+						Item.PriceEngineeringTask = null;		    
+		}
+
+		private void SelectTechnicalRequrementsCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<TechnicalRequrements, TechnicalRequrementsWrapper>(_getEntitiesForSelectTechnicalRequrementsCommand(), nameof(Item.TechnicalRequrements), Item.TechnicalRequrements?.Id);
+		}
+
+		private void ClearTechnicalRequrementsCommand_Execute_Default() 
+		{
+						Item.TechnicalRequrements = null;		    
+		}
+
+
+    }
+
     public partial class DesignDepartmentDetailsViewModel : BaseDetailsViewModel<DesignDepartmentWrapper, DesignDepartment, AfterSaveDesignDepartmentEvent>
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectHeadCommand;
@@ -1695,6 +1744,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectUserConstructorCommand { get; private set; }
 		public DelegateLogCommand ClearUserConstructorCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectUserPlanMakerCommand;
+		private Func<List<User>> _getEntitiesForSelectUserPlanMakerCommand;
+		public DelegateLogCommand SelectUserPlanMakerCommand { get; private set; }
+		public DelegateLogCommand ClearUserPlanMakerCommand { get; private set; }
+
 		//private Func<Task<List<User>>> _getEntitiesForSelectUserConstructorInitiatorCommand;
 		private Func<List<User>> _getEntitiesForSelectUserConstructorInitiatorCommand;
 		public DelegateLogCommand SelectUserConstructorInitiatorCommand { get; private set; }
@@ -1710,8 +1764,13 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectProductBlockEngineerCommand { get; private set; }
 		public DelegateLogCommand ClearProductBlockEngineerCommand { get; private set; }
 
+		//private Func<Task<List<ScriptStep>>> _getEntitiesForSelectStatusCommand;
+		private Func<List<ScriptStep>> _getEntitiesForSelectStatusCommand;
+		public DelegateLogCommand SelectStatusCommand { get; private set; }
+		public DelegateLogCommand ClearStatusCommand { get; private set; }
+
 		//private Func<Task<List<IEnumerable`1>>> _getEntitiesForSelectStatusesAllCommand;
-		//private Func<List<IEnumerable`1>> _getEntitiesForSelectStatusesAllCommand;
+		//private Func<List<IEnumerable>> _getEntitiesForSelectStatusesAllCommand;
 		public DelegateLogCommand SelectStatusesAllCommand { get; private set; }
 		public DelegateLogCommand ClearStatusesAllCommand { get; private set; }
 
@@ -1877,6 +1936,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearUserConstructorCommand == null) ClearUserConstructorCommand = new DelegateLogCommand(ClearUserConstructorCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectUserPlanMakerCommand == null) _getEntitiesForSelectUserPlanMakerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectUserPlanMakerCommand == null) SelectUserPlanMakerCommand = new DelegateLogCommand(SelectUserPlanMakerCommand_Execute_Default);
+			if (ClearUserPlanMakerCommand == null) ClearUserPlanMakerCommand = new DelegateLogCommand(ClearUserPlanMakerCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectUserConstructorInitiatorCommand == null) _getEntitiesForSelectUserConstructorInitiatorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
 			if (SelectUserConstructorInitiatorCommand == null) SelectUserConstructorInitiatorCommand = new DelegateLogCommand(SelectUserConstructorInitiatorCommand_Execute_Default);
 			if (ClearUserConstructorInitiatorCommand == null) ClearUserConstructorInitiatorCommand = new DelegateLogCommand(ClearUserConstructorInitiatorCommand_Execute_Default);
@@ -1890,6 +1954,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectProductBlockEngineerCommand == null) _getEntitiesForSelectProductBlockEngineerCommand = () => { return UnitOfWork.Repository<ProductBlock>().GetAll(); };
 			if (SelectProductBlockEngineerCommand == null) SelectProductBlockEngineerCommand = new DelegateLogCommand(SelectProductBlockEngineerCommand_Execute_Default);
 			if (ClearProductBlockEngineerCommand == null) ClearProductBlockEngineerCommand = new DelegateLogCommand(ClearProductBlockEngineerCommand_Execute_Default);
+
+			
+			//if (_getEntitiesForSelectStatusCommand == null) _getEntitiesForSelectStatusCommand = () => { return UnitOfWork.Repository<ScriptStep>().GetAll(); };
+			if (SelectStatusCommand == null) SelectStatusCommand = new DelegateLogCommand(SelectStatusCommand_Execute_Default);
+			if (ClearStatusCommand == null) ClearStatusCommand = new DelegateLogCommand(ClearStatusCommand_Execute_Default);
 
 			
 			//if (_getEntitiesForSelectStatusesAllCommand == null) _getEntitiesForSelectStatusesAllCommand = () => { return UnitOfWork.Repository<IEnumerable`1>().GetAll(); };
@@ -1968,6 +2037,16 @@ namespace HVTApp.UI.ViewModels
 						Item.UserConstructor = null;		    
 		}
 
+		private void SelectUserPlanMakerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectUserPlanMakerCommand(), nameof(Item.UserPlanMaker), Item.UserPlanMaker?.Id);
+		}
+
+		private void ClearUserPlanMakerCommand_Execute_Default() 
+		{
+						Item.UserPlanMaker = null;		    
+		}
+
 		private void SelectUserConstructorInitiatorCommand_Execute_Default() 
 		{
             SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectUserConstructorInitiatorCommand(), nameof(Item.UserConstructorInitiator), Item.UserConstructorInitiator?.Id);
@@ -1996,6 +2075,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearProductBlockEngineerCommand_Execute_Default() 
 		{
 						Item.ProductBlockEngineer = null;		    
+		}
+
+		private void SelectStatusCommand_Execute_Default() 
+		{
+            //SelectAndSetWrapper<ScriptStep, ScriptStepWrapper>(_getEntitiesForSelectStatusCommand(), nameof(Item.Status), Item.Status?.Id);
+		}
+
+		private void ClearStatusCommand_Execute_Default() 
+		{
+				    
 		}
 
 		private void SelectStatusesAllCommand_Execute_Default() 

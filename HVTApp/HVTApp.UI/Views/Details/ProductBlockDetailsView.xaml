@@ -8,6 +8,17 @@
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
 			  x:Name="Root">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
@@ -30,10 +41,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Чертеж" Visibility="{Binding VisibilityDesignProductBlock, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="0"
                  Text="{Binding Item.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignProductBlock, ElementName=Root}"/>
 
@@ -45,39 +57,44 @@
 										 RemoveItemCommand="{Binding RemoveFromFixedCostsCommand}"
 										 Visibility="{Binding VisibilityFixedCostsProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Трудозатраты (н/ч на ед.)" Visibility="{Binding VisibilityLaborCostsProductBlock, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+                               Value="{Binding Item.LaborCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityLaborCostsProductBlock, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="3"
                  Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4"
                  Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Себестоимости" Visibility="{Binding VisibilityPricesProductBlock, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+        <Label Grid.Column="0" Grid.Row ="5" Content="Себестоимости" Visibility="{Binding VisibilityPricesProductBlock, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.Prices}"
 										 SelectedItem="{Binding SelectedPricesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPricesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"
 										 Visibility="{Binding VisibilityPricesProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Параметры" Visibility="{Binding VisibilityParametersProductBlock, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+        <Label Grid.Column="0" Grid.Row ="6" Content="Параметры" Visibility="{Binding VisibilityParametersProductBlock, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.Parameters}"
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
 										 Visibility="{Binding VisibilityParametersProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Доставка" Visibility="{Binding VisibilityIsDeliveryProductBlock, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="6" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="7" Content="Доставка" Visibility="{Binding VisibilityIsDeliveryProductBlock, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="7" MinWidth="200" 
                   IsChecked="{Binding Item.IsDelivery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsDeliveryProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="7" Content="Вес" Visibility="{Binding VisibilityWeightProductBlock, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="7" 
+        <Label Grid.Column="0" Grid.Row ="8" Content="Вес" Visibility="{Binding VisibilityWeightProductBlock, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="8" 
                                Value="{Binding Item.Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityWeightProductBlock, ElementName=Root}"/>
 

@@ -8,6 +8,17 @@
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
 			  x:Name="Root">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
@@ -46,12 +57,12 @@
 					Visibility="{Binding VisibilityDateRequiredSupervision, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Заказ клиента" Visibility="{Binding VisibilityClientOrderNumberSupervision, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="4"
                  Text="{Binding Item.ClientOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityClientOrderNumberSupervision, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Сервисный заказ" Visibility="{Binding VisibilityServiceOrderNumberSupervision, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
+        <TextBox Grid.Column="1" Grid.Row="5"
                  Text="{Binding Item.ServiceOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityServiceOrderNumberSupervision, ElementName=Root}"/>
 
