@@ -289,12 +289,12 @@ namespace HVTApp.Model.POCOs
             get
             {
                 if (OrderInTakeDateInjected.HasValue)
-                    return OrderInTakeDateInjected.Value;
+                    return OrderInTakeDateInjected.Value.Date;
 
                 //по подписанной спецификации
                 if (Specification?.SignDate != null)
                 {
-                    return Specification.SignDate.Value;
+                    return Specification.SignDate.Value.Date;
                 }
 
                 //если для старта производства не требуется денег
@@ -302,14 +302,14 @@ namespace HVTApp.Model.POCOs
                 {
                     if (Specification != null)
                     {
-                        return Specification.Date;
+                        return Specification.Date.Date;
                     }
                 }
 
                 //первый платеж по заказу
                 return PaymentsActual.Any(paymentActual => paymentActual.Sum > 0)
-                    ? PaymentsActual.Where(paymentActual => paymentActual.Sum > 0).Select(paymentActual => paymentActual.Date).Min()
-                    : StartProductionDateCalculated;
+                    ? PaymentsActual.Where(paymentActual => paymentActual.Sum > 0).Select(paymentActual => paymentActual.Date).Min().Date
+                    : StartProductionDateCalculated.Date;
             }
         }
 
@@ -331,7 +331,7 @@ namespace HVTApp.Model.POCOs
             foreach (var payment in PaymentsActual.OrderBy(paymentActual => paymentActual.Date))
             {
                 sum += payment.Sum;
-                if (sumToAchive - sum <= accuracy) return payment.Date;
+                if (sumToAchive - sum <= accuracy) return payment.Date.Date;
             }
 
             var dic = PaymentConditionsDictionary;
@@ -344,7 +344,7 @@ namespace HVTApp.Model.POCOs
                 }
 
                 sum += payment.Part * payment.Condition.Part * Cost;
-                if (sumToAchive - sum <= accuracy) return payment.Date;
+                if (sumToAchive - sum <= accuracy) return payment.Date.Date;
 
                 dic[payment.Condition] += payment.Part;
             }
@@ -363,7 +363,7 @@ namespace HVTApp.Model.POCOs
                 if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
                 {
                     if (Specification != null)
-                        return Specification.Date;
+                        return Specification.Date.Date;
                 }
 
                 //если требуются деньги
@@ -391,31 +391,31 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (StartProductionDateInjected.HasValue) return StartProductionDateInjected.Value;
+                if (StartProductionDateInjected.HasValue) return StartProductionDateInjected.Value.Date;
 
-                if (StartProductionDate.HasValue) return StartProductionDate.Value;
+                if (StartProductionDate.HasValue) return StartProductionDate.Value.Date;
 
                 //по исполнению условий, необходимых для запуска производства
                 var startProductionConditionsDoneDate = StartProductionConditionsDoneDate;
-                if (startProductionConditionsDoneDate.HasValue) return startProductionConditionsDoneDate.Value;
+                if (startProductionConditionsDoneDate.HasValue) return startProductionConditionsDoneDate.Value.Date;
 
                 //по сигналу менеджера
-                if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;
+                if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value.Date;
 
                 //по дате первого платежа
-                if (PaymentsActual.Any()) return PaymentsActual.Select(paymentActual => paymentActual.Date).Min();
+                if (PaymentsActual.Any()) return PaymentsActual.Select(paymentActual => paymentActual.Date).Min().Date;
 
                 //по дате доставки оборудования на объект
-                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
+                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend().Date;
 
                 //по дате реализации
-                if (RealizationDate.HasValue) return RealizationDate.Value.AddDays(-ProductionTerm).SkipPastAndWeekend();
+                if (RealizationDate.HasValue) return RealizationDate.Value.AddDays(-ProductionTerm).SkipPastAndWeekend().Date;
 
                 //если проиграно
-                if (IsLoosen) return DeliveryDateExpected.AddDays(-ProductionTerm);
+                if (IsLoosen) return DeliveryDateExpected.AddDays(-ProductionTerm).Date;
 
                 //по необходимой дате поставки на объект
-                return DeliveryDateExpected.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
+                return DeliveryDateExpected.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend().Date;
             }
         }
 
@@ -428,24 +428,24 @@ namespace HVTApp.Model.POCOs
             get
             {
                 //по дате производства
-                if (EndProductionDate.HasValue) return EndProductionDate.Value;
+                if (EndProductionDate.HasValue) return EndProductionDate.Value.Date;
 
                 //если проиграно
                 if (IsLoosen)
-                    return DeliveryDateExpected.AddDays(-DeliveryPeriodCalculated);
+                    return DeliveryDateExpected.AddDays(-DeliveryPeriodCalculated).Date;
 
                 //по дате комплектации
                 if (PickingDate.HasValue)
                 {
                     var assembleTerm = this.AssembleTerm ?? GlobalAppProperties.Actual.StandartTermFromPickToEndProduction;
-                    return PickingDate.Value.AddDays(assembleTerm).SkipPastAndWeekend();
+                    return PickingDate.Value.AddDays(assembleTerm).SkipPastAndWeekend().Date;
                 }
 
                 //по дате размещения в производстве (план)
-                if (EndProductionPlanDate.HasValue) return EndProductionPlanDate.Value;
+                if (EndProductionPlanDate.HasValue) return EndProductionPlanDate.Value.Date;
 
                 //по сроку производства
-                return StartProductionDateCalculated.AddDays(ProductionTerm).SkipPastAndWeekend();
+                return StartProductionDateCalculated.AddDays(ProductionTerm).SkipPastAndWeekend().Date;
             }
         }
 
@@ -453,13 +453,13 @@ namespace HVTApp.Model.POCOs
         /// Расчетная дата окончания производства.
         /// </summary>
         [Designation("Окончание производства по договору"), OrderStatus(854), NotMapped]
-        public DateTime EndProductionDateByContractCalculated => StartProductionDateCalculated.AddDays(ProductionTerm);
+        public DateTime EndProductionDateByContractCalculated => StartProductionDateCalculated.AddDays(ProductionTerm).Date;
 
         /// <summary>
         /// Расчетная дата реализации.
         /// </summary>
         [Designation("Расчетная дата реализации"), OrderStatus(850), NotMapped]
-        public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
+        public DateTime RealizationDateCalculated => RealizationDate?.Date ?? DeliveryDateCalculated.Date;
 
         /// <summary>
         /// Расчетная дата отгрузки.
@@ -471,11 +471,11 @@ namespace HVTApp.Model.POCOs
             {
                 //по реальной дате отгрузки
                 if (ShipmentDate.HasValue)
-                    return ShipmentDate.Value;
+                    return ShipmentDate.Value.Date;
 
                 //если проиграно
                 if (IsLoosen)
-                    return EndProductionDateCalculated;
+                    return EndProductionDateCalculated.Date;
 
                 //по плановой дате отгрузки
                 if (ShipmentPlanDate.HasValue)
@@ -484,22 +484,22 @@ namespace HVTApp.Model.POCOs
                     {
                         if (ShipmentPlanDate.Value >= ShippingConditionsDoneDate &&
                             ShipmentPlanDate.Value >= EndProductionDateCalculated)
-                            return ShipmentPlanDate.Value;
+                            return ShipmentPlanDate.Value.Date;
                     }
                     else
                     {
                         if (ShipmentPlanDate.Value >= EndProductionDateCalculated)
-                            return ShipmentPlanDate.Value;
+                            return ShipmentPlanDate.Value.Date;
                     }
                 }
 
                 //по дате исполнения условий для отгрузки
                 if (ShippingConditionsDoneDate.HasValue &&
                     ShippingConditionsDoneDate >= EndProductionDateCalculated)
-                    return ShippingConditionsDoneDate.Value.SkipPastAndWeekend();
+                    return ShippingConditionsDoneDate.Value.SkipPastAndWeekend().Date;
 
                 //по дате окончания производства
-                return EndProductionDateCalculated.SkipPastAndWeekend();
+                return EndProductionDateCalculated.SkipPastAndWeekend().Date;
             }
         }
 
@@ -511,8 +511,8 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (DeliveryDate.HasValue) return DeliveryDate.Value;
-                return ShipmentDateCalculated.AddDays(DeliveryPeriodCalculated).SkipWeekend();
+                if (DeliveryDate.HasValue) return DeliveryDate.Value.Date;
+                return ShipmentDateCalculated.AddDays(DeliveryPeriodCalculated).SkipWeekend().Date;
             }
         }
 
