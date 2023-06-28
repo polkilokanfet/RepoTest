@@ -160,15 +160,17 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         /// <returns></returns>
         protected abstract bool IsSuitable(PriceEngineeringTasks engineeringTasks);
 
+        protected virtual IEnumerable<PriceEngineeringTasks> GetSuitableTasks()
+        {
+            return UnitOfWork.Repository<PriceEngineeringTasks>().Find(IsSuitable);
+        }
+
         protected void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             ((ICollection<TTasks>)Items).Clear();
 
-            var priceEngineeringTasks = UnitOfWork
-                .Repository<PriceEngineeringTasks>()
-                .Find(IsSuitable);
-            var tasks = priceEngineeringTasks
+            var tasks = GetSuitableTasks()
                 //.OrderByDescending(x => x.WorkUpTo)
                 .Select(this.GetItem)
                 .OrderBy(x => x.TermPriority);
