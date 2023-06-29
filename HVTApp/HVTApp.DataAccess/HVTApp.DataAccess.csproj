@@ -441,6 +441,10 @@
     <Compile Include="Migrations\202306020710278_TcePositionInTasks.designer.cs">
       <DependentUpon>202306020710278_TcePositionInTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306280608318_PriceEngineeringTaskConfiguration.cs" />
+    <Compile Include="Migrations\202306280608318_PriceEngineeringTaskConfiguration.designer.cs">
+      <DependentUpon>202306280608318_PriceEngineeringTaskConfiguration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -722,6 +726,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306020710278_TcePositionInTasks.resx">
       <DependentUpon>202306020710278_TcePositionInTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306280608318_PriceEngineeringTaskConfiguration.resx">
+      <DependentUpon>202306280608318_PriceEngineeringTaskConfiguration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

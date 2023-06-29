@@ -11,12 +11,12 @@ namespace HVTApp.DataAccess
             HasRequired(task => task.ProductBlockManager).WithMany().WillCascadeOnDelete(false);
             HasRequired(task => task.ProductBlockEngineer).WithMany().WillCascadeOnDelete(false);
             HasOptional(task => task.DesignDepartment).WithMany().WillCascadeOnDelete();
-            HasMany(task => task.ProductBlocksAdded).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.ProductBlocksAdded).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(true);
 
             HasMany(task => task.FilesTechnicalRequirements).WithMany();
-            HasMany(task => task.FilesAnswers).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.FilesAnswers).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(true);
 
-            HasMany(task => task.Messages).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(false);
+            HasMany(task => task.Messages).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(true);
             HasMany(task => task.ChildPriceEngineeringTasks).WithOptional().HasForeignKey(task => task.ParentPriceEngineeringTaskId).WillCascadeOnDelete(false);
 
             HasMany(task => task.Statuses).WithRequired().HasForeignKey(task => task.PriceEngineeringTaskId).WillCascadeOnDelete(true);
