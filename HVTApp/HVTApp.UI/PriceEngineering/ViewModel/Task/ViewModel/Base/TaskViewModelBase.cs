@@ -104,6 +104,8 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public bool IsValidForProduction => Model.IsValidForProduction;
 
+        public string TceNumber => Model.GetPriceEngineeringTasks(this.UnitOfWork).TceNumber;
+
         #endregion
 
         #region ComplexProperties

@@ -55,6 +55,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Column="0">
@@ -106,7 +107,36 @@
                                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Mode=OneWay, Converter={StaticResource ToCommentConverter}}" />
                             </Grid>
 
-                            <ContentPresenter Grid.Column="1" Content="{Binding ButtonsArea, ElementName=Root}"/>
+                            <!--Team Center-->
+                            <GroupBox Grid.Column="1" Background="Transparent" Margin="5 0" MaxHeight="90">
+                                <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Label Content="Team Center"/>
+                                    </DataTemplate>
+                                </GroupBox.HeaderTemplate>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto" MinWidth="70"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Заявка:"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" 
+                                             Text="{Binding TceNumber, Mode=OneTime}"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Позиция:"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" 
+                                             Text="{Binding Model.TcePosition, Mode=OneTime}"/>
+                                </Grid>
+                            </GroupBox>
+
+                            <!--Область кнопок-->
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Content="{Binding ButtonsArea, ElementName=Root}"/>
 
                         </Grid>
                     </Border>
