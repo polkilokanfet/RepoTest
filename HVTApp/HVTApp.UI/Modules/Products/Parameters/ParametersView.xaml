@@ -4,13 +4,13 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:prism="http://prismlibrary.com/" 
               xmlns:views="clr-namespace:HVTApp.UI.Views"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.UI.Modules.Products.Parameters.ParametersView">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
@@ -30,15 +30,14 @@
                 </infg:XamDataGrid.FieldLayouts>
             </infg:XamDataGrid>
         </GroupBox>
+        <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/>
 
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
-
-        <GroupBox Grid.Column="2" Header="Детали">
+        <GroupBox Grid.Column="1" Header="Детали">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -104,10 +103,9 @@
 
                     </Grid>
                 </GroupBox>
+                <GridSplitter Grid.Row="1" VerticalAlignment="Bottom" Height="3"/>
 
-                <GridSplitter Grid.Row="2" VerticalAlignment="Center"/>
-
-                <GroupBox Grid.Row="3" Header="Пути выбора">
+                <GroupBox Grid.Row="2" Header="Пути выбора">
                     <infg:XamDataGrid DataSource="{Binding Paths}" Style="{StaticResource ListViewGrid}" >
                         <infg:XamDataGrid.FieldLayouts>
                             <infg:FieldLayout>
@@ -117,6 +115,30 @@
                             </infg:FieldLayout>
                         </infg:XamDataGrid.FieldLayouts>
                     </infg:XamDataGrid>
+                </GroupBox>
+                <GridSplitter Grid.Row="2" VerticalAlignment="Bottom" Height="3"/>
+
+                <GroupBox Grid.Row="3" Header="Блоки продуктов">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox Grid.Column="0" Header="Параметры (отбора)">
+                            <controls:ChooseItemsListControl 
+                                Items="{Binding}"
+                                AddItemCommand="{Binding}"
+                                RemoveItemCommand="{Binding}"/>
+                        </GroupBox>
+                        <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/>
+
+                        <GroupBox Grid.Column="1" Header="Блоки"></GroupBox>
+                        <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/>
+
+                        <GroupBox Grid.Column="2" Header="Параметры (блока)"></GroupBox>
+                    </Grid>
                 </GroupBox>
 
             </Grid>

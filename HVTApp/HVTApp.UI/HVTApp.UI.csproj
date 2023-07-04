@@ -259,6 +259,7 @@
     <Compile Include="Modules\Products\LaborHours\LaborHoursViewTab.xaml.cs">
       <DependentUpon>LaborHoursViewTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Products\Parameters\ParameterLookups.cs" />
     <Compile Include="Modules\Products\Tabs\TabProductRelations.xaml.cs">
       <DependentUpon>TabProductRelations.xaml</DependentUpon>
     </Compile>

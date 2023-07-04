@@ -13,17 +13,39 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Products.Parameters
 {
-    public class ParametersViewModel : ParameterDetailsViewModel
+    public partial class ParametersViewModel : ParameterDetailsViewModel
     {
+        /// <summary>
+        /// Список всех параметров
+        /// </summary>
+        public ParameterLookups ParameterLookups { get; }
+
+        public IEnumerable<ParameterWrapper> PotentialRelationParameters
+        {
+            get
+            {
+                //все параметры
+                var parameters = ParameterLookups.Select(x => x.Entity).ToList();
+
+                if (SelectedRelation == null) return null;
+
+                //группы выбранных параметров
+                var groups = SelectedRelation.RequiredParameters.Select(x => x.ParameterGroup.Model).Distinct().ToList();
+                //параметры этих групп
+                var sameGroupParameters = parameters.Where(x => groups.Contains(x.ParameterGroup));
+
+                return parameters.Except(sameGroupParameters).Select(x => new ParameterWrapper(x));
+            }
+        }
+
+        public ObservableCollection<PathToOrigin> Paths { get; } = new ObservableCollection<PathToOrigin>();
+
+        #region Selected
+
         private ParameterLookup _selectedParameterLookup;
         private ParameterRelationWrapper _selectedRelation;
         private ParameterWrapper _selectedPotentialParameter;
         private ParameterWrapper _selectedParameterInRelation;
-
-        /// <summary>
-        /// Список всех параметров
-        /// </summary>
-        public ObservableCollection<ParameterLookup> ParameterLookups { get; }
 
         /// <summary>
         /// Выбранный параметр
@@ -75,24 +97,6 @@ namespace HVTApp.UI.Modules.Products.Parameters
             }
         }
 
-        public IEnumerable<ParameterWrapper> PotentialRelationParameters
-        {
-            get
-            {
-                //все параметры
-                var parameters = ParameterLookups.Select(x => x.Entity).ToList();
-
-                if (SelectedRelation == null) return null;
-
-                //группы выбранных параметров
-                var groups = SelectedRelation.RequiredParameters.Select(x => x.ParameterGroup.Model).Distinct().ToList();
-                //параметры этих групп
-                var sameGroupParameters = parameters.Where(x => groups.Contains(x.ParameterGroup));
-
-                return parameters.Except(sameGroupParameters).Select(x => new ParameterWrapper(x));
-            }
-        }
-
         public ParameterWrapper SelectedPotentialParameter
         {
             get => _selectedPotentialParameter;
@@ -114,18 +118,22 @@ namespace HVTApp.UI.Modules.Products.Parameters
             }
         }
 
-        public ObservableCollection<PathToOrigin> Paths { get; } = new ObservableCollection<PathToOrigin>();
+        #endregion
+
+        #region Commands
 
         public DelegateLogCommand AddParameterCommand { get; }
         public DelegateLogCommand AddSimilarParameterCommand { get; }
 
-        public DelegateLogCommand RemoveParameterCommand { get; }
+        public DelegateLogConfirmationCommand RemoveParameterCommand { get; }
 
         public DelegateLogCommand AddRelationCommand { get; }
         public DelegateLogCommand RemoveRelationCommand { get; }
 
         public DelegateLogCommand AddParameterToRelationCommand { get; }
         public DelegateLogCommand RemoveParameterFromRelationCommand { get; }
+
+        #endregion
 
         #region AddSimilarParameters
 
@@ -139,8 +147,9 @@ namespace HVTApp.UI.Modules.Products.Parameters
 
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
-            var parameters = UnitOfWork.Repository<Parameter>().Find(x => true);
-            ParameterLookups = new ObservableCollection<ParameterLookup>(parameters.Select(x => new ParameterLookup(x)));
+            ParameterLookups = new ParameterLookups(UnitOfWork.Repository<Parameter>().GetAll(), this);
+
+            #region Commands
 
             AddParameterCommand = new DelegateLogCommand(
                 () =>
@@ -193,16 +202,12 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 },
                 () => SelectedParameterLookup != null);
 
-            RemoveParameterCommand = new DelegateLogCommand(
+            RemoveParameterCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
                 () =>
                 {
-                    if (container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") != MessageDialogResult.Yes)
-                    {
-                        return;
-                    }
-
                     var unitOfWork = container.Resolve<IUnitOfWork>();
-                    Parameter parameter = unitOfWork.Repository<Parameter>().GetById(SelectedParameterLookup.Entity.Id);
+                    var parameter = unitOfWork.Repository<Parameter>().GetById(SelectedParameterLookup.Entity.Id);
 
                     var productRelations = unitOfWork.Repository<ProductRelation>().Find(x => x.ParentProductParameters.Contains(parameter) || x.ChildProductParameters.Contains(parameter));
                     if (productRelations.Any())
@@ -268,23 +273,14 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     this.SelectedRelation.RequiredParameters.Remove(SelectedParameterInRelation);
                 },
                 () => this.SelectedRelation != null && this.SelectedParameterInRelation != null);
+
+            #endregion
         }
 
         protected override void SaveItem()
         {
             base.SaveItem();
-
-            if (ParameterLookups.ContainsById(Item.Model))
-            {
-                var lookup = ParameterLookups.Single(x => x.Entity.Id == Item.Id);
-                lookup.Refresh(Item.Model);
-            }
-            else
-            {
-                var lookup = new ParameterLookup(Item.Model);
-                ParameterLookups.Add(lookup);
-                SelectedParameterLookup = lookup;
-            }
+            this.ParameterLookups.Refresh(Item.Model);
         }
     }
 }
