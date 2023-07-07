@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="HVTApp.UI.Modules.Products.Parameters.BlocksControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             x:Name="Root">
+
+
+    <GroupBox Header="{Binding Title, ElementName=Root}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Grid.Column="0" Header="Параметры">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="~" Command="{Binding AddByBlockCommand, ElementName=Root}"></Button>
+                        <Button Grid.Column="1" Content="+" Command="{Binding AddCommand, ElementName=Root}"></Button>
+                        <Button Grid.Column="2" Content="-" Command="{Binding RemoveCommand, ElementName=Root}"></Button>
+                    </Grid>
+
+                    <ListBox Grid.Row="1" 
+                             ItemsSource="{Binding Parameters, ElementName=Root}"
+                             SelectedItem="{Binding SelectedParameter, ElementName=Root, Mode=TwoWay}">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding ParameterGroup}"/>
+                                    <TextBlock Text=" || "/>
+                                    <TextBlock Text="{Binding Value}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </GroupBox>
+
+            <GridSplitter Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3"/>
+
+            <GroupBox Grid.Column="1" Header="Блоки">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Content="Загрузить" Command="{Binding LoadBlocksCommand, ElementName=Root}"/>
+                    <ListBox Grid.Row="1" 
+                             SelectedItem="{Binding SelectedBlock, Mode=TwoWay, ElementName=Root}"
+                             ItemsSource="{Binding Blocks, ElementName=Root}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Designation}"/>
+                                    <TextBlock Text="; scc: "/>
+                                    <TextBlock Text="{Binding StructureCostNumber}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <GridSplitter Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="3"></GridSplitter>
+                    
+                    <GroupBox Grid.Row="2" Header="Параметры выбранного блока">
+                        <dataPresenter:XamDataGrid 
+                            DataSource="{Binding SelectedBlock.Parameters, ElementName=Root}"
+                            SelectedDataItem="{Binding SelectedParameterInBlock, ElementName=Root}">
+                            <dataPresenter:XamDataGrid.FieldLayouts>
+                                <dataPresenter:FieldLayout>
+                                    <dataPresenter:FieldLayout.Fields>
+                                        <dataPresenter:TextField Name="ParameterGroup" Label="Группа" Width="100" AllowResize="True"/>
+                                        <dataPresenter:TextField Name="Value" Label="Значение" Width="100" AllowResize="True"/>
+                                    </dataPresenter:FieldLayout.Fields>
+                                </dataPresenter:FieldLayout>
+
+                            </dataPresenter:XamDataGrid.FieldLayouts>
+                        </dataPresenter:XamDataGrid>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+
+
+
+        </Grid>
+    </GroupBox>
+
+</UserControl>

@@ -51,4 +51,9 @@
         <infRib:ButtonTool Caption="Добавить" Command="{Binding AddSimilarParametersCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Замена блоков">
+        <infRib:ButtonTool Caption="Заменить" Command="{Binding ProductReplacer.ReplaceCommand}" SmallImage="/HVTApp.UI;component/Images/replace.png"/>
+        <infRib:ButtonTool Caption="Удалить параметр" Command="{Binding ProductReplacer.RemoveParameterCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

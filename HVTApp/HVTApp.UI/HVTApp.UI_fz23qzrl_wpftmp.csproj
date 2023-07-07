@@ -1,0 +1,1962 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{984DF0F0-471D-4E38-B701-9DFC536217A8}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HVTApp.UI</RootNamespace>
+    <AssemblyName>HVTApp.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\DelegateLogConfirmationCommand.cs" />
+    <Compile Include="Components\ViewBaseSaveCustomization.cs" />
+    <Compile Include="Controls\ButtonIsVisibleWhenCanExecute.xaml.cs">
+      <DependentUpon>ButtonIsVisibleWhenCanExecute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoadableContentControl.xaml.cs">
+      <DependentUpon>LoadableContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\LookupsToStringConverter.cs" />
+    <Compile Include="Converter\ObjectsToStringConverter.cs" />
+    <Compile Include="Converter\ObjectToStringConverter.cs" />
+    <Compile Include="Converter\PartToPercentConverter.cs" />
+    <Compile Include="Converter\PartToPercentConverterNullable.cs" />
+    <Compile Include="Converter\HistoryElementTypeToStringConverter.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\Items\EngineeringDepartmentTask.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\Items\EngineeringDepartmentTaskPrice.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModel.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelAdmin.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelConstructor.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\ViewModels\EngineeringDepartmentTasksQueueViewModelDepartmentHead.cs" />
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueControl.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewConstructor.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueViewConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewDepartmentHead.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueViewDepartmentHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewAdmin.xaml.cs">
+      <DependentUpon>EngineeringDepartmentTasksQueueViewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueue.xaml.cs">
+      <DependentUpon>TabEngineeringDepartmentTasksQueue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueueAdmin.xaml.cs">
+      <DependentUpon>TabEngineeringDepartmentTasksQueueAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extantions\Ext.cs" />
+    <Compile Include="Extantions\ExtWpf.cs" />
+    <Compile Include="Helpers\OutlookDataObject.cs" />
+    <Compile Include="Lookup\Items\Custom\DirectumTaskGroupLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\DirectumTaskLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\IncomingRequestLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\LaborHoursLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceCalculationFileLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceCalculationItemLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceCalculationLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PriceEngineeringTasksLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\ProductBlockLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\ProductRelationLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\TechnicalRequrementsLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\TechnicalRequrementsTaskLookup.cs" />
+    <Compile Include="Modules\BookRegistration\Tabs\TabIncomingRequest.xaml.cs">
+      <DependentUpon>TabIncomingRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Tabs\TabIncomingRequests.xaml.cs">
+      <DependentUpon>TabIncomingRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Tabs\TabBookRegistration.xaml.cs">
+      <DependentUpon>TabBookRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Tabs\TabDocument.xaml.cs">
+      <DependentUpon>TabDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\ViewModels\BookRegistrationViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
+    <Compile Include="Modules\Directum\DirectumExt.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\ContentTaskControl.xaml.cs">
+      <DependentUpon>ContentTaskControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\DirectumTask\Route\DirectumTaskRoute.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\Route\DirectumTaskRouteViewModel.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\Route\DirectumTaskRouteWindow.xaml.cs">
+      <DependentUpon>DirectumTaskRouteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\DirectumTask\TabDirectumTask.xaml.cs">
+      <DependentUpon>TabDirectumTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Incoming\ToAccept\DirectumTasksIncomingToAcceptViewModel.cs" />
+    <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingToLateView.xaml.cs">
+      <DependentUpon>DirectumTasksIncomingToLateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Incoming\ToAccept\DirectumTasksIncomingToAcceptView.xaml.cs">
+      <DependentUpon>DirectumTasksIncomingToAcceptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Incoming\ToPerform\DirectumTasksIncomingToPerformViewModel.cs" />
+    <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingView.xaml.cs">
+      <DependentUpon>DirectumTasksIncomingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Incoming\DirectumTasksIncomingViewModel.cs" />
+    <Compile Include="Modules\Directum\Incoming\ToPerform\DirectumTasksIncomingToPerformView.xaml.cs">
+      <DependentUpon>DirectumTasksIncomingToPerformView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\Outgoing\DirectumTasksOutgoingViewModel.cs" />
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskView.xaml.cs">
+      <DependentUpon>DirectumTaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\DirectumTask\DirectumTaskViewModel.cs" />
+    <Compile Include="Modules\Directum\Outgoing\DirectumTasksOutgoingView.xaml.cs">
+      <DependentUpon>DirectumTasksOutgoingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Directum\DirectumTasksViewModelBase.cs" />
+    <Compile Include="Modules\Directum\TabDirectumTasks.xaml.cs">
+      <DependentUpon>TabDirectumTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\ServiceRealizationDatesView.xaml.cs">
+      <DependentUpon>ServiceRealizationDatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\ServiceRealizationDatesViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\ServiceRealizationDatesItem.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\ServiceRealizationDatesGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.xaml.cs">
+      <DependentUpon>TabServiceRealizationDates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentActualWrapper2.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\AddPaymentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\BasePaymentDocumentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemovePaymentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemoveDocumentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RestPaymentCommand.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentWrapper1.cs" />
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesView.xaml.cs">
+      <DependentUpon>SpecificationSignDatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesWrapper.cs" />
+    <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\TabSpecificationSignDates.xaml.cs">
+      <DependentUpon>TabSpecificationSignDates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionView.xaml.cs">
+      <DependentUpon>SupervisionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Supervision\SupervisionWr.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Supervision\TabSupervision.xaml.cs">
+      <DependentUpon>TabSupervision.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsViewModel.cs" />
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsWrapper.cs" />
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsView.xaml.cs">
+      <DependentUpon>LaborCostsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PriceMaking\LaborCosts\LaborCostsViewTab.xaml.cs">
+      <DependentUpon>LaborCostsViewTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\LaborHours\Block.cs" />
+    <Compile Include="Modules\Products\LaborHours\LaborHoursViewModel.cs" />
+    <Compile Include="Modules\Products\LaborHours\LaborHoursView.xaml.cs">
+      <DependentUpon>LaborHoursView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\LaborHours\LaborHoursViewTab.xaml.cs">
+      <DependentUpon>LaborHoursViewTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Parameters\ParameterLookups.cs" />
+    <Compile Include="Modules\Products\Parameters\ProductReplacer.cs" />
+    <Compile Include="Modules\Products\Parameters\BlocksControl.xaml.cs">
+      <DependentUpon>BlocksControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabProductRelations.xaml.cs">
+      <DependentUpon>TabProductRelations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\ViewModels\ProductRelationsViewModel.cs" />
+    <Compile Include="Modules\Products\Views\ProductRelationsView.xaml.cs">
+      <DependentUpon>ProductRelationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\CommonInfo\SalesUnitsCommonInfoComparer.cs" />
+    <Compile Include="Modules\Reports\CommonInfo\CommonInfoView.xaml.cs">
+      <DependentUpon>CommonInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\CommonInfo\CommonInfoViewModel.cs" />
+    <Compile Include="Modules\Reports\CommonInfo\CommonInfoUnitGroup.cs" />
+    <Compile Include="Modules\Reports\CommonInfo\TabCommonInfo.xaml.cs">
+      <DependentUpon>TabCommonInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionViewModel.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisonItem.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionView.xaml.cs">
+      <DependentUpon>BudgetComparisionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerMonthOit.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerMonthRealization.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportView.xaml.cs">
+      <DependentUpon>SalesReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FlatReport\Reports\SalesReportViewModel.cs" />
+    <Compile Include="Modules\Reports\MarketReport\ProducersMarket.cs" />
+    <Compile Include="Modules\Reports\MarketReport\TabMarketReportView.xaml.cs">
+      <DependentUpon>TabMarketReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\TceReport\TceReportView.xaml.cs">
+      <DependentUpon>TceReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\TceReport\TceReportViewModel.cs" />
+    <Compile Include="Modules\Reports\TceReport\TceReportUnit.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditOfferCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditPriceCalculationCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditTechnicalRequrementsTaskCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\EditTenderCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\MakePriceEngineeringTaskCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\MakeTceTaskCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OfferByOfferCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OfferByProjectCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\NewTenderCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OpenFolderCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\OpenTenderLinkCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\PriceCalculationCopyCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\PrintOfferCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\ProjectEditCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\ProjectRemoveCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\SelectProjectsFolderCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
+    <Compile Include="PriceCalculations\ViewModel\Wrapper\StructureCost2Wrapper.cs" />
+    <Compile Include="PriceEngineering\Converters\AddedBlockAmountToStringConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\BlockAddedIsEnabledConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\BlockAddedWidthConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\FilesTechnicalRequirementsToVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskMessageVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusMessageVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelDesignDepartmentHeadVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelBackManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedChildTasksConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsExpendedConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerNewVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToManagersCommentConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\ToFacilityOwnerConverter.cs" />
+    <Compile Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksView.xaml.cs">
+      <DependentUpon>InvoiceForPaymentTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksViewModel.cs" />
+    <Compile Include="PriceEngineering\InvoiceForPayment\TabInvoiceForPaymentTasksView.xaml.cs">
+      <DependentUpon>TabInvoiceForPaymentTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Statistics\PriceEngineeringStatisticsView.xaml.cs">
+      <DependentUpon>PriceEngineeringStatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Statistics\PriceEngineeringStatisticsViewModel.cs" />
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTaskBackManager.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTaskBackManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTaskBackManagerBoss.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTaskBackManagerBoss.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasksAdmin.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTasksAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemPlanMaker.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemPlanMaker.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelAdmin.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelPlanMaker.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewAdmin.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListViewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperPlanMaker.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelPlanMaker.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBase.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemConstructor.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemSalesManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemBase.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemConstructor.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemSalesManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBase.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelSalesManager.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\Converters\UnVisibleToConstructorConverter.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\Converters\UnVisibleToManagerConverter.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\WorkloadOnEmployeesControl.xaml.cs">
+      <DependentUpon>WorkloadOnEmployeesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListControl.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewDesignDepartmentHead.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListViewDesignDepartmentHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\TasksList\ViewModel\WorkloadItem.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\IPriceEngineeringTasksViewModel.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelManager.cs" />
+    <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessenger.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelVisible.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapperManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandAcceptByHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandAcceptedByManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommand.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandFinishByConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandLoadToTceFinish.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandLoadToTceStart.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandProductionRequestFinish.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandProductionRequestStart.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectByHeadToConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectByHeadToManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectedByConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandRejectedByManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStart.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStop.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelLoadFilesCommand.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBaseStartable.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskViewModelBaseConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskViewModelBaseDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskViewModelBaseManager.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossIsUserConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerBossVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelBackManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Converters\Visibility\TasksTceViewModelFrontManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelConstructorVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelDesignDepartmentHeadVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelIsTargetTaskVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToBoarderThicknessConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToFacilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductAmountConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToProductDesignationConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskWrapperToChildTasksVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\ProductBlockToDesignationConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\StatusToColorConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\StructureCostIsReadOnlyConverter.cs" />
+    <Compile Include="PriceEngineering\Messages\MessageControl.xaml.cs">
+      <DependentUpon>MessageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Messages\PriceEngineeringTaskMessageToColorConverter.cs" />
+    <Compile Include="PriceEngineering\ParametersService1\ParametersServiceView.xaml.cs">
+      <DependentUpon>ParametersServiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Report\BlockReportControl.xaml.cs">
+      <DependentUpon>BlockReportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Report\BlockReportView.xaml.cs">
+      <DependentUpon>BlockReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTasks.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListView.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\TaskProductBlockAdded\TaskProductBlockAddedWrapper.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapper.cs" />
+    <Compile Include="PriceEngineering\ParametersService1\ParametersServiceViewModel.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelConstructor.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelDesignDepartmentHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManager.cs" />
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModel.cs" />
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\Tce\List\ViewModel\PriceEngineeringTasksTceViewModelFrontManager.cs" />
+    <Compile Include="PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView2.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksTceView2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModelBackManager.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModelBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModelFrontManager.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\Wrappers\ProductBlockAddedWrapper.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\Wrappers\SccVersionWrapper.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\Wrappers\TasksTceItem.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\Wrappers\TasksTceWrapper.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToAmountConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToDeliveryTypeConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityAddressConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToFacilityOwnerConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToProductConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\Converters\TceItemToRealizationDateConverter.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\View\TabTaskTceView.xaml.cs">
+      <DependentUpon>TabTaskTceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\View\TasksTceView.xaml.cs">
+      <DependentUpon>TasksTceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\View\Controls\TasksTceItemControl.xaml.cs">
+      <DependentUpon>TasksTceItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Second\View\Controls\SccVersionControl.xaml.cs">
+      <DependentUpon>SccVersionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTaskTce.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskWrapper1.cs" />
+    <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModel.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelPlanMaker.cs" />
+    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlDesignDepartmentHead.xaml.cs">
+      <DependentUpon>CommonInformationControlDesignDepartmentHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlConstructor.xaml.cs">
+      <DependentUpon>CommonInformationControlConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlConstructor.xaml.cs">
+      <DependentUpon>FilesControlConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlConstructor1.xaml.cs">
+      <DependentUpon>FilesControlConstructor1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlManager1.xaml.cs">
+      <DependentUpon>FilesControlManager1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesSingleControl.xaml.cs">
+      <DependentUpon>FilesSingleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlManager.xaml.cs">
+      <DependentUpon>FilesControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\PriceCalculationsControl.xaml.cs">
+      <DependentUpon>PriceCalculationsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml.cs">
+      <DependentUpon>BlockAddedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlPlanMaker.xaml.cs">
+      <DependentUpon>ProductTaskControlPlanMaker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManager.xaml.cs">
+      <DependentUpon>ProductTaskControlBackManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManagerBoss.xaml.cs">
+      <DependentUpon>ProductTaskControlBackManagerBoss.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlDesignDepartmentHead.xaml.cs">
+      <DependentUpon>ProductTaskControlDesignDepartmentHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlConstructor.xaml.cs">
+      <DependentUpon>ProductTaskControlConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.xaml.cs">
+      <DependentUpon>ProductTaskControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlHeader.xaml.cs">
+      <DependentUpon>ProductTaskControlHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControl.xaml.cs">
+      <DependentUpon>ProductTaskControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlocksAddedControlConstructor.xaml.cs">
+      <DependentUpon>BlocksAddedControlConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\Chat\TaskChatControl.xaml.cs">
+      <DependentUpon>TaskChatControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlocksAddedControl.xaml.cs">
+      <DependentUpon>BlocksAddedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlManager.xaml.cs">
+      <DependentUpon>CommonInformationControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\IncludedBlocksControl.xaml.cs">
+      <DependentUpon>IncludedBlocksControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlPlanMaker.xaml.cs">
+      <DependentUpon>TaskControlPlanMaker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlBackManager.xaml.cs">
+      <DependentUpon>TaskControlBackManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlBackManagerBoss.xaml.cs">
+      <DependentUpon>TaskControlBackManagerBoss.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlDesignDepartmentHead.xaml.cs">
+      <DependentUpon>TaskControlDesignDepartmentHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlConstructor.xaml.cs">
+      <DependentUpon>TaskControlConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager1.xaml.cs">
+      <DependentUpon>TaskControlManager1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
+      <DependentUpon>TaskControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlPlanMaker.xaml.cs">
+      <DependentUpon>TasksControlPlanMaker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManagerBoss.xaml.cs">
+      <DependentUpon>TasksControlBackManagerBoss.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlBackManager.xaml.cs">
+      <DependentUpon>TasksControlBackManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlConstructor.xaml.cs">
+      <DependentUpon>TasksControlConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlDesignDepartmentHead.xaml.cs">
+      <DependentUpon>TasksControlDesignDepartmentHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlManager.xaml.cs">
+      <DependentUpon>TasksControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControl.xaml.cs">
+      <DependentUpon>TasksControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControl.xaml.cs">
+      <DependentUpon>FilesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\PriceEngineeringTaskStatusControl.xaml.cs">
+      <DependentUpon>PriceEngineeringTaskStatusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewPlanMaker.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewPlanMaker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewBackManager.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewBackManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewManager.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewBackManagerBoss.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewBackManagerBoss.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductBlockControl.xaml.cs">
+      <DependentUpon>ProductBlockControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewDesignDepartmentHead.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewDesignDepartmentHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewConstructor.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewConstructor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControl.xaml.cs">
+      <DependentUpon>TaskControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModel.cs" />
+    <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
+    <Compile Include="Tabs\TabDesignDepartments.xaml.cs">
+      <DependentUpon>TabDesignDepartments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabProduct.xaml.cs">
+      <DependentUpon>TabProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabProductBlocks.xaml.cs">
+      <DependentUpon>TabProductBlocks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
+    <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
+    <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\ProjectNewCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Converters\ProjectItemToFontWeightConverter.cs" />
+    <Compile Include="Modules\Sales\Market\Converters\ProjectItemToOpacityConverter.cs" />
+    <Compile Include="Modules\Sales\Market\Items\ProjectItemsCollection.cs" />
+    <Compile Include="Modules\Sales\Market\Outlook\Outlook.cs" />
+    <Compile Include="Modules\Sales\Payments\PaymentsGroup.cs" />
+    <Compile Include="Modules\Sales\Payments\PaymentWrapper.cs" />
+    <Compile Include="Modules\Products\ViewModels\ProductReplacementViewModel.cs" />
+    <Compile Include="Modules\Products\Views\ProductReplacementView.xaml.cs">
+      <DependentUpon>ProductReplacementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FlatReport\Comparator\FlatReportComparator.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItem.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\FlatReportItemManagerContainer.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\MonthContainersPair.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerYear.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportViewModel.cs" />
+    <Compile Include="Modules\Reports\FlatReport\Containers\ContainerMonth.cs" />
+    <Compile Include="Modules\Reports\FlatReport\FlatReportView.xaml.cs">
+      <DependentUpon>FlatReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FlatReport\TabFlatReport.xaml.cs">
+      <DependentUpon>TabFlatReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\MarketReport\MarketReportUnit.cs" />
+    <Compile Include="Modules\Reports\MarketReport\MarketReportView.xaml.cs">
+      <DependentUpon>MarketReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\MarketReport\MarketReportViewModel.cs" />
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportGroup.cs" />
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportItem.cs" />
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportViewModel.cs" />
+    <Compile Include="Modules\Reports\PriorityReport\PriorityReportView.xaml.cs">
+      <DependentUpon>PriorityReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\PriorityReport\TabReload.xaml.cs">
+      <DependentUpon>TabReload.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartView.xaml.cs">
+      <DependentUpon>ContragentsSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartView.xaml.cs">
+      <DependentUpon>ConsumersSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartView.xaml.cs">
+      <DependentUpon>MarketCapacityChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartView.xaml.cs">
+      <DependentUpon>ProducersSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\SalesChartUserControl.xaml.cs">
+      <DependentUpon>SalesChartUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\SalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\SalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartView.xaml.cs">
+      <DependentUpon>RegionsSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\SalesUnitsContainer.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\TabSalesChart.xaml.cs">
+      <DependentUpon>TabSalesChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartView.xaml.cs">
+      <DependentUpon>ManagersSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartItem.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartView.xaml.cs">
+      <DependentUpon>ProductTypesSalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Payments\SalesUnitWrapper1.cs" />
+    <Compile Include="Modules\Sales\Shippings\ShippingGroup.cs" />
+    <Compile Include="Modules\Sales\Shippings\ShippingUnitWrapper.cs" />
+    <Compile Include="Modules\Sales\Supervision\SupervisionView.xaml.cs">
+      <DependentUpon>SupervisionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Supervision\SupervisionViewModel.cs" />
+    <Compile Include="Modules\Sales\Supervision\TabSupervision.xaml.cs">
+      <DependentUpon>TabSupervision.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInProject.xaml.cs">
+      <DependentUpon>TabCrudUnitsInProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\ViewModels\Containers\PriceCalculationsContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\TechnicalRequrementsTasksContainer.cs" />
+    <Compile Include="Commands\DelegateLogCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\MoveToExistsProjectCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\MoveToNewProjectCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectDetailsViewModel1.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectWrapper1.cs" />
+    <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />
+    <Compile Include="Modules\Sales\Views\SupervisionPriceWindow.xaml.cs">
+      <DependentUpon>SupervisionPriceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Settings\ViewModels\DataBaseBackupViewModel.cs" />
+    <Compile Include="Modules\Settings\ViewModels\UserSettingsViewModel.cs" />
+    <Compile Include="Modules\Settings\Views\DataBaseBackupView.xaml.cs">
+      <DependentUpon>DataBaseBackupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Settings\Views\UserSettingsView.xaml.cs">
+      <DependentUpon>UserSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Views\IncomingRequestView.xaml.cs">
+      <DependentUpon>IncomingRequestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Views\IncomingRequestsView.xaml.cs">
+      <DependentUpon>IncomingRequestsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Views\BookRegistrationView.xaml.cs">
+      <DependentUpon>BookRegistrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BookRegistration\Views\DocumentView.xaml.cs">
+      <DependentUpon>DocumentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Director\Tabs\TabReload.xaml.cs">
+      <DependentUpon>TabReload.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Director\ViewModels\MarketUnit.cs" />
+    <Compile Include="Modules\Director\ViewModels\MarketViewModel.cs" />
+    <Compile Include="Modules\Director\ViewModels\SalesGroup.cs" />
+    <Compile Include="Modules\Director\Views\MarketView.xaml.cs">
+      <DependentUpon>MarketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabOrder.xaml.cs">
+      <DependentUpon>TabOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabPaymentDocument.xaml.cs">
+      <DependentUpon>TabPaymentDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\TabPayments.xaml.cs">
+      <DependentUpon>TabPayments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabPaymentsActual.xaml.cs">
+      <DependentUpon>TabPaymentsActual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Tabs\TabProductionPlan.xaml.cs">
+      <DependentUpon>TabProductionPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Dates\TabDates.xaml.cs">
+      <DependentUpon>TabDates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Dates\DatesViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\ISalesUnitOrder.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\SalesUnitDates.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\SalesUnitDatesGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderItem.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\SalesUnitPayment.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\Payment1.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\AfterSaveOrderItemsEvent.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentsActualViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\PaymentsViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\OrderItem.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\ProductionPlan\ProductionPlanViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\ViewModels\ProjectItem.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\DatesView.xaml.cs">
+      <DependentUpon>DatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentView.xaml.cs">
+      <DependentUpon>PaymentDocumentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentsActualView.xaml.cs">
+      <DependentUpon>PaymentsActualView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanView.xaml.cs">
+      <DependentUpon>PaymentsPlanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\PaymentsView.xaml.cs">
+      <DependentUpon>PaymentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\Views\ProductionPlanView.xaml.cs">
+      <DependentUpon>ProductionPlanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PriceMaking\Tabs\TabPriceTasks.xaml.cs">
+      <DependentUpon>TabPriceTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PriceMaking\ViewModels\PricesViewModel.cs" />
+    <Compile Include="Modules\PriceMaking\ViewModels\PriceTask.cs" />
+    <Compile Include="Modules\PriceMaking\Views\PricesView.xaml.cs">
+      <DependentUpon>PricesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabCreateNewProductTasks.xaml.cs">
+      <DependentUpon>TabCreateNewProductTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabParameters.xaml.cs">
+      <DependentUpon>TabParameters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabProductTypeDesignation.xaml.cs">
+      <DependentUpon>TabProductTypeDesignation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Tabs\TabStructureCosts.xaml.cs">
+      <DependentUpon>TabStructureCosts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\ViewModels\CreateNewProductTasksViewModel.cs" />
+    <Compile Include="Modules\Products\Parameters\ParametersViewModel.cs" />
+    <Compile Include="Modules\Products\ViewModels\ProductBlockStructureCostWrapper.cs" />
+    <Compile Include="Modules\Products\ViewModels\ProductTypeDesignationViewModel.cs" />
+    <Compile Include="Modules\Products\ViewModels\StructureCostsViewModel.cs" />
+    <Compile Include="Modules\Products\Views\CreateNewProductTasksView.xaml.cs">
+      <DependentUpon>CreateNewProductTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Parameters\ParametersView.xaml.cs">
+      <DependentUpon>ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Views\ProductTypeDesignationView.xaml.cs">
+      <DependentUpon>ProductTypeDesignationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\Views\StructureCostsView.xaml.cs">
+      <DependentUpon>StructureCostsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Tabs\TabReload.xaml.cs">
+      <DependentUpon>TabReload.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Reference\ReferenceItem.cs" />
+    <Compile Include="Modules\Reports\Reference\ReferenceViewModel.cs" />
+    <Compile Include="Modules\Reports\ViewModels\SalesChartViewModel.cs" />
+    <Compile Include="Modules\Reports\SalesReport\SalesReportUnit.cs" />
+    <Compile Include="Modules\Reports\SalesReport\SalesReportViewModel.cs" />
+    <Compile Include="Modules\Reports\ViewModels\Comparers.cs" />
+    <Compile Include="Modules\Reports\Views\SalesChartView.xaml.cs">
+      <DependentUpon>SalesChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\Reference\ReferenceView.xaml.cs">
+      <DependentUpon>ReferenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\SalesReport\SalesReportView.xaml.cs">
+      <DependentUpon>SalesReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Controls\OfferUnitListControl.xaml.cs">
+      <DependentUpon>OfferUnitListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Controls\SalesUnitListControl.xaml.cs">
+      <DependentUpon>SalesUnitListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Controls\UnitListControl.xaml.cs">
+      <DependentUpon>UnitListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Market\Tabs\MarketSettingsTab.xaml.cs">
+      <DependentUpon>MarketSettingsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Market\Tabs\MarketViewTab.xaml.cs">
+      <DependentUpon>MarketViewTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Market\Tabs\MarketMainTab.xaml.cs">
+      <DependentUpon>MarketMainTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Payments\PaymentsTab.xaml.cs">
+      <DependentUpon>PaymentsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Production\ProductionTab.xaml.cs">
+      <DependentUpon>ProductionTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Shippings\ShippingTab.xaml.cs">
+      <DependentUpon>ShippingTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Tabs\TabCrudUnits.xaml.cs">
+      <DependentUpon>TabCrudUnits.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Tabs\TabProjects.xaml.cs">
+      <DependentUpon>TabProjects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerFilt.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\OffersContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\ProjectsContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\SalesUnitsContainerBase.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\SalesUnitsProjectBase.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\SalesUnitsSpecificationBase.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\SelectedItemChangedEvent.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\TendersContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\BaseGroupsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\BaseGroupsViewModel_Price.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\GroupsCollection.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\IGroupsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\OfferUnitsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\UnitsContainer.cs" />
+    <Compile Include="Modules\Sales\Market\Market2ViewModel_Notes.cs" />
+    <Compile Include="Modules\Sales\Market\Market2ViewModel.cs" />
+    <Compile Include="Modules\Sales\Market\Market2ViewModel_Commands.cs" />
+    <Compile Include="Modules\Sales\Market\SalesUnitsMarketViewComparer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
+    <Compile Include="Modules\Sales\Payments\PaymentsViewModel.cs" />
+    <Compile Include="Modules\Sales\Production\ProductionGroup.cs" />
+    <Compile Include="Modules\Sales\Production\ProductionItem.cs" />
+    <Compile Include="Modules\Sales\Production\ProductionViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProductsIncludedViewModel.cs" />
+    <Compile Include="Modules\Sales\Market\Items\ProjectItem.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectNotesWrapper.cs" />
+    <Compile Include="Modules\Sales\ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="Modules\Sales\Market\Items\ProjectUnitsGroup.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\SalesUnitsCollection.cs" />
+    <Compile Include="Modules\Sales\ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
+    <Compile Include="Modules\Sales\Shippings\ShippingViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\SpecificationsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\SpecificationUnitsGroupsViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\SpecificationViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\TenderViewModel.cs" />
+    <Compile Include="Modules\Sales\Market\Market2View.xaml.cs">
+      <DependentUpon>Market2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\MarketView\MarketView.xaml.cs">
+      <DependentUpon>MarketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\OffersView.xaml.cs">
+      <DependentUpon>OffersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\OfferUnitsWindow.xaml.cs">
+      <DependentUpon>OfferUnitsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\OfferView.xaml.cs">
+      <DependentUpon>OfferView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Payments\PaymentsView.xaml.cs">
+      <DependentUpon>PaymentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Production\ProductionView.xaml.cs">
+      <DependentUpon>ProductionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\ProductsIncludedWindow.xaml.cs">
+      <DependentUpon>ProductsIncludedWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\ProjectsView.xaml.cs">
+      <DependentUpon>ProjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Project1\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\SalesUnitsWindow.xaml.cs">
+      <DependentUpon>SalesUnitsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Shippings\ShippingView.xaml.cs">
+      <DependentUpon>ShippingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\SpecificationsView.xaml.cs">
+      <DependentUpon>SpecificationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\SpecificationView.xaml.cs">
+      <DependentUpon>SpecificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Views\TenderWindow.xaml.cs">
+      <DependentUpon>TenderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Settings\ViewModels\AdminViewModel.cs" />
+    <Compile Include="Modules\Settings\ViewModels\PasswordViewModel.cs" />
+    <Compile Include="Modules\Settings\Views\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Settings\Views\PasswordView.xaml.cs">
+      <DependentUpon>PasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SupplyModule\Tabs\TabDates.xaml.cs">
+      <DependentUpon>TabDates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SupplyModule\ViewModels\PickingDatesViewModel.cs" />
+    <Compile Include="Modules\SupplyModule\ViewModels\SupplyPlanUnit.cs" />
+    <Compile Include="Modules\SupplyModule\ViewModels\SupplyPlanViewModel.cs" />
+    <Compile Include="Modules\SupplyModule\Views\SupplyPlanView.xaml.cs">
+      <DependentUpon>SupplyPlanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SupplyModule\Views\PickingDatesView.xaml.cs">
+      <DependentUpon>PickingDatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentConditionsSet\PaymentConditionView.xaml.cs">
+      <DependentUpon>PaymentConditionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentConditionsSet\PaymentConditionsSetViewModel.cs" />
+    <Compile Include="PaymentConditionsSet\PaymentConditionsSetView.xaml.cs">
+      <DependentUpon>PaymentConditionsSetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentConditionsSet\PaymentConditionViewModel.cs" />
+    <Compile Include="PaymentConditionsSet\PaymentConditionWrapper2.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\BasePriceCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\CancelCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\AddGroupCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\AddStructureCostCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RejectCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\SaveCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RemoveStructureCostCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\StartCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RemoveGroupCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\FinishCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\DivideCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\MeregeCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\LoadFileToDbCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\LoadFileFromDbCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\NewCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\EditCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\RemoveCalculationCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\LoadFileCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\Wrapper\PriceCalculation2Wrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\Wrapper\PriceCalculationItem2Wrapper.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculationItemsViewModel.cs" />
+    <Compile Include="PriceCalculations\View\PriceCalculationItemsWindow.xaml.cs">
+      <DependentUpon>PriceCalculationItemsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\View\PriceCalculationsView.xaml.cs">
+      <DependentUpon>PriceCalculationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculations\PriceCalculationsViewModel.cs" />
+    <Compile Include="PriceCalculations\View\PriceCalculationView.xaml.cs">
+      <DependentUpon>PriceCalculationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\PriceCalculationViewModel.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\SalesUnit2Comparer.cs" />
+    <Compile Include="PriceCalculations\Tabs\TabPriceCalculation.xaml.cs">
+      <DependentUpon>TabPriceCalculation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCalculations\Tabs\TabPriceCalculations.xaml.cs">
+      <DependentUpon>TabPriceCalculations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabProjects.xaml.cs">
+      <DependentUpon>TabProjects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabUsers.xaml.cs">
+      <DependentUpon>TabUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabRefresh.xaml.cs">
+      <DependentUpon>TabRefresh.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTasksView.xaml.cs">
+      <DependentUpon>TabTechnicalRequrementsTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\Converters\TechnicalRequrementsTaskToColorConverter.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksForBackManagerBossViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksForBackManagerViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksForFrontManagerViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksView.xaml.cs">
+      <DependentUpon>TechnicalRequrementsTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksBaseViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.xaml.cs">
+      <DependentUpon>TabTechnicalRequrementsTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\AcceptCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Answers\AddNewFileAnswersCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddFileBaseCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddOldFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\AddNewFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseOpenFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RejectCommandByFrontManager.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\AddShippingCalculationFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseTechnicalRequrementsTaskViewModelCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\LoadShippingCalculationFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\SaveCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Groups\RemoveGroupCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Groups\MeregeCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Groups\DivideCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\LoadFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\LoadAllFilesCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\PriceCalculation\CreatePriceCalculationCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\RejectCommandByBackManager.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\PriceCalculation\OpenPriceCalculationCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\PriceCalculation\CopyPriceCalculationCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Answers\LoadAllFileAnswersCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Answers\LoadFileAnswerCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Answers\OpenAnswerCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Answers\RemoveFileAnswerCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\InstructCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\OpenFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\FinishCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\OpenShippingCalculationFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\RemoveShippingCalculationFileCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StartCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\StopCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemControl.xaml.cs">
+      <DependentUpon>HistoryItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Task\History\HistoryItemListControl.xaml.cs">
+      <DependentUpon>HistoryItemListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.xaml.cs">
+      <DependentUpon>TechnicalRequrementsTaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\SalesUnitForTechnicalRequrementsTaskComparer.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskViewModel.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrements2Wrapper.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrementsTask2Wrapper.cs" />
+    <Compile Include="ViewModels\Details\Custom\DesignDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\Details\Custom\FacilityViewModel.cs" />
+    <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\FacilityDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\IncomingRequestDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\LocalityDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\ProductCategoryPriceAndCostDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\TenderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\DesignDepartmentLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\LocalityLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilter.cs" />
+    <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionFilterViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\PaymentConditionSet\PaymentConditionSetLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProductBlockLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProductLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProductTypeDesignationLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProjectLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\RegionLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\UserLookupListViewModel.cs" />
+    <Compile Include="ViewModels\ProductStructureViewModel.cs" />
+    <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\CompanyLookupListViewModel.cs" />
+    <Compile Include="Views\Details\Custom\FacilityView.xaml.cs">
+      <DependentUpon>FacilityView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\Custom\DesignDepartmentView.xaml.cs">
+      <DependentUpon>DesignDepartmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\cs\Custom\DesignDepartmentLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\ProductBlockLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\ProductLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\ProjectLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\UserLookupListView.cs" />
+    <Compile Include="Views\List\Custom\PaymentConditionFilterControl.xaml.cs">
+      <DependentUpon>PaymentConditionFilterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\Custom\PaymentConditionSetLookupListView1.xaml.cs">
+      <DependentUpon>PaymentConditionSetLookupListView1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductStructureView.xaml.cs">
+      <DependentUpon>ProductStructureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\ToUnitGroupsConverters.cs" />
+    <Compile Include="Extantions\DesignationExt.cs" />
+    <Compile Include="GeneratorHelpers.cs" />
+    <Compile Include="Lookup\Items\Custom\AddressLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\OfferUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
+    <Compile Include="Lookup\Items\Lookups.g.cs" />
+    <Compile Include="Tabs\TabOffer.xaml.cs">
+      <DependentUpon>TabOffer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabNavigation.xaml.cs">
+      <DependentUpon>TabNavigation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UiModule.g.cs" />
+    <Compile Include="ViewModels\Base\BaseDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseListViewModel.cs" />
+    <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
+    <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Base\IBaseListViewModel.cs" />
+    <Compile Include="Controls\ChooseItemControl.xaml.cs">
+      <DependentUpon>ChooseItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChooseItemsListControl.xaml.cs">
+      <DependentUpon>ChooseItemsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\LookupToStringConverter.cs" />
+    <Compile Include="Converter\WrappersToStringConverter.cs" />
+    <Compile Include="Lookup\Items\LookupItem.cs" />
+    <Compile Include="Lookup\Items\Custom\OfferLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\ProjectLookup.cs" />
+    <Compile Include="UiModule.cs" />
+    <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />
+    <Compile Include="Converter\UnitsToGroupsConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Tabs\TabCRUD.xaml.cs">
+      <DependentUpon>TabCRUD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
+    <Compile Include="ViewModels\List\Custom\OfferLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\UnitLookupListViewModel.cs" />
+    <Compile Include="Views\Details\cs\DetailsViews.g.cs" />
+    <Compile Include="Views\Details\Custom\ProjectUnitGroupDetailsView.xaml.cs">
+      <DependentUpon>ProjectUnitGroupDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\Custom\ProjectUnitGroupWindow.xaml.cs">
+      <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lookup\Items\Custom\IUnitLookup.cs" />
+    <Compile Include="Views\List\Custom\UnitListView.xaml.cs">
+      <DependentUpon>UnitListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\cs\ListViews.g.cs" />
+    <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
+    <Compile Include="GeneratorUI.cs">
+      <DependentUpon>GeneratorUI.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ActivityField.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Address.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.BankDetails.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Company.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.CompanyForm.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Contract.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Cost.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.CostOnDate.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Country.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Currency.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.District.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Document.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.DocumentsRegistrationDetails.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Employee.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.EmployeesPosition.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ExchangeCurrencyRate.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Facility.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.FacilityType.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.IPayment.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Locality.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.LocalityType.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Measure.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Offer.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Order.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Parameter.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ParameterGroup.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ParameterRelation.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentActual.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentCondition.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentDocument.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentPlanned.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Person.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Product.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ProductRelation.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Project.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Region.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.SalesUnit.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Specification.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.StandartPaymentConditions.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Tender.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TenderType.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestChild.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestEntity.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriend.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriendAddress.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriendEmail.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriendGroup.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestHusband.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestWife.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.User.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.UserRole.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GeneratorUI.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorUI.cs</LastGenOutput>
+    </Content>
+    <Content Include="TceReportViewGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TceReportViewGenerator.txt</LastGenOutput>
+    </Content>
+    <Content Include="SalesReportViewGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SalesReportViewGenerator.txt</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorLookups.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorLookups.txt</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorListViews.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorListViews.txt</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorDetailsViews.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorDetailsViews.txt</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
+      <Project>{9cf80c25-c04b-46b3-8eb7-f45bc42d4ba2}</Project>
+      <Name>HVTApp.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
+      <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
+      <Name>HVTApp.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
+      <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
+      <Name>HVTApp.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
+      <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
+      <Name>HVTApp.Services.GetProductService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
+      <Project>{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}</Project>
+      <Name>HVTApp.Services.MessageService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lookup\Service\Custom\" />
+    <Folder Include="Modules\Products\ProductRelations\" />
+    <Folder Include="PriceEngineering\Tce\Unit\ViewModel\" />
+    <Folder Include="PriceEngineering\Tce\Unit\View\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\bin\Debug\EntityFramework.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.DataAccess\bin\Debug\HVTApp.DataAccess.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.Model\bin\Debug\HVTApp.Model.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.Services.ChooseProductService\bin\Debug\HVTApp.Services.GetProductService.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.Services.MessageService\bin\Debug\HVTApp.Services.MessageService.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Charts.XamDataChart.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Menus.XamDataTree.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Menus.XamMenu.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Schedules.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.ExcelExporter.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.DataVisualization.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.Documents.Excel.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.Editors.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.OutlookBar.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.Ribbon.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Infragistics\2015.1\WPF\CLR4.0\Bin\InfragisticsWPF4.v15.1.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Microsoft.CSharp.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\mscorlib.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\Prism.Core.7.0.0.396\lib\net45\Prism.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.ComponentModel.DataAnnotations.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Data.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Drawing.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Runtime.Serialization.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.ServiceModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Xml.Linq.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\UIAutomationProvider.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\UIAutomationTypes.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\WindowsBase.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\Microsoft.Win32.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\netstandard.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.AppContext.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Collections.Concurrent.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Collections.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Collections.NonGeneric.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Collections.Specialized.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ComponentModel.Annotations.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ComponentModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ComponentModel.EventBasedAsync.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ComponentModel.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ComponentModel.TypeConverter.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Console.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Data.Common.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.Contracts.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.Debug.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.FileVersionInfo.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.Process.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.StackTrace.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.TextWriterTraceListener.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.Tools.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Diagnostics.TraceSource.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Drawing.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Dynamic.Runtime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Globalization.Calendars.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Globalization.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Globalization.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.Compression.ZipFile.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.FileSystem.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.FileSystem.DriveInfo.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.FileSystem.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.FileSystem.Watcher.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.IsolatedStorage.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.MemoryMappedFiles.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.Pipes.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.IO.UnmanagedMemoryStream.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Linq.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Linq.Expressions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Linq.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Linq.Queryable.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.Http.Rtc.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.NameResolution.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.NetworkInformation.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.Ping.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.Requests.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.Security.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.Sockets.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.WebHeaderCollection.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.WebSockets.Client.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Net.WebSockets.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ObjectModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Reflection.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Reflection.Emit.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Reflection.Emit.ILGeneration.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Reflection.Emit.Lightweight.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Reflection.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Reflection.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Resources.Reader.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Resources.ResourceManager.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Resources.Writer.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.CompilerServices.VisualC.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.Handles.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.InteropServices.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.InteropServices.WindowsRuntime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.Numerics.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.Serialization.Formatters.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.Serialization.Json.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.Serialization.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Runtime.Serialization.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.Claims.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.Cryptography.Algorithms.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.Cryptography.Csp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.Cryptography.Encoding.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.Cryptography.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.Cryptography.X509Certificates.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.Principal.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Security.SecureString.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ServiceModel.Duplex.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ServiceModel.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ServiceModel.NetTcp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ServiceModel.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ServiceModel.Security.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Text.Encoding.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Text.Encoding.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Text.RegularExpressions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Threading.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Threading.Overlapped.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Threading.Tasks.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Threading.Tasks.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Threading.Thread.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Threading.ThreadPool.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Threading.Timer.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.ValueTuple.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Xml.ReaderWriter.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Xml.XDocument.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Xml.XmlDocument.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Xml.XmlSerializer.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Xml.XPath.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\Facades\System.Xml.XPath.XDocument.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Controls\ButtonIsVisibleWhenCanExecute.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Controls\ChooseItemControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Controls\ChooseItemsListControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Controls\LoadableContentControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewDepartmentHead.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueViewAdmin.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueue.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\EngineeringDepartmentTasksQueue\Views\Tabs\TabEngineeringDepartmentTasksQueueAdmin.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Tabs\TabIncomingRequest.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Tabs\TabIncomingRequests.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Tabs\TabBookRegistration.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Tabs\TabDocument.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Views\IncomingRequestView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Views\IncomingRequestsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Views\BookRegistrationView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\BookRegistration\Views\DocumentView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Director\Tabs\TabReload.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Director\Views\MarketView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\DirectumTask\ContentTaskControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\DirectumTask\DirectumTaskView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\DirectumTask\Route\DirectumTaskRouteWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\DirectumTask\TabDirectumTask.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\Incoming\DirectumTasksIncomingToLateView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\Incoming\DirectumTasksIncomingView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\Incoming\ToAccept\DirectumTasksIncomingToAcceptView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\Incoming\ToPerform\DirectumTasksIncomingToPerformView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\Outgoing\DirectumTasksOutgoingView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Directum\TabDirectumTasks.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Dates\ServiceRealizationDates\ServiceRealizationDatesView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\SpecificationSignDates\TabSpecificationSignDates.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Supervision\SupervisionView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Supervision\TabSupervision.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Tabs\TabOrder.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Tabs\TabPaymentDocument.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\PaymentsPlan\TabPayments.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Tabs\TabPaymentsActual.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Tabs\TabProductionPlan.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Dates\TabDates.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Dates\DatesView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Views\OrderView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\PaymentsActual\PaymentsActualView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\PaymentsPlan\PaymentsPlanView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Views\PaymentsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PlanAndEconomy\Views\ProductionPlanView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PriceMaking\LaborCosts\LaborCostsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PriceMaking\LaborCosts\LaborCostsViewTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PriceMaking\Tabs\TabPriceTasks.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\PriceMaking\Views\PricesView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\LaborHours\LaborHoursViewTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Parameters\BlocksControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Tabs\TabCreateNewProductTasks.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Tabs\TabParameters.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Tabs\TabProductTypeDesignation.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Tabs\TabProductRelations.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Tabs\TabStructureCosts.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Views\CreateNewProductTasksView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Parameters\ParametersView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Views\ProductTypeDesignationView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Views\ProductReplacementView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\LaborHours\LaborHoursView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Views\ProductRelationsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Products\Views\StructureCostsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\CommonInfo\CommonInfoView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\CommonInfo\TabCommonInfo.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\FlatReport\Comparator\BudgetComparisionView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\FlatReport\FlatReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\FlatReport\Reports\SalesReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\MarketReport\MarketReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\MarketReport\TabMarketReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\PriorityReport\PriorityReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\PriorityReport\TabReload.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\ContragentsSalesChart\ContragentsSalesChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\ConsumersSalesChart\ConsumersSalesChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\MarketCapacityChart\MarketCapacityChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\ProducersSalesChart\ProducersSalesChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\RegionsSalesChart\RegionsSalesChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\SalesChartUserControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\TabSalesChart.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\ManagersSalesChart\ManagersSalesChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesCharts\ProductTypesSalesChart\ProductTypesSalesChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\FlatReport\TabFlatReport.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\Tabs\TabReload.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\TceReport\TceReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\Views\SalesChartView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\Reference\ReferenceView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Reports\SalesReport\SalesReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Controls\OfferUnitListControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Controls\SalesUnitListControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Controls\UnitListControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Supervision\SupervisionView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Supervision\TabSupervision.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Market\Tabs\MarketSettingsTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Market\Tabs\MarketViewTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Market\Tabs\MarketMainTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Payments\PaymentsTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Production\ProductionTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Shippings\ShippingTab.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Tabs\TabCrudUnitsInProject.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Tabs\TabCrudUnits.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Tabs\TabProjects.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Market\Market2View.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\MarketView\MarketView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\OffersView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\OfferUnitsWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\OfferView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Payments\PaymentsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Production\ProductionView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\ProductsIncludedWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\ProjectsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Project1\ProjectView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\SupervisionPriceWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\SalesUnitsWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Shippings\ShippingView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\SpecificationsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\SpecificationView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Sales\Views\TenderWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Settings\Views\DataBaseBackupView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Settings\Views\AdminView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Settings\Views\UserSettingsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\Settings\Views\PasswordView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\SupplyModule\Tabs\TabDates.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\SupplyModule\Views\SupplyPlanView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Modules\SupplyModule\Views\PickingDatesView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PaymentConditionsSet\PaymentConditionView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PaymentConditionsSet\PaymentConditionsSetView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceCalculations\View\PriceCalculationItemsWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceCalculations\View\PriceCalculationsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceCalculations\View\PriceCalculationView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceCalculations\Tabs\TabPriceCalculation.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceCalculations\Tabs\TabPriceCalculations.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\InvoiceForPayment\TabInvoiceForPaymentTasksView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Messages\MessageControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\ParametersService1\ParametersServiceView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Report\BlockReportControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Report\BlockReportView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Statistics\PriceEngineeringStatisticsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tabs\TabPriceEngineeringTaskBackManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tabs\TabPriceEngineeringTaskBackManagerBoss.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tabs\TabPriceEngineeringTasksAdmin.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tabs\TabPriceEngineeringTasks.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tabs\TabPriceEngineeringTask.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\TasksList\View\PriceEngineeringTasksListViewAdmin.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\TasksList\View\WorkloadOnEmployeesControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\TasksList\View\PriceEngineeringTasksListControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\TasksList\View\PriceEngineeringTasksListViewDesignDepartmentHead.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\TasksList\View\PriceEngineeringTasksListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tce\List\View\PriceEngineeringTasksTceView2.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tce\Second\View\TabTaskTceView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tce\Second\View\TasksTceView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tce\Second\View\Controls\TasksTceItemControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tce\Second\View\Controls\SccVersionControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\Tce\Tabs\TabPriceEngineeringTaskTce.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\CommonInformationControlDesignDepartmentHead.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\CommonInformationControlConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\FilesControl\FilesControlConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\FilesControl\FilesControlConstructor1.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\FilesControl\FilesControlManager1.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\FilesControl\FilesSingleControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\FilesControl\FilesControlManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\PriceCalculationsControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlPlanMaker.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlBackManagerBoss.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlDesignDepartmentHead.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlHeader.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\BlocksAddedControl\BlocksAddedControlConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\Chat\TaskChatControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\BlocksAddedControl\BlocksAddedControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\CommonInformationControlManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\IncludedBlocksControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControlPlanMaker.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControlBackManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControlBackManagerBoss.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControlDesignDepartmentHead.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControlConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControlManager1.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControlManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TasksControl\TasksControlPlanMaker.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TasksControl\TasksControlBackManagerBoss.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TasksControl\TasksControlBackManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TasksControl\TasksControlConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TasksControl\TasksControlDesignDepartmentHead.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TasksControl\TasksControlManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TasksControl\TasksControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\FilesControl\FilesControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\PriceEngineeringTaskStatusControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\PriceEngineeringTasksViewPlanMaker.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\PriceEngineeringTasksViewBackManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\PriceEngineeringTasksViewManager.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\PriceEngineeringTasksViewBackManagerBoss.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\ProductBlockControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\PriceEngineeringTasksViewDesignDepartmentHead.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\PriceEngineeringTasksViewConstructor.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\PriceEngineering\View\Controls\TaskControl\TaskControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabDesignDepartments.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabProduct.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabProjects.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabProductBlocks.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabUsers.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabRefresh.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabOffer.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabNavigation.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Tabs\TabCRUD.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTasksView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\TechnicalRequrementsTasksModule\Tasks\TechnicalRequrementsTasksView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\TechnicalRequrementsTasksModule\Tabs\TabTechnicalRequrementsTask.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\TechnicalRequrementsTasksModule\Task\History\HistoryItemControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\TechnicalRequrementsTasksModule\Task\History\HistoryItemListControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\TechnicalRequrementsTasksModule\Task\TechnicalRequrementsTaskView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ActivityFieldDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\AddressDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\AnswerFileTceDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\BankDetailsDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\BankGuaranteeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\BankGuaranteeTypeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\BudgetDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\BudgetUnitDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\CompanyDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\CompanyFormDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ConstructorParametersListDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ConstructorsParametersDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ContractDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\CostsPercentsDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\CountryDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\CountryUnionDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\CreateNewProductTaskDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\CurrencyExchangeRateDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\Custom\FacilityView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\Custom\DesignDepartmentView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\Custom\OrderView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DesignDepartmentDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DesignDepartmentParametersAddedBlocksDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DesignDepartmentParametersDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DesignDepartmentParametersSubTaskDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DirectumTaskDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DirectumTaskGroupDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DirectumTaskGroupFileDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DirectumTaskMessageDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DistrictDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DocumentDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DocumentNumberDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\DocumentsRegistrationDetailsDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\EmployeeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\EmployeesPositionDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\EventServiceUnitDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\FacilityDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\FacilityTypeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\GlobalPropertiesDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\IncomingRequestDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\InvoiceForPaymentTaskDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\LaborHourCostDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\LaborHoursDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\LocalityDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\LocalityTypeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\LogUnitDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\LosingReasonDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\MarketFieldDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\MeasureDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\NoteDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\OfferDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\OfferUnitDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\OrderDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ParameterDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ParameterGroupDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ParameterRelationDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PaymentActualDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PaymentConditionDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PaymentConditionPointDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PaymentConditionSetDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PaymentDocumentDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PaymentPlannedDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PenaltyDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PersonDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceCalculationDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceCalculationFileDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceCalculationHistoryItemDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceCalculationItemDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTaskDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTaskFileAnswerDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTaskFileTechnicalRequirementsDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTaskMessageDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTaskProductBlockAddedDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTasksDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTasksFileTechnicalRequirementsDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\PriceEngineeringTaskStatusDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductBlockDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductCategoryDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductCategoryPriceAndCostDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductDependentDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductDesignationDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductIncludedDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductRelationDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductTypeDesignationDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProductTypeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProjectDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\Custom\ProjectUnitGroupDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\Custom\ProjectUnitGroupWindow.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ProjectTypeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\RegionDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\SalesUnitDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\ShippingCostFileDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\SpecificationDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\StandartMarginalIncomeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\StandartProductionTermDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\StructureCostDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\StructureCostVersionDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\SumDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\SumOnDateDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\SupervisionDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\TechnicalRequrementsDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\TechnicalRequrementsFileDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\TechnicalRequrementsTaskDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\TechnicalRequrementsTaskHistoryElementDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\TenderDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\TenderTypeDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\UserDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\UserGroupDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\Details\UserRoleDetailsView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ActivityFieldLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\AddressLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\AnswerFileTceLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\BankDetailsLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\BankGuaranteeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\BankGuaranteeTypeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\BudgetLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\BudgetUnitLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\CompanyFormLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\CompanyLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ConstructorParametersListLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ConstructorsParametersLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ContractLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\CostsPercentsLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\CountryLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\CountryUnionLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\CreateNewProductTaskLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\CurrencyExchangeRateLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\Custom\PaymentConditionFilterControl.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\Custom\PaymentConditionSetLookupListView1.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\Custom\UnitListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DesignDepartmentLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DesignDepartmentParametersAddedBlocksLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DesignDepartmentParametersLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DesignDepartmentParametersSubTaskLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DirectumTaskGroupFileLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DirectumTaskGroupLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DirectumTaskLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DirectumTaskMessageLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DistrictLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DocumentLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DocumentNumberLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\DocumentsRegistrationDetailsLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\EmployeeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\EmployeesPositionLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\EventServiceUnitLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\FacilityLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\FacilityTypeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\GlobalPropertiesLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\IncomingRequestLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\LaborHourCostLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\LaborHoursLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\LocalityLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\LocalityTypeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\LogUnitLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\LosingReasonLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\MarketFieldLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\MeasureLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\NoteLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\OfferLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\OfferUnitLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\OrderLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ParameterGroupLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ParameterLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ParameterRelationLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PaymentActualLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PaymentConditionLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PaymentConditionPointLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PaymentConditionSetLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PaymentDocumentLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PaymentPlannedLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PenaltyLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PersonLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceCalculationFileLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceCalculationHistoryItemLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceCalculationItemLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceCalculationLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTaskFileAnswerLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTaskFileTechnicalRequirementsLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTaskLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTaskMessageLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTaskProductBlockAddedLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTasksFileTechnicalRequirementsLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTasksLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\PriceEngineeringTaskStatusLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductBlockLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductCategoryLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductCategoryPriceAndCostLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductDependentLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductDesignationLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductIncludedLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductRelationLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductTypeDesignationLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProductTypeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProjectLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ProjectTypeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\RegionLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\SalesUnitLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\ShippingCostFileLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\SpecificationLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\StandartMarginalIncomeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\StandartProductionTermLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\StructureCostLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\StructureCostVersionLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\SumLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\SumOnDateLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\SupervisionLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\TechnicalRequrementsFileLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\TechnicalRequrementsLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\TechnicalRequrementsTaskHistoryElementLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\TechnicalRequrementsTaskLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\TenderLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\TenderTypeLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\UserGroupLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\UserLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\List\UserRoleLookupListView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\Views\ProductStructureView.g.cs" />
+    <Compile Include="C:\Users\Zver\source\repos\RepoTest\HVTApp\HVTApp.UI\obj\Debug\GeneratedInternalTypeHelper.g.cs" />
+  </ItemGroup>
+</Project>

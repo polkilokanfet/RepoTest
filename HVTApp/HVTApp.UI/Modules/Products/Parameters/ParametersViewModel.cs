@@ -13,8 +13,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Products.Parameters
 {
-    public partial class ParametersViewModel : ParameterDetailsViewModel
+    public class ParametersViewModel : ParameterDetailsViewModel
     {
+        public ProductReplacer ProductReplacer { get; }
         /// <summary>
         /// Список всех параметров
         /// </summary>
@@ -148,6 +149,8 @@ namespace HVTApp.UI.Modules.Products.Parameters
         public ParametersViewModel(IUnityContainer container) : base(container)
         {
             ParameterLookups = new ParameterLookups(UnitOfWork.Repository<Parameter>().GetAll(), this);
+
+            ProductReplacer = new ProductReplacer(container, this);
 
             #region Commands
 

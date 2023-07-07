@@ -260,6 +260,10 @@
       <DependentUpon>LaborHoursViewTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Products\Parameters\ParameterLookups.cs" />
+    <Compile Include="Modules\Products\Parameters\ProductReplacer.cs" />
+    <Compile Include="Modules\Products\Parameters\BlocksControl.xaml.cs">
+      <DependentUpon>BlocksControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Products\Tabs\TabProductRelations.xaml.cs">
       <DependentUpon>TabProductRelations.xaml</DependentUpon>
     </Compile>
@@ -1669,6 +1673,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Products\LaborHours\LaborHoursViewTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\Parameters\BlocksControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
