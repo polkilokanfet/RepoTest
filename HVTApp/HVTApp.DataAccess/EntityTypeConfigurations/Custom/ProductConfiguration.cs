@@ -4,10 +4,10 @@ namespace HVTApp.DataAccess
     {
         public ProductConfiguration()
         {
-            HasRequired(x => x.ProductBlock).WithMany().WillCascadeOnDelete(false);
-            HasMany(x => x.DependentProducts).WithRequired().HasForeignKey(x => x.MainProductId).WillCascadeOnDelete(false);
-            Property(x => x.DesignationSpecial).IsOptional();
-            Property(x => x.Comment).IsOptional().HasMaxLength(256);
+            HasRequired(product => product.ProductBlock).WithMany().WillCascadeOnDelete(false);
+            HasMany(product => product.DependentProducts).WithRequired().HasForeignKey(productDependent => productDependent.MainProductId).WillCascadeOnDelete(true);
+            Property(product => product.DesignationSpecial).IsOptional();
+            Property(product => product.Comment).IsOptional().HasMaxLength(256);
         }
     }
 }

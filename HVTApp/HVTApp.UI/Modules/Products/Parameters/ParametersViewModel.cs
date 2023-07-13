@@ -212,19 +212,24 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     var unitOfWork = container.Resolve<IUnitOfWork>();
                     var parameter = unitOfWork.Repository<Parameter>().GetById(SelectedParameterLookup.Entity.Id);
 
-                    var productRelations = unitOfWork.Repository<ProductRelation>().Find(x => x.ParentProductParameters.Contains(parameter) || x.ChildProductParameters.Contains(parameter));
-                    if (productRelations.Any())
+                    var relations = unitOfWork.Repository<ProductRelation>().Find(relation => relation.ParentProductParameters.Contains(parameter) || relation.ChildProductParameters.Contains(parameter));
+                    if (relations.Any())
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Info", $"Удалите сначала связи между блоками: {productRelations.ToStringEnum()}");
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Info", $"Удалите сначала связи между блоками: {relations.ToStringEnum()}");
                         return;
                     }
 
 
-                    var blocks = unitOfWork.Repository<ProductBlock>().Find(x => x.Parameters.Contains(parameter));
-                    foreach (var block in blocks)
+                    var blocks = unitOfWork.Repository<ProductBlock>().Find(block => block.Parameters.Contains(parameter));
+                    if (blocks.Any())
                     {
-                        block.Parameters.Remove(parameter);
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Info", $"Удалите сначала параметр из блоков: {blocks.ToStringEnum()}");
+                        return;
                     }
+                    //foreach (var block in blocks)
+                    //{
+                    //    block.Parameters.Remove(parameter);
+                    //}
 
                     foreach (var relation in parameter.ParameterRelations.ToList())
                     {

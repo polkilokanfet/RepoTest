@@ -445,6 +445,10 @@
     <Compile Include="Migrations\202306280608318_PriceEngineeringTaskConfiguration.designer.cs">
       <DependentUpon>202306280608318_PriceEngineeringTaskConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307130716030_RemoveDependentProducts.cs" />
+    <Compile Include="Migrations\202307130716030_RemoveDependentProducts.designer.cs">
+      <DependentUpon>202307130716030_RemoveDependentProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -729,6 +733,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306280608318_PriceEngineeringTaskConfiguration.resx">
       <DependentUpon>202306280608318_PriceEngineeringTaskConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307130716030_RemoveDependentProducts.resx">
+      <DependentUpon>202307130716030_RemoveDependentProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
