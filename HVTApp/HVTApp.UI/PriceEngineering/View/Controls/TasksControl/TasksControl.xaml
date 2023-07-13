@@ -9,9 +9,13 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Технико-стоимостная проработка сборки задач с Id"/>
-                        <TextBox Text="{Binding Path=Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                    IsReadOnly="True"
-                                    BorderThickness="0"/>
+                        <TextBox 
+                            Text="{Binding Path=Model.NumberFull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True"
+                            BorderThickness="0"/>
+                        <Label Content=" (менеджер: "/>
+                        <Label Content="{Binding Model.UserManager.Employee.Person, Mode=OneTime}"/>
+                        <Label Content=")"/>
                     </StackPanel>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
