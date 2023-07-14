@@ -123,7 +123,14 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     var blockTarget = _unitOfWork.Repository<ProductBlock>().GetById(SelectedBlockTarget.Id);
                     blockTarget.Parameters.RemoveById(SelectedParameterInBlock);
 
-                    var blocks = _unitOfWork.Repository<ProductBlock>().Find(x => x.Parameters.MembersAreSame(blockTarget.Parameters));
+                    var blocks = _unitOfWork.Repository<ProductBlock>().Find(block => block.Parameters.MembersAreSame(blockTarget.Parameters));
+
+                    if (string.IsNullOrEmpty(blockTarget.StructureCostNumber) && 
+                        blocks.Any(x => string.IsNullOrEmpty(x.StructureCostNumber) == false))
+                    {
+                        blockTarget = blocks.First(x => string.IsNullOrEmpty(x.StructureCostNumber) == false);
+                    }
+
                     bool removeProductDuplicates = false;
                     foreach (var blockReplace in blocks)
                     {
@@ -138,6 +145,8 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     _unitOfWork.SaveChanges();
 
                     SelectedBlockTarget.Parameters.Remove(SelectedParameterInBlock);
+
+                    container.Resolve<IMessageService>().ShowOkMessageDialog("", "done");
                 });
 
             ReplaceCommand = new DelegateLogConfirmationCommand(
@@ -186,6 +195,9 @@ namespace HVTApp.UI.Modules.Products.Parameters
             _unitOfWork.Repository<ProductBlock>().Delete(blockReplace);
         }
 
+        List<SalesUnit> _salesUnits = null;
+        List<OfferUnit> _offerUnits = null;
+
         /// <summary>
         /// Удаление дубликатов продуктов
         /// </summary>
@@ -193,9 +205,6 @@ namespace HVTApp.UI.Modules.Products.Parameters
         {
             var products = _unitOfWork.Repository<Product>().GetAll();
             var productsToRemove = new List<Product>();
-
-            List<SalesUnit> salesUnits = null;
-            List<OfferUnit> offerUnits = null;
 
             while (products.Any())
             {
@@ -213,13 +222,13 @@ namespace HVTApp.UI.Modules.Products.Parameters
                             .Find(x => x.Product.Id == product.Id)
                             .ForEach(x => x.Product = productFirst);
 
-                        if (salesUnits == null)
-                            salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll();
-                        salesUnits.Where(x => x.Product.Id == product.Id).ForEach(x => x.Product = productFirst);
+                        if (_salesUnits == null)
+                            _salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll();
+                        _salesUnits.Where(x => x.Product.Id == product.Id).ForEach(x => x.Product = productFirst);
 
-                        if (offerUnits == null)
-                            offerUnits = _unitOfWork.Repository<OfferUnit>().GetAll();
-                        offerUnits.Where(x => x.Product.Id == product.Id).ForEach(x => x.Product = productFirst);
+                        if (_offerUnits == null)
+                            _offerUnits = _unitOfWork.Repository<OfferUnit>().GetAll();
+                        _offerUnits.Where(x => x.Product.Id == product.Id).ForEach(x => x.Product = productFirst);
 
                         productsToRemove.Add(product);
                     }
