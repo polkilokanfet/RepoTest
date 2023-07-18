@@ -53,6 +53,7 @@
 
     <infRib:RibbonGroup Caption="Замена блоков">
         <infRib:ButtonTool Caption="Заменить" Command="{Binding ProductReplacer.ReplaceCommand}" SmallImage="/HVTApp.UI;component/Images/replace.png"/>
+        <infRib:ButtonTool Caption="Добавить параметр" Command="{Binding ProductReplacer.AddParameterCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить параметр" Command="{Binding ProductReplacer.RemoveParameterCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
 

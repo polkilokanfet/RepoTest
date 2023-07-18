@@ -54,6 +54,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
         public ICommand GetBlocksReplaceCommand { get; }
 
         public ICommand RemoveParameterCommand { get; }
+        public ICommand AddParameterCommand { get; }
         public ICommand ReplaceCommand { get; }
 
         #endregion
@@ -122,30 +123,21 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 {
                     var blockTarget = _unitOfWork.Repository<ProductBlock>().GetById(SelectedBlockTarget.Id);
                     blockTarget.Parameters.RemoveById(SelectedParameterInBlock);
-
-                    var blocks = _unitOfWork.Repository<ProductBlock>().Find(block => block.Parameters.MembersAreSame(blockTarget.Parameters));
-
-                    if (string.IsNullOrEmpty(blockTarget.StructureCostNumber) && 
-                        blocks.Any(x => string.IsNullOrEmpty(x.StructureCostNumber) == false))
-                    {
-                        blockTarget = blocks.First(x => string.IsNullOrEmpty(x.StructureCostNumber) == false);
-                    }
-
-                    bool removeProductDuplicates = false;
-                    foreach (var blockReplace in blocks)
-                    {
-                        if (blockTarget.Id == blockReplace.Id) continue;
-                        ReplaceBlock(blockTarget, blockReplace, false);
-                        removeProductDuplicates = true;
-                    }
-
-                    if (removeProductDuplicates)
-                        RemoveProductDuplicates();
-
+                    this.RemoveBlockDuplicates(blockTarget);
                     _unitOfWork.SaveChanges();
-
                     SelectedBlockTarget.Parameters.Remove(SelectedParameterInBlock);
+                    container.Resolve<IMessageService>().ShowOkMessageDialog("", "done");
+                });
 
+            AddParameterCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                () =>
+                {
+                    var blockTarget = _unitOfWork.Repository<ProductBlock>().GetById(SelectedBlockTarget.Id);
+                    var parameter = _unitOfWork.Repository<Parameter>().GetById(parametersViewModel.SelectedParameterLookup.Id);
+                    blockTarget.Parameters.Add(parameter);
+                    this.RemoveBlockDuplicates(blockTarget);
+                    _unitOfWork.SaveChanges();
                     container.Resolve<IMessageService>().ShowOkMessageDialog("", "done");
                 });
 
@@ -193,6 +185,29 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 RemoveProductDuplicates();
 
             _unitOfWork.Repository<ProductBlock>().Delete(blockReplace);
+        }
+
+        private void RemoveBlockDuplicates(ProductBlock blockTarget)
+        {
+            var target = blockTarget;
+            var blocks = _unitOfWork.Repository<ProductBlock>().Find(block => block.Parameters.MembersAreSame(target.Parameters));
+
+            if (string.IsNullOrEmpty(blockTarget.StructureCostNumber) &&
+                blocks.Any(block => string.IsNullOrEmpty(block.StructureCostNumber) == false))
+            {
+                blockTarget = blocks.First(x => string.IsNullOrEmpty(x.StructureCostNumber) == false);
+            }
+
+            bool removeProductDuplicates = false;
+            foreach (var blockReplace in blocks)
+            {
+                if (blockTarget.Id == blockReplace.Id) continue;
+                ReplaceBlock(blockTarget, blockReplace, false);
+                removeProductDuplicates = true;
+            }
+
+            if (removeProductDuplicates)
+                RemoveProductDuplicates();
         }
 
         List<SalesUnit> _salesUnits = null;
