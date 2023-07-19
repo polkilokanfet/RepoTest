@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -12,10 +9,8 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Wrapper.Base;
-using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
@@ -122,7 +117,6 @@ namespace HVTApp.UI.ViewModels
 
         #endregion
 
-
         public ICommand SaveCommand { get; }
         public ICommand OkCommand { get; }
 
@@ -192,19 +186,6 @@ namespace HVTApp.UI.ViewModels
                 //запрашиваем закрытие окна
                 OnCloseRequested(new DialogRequestCloseEventArgs(true));
             }
-            //try
-            //{
-            //    UnitOfWork.SaveChanges();
-            //    EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
-            //}
-            //catch (DbUpdateConcurrencyException e)
-            //{
-            //    //Container.Resolve<IMessageService>().ShowOkMessageDialog(saveTask.Exception?.GetType().ToString(), saveTask.Exception.PrintAllExceptions());
-            //    Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
-            //}
-
-            ////запрашиваем закрытие окна
-            //OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }
 
         protected virtual bool SaveCommand_CanExecute()
@@ -279,12 +260,16 @@ namespace HVTApp.UI.ViewModels
 
         public void Dispose()
         {
+            if (this.Item != null)
+                this.Item.PropertyChanged -= this.ItemOnPropertyChanged;
+
             UnitOfWork?.Dispose();
         }
 
         protected virtual void OnCloseRequested(DialogRequestCloseEventArgs e)
         {
             CloseRequested?.Invoke(this, e);
+            this.Dispose();
         }
     }
 }
