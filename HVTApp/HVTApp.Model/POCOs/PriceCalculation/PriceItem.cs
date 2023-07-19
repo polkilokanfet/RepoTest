@@ -1,12 +1,11 @@
 using System;
-using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.PriceService.PriceServ
+namespace HVTApp.Model.POCOs
 {
     /// <summary>
     /// Расчет ПЗ единицы продаж с датой окончания расчета
     /// </summary>
-    internal class PriceItem
+    public class PriceItem
     {
         /// <summary>
         /// Расчет ПЗ единицы продаж

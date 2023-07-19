@@ -147,6 +147,7 @@ namespace HVTApp.Model.POCOs
         public virtual List<BankGuarantee> BankGuarantees { get; set; } = new List<BankGuarantee>();
 
 
+        public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 
 
         [NotMapped, Designation("–азрешение на редактирование стоимости")]

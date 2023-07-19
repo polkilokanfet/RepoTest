@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Services.PriceService.PriceServ
 {
@@ -10,7 +11,7 @@ namespace HVTApp.Services.PriceService.PriceServ
     /// </summary>
     internal class PriceItems
     {
-        private readonly Dictionary<Guid, PriceItem> _items = new Dictionary<Guid, PriceItem>();
+        private readonly Dictionary<Guid, PriceCalculationItem> _items = new Dictionary<Guid, PriceCalculationItem>();
 
         /// <summary>
         /// Пуст ли данный список единиц расчета цены?
@@ -28,9 +29,7 @@ namespace HVTApp.Services.PriceService.PriceServ
         /// Имеется актуальный расчет ПЗ
         /// </summary>
         public bool HasActualPriceCalculationItem => _items.Any() &&
-                                                     _items
-                                                         .Select(x => x.Value)
-                                                         .Any(priceItem => priceItem.PriceCalculationItem.HasPrice);
+                                                     _items.Any(item => item.Value.HasPrice);
 
         /// <summary>
         /// Актуальный расчет ПЗ
@@ -38,28 +37,24 @@ namespace HVTApp.Services.PriceService.PriceServ
         public PriceCalculationItem ActualPriceCalculationItem => HasActualPriceCalculationItem
             ? _items
                 .Select(x => x.Value)
-                .Where(priceItem => priceItem.PriceCalculationItem.HasPrice)
+                .Where(priceItem => priceItem.HasPrice)
                 .OrderBy(priceItem => priceItem.FinishDate)
                 .Last()
-                .PriceCalculationItem
             : null;
 
-        public PriceItems(IEnumerable<PriceItem> items)
+        public PriceItems(IEnumerable<PriceCalculationItem> priceCalculationItems)
         {
-            foreach (var item in items)
-            {
-                this.Add(item);
-            }
+            priceCalculationItems.ForEach(this.Add);
         }
 
         /// <summary>
         /// Добавить расчет ПЗ
         /// </summary>
-        /// <param name="item">расчет ПЗ</param>
-        public void Add(PriceItem item)
+        /// <param name="priceCalculationItem">расчет ПЗ</param>
+        public void Add(PriceCalculationItem priceCalculationItem)
         {
-            this.Remove(item.PriceCalculationItem);
-            _items.Add(item.PriceCalculationItem.Id, item);
+            this.Remove(priceCalculationItem);
+            _items.Add(priceCalculationItem.Id, priceCalculationItem);
         }
 
         /// <summary>
@@ -69,13 +64,10 @@ namespace HVTApp.Services.PriceService.PriceServ
         /// <returns></returns>
         public bool Remove(PriceCalculationItem item)
         {
-            if (_items.ContainsKey(item.Id))
-            {
-                _items.Remove(item.Id);
-                return true;
-            }
+            if (_items.ContainsKey(item.Id) == false) return false;
 
-            return false;
+            _items.Remove(item.Id);
+            return true;
         }
     }
 }

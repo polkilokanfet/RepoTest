@@ -13,6 +13,7 @@ namespace HVTApp.Model.POCOs
     public class PriceCalculationItem : BaseEntity
     {
         public Guid PriceCalculationId { get; set; }
+        public virtual PriceCalculation PriceCalculation { get; set; }
 
 
         public Guid? PriceEngineeringTaskId { get; set; }
@@ -32,6 +33,14 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Условия оплаты")]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+
+
+        /// <summary>
+        /// Дата окончания расчета
+        /// </summary>
+        [NotMapped]
+        public DateTime? FinishDate => PriceCalculation?.TaskCloseMoment;
+
 
         /// <summary>
         /// Есть ли прайс?
