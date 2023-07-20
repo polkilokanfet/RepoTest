@@ -71,6 +71,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
         public bool? IsActualOriginalValue => GetOriginalValue<bool?>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
+        public int? PositionInTeamCenter
+        {
+            get => GetValue<int?>();
+            set => SetValue(value);
+        }
+        public int? PositionInTeamCenterValue => GetOriginalValue<int?>(nameof(PositionInTeamCenter));
+        public bool PositionInTeamCenterIsChanged => GetIsChanged(nameof(PositionInTeamCenter));
+
 
         public string Comment
         {

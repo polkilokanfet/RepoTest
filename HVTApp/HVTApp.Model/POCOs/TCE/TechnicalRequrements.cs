@@ -32,5 +32,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Актуально"), OrderStatus(2)]
         public bool IsActual { get; set; } = true;
+
+        [Designation("Позиция в TeamCenter"), OrderStatus(3)]
+        public int? PositionInTeamCenter { get; set; }
     }
 }

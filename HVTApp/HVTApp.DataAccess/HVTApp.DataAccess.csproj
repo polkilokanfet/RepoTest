@@ -449,6 +449,10 @@
     <Compile Include="Migrations\202307130716030_RemoveDependentProducts.designer.cs">
       <DependentUpon>202307130716030_RemoveDependentProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307201003322_AddPositionInTeamCenterInTRT.cs" />
+    <Compile Include="Migrations\202307201003322_AddPositionInTeamCenterInTRT.designer.cs">
+      <DependentUpon>202307201003322_AddPositionInTeamCenterInTRT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -736,6 +740,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307130716030_RemoveDependentProducts.resx">
       <DependentUpon>202307130716030_RemoveDependentProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307201003322_AddPositionInTeamCenterInTRT.resx">
+      <DependentUpon>202307201003322_AddPositionInTeamCenterInTRT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

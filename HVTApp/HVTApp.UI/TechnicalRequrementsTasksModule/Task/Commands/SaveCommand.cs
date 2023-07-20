@@ -1,3 +1,5 @@
+using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -23,9 +25,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.IsValid &&
-                   ViewModel.IsChanged &&
-                   !ViewModel.WasStarted;
+            if (ViewModel.IsValid == false) return false;
+            if (ViewModel.IsChanged == false) return false;
+
+            if (ViewModel.CurrentUserIsManager)
+                if (ViewModel.WasStarted) return false;
+            else if (ViewModel.CurrentUserIsBackManager)
+                if (ViewModel.AllowFinish) return false;
+
+            return true;
         }
     }
 }

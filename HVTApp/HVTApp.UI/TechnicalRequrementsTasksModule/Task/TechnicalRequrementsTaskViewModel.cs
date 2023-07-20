@@ -458,6 +458,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     //создаём задачу
                     var task = new PriceEngineeringTask();
                     task.ProductBlockManager = task.ProductBlockEngineer = salesUnits.First().Product.ProductBlock;
+                    task.TcePosition = item.PositionInTeamCenter?.ToString();
                     task.Amount = salesUnits.Count;
                     task.SalesUnits.AddRange(salesUnits);
                     task.SalesUnits.ForEach(salesUnit => salesUnit.SignalToStartProduction = DateTime.Now);

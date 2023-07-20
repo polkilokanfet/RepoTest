@@ -22,6 +22,11 @@ namespace HVTApp.Services.PriceService.PriceServ
         private Dictionary<Guid, PriceItems> _salesUnitsCalculationsDictionary = null;
 
         /// <summary>
+        /// Сервис загружен хотя бы раз
+        /// </summary>
+        public bool IsLoaded { get; private set; } = false;
+
+        /// <summary>
         /// Все блоки
         /// </summary>
         private Dictionary<Guid, ProductBlock> AllProductBlocksDictionary
@@ -66,7 +71,7 @@ namespace HVTApp.Services.PriceService.PriceServ
                 priceCalculation =>
                 {
                     //если сервис не загружен
-                    if (this.SalesUnitsCalculationsDictionary == null) return;
+                    if (this.IsLoaded == false) return;
 
                     //добавляем только данные из завершенных расчетов
                     if (priceCalculation.TaskCloseMoment.HasValue == false) return;
@@ -85,7 +90,7 @@ namespace HVTApp.Services.PriceService.PriceServ
                 calculation =>
                 {
                     //если сервис не загружен
-                    if (this.SalesUnitsCalculationsDictionary == null) return;
+                    if (this.IsLoaded == false) return;
 
                     if (calculation.TaskCloseMoment.HasValue) return;
 
@@ -162,6 +167,8 @@ namespace HVTApp.Services.PriceService.PriceServ
                     }
                 }
             }
+
+            this.IsLoaded = true;
         }
 
         public PriceCalculationItem GetPriceCalculationItem(IUnit unit)
