@@ -133,7 +133,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager &&
+            if (GlobalAppProperties.UserIsBackManager &&
                 string.IsNullOrWhiteSpace(this.TceNumber))
             {
                 yield return new ValidationResult($"{nameof(TceNumber)} is required", new[] {nameof(TceNumber)});

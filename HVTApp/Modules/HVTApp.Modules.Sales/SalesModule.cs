@@ -34,7 +34,7 @@ namespace HVTApp.Modules.Sales
 //#if DEBUG
 //#else
 //            //проверка на объекты без местоположения
-//            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+//            if (GlobalAppProperties.UserIsManager)
 //            {
 //                CheckFacilities(container);
 //            }
@@ -81,7 +81,7 @@ namespace HVTApp.Modules.Sales
         protected override void RegisterTypes()
         {
             //для подгрузки данных заранее
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
             {
                 Container.RegisterInstance(typeof(Market2ViewModel), new Market2ViewModel(Container));
                 //Container.RegisterInstance(typeof(IProjectUnitsStore), new ProjectUnitsStore(Container.Resolve<IModelsStore>(), Container.Resolve<IEventAggregator>()));

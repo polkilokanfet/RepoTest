@@ -42,7 +42,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                     Item != null && 
                     Item.IsValid && 
                     Item.CommentBackOfficeBossIsChanged &&
-                    GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss);
+                    GlobalAppProperties.UserIsBackManagerBoss);
 
             this.ViewModelIsLoaded += () =>
             {

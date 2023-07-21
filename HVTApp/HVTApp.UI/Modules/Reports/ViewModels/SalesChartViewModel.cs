@@ -41,7 +41,7 @@ namespace HVTApp.UI.Modules.Reports.ViewModels
 
         public SalesChartViewModel(IUnityContainer container) : base(container)
         {
-            _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            _salesUnits = GlobalAppProperties.UserIsManager
                 ? UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && !x.IsLoosen && x.Project.Manager.IsAppCurrentUser())
                 : UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.ForReport && !x.IsLoosen);
 

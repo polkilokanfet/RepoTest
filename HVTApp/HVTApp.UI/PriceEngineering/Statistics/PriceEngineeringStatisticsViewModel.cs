@@ -28,7 +28,7 @@ namespace HVTApp.UI.PriceEngineering.Statistics
                 .Select(priceEngineeringTask => new PriceEngineeringStatisticsItem(priceEngineeringTask, GetFacility(priceEngineeringTask)))
                 .OrderBy(item => item.PriceEngineeringTask.StartMoment);
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead)
+            if (GlobalAppProperties.UserIsDesignDepartmentHead)
             {
                 Items = Items
                     .Where(item => item.PriceEngineeringTask.DesignDepartment != null)

@@ -11,7 +11,7 @@ namespace HVTApp.UI.PriceEngineering.View.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.Constructor 
+            return GlobalAppProperties.UserIsConstructor 
                 ? Visibility.Collapsed 
                 : Visibility.Visible;
         }

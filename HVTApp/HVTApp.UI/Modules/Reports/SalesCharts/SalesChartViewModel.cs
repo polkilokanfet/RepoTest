@@ -130,7 +130,7 @@ namespace HVTApp.UI.Modules.Reports.SalesCharts
 
         protected virtual List<SalesUnit> GetSalesUnits()
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            return GlobalAppProperties.UserIsManager
                 ? SalesUnitsContainer.SalesUnits.Where(x => x.IsWon && x.Project.Manager.IsAppCurrentUser()).ToList()
                 : SalesUnitsContainer.SalesUnits.Where(x => x.IsWon).ToList();
         }

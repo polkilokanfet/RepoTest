@@ -12,7 +12,7 @@ namespace HVTApp.Modules.BookRegistration.Menus
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin
                 || GlobalAppProperties.User.RoleCurrent == Role.Director
-                || GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                || GlobalAppProperties.UserIsManager)
             {
                 Items.Add(new NavigationItem("Входящие запросы", typeof(IncomingRequestsView)));
             }

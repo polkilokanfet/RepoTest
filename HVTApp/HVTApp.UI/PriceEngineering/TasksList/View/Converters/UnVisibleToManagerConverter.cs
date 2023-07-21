@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using HVTApp.Infrastructure;
 using HVTApp.Model;
 
 namespace HVTApp.UI.PriceEngineering.View.Converters
@@ -11,7 +10,7 @@ namespace HVTApp.UI.PriceEngineering.View.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            return GlobalAppProperties.UserIsManager
                 ? Visibility.Collapsed
                 : Visibility.Visible;
         }

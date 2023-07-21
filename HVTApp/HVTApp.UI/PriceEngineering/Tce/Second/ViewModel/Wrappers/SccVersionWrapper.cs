@@ -24,7 +24,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         {
             if (IsActual)
             {
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                if (GlobalAppProperties.UserIsBackManager)
                 {
                     if (Version.HasValue == false)
                         yield return new ValidationResult("Version is required", new[] {nameof(Version)});

@@ -83,7 +83,7 @@ namespace HVTApp.UI.Lookup
                 if (this.Entity == null)
                     return false;
 
-                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                if (GlobalAppProperties.UserIsManager)
                 {
                     if (Entity.IsAccepted || Entity.IsStopped)
                     {
@@ -93,13 +93,13 @@ namespace HVTApp.UI.Lookup
                     return true;
                 }
 
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+                if (GlobalAppProperties.UserIsBackManagerBoss)
                 {
                     if (Entity.IsStopped) return false;
                     return Entity.BackManager == null;
                 }
 
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                if (GlobalAppProperties.UserIsBackManager)
                 {
                     if (Entity.IsFinished) return false;
                     if (Entity.IsRejected) return false;

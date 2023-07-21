@@ -17,7 +17,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
     {
         private object _selectedItem;
 
-        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+        public bool CurrentUserIsManager => GlobalAppProperties.UserIsManager;
 
         public ObservableCollection<SalesUnitPaymentGroup> PaymentGroups { get; } = new ObservableCollection<SalesUnitPaymentGroup>();
 
@@ -55,7 +55,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            var salesUnits = GlobalAppProperties.UserIsManager
                 ? ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetAllWithActualPaymentsOfCurrentUser()
                 : ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetAllWithActualPayments();
             var documents = UnitOfWork.Repository<PaymentDocument>().GetAll();

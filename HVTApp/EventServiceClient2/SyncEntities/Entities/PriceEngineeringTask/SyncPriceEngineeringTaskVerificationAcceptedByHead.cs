@@ -25,7 +25,7 @@ namespace EventServiceClient2.SyncEntities
 
         public override bool CurrentUserIsTargetForNotification(PriceEngineeringTask priceEngineeringTask)
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.Constructor;
+            return GlobalAppProperties.UserIsConstructor;
         }
 
 
@@ -57,7 +57,7 @@ namespace EventServiceClient2.SyncEntities
 
         public override bool CurrentUserIsTargetForNotification(PriceEngineeringTask priceEngineeringTask)
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.Constructor;
+            return GlobalAppProperties.UserIsConstructor;
         }
 
 

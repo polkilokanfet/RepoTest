@@ -38,8 +38,8 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 //Items.Add(new NavigationItem("Услуги", typeof(ServiceRealizationDatesView)));
             }
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager || 
-                GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss || 
+            if (GlobalAppProperties.UserIsBackManager || 
+                GlobalAppProperties.UserIsBackManagerBoss || 
                 GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
                 //Items.Add(new NavigationItem("Задачи в ТСЕ (новое)", typeof(PriceEngineeringTasksTceView2)));

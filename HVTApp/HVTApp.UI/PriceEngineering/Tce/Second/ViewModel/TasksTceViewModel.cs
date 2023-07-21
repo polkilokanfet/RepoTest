@@ -18,7 +18,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 {
     public abstract class TasksTceViewModel : BaseDetailsViewModel<TasksTceWrapper, PriceEngineeringTasks, AfterSavePriceEngineeringTasksEvent>
     {
-        public virtual bool AllowEdit => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
+        public virtual bool AllowEdit => GlobalAppProperties.UserIsBackManager;
 
         protected TasksTceViewModel(IUnityContainer container) : base(container)
         {

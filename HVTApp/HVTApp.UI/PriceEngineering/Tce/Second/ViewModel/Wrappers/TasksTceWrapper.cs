@@ -88,7 +88,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            if (GlobalAppProperties.UserIsBackManager)
             {
                 if (TceNumber == null)
                     yield return new ValidationResult("TceNumber is required", new[] { nameof(TceNumber) });

@@ -14,7 +14,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is TasksViewModelDesignDepartmentHead && GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead
+            return value is TasksViewModelDesignDepartmentHead && GlobalAppProperties.UserIsDesignDepartmentHead
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

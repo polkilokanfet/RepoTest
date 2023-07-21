@@ -25,7 +25,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         private IncomingRequestLookup _selectedIncomingRequest;
 
         public bool IsDirectorView => GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director;
-        public bool IsManagerView => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+        public bool IsManagerView => GlobalAppProperties.UserIsManager;
 
         public ObservableCollection<IncomingRequestLookup> IncomingRequests { get; } = new ObservableCollection<IncomingRequestLookup>();
 
@@ -123,7 +123,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     return;
                 }
 
-                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+                if (GlobalAppProperties.UserIsManager &&
                     request.Performers.Any(x => x.Id == GlobalAppProperties.User.Employee.Id))
                 {
                     IncomingRequests.Add(new IncomingRequestLookup(request));
@@ -155,7 +155,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 IncomingRequests.AddRange(requests.Union(targetRequests).OrderBy(x => x.Document.Date).Select(x => new IncomingRequestLookup(x)));
             }
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
             {
                 //все сохраненные входящие запросы
                 var requests = UnitOfWork.Repository<IncomingRequest>().Find(x => x.Performers.ContainsById(GlobalAppProperties.User));

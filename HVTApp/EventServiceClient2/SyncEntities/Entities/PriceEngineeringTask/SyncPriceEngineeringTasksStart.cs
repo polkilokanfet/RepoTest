@@ -26,7 +26,7 @@ namespace EventServiceClient2.SyncEntities
 
         public override bool CurrentUserIsTargetForNotification(PriceEngineeringTasks priceEngineeringTasks)
         {
-            return GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead;
+            return GlobalAppProperties.UserIsDesignDepartmentHead;
         }
 
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser

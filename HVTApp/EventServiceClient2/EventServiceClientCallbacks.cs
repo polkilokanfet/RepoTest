@@ -148,7 +148,7 @@ namespace EventServiceClient2
 
             //var canInstruct = GlobalAppProperties.User.RoleCurrent == Role.Admin || GlobalAppProperties.User.RoleCurrent == Role.Director;
 
-            //var canPerform = GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+            //var canPerform = GlobalAppProperties.UserIsManager &&
             //                 request.Performers.Any(employee => employee.Id == GlobalAppProperties.User.Employee.Id);
 
             //if (canInstruct || canPerform)
@@ -219,7 +219,7 @@ namespace EventServiceClient2
                 string message = null;
 
                 //если текущий пользователь BackManagerBoss
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss && technicalRequrementsTask.BackManager == null)
+                if (GlobalAppProperties.UserIsBackManagerBoss && technicalRequrementsTask.BackManager == null)
                 {
                     if (technicalRequrementsTask.Start.HasValue)
                     {
@@ -228,7 +228,7 @@ namespace EventServiceClient2
                 }
 
                 //если текущий пользователь Back-Менеджер
-                else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager && technicalRequrementsTask.BackManager != null)
+                else if (GlobalAppProperties.UserIsBackManager && technicalRequrementsTask.BackManager != null)
                 {
                     if (technicalRequrementsTask.BackManager.IsAppCurrentUser())
                     {
@@ -255,12 +255,12 @@ namespace EventServiceClient2
             {
                 string message = null;
 
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                if (GlobalAppProperties.UserIsBackManager)
                 {
                     message = $"Вам поручена задача ТСЕ (инициатор: {technicalRequrementsTask.FrontManager})";
                 }
 
-                else if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                else if (GlobalAppProperties.UserIsManager)
                 {
                     message = $"Задача ТСЕ поручена (back-manager: {technicalRequrementsTask.BackManager})";
                 }
@@ -283,7 +283,7 @@ namespace EventServiceClient2
             var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
             if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterStopTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                if (GlobalAppProperties.UserIsBackManager)
                 {
                     string message = $"Задача ТСЕ остановлена (инициатор: {technicalRequrementsTask.FrontManager})";
                     _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
@@ -300,7 +300,7 @@ namespace EventServiceClient2
             var technicalRequrementsTask = _container.Resolve<IUnitOfWork>().Repository<TechnicalRequrementsTask>().GetById(technicalRequarementsTaskId);
             if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterRejectTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             { 
-                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                if (GlobalAppProperties.UserIsManager)
                 {
                     string message = $"Задача ТСЕ отклонена (back-manager: {technicalRequrementsTask.BackManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}";
                     _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
@@ -318,7 +318,7 @@ namespace EventServiceClient2
 
             if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                if (GlobalAppProperties.UserIsBackManager)
                 {
                     string message = $"Проработка задачи ТСЕ отклонена (front-manager: {technicalRequrementsTask.FrontManager})\nПричина отклонения: {technicalRequrementsTask.LastHistoryElement?.Comment}";
                     _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
@@ -336,7 +336,7 @@ namespace EventServiceClient2
 
             if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterFinishTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+                if (GlobalAppProperties.UserIsManager)
                 {
                     string message = $"Завершена проработка задачи ТСЕ (back-manager: {technicalRequrementsTask.BackManager})";
                     _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());
@@ -354,7 +354,7 @@ namespace EventServiceClient2
 
             if (this.SyncContainer.PublishWithinAppForCurrentUser<TechnicalRequrementsTask, AfterAcceptTechnicalRequrementsTaskEvent>(technicalRequrementsTask))
             {
-                if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+                if (GlobalAppProperties.UserIsBackManager)
                 {
                     string message = $"Задача ТСЕ принята (front-manager: {technicalRequrementsTask.FrontManager})";
                     _popupNotificationsService.ShowPopupNotification(technicalRequrementsTask, message, technicalRequrementsTask.ToString());

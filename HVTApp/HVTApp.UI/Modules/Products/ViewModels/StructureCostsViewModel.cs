@@ -37,7 +37,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
         {
             var unitOfWork = container.Resolve<IUnitOfWork>();
 
-            var requaredParametersLists = GlobalAppProperties.User.RoleCurrent == Role.Constructor
+            var requaredParametersLists = GlobalAppProperties.UserIsConstructor
                 ? unitOfWork.Repository<ConstructorsParameters>().Find(x => x.Constructors.ContainsById(GlobalAppProperties.User)).SelectMany(x => x.PatametersLists).ToList()
                 : new List<ConstructorParametersList>();
 

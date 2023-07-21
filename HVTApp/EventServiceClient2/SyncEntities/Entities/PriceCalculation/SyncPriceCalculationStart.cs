@@ -34,7 +34,7 @@ namespace EventServiceClient2.SyncEntities
 
         public override bool CurrentUserIsTargetForNotification(PriceCalculation priceCalculation)
         {
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+            if (GlobalAppProperties.UserIsManager &&
                 GlobalAppProperties.User.Id != priceCalculation.FrontManager?.Id) 
                 return false;
 

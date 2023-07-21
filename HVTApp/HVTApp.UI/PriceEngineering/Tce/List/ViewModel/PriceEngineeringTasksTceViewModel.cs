@@ -18,9 +18,9 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.ViewModel
 
         public DelegateLogCommand ReloadCommand { get; }
 
-        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
-        public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
-        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
+        public bool CurrentUserIsManager => GlobalAppProperties.UserIsManager;
+        public bool CurrentUserIsBackManager => GlobalAppProperties.UserIsBackManager;
+        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.UserIsBackManagerBoss;
 
         protected PriceEngineeringTasksTceViewModel(IUnityContainer container) : base(container)
         {

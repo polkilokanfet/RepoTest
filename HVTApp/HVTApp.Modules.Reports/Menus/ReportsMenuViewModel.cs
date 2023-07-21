@@ -22,7 +22,7 @@ namespace HVTApp.Modules.Reports.Menus
         protected override void GenerateMenu()
         {
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
-                GlobalAppProperties.User.RoleCurrent == Role.SalesManager ||
+                GlobalAppProperties.UserIsManager ||
                 GlobalAppProperties.User.RoleCurrent == Role.Director)
             {
                 Items.Add(new NavigationItem("Рынок", typeof(MarketReportView)));
@@ -50,7 +50,7 @@ namespace HVTApp.Modules.Reports.Menus
             Items.Add(new NavigationItem("График продаж", typeof(SalesChartView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||
-                GlobalAppProperties.User.RoleCurrent == Role.SalesManager ||
+                GlobalAppProperties.UserIsManager ||
                 GlobalAppProperties.User.RoleCurrent == Role.Director)
             {
                 var item = new NavigationItem("Аналитика", typeof(ManagersSalesChartView));

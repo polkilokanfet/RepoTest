@@ -141,7 +141,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
             var requests = UnitOfWork.Repository<IncomingRequest>().GetAll();
             List<Document> documents;
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
             {
                 documents = UnitOfWork.Repository<Document>().Find(x => x.Author.Id == GlobalAppProperties.User.Employee.Id);
                 var requests2 = requests.Where(x => x.Performers.ContainsById(GlobalAppProperties.User.Employee));

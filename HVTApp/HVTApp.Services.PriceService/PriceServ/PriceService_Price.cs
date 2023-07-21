@@ -116,7 +116,7 @@ namespace HVTApp.Services.PriceService.PriceServ
 #if DEBUG
 #else
             //если пользователь - менеджер, грузим сервис сразу
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
                 Reload();
 #endif
         }
@@ -148,10 +148,8 @@ namespace HVTApp.Services.PriceService.PriceServ
             SalesUnitsCalculationsDictionary = new Dictionary<Guid, PriceItems>();
 
             //завершенные айтемы расчетов ПЗ
-            var user = GlobalAppProperties.User.RoleCurrent == Role.SalesManager ? GlobalAppProperties.User : null;
-            var priceCalculationItemsFinished = 
-                ((PriceCalculationRepository)unitOfWork.Repository<PriceCalculation>())
-                .GetCalculationsForPriceService(user).ToList();
+            var user = GlobalAppProperties.UserIsManager ? GlobalAppProperties.User : null;
+            var priceCalculationItemsFinished = ((PriceCalculationRepository)unitOfWork.Repository<PriceCalculation>()).GetCalculationsForPriceService(user).ToList();
 
             foreach (var priceCalculationItem in priceCalculationItemsFinished)
             {
@@ -181,13 +179,6 @@ namespace HVTApp.Services.PriceService.PriceServ
                 : null;
         }
 
-        public double? GetPriceByCalculations(IUnit unit)
-        {
-            return SalesUnitsCalculationsDictionary.ContainsKey(unit.Id)
-                ? SalesUnitsCalculationsDictionary[unit.Id].Price
-                : null;
-        }
-
         public Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations)
         {
             return new Price(unit, targetDate, this, checkCalculations);
@@ -209,10 +200,7 @@ namespace HVTApp.Services.PriceService.PriceServ
 
             //все блоки с прайсом
             var blocksWithPrices = new Dictionary<Guid, ProductBlock>(ProductBlocksWithPriceDictionary);
-            if (blocksWithPrices.ContainsKey(targetBlock.Id))
-            {
-                blocksWithPrices.Remove(targetBlock.Id);
-            }
+            blocksWithPrices.RemoveIfContainsById(targetBlock.Id);
 
             var dic = new Dictionary<ProductBlock, double>();
             foreach (var blockWithPrice in blocksWithPrices.Select(x => x.Value))

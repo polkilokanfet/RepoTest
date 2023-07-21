@@ -91,7 +91,7 @@ namespace HVTApp.UI.Modules.Reports.MarketReport
                 if (salesUnit.Project.ForReport == false)
                     return false;
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
                 return salesUnit.Project.Manager.IsAppCurrentUser();
 
             return true;

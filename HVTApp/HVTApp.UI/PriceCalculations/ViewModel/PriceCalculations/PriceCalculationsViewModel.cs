@@ -23,10 +23,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculations
 
         public LoadFileCommand LoadFileCommand { get; }
 
-        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
+        public bool CurrentUserIsManager => GlobalAppProperties.UserIsManager;
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
-        public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
-        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
+        public bool CurrentUserIsBackManager => GlobalAppProperties.UserIsBackManager;
+        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.UserIsBackManagerBoss;
         public bool CurrentUserIsDirector=> GlobalAppProperties.User.RoleCurrent == Role.Director;
 
         public PriceCalculationsViewModel(IUnityContainer container) : base(container)

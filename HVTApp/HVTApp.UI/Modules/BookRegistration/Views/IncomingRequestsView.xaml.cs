@@ -41,7 +41,7 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
                 IncomingRequestsGrid.FieldLayouts.First().RecordFilters.Add(recordFilter2);
             }
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
             {
                 var recordFilter = new RecordFilter { FieldName = nameof(IncomingRequest.IsDone) };
                 var condition = new ComparisonCondition(ComparisonOperator.Equals, false);

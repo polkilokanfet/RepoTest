@@ -16,15 +16,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             InitializeComponent();
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
             {
                 this.DataContext = container.Resolve<TechnicalRequrementsTasksForFrontManagerViewModel>();
             }
-            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            else if (GlobalAppProperties.UserIsBackManager)
             {
                 this.DataContext = container.Resolve<TechnicalRequrementsTasksForBackManagerViewModel>();
             }
-            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+            else if (GlobalAppProperties.UserIsBackManagerBoss)
             {
                 this.DataContext = container.Resolve<TechnicalRequrementsTasksForBackManagerBossViewModel>();
             }

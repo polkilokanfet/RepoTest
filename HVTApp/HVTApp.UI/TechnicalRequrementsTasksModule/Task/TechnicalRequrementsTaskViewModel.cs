@@ -94,9 +94,9 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         #region Is
 
-        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
-        public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
-        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss;
+        public bool CurrentUserIsManager => GlobalAppProperties.UserIsManager;
+        public bool CurrentUserIsBackManager => GlobalAppProperties.UserIsBackManager;
+        public bool CurrentUserIsBackManagerBoss => GlobalAppProperties.UserIsBackManagerBoss;
 
         /// <summary>
         /// Задача запущена ФМ
@@ -515,7 +515,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     }
                 },
                 () => 
-                    GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+                    GlobalAppProperties.UserIsManager &&
                     this.TechnicalRequrementsTaskWrapper != null &&
                     this.TechnicalRequrementsTaskWrapper.HistoryElements.Any() &&
                     this.TechnicalRequrementsTaskWrapper.HistoryElements.OrderBy(historyItem => historyItem.Moment).Last().Model.Type == TechnicalRequrementsTaskHistoryElementType.Accept &&
@@ -549,7 +549,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
                 },
                 () =>
-                    GlobalAppProperties.User.RoleCurrent == Role.SalesManager &&
+                    GlobalAppProperties.UserIsManager &&
                     this.TechnicalRequrementsTaskWrapper != null &&
                     this.TechnicalRequrementsTaskWrapper.HistoryElements.Any() &&
                     this.TechnicalRequrementsTaskWrapper.HistoryElements.OrderBy(historyItem => historyItem.Moment).Last().Model.Type == TechnicalRequrementsTaskHistoryElementType.Accept &&

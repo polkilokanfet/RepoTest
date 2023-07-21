@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is TaskViewModelManagerNew && GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            return value is TaskViewModelManagerNew && GlobalAppProperties.UserIsManager
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

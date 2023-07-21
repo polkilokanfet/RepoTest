@@ -581,7 +581,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //загрузка продажных единиц
-            _salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            _salesUnits = GlobalAppProperties.UserIsManager
                 ? ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetForFlatReportView(IsReportUnitsOnly).Where(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()).ToList()
                 : ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetForFlatReportView(IsReportUnitsOnly).ToList();
 

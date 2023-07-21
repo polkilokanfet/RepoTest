@@ -28,7 +28,7 @@ namespace HVTApp.Modules.Products.Menus
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewAdmin)));
             }
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead)
+            if (GlobalAppProperties.UserIsDesignDepartmentHead)
             {
                 //Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewDepartmentHead)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewDesignDepartmentHead)));
@@ -42,7 +42,7 @@ namespace HVTApp.Modules.Products.Menus
             }
 
 
-            //if (GlobalAppProperties.User.RoleCurrent == Role.Constructor)
+            //if (GlobalAppProperties.UserIsConstructor)
             //    Items.Add(new NavigationItem("Стракчакосты", typeof(StructureCostsView)));
 
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));

@@ -14,15 +14,15 @@ namespace HVTApp.UI.PriceEngineering.Tce.List.View
         {
             InitializeComponent();
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.SalesManager)
+            if (GlobalAppProperties.UserIsManager)
             {
                 this.DataContext = container.Resolve<PriceEngineeringTasksTceViewModelFrontManager>();
             }
-            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManager)
+            else if (GlobalAppProperties.UserIsBackManager)
             {
                 this.DataContext = container.Resolve<PriceEngineeringTasksTceViewModelBackManager>();
             }
-            else if (GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss)
+            else if (GlobalAppProperties.UserIsBackManagerBoss)
             {
                 this.DataContext = container.Resolve<PriceEngineeringTasksTceViewModelBackManagerBoss>();
             }

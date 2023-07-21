@@ -12,7 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Converters.Visibility
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is TasksTceViewModelFrontManager && GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            return value is TasksTceViewModelFrontManager && GlobalAppProperties.UserIsManager
                 ? System.Windows.Visibility.Visible
                 : System.Windows.Visibility.Collapsed;
         }

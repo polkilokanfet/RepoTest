@@ -23,7 +23,7 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = GlobalAppProperties.User.RoleCurrent == Role.SalesManager
+            var salesUnits = GlobalAppProperties.UserIsManager
                 ? ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllNotRemovedNotLoosen().Where(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()).ToList()
                 : ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllNotRemovedNotLoosen().ToList();
 

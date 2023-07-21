@@ -122,8 +122,25 @@ namespace HVTApp.Infrastructure.Extansions
         public static void RemoveIfContainsById<T>(this ICollection<T> collection, IId objId)
             where T : IId
         {
-            if(collection.ContainsById(objId))
+            if (collection.ContainsById(objId))
                 collection.RemoveById(objId);
+        }
+
+        /// <summary>
+        /// Удаление из словаря записи с соответствующим ключом (если такая запись есть)
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool RemoveIfContainsById<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        {
+            if (dictionary.ContainsKey(key) == false) return false;
+
+            dictionary.Remove(key);
+            return true;
+
         }
 
         /// <summary>

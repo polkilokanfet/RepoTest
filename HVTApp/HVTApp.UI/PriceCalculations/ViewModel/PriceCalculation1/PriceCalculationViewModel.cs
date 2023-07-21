@@ -37,8 +37,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 DivideCommand.RaiseCanExecuteChanged();
             }
         }
-        public bool CurrentUserIsManager => GlobalAppProperties.User.RoleCurrent == Role.SalesManager;
-        public bool CurrentUserIsBackManager => GlobalAppProperties.User.RoleCurrent == Role.BackManager;
+        public bool CurrentUserIsManager => GlobalAppProperties.UserIsManager;
+        public bool CurrentUserIsBackManager => GlobalAppProperties.UserIsBackManager;
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
 
         public bool StartVisibility
