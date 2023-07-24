@@ -17,14 +17,14 @@ namespace HVTApp.Services.PriceService.PriceServ
 {
     public partial class PriceService : IPriceService
     {
-        private readonly IUnityContainer _container;
-        private Dictionary<Guid, ProductBlock> _blocks = null;
-        private Dictionary<Guid, PriceItems> _salesUnitsCalculationsDictionary = null;
-
         /// <summary>
         /// Сервис загружен хотя бы раз
         /// </summary>
-        public bool IsLoaded { get; private set; } = false;
+        bool _isLoaded = false;
+
+        private readonly IUnityContainer _container;
+        private Dictionary<Guid, ProductBlock> _blocks = null;
+        private Dictionary<Guid, PriceItems> _salesUnitsCalculationsDictionary = null;
 
         /// <summary>
         /// Все блоки
@@ -65,59 +65,12 @@ namespace HVTApp.Services.PriceService.PriceServ
         public PriceService(IUnityContainer container)
         {
             _container = container;
-
-            //синхронизация завершения расчетов
-            container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Subscribe(
-                priceCalculation =>
-                {
-                    //если сервис не загружен
-                    if (this.IsLoaded == false) return;
-
-                    //добавляем только данные из завершенных расчетов
-                    if (priceCalculation.TaskCloseMoment.HasValue == false) return;
-
-                    foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems)
-                    {
-                        foreach (var salesUnit in priceCalculationItem.SalesUnits)
-                        {
-                            AddPriceItemInSalesUnitsCalculationsDictionary(priceCalculationItem, salesUnit);
-                        }
-                    }
-                });
-
-            //синхронизация остановки расчетов
-            container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Subscribe(
-                calculation =>
-                {
-                    //если сервис не загружен
-                    if (this.IsLoaded == false) return;
-
-                    if (calculation.TaskCloseMoment.HasValue) return;
-
-                    foreach (var priceCalculationItem in calculation.PriceCalculationItems)
-                    {
-                        foreach (var salesUnit in priceCalculationItem.SalesUnits)
-                        {
-                            if (SalesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id))
-                            {
-                                var priceItems = SalesUnitsCalculationsDictionary[salesUnit.Id];
-
-                                if (priceItems.Remove(priceCalculationItem) && priceItems.IsEmpty)
-                                {
-                                    SalesUnitsCalculationsDictionary.Remove(salesUnit.Id);
-                                }
-                            }
-                        }
-                    }
-                });
-
             _container.Resolve<IModelsStore>().IsRefreshed += Reload;
 
 #if DEBUG
 #else
             //если пользователь - менеджер, грузим сервис сразу
-            if (GlobalAppProperties.UserIsManager)
-                Reload();
+            if (GlobalAppProperties.UserIsManager) Reload();
 #endif
         }
 
@@ -166,7 +119,46 @@ namespace HVTApp.Services.PriceService.PriceServ
                 }
             }
 
-            this.IsLoaded = true;
+            //если сервис грузится в первый раз, подписываемся на изменения в расчётах
+            if (_isLoaded == false)
+            {
+                //синхронизация завершения расчетов
+                _container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Subscribe(
+                    priceCalculation =>
+                    {
+                        //добавляем только данные из завершенных расчетов
+                        if (priceCalculation.IsFinished == false) return;
+
+                        foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems)
+                        {
+                            foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                            {
+                                AddPriceItemInSalesUnitsCalculationsDictionary(priceCalculationItem, salesUnit);
+                            }
+                        }
+                    });
+
+                //синхронизация остановки расчетов
+                _container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Subscribe(
+                    calculation =>
+                    {
+                        if (calculation.IsFinished) return;
+
+                        foreach (var priceCalculationItem in calculation.PriceCalculationItems)
+                        {
+                            foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                            {
+                                if (SalesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id) == false) continue;
+
+                                var priceItems = SalesUnitsCalculationsDictionary[salesUnit.Id];
+                                priceItems.Remove(priceCalculationItem);
+                                if (priceItems.IsEmpty) SalesUnitsCalculationsDictionary.Remove(salesUnit.Id);
+                            }
+                        }
+                    });
+            }
+
+            this._isLoaded = true;
         }
 
         public PriceCalculationItem GetPriceCalculationItem(IUnit unit)

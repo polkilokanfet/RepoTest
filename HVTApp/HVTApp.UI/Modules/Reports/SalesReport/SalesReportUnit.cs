@@ -428,7 +428,7 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             var costDelivery = SalesUnits.Select(unit => unit.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
             CostDelivery = -1.0 * costDelivery;
 
-            var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.OrderInTakeDate, true);
+            var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.RealizationDateCalculated, true);
             Price = salesUnit.Price ?? price.SumPriceTotal;
 
             FixedCost = -1.0 * price.SumFixedTotal * Amount;

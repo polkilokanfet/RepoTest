@@ -159,7 +159,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         protected override DateTime GetPriceDate(ProjectUnitsGroup @group)
         {
-            return @group.OrderInTakeDate < DateTime.Today ? @group.OrderInTakeDate : DateTime.Today;
+            return @group.RealizationDateCalculated;
         }
 
         #region AddCommand

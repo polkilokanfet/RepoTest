@@ -91,7 +91,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         protected override DateTime GetPriceDate(OfferUnitsGroup @group)
         {
             if(@group.Offer == null) return DateTime.Today;
-            return @group.Offer.Date < DateTime.Today ? @group.Offer.Date : DateTime.Today;
+            var date = @group.Offer.Date < DateTime.Today ? @group.Offer.Date : DateTime.Today;
+            return date.AddDays(@group.ProductionTerm);
         }
     }
 }

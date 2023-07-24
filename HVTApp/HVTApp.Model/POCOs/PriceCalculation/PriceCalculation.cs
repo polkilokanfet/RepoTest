@@ -25,6 +25,9 @@ namespace HVTApp.Model.POCOs
             LastHistoryItem.Type != PriceCalculationHistoryItemType.Reject &&
             LastHistoryItem.Type != PriceCalculationHistoryItemType.Stop;
 
+        /// <summary>
+        /// Расчёт завершён
+        /// </summary>
         public bool IsFinished =>
             LastHistoryItem != null &&
             LastHistoryItem.Type == PriceCalculationHistoryItemType.Finish;

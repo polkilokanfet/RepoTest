@@ -35,6 +35,8 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public DateTime OrderInTakeDate => GetValue<DateTime>();
 
+        public DateTime RealizationDateCalculated => Model.RealizationDateCalculated;
+
         public string TceRequest
         {
             get => GetValue<string>();
