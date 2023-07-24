@@ -8,6 +8,8 @@ namespace HVTApp.Model.Price
 {
     public class Price : PriceBase
     {
+        private PriceCalculationItem _priceCalculationItem;
+
         /// <summary>
         /// Имеется калькуляция
         /// </summary>
@@ -20,9 +22,9 @@ namespace HVTApp.Model.Price
         {
             get
             {
-                if (HasCalculation) return "По калькуляции";
+                if (HasCalculation) return $"По калькуляции от {_priceCalculationItem?.FinishDate?.ToShortDateString()} (реализация {_priceCalculationItem?.RealizationDate?.ToShortDateString()})";
                 if (ContainsAnyAnalog) return "Содержит ПЗ по аналогам";
-                return string.Empty;
+                return "По оригинальным блокам";
             }
         }
 
@@ -127,10 +129,10 @@ namespace HVTApp.Model.Price
             IEnumerable<ProductIncluded> productsIncluded = unit.ProductsIncluded;
 
             //если есть калькуляция
-            var priceCalculationItem = checkCalculations
+            _priceCalculationItem = checkCalculations
                 ? priceService.GetPriceCalculationItem(unit)
                 : null;
-            if (priceCalculationItem != null)
+            if (_priceCalculationItem != null)
             {
                 HasCalculation = true;
 
@@ -139,7 +141,7 @@ namespace HVTApp.Model.Price
 
                 //заглушки на прайсы зависимых блоков
                 PricesOfDependentBlocks =
-                    priceCalculationItem.StructureCosts
+                    _priceCalculationItem.StructureCosts
                         .Where(structureCost => structureCost.UnitPrice.HasValue)
                         .Select(structureCost => new PriceStub($"{structureCost.Comment}", structureCost.Amount, structureCost.UnitPrice.Value, structureCost.Number))
                         .Cast<IPrice>()
