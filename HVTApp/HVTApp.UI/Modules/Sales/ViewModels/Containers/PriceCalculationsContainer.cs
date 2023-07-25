@@ -5,20 +5,22 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Modules.Sales.Market;
+using HVTApp.UI.PriceCalculations.View;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class PriceCalculationsContainer : BaseContainerFilt<PriceCalculation, PriceCalculationLookup, SelectedPriceCalculationChangedEvent, AfterSavePriceCalculationEvent, AfterRemovePriceCalculationEvent, Project, SelectedProjectChangedEvent>
+    public class PriceCalculationsContainer : BaseContainerViewModelWithFilterByProject<PriceCalculation, PriceCalculationLookup, SelectedPriceCalculationChangedEvent, AfterSavePriceCalculationEvent, AfterRemovePriceCalculationEvent, PriceCalculationView>
     {
-        public PriceCalculationsContainer(IUnityContainer container) : base(container)
+        public PriceCalculationsContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
         }
 
         protected override IEnumerable<PriceCalculationLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             return GlobalAppProperties.User.RoleCurrent == Role.Admin
-                ? unitOfWork.Repository<PriceCalculation>().GetAll().Select(x => new PriceCalculationLookup(x))
+                ? unitOfWork.Repository<PriceCalculation>().GetAll().Select(calculation => new PriceCalculationLookup(calculation))
                 : unitOfWork.Repository<PriceCalculation>()
                     .Find(priceCalculation => priceCalculation.PriceCalculationItems.SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits).Any(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()))
                     .Select(priceCalculation => new PriceCalculationLookup(priceCalculation));
@@ -31,9 +33,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
                 .OrderByDescending(priceCalculationLookup => priceCalculationLookup.Entity.TaskCloseMoment);
         }
 
-        protected override bool CanBeShown(PriceCalculation technicalRequrementsTask)
+        protected override bool CanBeShown(PriceCalculation calculation)
         {
-            return Filter != null && technicalRequrementsTask.PriceCalculationItems.SelectMany(x => x.SalesUnits).Any(su => su.Project.Id == Filter.Id);
+            return this.SelectedProject != null && 
+                   calculation.PriceCalculationItems
+                       .SelectMany(item => item.SalesUnits)
+                       .Any(salesUnit => salesUnit.Project.Id == this.SelectedProject.Id);
         }
     }
 }

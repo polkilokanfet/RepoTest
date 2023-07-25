@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -16,7 +15,7 @@ using Prism.Events;
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
     public abstract class BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent> : 
-        ObservableCollection<TLookup>
+        ObservableCollection<TLookup>, IDisposable
         where TItem : class, IBaseEntity
         where TLookup : LookupItem<TItem> 
         where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
@@ -24,7 +23,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
     {
         protected readonly IUnityContainer Container;
-        protected List<TLookup> AllLookups;
+        protected readonly IEventAggregator EventAggregator;
+        protected List<TLookup> AllLookups = new List<TLookup>();
+
+        public event Action<TLookup> SelectedItemChangedEvent;
 
         private TLookup _selectedItem;
         /// <summary>
@@ -32,30 +34,26 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         /// </summary>
         public TLookup SelectedItem
         {
-            get { return _selectedItem; }
+            get => _selectedItem;
             set
             {
                 if (Equals(_selectedItem, value)) return;
                 _selectedItem = value;
                 Container.Resolve<IEventAggregator>().GetEvent<TSelectedItemChangedEvent>().Publish(SelectedItem?.Entity);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedItem)));
+                SelectedItemChangedEvent?.Invoke(value);
             }
         }
 
         protected BaseContainer(IUnityContainer container)
         {
             Container = container;
-
-            var unitOfWork = container.Resolve<IUnitOfWork>();
-            AllLookups = GetLookups(unitOfWork).ToList();
-
-            var eventAggregator = container.Resolve<IEventAggregator>();
+            EventAggregator = container.Resolve<IEventAggregator>();
 
             //реакция на сохранение сущности
-            eventAggregator.GetEvent<TAfterSaveItemEvent>().Subscribe(OnAfterSaveItemEvent);
-            
+            EventAggregator.GetEvent<TAfterSaveItemEvent>().Subscribe(OnAfterSaveItemEvent);
             //реакция на удаление сущности
-            eventAggregator.GetEvent<TAfterRemoveItemEvent>().Subscribe(OnAfterRemoveItemEvent);
+            EventAggregator.GetEvent<TAfterRemoveItemEvent>().Subscribe(OnAfterRemoveItemEvent);
 
             //отслеживание актуальности выбранного юнита
             this.CollectionChanged += (sender, args) =>
@@ -70,6 +68,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
                     }
                 }
             };
+        }
+
+        public void Load(IUnitOfWork unitOfWork)
+        {
+            AllLookups = GetLookups(unitOfWork).ToList();
         }
 
         /// <summary>
@@ -124,40 +127,19 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         /// <summary>
         /// Сущность должна быть показана при текущих фильтрах
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="calculation"></param>
         /// <returns></returns>
-        protected virtual bool CanBeShown(TItem item)
+        protected virtual bool CanBeShown(TItem calculation)
         {
             return true;
         }
 
         protected abstract IEnumerable<TLookup> GetLookups(IUnitOfWork unitOfWork);
 
-        public virtual void RemoveSelectedItem()
+        public void Dispose()
         {
-            if(SelectedItem == null) throw new ArgumentNullException(nameof(SelectedItem));
-
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var messageService = Container.Resolve<IMessageService>();
-
-            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedItem.DisplayMember}\"?", defaultNo:true);
-            if (dr != MessageDialogResult.Yes) return;
-
-            var entity = unitOfWork.Repository<TItem>().GetById(SelectedItem.Id);
-            if (entity != null)
-            {
-                unitOfWork.Repository<TItem>().Delete(entity);
-                try
-                {
-                    unitOfWork.SaveChanges();
-                    Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveItemEvent>().Publish(entity);
-                }
-                catch (DbUpdateException e)
-                {
-                    messageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
-                }
-            }
-
+            EventAggregator.GetEvent<TAfterSaveItemEvent>().Unsubscribe(OnAfterSaveItemEvent);
+            EventAggregator.GetEvent<TAfterRemoveItemEvent>().Unsubscribe(OnAfterRemoveItemEvent);
         }
     }
 }

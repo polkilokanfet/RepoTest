@@ -21,7 +21,12 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    public partial class Market2ViewModel : LoadableExportableExpandCollapseViewModel
+    public interface ISelectedProjectItemChanged
+    {
+        event Action<ProjectItem> SelectedProjectItemChanged;
+    }
+
+    public partial class Market2ViewModel : LoadableExportableExpandCollapseViewModel, ISelectedProjectItemChanged
     {
         private ProjectItem _selectedProjectItem;
         private readonly IEventAggregator _eventAggregator;
@@ -29,11 +34,6 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private IEnumerable<Tender> _tenders;
         private IEnumerable<ProjectItem> _projectItems;
-        private OffersContainer _offers;
-        private TendersContainer _tenders1;
-        private PriceEngineeringTasksContainer _priceEngineeringTasks;
-        private TechnicalRequrementsTasksContainer _technicalRequrementsTasks;
-        private PriceCalculationsContainer _priceCalculations;
         private object _selectedItem;
         private object[] _selectedItems;
         private bool _isShownDoneItems = true;
@@ -127,7 +127,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             get
             {
-                List<ProjectItem> result = new List<ProjectItem>();
+                var result = new List<ProjectItem>();
 
                 if (SelectedItems == null) return result;
 
@@ -151,55 +151,15 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public event Action<ProjectItem> SelectedProjectItemChanged;
 
-        public OffersContainer Offers
-        {
-            get => _offers;
-            private set
-            {
-                _offers = value;
-                RaisePropertyChanged();
-            }
-        }
+        #region Containers
 
-        public TendersContainer Tenders
-        {
-            get => _tenders1;
-            private set
-            {
-                _tenders1 = value;
-                RaisePropertyChanged();
-            }
-        }
+        public OffersContainer Offers { get; }
+        public TendersContainer Tenders { get; }
+        public PriceEngineeringTasksContainer PriceEngineeringTasks { get; }
+        public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks { get; }
+        public PriceCalculationsContainer PriceCalculations { get; }
 
-        public PriceEngineeringTasksContainer PriceEngineeringTasks
-        {
-            get => _priceEngineeringTasks;
-            private set
-            {
-                _priceEngineeringTasks = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks
-        {
-            get => _technicalRequrementsTasks;
-            private set
-            {
-                _technicalRequrementsTasks = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public PriceCalculationsContainer PriceCalculations
-        {
-            get => _priceCalculations;
-            private set
-            {
-                _priceCalculations = value;
-                RaisePropertyChanged();
-            }
-        }
+        #endregion
 
         public Outlook Outlook { get; }
 
@@ -207,6 +167,12 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             _eventAggregator = Container.Resolve<IEventAggregator>();
             ProjectItems = new ProjectItemsCollection(this, _eventAggregator);
+
+            Offers = new OffersContainer(Container, this);
+            Tenders = new TendersContainer(Container, this);
+            PriceEngineeringTasks = new PriceEngineeringTasksContainer(Container, this);
+            TechnicalRequrementsTasks = new TechnicalRequrementsTasksContainer(Container, this);
+            PriceCalculations = new PriceCalculationsContainer(Container, this);
 
             Outlook = new Outlook(this, container);
 
@@ -220,14 +186,11 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             NewSpecificationCommand = new SpecificationNewCommand(this, this.Container, this.RegionManager);
 
-            EditOfferCommand = new EditOfferCommand(this, this.RegionManager);
-            RemoveOfferCommand = new DelegateLogCommand(() => Offers.RemoveSelectedItem(), () => Offers?.SelectedItem != null);
             PrintOfferCommand = new PrintOfferCommand(this, this.Container);
             OfferByProjectCommand = new OfferByProjectCommand(this, this.RegionManager);
             OfferByOfferCommand = new OfferByOfferCommand(this, this.RegionManager);
 
             NewTenderCommand = new NewTenderCommand(this, this.Container);
-            EditTenderCommand = new EditTenderCommand(this, this.Container);
             RemoveTenderCommand = new DelegateLogCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
 
             EditPriceEngineeringTasksCommand = new DelegateLogCommand(
@@ -301,11 +264,11 @@ namespace HVTApp.UI.Modules.Sales.Market
                 .ThenBy(projectItem => projectItem.OrderInTakeDate)
                 .ToList();
 
-            Offers = Container.Resolve<OffersContainer>();
-            Tenders = Container.Resolve<TendersContainer>();
-            PriceEngineeringTasks = Container.Resolve<PriceEngineeringTasksContainer>();
-            TechnicalRequrementsTasks = Container.Resolve<TechnicalRequrementsTasksContainer>();
-            PriceCalculations = Container.Resolve<PriceCalculationsContainer>();
+            Offers.Load(UnitOfWork);
+            Tenders.Load(UnitOfWork);
+            PriceEngineeringTasks.Load(UnitOfWork);
+            TechnicalRequrementsTasks.Load(UnitOfWork);
+            PriceCalculations.Load(UnitOfWork);
         }
 
         protected override void BeforeGetData()
@@ -337,8 +300,6 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         private void OfferRaiseCanExecuteChanged()
         {
-            (EditOfferCommand).RaiseCanExecuteChanged();
-            (RemoveOfferCommand).RaiseCanExecuteChanged();
             (PrintOfferCommand).RaiseCanExecuteChanged();
             (OfferByOfferCommand).RaiseCanExecuteChanged();
             (OfferByProjectCommand).RaiseCanExecuteChanged();
@@ -347,7 +308,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         private void TenderRaiseCanExecuteChanged()
         {
             NewTenderCommand.RaiseCanExecuteChanged();
-            EditTenderCommand.RaiseCanExecuteChanged();
             RemoveTenderCommand.RaiseCanExecuteChanged();
             OpenTenderLinkCommand.RaiseCanExecuteChanged();
         }

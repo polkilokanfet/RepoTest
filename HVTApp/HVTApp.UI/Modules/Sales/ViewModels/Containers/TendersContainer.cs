@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Modules.Sales.Market;
+using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class TendersContainer : BaseContainerFilt<Tender, TenderLookup, SelectedTenderChangedEvent, AfterSaveTenderEvent, AfterRemoveTenderEvent, Project, SelectedProjectChangedEvent>
+    public class TendersContainer : BaseContainerViewModelWithFilterByProject<Tender, TenderLookup, SelectedTenderChangedEvent, AfterSaveTenderEvent, AfterRemoveTenderEvent, TenderDetailsView>
     {
-        public TendersContainer(IUnityContainer container) : base(container)
+        public TendersContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
         }
 
@@ -31,7 +34,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override bool CanBeShown(Tender tender)
         {
-            return Filter != null && Filter.Id == tender.Project.Id;
+            return this.SelectedProject != null && 
+                   this.SelectedProject.Id == tender.Project.Id;
+        }
+
+        public override void EditSelectedItem()
+        {
+            var tenderViewModel = new TenderViewModel(Container, this.SelectedItem.Entity);
+            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
         }
     }
 }

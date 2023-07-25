@@ -5,13 +5,15 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Modules.Sales.Market;
+using HVTApp.UI.TechnicalRequrementsTasksModule;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class TechnicalRequrementsTasksContainer : BaseContainerFilt<TechnicalRequrementsTask, TechnicalRequrementsTaskLookup, SelectedTechnicalRequrementsTaskChangedEvent, AfterSaveTechnicalRequrementsTaskEvent, AfterRemoveTechnicalRequrementsTaskEvent, Project, SelectedProjectChangedEvent>
+    public class TechnicalRequrementsTasksContainer : BaseContainerViewModelWithFilterByProject<TechnicalRequrementsTask, TechnicalRequrementsTaskLookup, SelectedTechnicalRequrementsTaskChangedEvent, AfterSaveTechnicalRequrementsTaskEvent, AfterRemoveTechnicalRequrementsTaskEvent, TechnicalRequrementsTaskView>
     {
-        public TechnicalRequrementsTasksContainer(IUnityContainer container) : base(container)
+        public TechnicalRequrementsTasksContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
         }
 
@@ -33,7 +35,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override bool CanBeShown(TechnicalRequrementsTask technicalRequrementsTask)
         {
-            return Filter != null && technicalRequrementsTask.Requrements.SelectMany(technicalRequrements => technicalRequrements.SalesUnits).Any(salesUnit => salesUnit.Project.Id == Filter.Id);
+            return this.SelectedProject != null && 
+                   technicalRequrementsTask.Requrements
+                       .SelectMany(technicalRequrements => technicalRequrements.SalesUnits)
+                       .Any(salesUnit => salesUnit.Project.Id == this.SelectedProject.Id);
         }
     }
 }

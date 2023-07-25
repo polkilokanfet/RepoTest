@@ -33,10 +33,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public void LoadSpecifications()
         {
-            var salesUnits =
-                UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == GlobalAppProperties.User.Id
-                                                             && x.Specification != null);
-            this.Load(salesUnits.Select(x => x.Specification).Distinct());
+            var salesUnits = UnitOfWork.Repository<SalesUnit>()
+                .Find(salesUnit => salesUnit.Project.Manager.Id == GlobalAppProperties.User.Id && 
+                                   salesUnit.Specification != null);
+            this.Load(salesUnits.Select(salesUnit => salesUnit.Specification).Distinct());
         }
 
         protected override void InitSpecialCommands()

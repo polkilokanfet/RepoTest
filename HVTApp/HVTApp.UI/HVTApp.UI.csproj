@@ -300,10 +300,8 @@
     </Compile>
     <Compile Include="Modules\Reports\TceReport\TceReportViewModel.cs" />
     <Compile Include="Modules\Reports\TceReport\TceReportUnit.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\EditOfferCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\EditPriceCalculationCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\EditTechnicalRequrementsTaskCommand.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\EditTenderCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\MakePriceEngineeringTaskCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\MakeTceTaskCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\OfferByOfferCommand.cs" />
@@ -319,7 +317,24 @@
     <Compile Include="Modules\Sales\Market\Commands\SpecificationNewCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\StructureCostsCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\UnionProjectsCommand.cs" />
+    <Compile Include="Modules\Sales\Market\Controls\Market2PriceEngineeringTasksControl.xaml.cs">
+      <DependentUpon>Market2PriceEngineeringTasksControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Market\Controls\Market2TechnicalRequrementsTasksControl.xaml.cs">
+      <DependentUpon>Market2TechnicalRequrementsTasksControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Market\Controls\Market2PriceCalculationsControl.xaml.cs">
+      <DependentUpon>Market2PriceCalculationsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Market\Controls\Market2TendersControl.xaml.cs">
+      <DependentUpon>Market2TendersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sales\Market\Controls\Market2OffersControl.xaml.cs">
+      <DependentUpon>Market2OffersControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModel.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilterByProject.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
     <Compile Include="PriceCalculations\ViewModel\Wrapper\StructureCost2Wrapper.cs" />
     <Compile Include="PriceEngineering\Converters\AddedBlockAmountToStringConverter.cs" />
@@ -958,11 +973,9 @@
       <DependentUpon>TabProjects.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainer.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerFilt.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilter.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\OffersContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\ProjectsContainer.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Containers\SalesUnitsContainerBase.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Containers\SalesUnitsProjectBase.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\SalesUnitsSpecificationBase.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\SelectedItemChangedEvent.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\TendersContainer.cs" />
@@ -1835,6 +1848,26 @@
     <Page Include="Modules\Sales\Controls\UnitListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Market\Controls\Market2PriceEngineeringTasksControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Market\Controls\Market2TechnicalRequrementsTasksControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Market\Controls\Market2PriceCalculationsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Market\Controls\Market2TendersControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Market\Controls\Market2OffersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\Sales\Supervision\SupervisionView.xaml">
       <Generator>MSBuild:Compile</Generator>

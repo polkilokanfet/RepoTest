@@ -5,28 +5,30 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Modules.Sales.Market;
+using HVTApp.UI.PriceEngineering.View;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class PriceEngineeringTasksContainer : BaseContainerFilt<PriceEngineeringTasks, PriceEngineeringTasksLookup, SelectedPriceEngineeringTasksChangedEvent, AfterSavePriceEngineeringTasksEvent, AfterRemovePriceEngineeringTasksEvent, Project, SelectedProjectChangedEvent>
+    public class PriceEngineeringTasksContainer : BaseContainerViewModelWithFilterByProject<PriceEngineeringTasks, PriceEngineeringTasksLookup, SelectedPriceEngineeringTasksChangedEvent, AfterSavePriceEngineeringTasksEvent, AfterRemovePriceEngineeringTasksEvent, PriceEngineeringTasksViewManager>
     {
-        public PriceEngineeringTasksContainer(IUnityContainer container) : base(container)
+        public PriceEngineeringTasksContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
         }
 
         protected override IEnumerable<PriceEngineeringTasksLookup> GetLookups(IUnitOfWork unitOfWork)
         {
             return unitOfWork.Repository<PriceEngineeringTasks>()
-                .Find(x => x.UserManager.Id == GlobalAppProperties.User.Id)
-                .Select(x => new PriceEngineeringTasksLookup(x));
+                .Find(tasks => tasks.UserManager.Id == GlobalAppProperties.User.Id)
+                .Select(tasks => new PriceEngineeringTasksLookup(tasks));
         }
 
         protected override IEnumerable<PriceEngineeringTasksLookup> GetActualLookups(Project project)
         {
             return AllLookups
-                .Where(x => x.Entity.ChildPriceEngineeringTasks.SelectMany(t => t.SalesUnits).Select(s => s.Project).Any(p => p.Id == project.Id))
-                .OrderByDescending(x => x.StartMoment);
+                .Where(lookup => lookup.Entity.ChildPriceEngineeringTasks.SelectMany(task => task.SalesUnits).Select(salesUnit => salesUnit.Project).Any(project1 => project1.Id == project.Id))
+                .OrderByDescending(lookup => lookup.StartMoment);
         }
     }
 }

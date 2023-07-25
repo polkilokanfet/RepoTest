@@ -7,16 +7,19 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Modules.Sales.Market;
+using HVTApp.UI.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class OffersContainer : BaseContainerFilt<Offer, OfferLookup, SelectedOfferChangedEvent, AfterSaveOfferEvent, AfterRemoveOfferEvent, Project, SelectedProjectChangedEvent>
+    public class OffersContainer : BaseContainerViewModelWithFilterByProject<Offer, OfferLookup, SelectedOfferChangedEvent, AfterSaveOfferEvent, AfterRemoveOfferEvent, OfferView>
     {
         private List<OfferUnit> _offerUnits;
 
-        public OffersContainer(IUnityContainer container) : base(container)
+        public OffersContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
             var eventAggregator = container.Resolve<IEventAggregator>();
             eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(offer => _offerUnits.RemoveIfContainsById(offer));
@@ -50,7 +53,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override bool CanBeShown(Offer offer)
         {
-            return Filter != null && Filter.Id == offer.Project.Id;
+            return SelectedProject != null && 
+                   SelectedProject.Id == offer.Project.Id;
+        }
+
+        public override void EditSelectedItem()
+        {
+            var parameters = new NavigationParameters { { nameof(Offer), this.SelectedItem.Entity }, { "edit", true } };
+            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<OfferView>(parameters);
         }
     }
 }

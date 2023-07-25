@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Modules.Sales.Project1;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class ProjectsContainer : BaseContainer<Project, ProjectLookup, SelectedProjectChangedEvent, AfterSaveProjectEvent, AfterRemoveProjectEvent>
+    public class ProjectsContainer : BaseContainerViewModel<Project, ProjectLookup, SelectedProjectChangedEvent, AfterSaveProjectEvent, AfterRemoveProjectEvent, ProjectView>
     {
         private List<SalesUnit> _salesUnits;
         private List<Tender> _tenders;
@@ -40,8 +40,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
         protected override ProjectLookup MakeLookup(Project project)
         {
-            var units = _salesUnits.Where(su => su.Project.Id == project.Id);
-            var tenders = _tenders.Where(su => su.Project.Id == project.Id);
+            var units = _salesUnits.Where(salesUnit => salesUnit.Project.Id == project.Id);
+            var tenders = _tenders.Where(tender => tender.Project.Id == project.Id);
             return new ProjectLookup(project, units, tenders, Container);
         }
 
@@ -52,7 +52,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         /// <returns></returns>
         private bool IsWork(Project project)
         {
-            return project.InWork && _salesUnits.Where(x => x.Project.Id == project.Id).Any(u => !u.IsDone && !u.IsLoosen);
+            return project.InWork && 
+                   _salesUnits
+                       .Where(salesUnit => salesUnit.Project.Id == project.Id)
+                       .Any(salesUnit => !salesUnit.IsDone && !salesUnit.IsLoosen);
         }
 
         public override void RemoveSelectedItem()
@@ -61,8 +64,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 
             base.RemoveSelectedItem();
 
-            var salesUnits = _salesUnits.Where(x => x.Project == null || x.Project.Id == project.Id).ToList();
-            salesUnits.ForEach(x => Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
+            var salesUnits = _salesUnits.Where(salesUnit => salesUnit.Project == null || salesUnit.Project.Id == project.Id).ToList();
+            salesUnits.ForEach(salesUnit => Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSalesUnitEvent>().Publish(salesUnit));
         }
     }
 }

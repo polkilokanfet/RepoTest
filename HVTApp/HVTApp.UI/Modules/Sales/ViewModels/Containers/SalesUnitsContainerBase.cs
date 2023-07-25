@@ -13,8 +13,8 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public abstract class SalesUnitsContainerBase<TFilt, TSelectedFiltChangedEvent> : 
-        BaseContainerFilt <SalesUnit, SalesUnitLookup, SelectedSalesUnitChangedEvent, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent, TFilt, TSelectedFiltChangedEvent> 
+    public abstract class SalesUnitsContainerBase<TFilt, TSelectedFiltChangedEvent> :
+        BaseContainerViewModelWithFilter<SalesUnit, SalesUnitLookup, SelectedSalesUnitChangedEvent, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent, TFilt, TSelectedFiltChangedEvent>
         where TFilt : class, IBaseEntity 
         where TSelectedFiltChangedEvent : PubSubEvent<TFilt>, new()
     {

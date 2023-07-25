@@ -40,12 +40,9 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public OfferByProjectCommand OfferByProjectCommand { get; }
         public OfferByOfferCommand OfferByOfferCommand { get; }
-        public EditOfferCommand EditOfferCommand { get; }
-        public DelegateLogCommand RemoveOfferCommand { get; }
         public PrintOfferCommand PrintOfferCommand { get; }
 
         public NewTenderCommand NewTenderCommand { get; }
-        public EditTenderCommand EditTenderCommand { get; }
         public DelegateLogCommand RemoveTenderCommand { get; }
 
         public DelegateLogCommand EditPriceEngineeringTasksCommand { get; }
