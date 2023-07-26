@@ -193,16 +193,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             NewTenderCommand = new NewTenderCommand(this, this.Container);
             RemoveTenderCommand = new DelegateLogCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
 
-            EditPriceEngineeringTasksCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var parameters = new NavigationParameters { { nameof(Model.POCOs.PriceEngineeringTasks), PriceEngineeringTasks.SelectedItem.Entity } };
-                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(parameters);
-                });
-
-            EditTechnicalRequrementsTaskCommand = new EditTechnicalRequrementsTaskCommand(this, this.RegionManager);
-            
-            EditPriceCalculationCommand = new EditPriceCalculationCommand(this, this.RegionManager);
             CopyPriceCalculationCommand = new PriceCalculationCopyCommand(this, this.RegionManager);
 
 
@@ -275,6 +265,11 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             ProjectItem.AllTenders.Clear();
             ProjectItems.Clear();
+            Offers.Clear();
+            Tenders.Clear();
+            PriceEngineeringTasks.Clear();
+            TechnicalRequrementsTasks.Clear();
+            PriceCalculations.Clear();
         }
 
         protected override void AfterGetData()

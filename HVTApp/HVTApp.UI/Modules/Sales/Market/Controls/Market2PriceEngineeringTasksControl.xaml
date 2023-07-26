@@ -1,34 +1,33 @@
 ﻿<UserControl x:Class="HVTApp.UI.Modules.Sales.Market.Controls.Market2PriceEngineeringTasksControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:dataPresenter="http://infragistics.com/DataPresenter">
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             xmlns:controls="clr-namespace:HVTApp.UI.Modules.Sales.Market.Controls">
 
-    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 1 0 0">
-        <Expander Header="Технико-стоимостные проработки" IsExpanded="True">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <dataPresenter:XamDataGrid
-                    Style="{StaticResource XamDataGridWithoutGroupByArea}"
-                    DataSource="{Binding}"
-                    ActiveDataItem="{Binding SelectedItem}">
+    <controls:Market2Control Header="Технико-стоимостные проработки">
+        <controls:Market2Control.PlaceHolder1>
+            <dataPresenter:XamDataGrid
+                Style="{StaticResource XamDataGridWithoutGroupByArea}"
+                DataSource="{Binding}"
+                ActiveDataItem="{Binding SelectedItem}">
 
-                    <dataPresenter:XamDataGrid.InputBindings>
-                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditSelectedItemCommand, Mode=OneWay}" />
-                    </dataPresenter:XamDataGrid.InputBindings>
+                <dataPresenter:XamDataGrid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditSelectedItemCommand, Mode=OneWay}" />
+                </dataPresenter:XamDataGrid.InputBindings>
 
-                    <dataPresenter:XamDataGrid.FieldLayouts>
-                        <dataPresenter:FieldLayout>
-                            <dataPresenter:FieldLayout.Fields>
-                                <dataPresenter:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" />
-                                <dataPresenter:TextField Name="NumberFull" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.NumberFull}" Label="№" Width="Auto" AllowResize="True" />
-                                <!--<dp:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />-->
-                                <dataPresenter:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
-                                <!--<dp:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />-->
-                                <!--<dp:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />-->
-                            </dataPresenter:FieldLayout.Fields>
-                        </dataPresenter:FieldLayout>
-                    </dataPresenter:XamDataGrid.FieldLayouts>
-                </dataPresenter:XamDataGrid>
-            </ScrollViewer>
-        </Expander>
-    </Border>
+                <dataPresenter:XamDataGrid.FieldLayouts>
+                    <dataPresenter:FieldLayout>
+                        <dataPresenter:FieldLayout.Fields>
+                            <dataPresenter:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" />
+                            <dataPresenter:TextField Name="NumberFull" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.NumberFull}" Label="№" Width="Auto" AllowResize="True" />
+                            <!--<dp:TextField Name="StatusString" Label="Статус" Width="300" AllowResize="True" />-->
+                            <dataPresenter:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
+                            <!--<dp:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />-->
+                            <!--<dp:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />-->
+                        </dataPresenter:FieldLayout.Fields>
+                    </dataPresenter:FieldLayout>
+                </dataPresenter:XamDataGrid.FieldLayouts>
+            </dataPresenter:XamDataGrid>
+        </controls:Market2Control.PlaceHolder1>
+    </controls:Market2Control>
 </UserControl>

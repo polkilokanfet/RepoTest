@@ -45,11 +45,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         public NewTenderCommand NewTenderCommand { get; }
         public DelegateLogCommand RemoveTenderCommand { get; }
 
-        public DelegateLogCommand EditPriceEngineeringTasksCommand { get; }
-
-        public EditTechnicalRequrementsTaskCommand EditTechnicalRequrementsTaskCommand { get; }
-
-        public EditPriceCalculationCommand EditPriceCalculationCommand { get; }
         public PriceCalculationCopyCommand CopyPriceCalculationCommand { get; }
 
         public StructureCostsCommand StructureCostsCommand { get; }

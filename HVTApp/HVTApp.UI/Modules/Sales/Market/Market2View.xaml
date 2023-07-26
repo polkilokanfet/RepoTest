@@ -167,34 +167,34 @@
 
                 <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="4*"/>
                     </Grid.RowDefinitions>
 
-                    <!--ТКП-->
-                    <controls1:Market2OffersControl Grid.Row="0" DataContext="{Binding Offers}"/>
-                    <GridSplitter Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>
-
-                    <!--Конкурсы-->
-                    <controls1:Market2TendersControl Grid.Row="1" DataContext="{Binding Tenders}"/>
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>
-
                     <!--Технико-стоимостные проработки-->
-                    <controls1:Market2PriceEngineeringTasksControl Grid.Row="2" DataContext="{Binding PriceEngineeringTasks}"/>
-                    <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>
+                    <controls1:Market2PriceEngineeringTasksControl Grid.Row="0" DataContext="{Binding PriceEngineeringTasks}"/>
+                    <!--<GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>-->
 
                     <!--Задачи в TCE-->
-                    <controls1:Market2TechnicalRequrementsTasksControl Grid.Row="3" DataContext="{Binding TechnicalRequrementsTasks}"/>
-                    <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>
+                    <controls1:Market2TechnicalRequrementsTasksControl Grid.Row="1" DataContext="{Binding TechnicalRequrementsTasks}"/>
+                    <!--<GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>-->
 
                     <!--Расчеты переменных затрат-->
-                    <controls1:Market2PriceCalculationsControl Grid.Row="4" DataContext="{Binding PriceCalculations}"/>
-                    <GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>
+                    <controls1:Market2PriceCalculationsControl Grid.Row="2" DataContext="{Binding PriceCalculations}"/>
+                    <!--<GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>-->
+
+                    <!--ТКП-->
+                    <controls1:Market2OffersControl Grid.Row="3" DataContext="{Binding Offers}"/>
+                    <!--<GridSplitter Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>-->
+
+                    <!--Конкурсы-->
+                    <controls1:Market2TendersControl Grid.Row="4" DataContext="{Binding Tenders}"/>
+                    <!--<GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>-->
 
 
                     <GroupBox Grid.Row="5" Header="Приложения проекта">
@@ -220,9 +220,9 @@
                     <GroupBox Name="Messages" Header="Переписка" Grid.Row="6" AllowDrop="True" Drop="Messages_OnDrop">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*" MinHeight="150"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <dp:XamDataGrid Style="{StaticResource XamDataGridWithoutGroupByArea}"
@@ -250,7 +250,7 @@
 
                             <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
-                            <Expander Grid.Row="2">
+                            <Expander Grid.Row="2" Header="Письмо">
                                 <GroupBox Header="{Binding Outlook.SelectedMessage, Mode=OneWay}">
                                     <!--<TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
                                                     TextWrapping="Wrap"
