@@ -159,13 +159,13 @@ namespace HVTApp.UI.PriceEngineering
 
                 var productBlocksAdded = priceEngineeringTask
                     .GetAllPriceEngineeringTasks()
-                    .SelectMany(x => x.ProductBlocksAdded)
-                    .Where(x => x.IsRemoved == false)
+                    .SelectMany(task => task.ProductBlocksAdded)
+                    .Where(added => added.IsRemoved == false)
                     .ToList();
 
                 //Включённое оборудование на всё количество
                 var productsIncludedOnAmount = productBlocksAdded
-                    .Where(x => x.IsOnBlock == false)
+                    .Where(added => added.IsOnBlock == false)
                     .Select(x => new ProductIncluded
                     {
                         Product = getProductService.GetProduct(unitOfWork, x.GetProduct()),
@@ -199,6 +199,17 @@ namespace HVTApp.UI.PriceEngineering
                             Amount = x.Amount
                         })
                         .ToList();
+                    //подзадачи инициированные конструкторами
+                    foreach (var task in priceEngineeringTask.GetAllPriceEngineeringTasks().Where(x => x.UserConstructorInitiator != null))
+                    {
+                        productsIncludedOnBlock.Add(new ProductIncluded()
+                        {
+                            Product = getProductService.GetProduct(unitOfWork, new Product
+                            {
+                                ProductBlock = task.ProductBlock
+                            })
+                        });
+                    }
 
                     salesUnit.ProductsIncluded.AddRange(productsIncludedOnBlock);
                     salesUnit.ProductsIncluded.AddRange(productsIncludedOnAmount);
