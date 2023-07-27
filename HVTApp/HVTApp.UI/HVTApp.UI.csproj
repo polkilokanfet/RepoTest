@@ -3255,7 +3255,6 @@
     <Folder Include="Modules\Products\ProductRelations\" />
     <Folder Include="PriceEngineering\Tce\Unit\ViewModel\" />
     <Folder Include="PriceEngineering\Tce\Unit\View\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

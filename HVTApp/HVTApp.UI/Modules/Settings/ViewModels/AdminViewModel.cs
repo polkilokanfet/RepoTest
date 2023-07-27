@@ -47,61 +47,31 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-
-                    var tasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(x => x.SalesUnits.Any());
-
-                    var engineeringTasks = tasks.Where(x =>
-                        x.Statuses.Any(s => s.StatusEnum == ScriptStep.ProductionRequestStart.Value));
-
-                    foreach (var task in engineeringTasks)
+                    int days = 180;
+                    var blocks = unitOfWork.Repository<ProductBlock>()
+                        .Find(block => block.Prices.Count > 1 && 
+                                       block.Prices.Any(x => x.Date <= DateTime.Today.AddDays(days)));
+                    foreach (var block in blocks)
                     {
-                        var status = task.Statuses
-                            .Where(x => x.StatusEnum == ScriptStep.ProductionRequestStart.Value)
-                            .OrderBy(x => x.Moment)
-                            .Last();
-
-                        foreach (var t in task.GetAllPriceEngineeringTasks())
+                        foreach (var sumOnDate in block.Prices.Where(x => x.Date > DateTime.Today.AddDays(days)).ToList())
                         {
-                            if (t.Statuses.Any(x => x.StatusEnum == ScriptStep.ProductionRequestStart.Value) == false)
-                            {
-                                t.Statuses.Add(new PriceEngineeringTaskStatus
-                                {
-                                    Moment = status.Moment, StatusEnum = status.StatusEnum
-                                });
-                            }
+                            block.Prices.Remove(sumOnDate);
+                            unitOfWork.Repository<SumOnDate>().Delete(sumOnDate);
                         }
-                    }
-
-                    var salesUnits = unitOfWork.Repository<SalesUnit>()
-                        .Find(x => x.SignalToStartProduction.HasValue && x.Order == null);
-
-                    var res = new List<SalesUnit>();
-                    foreach (var salesUnit in salesUnits)
-                    {
-                        var tasks1 = tasks.Where(x => x.SalesUnits.Contains(salesUnit));
-
-                        if (tasks1.Any(x => x.Statuses.Any(s => s.StatusEnum == ScriptStep.ProductionRequestStart.Value)))
-                        {
-                            continue;
-                        }
-                        salesUnit.SignalToStartProduction = null;
-                        salesUnit.SignalToStartProductionDone = null;
-                        res.Add(salesUnit);
                     }
 
 
                     unitOfWork.SaveChanges();
-                    StringBuilder sb = new StringBuilder();
-                    res
-                        .OrderBy(x => x.Project.Manager.Id)
-                        .ThenBy(x => x.Project.Id)
-                        .ThenBy(x => x.Product.Id)
-                        .ToList()
-                        .ForEach(x => sb.AppendLine($"{x.Project.Manager.Employee.Person.Surname}: {x};"));
-                    Clipboard.SetText(sb.ToString());
+                    //StringBuilder sb = new StringBuilder();
+                    //res
+                    //    .OrderBy(x => x.Project.Manager.Id)
+                    //    .ThenBy(x => x.Project.Id)
+                    //    .ThenBy(x => x.Product.Id)
+                    //    .ToList()
+                    //    .ForEach(x => sb.AppendLine($"{x.Project.Manager.Employee.Person.Surname}: {x};"));
+                    //Clipboard.SetText(sb.ToString());
 
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog("", $"Finish {sb.ToString()}");
+                    _container.Resolve<IMessageService>().ShowOkMessageDialog("", $"Finish");
 
                 });
         }
