@@ -13,6 +13,7 @@ namespace HVTApp.Model.POCOs
     public class PriceCalculationItem : BaseEntity
     {
         public Guid PriceCalculationId { get; set; }
+        [NotForWrapper]
         public virtual PriceCalculation PriceCalculation { get; set; }
 
 

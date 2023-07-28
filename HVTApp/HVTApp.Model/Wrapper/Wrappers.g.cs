@@ -2337,15 +2337,6 @@ namespace HVTApp.Model.Wrapper
         #region ComplexProperties
 
         /// <summary>
-        /// Расчет себестоимости оборудования
-        /// </summary>
-	    public PriceCalculationWrapper PriceCalculation 
-        {
-            get { return GetWrapper<PriceCalculationWrapper>(); }
-            set { SetComplexValue<PriceCalculation, PriceCalculationWrapper>(PriceCalculation, value); }
-        }
-
-        /// <summary>
         /// Условия оплаты
         /// </summary>
 	    public PaymentConditionSetWrapper PaymentConditionSet 
@@ -2388,7 +2379,6 @@ namespace HVTApp.Model.Wrapper
 
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty<PriceCalculationWrapper>(nameof(PriceCalculation), Model.PriceCalculation == null ? null : new PriceCalculationWrapper(Model.PriceCalculation));
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
         }
 
