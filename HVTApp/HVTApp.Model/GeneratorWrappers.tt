@@ -37,7 +37,7 @@ namespace HVTApp.Model.Wrapper
 
 	private void GenerateWrapper(Type modelType)
 	{
-		var allProperties = modelType.GetProperties();
+		var allProperties = modelType.GetPropertiesForWrapper();
 
 
 		//Простые свойства

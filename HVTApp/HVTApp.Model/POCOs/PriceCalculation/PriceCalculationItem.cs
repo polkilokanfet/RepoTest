@@ -35,7 +35,7 @@ namespace HVTApp.Model.POCOs
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
         [Designation("Позиция в TeamCenter")]
-        public int? PositionInTemCenter { get; set; }
+        public int? PositionInTeamCenter { get; set; }
 
 
         /// <summary>

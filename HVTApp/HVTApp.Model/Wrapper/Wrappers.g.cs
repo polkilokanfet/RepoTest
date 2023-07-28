@@ -2312,6 +2312,17 @@ namespace HVTApp.Model.Wrapper
         public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
 
         /// <summary>
+        /// Позиция в TeamCenter
+        /// </summary>
+        public System.Nullable<System.Int32> PositionInTeamCenter
+        {
+          get { return GetValue<System.Nullable<System.Int32>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Int32> PositionInTeamCenterOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(PositionInTeamCenter));
+        public bool PositionInTeamCenterIsChanged => GetIsChanged(nameof(PositionInTeamCenter));
+
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -2324,6 +2335,15 @@ namespace HVTApp.Model.Wrapper
         #endregion
 
         #region ComplexProperties
+
+        /// <summary>
+        /// Расчет себестоимости оборудования
+        /// </summary>
+	    public PriceCalculationWrapper PriceCalculation 
+        {
+            get { return GetWrapper<PriceCalculationWrapper>(); }
+            set { SetComplexValue<PriceCalculation, PriceCalculationWrapper>(PriceCalculation, value); }
+        }
 
         /// <summary>
         /// Условия оплаты
@@ -2351,6 +2371,11 @@ namespace HVTApp.Model.Wrapper
         #region GetProperties
 
         /// <summary>
+        /// FinishDate
+        /// </summary>
+        public System.Nullable<System.DateTime> FinishDate => GetValue<System.Nullable<System.DateTime>>(); 
+
+        /// <summary>
         /// HasPrice
         /// </summary>
         public System.Boolean HasPrice => GetValue<System.Boolean>(); 
@@ -2363,6 +2388,7 @@ namespace HVTApp.Model.Wrapper
 
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<PriceCalculationWrapper>(nameof(PriceCalculation), Model.PriceCalculation == null ? null : new PriceCalculationWrapper(Model.PriceCalculation));
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
         }
 
@@ -4534,6 +4560,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
         public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
+        /// <summary>
+        /// Позиция в TeamCenter
+        /// </summary>
+        public System.Nullable<System.Int32> PositionInTeamCenter
+        {
+          get { return GetValue<System.Nullable<System.Int32>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Int32> PositionInTeamCenterOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(PositionInTeamCenter));
+        public bool PositionInTeamCenterIsChanged => GetIsChanged(nameof(PositionInTeamCenter));
 
         /// <summary>
         /// Id

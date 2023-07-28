@@ -11,6 +11,12 @@ namespace HVTApp.Model
 {
     public static class GeneratorHelpers
     {
+        public static IEnumerable<PropertyInfo> GetPropertiesForWrapper(this Type type)
+        {
+            //свойства со спец.атрибутом
+            return type.GetProperties()
+                .Where(propertyInfo => propertyInfo.GetCustomAttribute(typeof(NotForWrapperAttribute)) == null);
+        }
 
         #region IsType
 

@@ -50,6 +50,18 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         #endregion
 
+        /// <summary>
+        /// Позиция в TeamCenter
+        /// </summary>
+        public int? PositionInTeamCenter
+        {
+            get => GetValue<int?>();
+            set => SetValue(value);
+        }
+        public int? PositionInTeamCenterOriginalValue => GetOriginalValue<int?>(nameof(PositionInTeamCenter));
+        public bool PositionInTeamCenterIsChanged => GetIsChanged(nameof(PositionInTeamCenter));
+
+
         public PriceCalculationItem2Wrapper(PriceCalculationItem model) : base(model)
         {
             #region Initialize

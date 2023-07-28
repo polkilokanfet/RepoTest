@@ -453,6 +453,10 @@
     <Compile Include="Migrations\202307201003322_AddPositionInTeamCenterInTRT.designer.cs">
       <DependentUpon>202307201003322_AddPositionInTeamCenterInTRT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307280424551_PositionInTeamCenterInPriceCalculationItem.cs" />
+    <Compile Include="Migrations\202307280424551_PositionInTeamCenterInPriceCalculationItem.designer.cs">
+      <DependentUpon>202307280424551_PositionInTeamCenterInPriceCalculationItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -743,6 +747,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307201003322_AddPositionInTeamCenterInTRT.resx">
       <DependentUpon>202307201003322_AddPositionInTeamCenterInTRT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307280424551_PositionInTeamCenterInPriceCalculationItem.resx">
+      <DependentUpon>202307280424551_PositionInTeamCenterInPriceCalculationItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

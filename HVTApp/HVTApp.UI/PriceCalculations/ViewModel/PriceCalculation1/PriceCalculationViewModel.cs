@@ -241,6 +241,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             {
                 var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem())
                 {
+                    PositionInTeamCenter = calculationItem.PositionInTeamCenter,
                     OrderInTakeDate = calculationItem.OrderInTakeDate,
                     RealizationDate = calculationItem.RealizationDate,
                     PaymentConditionSet = new PaymentConditionSetEmptyWrapper(calculationItem.PaymentConditionSet)
@@ -304,6 +305,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             {
                 var saleUnits = technicalRequrements.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit));
                 var item = GetPriceCalculationItem2Wrapper(saleUnits, technicalRequrements.OrderInTakeDate.Value, technicalRequrements.RealizationDate.Value);
+                item.PositionInTeamCenter = technicalRequrements.PositionInTeamCenter;
                 PriceCalculationWrapper.PriceCalculationItems.Add(item);
             }
 
@@ -331,6 +333,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 if (task.SalesUnits.Any())
                 {
                     var priceCalculationItem = GetPriceCalculationItem2Wrapper(priceEngineeringTasks, task);
+                    if (string.IsNullOrEmpty(task.TcePosition) == false &&
+                        int.TryParse(task.TcePosition, out var positionInTce))
+                    {
+                        priceCalculationItem.PositionInTeamCenter = positionInTce;
+                    }
                     PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem);
                 }
             }

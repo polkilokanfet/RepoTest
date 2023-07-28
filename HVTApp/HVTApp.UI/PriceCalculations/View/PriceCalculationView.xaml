@@ -108,6 +108,7 @@
                                         </infgDp:FieldSettings>
                                     </infgDp:Field.Settings>
                                 </infgDp:CheckBoxField>
+                                <infgDp:TextField AlternateBinding="{Binding PositionInTeamCenter}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
                                 <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                 <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
                                 <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>

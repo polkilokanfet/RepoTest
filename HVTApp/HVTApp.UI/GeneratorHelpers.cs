@@ -81,6 +81,7 @@ namespace HVTApp.UI
                 OrderBy(x => x.Name);
         }
 
+
         public static IEnumerable<PropertyInfo> GetPropertiesForListViews(this Type typeLookup)
         {
             //свойства со спец.атрибутом
