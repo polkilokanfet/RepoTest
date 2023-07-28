@@ -170,6 +170,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// </summary>
         public bool AllowCancel => IsStarted || IsRejected;
 
+        /// <summary>
+        /// Можно редактировать заявку БМ
+        /// </summary>
+        public bool AllowEditByBackManager =>
+            this.TechnicalRequrementsTaskWrapper?.Model.LastHistoryElement?.Type == TechnicalRequrementsTaskHistoryElementType.Start ||
+            this.TechnicalRequrementsTaskWrapper?.Model.LastHistoryElement?.Type == TechnicalRequrementsTaskHistoryElementType.Instruct;
+
         #endregion
 
         #region Commands
@@ -277,6 +284,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 {
                     this.RaiseCanExecuteChangeInAllCommands();
                     RaisePropertyChanged(nameof(ValidationResult));
+                    RaisePropertyChanged(nameof(AllowEditByBackManager));
                 };
 
                 //реакция на принятия изменения свойства
@@ -284,9 +292,12 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 {
                     this.RaiseCanExecuteChangeInAllCommands();
                     RaisePropertyChanged(nameof(AllowInstruct));
+                    RaisePropertyChanged(nameof(AllowEditByBackManager));
                 };
 
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(AllowEditByBackManager));
+
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsStarted)));
             }
         }

@@ -154,7 +154,7 @@
                                         </infgDp:CheckBoxField>
 
                                         <infgDp:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" Width="Auto" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
-                                        <infgDp:NumericField Name="PositionInTeamCenter" Label="Поз." Width="Auto" AllowResize="False" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.AllowFinish}" Format="##"/>
+                                        <infgDp:NumericField Name="PositionInTeamCenter" Label="Поз." Width="Auto" AllowResize="False" AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.AllowEditByBackManager}" Format="##"/>
                                         <infgDp:TextField AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                         <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto"/>
                                         <infgDp:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
