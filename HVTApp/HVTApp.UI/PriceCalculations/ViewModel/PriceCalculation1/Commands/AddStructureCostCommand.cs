@@ -17,6 +17,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
         {
             var structureCost = new StructureCost { Comment = "No title" };
             var structureCostWrapper = new StructureCost2Wrapper(structureCost);
+            structureCostWrapper.Number = $"{_viewModel.TceNumber} V";
             ((PriceCalculationItem2Wrapper) _viewModel.SelectedItem).StructureCosts.Add(structureCostWrapper);
         }
 

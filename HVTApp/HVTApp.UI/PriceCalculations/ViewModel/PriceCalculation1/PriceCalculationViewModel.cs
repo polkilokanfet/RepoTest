@@ -22,6 +22,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
     {
         private object _selectedItem;
         private PriceCalculation2Wrapper _priceCalculationWrapper;
+        public string TceNumber { get; private set; }
 
         public object SelectedItem
         {
@@ -300,6 +301,9 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 technicalRequirementsTask.PriceCalculations.Add(this.PriceCalculationWrapper.Model);
             }
 
+            //номер в ТСЕ
+            TceNumber = technicalRequirementsTask.TceNumber;
+
             //добавляем в расчет ПЗ оборудование
             foreach (var technicalRequrements in technicalRequirementsTask.Requrements.Where(technicalRequrements => technicalRequrements.IsActual))
             {
@@ -326,6 +330,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         {
             //Загружаем задачу
             priceEngineeringTasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
+
+            TceNumber = priceEngineeringTasks.TceNumber;
 
             //добавляем в расчет ПЗ оборудование
             foreach (var task in priceEngineeringTasks.ChildPriceEngineeringTasks)
@@ -393,7 +399,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             {
                 Comment = $"{priceCalculationItem2Wrapper.Product}",
                 AmountNumerator = 1,
-                AmountDenomerator = 1
+                AmountDenomerator = 1,
+                Number = $"{TceNumber} V"
             };
             priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCost2Wrapper(structureCost));
 
@@ -404,7 +411,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 {
                     Comment = $"{productIncluded.Product}",
                     AmountNumerator = (double)productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count,
-                    AmountDenomerator = 1
+                    AmountDenomerator = 1,
+                    Number = $"{TceNumber} V"
                 };
                 priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCost2Wrapper(structureCostPrIncl));
             }
