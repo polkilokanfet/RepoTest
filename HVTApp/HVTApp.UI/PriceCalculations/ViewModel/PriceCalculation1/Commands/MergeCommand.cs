@@ -6,9 +6,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
-    public class MeregeCommand : BasePriceCalculationCommand
+    public class MergeCommand : BasePriceCalculationCommand
     {
-        public MeregeCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public MergeCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 

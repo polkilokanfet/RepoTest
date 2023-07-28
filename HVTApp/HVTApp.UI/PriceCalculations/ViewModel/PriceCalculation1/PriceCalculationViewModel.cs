@@ -110,7 +110,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         public RejectCommand RejectCommand { get; }
 
 
-        public MeregeCommand MeregeCommand { get; }
+        public MergeCommand MergeCommand { get; }
         public DivideCommand DivideCommand { get; }
 
         public LoadFileToDbCommand LoadFileToDbCommand { get; }
@@ -162,7 +162,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             CancelCommand = new CancelCommand(this, this.Container);
             RejectCommand = new RejectCommand(this, this.Container);
 
-            MeregeCommand = new MeregeCommand(this, this.Container);
+            MergeCommand = new MergeCommand(this, this.Container);
             DivideCommand = new DivideCommand(this, this.Container);
             LoadFileToDbCommand = new LoadFileToDbCommand(this, this.Container);
             LoadFileFromDbCommand = new LoadFileFromDbCommand(this, this.Container);
@@ -303,7 +303,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             foreach (var technicalRequrements in technicalRequirementsTask.Requrements.Where(technicalRequrements => technicalRequrements.IsActual))
             {
                 var saleUnits = technicalRequrements.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit));
-                PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(saleUnits, technicalRequrements.OrderInTakeDate.Value, technicalRequrements.RealizationDate.Value));
+                var item = GetPriceCalculationItem2Wrapper(saleUnits, technicalRequrements.OrderInTakeDate.Value, technicalRequrements.RealizationDate.Value);
+                PriceCalculationWrapper.PriceCalculationItems.Add(item);
             }
 
             //инициатор задачи
@@ -435,7 +436,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             AddGroupCommand.RaiseCanExecuteChanged();
             RemoveStructureCostCommand.RaiseCanExecuteChanged();
             RemoveGroupCommand.RaiseCanExecuteChanged();
-            MeregeCommand.RaiseCanExecuteChanged();
+            MergeCommand.RaiseCanExecuteChanged();
             DivideCommand.RaiseCanExecuteChanged();
         }
 

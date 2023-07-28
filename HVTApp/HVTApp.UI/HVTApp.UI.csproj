@@ -1097,7 +1097,7 @@
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\RemoveGroupCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\FinishCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\DivideCommand.cs" />
-    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\MeregeCommand.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\MergeCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\LoadFileToDbCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\LoadFileFromDbCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculations\Commands\NewCalculationCommand.cs" />
@@ -1160,7 +1160,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\ShippingCalculation\LoadShippingCalculationFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\SaveCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Groups\RemoveGroupCommand.cs" />
-    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Groups\MeregeCommand.cs" />
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Groups\MergeCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Groups\DivideCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\LoadFileCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\Files\LoadAllFilesCommand.cs" />

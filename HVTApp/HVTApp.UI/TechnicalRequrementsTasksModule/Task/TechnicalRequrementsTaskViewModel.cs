@@ -229,7 +229,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// <summary>
         /// Разбить строку
         /// </summary>
-        public MeregeCommand MeregeCommand { get; }
+        public MergeCommand MergeCommand { get; }
 
         /// <summary>
         /// Слить строки
@@ -412,7 +412,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             StartCommand = new StartCommand(this, this.Container);
             StopCommand = new StopCommand(this, this.Container);
 
-            MeregeCommand = new MeregeCommand(this, this.Container);
+            MergeCommand = new MergeCommand(this, this.Container);
             DivideCommand = new DivideCommand(this, this.Container);
 
             LoadFileCommand = new LoadFileCommand(this, this.Container);
@@ -593,7 +593,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             StopCommand.RaiseCanExecuteChanged();
             FinishCommand.RaiseCanExecuteChanged();
             AcceptCommand.RaiseCanExecuteChanged();
-            MeregeCommand.RaiseCanExecuteChanged();
+            MergeCommand.RaiseCanExecuteChanged();
             DivideCommand.RaiseCanExecuteChanged();
             LoadFileCommand.RaiseCanExecuteChanged();
             LoadAllFilesCommand.RaiseCanExecuteChanged();

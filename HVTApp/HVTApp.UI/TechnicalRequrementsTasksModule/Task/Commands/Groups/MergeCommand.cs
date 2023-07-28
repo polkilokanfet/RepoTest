@@ -6,9 +6,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class MeregeCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    public class MergeCommand : BaseTechnicalRequrementsTaskViewModelCommand
     {
-        public MeregeCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public MergeCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 

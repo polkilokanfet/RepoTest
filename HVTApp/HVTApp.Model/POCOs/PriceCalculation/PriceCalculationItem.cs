@@ -34,6 +34,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Условия оплаты")]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
+        [Designation("Позиция в TeamCenter")]
+        public int? PositionInTemCenter { get; set; }
+
 
         /// <summary>
         /// Дата окончания расчета

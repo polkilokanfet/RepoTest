@@ -87,7 +87,7 @@
                         Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
         
         <infRib:ButtonTool Caption="Слить" 
-                           Command="{Binding MeregeCommand}" 
+                           Command="{Binding MergeCommand}" 
                            Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
         
