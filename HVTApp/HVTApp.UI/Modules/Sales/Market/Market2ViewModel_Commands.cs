@@ -45,8 +45,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         public NewTenderCommand NewTenderCommand { get; }
         public DelegateLogCommand RemoveTenderCommand { get; }
 
-        public PriceCalculationCopyCommand CopyPriceCalculationCommand { get; }
-
         public StructureCostsCommand StructureCostsCommand { get; }
 
         public MakeTceTaskCommand MakeTceTaskCommand { get; }
@@ -54,21 +52,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         public MakePriceEngineeringTaskCommand MakePriceEngineeringTaskCommand { get; }
 
         public OpenTenderLinkCommand OpenTenderLinkCommand { get; }
-
-        #endregion
-
-        #region Commands
-
-        private void NewTenderCommand_Execute()
-        {
-            var tenderViewModel = new TenderViewModel(Container, SelectedProjectItem.Project);
-            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
-        }
-
-        private void EditTechnicalRequrementsTaskCommand_Execute()
-        {
-            RegionManager.RequestNavigateContentRegion<TechnicalRequrementsTaskView>(new NavigationParameters { { nameof(TechnicalRequrementsTask), TechnicalRequrementsTasks.SelectedItem.Entity } });
-        }
 
         #endregion
     }

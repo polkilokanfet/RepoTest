@@ -12,11 +12,10 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public abstract class BaseContainerViewModel<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent, TEditView> :
-        BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent>
+    public abstract class BaseContainerViewModel<TItem, TLookup, TAfterSaveItemEvent, TAfterRemoveItemEvent, TEditView> :
+        BaseContainer<TItem, TLookup, TAfterSaveItemEvent, TAfterRemoveItemEvent>
         where TItem : class, IBaseEntity
         where TLookup : LookupItem<TItem>
-        where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
         where TAfterSaveItemEvent : PubSubEvent<TItem>, new()
         where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
     {

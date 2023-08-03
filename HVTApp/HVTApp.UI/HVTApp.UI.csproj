@@ -307,7 +307,6 @@
     <Compile Include="Modules\Sales\Market\Commands\NewTenderCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\OpenFolderCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\OpenTenderLinkCommand.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\PriceCalculationCopyCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\PrintOfferCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectEditCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectRemoveCommand.cs" />

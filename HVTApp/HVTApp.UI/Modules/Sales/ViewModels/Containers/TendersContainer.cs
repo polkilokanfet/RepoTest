@@ -12,7 +12,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class TendersContainer : BaseContainerViewModelWithFilterByProject<Tender, TenderLookup, SelectedTenderChangedEvent, AfterSaveTenderEvent, AfterRemoveTenderEvent, TenderDetailsView>
+    public class TendersContainer : BaseContainerViewModelWithFilterByProject<Tender, TenderLookup, AfterSaveTenderEvent, AfterRemoveTenderEvent, TenderDetailsView>
     {
         public TendersContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {

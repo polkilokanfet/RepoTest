@@ -14,7 +14,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
     public class SalesUnitsSpecificationBase : 
-        BaseContainerViewModelWithFilter<SalesUnit, SalesUnitLookup, SelectedSalesUnitChangedEvent, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent, Specification, SelectedSpecificationChangedEvent, SpecificationView>
+        BaseContainerViewModelWithFilter<SalesUnit, SalesUnitLookup, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent, Specification, SelectedSpecificationChangedEvent, SpecificationView>
     {
         public SalesUnitsSpecificationBase(IUnityContainer container) : base(container)
         {

@@ -19,11 +19,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
     /// <typeparam name="TFilter"></typeparam>
     /// <typeparam name="TSelectedFilterChangedEvent"></typeparam>
     /// <typeparam name="TEditView"></typeparam>
-    public abstract class BaseContainerViewModelWithFilter<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent, TFilter, TSelectedFilterChangedEvent, TEditView> : 
-                                      BaseContainerViewModel<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent, TEditView>
+    public abstract class BaseContainerViewModelWithFilter<TItem, TLookup, TAfterSaveItemEvent, TAfterRemoveItemEvent, TFilter, TSelectedFilterChangedEvent, TEditView> : 
+                                      BaseContainerViewModel<TItem, TLookup, TAfterSaveItemEvent, TAfterRemoveItemEvent, TEditView>
         where TItem : class, IBaseEntity
         where TLookup : LookupItem<TItem>
-        where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
         where TAfterSaveItemEvent : PubSubEvent<TItem>, new()
         where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
         where TFilter : class, IBaseEntity

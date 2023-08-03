@@ -15,7 +15,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class OffersContainer : BaseContainerViewModelWithFilterByProject<Offer, OfferLookup, SelectedOfferChangedEvent, AfterSaveOfferEvent, AfterRemoveOfferEvent, OfferView>
+    public class OffersContainer : BaseContainerViewModelWithFilterByProject<Offer, OfferLookup, AfterSaveOfferEvent, AfterRemoveOfferEvent, OfferView>
     {
         private List<OfferUnit> _offerUnits;
 

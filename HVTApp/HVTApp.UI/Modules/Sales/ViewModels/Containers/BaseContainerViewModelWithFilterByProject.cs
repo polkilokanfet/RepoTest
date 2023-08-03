@@ -9,12 +9,11 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public abstract class BaseContainerViewModelWithFilterByProject<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent, TEditView> :
-        BaseContainerViewModel<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent,
+    public abstract class BaseContainerViewModelWithFilterByProject<TItem, TLookup, TAfterSaveItemEvent, TAfterRemoveItemEvent, TEditView> :
+        BaseContainerViewModel<TItem, TLookup, TAfterSaveItemEvent, TAfterRemoveItemEvent,
             TEditView>
         where TItem : class, IBaseEntity
         where TLookup : LookupItem<TItem>
-        where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
         where TAfterSaveItemEvent : PubSubEvent<TItem>, new()
         where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
     {

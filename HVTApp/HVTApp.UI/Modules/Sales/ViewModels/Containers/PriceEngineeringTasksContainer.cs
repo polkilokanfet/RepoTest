@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class PriceEngineeringTasksContainer : BaseContainerViewModelWithFilterByProject<PriceEngineeringTasks, PriceEngineeringTasksLookup, SelectedPriceEngineeringTasksChangedEvent, AfterSavePriceEngineeringTasksEvent, AfterRemovePriceEngineeringTasksEvent, PriceEngineeringTasksViewManager>
+    public class PriceEngineeringTasksContainer : BaseContainerViewModelWithFilterByProject<PriceEngineeringTasks, PriceEngineeringTasksLookup, AfterSavePriceEngineeringTasksEvent, AfterRemovePriceEngineeringTasksEvent, PriceEngineeringTasksViewManager>
     {
         public PriceEngineeringTasksContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {

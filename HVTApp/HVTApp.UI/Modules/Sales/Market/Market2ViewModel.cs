@@ -94,11 +94,6 @@ namespace HVTApp.UI.Modules.Sales.Market
                 _selectedProjectItem = value;
                 ProjectRaiseCanExecuteChanged();
 
-                if (value != null)
-                {
-                    _eventAggregator.GetEvent<SelectedProjectChangedEvent>().Publish(value.Project);
-                }
-
                 RaisePropertyChanged(nameof(Market2ViewModel.Notes));
                 AddNoteCommand.RaiseCanExecuteChanged();
                 SelectedNote = null;
@@ -193,9 +188,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             NewTenderCommand = new NewTenderCommand(this, this.Container);
             RemoveTenderCommand = new DelegateLogCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
 
-            CopyPriceCalculationCommand = new PriceCalculationCopyCommand(this, this.RegionManager);
-
-
             StructureCostsCommand = new StructureCostsCommand(this, this.RegionManager, this.UnitOfWork);
 
             SelectProjectsFolderCommand = new SelectProjectsFolderCommand(container.Resolve<IFileManagerService>());
@@ -215,7 +207,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             //подписка на выбор сущностей
             _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
             _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
-            _eventAggregator.GetEvent<SelectedPriceCalculationChangedEvent>().Subscribe(calculation => CopyPriceCalculationCommand.RaiseCanExecuteChanged());
 
             #endregion
 

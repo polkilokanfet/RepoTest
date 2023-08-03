@@ -14,11 +14,10 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public abstract class BaseContainer<TItem, TLookup, TSelectedItemChangedEvent, TAfterSaveItemEvent, TAfterRemoveItemEvent> : 
+    public abstract class BaseContainer<TItem, TLookup, TAfterSaveItemEvent, TAfterRemoveItemEvent> : 
         ObservableCollection<TLookup>, IDisposable
         where TItem : class, IBaseEntity
         where TLookup : LookupItem<TItem> 
-        where TSelectedItemChangedEvent : PubSubEvent<TItem>, new()
         where TAfterSaveItemEvent : PubSubEvent<TItem>, new()
         where TAfterRemoveItemEvent : PubSubEvent<TItem>, new()
     {
@@ -39,7 +38,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
             {
                 if (Equals(_selectedItem, value)) return;
                 _selectedItem = value;
-                Container.Resolve<IEventAggregator>().GetEvent<TSelectedItemChangedEvent>().Publish(SelectedItem?.Entity);
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedItem)));
                 SelectedItemChangedEvent?.Invoke(value);
             }

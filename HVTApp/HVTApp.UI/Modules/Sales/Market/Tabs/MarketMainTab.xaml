@@ -50,7 +50,7 @@
 
     <infRib:RibbonGroup Caption="Расчет ПЗ">
         <infRib:ButtonTool Caption="Создать" Command="{Binding StructureCostsCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Копировать" Command="{Binding CopyPriceCalculationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Копировать" Command="{Binding PriceCalculations.CopyPriceCalculationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Спецификация">

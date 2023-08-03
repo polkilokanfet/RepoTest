@@ -13,7 +13,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class ProjectsContainer : BaseContainerViewModel<Project, ProjectLookup, SelectedProjectChangedEvent, AfterSaveProjectEvent, AfterRemoveProjectEvent, ProjectView>
+    public class ProjectsContainer : BaseContainerViewModel<Project, ProjectLookup, AfterSaveProjectEvent, AfterRemoveProjectEvent, ProjectView>
     {
         private List<SalesUnit> _salesUnits;
         private List<Tender> _tenders;
@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
         {
             _tenders = unitOfWork.Repository<Tender>().Find(x => x.Project.Manager.IsAppCurrentUser());
             _salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.IsAppCurrentUser());
-            return _salesUnits.Select(x => x.Project).Distinct().Select(MakeLookup);
+            return _salesUnits.Select(salesUnit => salesUnit.Project).Distinct().Select(MakeLookup);
         }
 
         protected override ProjectLookup MakeLookup(Project project)

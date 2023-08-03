@@ -1,20 +1,41 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Modules.Sales.Market;
 using HVTApp.UI.PriceCalculations.View;
 using Microsoft.Practices.Unity;
+using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class PriceCalculationsContainer : BaseContainerViewModelWithFilterByProject<PriceCalculation, PriceCalculationLookup, SelectedPriceCalculationChangedEvent, AfterSavePriceCalculationEvent, AfterRemovePriceCalculationEvent, PriceCalculationView>
+    public class PriceCalculationsContainer : BaseContainerViewModelWithFilterByProject<PriceCalculation, PriceCalculationLookup, AfterSavePriceCalculationEvent, AfterRemovePriceCalculationEvent, PriceCalculationView>
     {
+        public ICommand CopyPriceCalculationCommand { get; }
+
         public PriceCalculationsContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
+            CopyPriceCalculationCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                () =>
+                {
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters
+                    {
+                        {nameof(PriceCalculation), SelectedItem.Entity},
+                        {nameof(TechnicalRequrementsTask), null}
+                    });
+                }, 
+                () => this.SelectedItem != null);
+
+            this.SelectedItemChangedEvent += lookup =>
+                ((DelegateLogConfirmationCommand) CopyPriceCalculationCommand).RaiseCanExecuteChanged();
         }
 
         protected override IEnumerable<PriceCalculationLookup> GetLookups(IUnitOfWork unitOfWork)

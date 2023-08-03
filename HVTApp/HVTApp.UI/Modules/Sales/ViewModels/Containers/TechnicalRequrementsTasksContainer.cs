@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
 {
-    public class TechnicalRequrementsTasksContainer : BaseContainerViewModelWithFilterByProject<TechnicalRequrementsTask, TechnicalRequrementsTaskLookup, SelectedTechnicalRequrementsTaskChangedEvent, AfterSaveTechnicalRequrementsTaskEvent, AfterRemoveTechnicalRequrementsTaskEvent, TechnicalRequrementsTaskView>
+    public class TechnicalRequrementsTasksContainer : BaseContainerViewModelWithFilterByProject<TechnicalRequrementsTask, TechnicalRequrementsTaskLookup, AfterSaveTechnicalRequrementsTaskEvent, AfterRemoveTechnicalRequrementsTaskEvent, TechnicalRequrementsTaskView>
     {
         public TechnicalRequrementsTasksContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
