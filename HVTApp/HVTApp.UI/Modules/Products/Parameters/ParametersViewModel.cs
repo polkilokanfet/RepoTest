@@ -290,5 +290,9 @@ namespace HVTApp.UI.Modules.Products.Parameters
             base.SaveItem();
             this.ParameterLookups.Refresh(Item.Model);
         }
+
+        public override void Dispose()
+        {
+        }
     }
 }

@@ -258,7 +258,7 @@ namespace HVTApp.UI.ViewModels
         }
 
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (this.Item != null)
                 this.Item.PropertyChanged -= this.ItemOnPropertyChanged;
