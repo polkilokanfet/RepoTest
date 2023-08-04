@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Modules.Sales.Market;
 using HVTApp.UI.Modules.Sales.Views;
@@ -19,11 +23,57 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
     {
         private List<OfferUnit> _offerUnits;
 
+        public ICommand PrintOfferCommand { get; }
+        public ICommand OfferByProjectCommand { get; }
+        public ICommand OfferByOfferCommand { get; }
+
         public OffersContainer(IUnityContainer container, ISelectedProjectItemChanged vm) : base(container, vm)
         {
             var eventAggregator = container.Resolve<IEventAggregator>();
             eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(offer => _offerUnits.RemoveIfContainsById(offer));
             eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Subscribe(offer => _offerUnits.ReAddById(offer));
+
+            #region PrintOfferCommand
+
+            PrintOfferCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var fileManagerService = container.Resolve<IFileManagerService>();
+                    container.Resolve<IPrintOfferService>().PrintOffer(this.SelectedItem.Id, fileManagerService.GetPath(this.SelectedItem.Entity));
+                }, 
+                () => this.SelectedItem != null);
+
+            this.SelectedItemChangedEvent += lookup => ((DelegateLogCommand)PrintOfferCommand).RaiseCanExecuteChanged();
+
+            #endregion
+
+            #region OfferByProjectCommand
+
+            OfferByProjectCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var parameters = new NavigationParameters {{nameof(Project), vm.SelectedProjectItem.Project}};
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<OfferView>(parameters);
+                },
+                () => vm.SelectedProjectItem != null);
+
+            vm.SelectedProjectItemChanged += item => ((DelegateLogCommand)OfferByProjectCommand).RaiseCanExecuteChanged();
+
+            #endregion
+
+            #region OfferByOfferCommand
+
+            OfferByOfferCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var parameters = new NavigationParameters {{nameof(Offer), this.SelectedItem.Entity}};
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<OfferView>(parameters);
+                },
+                () => this.SelectedItem != null);
+
+            this.SelectedItemChangedEvent += lookup => ((DelegateLogCommand)OfferByOfferCommand).RaiseCanExecuteChanged();
+
+            #endregion
         }
 
         protected override OfferLookup MakeLookup(Offer offer)

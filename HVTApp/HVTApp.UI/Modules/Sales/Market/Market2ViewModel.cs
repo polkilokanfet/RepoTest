@@ -21,11 +21,6 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    public interface ISelectedProjectItemChanged
-    {
-        event Action<ProjectItem> SelectedProjectItemChanged;
-    }
-
     public partial class Market2ViewModel : LoadableExportableExpandCollapseViewModel, ISelectedProjectItemChanged
     {
         private ProjectItem _selectedProjectItem;
@@ -156,6 +151,27 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         #endregion
 
+        #region ICommand
+
+        public SelectProjectsFolderCommand SelectProjectsFolderCommand { get; }
+        public OpenFolderCommand OpenFolderCommand { get; }
+
+
+        public ProjectNewCommand NewProjectCommand { get; }
+        public ProjectEditCommand EditProjectCommand { get; }
+        public ProjectRemoveCommand RemoveProjectCommand { get; }
+        public UnionProjectsCommand UnionProjectsCommand { get; }
+
+        public SpecificationNewCommand NewSpecificationCommand { get; }
+
+        public StructureCostsCommand StructureCostsCommand { get; }
+
+        public MakeTceTaskCommand MakeTceTaskCommand { get; }
+
+        public MakePriceEngineeringTaskCommand MakePriceEngineeringTaskCommand { get; }
+
+        #endregion
+
         public Outlook Outlook { get; }
 
         public Market2ViewModel(IUnityContainer container) : base(container, loadDataInCtor: false)
@@ -181,13 +197,6 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             NewSpecificationCommand = new SpecificationNewCommand(this, this.Container, this.RegionManager);
 
-            PrintOfferCommand = new PrintOfferCommand(this, this.Container);
-            OfferByProjectCommand = new OfferByProjectCommand(this, this.RegionManager);
-            OfferByOfferCommand = new OfferByOfferCommand(this, this.RegionManager);
-
-            NewTenderCommand = new NewTenderCommand(this, this.Container);
-            RemoveTenderCommand = new DelegateLogCommand(() => Tenders.RemoveSelectedItem(), () => Tenders?.SelectedItem != null);
-
             StructureCostsCommand = new StructureCostsCommand(this, this.RegionManager, this.UnitOfWork);
 
             SelectProjectsFolderCommand = new SelectProjectsFolderCommand(container.Resolve<IFileManagerService>());
@@ -196,17 +205,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             MakeTceTaskCommand = new MakeTceTaskCommand(this, this.UnitOfWork, this.RegionManager, container.Resolve<IMessageService>());
 
             MakePriceEngineeringTaskCommand = new MakePriceEngineeringTaskCommand(this, this.UnitOfWork, this.RegionManager);
-
-            OpenTenderLinkCommand = new OpenTenderLinkCommand(this);
-
-            #endregion
-
-            #region Subscribe to Events
-
-
-            //подписка на выбор сущностей
-            _eventAggregator.GetEvent<SelectedOfferChangedEvent>().Subscribe(offer => OfferRaiseCanExecuteChanged());
-            _eventAggregator.GetEvent<SelectedTenderChangedEvent>().Subscribe(tender => TenderRaiseCanExecuteChanged());
 
             #endregion
 
@@ -280,22 +278,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             MakeTceTaskCommand.RaiseCanExecuteChanged();
             MakePriceEngineeringTaskCommand.RaiseCanExecuteChanged();
             OpenFolderCommand.RaiseCanExecuteChanged();
-            OfferRaiseCanExecuteChanged();
-            TenderRaiseCanExecuteChanged();
-        }
-
-        private void OfferRaiseCanExecuteChanged()
-        {
-            (PrintOfferCommand).RaiseCanExecuteChanged();
-            (OfferByOfferCommand).RaiseCanExecuteChanged();
-            (OfferByProjectCommand).RaiseCanExecuteChanged();
-        }
-
-        private void TenderRaiseCanExecuteChanged()
-        {
-            NewTenderCommand.RaiseCanExecuteChanged();
-            RemoveTenderCommand.RaiseCanExecuteChanged();
-            OpenTenderLinkCommand.RaiseCanExecuteChanged();
         }
 
         #endregion

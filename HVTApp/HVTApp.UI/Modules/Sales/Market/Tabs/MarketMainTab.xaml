@@ -20,23 +20,23 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Конкурс">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding Tenders.NewTenderCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <!--<infRib:ButtonTool Caption="Изменить" Command="{Binding Tenders.EditSelectedItemCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>-->
         <infRib:ButtonTool Caption="Удалить" Command="{Binding Tenders.RemoveSelectedItemCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-        <infRib:ButtonTool Caption="Открыть ссылку" Command="{Binding OpenTenderLinkCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
+        <infRib:ButtonTool Caption="Открыть ссылку" Command="{Binding Tenders.OpenTenderLinkCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
     
-    <infRib:RibbonGroup Caption="Предложение">
-        <infRib:ButtonTool Caption="ТКП по проекту" Command="{Binding OfferByProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="ТКП по ТКП" Command="{Binding OfferByOfferCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    <infRib:RibbonGroup Caption="ТКП">
+        <infRib:ButtonTool Caption="По проекту" Command="{Binding Offers.OfferByProjectCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="По ТКП" Command="{Binding Offers.OfferByOfferCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <!--<infRib:ButtonTool Caption="Изменить" Command="{Binding Offers.EditSelectedItemCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>-->
         <infRib:ButtonTool Caption="Удалить" Command="{Binding Offers.RemoveSelectedItemCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
+        <infRib:ButtonTool Caption="Печать" Command="{Binding Offers.PrintOfferCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Заметка">
-        <infRib:ButtonTool Caption="Создать заметку" Command="{Binding AddNoteCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Удалить заметку" Command="{Binding RemoveNoteCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding AddNoteCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveNoteCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveNotesCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 

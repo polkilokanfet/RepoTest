@@ -302,12 +302,7 @@
     <Compile Include="Modules\Reports\TceReport\TceReportUnit.cs" />
     <Compile Include="Modules\Sales\Market\Commands\MakePriceEngineeringTaskCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\MakeTceTaskCommand.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\OfferByOfferCommand.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\OfferByProjectCommand.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\NewTenderCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\OpenFolderCommand.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\OpenTenderLinkCommand.cs" />
-    <Compile Include="Modules\Sales\Market\Commands\PrintOfferCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectEditCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\ProjectRemoveCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\SelectProjectsFolderCommand.cs" />
@@ -332,6 +327,7 @@
     <Compile Include="Modules\Sales\Market\Controls\Market2OffersControl.xaml.cs">
       <DependentUpon>Market2OffersControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\Market\ISelectedProjectItemChanged.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilterByProject.cs" />
@@ -990,7 +986,6 @@
     <Compile Include="Modules\Sales\ViewModels\Groups\UnitsContainer.cs" />
     <Compile Include="Modules\Sales\Market\Market2ViewModel_Notes.cs" />
     <Compile Include="Modules\Sales\Market\Market2ViewModel.cs" />
-    <Compile Include="Modules\Sales\Market\Market2ViewModel_Commands.cs" />
     <Compile Include="Modules\Sales\Market\SalesUnitsMarketViewComparer.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
