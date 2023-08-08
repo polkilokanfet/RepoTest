@@ -11,5 +11,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             Load(productIncludedWrapper, unitOfWork);
         }
+
+        public override void Dispose()
+        {
+        }
     }
 }
