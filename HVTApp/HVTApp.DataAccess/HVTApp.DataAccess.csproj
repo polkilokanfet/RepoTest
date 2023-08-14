@@ -457,6 +457,10 @@
     <Compile Include="Migrations\202307280424551_PositionInTeamCenterInPriceCalculationItem.designer.cs">
       <DependentUpon>202307280424551_PositionInTeamCenterInPriceCalculationItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308140506312_PriceEngineeringTaskStatusCommentLenghRemove.cs" />
+    <Compile Include="Migrations\202308140506312_PriceEngineeringTaskStatusCommentLenghRemove.designer.cs">
+      <DependentUpon>202308140506312_PriceEngineeringTaskStatusCommentLenghRemove.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -750,6 +754,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307280424551_PositionInTeamCenterInPriceCalculationItem.resx">
       <DependentUpon>202307280424551_PositionInTeamCenterInPriceCalculationItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308140506312_PriceEngineeringTaskStatusCommentLenghRemove.resx">
+      <DependentUpon>202308140506312_PriceEngineeringTaskStatusCommentLenghRemove.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

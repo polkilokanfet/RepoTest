@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Момент"), Required]
         public virtual DateTime Moment { get; set; } = DateTime.Now;
 
-        [Designation("Комментарий"), MaxLength(1024)]
+        [Designation("Комментарий")]
         public string Comment { get; set; }
 
         [Required]
