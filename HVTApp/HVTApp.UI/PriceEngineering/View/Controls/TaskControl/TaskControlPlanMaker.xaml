@@ -7,11 +7,6 @@
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View.Converters"
              x:Name="Root">
 
-    <UserControl.Resources>
-        <converters:TceItemToRealizationDateConverter x:Key="ToRealizationDateConverter" />
-        <converters:TceItemToDeliveryTypeConverter x:Key="ToDeliveryTypeConverter" />
-    </UserControl.Resources>
-
     <!--Задача на блок продукта-->
     <Border 
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}" 
@@ -38,91 +33,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*" MinHeight="70"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!--Позиция в ТСЕ-->
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Позиция в ТСЕ:"/>
-                    <TextBox Grid.Column="1" 
-                             Text="{Binding Model.TcePosition, Mode=OneTime}"
-                             IsReadOnly="True"
-                             BorderThickness="0"
-                             Background="Transparent"/>
-                </Grid>
-
-                <!--Заводской заказ-->
-                <GroupBox
-                    Grid.Row="1"
-                    Background="Transparent"
-                    Header="Заводской заказ">
-                    <Grid IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Column="0" Grid.Row ="0" Content="Номер"/>
-                        <TextBox Grid.Column="1" Grid.Row="0" 
-                                    Text="{Binding Order.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                        <Label Grid.Column="0" Grid.Row ="1" Content="Дата открытия"/>
-                        <DatePicker Grid.Column="1" Grid.Row="1" 
-                                    SelectedDate="{Binding Order.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                        <Label Grid.Column="0" Grid.Row ="2" Content="Плановая дата производства"/>
-                        <Expander
-                            Grid.Column="1" 
-                            Grid.Row="2" 
-                            IsExpanded="False">
-
-                            <Expander.HeaderTemplate>
-                                <DataTemplate>
-                                    <DatePicker SelectedDate="{Binding ElementName=Root, Path=TaskViewModel.EndProductionPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                </DataTemplate>
-                            </Expander.HeaderTemplate>
-
-                            <igWPF:XamDataGrid DataSource="{Binding SalesUnits}">
-                                <igWPF:XamDataGrid.FieldLayouts>
-                                    <igWPF:FieldLayout>
-                                        <igWPF:FieldLayout.Fields>
-                                            <igWPF:TextField 
-                                                BindingType="UseAlternateBinding" 
-                                                AlternateBinding="{Binding OrderPosition, Mode=OneWay}"
-                                                Label="Позиция" 
-                                                Width="Auto" 
-                                                AllowResize="False" 
-                                                AllowEdit="False" />
-                                            <igWPF:DateTimeField 
-                                                BindingType="UseAlternateBinding" 
-                                                AlternateBinding="{Binding EndProductionPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                Label="Плановая дата производства" 
-                                                Width="Auto" 
-                                                AllowResize="False" 
-                                                AllowEdit="True" Format="dd/MM/yyyy"/>
-                                        </igWPF:FieldLayout.Fields>
-                                    </igWPF:FieldLayout>
-                                </igWPF:XamDataGrid.FieldLayouts>
-                            </igWPF:XamDataGrid>
-                        </Expander>
-
-                    </Grid>
-
-                </GroupBox>
-
-                <Expander Grid.Row="2" Header="Дополнительная информация" IsExpanded="False">
+                <!--Дополнительная информация-->
+                <Expander Grid.Row="0" Header="Дополнительная информация" IsExpanded="False">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -163,65 +77,110 @@
                     </Grid>
                 </Expander>
 
-                <!--Единица задачи ТСЕ-->
-                <!--<Border Grid.Row="1" 
-                        DataContext="{Binding ElementName=Root, Path=TaskViewModel, Mode=OneWay}"
-                        Background="DarkGray" 
-                        BorderBrush="Black" 
-                        BorderThickness="1" 
-                        Padding="5" 
-                        Margin="5" 
-                        CornerRadius="5">
+                <!--Заводской заказ-->
+                <GroupBox
+                    Grid.Row="1"
+                    Background="Transparent"
+                    Header="Заводской заказ">
+
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" Background="AliceBlue" CornerRadius="5">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <CheckBox 
+                                x:Name="IsNotUniqueOrderDataCheckBox"
+                                IsChecked="{Binding IsNotUniqueOrderData}"/>
+                            <Label Content=" Единые данные на все изделия"/>
+                        </StackPanel>
 
-                            <Expander IsExpanded="False" Header="Дополнительная информация">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                        <Grid 
+                            Grid.Row="1">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=IsNotUniqueOrderDataCheckBox}"
+                                                     Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
+                            <Label Grid.Column="0" Content="Номер"/>
+                            <TextBox Grid.Column="1" Text="{Binding OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                    <Label Grid.Row="0" Grid.Column="0" Content="Дата реализации:"/>
-                                    <TextBox Grid.Row="0" Grid.Column="1" 
-                                             IsReadOnly="True"
-                                             Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToRealizationDateConverter}, Mode=OneWay}"/>
+                            <Label Grid.Column="2" Content="Дата открытия"/>
+                            <DatePicker Grid.Column="3" SelectedDate="{Binding DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                    <Label Grid.Row="1" Grid.Column="0" Content="Тип доставки:"/>
-                                    <TextBox Grid.Row="1" Grid.Column="1" 
-                                             IsReadOnly="True"
-                                             Text="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem, Converter={StaticResource ToDeliveryTypeConverter}, Mode=OneWay}"/>
-                                </Grid>
+                            <Label Grid.Column="4" Content="Плановая дата производства"/>
+                            <DatePicker Grid.Column="5" SelectedDate="{Binding EndProductionPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            </Expander>
+                        </Grid>
 
-                        </Border>
+                        <Grid Grid.Row="1">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=IsNotUniqueOrderDataCheckBox}"
+                                                     Value="False">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
 
-
-                        <GroupBox Grid.Row="1" Header="Соответствие стракчакостов">
-                            <ItemsControl 
-                                IsEnabled="{Binding TaskViewModelBackManager.IsEditMode, ElementName=Root}"
-                                ItemsSource="{Binding ElementName=Root, Path=TaskViewModelBackManager.TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <view1:SccVersionControl SccVersion="{Binding  UpdateSourceTrigger=PropertyChanged}" Margin="0 1"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </GroupBox>
-
+                            <igWPF:XamDataGrid DataSource="{Binding SalesUnits}">
+                                <igWPF:XamDataGrid.FieldLayouts>
+                                    <igWPF:FieldLayout>
+                                        <igWPF:FieldLayout.Fields>
+                                            <igWPF:TextField 
+                                                BindingType="UseAlternateBinding" 
+                                                AlternateBinding="{Binding OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Label="Заказ" 
+                                                Width="Auto" 
+                                                AllowResize="False" 
+                                                AllowEdit="True" />
+                                            <igWPF:TextField 
+                                                BindingType="UseAlternateBinding" 
+                                                AlternateBinding="{Binding OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Label="Позиция" 
+                                                Width="Auto" 
+                                                AllowResize="False" 
+                                                AllowEdit="True" />
+                                            <igWPF:DateTimeField 
+                                                BindingType="UseAlternateBinding" 
+                                                AlternateBinding="{Binding DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                Label="Дата открытия" 
+                                                Width="Auto" 
+                                                AllowResize="False" 
+                                                AllowEdit="True" Format="dd/MM/yyyy"/>
+                                            <igWPF:DateTimeField 
+                                                BindingType="UseAlternateBinding" 
+                                                AlternateBinding="{Binding EndProductionPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                Label="Плановая дата производства" 
+                                                Width="Auto" 
+                                                AllowResize="False" 
+                                                AllowEdit="True" Format="dd/MM/yyyy"/>
+                                        </igWPF:FieldLayout.Fields>
+                                    </igWPF:FieldLayout>
+                                </igWPF:XamDataGrid.FieldLayouts>
+                            </igWPF:XamDataGrid>
+                        </Grid>
                     </Grid>
-                </Border>-->
+                </GroupBox>
 
             </Grid>
 

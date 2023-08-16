@@ -4,24 +4,39 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
     public class TaskViewModelPlanMaker : TaskViewModelLoadFilesCommand
     {
+        private bool _isNotUniqueOrderData = true;
+
+        #region TaskViewModelPlanMaker
+
         public TasksWrapperPlanMaker TasksWrapper { get; }
 
         public override bool IsTarget => this.Model.Status.Equals(ScriptStep.ProductionRequestStart);
 
         public override bool IsEditMode => this.Model.Status.Equals(ScriptStep.ProductionRequestStart);
+
+        /// <summary>
+        /// Данные по заводскому заказу не едины для всех позиций
+        /// </summary>
+        public bool IsNotUniqueOrderData
+        {
+            get => _isNotUniqueOrderData;
+            set
+            {
+                _isNotUniqueOrderData = value;
+                RaisePropertyChanged(nameof(IsNotUniqueOrderData));
+            }
+        }
 
         #region Commands
 
@@ -31,7 +46,36 @@ namespace HVTApp.UI.PriceEngineering
 
         #region Order
 
-        public OrderWrapper Order => SalesUnits.First().Order;
+        /// <summary>
+        /// Номер заводского заказа
+        /// </summary>
+        public string OrderNumber
+        {
+            get => SalesUnits.First().OrderNumber;
+            set
+            {
+                this.SalesUnits.ForEach(x => x.OrderNumber = value);
+                Validate();
+                RaisePropertyChanged(nameof(OrderNumber));
+                RaisePropertyChanged(nameof(OrderNumberIsChanged));
+            }
+        }
+        public string OrderNumberOriginalValue { get; }
+        public bool OrderNumberIsChanged => OrderNumberOriginalValue != OrderNumber;
+
+        /// <summary>
+        /// Дата открытия заказа
+        /// </summary>
+        public DateTime DateOpen
+        {
+            get => SalesUnits.First().DateOpen;
+            set
+            {
+                this.SalesUnits.ForEach(x => x.DateOpen = value);
+                RaisePropertyChanged(nameof(OrderNumber));
+            }
+        }
+
 
         public new SalesUnitsCollection SalesUnits { get; private set; }
 
@@ -41,7 +85,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             base.InitializeCollectionProperties();
 
-            if (Model.SalesUnits == null) throw new ArgumentException("SU cannot be null");
+            if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
             SalesUnits = new SalesUnitsCollection(this.Model, Model.Status.Equals(ScriptStep.ProductionRequestStart));
             RegisterCollection(SalesUnits, Model.SalesUnits);
         }
@@ -55,9 +99,12 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
+        /// <summary>
+        /// Плановая единая дата окончания производства
+        /// </summary>
         public DateTime EndProductionPlanDate
         {
-            get => this.SalesUnits.FirstOrDefault()?.EndProductionPlanDate?.Date ?? DateTime.Today.AddDays(120);
+            get => this.SalesUnits.First().EndProductionPlanDate.Value;
             set => SalesUnits.ForEach(salesUnit => salesUnit.EndProductionPlanDate = value);
         }
 
@@ -84,23 +131,16 @@ namespace HVTApp.UI.PriceEngineering
                 ProductionRequestFinishCommand.RaiseCanExecuteChanged();
             };
 
-            if (Model.Status.Equals(ScriptStep.ProductionRequestStart) && Order == null)
-            {
-                SalesUnits.AddOrder(new Order { DateOpen = DateTime.Now });
-            }
+            OrderNumberOriginalValue = OrderNumber;
 
-            if (Model.Status.Equals(ScriptStep.ProductionRequestStart))
+            if (this.Model.Status.Equals(ScriptStep.ProductionRequestStart) == false)
             {
-                int i = 1;
-                foreach (var salesUnit in this.SalesUnits)
+                if (SalesUnits.GroupBy(x => x.Model.Order).Count() > 1)
                 {
-                    salesUnit.EndProductionPlanDate = salesUnit.Model.EndProductionDateCalculated.Date;
-                    salesUnit.OrderPosition = i.ToString();
-                    i++;
+                    IsNotUniqueOrderData = false;
                 }
-
-                RaisePropertyChanged(nameof(EndProductionPlanDate));
             }
+
         }
 
         protected override bool SaveCommand_CanExecuteMethod()
@@ -110,11 +150,57 @@ namespace HVTApp.UI.PriceEngineering
             return this.IsChanged || this.TasksWrapper.IsChanged;
         }
 
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (IsNotUniqueOrderData)
+            {
+                if (string.IsNullOrWhiteSpace(this.OrderNumber))
+                    yield return new ValidationResult($"{nameof(OrderNumber)} is required", new[] { nameof(OrderNumber) });
+            }
+        }
+
+        #endregion
+
         public class SalesUnitWithOrderWrapper : SalesUnitWithSignalToStartProductionWrapper
         {
             private readonly bool _orderIsRequired;
 
             #region SimpleProperties
+
+            #region OrderNumber
+
+            private string _orderNumber;
+            public string OrderNumber
+            {
+                get => _orderNumber;
+                set
+                {
+                    if (value == _orderNumber) return;
+                    _orderNumber = value;
+                    RaisePropertyChanged(nameof(OrderNumber));
+                    this.Validate();
+                }
+            }
+
+            public string OrderNumberOriginalValue { get; }
+            public bool OrderNumberIsChanged => OrderNumberOriginalValue != OrderNumber;
+
+            #endregion
+
+            #region DateOpen
+
+            private DateTime _dateOpen;
+            public DateTime DateOpen
+            {
+                get => _dateOpen;
+                set
+                {
+                    _dateOpen = value;
+                    RaisePropertyChanged(nameof(DateOpen));
+                }
+            }
+
+            #endregion
 
             #region OrderPosition
 
@@ -149,34 +235,26 @@ namespace HVTApp.UI.PriceEngineering
             #endregion
 
             #region ComplexProperties
-
-            /// <summary>
-            /// Заказ
-            /// </summary>
-            public OrderWrapper Order
-            {
-                get => GetWrapper<OrderWrapper>();
-                set => SetComplexValue<Order, OrderWrapper>(Order, value);
-            }
-
             #endregion
 
             public SalesUnitWithOrderWrapper(SalesUnit model, bool orderIsRequired) : base(model)
             {
                 _orderIsRequired = orderIsRequired;
-            }
-
-            public override void InitializeComplexProperties()
-            {
-                InitializeComplexProperty(nameof(Order), Model.Order == null ? null : new OrderWrapper(Model.Order));
+                _orderNumber = OrderNumberOriginalValue = model.Order?.Number;
+                DateOpen = model.Order?.DateOpen ?? DateTime.Today;
+                EndProductionPlanDate = model.EndProductionPlanDate ?? DateTime.Today.AddDays(120);
             }
 
             protected override IEnumerable<ValidationResult> ValidateOther()
             {
                 if (_orderIsRequired)
                 {
-                    if (Order == null)
-                        yield return new ValidationResult($"{nameof(Order)} is required", new[] { nameof(Order) });
+                    if (string.IsNullOrWhiteSpace(this.OrderNumber))
+                        yield return new ValidationResult($"{nameof(OrderNumber)} is required", new[] { nameof(OrderNumber) });
+                    if (string.IsNullOrWhiteSpace(this.OrderPosition))
+                        yield return new ValidationResult($"{nameof(OrderPosition)} is required", new[] { nameof(OrderPosition) });
+                    if (this.EndProductionPlanDate == null)
+                        yield return new ValidationResult($"{nameof(EndProductionPlanDate)} is required", new[] { nameof(EndProductionPlanDate) });
                 }
             }
         }
@@ -186,12 +264,18 @@ namespace HVTApp.UI.PriceEngineering
             public SalesUnitsCollection(PriceEngineeringTask priceEngineeringTask, bool orderIsRequired)
                 : base(priceEngineeringTask.SalesUnits.Select(salesUnit => new SalesUnitWithOrderWrapper(salesUnit, orderIsRequired)))
             {
-            }
-
-            public void AddOrder(Order order)
-            {
-                var orderWrapper = new OrderWrapper(order);
-                this.Items.ForEach(x => x.Order = orderWrapper);
+                //ставим позиции заказа
+                if (priceEngineeringTask.Status.Equals(ScriptStep.ProductionRequestStart) &&
+                    this.Items.Any(salesUnit => string.IsNullOrWhiteSpace(salesUnit.OrderPosition)))
+                {
+                    int i = 1;
+                    foreach (var salesUnit in this)
+                    {
+                        salesUnit.EndProductionPlanDate = salesUnit.Model.EndProductionDateCalculated.Date;
+                        salesUnit.OrderPosition = i.ToString();
+                        i++;
+                    }
+                }
             }
         }
     }

@@ -7,9 +7,16 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public class TasksViewModelPlanMaker : TasksViewModelVisible<TasksWrapperPlanMaker, TaskViewModelPlanMaker>
     {
-        public bool NumberIsReadOnly =>
-            string.IsNullOrWhiteSpace(this.TasksWrapper.TceNumber) == false ||
-            this.TasksWrapper.ChildTasks.Any(x => x.Status.Equals(ScriptStep.ProductionRequestStart)) == false;
+        public bool NumberIsReadOnly
+        {
+            get
+            {
+                if (this.TasksWrapper == null) return true;
+                return string.IsNullOrWhiteSpace(this.TasksWrapper.TceNumber) == false ||
+                       this.TasksWrapper.ChildTasks.Any(x => x.Status.Equals(ScriptStep.ProductionRequestStart)) ==
+                       false;
+            }
+        }
 
         public TasksViewModelPlanMaker(IUnityContainer container) : base(container)
         {
