@@ -9,65 +9,105 @@
     <UserControl.Resources>
         <messages:PriceEngineeringTaskMessageToColorConverter x:Key="ToColorConverter"/>
         <converters:PriceEngineeringTaskMessageVisibilityConverter x:Key="MessageVisibilityConverter"/>
-        <converters:PriceEngineeringTaskStatusMessageVisibilityConverter x:Key="StatusMessageVisibilityConverter"/>
+        <converters:PriceEngineeringTaskStatusMessageVisibilityConverter1 x:Key="StatusMessageVisibilityConverter1"/>
+        <converters:PriceEngineeringTaskStatusMessageVisibilityConverter2 x:Key="StatusMessageVisibilityConverter2"/>
+        <converters:PriceEngineeringTaskStatusMessageHeaderConverter x:Key="PriceEngineeringTaskStatusMessageHeaderConverter"/>
+        <converters:PriceEngineeringTaskStatusMessageMessageConverter x:Key="PriceEngineeringTaskStatusMessageMessageConverter"/>
     </UserControl.Resources>
 
     <Grid>
-        <StackPanel Orientation="Horizontal"
-                    Visibility="{Binding Converter={StaticResource StatusMessageVisibilityConverter}}">
 
-            <TextBlock VerticalAlignment="Top" Text="{Binding Moment, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter}}"/>
-            <TextBox Text="{Binding Message, Mode=OneWay}" 
+        <Grid
+            Margin="30 0 0 0"
+            Visibility="{Binding Converter={StaticResource StatusMessageVisibilityConverter2}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                Grid.Column="0" 
+                VerticalAlignment="Center" 
+                Text="{Binding Moment, Mode=OneTime, Converter={StaticResource DateTimeToStringConverter}}"/>
+            <TextBox Grid.Column="1"
+                     Text="{Binding Message, Mode=OneTime}" 
+                     VerticalAlignment="Top"
+                     IsReadOnly="True"
+                     Background="Transparent"
+                     BorderThickness="0"/>
+        </Grid>
+
+        <Expander
+            Padding="4 0 0 0"
+            Header="{Binding}"
+            Visibility="{Binding Converter={StaticResource StatusMessageVisibilityConverter1}}">
+            <Expander.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Grid.Column="0" 
+                            VerticalAlignment="Center" 
+                            Text="{Binding Moment, Mode=OneTime, Converter={StaticResource DateTimeToStringConverter}}"/>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Message, Mode=OneTime, Converter={StaticResource PriceEngineeringTaskStatusMessageHeaderConverter}}" 
+                                 VerticalAlignment="Top"
+                                 IsReadOnly="True"
+                                 Background="Transparent"
+                                 BorderThickness="0"/>
+                    </Grid>
+                </DataTemplate>
+            </Expander.HeaderTemplate>
+            <TextBox Text="{Binding Message, Mode=OneTime, Converter={StaticResource PriceEngineeringTaskStatusMessageMessageConverter}}" 
+                     FlowDirection="LeftToRight"
                      VerticalAlignment="Top"
                      TextWrapping="Wrap"
                      IsReadOnly="True"
                      Background="Transparent"
                      BorderThickness="0"/>
+        </Expander>
 
-        </StackPanel>
+
         <Border Visibility="{Binding Converter={StaticResource MessageVisibilityConverter}}" 
-                CornerRadius="10" 
-                Padding="0"
+                Padding="1"
                 Margin="2 0 2 2"
                 BorderBrush="{Binding Converter={StaticResource ToColorConverter}}"
                 BorderThickness="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+            <Expander Header="{Binding}"
+                      Background="{Binding Converter={StaticResource ToColorConverter}}" 
+                      IsExpanded="True">
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
 
-                <!--Шапка-->
-                <Border 
-                    Background="{Binding Converter={StaticResource ToColorConverter}}" 
-                    Padding="5" 
-                    CornerRadius="5 5 0 0">
+                    <!--Шапка-->
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
 
                         <!--Момент-->
-                        <TextBlock Grid.Column="0" Text="{Binding Moment, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="0" Text="{Binding Moment, Mode=OneTime, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Left"/>
                         <!--Автор-->
-                        <TextBlock Grid.Column="1" Text="{Binding Author, Mode=OneWay, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Author, Mode=OneTime, Converter={StaticResource ObjectToStringConverter}}" HorizontalAlignment="Left" Margin="10 0 0 0"/>
 
                     </Grid>
-                </Border>
+
+
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
 
                 <!--Сообщение-->
-                <Border Grid.Row="1" 
-                        Background="White"  
-                        Padding="5"
-                        CornerRadius="0 0 8 8">
-                    <TextBox Text="{Binding Message, Mode=OneWay}"
+                <Border Background="White">
+                    <TextBox Text="{Binding Message, Mode=OneTime}"
                              TextWrapping="Wrap"
                              IsReadOnly="True"
                              BorderThickness="0"/>
                 </Border>
 
-            </Grid>
+            </Expander>
         </Border>
     </Grid>
 

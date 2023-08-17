@@ -339,7 +339,8 @@
     <Compile Include="PriceEngineering\Converters\FilesTechnicalRequirementsToVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskMessageVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusEnumToStringConverter.cs" />
-    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusMessageVisibilityConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusMessageHeaderConverter.cs" />
+    <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskStatusMessageVisibilityConverter1.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelDesignDepartmentHeadVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTasksViewModelManagerVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelBackManagerVisibilityConverter.cs" />
