@@ -151,29 +151,25 @@
                                                 AlternateBinding="{Binding OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 Label="Заказ" 
                                                 Width="Auto" 
-                                                AllowResize="False" 
                                                 AllowEdit="True" />
                                             <igWPF:TextField 
                                                 BindingType="UseAlternateBinding" 
                                                 AlternateBinding="{Binding OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 Label="Позиция" 
                                                 Width="Auto" 
-                                                AllowResize="False" 
                                                 AllowEdit="True" />
                                             <igWPF:DateTimeField 
-                                                BindingType="UseAlternateBinding" 
-                                                AlternateBinding="{Binding DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                Name="DateOpen"
                                                 Label="Дата открытия" 
                                                 Width="Auto" 
-                                                AllowResize="False" 
-                                                AllowEdit="True" Format="dd/MM/yyyy"/>
+                                                AllowEdit="True" 
+                                                Format="dd/MM/yyyy"/>
                                             <igWPF:DateTimeField 
-                                                BindingType="UseAlternateBinding" 
-                                                AlternateBinding="{Binding EndProductionPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                Name="EndProductionPlanDate"
                                                 Label="Плановая дата производства" 
                                                 Width="Auto" 
-                                                AllowResize="False" 
-                                                AllowEdit="True" Format="dd/MM/yyyy"/>
+                                                AllowEdit="True" 
+                                                Format="dd/MM/yyyy"/>
                                         </igWPF:FieldLayout.Fields>
                                     </igWPF:FieldLayout>
                                 </igWPF:XamDataGrid.FieldLayouts>
