@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -19,7 +18,6 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
             if (ViewModel.Model.UserConstructor != null)
             {
                 yield return new NotificationArgsItem(ViewModel.Model.UserConstructor, Role.Constructor, $"ТСП остановлена: {ViewModel.Model}");

@@ -8,6 +8,7 @@ using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.DoStepCommand;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -26,6 +27,10 @@ namespace HVTApp.UI.PriceEngineering
 
         public ICommandRaiseCanExecuteChanged InstructOpenOrderCommand { get; }
 
+        public ICommandRaiseCanExecuteChanged StopProductionRequestConfirmCommand { get; }
+
+        public ICommandRaiseCanExecuteChanged StopProductionRequestRejectCommand { get; }
+
         /// <summary>
         /// Плановик
         /// </summary>
@@ -43,9 +48,11 @@ namespace HVTApp.UI.PriceEngineering
         }
 
 
-        public TaskViewModelBackManagerBoss(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
+        public TaskViewModelBackManagerBoss(IUnityContainer container, Guid priceEngineeringTaskId) : base(container,
+            priceEngineeringTaskId)
         {
-            InitializeComplexProperty(nameof(UserPlanMaker), Model.UserPlanMaker == null ? null : new UserEmptyWrapper(Model.UserPlanMaker));
+            InitializeComplexProperty(nameof(UserPlanMaker),
+                Model.UserPlanMaker == null ? null : new UserEmptyWrapper(Model.UserPlanMaker));
 
             InstructOpenOrderCommand = new DelegateLogCommand(
                 () =>
@@ -53,7 +60,7 @@ namespace HVTApp.UI.PriceEngineering
                     var users = UnitOfWork.Repository<User>()
                         .Find(user => user.Roles.Select(role => role.Role).Contains(Role.PlanMaker))
                         .Where(user => user.IsActual);
-                    
+
                     var planMaker = container.Resolve<ISelectService>().SelectItem(users);
 
                     if (planMaker == null) return;
@@ -66,10 +73,15 @@ namespace HVTApp.UI.PriceEngineering
 
                     this.Messenger.SendMessage($"Назначен плановик: {planMaker.Employee.Person}");
 
-                    var argsItem = new NotificationArgsItem(planMaker, Role.PlanMaker, $"Откройте производство по ТСП: {this.Model}");
-                    container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.Model, new []{argsItem}));
+                    var argsItem = new NotificationArgsItem(planMaker, Role.PlanMaker,
+                        $"Откройте производство по ТСП: {this.Model}");
+                    container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>()
+                        .Publish(new NotificationArgsPriceEngineeringTask(this.Model, new[] {argsItem}));
                 },
                 () => this.Model.Status.Equals(ScriptStep.ProductionRequestStart));
+
+            StopProductionRequestConfirmCommand = new DoStepCommandStopProductionRequestConfirm(this, container);
+            StopProductionRequestRejectCommand = new DoStepCommandStopProductionRequestReject(this, container);
         }
     }
 }

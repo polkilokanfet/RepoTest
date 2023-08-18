@@ -35,7 +35,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     return Colors.OrangeRed;
             }
 
-            return Binding.DoNothing;
+            return Colors.Transparent;
         }
     }
 }

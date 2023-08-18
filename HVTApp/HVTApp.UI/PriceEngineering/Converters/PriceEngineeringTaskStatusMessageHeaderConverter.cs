@@ -28,7 +28,7 @@ namespace HVTApp.UI.PriceEngineering.Converters
             if (value is string message)
             {
                 var lines = message.Split('\n');
-                return string.Join(Environment.NewLine, lines.Skip(1));
+                return string.Join(string.Empty, lines.Skip(1));
             }
 
             return string.Empty;

@@ -21,7 +21,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             var steps = new[]
             {
                 ScriptStep.LoadToTceStart,
-                ScriptStep.ProductionRequestStart
+                ScriptStep.ProductionRequestStart,
+                ScriptStep.StopProductionRequest
             };
 
             return engineeringTasks

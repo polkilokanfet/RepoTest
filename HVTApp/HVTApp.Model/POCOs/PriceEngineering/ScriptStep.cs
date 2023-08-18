@@ -115,6 +115,10 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         public static readonly ScriptStep ProductionRequestFinish = new ProductionRequestFinishStep();
 
+        /// <summary>
+        /// Запрос на остановку производства
+        /// </summary>
+        public static readonly ScriptStep StopProductionRequest = new StopProductionRequestStep();
 
         #endregion
 
@@ -428,7 +432,7 @@ namespace HVTApp.Model.POCOs
         {
             public override string Description => "Производство открыто";
 
-            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new []
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new[]
             {
                 ProductionRequestStart
             };
@@ -436,6 +440,26 @@ namespace HVTApp.Model.POCOs
             protected override IEnumerable<Role> RolesForShow => new List<Role>();
 
             public ProductionRequestFinishStep() : base(14, Role.PlanMaker)
+            {
+            }
+        }
+
+        private sealed class StopProductionRequestStep : ScriptStep
+        {
+            public override string Description => "Запрос на остановку производства";
+
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new[]
+            {
+                ProductionRequestFinish
+            };
+
+            protected override IEnumerable<Role> RolesForShow => new List<Role>()
+            {
+                Role.SalesManager,
+                Role.BackManagerBoss
+            };
+
+            public StopProductionRequestStep() : base(15, Role.SalesManager)
             {
             }
         }

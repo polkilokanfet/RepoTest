@@ -67,6 +67,15 @@
 
                 </controls:ButtonIsVisibleWhenCanExecute>
 
+                <controls:ButtonIsVisibleWhenCanExecute
+                    Command="{Binding StopProductionRequestCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Stop"/>
+                        <TextBlock Text="Остановить производство"/>
+                    </StackPanel>
+
+                </controls:ButtonIsVisibleWhenCanExecute>
+
             </StackPanel>
 
         </view:ProductTaskControlHeader.ButtonsArea>

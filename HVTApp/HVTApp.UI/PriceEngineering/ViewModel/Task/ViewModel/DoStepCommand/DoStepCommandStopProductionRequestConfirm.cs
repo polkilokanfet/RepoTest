@@ -1,0 +1,49 @@
+using System.Collections.Generic;
+using HVTApp.Infrastructure;
+using HVTApp.Model;
+using HVTApp.Model.Events.EventServiceEvents.Args;
+using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
+
+namespace HVTApp.UI.PriceEngineering.DoStepCommand
+{
+    /// <summary>
+    /// ќстановка производства дл€ BackManagerBoss (подтверждение)
+    /// </summary>
+    public class DoStepCommandStopProductionRequestConfirm : DoStepCommandStop
+    {
+        protected override ScriptStep Step => ScriptStep.Stop;
+
+        protected override string ConfirmationMessage => "¬ы уверены, что хотите согласовать остановку производства этого оборудовани€?";
+
+        public DoStepCommandStopProductionRequestConfirm(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        {
+        }
+
+        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        {
+            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
+            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ѕроизводство остановлено: {ViewModel.Model}");
+        }
+
+        protected override string GetStatusComment()
+        {
+            return $"ќстановка производства согласована ({GlobalAppProperties.User}).";
+        }
+
+        protected override bool SetSameStatusOnSubTasks => true;
+
+        protected override void DoStepAction()
+        {
+            ViewModel.Model.SalesUnits.ForEach(salesUnit => salesUnit.Order = null);
+            base.DoStepAction();
+        }
+
+        protected override bool CanExecuteMethod()
+        {
+            return
+                GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss &&
+                ViewModel.Status.Equals(ScriptStep.StopProductionRequest);
+        }
+    }
+}
