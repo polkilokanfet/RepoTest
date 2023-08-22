@@ -277,7 +277,7 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             UnitOfWork?.Dispose();
             Messenger?.Dispose();

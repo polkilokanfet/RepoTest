@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
@@ -16,6 +16,7 @@ namespace HVTApp.UI.PriceEngineering
     public class TaskViewModelPlanMaker : TaskViewModelLoadFilesCommand
     {
         private bool _isNotUniqueOrderData = true;
+        private bool _isFillingRest;
 
         #region TaskViewModelPlanMaker
 
@@ -36,6 +37,80 @@ namespace HVTApp.UI.PriceEngineering
                 _isNotUniqueOrderData = value;
                 RaisePropertyChanged(nameof(IsNotUniqueOrderData));
             }
+        }
+
+        /// <summary>
+        /// Режим заполнения остатков
+        /// </summary>
+        public bool IsFillingRest
+        {
+            get => _isFillingRest;
+            set
+            {
+                _isFillingRest = value;
+                if (_isFillingRest) Sub();
+                else UnSub();
+            }
+        }
+
+        private void Sub()
+        {
+            foreach (var salesUnit in this.SalesUnits)
+            {
+                salesUnit.PropertyChanged += SalesUnitOnPropertyChanged;
+            }
+        }
+        private void UnSub()
+        {
+            foreach (var salesUnit in this.SalesUnits)
+            {
+                salesUnit.PropertyChanged -= SalesUnitOnPropertyChanged;
+            }
+        }
+
+        private void SalesUnitOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (IsNotUniqueOrderData) return;
+
+            UnSub();
+
+            var su = sender as SalesUnitWithOrderWrapper;
+
+            if (e.PropertyName == nameof(SalesUnitWithOrderWrapper.DateOpen))
+            {
+                for (int i = this.SalesUnits.IndexOf(su); i < this.SalesUnits.Count; i++)
+                {
+                    this.SalesUnits[i].DateOpen = su.DateOpen;
+                }
+            }
+            else if (e.PropertyName == nameof(SalesUnitWithOrderWrapper.EndProductionPlanDate))
+            {
+                for (int i = this.SalesUnits.IndexOf(su); i < this.SalesUnits.Count; i++)
+                {
+                    this.SalesUnits[i].EndProductionPlanDate = su.EndProductionPlanDate;
+                }
+            }
+            else if (e.PropertyName == nameof(SalesUnitWithOrderWrapper.OrderNumber))
+            {
+                for (int i = this.SalesUnits.IndexOf(su); i < this.SalesUnits.Count; i++)
+                {
+                    this.SalesUnits[i].OrderNumber = su.OrderNumber;
+                }
+            }
+            else if (e.PropertyName == nameof(SalesUnitWithOrderWrapper.OrderPosition))
+            {
+                int startPosition;
+                if (int.TryParse(su.OrderPosition, out startPosition))
+                {
+                    for (int i = this.SalesUnits.IndexOf(su); i < this.SalesUnits.Count; i++)
+                    {
+                        this.SalesUnits[i].OrderPosition = startPosition.ToString();
+                        startPosition++;
+                    }
+                }
+            }
+
+            Sub();
         }
 
         #region Commands
@@ -141,6 +216,7 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
+            this.IsFillingRest = true;
         }
 
         protected override bool SaveCommand_CanExecuteMethod()
@@ -157,6 +233,12 @@ namespace HVTApp.UI.PriceEngineering
                 if (string.IsNullOrWhiteSpace(this.OrderNumber))
                     yield return new ValidationResult($"{nameof(OrderNumber)} is required", new[] { nameof(OrderNumber) });
             }
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            this.UnSub();
         }
 
         #endregion
