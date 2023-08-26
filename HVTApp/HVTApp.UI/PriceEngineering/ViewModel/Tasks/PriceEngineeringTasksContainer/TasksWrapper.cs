@@ -32,14 +32,25 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         protected TasksWrapper(PriceEngineeringTasks model, IUnityContainer container) : base(model)
         {
             if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
-            ChildTasks = new ValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel>(this.Model.ChildPriceEngineeringTasks.Select(x => this.GetChildPriceEngineeringTask(container, x.Id)));
+            ChildTasks = new ValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel>(GetChildPriceEngineeringTasks(container));
             //ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TPriceEngineeringTaskViewModel>(this.Model.ChildPriceEngineeringTasks.Select(x => container.Resolve<TasksWrapperFactory>().GetTaskViewModel<TPriceEngineeringTaskViewModel>(x.Id)));
             ////RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
         }
 
         #endregion
 
-        protected abstract TPriceEngineeringTaskViewModel GetChildPriceEngineeringTask(IUnityContainer container, Guid id);
+        /// <summary>
+        /// Получение ViewModel задачи из этого сборника
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="childTaskId"></param>
+        /// <returns></returns>
+        protected abstract TPriceEngineeringTaskViewModel GetChildPriceEngineeringTask(IUnityContainer container, Guid childTaskId);
+
+        protected virtual IEnumerable<TPriceEngineeringTaskViewModel> GetChildPriceEngineeringTasks(IUnityContainer container)
+        {
+            return this.Model.ChildPriceEngineeringTasks.Select(task => this.GetChildPriceEngineeringTask(container, task.Id));
+        }
     }
 
     //public class TasksWrapperFactory

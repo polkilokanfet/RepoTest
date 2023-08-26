@@ -41,9 +41,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         {
         }
 
-        protected override TaskViewModelBackManagerBoss GetChildPriceEngineeringTask(IUnityContainer container, Guid id)
+        protected override TaskViewModelBackManagerBoss GetChildPriceEngineeringTask(IUnityContainer container, Guid childTaskId)
         {
-            return new TaskViewModelBackManagerBoss(container, id);
+            return new TaskViewModelBackManagerBoss(container, childTaskId);
         }
 
         public override void InitializeComplexProperties()

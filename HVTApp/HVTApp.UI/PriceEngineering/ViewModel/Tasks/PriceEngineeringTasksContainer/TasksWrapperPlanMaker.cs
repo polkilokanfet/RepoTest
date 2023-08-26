@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
@@ -27,9 +28,16 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         {
         }
 
-        protected override TaskViewModelPlanMaker GetChildPriceEngineeringTask(IUnityContainer container, Guid id)
+        protected override TaskViewModelPlanMaker GetChildPriceEngineeringTask(IUnityContainer container, Guid childTaskId)
         {
-            return new TaskViewModelPlanMaker(this, container, id);
+            return new TaskViewModelPlanMaker(this, container, childTaskId);
+        }
+
+        protected override IEnumerable<TaskViewModelPlanMaker> GetChildPriceEngineeringTasks(IUnityContainer container)
+        {
+            return this.Model.ChildPriceEngineeringTasks
+                .Where(x => x.Status.Equals(ScriptStep.ProductionRequestStart) || x.Status.Equals(ScriptStep.ProductionRequestFinish))
+                .Select(task => this.GetChildPriceEngineeringTask(container, task.Id));
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()

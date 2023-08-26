@@ -129,9 +129,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
             RegisterCollection(PriceCalculations, Model.PriceCalculations);
         }
 
-        protected override TaskViewModelManager GetChildPriceEngineeringTask(IUnityContainer container, Guid id)
+        protected override TaskViewModelManager GetChildPriceEngineeringTask(IUnityContainer container, Guid childTaskId)
         {
-            return new TaskViewModelManagerOld(container, this.Model.ChildPriceEngineeringTasks.Single(x => x.Id == id));
+            return new TaskViewModelManagerOld(container, this.Model.ChildPriceEngineeringTasks.Single(x => x.Id == childTaskId));
         }
 
 

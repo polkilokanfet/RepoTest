@@ -43,9 +43,9 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         {
         }
 
-        protected override TaskViewModelBackManager GetChildPriceEngineeringTask(IUnityContainer container, Guid id)
+        protected override TaskViewModelBackManager GetChildPriceEngineeringTask(IUnityContainer container, Guid childTaskId)
         {
-            return new TaskViewModelBackManager(this, container, id);
+            return new TaskViewModelBackManager(this, container, childTaskId);
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()
