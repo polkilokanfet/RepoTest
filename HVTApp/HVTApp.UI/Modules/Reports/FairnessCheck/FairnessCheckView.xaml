@@ -1,0 +1,554 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Reports.FairnessCheck.FairnessCheckView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              xmlns:editors="http://infragistics.com/Editors"
+              xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+               
+        <GroupBox Grid.Column="0" Header="Проверяемое">
+            <infg:XamDataGrid DataSource="{Binding ItemsToCheck}" 
+                              SelectedDataItem="{Binding SelectedItemToCheck}" 
+                              SelectedDataItemsScope="RecordsOrCells">
+            
+                <infg:XamDataGrid.ContextMenu>
+                    <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+                </infg:XamDataGrid.ContextMenu>
+
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:FieldLayout.Fields>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="200"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Category.NameShort}" Label="Оборудование" Width="200"/>
+                            <!--<infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Designation}" Label="Обозначение" Width="300"/>-->
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Amount}" Label="Кол." Width="Auto"/>
+                            <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.OrderInTakeDate}" Label="ОИТ" Width="Auto"/>
+                            <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" Label="Готовность" Width="Auto"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" Width="Auto"/>
+                        </infg:FieldLayout.Fields>
+                    </infg:FieldLayout>
+                </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid>
+        </GroupBox>
+        <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="2"/>
+
+        <GroupBox Grid.Column="1" Header="Проверяемое">
+            <infg:XamDataGrid DataSource="{Binding ItemsResult}" 
+                              SelectedDataItem="{Binding SelectedItemResult}" 
+                              SelectedDataItemsScope="RecordsOrCells">
+
+                <infg:XamDataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                    </ContextMenu>
+                </infg:XamDataGrid.ContextMenu>
+
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:FieldLayout.Fields>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="200"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Category.NameShort}" Label="Оборудование" Width="200"/>
+                            <!--<infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Designation}" Label="Обозначение" Width="300"/>-->
+                            <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Amount}" Label="Кол." Width="Auto"/>
+                            <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.OrderInTakeDate}" Label="ОИТ" Width="Auto"/>
+                            <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" Label="Готовность" Width="Auto"/>
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Project.Manager}" Converter="{StaticResource ObjectToStringConverter}" Label="Менеджер" Width="Auto"/>
+                        </infg:FieldLayout.Fields>
+                    </infg:FieldLayout>
+                </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid>
+        </GroupBox>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Right" Width="2"/>
+
+        <GroupBox Grid.Column="2" Header="Детали">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="MinWidth" Value="200"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row ="0" Content="Проект" Visibility="{Binding VisibilityProjectSalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding SelectedItemResult.SalesUnit.Project}" 
+                                    AddItemCommand="{Binding SelectProjectCommand}" 
+                                    RemoveItemCommand="{Binding ClearProjectCommand}"
+									Visibility="{Binding VisibilityProjectSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="1" Content="Объект" Visibility="{Binding VisibilityFacilitySalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding SelectedItemResult.SalesUnit.Facility}" 
+                                    AddItemCommand="{Binding SelectFacilityCommand}" 
+                                    RemoveItemCommand="{Binding ClearFacilityCommand}"
+									Visibility="{Binding VisibilityFacilitySalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="2" Content="Продукт" Visibility="{Binding VisibilityProductSalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding SelectedItemResult.SalesUnit.Product}" 
+                                    AddItemCommand="{Binding SelectProductCommand}" 
+                                    RemoveItemCommand="{Binding ClearProductCommand}"
+									Visibility="{Binding VisibilityProductSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="3" Content="Стоимость" Visibility="{Binding VisibilityCostSalesUnit, ElementName=Root}"/>
+                <editors:XamNumericEditor Grid.Column="1" Grid.Row="3" 
+                               Value="{Binding SelectedItemResult.SalesUnit.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityCostSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="8" Content="Условия оплаты" Visibility="{Binding VisibilityPaymentConditionSetSalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
+                                    Item="{Binding SelectedItemResult.SalesUnit.PaymentConditionSet}" 
+                                    AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
+                                    RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"
+									Visibility="{Binding VisibilityPaymentConditionSetSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="10" Content="Требуемая дата поставки" Visibility="{Binding VisibilityDeliveryDateExpectedSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="10" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.DeliveryDateExpected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDeliveryDateExpectedSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="13" Content="Срок производства" Visibility="{Binding VisibilityProductionTermSalesUnit, ElementName=Root}"/>
+                <editors:XamNumericEditor Grid.Column="1" Grid.Row="13"
+							   ValueType="system:Int32"
+                               Value="{Binding SelectedItemResult.SalesUnit.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityProductionTermSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="15" Content="Спецификация" Visibility="{Binding VisibilitySpecificationSalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="15" 
+                                    Item="{Binding SelectedItemResult.SalesUnit.Specification}" 
+                                    AddItemCommand="{Binding SelectSpecificationCommand}" 
+                                    RemoveItemCommand="{Binding ClearSpecificationCommand}"
+									Visibility="{Binding VisibilitySpecificationSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="16" Content="Совершённые платежи" Visibility="{Binding VisibilityPaymentsActualSalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="16"
+										 Items="{Binding Path=SelectedItemResult.SalesUnit.PaymentsActual}"
+										 SelectedItem="{Binding SelectedPaymentsActualItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPaymentsActualCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPaymentsActualCommand}"
+										 Visibility="{Binding VisibilityPaymentsActualSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="17" Content="Сигнал менеджера о производстве" Visibility="{Binding VisibilitySignalToStartProductionSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="17" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.SignalToStartProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilitySignalToStartProductionSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="21" Content="Плановая дата окончания производства" Visibility="{Binding VisibilityEndProductionPlanDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="21" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.EndProductionPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityEndProductionPlanDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="24" Content="Комментарий" Visibility="{Binding VisibilityCommentSalesUnit, ElementName=Root}"/>
+                <TextBox Grid.Column="1" Grid.Row="24"
+                 Text="{Binding SelectedItemResult.SalesUnit.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityCommentSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="25" Content="Заказ" Visibility="{Binding VisibilityOrderSalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="25" 
+                                    Item="{Binding SelectedItemResult.SalesUnit.Order}" 
+                                    AddItemCommand="{Binding SelectOrderCommand}" 
+                                    RemoveItemCommand="{Binding ClearOrderCommand}"
+									Visibility="{Binding VisibilityOrderSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="26" Content="Дата реализации" Visibility="{Binding VisibilityRealizationDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="26" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityRealizationDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="27" Content="Дата размещения в производстве" Visibility="{Binding VisibilitySignalToStartProductionDoneSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="27" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.SignalToStartProductionDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilitySignalToStartProductionDoneSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="28" Content="Дата поставки" Visibility="{Binding VisibilityDeliveryDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="28" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDeliveryDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="29" Content="Дата отгрузки (плановая)" Visibility="{Binding VisibilityShipmentPlanDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="29" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.ShipmentPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityShipmentPlanDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="30" Content="Дата отгрузки" Visibility="{Binding VisibilityShipmentDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="30" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.ShipmentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityShipmentDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="31" Content="Дата окончания производства" Visibility="{Binding VisibilityEndProductionDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="31" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.EndProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityEndProductionDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="32" Content="Дата начала производства" Visibility="{Binding VisibilityStartProductionDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="32" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.StartProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityStartProductionDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="33" Content="Дата комплектации" Visibility="{Binding VisibilityPickingDateSalesUnit, ElementName=Root}"/>
+                <DatePicker Grid.Column="1" Grid.Row="33" 
+                    SelectedDate="{Binding SelectedItemResult.SalesUnit.PickingDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityPickingDateSalesUnit, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="34" Content="Включенные продукты" Visibility="{Binding VisibilityProductsIncludedSalesUnit, ElementName=Root}"/>
+                <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="34"
+										 Items="{Binding Path=SelectedItemResult.SalesUnit.ProductsIncluded}"
+										 SelectedItem="{Binding SelectedProductsIncludedItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInProductsIncludedCommand}"
+										 RemoveItemCommand="{Binding RemoveFromProductsIncludedCommand}"
+										 Visibility="{Binding VisibilityProductsIncludedSalesUnit, ElementName=Root}"/>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+    
+</inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

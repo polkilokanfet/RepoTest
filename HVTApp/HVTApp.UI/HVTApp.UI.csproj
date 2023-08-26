@@ -280,6 +280,14 @@
     <Compile Include="Modules\Reports\CommonInfo\TabCommonInfo.xaml.cs">
       <DependentUpon>TabCommonInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Reports\FairnessCheck\FairnessCheckItem.cs" />
+    <Compile Include="Modules\Reports\FairnessCheck\FairnessCheckView.xaml.cs">
+      <DependentUpon>FairnessCheckView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reports\FairnessCheck\FairnessCheckViewModel.cs" />
+    <Compile Include="Modules\Reports\FairnessCheck\FairnessCheckTab.xaml.cs">
+      <DependentUpon>FairnessCheckTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionViewModel.cs" />
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisonItem.cs" />
     <Compile Include="Modules\Reports\FlatReport\Comparator\BudgetComparisionView.xaml.cs">
@@ -1745,6 +1753,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Reports\CommonInfo\TabCommonInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\FairnessCheck\FairnessCheckView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reports\FairnessCheck\FairnessCheckTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

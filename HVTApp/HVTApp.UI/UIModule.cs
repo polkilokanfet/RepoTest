@@ -15,6 +15,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.Products.LaborHours;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.CommonInfo;
+using HVTApp.UI.Modules.Reports.FairnessCheck;
 using HVTApp.UI.Modules.Reports.FlatReport;
 using HVTApp.UI.Modules.Reports.FlatReport.Comparator;
 using HVTApp.UI.Modules.Reports.FlatReport.Reports;
@@ -122,6 +123,8 @@ namespace HVTApp.UI
             
 
             Container.RegisterViewForNavigation<PriceEngineeringStatisticsView>();
+
+            Container.RegisterViewForNavigation<FairnessCheckView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
             Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();
