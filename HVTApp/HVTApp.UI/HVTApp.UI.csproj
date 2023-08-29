@@ -388,6 +388,9 @@
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelBackManagerBoss.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelAdmin.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelPlanMaker.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\Converters\ToSignalStartProductionConverter.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\Converters\UnVisibleToPlanMakerConverter.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\Converters\VisibleToPlanMakerConverter.cs" />
     <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewAdmin.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListViewAdmin.xaml</DependentUpon>
     </Compile>

@@ -12,6 +12,9 @@
     <UserControl.Resources>
         <converters:UnVisibleToConstructorConverter x:Key="UnVisibleToConstructorConverter" />
         <converters:UnVisibleToManagerConverter x:Key="UnVisibleToManagerConverter" />
+        <converters:VisibleToPlanMakerConverter x:Key="VisibleToPlanMakerConverter" />
+        <converters:UnVisibleToPlanMakerConverter x:Key="UnVisibleToPlanMakerConverter" />
+        <converters:ToSignalStartProductionConverter x:Key="ToSignalStartProductionConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -54,8 +57,14 @@
                     </dataPresenter:FieldLayout.RecordFilters>
 
                     <dataPresenter:FieldLayout.Fields>
-                        <dataPresenter:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" />
-                        <dataPresenter:DateTimeField Name="WorkUpTo" Label="Срок" Width="Auto" AllowResize="False" />
+                        <dataPresenter:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False" 
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToPlanMakerConverter}}"/>
+                        <dataPresenter:DateTimeField Name="WorkUpTo" Label="Срок" Width="Auto" AllowResize="False"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToPlanMakerConverter}}"/>
+                        <dataPresenter:DateTimeField Label="Сигнал" Width="Auto" AllowResize="False" 
+                                                     BindingType="UseAlternateBinding"
+                                                     AlternateBinding="{Binding  Converter={StaticResource ToSignalStartProductionConverter}}"
+                                                     Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource VisibleToPlanMakerConverter}}"/>
                         <dataPresenter:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" />
                         <dataPresenter:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
                         <dataPresenter:TextField Name="Comment" Label="Комментарий" Width="250" AllowResize="True" />

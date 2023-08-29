@@ -9,11 +9,6 @@
              mc:Ignorable="d" 
              x:Name="Root">
 
-    <UserControl.Resources>
-        <converters:UnVisibleToConstructorConverter x:Key="UnVisibleToConstructorConverter" />
-        <converters:UnVisibleToManagerConverter x:Key="UnVisibleToManagerConverter" />
-    </UserControl.Resources>
-
     <Grid>
 
         <dataPresenter:XamDataGrid 
