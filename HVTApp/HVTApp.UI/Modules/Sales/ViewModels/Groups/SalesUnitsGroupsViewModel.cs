@@ -63,6 +63,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 }
             }
 
+            //проверка на включение в задачи ТСП
+            var salesUnitsInTasks = UnitOfWork.Repository<PriceEngineeringTask>().GetAll().SelectMany(x => x.SalesUnits);
+            foreach (var salesUnit in salesUnits.Intersect(salesUnitsInTasks))
+            {
+                salesUnit.IsRemoved = true;
+            }
+
             UnitOfWork.Repository<SalesUnit>().DeleteRange(salesUnits.Where(salesUnit => salesUnit.IsRemoved == false));
             base.RemoveGroup(targetGroup);
         }
