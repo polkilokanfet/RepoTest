@@ -95,7 +95,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 yield return new ValidationResult($"{nameof(SccVersions)} has not valid items", new[] {nameof(SccVersions)});
             }
 
-            if (string.IsNullOrWhiteSpace(this.TcePosition))
+            if (string.IsNullOrWhiteSpace(this.TcePosition) && 
+                this.Model.SalesUnits.Any())
             {
                 yield return new ValidationResult("Позиция в ТСЕ не может быть пустой", new[] {nameof(TcePosition)});
             }
