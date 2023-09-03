@@ -224,7 +224,6 @@
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\AddPaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\BasePaymentDocumentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemovePaymentCommand.cs" />
-    <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RemoveDocumentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\RestPaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentDocumentWrapper1.cs" />
     <Compile Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesViewModel.cs" />

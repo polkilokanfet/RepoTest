@@ -85,7 +85,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
         /// <summary>
         /// Команда удаления платежки
         /// </summary>
-        public RemoveDocumentCommand RemoveDocumentCommand { get; }
+        public ICommand RemoveDocumentCommand { get; }
 
         /// <summary>
         /// Команда оплаты остатка
@@ -102,7 +102,22 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
             AddPaymentCommand = new AddPaymentCommand(this, this.Container);
             RemovePaymentCommand = new RemovePaymentCommand(this, this.Container);
-            RemoveDocumentCommand = new RemoveDocumentCommand(this, this.Container);
+            RemoveDocumentCommand = new DelegateLogConfirmationCommand(
+                this.Container.Resolve<IMessageService>(),
+                () =>
+                {
+                    foreach (var paymentActualWrapper2 in this.Item.Payments.ToList())
+                    {
+                        this.Item.Payments.Remove(paymentActualWrapper2);
+                        this.UnitOfWork1.Repository<PaymentActual>().Delete(paymentActualWrapper2.Model);
+                    }
+
+                    this.UnitOfWork1.Repository<PaymentDocument>().Delete(this.Item.Model);
+                    this.UnitOfWork1.SaveChanges();
+
+                    this.GoBackCommand.Execute(null);
+                },
+                () => this.UnitOfWork1.Repository<PaymentDocument>().GetById(this.Item.Model.Id) != null);
             RestPaymentCommand = new RestPaymentCommand(this, this.Container);
 
             LoadPotentialCommand = new DelegateLogCommand(

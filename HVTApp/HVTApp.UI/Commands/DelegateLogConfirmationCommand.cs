@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 
@@ -8,17 +9,17 @@ namespace HVTApp.UI.Commands
     {
         private const string DefaultConfirmationMessage = "Вы уверены?";
 
-        private readonly IMessageService _messageService;
         private bool _showConfirmation = true;
 
-        protected virtual string ConfirmationMessage { get; set; }
+        protected virtual IMessageService MessageService { get; }
+        protected virtual string ConfirmationMessage { get; }
 
         #region ctors
 
         public DelegateLogConfirmationCommand(IMessageService messageService, string confirmationMessage, Action executeMethod, Func<bool> canExecuteMethod) 
             : base(executeMethod, canExecuteMethod)
         {
-            _messageService = messageService;
+            MessageService = messageService;
             ConfirmationMessage = confirmationMessage;
         }
 
@@ -38,16 +39,13 @@ namespace HVTApp.UI.Commands
         }
 
         #endregion
-
+        
         protected override void ExecuteMethod()
         {
             if (_showConfirmation)
             {
-                var dr = _messageService.ShowYesNoMessageDialog("Подтверждение намерений", ConfirmationMessage, defaultNo: true);
-                if (dr != MessageDialogResult.Yes)
-                {
-                    return;
-                }
+                var dr = MessageService.ShowYesNoMessageDialog("Подтверждение намерений", ConfirmationMessage, defaultNo: true);
+                if (dr != MessageDialogResult.Yes) return;
             }
 
             base.ExecuteMethod();

@@ -259,19 +259,23 @@ namespace HVTApp.Model.POCOs
         /// Сумама, необходимая для начала производства
         /// </summary>
         [Designation("Сумма старта производства"), NotMapped]
-        public double SumToStartProduction => PaymentConditionSet.PaymentConditions.Where(x =>
-                                              x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart &&
-                                              x.DaysToPoint <= 0).Sum(condition => Cost * condition.Part);
+        public double SumToStartProduction => PaymentConditionSet.PaymentConditions
+            .Where(condition =>
+                condition.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart &&
+                condition.DaysToPoint <= 0)
+            .Sum(condition => Cost * condition.Part);
 
         /// <summary>
         /// Сумма, необходимая для отгрузки
         /// </summary>
         [Designation("Сумма отгрузки"), NotMapped]
-        public double SumToShipping => PaymentConditionSet.PaymentConditions.Where(x => (
-                                        x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart) ||
-                                       (x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionEnd) ||
-                                       (x.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.Shipment && x.DaysToPoint <= 0)).
-                                       Sum(condition => Cost * condition.Part);
+        public double SumToShipping => PaymentConditionSet.PaymentConditions
+            .Where(condition => 
+                condition.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionStart || 
+                condition.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.ProductionEnd || 
+                condition.PaymentConditionPoint.PaymentConditionPointEnum == PaymentConditionPointEnum.Shipment && 
+                condition.DaysToPoint <= 0).
+            Sum(condition => Cost * condition.Part);
 
 
         #endregion
@@ -308,11 +312,19 @@ namespace HVTApp.Model.POCOs
                 }
 
                 //первый платеж по заказу
-                return PaymentsActual.Any(paymentActual => paymentActual.Sum > 0)
-                    ? PaymentsActual.Where(paymentActual => paymentActual.Sum > 0).Select(paymentActual => paymentActual.Date).Min().Date
-                    : StartProductionDateCalculated.Date;
+                return this.FirstPaymentDateCalculated ?? StartProductionDateCalculated.Date;
             }
         }
+
+        /// <summary>
+        /// Первый платеж по заказу
+        /// </summary>
+        [Designation("Первый платеж по заказу"), NotMapped]
+        public DateTime? FirstPaymentDateCalculated => PaymentsActual
+            .Where(payment => payment.Sum > 0)
+            .Select(payment => payment.Date)
+            .OrderBy(dateTime => dateTime)
+            .FirstOrDefault();
 
         [Designation("Год ОИТ"), OrderStatus(985), NotMapped]
         public int OrderInTakeYear => OrderInTakeDate.Year;
