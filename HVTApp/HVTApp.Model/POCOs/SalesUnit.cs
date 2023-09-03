@@ -412,11 +412,15 @@ namespace HVTApp.Model.POCOs
                 var startProductionConditionsDoneDate = StartProductionConditionsDoneDate;
                 if (startProductionConditionsDoneDate.HasValue) return startProductionConditionsDoneDate.Value.Date;
 
+                ////по дате открытия з/з
+                //if (this.Order != null) return this.Order.DateOpen;
+
                 //по сигналу менеджера
                 if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value.Date;
 
                 //по дате первого платежа
-                if (PaymentsActual.Any()) return PaymentsActual.Select(paymentActual => paymentActual.Date).Min().Date;
+                var firstPaymentDateCalculated = this.FirstPaymentDateCalculated;
+                if (firstPaymentDateCalculated.HasValue) return firstPaymentDateCalculated.Value;
 
                 //по дате доставки оборудования на объект
                 if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend().Date;
