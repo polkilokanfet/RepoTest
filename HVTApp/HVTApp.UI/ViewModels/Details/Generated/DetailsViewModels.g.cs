@@ -14,7 +14,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Country>> _getEntitiesForAddInCountriesCommand;
 		public DelegateLogCommand AddInCountriesCommand { get; }
-		public DelegateLogCommand RemoveFromCountriesCommand { get; }
+		public DelegateLogCommand RemoveFromCountriesCommand { get; private set; }
 		private CountryWrapper _selectedCountriesItem;
 		public CountryWrapper SelectedCountriesItem 
 		{ 
@@ -97,7 +97,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<BudgetUnit>> _getEntitiesForAddInUnitsCommand;
 		public DelegateLogCommand AddInUnitsCommand { get; }
-		public DelegateLogCommand RemoveFromUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromUnitsCommand { get; private set; }
 		private BudgetUnitWrapper _selectedUnitsItem;
 		public BudgetUnitWrapper SelectedUnitsItem 
 		{ 
@@ -211,7 +211,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -256,7 +256,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<User>> _getEntitiesForAddInConstructorsCommand;
 		public DelegateLogCommand AddInConstructorsCommand { get; }
-		public DelegateLogCommand RemoveFromConstructorsCommand { get; }
+		public DelegateLogCommand RemoveFromConstructorsCommand { get; private set; }
 		private UserWrapper _selectedConstructorsItem;
 		public UserWrapper SelectedConstructorsItem 
 		{ 
@@ -272,7 +272,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ConstructorParametersList>> _getEntitiesForAddInPatametersListsCommand;
 		public DelegateLogCommand AddInPatametersListsCommand { get; }
-		public DelegateLogCommand RemoveFromPatametersListsCommand { get; }
+		public DelegateLogCommand RemoveFromPatametersListsCommand { get; private set; }
 		private ConstructorParametersListWrapper _selectedPatametersListsItem;
 		public ConstructorParametersListWrapper SelectedPatametersListsItem 
 		{ 
@@ -429,7 +429,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<User>> _getEntitiesForAddInStaffCommand;
 		public DelegateLogCommand AddInStaffCommand { get; }
-		public DelegateLogCommand RemoveFromStaffCommand { get; }
+		public DelegateLogCommand RemoveFromStaffCommand { get; private set; }
 		private UserWrapper _selectedStaffItem;
 		public UserWrapper SelectedStaffItem 
 		{ 
@@ -445,7 +445,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DesignDepartmentParameters>> _getEntitiesForAddInParameterSetsCommand;
 		public DelegateLogCommand AddInParameterSetsCommand { get; }
-		public DelegateLogCommand RemoveFromParameterSetsCommand { get; }
+		public DelegateLogCommand RemoveFromParameterSetsCommand { get; private set; }
 		private DesignDepartmentParametersWrapper _selectedParameterSetsItem;
 		public DesignDepartmentParametersWrapper SelectedParameterSetsItem 
 		{ 
@@ -461,7 +461,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DesignDepartmentParametersAddedBlocks>> _getEntitiesForAddInParameterSetsAddedBlocksCommand;
 		public DelegateLogCommand AddInParameterSetsAddedBlocksCommand { get; }
-		public DelegateLogCommand RemoveFromParameterSetsAddedBlocksCommand { get; }
+		public DelegateLogCommand RemoveFromParameterSetsAddedBlocksCommand { get; private set; }
 		private DesignDepartmentParametersAddedBlocksWrapper _selectedParameterSetsAddedBlocksItem;
 		public DesignDepartmentParametersAddedBlocksWrapper SelectedParameterSetsAddedBlocksItem 
 		{ 
@@ -477,7 +477,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DesignDepartmentParametersSubTask>> _getEntitiesForAddInParameterSetsSubTaskCommand;
 		public DelegateLogCommand AddInParameterSetsSubTaskCommand { get; }
-		public DelegateLogCommand RemoveFromParameterSetsSubTaskCommand { get; }
+		public DelegateLogCommand RemoveFromParameterSetsSubTaskCommand { get; private set; }
 		private DesignDepartmentParametersSubTaskWrapper _selectedParameterSetsSubTaskItem;
 		public DesignDepartmentParametersSubTaskWrapper SelectedParameterSetsSubTaskItem 
 		{ 
@@ -617,7 +617,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DirectumTaskMessage>> _getEntitiesForAddInMessagesCommand;
 		public DelegateLogCommand AddInMessagesCommand { get; }
-		public DelegateLogCommand RemoveFromMessagesCommand { get; }
+		public DelegateLogCommand RemoveFromMessagesCommand { get; private set; }
 		private DirectumTaskMessageWrapper _selectedMessagesItem;
 		public DirectumTaskMessageWrapper SelectedMessagesItem 
 		{ 
@@ -633,7 +633,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DirectumTask>> _getEntitiesForAddInChildsCommand;
 		public DelegateLogCommand AddInChildsCommand { get; }
-		public DelegateLogCommand RemoveFromChildsCommand { get; }
+		public DelegateLogCommand RemoveFromChildsCommand { get; private set; }
 		private DirectumTaskWrapper _selectedChildsItem;
 		public DirectumTaskWrapper SelectedChildsItem 
 		{ 
@@ -649,7 +649,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DirectumTask>> _getEntitiesForAddInParallelCommand;
 		public DelegateLogCommand AddInParallelCommand { get; }
-		public DelegateLogCommand RemoveFromParallelCommand { get; }
+		public DelegateLogCommand RemoveFromParallelCommand { get; private set; }
 		private DirectumTaskWrapper _selectedParallelItem;
 		public DirectumTaskWrapper SelectedParallelItem 
 		{ 
@@ -665,7 +665,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DirectumTask>> _getEntitiesForAddInNextCommand;
 		public DelegateLogCommand AddInNextCommand { get; }
-		public DelegateLogCommand RemoveFromNextCommand { get; }
+		public DelegateLogCommand RemoveFromNextCommand { get; private set; }
 		private DirectumTaskWrapper _selectedNextItem;
 		public DirectumTaskWrapper SelectedNextItem 
 		{ 
@@ -835,7 +835,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<User>> _getEntitiesForAddInObserversCommand;
 		public DelegateLogCommand AddInObserversCommand { get; }
-		public DelegateLogCommand RemoveFromObserversCommand { get; }
+		public DelegateLogCommand RemoveFromObserversCommand { get; private set; }
 		private UserWrapper _selectedObserversItem;
 		public UserWrapper SelectedObserversItem 
 		{ 
@@ -851,7 +851,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<DirectumTaskGroupFile>> _getEntitiesForAddInFilesCommand;
 		public DelegateLogCommand AddInFilesCommand { get; }
-		public DelegateLogCommand RemoveFromFilesCommand { get; }
+		public DelegateLogCommand RemoveFromFilesCommand { get; private set; }
 		private DirectumTaskGroupFileWrapper _selectedFilesItem;
 		public DirectumTaskGroupFileWrapper SelectedFilesItem 
 		{ 
@@ -1032,7 +1032,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Employee>> _getEntitiesForAddInPerformersCommand;
 		public DelegateLogCommand AddInPerformersCommand { get; }
-		public DelegateLogCommand RemoveFromPerformersCommand { get; }
+		public DelegateLogCommand RemoveFromPerformersCommand { get; private set; }
 		private EmployeeWrapper _selectedPerformersItem;
 		public EmployeeWrapper SelectedPerformersItem 
 		{ 
@@ -1101,7 +1101,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1184,7 +1184,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<ActivityField>> _getEntitiesForAddInActivityFieldsCommand;
 		public DelegateLogCommand AddInActivityFieldsCommand { get; }
-		public DelegateLogCommand RemoveFromActivityFieldsCommand { get; }
+		public DelegateLogCommand RemoveFromActivityFieldsCommand { get; private set; }
 		private ActivityFieldWrapper _selectedActivityFieldsItem;
 		public ActivityFieldWrapper SelectedActivityFieldsItem 
 		{ 
@@ -1300,7 +1300,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
 		public DelegateLogCommand AddInPriceCalculationItemsCommand { get; }
-		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; private set; }
 		private PriceCalculationItemWrapper _selectedPriceCalculationItemsItem;
 		public PriceCalculationItemWrapper SelectedPriceCalculationItemsItem 
 		{ 
@@ -1316,7 +1316,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceCalculationHistoryItem>> _getEntitiesForAddInHistoryCommand;
 		public DelegateLogCommand AddInHistoryCommand { get; }
-		public DelegateLogCommand RemoveFromHistoryCommand { get; }
+		public DelegateLogCommand RemoveFromHistoryCommand { get; private set; }
 		private PriceCalculationHistoryItemWrapper _selectedHistoryItem;
 		public PriceCalculationHistoryItemWrapper SelectedHistoryItem 
 		{ 
@@ -1332,7 +1332,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceCalculationFile>> _getEntitiesForAddInFilesCommand;
 		public DelegateLogCommand AddInFilesCommand { get; }
-		public DelegateLogCommand RemoveFromFilesCommand { get; }
+		public DelegateLogCommand RemoveFromFilesCommand { get; private set; }
 		private PriceCalculationFileWrapper _selectedFilesItem;
 		public PriceCalculationFileWrapper SelectedFilesItem 
 		{ 
@@ -1498,6 +1498,11 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PriceCalculationItemDetailsViewModel : BaseDetailsViewModel<PriceCalculationItemWrapper, PriceCalculationItem, AfterSavePriceCalculationItemEvent>
     {
+		//private Func<Task<List<PriceCalculation>>> _getEntitiesForSelectPriceCalculationCommand;
+		private Func<List<PriceCalculation>> _getEntitiesForSelectPriceCalculationCommand;
+		public DelegateLogCommand SelectPriceCalculationCommand { get; private set; }
+		public DelegateLogCommand ClearPriceCalculationCommand { get; private set; }
+
 		//private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		private Func<List<PaymentConditionSet>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public DelegateLogCommand SelectPaymentConditionSetCommand { get; private set; }
@@ -1505,7 +1510,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
 		public DelegateLogCommand AddInSalesUnitsCommand { get; }
-		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; private set; }
 		private SalesUnitWrapper _selectedSalesUnitsItem;
 		public SalesUnitWrapper SelectedSalesUnitsItem 
 		{ 
@@ -1521,7 +1526,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<StructureCost>> _getEntitiesForAddInStructureCostsCommand;
 		public DelegateLogCommand AddInStructureCostsCommand { get; }
-		public DelegateLogCommand RemoveFromStructureCostsCommand { get; }
+		public DelegateLogCommand RemoveFromStructureCostsCommand { get; private set; }
 		private StructureCostWrapper _selectedStructureCostsItem;
 		public StructureCostWrapper SelectedStructureCostsItem 
 		{ 
@@ -1538,6 +1543,11 @@ namespace HVTApp.UI.ViewModels
         public PriceCalculationItemDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectPriceCalculationCommand == null) _getEntitiesForSelectPriceCalculationCommand = () => { return UnitOfWork.Repository<PriceCalculation>().GetAll(); };
+			if (SelectPriceCalculationCommand == null) SelectPriceCalculationCommand = new DelegateLogCommand(SelectPriceCalculationCommand_Execute_Default);
+			if (ClearPriceCalculationCommand == null) ClearPriceCalculationCommand = new DelegateLogCommand(ClearPriceCalculationCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = () => { return UnitOfWork.Repository<PaymentConditionSet>().GetAll(); };
 			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateLogCommand(SelectPaymentConditionSetCommand_Execute_Default);
 			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateLogCommand(ClearPaymentConditionSetCommand_Execute_Default);
@@ -1552,6 +1562,14 @@ namespace HVTApp.UI.ViewModels
 			if (AddInStructureCostsCommand == null) AddInStructureCostsCommand = new DelegateLogCommand(AddInStructureCostsCommand_Execute_Default);
 			if (RemoveFromStructureCostsCommand == null) RemoveFromStructureCostsCommand = new DelegateLogCommand(RemoveFromStructureCostsCommand_Execute_Default, RemoveFromStructureCostsCommand_CanExecute_Default);
 
+		}
+
+		private void SelectPriceCalculationCommand_Execute_Default() 
+		{
+		}
+
+		private void ClearPriceCalculationCommand_Execute_Default() 
+		{
 		}
 
 		private void SelectPaymentConditionSetCommand_Execute_Default() 
@@ -1601,7 +1619,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1646,7 +1664,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1691,7 +1709,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -1770,7 +1788,6 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand ClearStatusCommand { get; private set; }
 
 		//private Func<Task<List<IEnumerable`1>>> _getEntitiesForSelectStatusesAllCommand;
-		//private Func<List<IEnumerable>> _getEntitiesForSelectStatusesAllCommand;
 		public DelegateLogCommand SelectStatusesAllCommand { get; private set; }
 		public DelegateLogCommand ClearStatusesAllCommand { get; private set; }
 
@@ -1781,7 +1798,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceEngineeringTaskProductBlockAdded>> _getEntitiesForAddInProductBlocksAddedCommand;
 		public DelegateLogCommand AddInProductBlocksAddedCommand { get; }
-		public DelegateLogCommand RemoveFromProductBlocksAddedCommand { get; }
+		public DelegateLogCommand RemoveFromProductBlocksAddedCommand { get; private set; }
 		private PriceEngineeringTaskProductBlockAddedWrapper _selectedProductBlocksAddedItem;
 		public PriceEngineeringTaskProductBlockAddedWrapper SelectedProductBlocksAddedItem 
 		{ 
@@ -1797,7 +1814,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceEngineeringTaskFileTechnicalRequirements>> _getEntitiesForAddInFilesTechnicalRequirementsCommand;
 		public DelegateLogCommand AddInFilesTechnicalRequirementsCommand { get; }
-		public DelegateLogCommand RemoveFromFilesTechnicalRequirementsCommand { get; }
+		public DelegateLogCommand RemoveFromFilesTechnicalRequirementsCommand { get; private set; }
 		private PriceEngineeringTaskFileTechnicalRequirementsWrapper _selectedFilesTechnicalRequirementsItem;
 		public PriceEngineeringTaskFileTechnicalRequirementsWrapper SelectedFilesTechnicalRequirementsItem 
 		{ 
@@ -1813,7 +1830,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceEngineeringTaskFileAnswer>> _getEntitiesForAddInFilesAnswersCommand;
 		public DelegateLogCommand AddInFilesAnswersCommand { get; }
-		public DelegateLogCommand RemoveFromFilesAnswersCommand { get; }
+		public DelegateLogCommand RemoveFromFilesAnswersCommand { get; private set; }
 		private PriceEngineeringTaskFileAnswerWrapper _selectedFilesAnswersItem;
 		public PriceEngineeringTaskFileAnswerWrapper SelectedFilesAnswersItem 
 		{ 
@@ -1829,7 +1846,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceEngineeringTaskMessage>> _getEntitiesForAddInMessagesCommand;
 		public DelegateLogCommand AddInMessagesCommand { get; }
-		public DelegateLogCommand RemoveFromMessagesCommand { get; }
+		public DelegateLogCommand RemoveFromMessagesCommand { get; private set; }
 		private PriceEngineeringTaskMessageWrapper _selectedMessagesItem;
 		public PriceEngineeringTaskMessageWrapper SelectedMessagesItem 
 		{ 
@@ -1845,7 +1862,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceEngineeringTask>> _getEntitiesForAddInChildPriceEngineeringTasksCommand;
 		public DelegateLogCommand AddInChildPriceEngineeringTasksCommand { get; }
-		public DelegateLogCommand RemoveFromChildPriceEngineeringTasksCommand { get; }
+		public DelegateLogCommand RemoveFromChildPriceEngineeringTasksCommand { get; private set; }
 		private PriceEngineeringTaskWrapper _selectedChildPriceEngineeringTasksItem;
 		public PriceEngineeringTaskWrapper SelectedChildPriceEngineeringTasksItem 
 		{ 
@@ -1861,7 +1878,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<StructureCostVersion>> _getEntitiesForAddInStructureCostVersionsCommand;
 		public DelegateLogCommand AddInStructureCostVersionsCommand { get; }
-		public DelegateLogCommand RemoveFromStructureCostVersionsCommand { get; }
+		public DelegateLogCommand RemoveFromStructureCostVersionsCommand { get; private set; }
 		private StructureCostVersionWrapper _selectedStructureCostVersionsItem;
 		public StructureCostVersionWrapper SelectedStructureCostVersionsItem 
 		{ 
@@ -1877,7 +1894,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
 		public DelegateLogCommand AddInPriceCalculationItemsCommand { get; }
-		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; private set; }
 		private PriceCalculationItemWrapper _selectedPriceCalculationItemsItem;
 		public PriceCalculationItemWrapper SelectedPriceCalculationItemsItem 
 		{ 
@@ -1893,7 +1910,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceEngineeringTaskStatus>> _getEntitiesForAddInStatusesCommand;
 		public DelegateLogCommand AddInStatusesCommand { get; }
-		public DelegateLogCommand RemoveFromStatusesCommand { get; }
+		public DelegateLogCommand RemoveFromStatusesCommand { get; private set; }
 		private PriceEngineeringTaskStatusWrapper _selectedStatusesItem;
 		public PriceEngineeringTaskStatusWrapper SelectedStatusesItem 
 		{ 
@@ -1909,7 +1926,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
 		public DelegateLogCommand AddInSalesUnitsCommand { get; }
-		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; private set; }
 		private SalesUnitWrapper _selectedSalesUnitsItem;
 		public SalesUnitWrapper SelectedSalesUnitsItem 
 		{ 
@@ -1956,12 +1973,10 @@ namespace HVTApp.UI.ViewModels
 			if (ClearProductBlockEngineerCommand == null) ClearProductBlockEngineerCommand = new DelegateLogCommand(ClearProductBlockEngineerCommand_Execute_Default);
 
 			
-			//if (_getEntitiesForSelectStatusCommand == null) _getEntitiesForSelectStatusCommand = () => { return UnitOfWork.Repository<ScriptStep>().GetAll(); };
 			if (SelectStatusCommand == null) SelectStatusCommand = new DelegateLogCommand(SelectStatusCommand_Execute_Default);
 			if (ClearStatusCommand == null) ClearStatusCommand = new DelegateLogCommand(ClearStatusCommand_Execute_Default);
 
 			
-			//if (_getEntitiesForSelectStatusesAllCommand == null) _getEntitiesForSelectStatusesAllCommand = () => { return UnitOfWork.Repository<IEnumerable`1>().GetAll(); };
 			if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
 			if (ClearStatusesAllCommand == null) ClearStatusesAllCommand = new DelegateLogCommand(ClearStatusesAllCommand_Execute_Default);
 
@@ -2079,7 +2094,6 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<ScriptStep, ScriptStepWrapper>(_getEntitiesForSelectStatusCommand(), nameof(Item.Status), Item.Status?.Id);
 		}
 
 		private void ClearStatusCommand_Execute_Default() 
@@ -2089,7 +2103,6 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusesAllCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
 		}
 
 		private void ClearStatusesAllCommand_Execute_Default() 
@@ -2301,7 +2314,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<StructureCostVersion>> _getEntitiesForAddInStructureCostVersionsCommand;
 		public DelegateLogCommand AddInStructureCostVersionsCommand { get; }
-		public DelegateLogCommand RemoveFromStructureCostVersionsCommand { get; }
+		public DelegateLogCommand RemoveFromStructureCostVersionsCommand { get; private set; }
 		private StructureCostVersionWrapper _selectedStructureCostVersionsItem;
 		public StructureCostVersionWrapper SelectedStructureCostVersionsItem 
 		{ 
@@ -2370,13 +2383,12 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
 
 		//private Func<Task<List<IEnumerable`1>>> _getEntitiesForSelectStatusesAllCommand;
-		//private Func<List<IEnumerable`1>> _getEntitiesForSelectStatusesAllCommand;
 		public DelegateLogCommand SelectStatusesAllCommand { get; private set; }
 		public DelegateLogCommand ClearStatusesAllCommand { get; private set; }
 
 		private Func<List<PriceEngineeringTasksFileTechnicalRequirements>> _getEntitiesForAddInFilesTechnicalRequirementsCommand;
 		public DelegateLogCommand AddInFilesTechnicalRequirementsCommand { get; }
-		public DelegateLogCommand RemoveFromFilesTechnicalRequirementsCommand { get; }
+		public DelegateLogCommand RemoveFromFilesTechnicalRequirementsCommand { get; private set; }
 		private PriceEngineeringTasksFileTechnicalRequirementsWrapper _selectedFilesTechnicalRequirementsItem;
 		public PriceEngineeringTasksFileTechnicalRequirementsWrapper SelectedFilesTechnicalRequirementsItem 
 		{ 
@@ -2392,7 +2404,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceEngineeringTask>> _getEntitiesForAddInChildPriceEngineeringTasksCommand;
 		public DelegateLogCommand AddInChildPriceEngineeringTasksCommand { get; }
-		public DelegateLogCommand RemoveFromChildPriceEngineeringTasksCommand { get; }
+		public DelegateLogCommand RemoveFromChildPriceEngineeringTasksCommand { get; private set; }
 		private PriceEngineeringTaskWrapper _selectedChildPriceEngineeringTasksItem;
 		public PriceEngineeringTaskWrapper SelectedChildPriceEngineeringTasksItem 
 		{ 
@@ -2408,7 +2420,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceCalculation>> _getEntitiesForAddInPriceCalculationsCommand;
 		public DelegateLogCommand AddInPriceCalculationsCommand { get; }
-		public DelegateLogCommand RemoveFromPriceCalculationsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationsCommand { get; private set; }
 		private PriceCalculationWrapper _selectedPriceCalculationsItem;
 		public PriceCalculationWrapper SelectedPriceCalculationsItem 
 		{ 
@@ -2435,7 +2447,6 @@ namespace HVTApp.UI.ViewModels
 			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
 
 			
-			//if (_getEntitiesForSelectStatusesAllCommand == null) _getEntitiesForSelectStatusesAllCommand = () => { return UnitOfWork.Repository<IEnumerable`1>().GetAll(); };
 			if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
 			if (ClearStatusesAllCommand == null) ClearStatusesAllCommand = new DelegateLogCommand(ClearStatusesAllCommand_Execute_Default);
 
@@ -2478,7 +2489,6 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusesAllCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
 		}
 
 		private void ClearStatusesAllCommand_Execute_Default() 
@@ -2565,7 +2575,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -2668,7 +2678,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -2684,7 +2694,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ProductDesignation>> _getEntitiesForAddInParentsCommand;
 		public DelegateLogCommand AddInParentsCommand { get; }
-		public DelegateLogCommand RemoveFromParentsCommand { get; }
+		public DelegateLogCommand RemoveFromParentsCommand { get; private set; }
 		private ProductDesignationWrapper _selectedParentsItem;
 		public ProductDesignationWrapper SelectedParentsItem 
 		{ 
@@ -2763,7 +2773,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -2832,7 +2842,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -2877,7 +2887,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -3018,7 +3028,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
 		public DelegateLogCommand AddInSalesUnitsCommand { get; }
-		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; }
+		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; private set; }
 		private SalesUnitWrapper _selectedSalesUnitsItem;
 		public SalesUnitWrapper SelectedSalesUnitsItem 
 		{ 
@@ -3034,7 +3044,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<TechnicalRequrementsFile>> _getEntitiesForAddInFilesCommand;
 		public DelegateLogCommand AddInFilesCommand { get; }
-		public DelegateLogCommand RemoveFromFilesCommand { get; }
+		public DelegateLogCommand RemoveFromFilesCommand { get; private set; }
 		private TechnicalRequrementsFileWrapper _selectedFilesItem;
 		public TechnicalRequrementsFileWrapper SelectedFilesItem 
 		{ 
@@ -3123,7 +3133,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<TechnicalRequrements>> _getEntitiesForAddInRequrementsCommand;
 		public DelegateLogCommand AddInRequrementsCommand { get; }
-		public DelegateLogCommand RemoveFromRequrementsCommand { get; }
+		public DelegateLogCommand RemoveFromRequrementsCommand { get; private set; }
 		private TechnicalRequrementsWrapper _selectedRequrementsItem;
 		public TechnicalRequrementsWrapper SelectedRequrementsItem 
 		{ 
@@ -3139,7 +3149,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PriceCalculation>> _getEntitiesForAddInPriceCalculationsCommand;
 		public DelegateLogCommand AddInPriceCalculationsCommand { get; }
-		public DelegateLogCommand RemoveFromPriceCalculationsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationsCommand { get; private set; }
 		private PriceCalculationWrapper _selectedPriceCalculationsItem;
 		public PriceCalculationWrapper SelectedPriceCalculationsItem 
 		{ 
@@ -3155,7 +3165,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<AnswerFileTce>> _getEntitiesForAddInAnswerFilesCommand;
 		public DelegateLogCommand AddInAnswerFilesCommand { get; }
-		public DelegateLogCommand RemoveFromAnswerFilesCommand { get; }
+		public DelegateLogCommand RemoveFromAnswerFilesCommand { get; private set; }
 		private AnswerFileTceWrapper _selectedAnswerFilesItem;
 		public AnswerFileTceWrapper SelectedAnswerFilesItem 
 		{ 
@@ -3171,7 +3181,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ShippingCostFile>> _getEntitiesForAddInShippingCostFilesCommand;
 		public DelegateLogCommand AddInShippingCostFilesCommand { get; }
-		public DelegateLogCommand RemoveFromShippingCostFilesCommand { get; }
+		public DelegateLogCommand RemoveFromShippingCostFilesCommand { get; private set; }
 		private ShippingCostFileWrapper _selectedShippingCostFilesItem;
 		public ShippingCostFileWrapper SelectedShippingCostFilesItem 
 		{ 
@@ -3187,7 +3197,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<TechnicalRequrementsTaskHistoryElement>> _getEntitiesForAddInHistoryElementsCommand;
 		public DelegateLogCommand AddInHistoryElementsCommand { get; }
-		public DelegateLogCommand RemoveFromHistoryElementsCommand { get; }
+		public DelegateLogCommand RemoveFromHistoryElementsCommand { get; private set; }
 		private TechnicalRequrementsTaskHistoryElementWrapper _selectedHistoryElementsItem;
 		public TechnicalRequrementsTaskHistoryElementWrapper SelectedHistoryElementsItem 
 		{ 
@@ -3386,7 +3396,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<User>> _getEntitiesForAddInUsersCommand;
 		public DelegateLogCommand AddInUsersCommand { get; }
-		public DelegateLogCommand RemoveFromUsersCommand { get; }
+		public DelegateLogCommand RemoveFromUsersCommand { get; private set; }
 		private UserWrapper _selectedUsersItem;
 		public UserWrapper SelectedUsersItem 
 		{ 
@@ -4081,7 +4091,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
 		public DelegateLogCommand AddInProductsIncludedCommand { get; }
-		public DelegateLogCommand RemoveFromProductsIncludedCommand { get; }
+		public DelegateLogCommand RemoveFromProductsIncludedCommand { get; private set; }
 		private ProductIncludedWrapper _selectedProductsIncludedItem;
 		public ProductIncludedWrapper SelectedProductsIncludedItem 
 		{ 
@@ -4186,7 +4196,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<PaymentCondition>> _getEntitiesForAddInPaymentConditionsCommand;
 		public DelegateLogCommand AddInPaymentConditionsCommand { get; }
-		public DelegateLogCommand RemoveFromPaymentConditionsCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentConditionsCommand { get; private set; }
 		private PaymentConditionWrapper _selectedPaymentConditionsItem;
 		public PaymentConditionWrapper SelectedPaymentConditionsItem 
 		{ 
@@ -4236,7 +4246,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Parameter>> _getEntitiesForAddInParametersCommand;
 		public DelegateLogCommand AddInParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParametersItem;
 		public ParameterWrapper SelectedParametersItem 
 		{ 
@@ -4252,7 +4262,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<SumOnDate>> _getEntitiesForAddInPricesCommand;
 		public DelegateLogCommand AddInPricesCommand { get; }
-		public DelegateLogCommand RemoveFromPricesCommand { get; }
+		public DelegateLogCommand RemoveFromPricesCommand { get; private set; }
 		private SumOnDateWrapper _selectedPricesItem;
 		public SumOnDateWrapper SelectedPricesItem 
 		{ 
@@ -4268,7 +4278,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<SumOnDate>> _getEntitiesForAddInFixedCostsCommand;
 		public DelegateLogCommand AddInFixedCostsCommand { get; }
-		public DelegateLogCommand RemoveFromFixedCostsCommand { get; }
+		public DelegateLogCommand RemoveFromFixedCostsCommand { get; private set; }
 		private SumOnDateWrapper _selectedFixedCostsItem;
 		public SumOnDateWrapper SelectedFixedCostsItem 
 		{ 
@@ -4284,7 +4294,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Parameter>> _getEntitiesForAddInParametersOrderedCommand;
 		public DelegateLogCommand AddInParametersOrderedCommand { get; }
-		public DelegateLogCommand RemoveFromParametersOrderedCommand { get; }
+		public DelegateLogCommand RemoveFromParametersOrderedCommand { get; private set; }
 		private ParameterWrapper _selectedParametersOrderedItem;
 		public ParameterWrapper SelectedParametersOrderedItem 
 		{ 
@@ -4462,7 +4472,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<BankDetails>> _getEntitiesForAddInBankDetailsListCommand;
 		public DelegateLogCommand AddInBankDetailsListCommand { get; }
-		public DelegateLogCommand RemoveFromBankDetailsListCommand { get; }
+		public DelegateLogCommand RemoveFromBankDetailsListCommand { get; private set; }
 		private BankDetailsWrapper _selectedBankDetailsListItem;
 		public BankDetailsWrapper SelectedBankDetailsListItem 
 		{ 
@@ -4478,7 +4488,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ActivityField>> _getEntitiesForAddInActivityFildsCommand;
 		public DelegateLogCommand AddInActivityFildsCommand { get; }
-		public DelegateLogCommand RemoveFromActivityFildsCommand { get; }
+		public DelegateLogCommand RemoveFromActivityFildsCommand { get; private set; }
 		private ActivityFieldWrapper _selectedActivityFildsItem;
 		public ActivityFieldWrapper SelectedActivityFildsItem 
 		{ 
@@ -4691,7 +4701,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ParameterRelation>> _getEntitiesForAddInParameterRelationsCommand;
 		public DelegateLogCommand AddInParameterRelationsCommand { get; }
-		public DelegateLogCommand RemoveFromParameterRelationsCommand { get; }
+		public DelegateLogCommand RemoveFromParameterRelationsCommand { get; private set; }
 		private ParameterRelationWrapper _selectedParameterRelationsItem;
 		public ParameterRelationWrapper SelectedParameterRelationsItem 
 		{ 
@@ -4780,7 +4790,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInParentProductParametersCommand;
 		public DelegateLogCommand AddInParentProductParametersCommand { get; }
-		public DelegateLogCommand RemoveFromParentProductParametersCommand { get; }
+		public DelegateLogCommand RemoveFromParentProductParametersCommand { get; private set; }
 		private ParameterWrapper _selectedParentProductParametersItem;
 		public ParameterWrapper SelectedParentProductParametersItem 
 		{ 
@@ -4796,7 +4806,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Parameter>> _getEntitiesForAddInChildProductParametersCommand;
 		public DelegateLogCommand AddInChildProductParametersCommand { get; }
-		public DelegateLogCommand RemoveFromChildProductParametersCommand { get; }
+		public DelegateLogCommand RemoveFromChildProductParametersCommand { get; private set; }
 		private ParameterWrapper _selectedChildProductParametersItem;
 		public ParameterWrapper SelectedChildProductParametersItem 
 		{ 
@@ -4870,7 +4880,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<Parameter>> _getEntitiesForAddInRequiredParametersCommand;
 		public DelegateLogCommand AddInRequiredParametersCommand { get; }
-		public DelegateLogCommand RemoveFromRequiredParametersCommand { get; }
+		public DelegateLogCommand RemoveFromRequiredParametersCommand { get; private set; }
 		private ParameterWrapper _selectedRequiredParametersItem;
 		public ParameterWrapper SelectedRequiredParametersItem 
 		{ 
@@ -4965,7 +4975,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ProductIncluded>> _getEntitiesForAddInProductsIncludedCommand;
 		public DelegateLogCommand AddInProductsIncludedCommand { get; }
-		public DelegateLogCommand RemoveFromProductsIncludedCommand { get; }
+		public DelegateLogCommand RemoveFromProductsIncludedCommand { get; private set; }
 		private ProductIncludedWrapper _selectedProductsIncludedItem;
 		public ProductIncludedWrapper SelectedProductsIncludedItem 
 		{ 
@@ -4981,7 +4991,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<LosingReason>> _getEntitiesForAddInLosingReasonsCommand;
 		public DelegateLogCommand AddInLosingReasonsCommand { get; }
-		public DelegateLogCommand RemoveFromLosingReasonsCommand { get; }
+		public DelegateLogCommand RemoveFromLosingReasonsCommand { get; private set; }
 		private LosingReasonWrapper _selectedLosingReasonsItem;
 		public LosingReasonWrapper SelectedLosingReasonsItem 
 		{ 
@@ -4997,7 +5007,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PaymentActual>> _getEntitiesForAddInPaymentsActualCommand;
 		public DelegateLogCommand AddInPaymentsActualCommand { get; }
-		public DelegateLogCommand RemoveFromPaymentsActualCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsActualCommand { get; private set; }
 		private PaymentActualWrapper _selectedPaymentsActualItem;
 		public PaymentActualWrapper SelectedPaymentsActualItem 
 		{ 
@@ -5013,7 +5023,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCommand;
 		public DelegateLogCommand AddInPaymentsPlannedCommand { get; }
-		public DelegateLogCommand RemoveFromPaymentsPlannedCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedCommand { get; private set; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedItem 
 		{ 
@@ -5029,7 +5039,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<BankGuarantee>> _getEntitiesForAddInBankGuaranteesCommand;
 		public DelegateLogCommand AddInBankGuaranteesCommand { get; }
-		public DelegateLogCommand RemoveFromBankGuaranteesCommand { get; }
+		public DelegateLogCommand RemoveFromBankGuaranteesCommand { get; private set; }
 		private BankGuaranteeWrapper _selectedBankGuaranteesItem;
 		public BankGuaranteeWrapper SelectedBankGuaranteesItem 
 		{ 
@@ -5043,9 +5053,25 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<PriceCalculationItem>> _getEntitiesForAddInPriceCalculationItemsCommand;
+		public DelegateLogCommand AddInPriceCalculationItemsCommand { get; }
+		public DelegateLogCommand RemoveFromPriceCalculationItemsCommand { get; private set; }
+		private PriceCalculationItemWrapper _selectedPriceCalculationItemsItem;
+		public PriceCalculationItemWrapper SelectedPriceCalculationItemsItem 
+		{ 
+			get { return _selectedPriceCalculationItemsItem; }
+			set 
+			{ 
+				if (Equals(_selectedPriceCalculationItemsItem, value)) return;
+				_selectedPriceCalculationItemsItem = value;
+				RaisePropertyChanged();
+				RemoveFromPriceCalculationItemsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedActualCommand;
 		public DelegateLogCommand AddInPaymentsPlannedActualCommand { get; }
-		public DelegateLogCommand RemoveFromPaymentsPlannedActualCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedActualCommand { get; private set; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedActualItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedActualItem 
 		{ 
@@ -5061,7 +5087,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedGeneratedCommand;
 		public DelegateLogCommand AddInPaymentsPlannedGeneratedCommand { get; }
-		public DelegateLogCommand RemoveFromPaymentsPlannedGeneratedCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedGeneratedCommand { get; private set; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedGeneratedItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedGeneratedItem 
 		{ 
@@ -5077,7 +5103,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedCalculatedCommand;
 		public DelegateLogCommand AddInPaymentsPlannedCalculatedCommand { get; }
-		public DelegateLogCommand RemoveFromPaymentsPlannedCalculatedCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsPlannedCalculatedCommand { get; private set; }
 		private PaymentPlannedWrapper _selectedPaymentsPlannedCalculatedItem;
 		public PaymentPlannedWrapper SelectedPaymentsPlannedCalculatedItem 
 		{ 
@@ -5167,6 +5193,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInBankGuaranteesCommand == null) _getEntitiesForAddInBankGuaranteesCommand = () => { return UnitOfWork.Repository<BankGuarantee>().GetAll(); };;
 			if (AddInBankGuaranteesCommand == null) AddInBankGuaranteesCommand = new DelegateLogCommand(AddInBankGuaranteesCommand_Execute_Default);
 			if (RemoveFromBankGuaranteesCommand == null) RemoveFromBankGuaranteesCommand = new DelegateLogCommand(RemoveFromBankGuaranteesCommand_Execute_Default, RemoveFromBankGuaranteesCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInPriceCalculationItemsCommand == null) _getEntitiesForAddInPriceCalculationItemsCommand = () => { return UnitOfWork.Repository<PriceCalculationItem>().GetAll(); };;
+			if (AddInPriceCalculationItemsCommand == null) AddInPriceCalculationItemsCommand = new DelegateLogCommand(AddInPriceCalculationItemsCommand_Execute_Default);
+			if (RemoveFromPriceCalculationItemsCommand == null) RemoveFromPriceCalculationItemsCommand = new DelegateLogCommand(RemoveFromPriceCalculationItemsCommand_Execute_Default, RemoveFromPriceCalculationItemsCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsPlannedActualCommand == null) _getEntitiesForAddInPaymentsPlannedActualCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
@@ -5360,6 +5391,19 @@ namespace HVTApp.UI.ViewModels
 				return SelectedBankGuaranteesItem != null;
 			}
 
+			private void AddInPriceCalculationItemsCommand_Execute_Default()
+			{
+			}
+
+			private void RemoveFromPriceCalculationItemsCommand_Execute_Default()
+			{
+			}
+
+			private bool RemoveFromPriceCalculationItemsCommand_CanExecute_Default()
+			{
+				return SelectedPriceCalculationItemsItem != null;
+			}
+
 			private void AddInPaymentsPlannedActualCommand_Execute_Default()
 			{
 				SelectAndAddInListWrapper<PaymentPlanned, PaymentPlannedWrapper>(_getEntitiesForAddInPaymentsPlannedActualCommand(), Item.PaymentsPlannedActual);
@@ -5442,7 +5486,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
 		public DelegateLogCommand AddInCopyToRecipientsCommand { get; }
-		public DelegateLogCommand RemoveFromCopyToRecipientsCommand { get; }
+		public DelegateLogCommand RemoveFromCopyToRecipientsCommand { get; private set; }
 		private EmployeeWrapper _selectedCopyToRecipientsItem;
 		public EmployeeWrapper SelectedCopyToRecipientsItem 
 		{ 
@@ -5601,7 +5645,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<ProductDependent>> _getEntitiesForAddInDependentProductsCommand;
 		public DelegateLogCommand AddInDependentProductsCommand { get; }
-		public DelegateLogCommand RemoveFromDependentProductsCommand { get; }
+		public DelegateLogCommand RemoveFromDependentProductsCommand { get; private set; }
 		private ProductDependentWrapper _selectedDependentProductsItem;
 		public ProductDependentWrapper SelectedDependentProductsItem 
 		{ 
@@ -5726,7 +5770,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Employee>> _getEntitiesForAddInCopyToRecipientsCommand;
 		public DelegateLogCommand AddInCopyToRecipientsCommand { get; }
-		public DelegateLogCommand RemoveFromCopyToRecipientsCommand { get; }
+		public DelegateLogCommand RemoveFromCopyToRecipientsCommand { get; private set; }
 		private EmployeeWrapper _selectedCopyToRecipientsItem;
 		public EmployeeWrapper SelectedCopyToRecipientsItem 
 		{ 
@@ -5983,7 +6027,7 @@ namespace HVTApp.UI.ViewModels
     {
 		private Func<List<PaymentActual>> _getEntitiesForAddInPaymentsCommand;
 		public DelegateLogCommand AddInPaymentsCommand { get; }
-		public DelegateLogCommand RemoveFromPaymentsCommand { get; }
+		public DelegateLogCommand RemoveFromPaymentsCommand { get; private set; }
 		private PaymentActualWrapper _selectedPaymentsItem;
 		public PaymentActualWrapper SelectedPaymentsItem 
 		{ 
@@ -6107,7 +6151,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Note>> _getEntitiesForAddInNotesCommand;
 		public DelegateLogCommand AddInNotesCommand { get; }
-		public DelegateLogCommand RemoveFromNotesCommand { get; }
+		public DelegateLogCommand RemoveFromNotesCommand { get; private set; }
 		private NoteWrapper _selectedNotesItem;
 		public NoteWrapper SelectedNotesItem 
 		{ 
@@ -6230,7 +6274,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<TenderType>> _getEntitiesForAddInTypesCommand;
 		public DelegateLogCommand AddInTypesCommand { get; }
-		public DelegateLogCommand RemoveFromTypesCommand { get; }
+		public DelegateLogCommand RemoveFromTypesCommand { get; private set; }
 		private TenderTypeWrapper _selectedTypesItem;
 		public TenderTypeWrapper SelectedTypesItem 
 		{ 
@@ -6246,7 +6290,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<Company>> _getEntitiesForAddInParticipantsCommand;
 		public DelegateLogCommand AddInParticipantsCommand { get; }
-		public DelegateLogCommand RemoveFromParticipantsCommand { get; }
+		public DelegateLogCommand RemoveFromParticipantsCommand { get; private set; }
 		private CompanyWrapper _selectedParticipantsItem;
 		public CompanyWrapper SelectedParticipantsItem 
 		{ 
@@ -6355,7 +6399,7 @@ namespace HVTApp.UI.ViewModels
 
 		private Func<List<UserRole>> _getEntitiesForAddInRolesCommand;
 		public DelegateLogCommand AddInRolesCommand { get; }
-		public DelegateLogCommand RemoveFromRolesCommand { get; }
+		public DelegateLogCommand RemoveFromRolesCommand { get; private set; }
 		private UserRoleWrapper _selectedRolesItem;
 		public UserRoleWrapper SelectedRolesItem 
 		{ 

@@ -96,6 +96,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Проект" Visibility="{Binding VisibilityProjectSalesUnit, ElementName=Root}"/>
@@ -324,8 +326,16 @@
                     SelectedDate="{Binding Item.StartProductionDateInjected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityStartProductionDateInjectedSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="38" Content="OrderInTakeDateInjected" Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="38" 
+        <Label Grid.Column="0" Grid.Row ="38" Content="PriceCalculationItems" Visibility="{Binding VisibilityPriceCalculationItemsSalesUnit, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="38"
+										 Items="{Binding Path=Item.PriceCalculationItems}"
+										 SelectedItem="{Binding SelectedPriceCalculationItemsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPriceCalculationItemsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPriceCalculationItemsCommand}"
+										 Visibility="{Binding VisibilityPriceCalculationItemsSalesUnit, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="39" Content="OrderInTakeDateInjected" Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="39" 
                     SelectedDate="{Binding Item.OrderInTakeDateInjected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityOrderInTakeDateInjectedSalesUnit, ElementName=Root}"/>
 

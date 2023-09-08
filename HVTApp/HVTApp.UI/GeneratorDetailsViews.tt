@@ -74,7 +74,7 @@ namespace HVTApp.UI.ViewModels
 
 #>		private Func<List<<#=itemType#>>> _getEntitiesForAddIn<#=propertyName#>Command;
 		public DelegateLogCommand AddIn<#=propertyName#>Command { get; }
-		public DelegateLogCommand RemoveFrom<#=propertyName#>Command { get; }
+		public DelegateLogCommand RemoveFrom<#=propertyName#>Command { get; private set; }
 		private <#=itemType#>Wrapper _selected<#=propertyName#>Item;
 		public <#=itemType#>Wrapper Selected<#=propertyName#>Item 
 		{ 

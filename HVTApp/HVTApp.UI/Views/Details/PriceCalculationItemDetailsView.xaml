@@ -33,6 +33,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Условия оплаты" Visibility="{Binding VisibilityPaymentConditionSetPriceCalculationItem, ElementName=Root}"/>
@@ -50,21 +53,34 @@
 										 RemoveItemCommand="{Binding RemoveFromStructureCostsCommand}"
 										 Visibility="{Binding VisibilityStructureCostsPriceCalculationItem, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Единицы продаж" Visibility="{Binding VisibilitySalesUnitsPriceCalculationItem, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="2" Content="Расчет себестоимости оборудования" Visibility="{Binding VisibilityPriceCalculationPriceCalculationItem, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.PriceCalculation}" 
+                                    AddItemCommand="{Binding SelectPriceCalculationCommand}" 
+                                    RemoveItemCommand="{Binding ClearPriceCalculationCommand}"
+									Visibility="{Binding VisibilityPriceCalculationPriceCalculationItem, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Позиция в TeamCenter" Visibility="{Binding VisibilityPositionInTeamCenterPriceCalculationItem, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.PositionInTeamCenter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityPositionInTeamCenterPriceCalculationItem, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Единицы продаж" Visibility="{Binding VisibilitySalesUnitsPriceCalculationItem, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
 										 Items="{Binding Path=Item.SalesUnits}"
 										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
 										 Visibility="{Binding VisibilitySalesUnitsPriceCalculationItem, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Дата реализации" Visibility="{Binding VisibilityRealizationDatePriceCalculationItem, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="3" 
+        <Label Grid.Column="0" Grid.Row ="5" Content="Дата реализации" Visibility="{Binding VisibilityRealizationDatePriceCalculationItem, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="5" 
                     SelectedDate="{Binding Item.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityRealizationDatePriceCalculationItem, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Дата ОИТ" Visibility="{Binding VisibilityOrderInTakeDatePriceCalculationItem, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="4" 
+        <Label Grid.Column="0" Grid.Row ="6" Content="Дата ОИТ" Visibility="{Binding VisibilityOrderInTakeDatePriceCalculationItem, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="6" 
                     SelectedDate="{Binding Item.OrderInTakeDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityOrderInTakeDatePriceCalculationItem, ElementName=Root}"/>
 

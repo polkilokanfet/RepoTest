@@ -1203,6 +1203,7 @@
     <Compile Include="TechnicalRequrementsTasksModule\Wrapper\TechnicalRequrementsTask2Wrapper.cs" />
     <Compile Include="ViewModels\Details\Custom\DesignDepartmentViewModel.cs" />
     <Compile Include="ViewModels\Details\Custom\FacilityViewModel.cs" />
+    <Compile Include="ViewModels\Details\Custom\PriceEngineeringTaskDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\FacilityDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\IncomingRequestDetailsViewModel.cs" />
