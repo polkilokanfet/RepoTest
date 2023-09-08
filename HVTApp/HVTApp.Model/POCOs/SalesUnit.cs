@@ -320,11 +320,19 @@ namespace HVTApp.Model.POCOs
         /// Первый платеж по заказу
         /// </summary>
         [Designation("Первый платеж по заказу"), NotMapped]
-        public DateTime? FirstPaymentDateCalculated => PaymentsActual
-            .Where(payment => payment.Sum > 0)
-            .Select(payment => payment.Date)
-            .OrderBy(dateTime => dateTime)
-            .FirstOrDefault();
+        public DateTime? FirstPaymentDateCalculated
+        {
+            get
+            {
+                var dates = PaymentsActual
+                    .Where(payment => payment.Sum > 0)
+                    .Select(payment => payment.Date)
+                    .OrderBy(dateTime => dateTime)
+                    .ToList();
+                if (dates.Any()) return dates.First();
+                return null;
+            }
+        }
 
         [Designation("Год ОИТ"), OrderStatus(985), NotMapped]
         public int OrderInTakeYear => OrderInTakeDate.Year;
