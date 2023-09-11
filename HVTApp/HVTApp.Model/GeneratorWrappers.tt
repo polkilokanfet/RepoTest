@@ -116,7 +116,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public <#=propertyType#> <#=propertyName#>
         {
-          get { return GetValue<<#=propertyType#>>(); }
+          get { return Model.<#=propertyName#>; }
           set { SetValue(value); }
         }
         public <#=propertyType#> <#=propertyName#>OriginalValue => GetOriginalValue<<#=propertyType#>>(nameof(<#=propertyName#>));
@@ -146,7 +146,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// <#=property.Designation()#>
         /// </summary>
-        public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>(); 
+        public <#=propertyType#> <#=propertyName#> => Model.<#=propertyName#>; 
 <#+
     }
 #>

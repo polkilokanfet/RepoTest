@@ -18,7 +18,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -29,7 +29,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -69,7 +69,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Percent
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Percent; }
           set { SetValue(value); }
         }
         public System.Double PercentOriginalValue => GetOriginalValue<System.Double>(nameof(Percent));
@@ -80,7 +80,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Days
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Days; }
           set { SetValue(value); }
         }
         public System.Int32 DaysOriginalValue => GetOriginalValue<System.Int32>(nameof(Days));
@@ -91,7 +91,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -133,7 +133,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -144,7 +144,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -169,7 +169,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -180,7 +180,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime DateStart
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.DateStart; }
           set { SetValue(value); }
         }
         public System.DateTime DateStartOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateStart));
@@ -191,7 +191,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime DateFinish
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.DateFinish; }
           set { SetValue(value); }
         }
         public System.DateTime DateFinishOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateFinish));
@@ -202,7 +202,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -213,7 +213,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -253,7 +253,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime OrderInTakeDate
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.OrderInTakeDate; }
           set { SetValue(value); }
         }
         public System.DateTime OrderInTakeDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(OrderInTakeDate));
@@ -264,7 +264,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime RealizationDate
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.RealizationDate; }
           set { SetValue(value); }
         }
         public System.DateTime RealizationDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RealizationDate));
@@ -275,7 +275,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime OrderInTakeDateByManager
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.OrderInTakeDateByManager; }
           set { SetValue(value); }
         }
         public System.DateTime OrderInTakeDateByManagerOriginalValue => GetOriginalValue<System.DateTime>(nameof(OrderInTakeDateByManager));
@@ -286,7 +286,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime RealizationDateByManager
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.RealizationDateByManager; }
           set { SetValue(value); }
         }
         public System.DateTime RealizationDateByManagerOriginalValue => GetOriginalValue<System.DateTime>(nameof(RealizationDateByManager));
@@ -297,7 +297,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Cost
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Cost; }
           set { SetValue(value); }
         }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
@@ -308,7 +308,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double CostByManager
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.CostByManager; }
           set { SetValue(value); }
         }
         public System.Double CostByManagerOriginalValue => GetOriginalValue<System.Double>(nameof(CostByManager));
@@ -319,7 +319,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsRemoved
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsRemoved; }
           set { SetValue(value); }
         }
         public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
@@ -330,7 +330,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -392,7 +392,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -403,7 +403,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -443,7 +443,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -454,7 +454,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -502,7 +502,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -513,7 +513,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double ManagmentCosts
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.ManagmentCosts; }
           set { SetValue(value); }
         }
         public System.Double ManagmentCostsOriginalValue => GetOriginalValue<System.Double>(nameof(ManagmentCosts));
@@ -524,7 +524,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double EconomicCosts
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.EconomicCosts; }
           set { SetValue(value); }
         }
         public System.Double EconomicCostsOriginalValue => GetOriginalValue<System.Double>(nameof(EconomicCosts));
@@ -535,7 +535,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double CommercialCosts
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.CommercialCosts; }
           set { SetValue(value); }
         }
         public System.Double CommercialCostsOriginalValue => GetOriginalValue<System.Double>(nameof(CommercialCosts));
@@ -546,7 +546,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -571,7 +571,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Designation
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Designation; }
           set { SetValue(value); }
         }
         public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
@@ -582,7 +582,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String StructureCostNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.StructureCostNumber; }
           set { SetValue(value); }
         }
         public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
@@ -593,7 +593,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -604,7 +604,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -646,7 +646,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -657,7 +657,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -709,7 +709,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -720,7 +720,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -801,7 +801,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> StartPerformer
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.StartPerformer; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> StartPerformerOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartPerformer));
@@ -812,7 +812,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime FinishPlan
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.FinishPlan; }
           set { SetValue(value); }
         }
         public System.DateTime FinishPlanOriginalValue => GetOriginalValue<System.DateTime>(nameof(FinishPlan));
@@ -823,7 +823,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> FinishPerformer
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.FinishPerformer; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> FinishPerformerOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FinishPerformer));
@@ -834,7 +834,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> FinishAuthor
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.FinishAuthor; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> FinishAuthorOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FinishAuthor));
@@ -845,7 +845,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -919,17 +919,17 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// StartResult
         /// </summary>
-        public System.Nullable<System.DateTime> StartResult => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> StartResult => Model.StartResult; 
 
         /// <summary>
         /// Статус
         /// </summary>
-        public System.String Status => GetValue<System.String>(); 
+        public System.String Status => Model.Status; 
 
         /// <summary>
         /// Актуальность
         /// </summary>
-        public System.Boolean IsActual => GetValue<System.Boolean>(); 
+        public System.Boolean IsActual => Model.IsActual; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -974,7 +974,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Title
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Title; }
           set { SetValue(value); }
         }
         public System.String TitleOriginalValue => GetOriginalValue<System.String>(nameof(Title));
@@ -985,7 +985,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime StartAuthor
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.StartAuthor; }
           set { SetValue(value); }
         }
         public System.DateTime StartAuthorOriginalValue => GetOriginalValue<System.DateTime>(nameof(StartAuthor));
@@ -996,7 +996,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsStoped
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsStoped; }
           set { SetValue(value); }
         }
         public System.Boolean IsStopedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsStoped));
@@ -1007,7 +1007,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.DirectumTaskPriority Priority
         {
-          get { return GetValue<HVTApp.Model.POCOs.DirectumTaskPriority>(); }
+          get { return Model.Priority; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.DirectumTaskPriority PriorityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.DirectumTaskPriority>(nameof(Priority));
@@ -1018,7 +1018,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Message
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Message; }
           set { SetValue(value); }
         }
         public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
@@ -1029,7 +1029,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1094,7 +1094,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -1105,7 +1105,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime LoadMoment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.LoadMoment; }
           set { SetValue(value); }
         }
         public System.DateTime LoadMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(LoadMoment));
@@ -1116,7 +1116,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid DirectumTaskGroupId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.DirectumTaskGroupId; }
           set { SetValue(value); }
         }
         public System.Guid DirectumTaskGroupIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DirectumTaskGroupId));
@@ -1127,7 +1127,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1169,7 +1169,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -1180,7 +1180,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Message
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Message; }
           set { SetValue(value); }
         }
         public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
@@ -1191,7 +1191,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1233,7 +1233,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Number
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
@@ -1244,7 +1244,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1269,7 +1269,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<HVTApp.Infrastructure.Role> Role
         {
-          get { return GetValue<System.Nullable<HVTApp.Infrastructure.Role>>(); }
+          get { return Model.Role; }
           set { SetValue(value); }
         }
         public System.Nullable<HVTApp.Infrastructure.Role> RoleOriginalValue => GetOriginalValue<System.Nullable<HVTApp.Infrastructure.Role>>(nameof(Role));
@@ -1280,7 +1280,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid TargetEntityId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.TargetEntityId; }
           set { SetValue(value); }
         }
         public System.Guid TargetEntityIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TargetEntityId));
@@ -1291,7 +1291,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionType
         {
-          get { return GetValue<HVTApp.Model.POCOs.EventServiceActionType>(); }
+          get { return Model.EventServiceActionType; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionTypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.EventServiceActionType>(nameof(EventServiceActionType));
@@ -1302,7 +1302,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Message
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Message; }
           set { SetValue(value); }
         }
         public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
@@ -1313,7 +1313,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1355,7 +1355,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -1366,7 +1366,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> InstructionDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.InstructionDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> InstructionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(InstructionDate));
@@ -1377,7 +1377,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> DoneDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.DoneDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> DoneDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DoneDate));
@@ -1388,7 +1388,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1420,7 +1420,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Исполнен
         /// </summary>
-        public System.Boolean IsDone => GetValue<System.Boolean>(); 
+        public System.Boolean IsDone => Model.IsDone; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1453,7 +1453,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -1464,7 +1464,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Sum
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Sum; }
           set { SetValue(value); }
         }
         public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
@@ -1475,7 +1475,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1500,7 +1500,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Amount
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Amount; }
           set { SetValue(value); }
         }
         public System.Double AmountOriginalValue => GetOriginalValue<System.Double>(nameof(Amount));
@@ -1511,7 +1511,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -1522,7 +1522,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1562,7 +1562,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -1573,7 +1573,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Head
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Head; }
           set { SetValue(value); }
         }
         public System.String HeadOriginalValue => GetOriginalValue<System.String>(nameof(Head));
@@ -1584,7 +1584,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Message
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Message; }
           set { SetValue(value); }
         }
         public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
@@ -1595,7 +1595,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1637,7 +1637,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -1648,7 +1648,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1673,7 +1673,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -1684,7 +1684,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1724,7 +1724,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid SalesUnitId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.SalesUnitId; }
           set { SetValue(value); }
         }
         public System.Guid SalesUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SalesUnitId));
@@ -1735,7 +1735,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PaymentDocumentId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PaymentDocumentId; }
           set { SetValue(value); }
         }
         public System.Guid PaymentDocumentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PaymentDocumentId));
@@ -1746,7 +1746,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -1757,7 +1757,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Sum
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Sum; }
           set { SetValue(value); }
         }
         public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
@@ -1768,7 +1768,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -1779,7 +1779,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1804,7 +1804,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -1815,7 +1815,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.PaymentConditionPointEnum PaymentConditionPointEnum
         {
-          get { return GetValue<HVTApp.Model.POCOs.PaymentConditionPointEnum>(); }
+          get { return Model.PaymentConditionPointEnum; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.PaymentConditionPointEnum PaymentConditionPointEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PaymentConditionPointEnum>(nameof(PaymentConditionPointEnum));
@@ -1826,7 +1826,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1851,7 +1851,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -1862,7 +1862,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime DateCalculated
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.DateCalculated; }
           set { SetValue(value); }
         }
         public System.DateTime DateCalculatedOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateCalculated));
@@ -1873,7 +1873,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Part
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Part; }
           set { SetValue(value); }
         }
         public System.Double PartOriginalValue => GetOriginalValue<System.Double>(nameof(Part));
@@ -1884,7 +1884,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -1895,7 +1895,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1937,7 +1937,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double PercentPerDay
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.PercentPerDay; }
           set { SetValue(value); }
         }
         public System.Double PercentPerDayOriginalValue => GetOriginalValue<System.Double>(nameof(PercentPerDay));
@@ -1948,7 +1948,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double PercentLimit
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.PercentLimit; }
           set { SetValue(value); }
         }
         public System.Double PercentLimitOriginalValue => GetOriginalValue<System.Double>(nameof(PercentLimit));
@@ -1959,7 +1959,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double PenaltyPaid
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.PenaltyPaid; }
           set { SetValue(value); }
         }
         public System.Double PenaltyPaidOriginalValue => GetOriginalValue<System.Double>(nameof(PenaltyPaid));
@@ -1970,7 +1970,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -1995,7 +1995,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsNeedExcelFile
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsNeedExcelFile; }
           set { SetValue(value); }
         }
         public System.Boolean IsNeedExcelFileOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsNeedExcelFile));
@@ -2006,7 +2006,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Guid> PriceEngineeringTasksId
         {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
+          get { return Model.PriceEngineeringTasksId; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Guid> PriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTasksId));
@@ -2017,7 +2017,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsTceConnected
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsTceConnected; }
           set { SetValue(value); }
         }
         public System.Boolean IsTceConnectedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsTceConnected));
@@ -2028,7 +2028,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2070,37 +2070,37 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// IsStarted
         /// </summary>
-        public System.Boolean IsStarted => GetValue<System.Boolean>(); 
+        public System.Boolean IsStarted => Model.IsStarted; 
 
         /// <summary>
         /// IsFinished
         /// </summary>
-        public System.Boolean IsFinished => GetValue<System.Boolean>(); 
+        public System.Boolean IsFinished => Model.IsFinished; 
 
         /// <summary>
         /// Старт задачи
         /// </summary>
-        public System.Nullable<System.DateTime> TaskOpenMoment => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> TaskOpenMoment => Model.TaskOpenMoment; 
 
         /// <summary>
         /// Финиш задачи
         /// </summary>
-        public System.Nullable<System.DateTime> TaskCloseMoment => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> TaskCloseMoment => Model.TaskCloseMoment; 
 
         /// <summary>
         /// Название
         /// </summary>
-        public System.String Name => GetValue<System.String>(); 
+        public System.String Name => Model.Name; 
 
         /// <summary>
         /// Элемент истории расчета ПЗ
         /// </summary>
-        public HVTApp.Model.POCOs.PriceCalculationHistoryItem LastHistoryItem => GetValue<HVTApp.Model.POCOs.PriceCalculationHistoryItem>(); 
+        public HVTApp.Model.POCOs.PriceCalculationHistoryItem LastHistoryItem => Model.LastHistoryItem; 
 
         /// <summary>
         /// Пользователь
         /// </summary>
-        public HVTApp.Model.POCOs.User FrontManager => GetValue<HVTApp.Model.POCOs.User>(); 
+        public HVTApp.Model.POCOs.User FrontManager => Model.FrontManager; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2139,7 +2139,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime CreationMoment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.CreationMoment; }
           set { SetValue(value); }
         }
         public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
@@ -2150,7 +2150,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid CalculationId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.CalculationId; }
           set { SetValue(value); }
         }
         public System.Guid CalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(CalculationId));
@@ -2161,7 +2161,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2186,7 +2186,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PriceCalculationId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PriceCalculationId; }
           set { SetValue(value); }
         }
         public System.Guid PriceCalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationId));
@@ -2197,7 +2197,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -2208,7 +2208,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.PriceCalculationHistoryItemType Type
         {
-          get { return GetValue<HVTApp.Model.POCOs.PriceCalculationHistoryItemType>(); }
+          get { return Model.Type; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.PriceCalculationHistoryItemType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PriceCalculationHistoryItemType>(nameof(Type));
@@ -2219,7 +2219,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -2230,7 +2230,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2272,7 +2272,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PriceCalculationId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PriceCalculationId; }
           set { SetValue(value); }
         }
         public System.Guid PriceCalculationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationId));
@@ -2283,7 +2283,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Guid> PriceEngineeringTaskId
         {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
+          get { return Model.PriceEngineeringTaskId; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Guid> PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskId));
@@ -2294,7 +2294,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> OrderInTakeDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.OrderInTakeDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> OrderInTakeDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDate));
@@ -2305,7 +2305,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> RealizationDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.RealizationDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
@@ -2316,7 +2316,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Int32> PositionInTeamCenter
         {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
+          get { return Model.PositionInTeamCenter; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Int32> PositionInTeamCenterOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(PositionInTeamCenter));
@@ -2327,7 +2327,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2364,17 +2364,17 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// FinishDate
         /// </summary>
-        public System.Nullable<System.DateTime> FinishDate => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> FinishDate => Model.FinishDate; 
 
         /// <summary>
         /// HasPrice
         /// </summary>
-        public System.Boolean HasPrice => GetValue<System.Boolean>(); 
+        public System.Boolean HasPrice => Model.HasPrice; 
 
         /// <summary>
         /// Price
         /// </summary>
-        public System.Nullable<System.Double> Price => GetValue<System.Nullable<System.Double>>(); 
+        public System.Nullable<System.Double> Price => Model.Price; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2410,7 +2410,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid DesignDepartmentId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.DesignDepartmentId; }
           set { SetValue(value); }
         }
         public System.Guid DesignDepartmentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DesignDepartmentId));
@@ -2421,7 +2421,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -2432,7 +2432,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2472,7 +2472,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid DesignDepartmentId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.DesignDepartmentId; }
           set { SetValue(value); }
         }
         public System.Guid DesignDepartmentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DesignDepartmentId));
@@ -2483,7 +2483,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -2494,7 +2494,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2534,7 +2534,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid DesignDepartmentId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.DesignDepartmentId; }
           set { SetValue(value); }
         }
         public System.Guid DesignDepartmentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DesignDepartmentId));
@@ -2545,7 +2545,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -2556,7 +2556,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2596,7 +2596,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Number
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
@@ -2607,7 +2607,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Guid> ParentPriceEngineeringTasksId
         {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
+          get { return Model.ParentPriceEngineeringTasksId; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Guid> ParentPriceEngineeringTasksIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentPriceEngineeringTasksId));
@@ -2618,7 +2618,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Amount
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Amount; }
           set { SetValue(value); }
         }
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
@@ -2629,7 +2629,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Guid> ParentPriceEngineeringTaskId
         {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
+          get { return Model.ParentPriceEngineeringTaskId; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Guid> ParentPriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentPriceEngineeringTaskId));
@@ -2640,7 +2640,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> TermPriority
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.TermPriority; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> TermPriorityOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(TermPriority));
@@ -2651,7 +2651,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean RequestForVerificationFromHead
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.RequestForVerificationFromHead; }
           set { SetValue(value); }
         }
         public System.Boolean RequestForVerificationFromHeadOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromHead));
@@ -2662,7 +2662,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean RequestForVerificationFromConstructor
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.RequestForVerificationFromConstructor; }
           set { SetValue(value); }
         }
         public System.Boolean RequestForVerificationFromConstructorOriginalValue => GetOriginalValue<System.Boolean>(nameof(RequestForVerificationFromConstructor));
@@ -2673,7 +2673,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsValidForProduction
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsValidForProduction; }
           set { SetValue(value); }
         }
         public System.Boolean IsValidForProductionOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsValidForProduction));
@@ -2684,7 +2684,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String TcePosition
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.TcePosition; }
           set { SetValue(value); }
         }
         public System.String TcePositionOriginalValue => GetOriginalValue<System.String>(nameof(TcePosition));
@@ -2695,7 +2695,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -2812,57 +2812,57 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// IsInProcessByConstructor
         /// </summary>
-        public System.Boolean IsInProcessByConstructor => GetValue<System.Boolean>(); 
+        public System.Boolean IsInProcessByConstructor => Model.IsInProcessByConstructor; 
 
         /// <summary>
         /// IsFinishedByConstructor
         /// </summary>
-        public System.Boolean IsFinishedByConstructor => GetValue<System.Boolean>(); 
+        public System.Boolean IsFinishedByConstructor => Model.IsFinishedByConstructor; 
 
         /// <summary>
         /// IsAccepted
         /// </summary>
-        public System.Boolean IsAccepted => GetValue<System.Boolean>(); 
+        public System.Boolean IsAccepted => Model.IsAccepted; 
 
         /// <summary>
         /// IsAcceptedTotal
         /// </summary>
-        public System.Boolean IsAcceptedTotal => GetValue<System.Boolean>(); 
+        public System.Boolean IsAcceptedTotal => Model.IsAcceptedTotal; 
 
         /// <summary>
         /// IsStoppedTotal
         /// </summary>
-        public System.Boolean IsStoppedTotal => GetValue<System.Boolean>(); 
+        public System.Boolean IsStoppedTotal => Model.IsStoppedTotal; 
 
         /// <summary>
         /// Старт
         /// </summary>
-        public System.Nullable<System.DateTime> StartMoment => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> StartMoment => Model.StartMoment; 
 
         /// <summary>
         /// IsStarted
         /// </summary>
-        public System.Boolean IsStarted => GetValue<System.Boolean>(); 
+        public System.Boolean IsStarted => Model.IsStarted; 
 
         /// <summary>
         /// HasSccInTce
         /// </summary>
-        public System.Boolean HasSccInTce => GetValue<System.Boolean>(); 
+        public System.Boolean HasSccInTce => Model.HasSccInTce; 
 
         /// <summary>
         /// Статус
         /// </summary>
-        public HVTApp.Model.POCOs.ScriptStep Status => GetValue<HVTApp.Model.POCOs.ScriptStep>(); 
+        public HVTApp.Model.POCOs.ScriptStep Status => Model.Status; 
 
         /// <summary>
         /// Статусы этой задачи и всех вложенных
         /// </summary>
-        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep>>(); 
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep> StatusesAll => Model.StatusesAll; 
 
         /// <summary>
         /// Блок
         /// </summary>
-        public HVTApp.Model.POCOs.ProductBlock ProductBlock => GetValue<HVTApp.Model.POCOs.ProductBlock>(); 
+        public HVTApp.Model.POCOs.ProductBlock ProductBlock => Model.ProductBlock; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2924,7 +2924,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PriceEngineeringTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PriceEngineeringTaskId; }
           set { SetValue(value); }
         }
         public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
@@ -2935,7 +2935,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -2946,7 +2946,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime CreationMoment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.CreationMoment; }
           set { SetValue(value); }
         }
         public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
@@ -2957,7 +2957,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -2968,7 +2968,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -2979,7 +2979,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3004,7 +3004,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -3015,7 +3015,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime CreationMoment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.CreationMoment; }
           set { SetValue(value); }
         }
         public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
@@ -3026,7 +3026,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -3037,7 +3037,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -3048,7 +3048,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3073,7 +3073,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PriceEngineeringTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PriceEngineeringTaskId; }
           set { SetValue(value); }
         }
         public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
@@ -3084,7 +3084,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -3095,7 +3095,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Message
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Message; }
           set { SetValue(value); }
         }
         public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
@@ -3106,7 +3106,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3148,7 +3148,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PriceEngineeringTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PriceEngineeringTaskId; }
           set { SetValue(value); }
         }
         public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
@@ -3159,7 +3159,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Amount
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Amount; }
           set { SetValue(value); }
         }
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
@@ -3170,7 +3170,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsOnBlock
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsOnBlock; }
           set { SetValue(value); }
         }
         public System.Boolean IsOnBlockOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsOnBlock));
@@ -3181,7 +3181,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsRemoved
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsRemoved; }
           set { SetValue(value); }
         }
         public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
@@ -3192,7 +3192,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3224,7 +3224,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// HasSccInTce
         /// </summary>
-        public System.Boolean HasSccInTce => GetValue<System.Boolean>(); 
+        public System.Boolean HasSccInTce => Model.HasSccInTce; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3257,7 +3257,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Number
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
@@ -3268,7 +3268,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String TceNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.TceNumber; }
           set { SetValue(value); }
         }
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
@@ -3279,7 +3279,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime WorkUpTo
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.WorkUpTo; }
           set { SetValue(value); }
         }
         public System.DateTime WorkUpToOriginalValue => GetOriginalValue<System.DateTime>(nameof(WorkUpTo));
@@ -3290,7 +3290,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -3301,7 +3301,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String CommentBackOfficeBoss
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.CommentBackOfficeBoss; }
           set { SetValue(value); }
         }
         public System.String CommentBackOfficeBossOriginalValue => GetOriginalValue<System.String>(nameof(CommentBackOfficeBoss));
@@ -3312,7 +3312,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3363,22 +3363,22 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// № полный
         /// </summary>
-        public System.String NumberFull => GetValue<System.String>(); 
+        public System.String NumberFull => Model.NumberFull; 
 
         /// <summary>
         /// Всё принято?
         /// </summary>
-        public System.Boolean IsAccepted => GetValue<System.Boolean>(); 
+        public System.Boolean IsAccepted => Model.IsAccepted; 
 
         /// <summary>
         /// Старт
         /// </summary>
-        public System.Nullable<System.DateTime> StartMoment => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> StartMoment => Model.StartMoment; 
 
         /// <summary>
         /// Статусы задач
         /// </summary>
-        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep> StatusesAll => GetValue<System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep>>(); 
+        public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep> StatusesAll => Model.StatusesAll; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3418,7 +3418,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PrEngTasksId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PrEngTasksId; }
           set { SetValue(value); }
         }
         public System.Guid PrEngTasksIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PrEngTasksId));
@@ -3429,7 +3429,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -3440,7 +3440,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime CreationMoment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.CreationMoment; }
           set { SetValue(value); }
         }
         public System.DateTime CreationMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(CreationMoment));
@@ -3451,7 +3451,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -3462,7 +3462,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -3473,7 +3473,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3498,7 +3498,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PriceEngineeringTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PriceEngineeringTaskId; }
           set { SetValue(value); }
         }
         public System.Guid PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceEngineeringTaskId));
@@ -3509,7 +3509,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -3520,7 +3520,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -3531,7 +3531,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 StatusEnum
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.StatusEnum; }
           set { SetValue(value); }
         }
         public System.Int32 StatusEnumOriginalValue => GetOriginalValue<System.Int32>(nameof(StatusEnum));
@@ -3542,7 +3542,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3567,7 +3567,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Guid> PriceEngineeringTaskId
         {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
+          get { return Model.PriceEngineeringTaskId; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Guid> PriceEngineeringTaskIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskId));
@@ -3578,7 +3578,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Guid> PriceEngineeringTaskProductBlockAddedId
         {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
+          get { return Model.PriceEngineeringTaskProductBlockAddedId; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Guid> PriceEngineeringTaskProductBlockAddedIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PriceEngineeringTaskProductBlockAddedId));
@@ -3589,7 +3589,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String OriginalStructureCostNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.OriginalStructureCostNumber; }
           set { SetValue(value); }
         }
         public System.String OriginalStructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(OriginalStructureCostNumber));
@@ -3600,7 +3600,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Int32> Version
         {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
+          get { return Model.Version; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Int32> VersionOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(Version));
@@ -3611,7 +3611,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3636,7 +3636,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String NameFull
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.NameFull; }
           set { SetValue(value); }
         }
         public System.String NameFullOriginalValue => GetOriginalValue<System.String>(nameof(NameFull));
@@ -3647,7 +3647,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String NameShort
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.NameShort; }
           set { SetValue(value); }
         }
         public System.String NameShortOriginalValue => GetOriginalValue<System.String>(nameof(NameShort));
@@ -3658,7 +3658,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3698,7 +3698,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Cost
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Cost; }
           set { SetValue(value); }
         }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
@@ -3709,7 +3709,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Price
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Price; }
           set { SetValue(value); }
         }
         public System.Double PriceOriginalValue => GetOriginalValue<System.Double>(nameof(Price));
@@ -3720,7 +3720,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String StructureCost
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.StructureCost; }
           set { SetValue(value); }
         }
         public System.String StructureCostOriginalValue => GetOriginalValue<System.String>(nameof(StructureCost));
@@ -3731,7 +3731,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3773,7 +3773,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Amount
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Amount; }
           set { SetValue(value); }
         }
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
@@ -3784,7 +3784,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> CustomFixedPrice
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.CustomFixedPrice; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> CustomFixedPriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CustomFixedPrice));
@@ -3795,7 +3795,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 ParentsCount
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.ParentsCount; }
           set { SetValue(value); }
         }
         public System.Int32 ParentsCountOriginalValue => GetOriginalValue<System.Int32>(nameof(ParentsCount));
@@ -3806,7 +3806,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3830,7 +3830,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// AmountOnUnit
         /// </summary>
-        public System.Double AmountOnUnit => GetValue<System.Double>(); 
+        public System.Double AmountOnUnit => Model.AmountOnUnit; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3856,7 +3856,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Designation
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Designation; }
           set { SetValue(value); }
         }
         public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
@@ -3867,7 +3867,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3915,7 +3915,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -3926,7 +3926,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -3951,7 +3951,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4008,7 +4008,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -4019,7 +4019,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4044,7 +4044,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double MarginalIncome
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.MarginalIncome; }
           set { SetValue(value); }
         }
         public System.Double MarginalIncomeOriginalValue => GetOriginalValue<System.Double>(nameof(MarginalIncome));
@@ -4055,7 +4055,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4095,7 +4095,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 ProductionTerm
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.ProductionTerm; }
           set { SetValue(value); }
         }
         public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
@@ -4106,7 +4106,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4146,7 +4146,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid PriceCalculationItemId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.PriceCalculationItemId; }
           set { SetValue(value); }
         }
         public System.Guid PriceCalculationItemIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PriceCalculationItemId));
@@ -4157,7 +4157,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Number
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
@@ -4168,7 +4168,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String OriginalStructureCostNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.OriginalStructureCostNumber; }
           set { SetValue(value); }
         }
         public System.String OriginalStructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(OriginalStructureCostNumber));
@@ -4179,7 +4179,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double AmountNumerator
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.AmountNumerator; }
           set { SetValue(value); }
         }
         public System.Double AmountNumeratorOriginalValue => GetOriginalValue<System.Double>(nameof(AmountNumerator));
@@ -4190,7 +4190,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double AmountDenomerator
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.AmountDenomerator; }
           set { SetValue(value); }
         }
         public System.Double AmountDenomeratorOriginalValue => GetOriginalValue<System.Double>(nameof(AmountDenomerator));
@@ -4201,7 +4201,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> UnitPrice
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.UnitPrice; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> UnitPriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(UnitPrice));
@@ -4212,7 +4212,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -4223,7 +4223,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4247,12 +4247,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Количество на единицу
         /// </summary>
-        public System.Double Amount => GetValue<System.Double>(); 
+        public System.Double Amount => Model.Amount; 
 
         /// <summary>
         /// Total
         /// </summary>
-        public System.Nullable<System.Double> Total => GetValue<System.Nullable<System.Double>>(); 
+        public System.Nullable<System.Double> Total => Model.Total; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4278,7 +4278,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> DateFinish
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.DateFinish; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> DateFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateFinish));
@@ -4289,7 +4289,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> DateRequired
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.DateRequired; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> DateRequiredOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateRequired));
@@ -4300,7 +4300,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ClientOrderNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ClientOrderNumber; }
           set { SetValue(value); }
         }
         public System.String ClientOrderNumberOriginalValue => GetOriginalValue<System.String>(nameof(ClientOrderNumber));
@@ -4311,7 +4311,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ServiceOrderNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ServiceOrderNumber; }
           set { SetValue(value); }
         }
         public System.String ServiceOrderNumberOriginalValue => GetOriginalValue<System.String>(nameof(ServiceOrderNumber));
@@ -4322,7 +4322,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4374,7 +4374,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -4385,7 +4385,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid TechnicalRequrementsTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.TechnicalRequrementsTaskId; }
           set { SetValue(value); }
         }
         public System.Guid TechnicalRequrementsTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TechnicalRequrementsTaskId));
@@ -4396,7 +4396,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -4407,7 +4407,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -4418,7 +4418,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -4429,7 +4429,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4454,7 +4454,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid TechnicalRequrementsTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.TechnicalRequrementsTaskId; }
           set { SetValue(value); }
         }
         public System.Guid TechnicalRequrementsTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TechnicalRequrementsTaskId));
@@ -4465,7 +4465,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -4476,7 +4476,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4501,7 +4501,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid TaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.TaskId; }
           set { SetValue(value); }
         }
         public System.Guid TaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TaskId));
@@ -4512,7 +4512,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> OrderInTakeDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.OrderInTakeDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> OrderInTakeDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDate));
@@ -4523,7 +4523,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> RealizationDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.RealizationDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
@@ -4534,7 +4534,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -4545,7 +4545,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -4556,7 +4556,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Int32> PositionInTeamCenter
         {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
+          get { return Model.PositionInTeamCenter; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Int32> PositionInTeamCenterOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(PositionInTeamCenter));
@@ -4567,7 +4567,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4615,7 +4615,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -4626,7 +4626,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -4637,7 +4637,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -4648,7 +4648,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -4659,7 +4659,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4684,7 +4684,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String TceNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.TceNumber; }
           set { SetValue(value); }
         }
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
@@ -4695,7 +4695,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> LastOpenBackManagerMoment
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.LastOpenBackManagerMoment; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> LastOpenBackManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastOpenBackManagerMoment));
@@ -4706,7 +4706,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> LastOpenFrontManagerMoment
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.LastOpenFrontManagerMoment; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> LastOpenFrontManagerMomentOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastOpenFrontManagerMoment));
@@ -4717,7 +4717,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean LogisticsCalculationRequired
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.LogisticsCalculationRequired; }
           set { SetValue(value); }
         }
         public System.Boolean LogisticsCalculationRequiredOriginalValue => GetOriginalValue<System.Boolean>(nameof(LogisticsCalculationRequired));
@@ -4728,7 +4728,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean ExcelFileIsRequired
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.ExcelFileIsRequired; }
           set { SetValue(value); }
         }
         public System.Boolean ExcelFileIsRequiredOriginalValue => GetOriginalValue<System.Boolean>(nameof(ExcelFileIsRequired));
@@ -4739,7 +4739,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> DesiredFinishDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.DesiredFinishDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> DesiredFinishDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DesiredFinishDate));
@@ -4750,7 +4750,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4802,52 +4802,52 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Старт
         /// </summary>
-        public System.Nullable<System.DateTime> Start => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> Start => Model.Start; 
 
         /// <summary>
         /// Финиш
         /// </summary>
-        public System.Nullable<System.DateTime> Finish => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> Finish => Model.Finish; 
 
         /// <summary>
         /// Стартовано?
         /// </summary>
-        public System.Boolean IsStarted => GetValue<System.Boolean>(); 
+        public System.Boolean IsStarted => Model.IsStarted; 
 
         /// <summary>
         /// Завершено?
         /// </summary>
-        public System.Boolean IsFinished => GetValue<System.Boolean>(); 
+        public System.Boolean IsFinished => Model.IsFinished; 
 
         /// <summary>
         /// Отклонено?
         /// </summary>
-        public System.Boolean IsRejected => GetValue<System.Boolean>(); 
+        public System.Boolean IsRejected => Model.IsRejected; 
 
         /// <summary>
         /// Остановлено?
         /// </summary>
-        public System.Boolean IsStopped => GetValue<System.Boolean>(); 
+        public System.Boolean IsStopped => Model.IsStopped; 
 
         /// <summary>
         /// Принято?
         /// </summary>
-        public System.Boolean IsAccepted => GetValue<System.Boolean>(); 
+        public System.Boolean IsAccepted => Model.IsAccepted; 
 
         /// <summary>
         /// Products
         /// </summary>
-        public System.String Products => GetValue<System.String>(); 
+        public System.String Products => Model.Products; 
 
         /// <summary>
         /// Front manager
         /// </summary>
-        public HVTApp.Model.POCOs.User FrontManager => GetValue<HVTApp.Model.POCOs.User>(); 
+        public HVTApp.Model.POCOs.User FrontManager => Model.FrontManager; 
 
         /// <summary>
         /// Статус тех.задания (задача)
         /// </summary>
-        public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement LastHistoryElement => GetValue<HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement>(); 
+        public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement LastHistoryElement => Model.LastHistoryElement; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4892,7 +4892,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid TechnicalRequrementsTaskId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.TechnicalRequrementsTaskId; }
           set { SetValue(value); }
         }
         public System.Guid TechnicalRequrementsTaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TechnicalRequrementsTaskId));
@@ -4903,7 +4903,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Moment
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Moment; }
           set { SetValue(value); }
         }
         public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
@@ -4914,7 +4914,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType Type
         {
-          get { return GetValue<HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType>(); }
+          get { return Model.Type; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElementType>(nameof(Type));
@@ -4925,7 +4925,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -4936,7 +4936,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -4978,7 +4978,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -4989,7 +4989,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5029,7 +5029,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -5040,7 +5040,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 ActualPriceTerm
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.ActualPriceTerm; }
           set { SetValue(value); }
         }
         public System.Int32 ActualPriceTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ActualPriceTerm));
@@ -5051,7 +5051,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 StandartTermFromStartToEndProduction
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.StandartTermFromStartToEndProduction; }
           set { SetValue(value); }
         }
         public System.Int32 StandartTermFromStartToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartTermFromStartToEndProduction));
@@ -5062,7 +5062,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 StandartTermFromPickToEndProduction
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.StandartTermFromPickToEndProduction; }
           set { SetValue(value); }
         }
         public System.Int32 StandartTermFromPickToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartTermFromPickToEndProduction));
@@ -5073,7 +5073,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Vat
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Vat; }
           set { SetValue(value); }
         }
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
@@ -5084,7 +5084,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String IncomingRequestsPath
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.IncomingRequestsPath; }
           set { SetValue(value); }
         }
         public System.String IncomingRequestsPathOriginalValue => GetOriginalValue<System.String>(nameof(IncomingRequestsPath));
@@ -5095,7 +5095,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String DirectumAttachmentsPath
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.DirectumAttachmentsPath; }
           set { SetValue(value); }
         }
         public System.String DirectumAttachmentsPathOriginalValue => GetOriginalValue<System.String>(nameof(DirectumAttachmentsPath));
@@ -5106,7 +5106,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String TechnicalRequrementsFilesPath
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.TechnicalRequrementsFilesPath; }
           set { SetValue(value); }
         }
         public System.String TechnicalRequrementsFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(TechnicalRequrementsFilesPath));
@@ -5117,7 +5117,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String TechnicalRequrementsFilesAnswersPath
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.TechnicalRequrementsFilesAnswersPath; }
           set { SetValue(value); }
         }
         public System.String TechnicalRequrementsFilesAnswersPathOriginalValue => GetOriginalValue<System.String>(nameof(TechnicalRequrementsFilesAnswersPath));
@@ -5128,7 +5128,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ShippingCostFilesPath
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ShippingCostFilesPath; }
           set { SetValue(value); }
         }
         public System.String ShippingCostFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(ShippingCostFilesPath));
@@ -5139,7 +5139,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String PriceCalculationsFilesPath
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.PriceCalculationsFilesPath; }
           set { SetValue(value); }
         }
         public System.String PriceCalculationsFilesPathOriginalValue => GetOriginalValue<System.String>(nameof(PriceCalculationsFilesPath));
@@ -5150,7 +5150,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String LogsPath
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.LogsPath; }
           set { SetValue(value); }
         }
         public System.String LogsPathOriginalValue => GetOriginalValue<System.String>(nameof(LogsPath));
@@ -5161,7 +5161,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> LastDeveloperVizit
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.LastDeveloperVizit; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> LastDeveloperVizitOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(LastDeveloperVizit));
@@ -5172,7 +5172,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5424,7 +5424,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Description
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Description; }
           set { SetValue(value); }
         }
         public System.String DescriptionOriginalValue => GetOriginalValue<System.String>(nameof(Description));
@@ -5435,7 +5435,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5477,7 +5477,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -5488,7 +5488,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5513,7 +5513,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -5524,7 +5524,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5566,7 +5566,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -5577,7 +5577,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsCountryCapital
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsCountryCapital; }
           set { SetValue(value); }
         }
         public System.Boolean IsCountryCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsCountryCapital));
@@ -5588,7 +5588,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsDistrictCapital
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsDistrictCapital; }
           set { SetValue(value); }
         }
         public System.Boolean IsDistrictCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDistrictCapital));
@@ -5599,7 +5599,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsRegionCapital
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsRegionCapital; }
           set { SetValue(value); }
         }
         public System.Boolean IsRegionCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRegionCapital));
@@ -5610,7 +5610,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> DistanceToEkb
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.DistanceToEkb; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> DistanceToEkbOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(DistanceToEkb));
@@ -5621,7 +5621,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5673,7 +5673,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String FullName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.FullName; }
           set { SetValue(value); }
         }
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
@@ -5684,7 +5684,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ShortName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ShortName; }
           set { SetValue(value); }
         }
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
@@ -5695,7 +5695,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5720,7 +5720,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -5731,7 +5731,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5773,7 +5773,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.SumType Type
         {
-          get { return GetValue<HVTApp.Model.POCOs.SumType>(); }
+          get { return Model.Type; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.SumType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.SumType>(nameof(Type));
@@ -5784,7 +5784,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.Currency Currency
         {
-          get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
+          get { return Model.Currency; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.Currency CurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(Currency));
@@ -5795,7 +5795,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Decimal Value
         {
-          get { return GetValue<System.Decimal>(); }
+          get { return Model.Value; }
           set { SetValue(value); }
         }
         public System.Decimal ValueOriginalValue => GetOriginalValue<System.Decimal>(nameof(Value));
@@ -5806,7 +5806,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5831,7 +5831,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -5842,7 +5842,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.Currency FirstCurrency
         {
-          get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
+          get { return Model.FirstCurrency; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.Currency FirstCurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(FirstCurrency));
@@ -5853,7 +5853,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.Currency SecondCurrency
         {
-          get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
+          get { return Model.SecondCurrency; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.Currency SecondCurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(SecondCurrency));
@@ -5864,7 +5864,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double ExchangeRate
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.ExchangeRate; }
           set { SetValue(value); }
         }
         public System.Double ExchangeRateOriginalValue => GetOriginalValue<System.Double>(nameof(ExchangeRate));
@@ -5875,7 +5875,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5900,7 +5900,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -5911,7 +5911,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Text
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Text; }
           set { SetValue(value); }
         }
         public System.String TextOriginalValue => GetOriginalValue<System.String>(nameof(Text));
@@ -5922,7 +5922,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsImportant
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsImportant; }
           set { SetValue(value); }
         }
         public System.Boolean IsImportantOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsImportant));
@@ -5933,7 +5933,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -5958,7 +5958,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Cost
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Cost; }
           set { SetValue(value); }
         }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
@@ -5969,7 +5969,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> CostDelivery
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.CostDelivery; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> CostDeliveryOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CostDelivery));
@@ -5980,7 +5980,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean CostDeliveryIncluded
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.CostDeliveryIncluded; }
           set { SetValue(value); }
         }
         public System.Boolean CostDeliveryIncludedOriginalValue => GetOriginalValue<System.Boolean>(nameof(CostDeliveryIncluded));
@@ -5991,7 +5991,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 ProductionTerm
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.ProductionTerm; }
           set { SetValue(value); }
         }
         public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
@@ -6002,7 +6002,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -6013,7 +6013,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6100,7 +6100,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6140,7 +6140,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String DesignationSpecial
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.DesignationSpecial; }
           set { SetValue(value); }
         }
         public System.String DesignationSpecialOriginalValue => GetOriginalValue<System.String>(nameof(DesignationSpecial));
@@ -6151,7 +6151,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String StructureCostNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.StructureCostNumber; }
           set { SetValue(value); }
         }
         public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
@@ -6162,7 +6162,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Design
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Design; }
           set { SetValue(value); }
         }
         public System.String DesignOriginalValue => GetOriginalValue<System.String>(nameof(Design));
@@ -6173,7 +6173,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Weight
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Weight; }
           set { SetValue(value); }
         }
         public System.Double WeightOriginalValue => GetOriginalValue<System.Double>(nameof(Weight));
@@ -6184,7 +6184,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> LaborCosts
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.LaborCosts; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> LaborCostsOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(LaborCosts));
@@ -6195,7 +6195,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsDelivery
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsDelivery; }
           set { SetValue(value); }
         }
         public System.Boolean IsDeliveryOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDelivery));
@@ -6206,7 +6206,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6241,42 +6241,42 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Обозначение
         /// </summary>
-        public System.String Designation => GetValue<System.String>(); 
+        public System.String Designation => Model.Designation; 
 
         /// <summary>
         /// Есть прайс
         /// </summary>
-        public System.Boolean HasPrice => GetValue<System.Boolean>(); 
+        public System.Boolean HasPrice => Model.HasPrice; 
 
         /// <summary>
         /// Дата последнего прайса
         /// </summary>
-        public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> LastPriceDate => Model.LastPriceDate; 
 
         /// <summary>
         /// Есть фиксированный прайс
         /// </summary>
-        public System.Boolean HasFixedPrice => GetValue<System.Boolean>(); 
+        public System.Boolean HasFixedPrice => Model.HasFixedPrice; 
 
         /// <summary>
         /// Новый
         /// </summary>
-        public System.Boolean IsNew => GetValue<System.Boolean>(); 
+        public System.Boolean IsNew => Model.IsNew; 
 
         /// <summary>
         /// Услуга
         /// </summary>
-        public System.Boolean IsService => GetValue<System.Boolean>(); 
+        public System.Boolean IsService => Model.IsService; 
 
         /// <summary>
         /// Шеф-монтаж
         /// </summary>
-        public System.Boolean IsSupervision => GetValue<System.Boolean>(); 
+        public System.Boolean IsSupervision => Model.IsSupervision; 
 
         /// <summary>
         /// Тип
         /// </summary>
-        public HVTApp.Model.POCOs.ProductType ProductType => GetValue<HVTApp.Model.POCOs.ProductType>(); 
+        public HVTApp.Model.POCOs.ProductType ProductType => Model.ProductType; 
         #endregion
 
         protected override void InitializeCollectionProperties()
@@ -6313,7 +6313,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid MainProductId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.MainProductId; }
           set { SetValue(value); }
         }
         public System.Guid MainProductIdOriginalValue => GetOriginalValue<System.Guid>(nameof(MainProductId));
@@ -6324,7 +6324,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Amount
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Amount; }
           set { SetValue(value); }
         }
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
@@ -6335,7 +6335,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6377,7 +6377,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String BankName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.BankName; }
           set { SetValue(value); }
         }
         public System.String BankNameOriginalValue => GetOriginalValue<System.String>(nameof(BankName));
@@ -6388,7 +6388,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String BankIdentificationCode
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.BankIdentificationCode; }
           set { SetValue(value); }
         }
         public System.String BankIdentificationCodeOriginalValue => GetOriginalValue<System.String>(nameof(BankIdentificationCode));
@@ -6399,7 +6399,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String CorrespondentAccount
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.CorrespondentAccount; }
           set { SetValue(value); }
         }
         public System.String CorrespondentAccountOriginalValue => GetOriginalValue<System.String>(nameof(CorrespondentAccount));
@@ -6410,7 +6410,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String CheckingAccount
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.CheckingAccount; }
           set { SetValue(value); }
         }
         public System.String CheckingAccountOriginalValue => GetOriginalValue<System.String>(nameof(CheckingAccount));
@@ -6421,7 +6421,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6446,7 +6446,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String FullName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.FullName; }
           set { SetValue(value); }
         }
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
@@ -6457,7 +6457,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ShortName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ShortName; }
           set { SetValue(value); }
         }
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
@@ -6468,7 +6468,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Inn
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Inn; }
           set { SetValue(value); }
         }
         public System.String InnOriginalValue => GetOriginalValue<System.String>(nameof(Inn));
@@ -6479,7 +6479,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Kpp
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Kpp; }
           set { SetValue(value); }
         }
         public System.String KppOriginalValue => GetOriginalValue<System.String>(nameof(Kpp));
@@ -6490,7 +6490,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6585,7 +6585,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String FullName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.FullName; }
           set { SetValue(value); }
         }
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
@@ -6596,7 +6596,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ShortName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ShortName; }
           set { SetValue(value); }
         }
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
@@ -6607,7 +6607,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6632,7 +6632,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -6643,7 +6643,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Number
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
@@ -6654,7 +6654,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6679,7 +6679,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -6690,7 +6690,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6715,7 +6715,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String FullName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.FullName; }
           set { SetValue(value); }
         }
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
@@ -6726,7 +6726,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ShortName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ShortName; }
           set { SetValue(value); }
         }
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
@@ -6737,7 +6737,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6762,7 +6762,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -6773,7 +6773,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnum
         {
-          get { return GetValue<HVTApp.Model.POCOs.ActivityFieldEnum>(); }
+          get { return Model.ActivityFieldEnum; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.ActivityFieldEnum>(nameof(ActivityFieldEnum));
@@ -6784,7 +6784,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6809,7 +6809,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Number
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
@@ -6820,7 +6820,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -6831,7 +6831,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6873,7 +6873,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String FullName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.FullName; }
           set { SetValue(value); }
         }
         public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
@@ -6884,7 +6884,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String ShortName
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.ShortName; }
           set { SetValue(value); }
         }
         public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
@@ -6895,7 +6895,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6920,7 +6920,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Value
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Value; }
           set { SetValue(value); }
         }
         public System.String ValueOriginalValue => GetOriginalValue<System.String>(nameof(Value));
@@ -6931,7 +6931,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Rang
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Rang; }
           set { SetValue(value); }
         }
         public System.Int32 RangOriginalValue => GetOriginalValue<System.Int32>(nameof(Rang));
@@ -6942,7 +6942,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -6953,7 +6953,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -6985,7 +6985,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Начало?
         /// </summary>
-        public System.Boolean IsOrigin => GetValue<System.Boolean>(); 
+        public System.Boolean IsOrigin => Model.IsOrigin; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -7018,7 +7018,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -7029,7 +7029,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -7040,7 +7040,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 Powerful
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.Powerful; }
           set { SetValue(value); }
         }
         public System.Int32 PowerfulOriginalValue => GetOriginalValue<System.Int32>(nameof(Powerful));
@@ -7051,7 +7051,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -7093,7 +7093,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -7104,7 +7104,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 ChildProductsAmount
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.ChildProductsAmount; }
           set { SetValue(value); }
         }
         public System.Int32 ChildProductsAmountOriginalValue => GetOriginalValue<System.Int32>(nameof(ChildProductsAmount));
@@ -7115,7 +7115,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsUnique
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsUnique; }
           set { SetValue(value); }
         }
         public System.Boolean IsUniqueOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsUnique));
@@ -7126,7 +7126,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -7174,7 +7174,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Surname
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Surname; }
           set { SetValue(value); }
         }
         public System.String SurnameOriginalValue => GetOriginalValue<System.String>(nameof(Surname));
@@ -7185,7 +7185,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -7196,7 +7196,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Patronymic
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Patronymic; }
           set { SetValue(value); }
         }
         public System.String PatronymicOriginalValue => GetOriginalValue<System.String>(nameof(Patronymic));
@@ -7207,7 +7207,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsMan
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsMan; }
           set { SetValue(value); }
         }
         public System.Boolean IsManOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsMan));
@@ -7218,7 +7218,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -7243,7 +7243,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid ParameterId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.ParameterId; }
           set { SetValue(value); }
         }
         public System.Guid ParameterIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParameterId));
@@ -7254,7 +7254,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -7294,7 +7294,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Cost
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Cost; }
           set { SetValue(value); }
         }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
@@ -7305,7 +7305,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> Price
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.Price; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> PriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(Price));
@@ -7316,7 +7316,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> LaborHours
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.LaborHours; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> LaborHoursOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(LaborHours));
@@ -7327,7 +7327,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 ProductionTerm
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.ProductionTerm; }
           set { SetValue(value); }
         }
         public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
@@ -7338,7 +7338,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -7349,7 +7349,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime DeliveryDateExpected
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.DeliveryDateExpected; }
           set { SetValue(value); }
         }
         public System.DateTime DeliveryDateExpectedOriginalValue => GetOriginalValue<System.DateTime>(nameof(DeliveryDateExpected));
@@ -7360,7 +7360,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> RealizationDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.RealizationDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
@@ -7371,7 +7371,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String OrderPosition
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.OrderPosition; }
           set { SetValue(value); }
         }
         public System.String OrderPositionOriginalValue => GetOriginalValue<System.String>(nameof(OrderPosition));
@@ -7382,7 +7382,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String SerialNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.SerialNumber; }
           set { SetValue(value); }
         }
         public System.String SerialNumberOriginalValue => GetOriginalValue<System.String>(nameof(SerialNumber));
@@ -7393,7 +7393,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Int32> AssembleTerm
         {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
+          get { return Model.AssembleTerm; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Int32> AssembleTermOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(AssembleTerm));
@@ -7404,7 +7404,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> SignalToStartProduction
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.SignalToStartProduction; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> SignalToStartProductionOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(SignalToStartProduction));
@@ -7415,7 +7415,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> SignalToStartProductionDone
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.SignalToStartProductionDone; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> SignalToStartProductionDoneOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(SignalToStartProductionDone));
@@ -7426,7 +7426,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> StartProductionDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.StartProductionDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> StartProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartProductionDate));
@@ -7437,7 +7437,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> PickingDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.PickingDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> PickingDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(PickingDate));
@@ -7448,7 +7448,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> EndProductionPlanDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.EndProductionPlanDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> EndProductionPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionPlanDate));
@@ -7459,7 +7459,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> EndProductionDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.EndProductionDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> EndProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionDate));
@@ -7470,7 +7470,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Double> CostDelivery
         {
-          get { return GetValue<System.Nullable<System.Double>>(); }
+          get { return Model.CostDelivery; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Double> CostDeliveryOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CostDelivery));
@@ -7481,7 +7481,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean CostDeliveryIncluded
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.CostDeliveryIncluded; }
           set { SetValue(value); }
         }
         public System.Boolean CostDeliveryIncludedOriginalValue => GetOriginalValue<System.Boolean>(nameof(CostDeliveryIncluded));
@@ -7492,7 +7492,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.Int32> ExpectedDeliveryPeriod
         {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
+          get { return Model.ExpectedDeliveryPeriod; }
           set { SetValue(value); }
         }
         public System.Nullable<System.Int32> ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriod));
@@ -7503,7 +7503,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> ShipmentDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.ShipmentDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> ShipmentDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentDate));
@@ -7514,7 +7514,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> ShipmentPlanDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.ShipmentPlanDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> ShipmentPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentPlanDate));
@@ -7525,7 +7525,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> DeliveryDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.DeliveryDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
@@ -7536,7 +7536,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsRemoved
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsRemoved; }
           set { SetValue(value); }
         }
         public System.Boolean IsRemovedOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRemoved));
@@ -7547,7 +7547,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> OrderInTakeDateInjected
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.OrderInTakeDateInjected; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> OrderInTakeDateInjectedOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDateInjected));
@@ -7558,7 +7558,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> StartProductionDateInjected
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.StartProductionDateInjected; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> StartProductionDateInjectedOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartProductionDateInjected));
@@ -7569,7 +7569,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -7708,152 +7708,157 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Срок доставки расчетный
         /// </summary>
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated => GetValue<System.Nullable<System.Int32>>(); 
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated => Model.ExpectedDeliveryPeriodCalculated; 
 
         /// <summary>
         /// Разрешение на редактирование стоимости
         /// </summary>
-        public System.Boolean AllowEditCost => GetValue<System.Boolean>(); 
+        public System.Boolean AllowEditCost => Model.AllowEditCost; 
 
         /// <summary>
         /// Разрешение на редактирование техники
         /// </summary>
-        public System.Boolean AllowEditProduct => GetValue<System.Boolean>(); 
+        public System.Boolean AllowEditProduct => Model.AllowEditProduct; 
 
         /// <summary>
         /// Проиграно
         /// </summary>
-        public System.Boolean IsLoosen => GetValue<System.Boolean>(); 
+        public System.Boolean IsLoosen => Model.IsLoosen; 
 
         /// <summary>
         /// Выиграно
         /// </summary>
-        public System.Boolean IsWon => GetValue<System.Boolean>(); 
+        public System.Boolean IsWon => Model.IsWon; 
 
         /// <summary>
         /// Исполнено
         /// </summary>
-        public System.Boolean IsDone => GetValue<System.Boolean>(); 
+        public System.Boolean IsDone => Model.IsDone; 
 
         /// <summary>
         /// Id актуального расчета калькуляции
         /// </summary>
-        public System.Guid ActualPriceCalculationItemId => GetValue<System.Guid>(); 
+        public System.Guid ActualPriceCalculationItemId => Model.ActualPriceCalculationItemId; 
 
         /// <summary>
         /// Заказ взят
         /// </summary>
-        public System.Boolean OrderIsTaken => GetValue<System.Boolean>(); 
+        public System.Boolean OrderIsTaken => Model.OrderIsTaken; 
 
         /// <summary>
         /// Заказ реализован
         /// </summary>
-        public System.Boolean OrderIsRealized => GetValue<System.Boolean>(); 
+        public System.Boolean OrderIsRealized => Model.OrderIsRealized; 
 
         /// <summary>
         /// Разрешено тотальное удаление
         /// </summary>
-        public System.Boolean AllowTotalRemove => GetValue<System.Boolean>(); 
+        public System.Boolean AllowTotalRemove => Model.AllowTotalRemove; 
 
         /// <summary>
         /// Оплачено?
         /// </summary>
-        public System.Boolean IsPaid => GetValue<System.Boolean>(); 
+        public System.Boolean IsPaid => Model.IsPaid; 
 
         /// <summary>
         /// Оплачено
         /// </summary>
-        public System.Double SumPaid => GetValue<System.Double>(); 
+        public System.Double SumPaid => Model.SumPaid; 
 
         /// <summary>
         /// Неоплачено без НДС
         /// </summary>
-        public System.Double SumNotPaid => GetValue<System.Double>(); 
+        public System.Double SumNotPaid => Model.SumNotPaid; 
 
         /// <summary>
         /// НДС
         /// </summary>
-        public System.Double Vat => GetValue<System.Double>(); 
+        public System.Double Vat => Model.Vat; 
 
         /// <summary>
         /// Неоплачено с НДС
         /// </summary>
-        public System.Double SumNotPaidWithVat => GetValue<System.Double>(); 
+        public System.Double SumNotPaidWithVat => Model.SumNotPaidWithVat; 
 
         /// <summary>
         /// Сумма старта производства
         /// </summary>
-        public System.Double SumToStartProduction => GetValue<System.Double>(); 
+        public System.Double SumToStartProduction => Model.SumToStartProduction; 
 
         /// <summary>
         /// Сумма отгрузки
         /// </summary>
-        public System.Double SumToShipping => GetValue<System.Double>(); 
+        public System.Double SumToShipping => Model.SumToShipping; 
 
         /// <summary>
         /// ОИТ
         /// </summary>
-        public System.DateTime OrderInTakeDate => GetValue<System.DateTime>(); 
+        public System.DateTime OrderInTakeDate => Model.OrderInTakeDate; 
+
+        /// <summary>
+        /// Первый платеж по заказу
+        /// </summary>
+        public System.Nullable<System.DateTime> FirstPaymentDateCalculated => Model.FirstPaymentDateCalculated; 
 
         /// <summary>
         /// Год ОИТ
         /// </summary>
-        public System.Int32 OrderInTakeYear => GetValue<System.Int32>(); 
+        public System.Int32 OrderInTakeYear => Model.OrderInTakeYear; 
 
         /// <summary>
         /// Месяц ОИТ
         /// </summary>
-        public System.Int32 OrderInTakeMonth => GetValue<System.Int32>(); 
+        public System.Int32 OrderInTakeMonth => Model.OrderInTakeMonth; 
 
         /// <summary>
         /// Дата исполнения условий для начала производства
         /// </summary>
-        public System.Nullable<System.DateTime> StartProductionConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> StartProductionConditionsDoneDate => Model.StartProductionConditionsDoneDate; 
 
         /// <summary>
         /// Дата исполнения условий для отгрузки
         /// </summary>
-        public System.Nullable<System.DateTime> ShippingConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>(); 
+        public System.Nullable<System.DateTime> ShippingConditionsDoneDate => Model.ShippingConditionsDoneDate; 
 
         /// <summary>
         /// Начало производства (расч.)
         /// </summary>
-        public System.DateTime StartProductionDateCalculated => GetValue<System.DateTime>(); 
+        public System.DateTime StartProductionDateCalculated => Model.StartProductionDateCalculated; 
 
         /// <summary>
         /// Окончание производства (расч.)
         /// </summary>
-        public System.DateTime EndProductionDateCalculated => GetValue<System.DateTime>(); 
+        public System.DateTime EndProductionDateCalculated => Model.EndProductionDateCalculated; 
 
         /// <summary>
         /// Окончание производства по договору
         /// </summary>
-        public System.DateTime EndProductionDateByContractCalculated => GetValue<System.DateTime>(); 
+        public System.DateTime EndProductionDateByContractCalculated => Model.EndProductionDateByContractCalculated; 
 
         /// <summary>
         /// Расчетная дата реализации
         /// </summary>
-        public System.DateTime RealizationDateCalculated => GetValue<System.DateTime>(); 
+        public System.DateTime RealizationDateCalculated => Model.RealizationDateCalculated; 
 
         /// <summary>
         /// Расчетная дата отгрузки
         /// </summary>
-        public System.DateTime ShipmentDateCalculated => GetValue<System.DateTime>(); 
+        public System.DateTime ShipmentDateCalculated => Model.ShipmentDateCalculated; 
 
         /// <summary>
         /// Расчетная дата доставки
         /// </summary>
-        public System.DateTime DeliveryDateCalculated => GetValue<System.DateTime>(); 
+        public System.DateTime DeliveryDateCalculated => Model.DeliveryDateCalculated; 
 
         /// <summary>
         /// Расчетный срок доставки
         /// </summary>
-        public System.Double DeliveryPeriodCalculated => GetValue<System.Double>(); 
+        public System.Double DeliveryPeriodCalculated => Model.DeliveryPeriodCalculated; 
 
         /// <summary>
         /// Адрес доставки (расчетный)
         /// </summary>
-        public HVTApp.Model.POCOs.Address AddressDeliveryCalculated => GetValue<HVTApp.Model.POCOs.Address>(); 
+        public HVTApp.Model.POCOs.Address AddressDeliveryCalculated => Model.AddressDeliveryCalculated; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -7915,7 +7920,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -7926,7 +7931,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid SenderId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.SenderId; }
           set { SetValue(value); }
         }
         public System.Guid SenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SenderId));
@@ -7937,7 +7942,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid RecipientId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.RecipientId; }
           set { SetValue(value); }
         }
         public System.Guid RecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientId));
@@ -7948,7 +7953,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -7959,7 +7964,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String TceNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.TceNumber; }
           set { SetValue(value); }
         }
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
@@ -7970,7 +7975,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8047,12 +8052,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Номер
         /// </summary>
-        public System.String RegNumber => GetValue<System.String>(); 
+        public System.String RegNumber => Model.RegNumber; 
 
         /// <summary>
         /// Направление
         /// </summary>
-        public HVTApp.Model.POCOs.DocumentDirection Direction => GetValue<HVTApp.Model.POCOs.DocumentDirection>(); 
+        public HVTApp.Model.POCOs.DocumentDirection Direction => Model.Direction; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8090,7 +8095,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -8101,7 +8106,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Sum
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Sum; }
           set { SetValue(value); }
         }
         public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
@@ -8112,7 +8117,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8137,7 +8142,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String DesignationSpecial
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.DesignationSpecial; }
           set { SetValue(value); }
         }
         public System.String DesignationSpecialOriginalValue => GetOriginalValue<System.String>(nameof(DesignationSpecial));
@@ -8148,7 +8153,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -8159,7 +8164,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8191,22 +8196,22 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Обозначение
         /// </summary>
-        public System.String Designation => GetValue<System.String>(); 
+        public System.String Designation => Model.Designation; 
 
         /// <summary>
         /// В продукте есть блоки с фиксированной ценой
         /// </summary>
-        public System.Boolean HasBlockWithFixedCost => GetValue<System.Boolean>(); 
+        public System.Boolean HasBlockWithFixedCost => Model.HasBlockWithFixedCost; 
 
         /// <summary>
         /// Тип
         /// </summary>
-        public HVTApp.Model.POCOs.ProductType ProductType => GetValue<HVTApp.Model.POCOs.ProductType>(); 
+        public HVTApp.Model.POCOs.ProductType ProductType => Model.ProductType; 
 
         /// <summary>
         /// Категория
         /// </summary>
-        public HVTApp.Model.POCOs.ProductCategory Category => GetValue<HVTApp.Model.POCOs.ProductCategory>(); 
+        public HVTApp.Model.POCOs.ProductCategory Category => Model.Category; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8239,7 +8244,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime ValidityDate
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.ValidityDate; }
           set { SetValue(value); }
         }
         public System.DateTime ValidityDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(ValidityDate));
@@ -8250,7 +8255,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Vat
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Vat; }
           set { SetValue(value); }
         }
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
@@ -8261,7 +8266,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -8272,7 +8277,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid SenderId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.SenderId; }
           set { SetValue(value); }
         }
         public System.Guid SenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SenderId));
@@ -8283,7 +8288,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid RecipientId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.RecipientId; }
           set { SetValue(value); }
         }
         public System.Guid RecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientId));
@@ -8294,7 +8299,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Comment
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Comment; }
           set { SetValue(value); }
         }
         public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
@@ -8305,7 +8310,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String TceNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.TceNumber; }
           set { SetValue(value); }
         }
         public System.String TceNumberOriginalValue => GetOriginalValue<System.String>(nameof(TceNumber));
@@ -8316,7 +8321,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8402,12 +8407,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Номер
         /// </summary>
-        public System.String RegNumber => GetValue<System.String>(); 
+        public System.String RegNumber => Model.RegNumber; 
 
         /// <summary>
         /// Направление
         /// </summary>
-        public HVTApp.Model.POCOs.DocumentDirection Direction => GetValue<HVTApp.Model.POCOs.DocumentDirection>(); 
+        public HVTApp.Model.POCOs.DocumentDirection Direction => Model.Direction; 
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8446,7 +8451,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String PersonalNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.PersonalNumber; }
           set { SetValue(value); }
         }
         public System.String PersonalNumberOriginalValue => GetOriginalValue<System.String>(nameof(PersonalNumber));
@@ -8457,7 +8462,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String PhoneNumber
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.PhoneNumber; }
           set { SetValue(value); }
         }
         public System.String PhoneNumberOriginalValue => GetOriginalValue<System.String>(nameof(PhoneNumber));
@@ -8468,7 +8473,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Email
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Email; }
           set { SetValue(value); }
         }
         public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
@@ -8479,7 +8484,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8541,7 +8546,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Number
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
@@ -8552,7 +8557,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime DateOpen
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.DateOpen; }
           set { SetValue(value); }
         }
         public System.DateTime DateOpenOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateOpen));
@@ -8563,7 +8568,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8588,7 +8593,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Part
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Part; }
           set { SetValue(value); }
         }
         public System.Double PartOriginalValue => GetOriginalValue<System.Double>(nameof(Part));
@@ -8599,7 +8604,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Int32 DaysToPoint
         {
-          get { return GetValue<System.Int32>(); }
+          get { return Model.DaysToPoint; }
           set { SetValue(value); }
         }
         public System.Int32 DaysToPointOriginalValue => GetOriginalValue<System.Int32>(nameof(DaysToPoint));
@@ -8610,7 +8615,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8652,7 +8657,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Number
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
@@ -8663,7 +8668,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Vat
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Vat; }
           set { SetValue(value); }
         }
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
@@ -8674,7 +8679,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8694,7 +8699,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Дата
         /// </summary>
-        public System.DateTime Date => GetValue<System.DateTime>(); 
+        public System.DateTime Date => Model.Date; 
         #endregion
 
         protected override void InitializeCollectionProperties()
@@ -8722,7 +8727,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -8733,7 +8738,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8795,7 +8800,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -8806,7 +8811,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean InWork
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.InWork; }
           set { SetValue(value); }
         }
         public System.Boolean InWorkOriginalValue => GetOriginalValue<System.Boolean>(nameof(InWork));
@@ -8817,7 +8822,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean ForReport
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.ForReport; }
           set { SetValue(value); }
         }
         public System.Boolean ForReportOriginalValue => GetOriginalValue<System.Boolean>(nameof(ForReport));
@@ -8828,7 +8833,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8895,7 +8900,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -8906,7 +8911,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Infrastructure.Role Role
         {
-          get { return GetValue<HVTApp.Infrastructure.Role>(); }
+          get { return Model.Role; }
           set { SetValue(value); }
         }
         public HVTApp.Infrastructure.Role RoleOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(Role));
@@ -8917,7 +8922,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -8942,7 +8947,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Number
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Number; }
           set { SetValue(value); }
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
@@ -8953,7 +8958,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime Date
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.Date; }
           set { SetValue(value); }
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
@@ -8964,7 +8969,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> SignDate
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.SignDate; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> SignDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(SignDate));
@@ -8975,7 +8980,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Double Vat
         {
-          get { return GetValue<System.Double>(); }
+          get { return Model.Vat; }
           set { SetValue(value); }
         }
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
@@ -8986,7 +8991,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -9028,7 +9033,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Link
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Link; }
           set { SetValue(value); }
         }
         public System.String LinkOriginalValue => GetOriginalValue<System.String>(nameof(Link));
@@ -9039,7 +9044,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime DateOpen
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.DateOpen; }
           set { SetValue(value); }
         }
         public System.DateTime DateOpenOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateOpen));
@@ -9050,7 +9055,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.DateTime DateClose
         {
-          get { return GetValue<System.DateTime>(); }
+          get { return Model.DateClose; }
           set { SetValue(value); }
         }
         public System.DateTime DateCloseOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateClose));
@@ -9061,7 +9066,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Nullable<System.DateTime> DateNotice
         {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          get { return Model.DateNotice; }
           set { SetValue(value); }
         }
         public System.Nullable<System.DateTime> DateNoticeOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateNotice));
@@ -9072,7 +9077,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean DidNotTakePlace
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.DidNotTakePlace; }
           set { SetValue(value); }
         }
         public System.Boolean DidNotTakePlaceOriginalValue => GetOriginalValue<System.Boolean>(nameof(DidNotTakePlace));
@@ -9083,7 +9088,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -9158,7 +9163,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Name
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Name; }
           set { SetValue(value); }
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
@@ -9169,7 +9174,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Model.POCOs.TenderTypeEnum Type
         {
-          get { return GetValue<HVTApp.Model.POCOs.TenderTypeEnum>(); }
+          get { return Model.Type; }
           set { SetValue(value); }
         }
         public HVTApp.Model.POCOs.TenderTypeEnum TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.TenderTypeEnum>(nameof(Type));
@@ -9180,7 +9185,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
@@ -9205,7 +9210,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.String Login
         {
-          get { return GetValue<System.String>(); }
+          get { return Model.Login; }
           set { SetValue(value); }
         }
         public System.String LoginOriginalValue => GetOriginalValue<System.String>(nameof(Login));
@@ -9216,7 +9221,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Password
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Password; }
           set { SetValue(value); }
         }
         public System.Guid PasswordOriginalValue => GetOriginalValue<System.Guid>(nameof(Password));
@@ -9227,7 +9232,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public HVTApp.Infrastructure.Role RoleCurrent
         {
-          get { return GetValue<HVTApp.Infrastructure.Role>(); }
+          get { return Model.RoleCurrent; }
           set { SetValue(value); }
         }
         public HVTApp.Infrastructure.Role RoleCurrentOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(RoleCurrent));
@@ -9238,7 +9243,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Boolean IsActual
         {
-          get { return GetValue<System.Boolean>(); }
+          get { return Model.IsActual; }
           set { SetValue(value); }
         }
         public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
@@ -9249,7 +9254,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public System.Guid Id
         {
-          get { return GetValue<System.Guid>(); }
+          get { return Model.Id; }
           set { SetValue(value); }
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
