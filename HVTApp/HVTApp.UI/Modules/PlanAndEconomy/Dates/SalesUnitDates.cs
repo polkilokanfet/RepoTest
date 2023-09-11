@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
@@ -9,34 +10,69 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
     {
         public string SerialNumber
         {
-            get => GetValue<string>();
-            set => SetValueNew(value);
+            get => Model.SerialNumber;
+            set
+            {
+                if (SerialNumber == value) return;
+                SetValueNew(value);
+
+                if (int.TryParse(value, out var serialNumber) &&
+                    int.TryParse(Model.OrderPosition, out var orderPosition))
+                {
+                    SerialNumberSetIntEvent?.Invoke(serialNumber - orderPosition);
+                }
+                else
+                {
+                    SerialNumberSetStringEvent?.Invoke(value);
+                }
+            }
         }
+
+        public void SetSerialNumber(int sn)
+        {
+            if (string.IsNullOrWhiteSpace(SerialNumber) &&
+                int.TryParse(Model.OrderPosition, out var orderPosition))
+            {
+                this.SerialNumber = (sn + orderPosition).ToString();
+            }
+        }
+
+        public void SetSerialNumber(string sn)
+        {
+            if (string.IsNullOrWhiteSpace(SerialNumber))
+            {
+                this.SerialNumber = sn;
+            }
+        }
+
+        public event Action<int> SerialNumberSetIntEvent;
+        public event Action<string> SerialNumberSetStringEvent;
+
+        #region Dates
 
         public DateTime? PickingDate
         {
-            get => GetValue<DateTime?>();
+            get => Model.PickingDate;
             set
             {
                 var date = EndProductionDate ?? ShipmentDate ?? DeliveryDate ?? RealizationDate;
-                if (date.HasValue && value.HasValue && date < value)
-                    return;
+                if (date < value) return;
                 SetDate(value);
             }
         }
 
         public DateTime? EndProductionDate
         {
-            get => GetValue<DateTime?>();
+            get => Model.EndProductionDate;
             set
             {
                 if (value.HasValue)
                 {
-                    if (PickingDate.HasValue && PickingDate > value)
+                    if (PickingDate > value)
                         return;
 
                     var date = ShipmentDate ?? DeliveryDate ?? RealizationDate;
-                    if (date.HasValue && date < value)
+                    if (date < value)
                         return;
                 }
 
@@ -46,16 +82,16 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? ShipmentDate
         {
-            get => GetValue<DateTime?>();
+            get => Model.ShipmentDate;
             set
             {
                 if (value.HasValue)
                 {
-                    if (DeliveryDate.HasValue && DeliveryDate < value)
+                    if (DeliveryDate < value)
                         return;
 
                     var date = EndProductionDate ?? PickingDate;
-                    if (date.HasValue && date > value)
+                    if (date > value)
                         return;
                 }
 
@@ -65,11 +101,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? DeliveryDate
         {
-            get => GetValue<DateTime?>();
+            get => Model.DeliveryDate;
             set
             {
                 var date = ShipmentDate ?? EndProductionDate ?? PickingDate;
-                if (date.HasValue && value.HasValue && date > value)
+                if (date > value)
                     return;
                 SetDate(value);
             }
@@ -77,22 +113,24 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? RealizationDate
         {
-            get => GetValue<DateTime?>();
+            get => Model.RealizationDate;
             set
             {
                 if (value.HasValue)
                 {
                     var date = EndProductionDate ?? PickingDate;
-                    if(date.HasValue && date > value)
+                    if(date > value)
                         return;
                 }
                 SetDate(value);
             }
         }
+        
+        #endregion
 
-        public bool HasFullInformation => !string.IsNullOrEmpty(SerialNumber) &&
-                                          PickingDate.HasValue && 
-                                          EndProductionDate.HasValue && 
+        public bool HasFullInformation => (string.IsNullOrEmpty(SerialNumber) == false || Model.Product.ProductBlock.IsService) &&
+                                          PickingDate.HasValue &&
+                                          EndProductionDate.HasValue &&
                                           ShipmentDate.HasValue &&
                                           DeliveryDate.HasValue && RealizationDate.HasValue;
 
@@ -116,26 +154,29 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             if (RealizationDate == null)
             {
                 RealizationDate = Model.ShipmentDate;
-                SettedCalculatedRealizationDate?.Invoke(RealizationDate.Value);
+                CalculatedRealizationDateSetEvent?.Invoke(RealizationDate.Value);
             }
 
             if (DeliveryDate == null)
             {
                 DeliveryDate = Model.DeliveryDateCalculated;
-                SettedCalculatedDeliveryDate?.Invoke(DeliveryDate.Value);
+                CalculatedDeliveryDateSetEvent?.Invoke(DeliveryDate.Value);
             }
         }
 
-        public event Action SettedValueToProperty;
-        public event Action<DateTime> SettedCalculatedRealizationDate;
-        public event Action<DateTime> SettedCalculatedDeliveryDate;
+        /// <summary>
+        /// Событие установки свойства
+        /// </summary>
+        public event Action ValueSetToPropertyEvent;
+        public event Action<DateTime> CalculatedRealizationDateSetEvent;
+        public event Action<DateTime> CalculatedDeliveryDateSetEvent;
 
         private void SetValueNew<TValue>(TValue newValue, [CallerMemberName] string propertyName = null)
         {
             this.SetValue(newValue, propertyName);
-            OnPropertyChanged(nameof(HasFullInformation));
-            OnPropertyChanged(nameof(IsCompleted));
-            SettedValueToProperty?.Invoke();
+            RaisePropertyChanged(nameof(HasFullInformation));
+            RaisePropertyChanged(nameof(IsCompleted));
+            ValueSetToPropertyEvent?.Invoke();
         }
 
         /// <summary>

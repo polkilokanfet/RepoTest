@@ -19,9 +19,11 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
         public List<SalesUnitDates> Units { get; }
         public SalesUnit Model => Units.First().Model;
 
+        #region Dates
+
         public DateTime? PickingDate
         {
-            get { return _pickingDate; }
+            get => _pickingDate;
             set
             {
                 Units.ForEach(x => x.PickingDate = value);
@@ -31,7 +33,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? EndProductionDate
         {
-            get { return _endProductionDate; }
+            get => _endProductionDate;
             set
             {
                 Units.ForEach(x => x.EndProductionDate = value);
@@ -41,7 +43,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? ShipmentDate
         {
-            get { return _shipmentDate; }
+            get => _shipmentDate;
             set
             {
                 Units.ForEach(x => x.ShipmentDate = value);
@@ -51,7 +53,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? DeliveryDate
         {
-            get { return _deliveryDate; }
+            get => _deliveryDate;
             set
             {
                 Units.ForEach(x => x.DeliveryDate = value);
@@ -61,7 +63,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public DateTime? RealizationDate
         {
-            get { return _realizationDate; }
+            get => _realizationDate;
             set
             {
                 Units.ForEach(x => x.RealizationDate = value);
@@ -69,8 +71,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             }
         }
 
-        public string OrderPosition { get; } = "...";
-        public string SerialNumber { get; } = "...";
+        #endregion
+
+        public string SerialNumber
+        {
+            get => "...";
+            set => this.Units.ForEach(x => x.SerialNumber = value);
+        }
 
         public bool HasFullInformation => Units.All(x => x.HasFullInformation);
 
@@ -83,25 +90,29 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
         public SalesUnitDatesGroup(IEnumerable<SalesUnitDates> salesUnits)
         {
             Units = salesUnits.ToList();
-            Units.ForEach(x =>
+            Units.ForEach(unit =>
             {
-                x.SettedValueToProperty += () =>
+                unit.ValueSetToPropertyEvent += () =>
                 {
                     OnPropertyChanged(nameof(HasFullInformation));
                     OnPropertyChanged(nameof(IsCompleted));
                 };
 
-                x.SettedCalculatedDeliveryDate += date =>
+                unit.CalculatedDeliveryDateSetEvent += date =>
                 {
                     _deliveryDate = date;
                     OnPropertyChanged(nameof(DeliveryDate));
                 };
 
-                x.SettedCalculatedRealizationDate += date =>
+                unit.CalculatedRealizationDateSetEvent += date =>
                 {
                     _realizationDate = date;
                     OnPropertyChanged(nameof(RealizationDate));
                 };
+
+
+                unit.SerialNumberSetIntEvent += sn => { this.Units.ForEach(x => x.SetSerialNumber(sn)); };
+                unit.SerialNumberSetStringEvent += sn => { this.Units.ForEach(x => x.SetSerialNumber(sn)); };
             });
 
 

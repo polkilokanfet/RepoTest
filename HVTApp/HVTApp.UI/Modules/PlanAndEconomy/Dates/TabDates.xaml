@@ -3,13 +3,23 @@
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                                  x:Class="HVTApp.UI.Modules.PlanAndEconomy.Dates.TabDates"
-                                 Header="Даты">
+                                 Header="Фактические даты">
+
+    <infRib:RibbonGroup Caption="Данные">
+        <StackPanel>
+            <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+        </StackPanel>
+    </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
         <StackPanel>
-            <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
             <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
-            <CheckBox IsChecked="{Binding AutoFillingDates, Mode=TwoWay}" Content="Автозаполнение"/>
+        </StackPanel>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Автозаполнение">
+        <StackPanel>
+            <CheckBox IsChecked="{Binding AutoFillingDates, Mode=TwoWay}" Content="Использовать"/>
         </StackPanel>
     </infRib:RibbonGroup>
 
