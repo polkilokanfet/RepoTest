@@ -148,6 +148,9 @@ namespace HVTApp.Services.PrintService
             ParagraphProperties parPropRight = docWriter.CreateParagraphProperties();
             parPropRight.Alignment = ParagraphAlignment.Right;
 
+            var dr2 = MessageService.ShowYesNoMessageDialog("Обозначение", "Использовать полное обозначение оборудования?", defaultYes: true);
+            bool printFullDesignation = dr2 == MessageDialogResult.Yes;
+
             foreach (var offerUnitsGroupsByFacility in offerUnitsGroupsByFacilities)
             {
                 //Название объекта
@@ -164,9 +167,9 @@ namespace HVTApp.Services.PrintService
                     docWriter.StartTableRow();
 
                     docWriter.PrintTableCell(offerUnitsGroup.Position.ToString(), tableCellProperties); //номер строки ТКП
-                    docWriter.PrintTableCell(offerUnitsGroup.Model.Product.ProductType?.Name, tableCellProperties);
-                    //тип оборудования
-                    docWriter.PrintTableCell(offerUnitsGroup.Model.Product.Designation, tableCellProperties); //обозначение
+                    docWriter.PrintTableCell(offerUnitsGroup.Model.Product.ProductType?.Name, tableCellProperties); //тип оборудования
+                    var des = printFullDesignation ? offerUnitsGroup.Model.Product.Designation : offerUnitsGroup.Model.Product.Category.NameShort;
+                    docWriter.PrintTableCell(des, tableCellProperties); //обозначение
                     docWriter.PrintTableCell($"{offerUnitsGroup.Amount:D}", tableCellProperties, parPropRight); //колличество
                     docWriter.PrintTableCell($"{offerUnitsGroup.Cost:N}", tableCellProperties, parPropRight); //стоимость
                     docWriter.PrintTableCell($"{offerUnitsGroup.Total:N}", tableCellProperties, parPropRight); //сумма
