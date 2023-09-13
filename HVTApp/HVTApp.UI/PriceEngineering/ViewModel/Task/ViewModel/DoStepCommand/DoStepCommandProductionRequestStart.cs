@@ -42,7 +42,8 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
             //проверка на непринятые блоки
             var tasks = priceEngineeringTask.GetAllPriceEngineeringTasks().ToList();
-            var notAccepted = tasks.Where(task => Step.PossiblePreviousSteps.Contains(task.Status) == false).ToList();
+            var possiblePreviousSteps = Step.PossiblePreviousSteps.Union(new[] {ScriptStep.ProductionRequestStart});
+            var notAccepted = tasks.Where(task => possiblePreviousSteps.Contains(task.Status) == false).ToList();
             if (notAccepted.Any())
             {
                 MessageService.ShowOkMessageDialog("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
