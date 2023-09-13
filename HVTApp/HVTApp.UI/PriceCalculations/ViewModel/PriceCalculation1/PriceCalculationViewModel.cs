@@ -5,6 +5,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -119,6 +120,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
         public DelegateLogCommand ChangePaymentsCommand { get; }
 
+        public DelegateLogCommand LoadCostsFromFileCommand { get; }
+
         #endregion
 
         public PriceCalculation2Wrapper PriceCalculationWrapper
@@ -183,6 +186,26 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                     }
                 },
                 () => IsStarted == false && IsFinished == false);
+
+            LoadCostsFromFileCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var path = container.Resolve<IGetFilePaths>().GetFilePath();
+                    if (path == default) return;
+
+                    var sccs = this.PriceCalculationWrapper.PriceCalculationItems
+                        .SelectMany(x => x.StructureCosts)
+                        .ToList();
+
+                    var costs = container.Resolve<IGetCostsFromExcelFileService>().GetCostsDictionary(path);
+                    foreach (var cost in costs)
+                    {
+                        foreach (var scc in sccs.Where(x => cost.Key.ToLower().Contains(x.Number.ToLower())))
+                        {
+                            scc.UnitPrice = cost.Value;
+                        }
+                    }
+                });
 
             PriceCalculationWrapper = new PriceCalculation2Wrapper(new PriceCalculation());
             GenerateNewHistoryItem();

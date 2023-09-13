@@ -32,8 +32,8 @@
     <InstallUrl>\\uetm\data\ОП ВВА\BaseVVA\Storage\App\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.433</MinimumRequiredVersion>
-    <ApplicationRevision>434</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.434</MinimumRequiredVersion>
+    <ApplicationRevision>435</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -355,6 +355,14 @@
     <ProjectReference Include="..\HVTApp.Services.FileManagerService\HVTApp.Services.FileManagerService.csproj">
       <Project>{208fe134-b150-4f95-9e2b-8cc61ae7e501}</Project>
       <Name>HVTApp.Services.FileManagerService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.GetCostsFromExcelFileService\HVTApp.Services.GetCostsFromExcelFileService.csproj">
+      <Project>{EBAF88C1-6261-4C55-851A-D9E8EDDAED66}</Project>
+      <Name>HVTApp.Services.GetCostsFromExcelFileService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.GetFilePathsService\HVTApp.Services.GetFilePathsService.csproj">
+      <Project>{149FD7AD-7C60-418E-8D6D-20B7CB5B0F41}</Project>
+      <Name>HVTApp.Services.GetFilePathsService</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.JsonService\HVTApp.Services.JsonService.csproj">
       <Project>{5F4D479A-70DD-4D9A-9812-9544D741FBA9}</Project>

@@ -108,24 +108,18 @@ namespace HVTApp.UI.PriceEngineering
             AddTechnicalRequirementsFilesCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var openFileDialog = new OpenFileDialog
-                    {
-                        Multiselect = true,
-                        RestoreDirectory = true
-                    };
+                    var fileNames = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
+                    if (fileNames.Any() == false) return;
 
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    //копируем каждый файл
+                    foreach (var fileName in fileNames)
                     {
-                        //копируем каждый файл
-                        foreach (var fileName in openFileDialog.FileNames)
+                        var fileWrapper = new PriceEngineeringTaskFileTechnicalRequirementsWrapper(new PriceEngineeringTaskFileTechnicalRequirements())
                         {
-                            var fileWrapper = new PriceEngineeringTaskFileTechnicalRequirementsWrapper(new PriceEngineeringTaskFileTechnicalRequirements())
-                            {
-                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(200),
-                                Path = fileName
-                            };
-                            this.FilesTechnicalRequirements.Add(fileWrapper);
-                        }
+                            Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(200),
+                            Path = fileName
+                        };
+                        this.FilesTechnicalRequirements.Add(fileWrapper);
                     }
                 }, 
                 () => IsEditMode);

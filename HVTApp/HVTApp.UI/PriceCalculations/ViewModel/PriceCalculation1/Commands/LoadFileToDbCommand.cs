@@ -1,7 +1,9 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -17,38 +19,32 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            var openFileDialog = new OpenFileDialog
+            var fileNames = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
+            if (fileNames.Any() == false) return;
+
+            var rootDirectoryPath = GlobalAppProperties.Actual.PriceCalculationsFilesPath;
+
+            //копируем каждый файл
+            foreach (var fileName in fileNames)
             {
-                Multiselect = false,
-                RestoreDirectory = true
-            };
+                var fileWrapper = new PriceCalculationFileWrapper(new PriceCalculationFile());
+                try
+                {
+                    File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
+                    ViewModel.PriceCalculationWrapper.Files.Add(fileWrapper);
+                }
+                catch (Exception e)
+                {
+                    MessageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
+                }
+            }
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            ViewModel.CalculationHasFileOnPropertyChanged();
+
+            //костыль
+            if ((ViewModel.SaveCommand).CanExecute())
             {
-                var rootDirectoryPath = GlobalAppProperties.Actual.PriceCalculationsFilesPath;
-
-                //копируем каждый файл
-                foreach (var fileName in openFileDialog.FileNames)
-                {
-                    var fileWrapper = new PriceCalculationFileWrapper(new PriceCalculationFile());
-                    try
-                    {
-                        File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                        ViewModel.PriceCalculationWrapper.Files.Add(fileWrapper);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                    }
-                }
-
-                ViewModel.CalculationHasFileOnPropertyChanged();
-
-                //костыль
-                if ((ViewModel.SaveCommand).CanExecute())
-                {
-                    (ViewModel.SaveCommand).Execute();
-                }
+                (ViewModel.SaveCommand).Execute();
             }
         }
     }

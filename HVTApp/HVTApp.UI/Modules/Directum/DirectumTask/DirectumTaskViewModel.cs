@@ -503,28 +503,22 @@ namespace HVTApp.UI.Modules.Directum
             AddFileCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var openFileDialog = new OpenFileDialog
-                    {
-                        Multiselect = true,
-                        RestoreDirectory = true
-                    };
+                    var fileNames = container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
+                    if (fileNames.Any() == false) return;
 
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    User currentUser = UnitOfWork.Repository<User>().GetById(_currentUserId);
+                    UserWrapper currentUserWrapper = new UserWrapper(currentUser);
+                    //копируем каждый файл
+                    foreach (var path in fileNames)
                     {
-                        User currentUser = UnitOfWork.Repository<User>().GetById(_currentUserId);
-                        UserWrapper currentUserWrapper = new UserWrapper(currentUser);
-                        //копируем каждый файл
-                        foreach (var path in openFileDialog.FileNames)
+                        var fileWrapper = new DirectumTaskGroupFileWrapper(new DirectumTaskGroupFile())
                         {
-                            var fileWrapper = new DirectumTaskGroupFileWrapper(new DirectumTaskGroupFile())
-                            {
-                                Name = Path.GetFileNameWithoutExtension(path).LimitLength(255),
-                                Author = currentUserWrapper
-                            };
-                            _filesToAdd.Add(fileWrapper, path);
-                            this.DirectumTask.Group.Files.Add(fileWrapper);
-                            this.Files.Add(fileWrapper);
-                        }
+                            Name = Path.GetFileNameWithoutExtension(path).LimitLength(255),
+                            Author = currentUserWrapper
+                        };
+                        _filesToAdd.Add(fileWrapper, path);
+                        this.DirectumTask.Group.Files.Add(fileWrapper);
+                        this.Files.Add(fileWrapper);
                     }
                 },
                 () =>

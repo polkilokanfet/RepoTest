@@ -47,19 +47,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             AddFilesCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var openFileDialog = new OpenFileDialog
-                    {
-                        Multiselect = true,
-                        RestoreDirectory = true
-                    };
+                    var fileNames = container.Resolve<IGetFilePaths>().GetFilePaths();
 
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    var rootDirectoryPath = _fileManagerService.GetPath(Item.Model);
+                    foreach (var fileName in fileNames)
                     {
-                        var rootDirectoryPath = _fileManagerService.GetPath(Item.Model);
-                        foreach (var fileName in openFileDialog.FileNames)
-                        {
-                            File.Copy(fileName, $"{rootDirectoryPath}\\{Path.GetFileName(fileName)}");
-                        }
+                        File.Copy(fileName, $"{rootDirectoryPath}\\{Path.GetFileName(fileName)}");
                     }
                 });
         }

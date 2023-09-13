@@ -194,24 +194,18 @@ namespace HVTApp.UI.PriceEngineering
             AddAnswerFilesCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var openFileDialog = new OpenFileDialog
-                    {
-                        Multiselect = true,
-                        RestoreDirectory = true
-                    };
+                    var fileNames = container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
+                    if (fileNames.Any() == false) return;
 
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    //копируем каждый файл
+                    foreach (var fileName in fileNames)
                     {
-                        //копируем каждый файл
-                        foreach (var fileName in openFileDialog.FileNames)
+                        var fileWrapper = new PriceEngineeringTaskFileAnswerWrapper(new PriceEngineeringTaskFileAnswer())
                         {
-                            var fileWrapper = new PriceEngineeringTaskFileAnswerWrapper(new PriceEngineeringTaskFileAnswer())
-                            {
-                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50),
-                                Path = fileName
-                            };
-                            this.FilesAnswers.Add(fileWrapper);
-                        }
+                            Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50),
+                            Path = fileName
+                        };
+                        this.FilesAnswers.Add(fileWrapper);
                     }
                 },
                 () => IsTarget && IsEditMode == true);

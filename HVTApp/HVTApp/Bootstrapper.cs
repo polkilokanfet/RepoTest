@@ -40,6 +40,8 @@ using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.EmailService;
 using HVTApp.Services.FileManagerService;
+using HVTApp.Services.GetCostsFromExcelFileService;
+using HVTApp.Services.GetFilePathsService;
 using HVTApp.Services.JsonService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.MessagesOutlookService;
@@ -131,6 +133,8 @@ namespace HVTApp
             Container.RegisterType<IFileManagerService, FileManagerService1>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFilesStorageService, FilesStorageService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IJsonService, ServiceJson>();
+            Container.RegisterType<IGetCostsFromExcelFileService, GetCostsFromExcelFileService1>();
+            Container.RegisterType<IGetFilePaths, GetFilePathsService1>();
 
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<EventServiceUnitWatcher>(new ContainerControlledLifetimeManager());

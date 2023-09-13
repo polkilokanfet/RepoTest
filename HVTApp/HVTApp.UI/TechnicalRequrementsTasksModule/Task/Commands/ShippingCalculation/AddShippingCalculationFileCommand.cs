@@ -1,7 +1,9 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -17,18 +19,14 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            var openFileDialog = new OpenFileDialog
-            {
-                Multiselect = true,
-                RestoreDirectory = true
-            };
+            var fileNames = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (fileNames.Any())
             {
                 var rootDirectoryPath = GlobalAppProperties.Actual.ShippingCostFilesPath;
 
                 //копируем каждый файл
-                foreach (var fileName in openFileDialog.FileNames)
+                foreach (var fileName in fileNames)
                 {
                     try
                     {

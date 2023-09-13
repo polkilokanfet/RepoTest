@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
@@ -19,30 +20,24 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            var openFileDialog = new OpenFileDialog
-            {
-                Multiselect = true,
-                RestoreDirectory = true
-            };
+            var fileNames = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
+            if (fileNames.Any() == false) return;
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+            var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
 
-                //копируем каждый файл
-                foreach (var fileName in openFileDialog.FileNames)
+            //копируем каждый файл
+            foreach (var fileName in fileNames)
+            {
+                var fileWrapper = new TechnicalRequrementsFileWrapper(new TechnicalRequrementsFile());
+                try
                 {
-                    var fileWrapper = new TechnicalRequrementsFileWrapper(new TechnicalRequrementsFile());
-                    try
-                    {
-                        File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                        fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50);
-                        ((TechnicalRequrements2Wrapper)ViewModel.SelectedItem).Files.Add(fileWrapper);
-                    }
-                    catch (Exception e)
-                    {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                    }
+                    File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
+                    fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50);
+                    ((TechnicalRequrements2Wrapper)ViewModel.SelectedItem).Files.Add(fileWrapper);
+                }
+                catch (Exception e)
+                {
+                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.PrintAllExceptions());
                 }
             }
         }

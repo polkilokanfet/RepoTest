@@ -71,27 +71,21 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             AddFileTechnicalRequirementsCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var openFileDialog = new OpenFileDialog
-                    {
-                        Multiselect = true,
-                        RestoreDirectory = true
-                    };
+                    var fileNames = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
+                    if (fileNames.Any() == false) return;
 
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    //копируем каждый файл
+                    foreach (var fileName in fileNames)
                     {
-                        //копируем каждый файл
-                        foreach (var fileName in openFileDialog.FileNames)
+                        var fileWrapper = new PriceEngineeringTasksFileTechnicalRequirementsWrapper(new PriceEngineeringTasksFileTechnicalRequirements())
                         {
-                            var fileWrapper = new PriceEngineeringTasksFileTechnicalRequirementsWrapper(new PriceEngineeringTasksFileTechnicalRequirements())
-                            {
-                                Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50),
-                                Path = fileName
-                            };
-                            this.TasksWrapper.FilesTechnicalRequirements.Add(fileWrapper);
-                        }
-
-                        //RaisePropertyChanged(nameof(this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements));
+                            Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50),
+                            Path = fileName
+                        };
+                        this.TasksWrapper.FilesTechnicalRequirements.Add(fileWrapper);
                     }
+
+                    //RaisePropertyChanged(nameof(this.PriceEngineeringTasksWrapper.FilesTechnicalRequirements));
                 },
                 () => AllowEditProps);
 
