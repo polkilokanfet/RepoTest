@@ -13,7 +13,7 @@ namespace HVTApp.Services.GetCostsFromExcelFileService
         {
             var result = new Dictionary<string, double>();
 
-            var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using (var reader = ExcelReaderFactory.CreateReader(stream))
             {
                 var dataSet = reader.AsDataSet();
@@ -26,6 +26,8 @@ namespace HVTApp.Services.GetCostsFromExcelFileService
                     result.Add(dataRow[2].ToString(), (double)dataRow[26]);
                 }
             }
+
+            stream?.Close();
 
             return result;
         }
