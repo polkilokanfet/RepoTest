@@ -325,6 +325,10 @@ namespace HVTApp.UI.PriceEngineering
             //task.ProductBlocksAdded.ForEach(x => unitOfWork.RemoveEntity(x));
             //task.Statuses.ForEach(x => unitOfWork.RemoveEntity(x));
 
+            task.ProductBlocksAdded
+                .SelectMany(blockAdded => blockAdded.StructureCostVersions)
+                .ForEach(structureCostVersion => unitOfWork.RemoveEntity(structureCostVersion));
+
             unitOfWork.RemoveEntity(task);
 
             unitOfWork.SaveChanges();
