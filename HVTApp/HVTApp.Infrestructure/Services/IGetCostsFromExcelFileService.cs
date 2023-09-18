@@ -4,6 +4,7 @@ namespace HVTApp.Infrastructure.Services
 {
     public interface IGetCostsFromExcelFileService
     {
-        Dictionary<string, double> GetCostsDictionary(string path);
+        Dictionary<string, double> GetCostsDictionaryFromR3File(string path);
+        Dictionary<string, double> GetCostsDictionaryFromCalculationFile(string path);
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -19,33 +20,52 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            var fileNames = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
-            if (fileNames.Any() == false) return;
+            var filePath = Container.Resolve<IGetFilePaths>().GetFilePath();
+            if (string.IsNullOrEmpty(filePath)) return;
 
+            //копируем файл
+            var fileWrapper = new PriceCalculationFileWrapper(new PriceCalculationFile());
             var rootDirectoryPath = GlobalAppProperties.Actual.PriceCalculationsFilesPath;
-
-            //копируем каждый файл
-            foreach (var fileName in fileNames)
+            var destPath = $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(filePath)}";
+            try
             {
-                var fileWrapper = new PriceCalculationFileWrapper(new PriceCalculationFile());
-                try
-                {
-                    File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                    ViewModel.PriceCalculationWrapper.Files.Add(fileWrapper);
-                }
-                catch (Exception e)
-                {
-                    MessageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
-                }
+                File.Copy(filePath, destPath);
+                ViewModel.PriceCalculationWrapper.Files.Add(fileWrapper);
+            }
+            catch (Exception e)
+            {
+                MessageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
+                return;
             }
 
             ViewModel.CalculationHasFileOnPropertyChanged();
 
             //костыль
-            if ((ViewModel.SaveCommand).CanExecute())
+            if (ViewModel.SaveCommand.CanExecute())
             {
-                (ViewModel.SaveCommand).Execute();
+                ViewModel.SaveCommand.Execute();
             }
+
+            var dialogResult = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Скопировать данные из загруженного расчёта?", defaultYes:true);
+            if (dialogResult == MessageDialogResult.Yes)
+                LoadCostsFromFile(destPath);
+        }
+
+        private void LoadCostsFromFile(string path)
+        {
+            var sccs = ViewModel.PriceCalculationWrapper.PriceCalculationItems
+                .SelectMany(x => x.StructureCosts)
+                .ToList();
+
+            var costs = Container.Resolve<IGetCostsFromExcelFileService>().GetCostsDictionaryFromCalculationFile(path);
+            foreach (var cost in costs)
+            {
+                foreach (var scc in sccs.Where(x => cost.Key.ToLower().Equals(x.Number.ToLower())))
+                {
+                    scc.UnitPrice = cost.Value;
+                }
+            }
+
         }
     }
 }

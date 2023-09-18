@@ -197,7 +197,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                         .SelectMany(x => x.StructureCosts)
                         .ToList();
 
-                    var costs = container.Resolve<IGetCostsFromExcelFileService>().GetCostsDictionary(path);
+                    var costs = container.Resolve<IGetCostsFromExcelFileService>().GetCostsDictionaryFromR3File(path);
                     foreach (var cost in costs)
                     {
                         foreach (var scc in sccs.Where(x => cost.Key.ToLower().Contains(x.Number.ToLower())))
