@@ -418,7 +418,6 @@ namespace HVTApp.Model.POCOs
 
             protected override IEnumerable<Role> RolesForShow => new[]
             {
-                Role.SalesManager,
                 Role.BackManagerBoss,
                 Role.PlanMaker
             };

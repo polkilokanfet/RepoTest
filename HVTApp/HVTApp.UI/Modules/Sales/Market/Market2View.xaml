@@ -107,9 +107,9 @@
                                     <dp:TextField AlternateBinding="{Binding Project.Name}" BindingType="UseAlternateBinding" Label="Название" Width="350"/>
                                     <dp:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                                     <dp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" AllowResize="False"/>
-                                    <dp:TextField AlternateBinding="{Binding Builder}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="150"/>
-                                    <dp:TextField AlternateBinding="{Binding ProjectMaker}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="150"/>
-                                    <dp:TextField AlternateBinding="{Binding Supplier}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Поставщик" Width="150"/>
+                                    <dp:TextField AlternateBinding="{Binding Builder}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="120"/>
+                                    <dp:TextField AlternateBinding="{Binding ProjectMaker}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="120"/>
+                                    <dp:TextField AlternateBinding="{Binding Supplier}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Поставщик" Width="120"/>
                                     <dp:TextField AlternateBinding="{Binding Project.ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
                                     <dp:TextField AlternateBinding="{Binding ProductsInProject}" BindingType="UseAlternateBinding" Label="Номенклатура" Width="150"/>
                                     <dp:TextField AlternateBinding="{Binding FacilitiesOwners}" BindingType="UseAlternateBinding" Label="Владельцы объектов" Width="150" Converter="{StaticResource ObjectsToStringConverter}"/>
