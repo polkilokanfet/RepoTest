@@ -93,7 +93,7 @@ namespace HVTApp.Model.POCOs
         public bool RequestForVerificationFromConstructor { get; set; } = false;
 
         [Designation("ТЗ валидно для производства"), OrderStatus(36)]
-        public bool IsValidForProduction { get; set; }
+        public bool IsValidForProduction { get; set; } = true;
 
         [Designation("Позиция в ТСЕ"), MaxLength(4)]
         public string TcePosition { get; set; }
