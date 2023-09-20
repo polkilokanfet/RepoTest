@@ -29,8 +29,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool SetSameStatusOnSubTasks => true;
 
+        /// <summary>
+        /// Требуется разослать уведомления
+        /// </summary>
+        private bool _allowNotification;
+
         protected override void DoStepAction()
         {
+            _allowNotification = false;
+
             var priceEngineeringTask = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id);
 
             //проверка на наличие з/з
@@ -58,6 +65,8 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 return;
             }
 
+            _allowNotification = true;
+
             var now = DateTime.Now;
             foreach (var salesUnit in ViewModel.SalesUnits)
             {
@@ -65,6 +74,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
 
             base.DoStepAction();
+        }
+
+        protected override void SendNotification()
+        {
+            if (_allowNotification)
+                base.SendNotification();
         }
     }
 }
