@@ -122,5 +122,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Параметр блока ТТ по заказу"), OrderStatus(-200)]
         public virtual Parameter ParameterCurrentTransformersSetCustom { get; set; }
+
+        [Designation("Путь к файлу с датами комплектации заказов")]
+        public string PickingDatesFilePath { get; set; }
     }
 }

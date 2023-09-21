@@ -133,7 +133,7 @@ namespace HVTApp
             Container.RegisterType<IFileManagerService, FileManagerService1>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFilesStorageService, FilesStorageService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IJsonService, ServiceJson>();
-            Container.RegisterType<IGetCostsFromExcelFileService, GetCostsFromExcelFileService1>();
+            Container.RegisterType<IGetInformationFromExcelFileService, GetInformationFromExcelFileService1>();
             Container.RegisterType<IGetFilePaths, GetFilePathsService1>();
 
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());

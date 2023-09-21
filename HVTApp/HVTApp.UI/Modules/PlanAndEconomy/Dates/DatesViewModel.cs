@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
@@ -21,6 +23,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
         public ObservableCollection<SalesUnitDatesGroup> Groups { get; } = new ObservableCollection<SalesUnitDatesGroup>();
 
         public DelegateLogCommand SaveCommand { get; }
+        public DelegateLogCommand LoadPickingDatesCommand { get; }
 
         public bool AutoFillingDates { get; set; } = true;
 
@@ -45,6 +48,32 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                 () => _salesUnits != null &&
                       _salesUnits.IsValid &&
                       _salesUnits.IsChanged);
+
+            LoadPickingDatesCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var dic = container.Resolve<IGetInformationFromExcelFileService>()
+                        .GetPickingDatesFromFile(GlobalAppProperties.Actual.PickingDatesFilePath);
+
+                    var targetGroups = this.Groups.Where(x => string.IsNullOrWhiteSpace(x.Model.Order?.Number) == false).ToList();
+
+                    foreach (var m1 in dic)
+                    {
+                        foreach (var datesGroup in targetGroups.Where(x => x.Model.Order.Number.Trim() == m1.Key))
+                        {
+                            var targetUnits = datesGroup.Units.Where(x =>
+                                string.IsNullOrWhiteSpace(x.SerialNumber) == false &&
+                                int.TryParse(x.Model.OrderPosition.Trim(), out _)).ToList();
+
+                            foreach (var unit in targetUnits)
+                            {
+                                var position = int.Parse(unit.Model.OrderPosition.Trim());
+                                if (m1.Value.ContainsKey(position) == false) return;
+                                unit.PickingDate = m1.Value[position];
+                            }
+                        }
+                    }
+                });
         }
 
         private IOrderedEnumerable<SalesUnitDatesGroup> _groups;

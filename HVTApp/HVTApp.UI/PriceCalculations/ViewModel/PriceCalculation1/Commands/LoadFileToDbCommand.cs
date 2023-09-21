@@ -57,7 +57,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                 .SelectMany(x => x.StructureCosts)
                 .ToList();
 
-            var costs = Container.Resolve<IGetCostsFromExcelFileService>().GetCostsDictionaryFromCalculationFile(path);
+            var costs = Container.Resolve<IGetInformationFromExcelFileService>().GetCostsDictionaryFromCalculationFile(path);
             foreach (var cost in costs)
             {
                 foreach (var scc in sccs.Where(x => cost.Key.ToLower().Equals(x.Number.ToLower())))
