@@ -24,7 +24,9 @@ namespace HVTApp.Services.GetCostsFromExcelFileService
                     if (dataRow.ItemArray[2] is DBNull) continue;
                     if (dataRow[26] is double == false) continue;
 
-                    result.Add(dataRow[2].ToString(), (double)dataRow[26]);
+                    var key = dataRow[2].ToString();
+                    if (result.ContainsKey(key)) continue;
+                    result.Add(key, (double)dataRow[26]);
                 }
             }
 
@@ -51,7 +53,9 @@ namespace HVTApp.Services.GetCostsFromExcelFileService
                     if (dataRow.ItemArray[3] is DBNull) continue;
                     if (dataRow[5] is double == false) continue;
 
-                    result.Add(dataRow[3].ToString().Trim(), (double)dataRow[5]);
+                    var key = dataRow[3].ToString().Trim();
+                    if (result.ContainsKey(key)) continue;
+                    result.Add(key, (double)dataRow[5]);
                 }
             }
 
