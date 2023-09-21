@@ -1566,10 +1566,12 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectPriceCalculationCommand_Execute_Default() 
 		{
+            //SelectAndSetWrapper<PriceCalculation, PriceCalculationWrapper>(_getEntitiesForSelectPriceCalculationCommand(), nameof(Item.PriceCalculation), Item.PriceCalculation?.Id);
 		}
 
 		private void ClearPriceCalculationCommand_Execute_Default() 
 		{
+						//Item.PriceCalculation = null;		    
 		}
 
 		private void SelectPaymentConditionSetCommand_Execute_Default() 
@@ -1788,6 +1790,7 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand ClearStatusCommand { get; private set; }
 
 		//private Func<Task<List<IEnumerable`1>>> _getEntitiesForSelectStatusesAllCommand;
+		//private Func<List<IEnumerable`1>> _getEntitiesForSelectStatusesAllCommand;
 		public DelegateLogCommand SelectStatusesAllCommand { get; private set; }
 		public DelegateLogCommand ClearStatusesAllCommand { get; private set; }
 
@@ -1973,10 +1976,12 @@ namespace HVTApp.UI.ViewModels
 			if (ClearProductBlockEngineerCommand == null) ClearProductBlockEngineerCommand = new DelegateLogCommand(ClearProductBlockEngineerCommand_Execute_Default);
 
 			
+			//if (_getEntitiesForSelectStatusCommand == null) _getEntitiesForSelectStatusCommand = () => { return UnitOfWork.Repository<ScriptStep>().GetAll(); };
 			if (SelectStatusCommand == null) SelectStatusCommand = new DelegateLogCommand(SelectStatusCommand_Execute_Default);
 			if (ClearStatusCommand == null) ClearStatusCommand = new DelegateLogCommand(ClearStatusCommand_Execute_Default);
 
 			
+			//if (_getEntitiesForSelectStatusesAllCommand == null) _getEntitiesForSelectStatusesAllCommand = () => { return UnitOfWork.Repository<IEnumerable`1>().GetAll(); };
 			if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
 			if (ClearStatusesAllCommand == null) ClearStatusesAllCommand = new DelegateLogCommand(ClearStatusesAllCommand_Execute_Default);
 
@@ -2094,6 +2099,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusCommand_Execute_Default() 
 		{
+            //SelectAndSetWrapper<ScriptStep, ScriptStepWrapper>(_getEntitiesForSelectStatusCommand(), nameof(Item.Status), Item.Status?.Id);
 		}
 
 		private void ClearStatusCommand_Execute_Default() 
@@ -2103,6 +2109,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusesAllCommand_Execute_Default() 
 		{
+            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
 		}
 
 		private void ClearStatusesAllCommand_Execute_Default() 
@@ -2383,6 +2390,7 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
 
 		//private Func<Task<List<IEnumerable`1>>> _getEntitiesForSelectStatusesAllCommand;
+		//private Func<List<IEnumerable`1>> _getEntitiesForSelectStatusesAllCommand;
 		public DelegateLogCommand SelectStatusesAllCommand { get; private set; }
 		public DelegateLogCommand ClearStatusesAllCommand { get; private set; }
 
@@ -2447,6 +2455,7 @@ namespace HVTApp.UI.ViewModels
 			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
 
 			
+			//if (_getEntitiesForSelectStatusesAllCommand == null) _getEntitiesForSelectStatusesAllCommand = () => { return UnitOfWork.Repository<IEnumerable`1>().GetAll(); };
 			if (SelectStatusesAllCommand == null) SelectStatusesAllCommand = new DelegateLogCommand(SelectStatusesAllCommand_Execute_Default);
 			if (ClearStatusesAllCommand == null) ClearStatusesAllCommand = new DelegateLogCommand(ClearStatusesAllCommand_Execute_Default);
 
@@ -2489,6 +2498,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusesAllCommand_Execute_Default() 
 		{
+            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
 		}
 
 		private void ClearStatusesAllCommand_Execute_Default() 
@@ -5393,10 +5403,12 @@ namespace HVTApp.UI.ViewModels
 
 			private void AddInPriceCalculationItemsCommand_Execute_Default()
 			{
+				//SelectAndAddInListWrapper<PriceCalculationItem, PriceCalculationItemWrapper>(_getEntitiesForAddInPriceCalculationItemsCommand(), Item.PriceCalculationItems);
 			}
 
 			private void RemoveFromPriceCalculationItemsCommand_Execute_Default()
 			{
+				//Item.PriceCalculationItems.Remove(SelectedPriceCalculationItemsItem);
 			}
 
 			private bool RemoveFromPriceCalculationItemsCommand_CanExecute_Default()

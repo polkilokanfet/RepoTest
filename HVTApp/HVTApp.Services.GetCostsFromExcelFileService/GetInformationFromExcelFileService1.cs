@@ -78,24 +78,23 @@ namespace HVTApp.Services.GetCostsFromExcelFileService
                 foreach (DataRow dataRow in table.Rows)
                 {
                     if (dataRow[0] is DBNull) continue;
-                    if (dataRow[2] is int == false) continue;
-                    if (dataRow[3] is int == false) continue;
+
+                    if (int.TryParse(dataRow[2].ToString(), out var week) == false) continue;
+                    if (int.TryParse(dataRow[3].ToString(), out var year) == false) continue;
+
                     if (dataRow[5] is DBNull) continue;
-                    if (dataRow[16] is int == false) continue;
-                    if (dataRow[17] is int == false) continue;
+                    if (int.TryParse(dataRow[16].ToString(), out var positionStart) == false) continue;
+                    if (int.TryParse(dataRow[17].ToString(), out var positionFinish) == false) continue;
 
                     var order = dataRow.ItemArray[5].ToString().Trim();
-                    var week = (int)dataRow[2];
-                    var year = (int)dataRow[3];
                     var friday = FridayOfWeekISO8601(year, week);
-                    var positionStart = (int)dataRow[16];
-                    var positionFinish = (int)dataRow[17];
 
                     if (result.ContainsKey(order) == false)
                         result.Add(order, new Dictionary<int, DateTime>());
 
                     for (int i = positionStart; i <= positionFinish; i++)
                     {
+                        if (result[order].ContainsKey(i)) continue;
                         result[order].Add(i, friday);
                     }
                 }

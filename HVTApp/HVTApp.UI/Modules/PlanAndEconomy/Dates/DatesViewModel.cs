@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
@@ -52,8 +53,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             LoadPickingDatesCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dic = container.Resolve<IGetInformationFromExcelFileService>()
-                        .GetPickingDatesFromFile(GlobalAppProperties.Actual.PickingDatesFilePath);
+                    var path = container.Resolve<IGetFilePaths>().GetFilePath();
+                    if (string.IsNullOrEmpty(path)) return;
+
+                    var dic = container.Resolve<IGetInformationFromExcelFileService>().GetPickingDatesFromFile(path);
+
+                    var sb = new StringBuilder();
 
                     var targetGroups = this.Groups.Where(x => string.IsNullOrWhiteSpace(x.Model.Order?.Number) == false).ToList();
 
@@ -68,11 +73,19 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                             foreach (var unit in targetUnits)
                             {
                                 var position = int.Parse(unit.Model.OrderPosition.Trim());
-                                if (m1.Value.ContainsKey(position) == false) return;
-                                unit.PickingDate = m1.Value[position];
+                                if (m1.Value.ContainsKey(position) == false) continue;
+
+                                var pickingDate = m1.Value[position];
+                                if (pickingDate.Equals(unit.PickingDate) == false)
+                                {
+                                    sb.AppendLine($"{unit.Model.Order} поз. {unit.Model.OrderPosition}: {unit.PickingDate?.ToShortDateString()} => {pickingDate.ToLongDateString()}");
+                                    unit.PickingDate = pickingDate;
+                                }
                             }
                         }
                     }
+
+                    container.Resolve<IMessageService>().ShowOkMessageDialog("Загрузка завершена", sb.ToString());
                 });
         }
 

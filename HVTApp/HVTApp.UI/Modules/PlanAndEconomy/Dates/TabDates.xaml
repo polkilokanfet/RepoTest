@@ -23,4 +23,10 @@
         </StackPanel>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Даты комплектации">
+        <StackPanel>
+            <infRib:ButtonTool Caption="Загрузить" Command="{Binding LoadPickingDatesCommand}"/>
+        </StackPanel>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

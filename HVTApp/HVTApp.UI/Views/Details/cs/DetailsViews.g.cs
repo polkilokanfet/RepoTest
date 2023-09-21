@@ -5449,7 +5449,6 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityParameterCurrentTransformersSetCustomGlobalProperties = Visibility.Collapsed;
 
-
         }
 
 
@@ -5730,6 +5729,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParameterCurrentTransformersSetCustomGlobalPropertiesProperty); }
             set { SetValue(VisibilityParameterCurrentTransformersSetCustomGlobalPropertiesProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityPickingDatesFilePathGlobalPropertiesProperty = DependencyProperty.Register("VisibilityPickingDatesFilePathGlobalProperties", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityPickingDatesFilePathGlobalProperties
+        {
+            get { return (Visibility) GetValue(VisibilityPickingDatesFilePathGlobalPropertiesProperty); }
+            set { SetValue(VisibilityPickingDatesFilePathGlobalPropertiesProperty, value); OnPropertyChanged(); }
         }
 
 	}
