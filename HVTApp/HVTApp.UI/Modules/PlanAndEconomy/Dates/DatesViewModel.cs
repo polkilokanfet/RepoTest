@@ -8,7 +8,6 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
@@ -70,7 +69,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                             foreach (var datesGroup in targetGroups.Where(x => x.Model.Order.Number.Trim() == m1.Key))
                             {
                                 var targetUnits = datesGroup.Units.Where(x =>
-                                    string.IsNullOrWhiteSpace(x.SerialNumber) == false &&
+                                    string.IsNullOrWhiteSpace(x.Model.OrderPosition) == false &&
                                     int.TryParse(x.Model.OrderPosition.Trim(), out _)).ToList();
 
                                 foreach (var unit in targetUnits)
@@ -88,7 +87,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                             }
                         }
 
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Загрузка завершена", sb.ToString());
+                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Применить изменения?", sb.ToString());
+                        if (dr != MessageDialogResult.Yes)
+                            EnumerableExtansions.ForEach(this.Groups.SelectMany(x => x.Units), x => x.RejectChanges());
                     }
                     catch (Exception e)
                     {
