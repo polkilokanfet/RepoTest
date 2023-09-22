@@ -69,6 +69,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                             foreach (var datesGroup in targetGroups.Where(x => x.Model.Order.Number.Trim() == m1.Key))
                             {
                                 var targetUnits = datesGroup.Units.Where(x =>
+                                    x.Model.RealizationDate == null &&
                                     string.IsNullOrWhiteSpace(x.Model.OrderPosition) == false &&
                                     int.TryParse(x.Model.OrderPosition.Trim(), out _)).ToList();
 
@@ -87,7 +88,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                             }
                         }
 
-                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Применить изменения?", sb.ToString());
+                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Применить изменения?", sb.ToString(), defaultYes:true);
                         if (dr != MessageDialogResult.Yes)
                             EnumerableExtansions.ForEach(this.Groups.SelectMany(x => x.Units).Where(x => x.IsChanged), x => x.RejectChanges());
                     }
