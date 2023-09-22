@@ -80,7 +80,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                                     var pickingDate = m1.Value[position];
                                     if (pickingDate.Equals(unit.PickingDate) == false)
                                     {
-                                        sb.AppendLine($"{unit.Model.Order} поз. {unit.Model.OrderPosition}: {unit.PickingDate?.ToShortDateString()} => {pickingDate.ToLongDateString()} :: {unit.Model.Product.Category}");
+                                        sb.AppendLine($"{unit.Model.Order} поз. {unit.Model.OrderPosition}: {unit.PickingDate?.ToLongDateString()} => {pickingDate.ToLongDateString()} :: {unit.Model.Product.Category}");
                                         unit.PickingDate = pickingDate;
                                     }
                                 }
