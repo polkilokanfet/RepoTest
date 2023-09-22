@@ -89,7 +89,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
                         var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Применить изменения?", sb.ToString());
                         if (dr != MessageDialogResult.Yes)
-                            EnumerableExtansions.ForEach(this.Groups.SelectMany(x => x.Units), x => x.RejectChanges());
+                            EnumerableExtansions.ForEach(this.Groups.SelectMany(x => x.Units).Where(x => x.IsChanged), x => x.RejectChanges());
                     }
                     catch (Exception e)
                     {
