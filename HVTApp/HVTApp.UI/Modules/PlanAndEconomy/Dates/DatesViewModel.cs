@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
@@ -53,39 +54,46 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             LoadPickingDatesCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var path = container.Resolve<IGetFilePaths>().GetFilePath();
-                    if (string.IsNullOrEmpty(path)) return;
-
-                    var dic = container.Resolve<IGetInformationFromExcelFileService>().GetPickingDatesFromFile(path);
-
-                    var sb = new StringBuilder();
-
-                    var targetGroups = this.Groups.Where(x => string.IsNullOrWhiteSpace(x.Model.Order?.Number) == false).ToList();
-
-                    foreach (var m1 in dic)
+                    try
                     {
-                        foreach (var datesGroup in targetGroups.Where(x => x.Model.Order.Number.Trim() == m1.Key))
+                        var path = container.Resolve<IGetFilePaths>().GetFilePath();
+                        if (string.IsNullOrEmpty(path)) return;
+
+                        var dic = container.Resolve<IGetInformationFromExcelFileService>().GetPickingDatesFromFile(path);
+
+                        var sb = new StringBuilder();
+
+                        var targetGroups = this.Groups.Where(x => string.IsNullOrWhiteSpace(x.Model.Order?.Number) == false).ToList();
+
+                        foreach (var m1 in dic)
                         {
-                            var targetUnits = datesGroup.Units.Where(x =>
-                                string.IsNullOrWhiteSpace(x.SerialNumber) == false &&
-                                int.TryParse(x.Model.OrderPosition.Trim(), out _)).ToList();
-
-                            foreach (var unit in targetUnits)
+                            foreach (var datesGroup in targetGroups.Where(x => x.Model.Order.Number.Trim() == m1.Key))
                             {
-                                var position = int.Parse(unit.Model.OrderPosition.Trim());
-                                if (m1.Value.ContainsKey(position) == false) continue;
+                                var targetUnits = datesGroup.Units.Where(x =>
+                                    string.IsNullOrWhiteSpace(x.SerialNumber) == false &&
+                                    int.TryParse(x.Model.OrderPosition.Trim(), out _)).ToList();
 
-                                var pickingDate = m1.Value[position];
-                                if (pickingDate.Equals(unit.PickingDate) == false)
+                                foreach (var unit in targetUnits)
                                 {
-                                    sb.AppendLine($"{unit.Model.Order} поз. {unit.Model.OrderPosition}: {unit.PickingDate?.ToShortDateString()} => {pickingDate.ToLongDateString()}");
-                                    unit.PickingDate = pickingDate;
+                                    var position = int.Parse(unit.Model.OrderPosition.Trim());
+                                    if (m1.Value.ContainsKey(position) == false) continue;
+
+                                    var pickingDate = m1.Value[position];
+                                    if (pickingDate.Equals(unit.PickingDate) == false)
+                                    {
+                                        sb.AppendLine($"{unit.Model.Order} поз. {unit.Model.OrderPosition}: {unit.PickingDate?.ToShortDateString()} => {pickingDate.ToLongDateString()} :: {unit.Model.Product.Category}");
+                                        unit.PickingDate = pickingDate;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    container.Resolve<IMessageService>().ShowOkMessageDialog("Загрузка завершена", sb.ToString());
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("Загрузка завершена", sb.ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        container.Resolve<IMessageService>().ShowOkMessageDialog("error", e.PrintAllExceptions());
+                    }
                 });
         }
 
@@ -126,10 +134,10 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         protected override void AfterGetData()
         {
-            Groups.SelectMany(x => x.Units).ForEach(x => x.PropertyChanged -= UnitOnPropertyChanged);
+            EnumerableExtensions.ForEach(Groups.SelectMany(x => x.Units), x => x.PropertyChanged -= UnitOnPropertyChanged);
             Groups.Clear();
             Groups.AddRange(_groups);
-            Groups.SelectMany(x => x.Units).ForEach(x => x.PropertyChanged += UnitOnPropertyChanged);
+            EnumerableExtensions.ForEach(Groups.SelectMany(x => x.Units), x => x.PropertyChanged += UnitOnPropertyChanged);
         }
 
         private void UnitOnPropertyChanged(object sender, PropertyChangedEventArgs args)
