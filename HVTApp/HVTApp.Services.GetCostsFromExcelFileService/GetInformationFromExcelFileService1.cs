@@ -128,8 +128,8 @@ namespace HVTApp.Services.GetCostsFromExcelFileService
             // then we add number of weeks multiplied with days
             var result = firstThursday.AddDays(weekNum * 7);
 
-            // 2 days from Thursday to get Friday, which is the first weekday in ISO8601
-            return result.AddDays(2);
+            // 1 days from Thursday to get Friday, which is the first weekday in ISO8601
+            return result.AddDays(1);
         }
     }
 }
