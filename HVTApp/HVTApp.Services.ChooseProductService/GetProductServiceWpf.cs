@@ -83,6 +83,11 @@ namespace HVTApp.Services.GetProductService
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.Message);
                 return this.GetProduct(originProduct: null);
             }
+            catch (Exception e)
+            {
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.Message);
+                return this.GetProduct(originProduct: null);
+            }
         }
 
         public Product GetProduct(IUnitOfWork unitOfWork, Product product)
