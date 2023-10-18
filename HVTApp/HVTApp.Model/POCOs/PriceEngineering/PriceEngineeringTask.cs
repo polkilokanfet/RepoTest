@@ -97,6 +97,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Позиция в ТСЕ"), MaxLength(4)]
         public string TcePosition { get; set; }
+
+        [Designation("Наличие КД")]
+        public virtual DesignDocumentationAvailability DesignDocumentationAvailability { get; set; }
     }
     
     public partial class PriceEngineeringTask
