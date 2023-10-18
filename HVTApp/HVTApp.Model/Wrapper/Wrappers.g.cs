@@ -2691,6 +2691,39 @@ namespace HVTApp.Model.Wrapper
         public bool TcePositionIsChanged => GetIsChanged(nameof(TcePosition));
 
         /// <summary>
+        /// Требуется разработка КД
+        /// </summary>
+        public System.Boolean NeedDesignDocumentationDevelopment
+        {
+          get { return Model.NeedDesignDocumentationDevelopment; }
+          set { SetValue(value); }
+        }
+        public System.Boolean NeedDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<System.Boolean>(nameof(NeedDesignDocumentationDevelopment));
+        public bool NeedDesignDocumentationDevelopmentIsChanged => GetIsChanged(nameof(NeedDesignDocumentationDevelopment));
+
+        /// <summary>
+        /// Дней на разработку КД
+        /// </summary>
+        public System.Int16 DaysToDesignDocumentationDevelopment
+        {
+          get { return Model.DaysToDesignDocumentationDevelopment; }
+          set { SetValue(value); }
+        }
+        public System.Int16 DaysToDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<System.Int16>(nameof(DaysToDesignDocumentationDevelopment));
+        public bool DaysToDesignDocumentationDevelopmentIsChanged => GetIsChanged(nameof(DaysToDesignDocumentationDevelopment));
+
+        /// <summary>
+        /// Комментарий по разработке КД
+        /// </summary>
+        public System.String DesignDocumentationAvailabilityComment
+        {
+          get { return Model.DesignDocumentationAvailabilityComment; }
+          set { SetValue(value); }
+        }
+        public System.String DesignDocumentationAvailabilityCommentOriginalValue => GetOriginalValue<System.String>(nameof(DesignDocumentationAvailabilityComment));
+        public bool DesignDocumentationAvailabilityCommentIsChanged => GetIsChanged(nameof(DesignDocumentationAvailabilityComment));
+
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id

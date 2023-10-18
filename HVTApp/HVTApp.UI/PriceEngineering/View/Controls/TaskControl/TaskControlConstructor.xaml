@@ -5,6 +5,8 @@
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:editors="http://infragistics.com/Editors"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -26,9 +28,39 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <UniformGrid Rows="1" Grid.Row="0">
+                <GroupBox Grid.Row="0" Header="Разработка конструкторской документации">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Grid.Column="0"/>
+                        <Label Grid.Column="1" Content="требуется"/>
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Content="Дней на разработку: "/>
+                            <editors:XamNumericEditor Grid.Column="1" ValueType="system:Int16"/>
+
+                            <Label Grid.Column="2" Content="Комментарий: "/>
+                            <TextBox Grid.Column="3"/>
+
+                        </Grid>
+
+                    </Grid>
+                </GroupBox>
+
+                <UniformGrid Rows="1" Grid.Row="1">
 
                     <Button Command="{Binding AddBlockAddedCommand}">
                         <StackPanel Orientation="Horizontal">
@@ -51,7 +83,7 @@
 
                 </UniformGrid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />

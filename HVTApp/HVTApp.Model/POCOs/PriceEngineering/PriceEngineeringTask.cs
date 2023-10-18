@@ -98,10 +98,20 @@ namespace HVTApp.Model.POCOs
         [Designation("Позиция в ТСЕ"), MaxLength(4)]
         public string TcePosition { get; set; }
 
-        [Designation("Наличие КД")]
-        public virtual DesignDocumentationAvailability DesignDocumentationAvailability { get; set; }
+        #region DesignDocumentationAvailability
+
+        [Designation("Требуется разработка КД")]
+        public bool NeedDesignDocumentationDevelopment { get; set; } = false;
+
+        [Designation("Дней на разработку КД")]
+        public short DaysToDesignDocumentationDevelopment { get; set; } = 0;
+
+        [Designation("Комментарий по разработке КД"), MaxLength(512)]
+        public string DesignDocumentationAvailabilityComment { get; set; }
+
+        #endregion
     }
-    
+
     public partial class PriceEngineeringTask
     {
         [Designation("Статус"), NotMapped]

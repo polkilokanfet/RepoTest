@@ -33,6 +33,39 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         public bool IsValidForProductionOriginalValue => GetOriginalValue<bool>(nameof(IsValidForProduction));
         public bool IsValidForProductionIsChanged => GetIsChanged(nameof(IsValidForProduction));
 
+        /// <summary>
+        /// Требуется разработка КД
+        /// </summary>
+        public bool NeedDesignDocumentationDevelopment
+        {
+            get => Model.NeedDesignDocumentationDevelopment;
+            set => SetValue(value);
+        }
+        public bool NeedDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<bool>(nameof(NeedDesignDocumentationDevelopment));
+        public bool NeedDesignDocumentationDevelopmentIsChanged => GetIsChanged(nameof(NeedDesignDocumentationDevelopment));
+
+        /// <summary>
+        /// Дней на разработку КД
+        /// </summary>
+        public short DaysToDesignDocumentationDevelopment
+        {
+            get => Model.DaysToDesignDocumentationDevelopment;
+            set => SetValue(value);
+        }
+        public short DaysToDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<short>(nameof(DaysToDesignDocumentationDevelopment));
+        public bool DaysToDesignDocumentationDevelopmentIsChanged => GetIsChanged(nameof(DaysToDesignDocumentationDevelopment));
+
+        /// <summary>
+        /// Комментарий по разработке КД
+        /// </summary>
+        public string DesignDocumentationAvailabilityComment
+        {
+            get => Model.DesignDocumentationAvailabilityComment;
+            set => SetValue(value);
+        }
+        public string DesignDocumentationAvailabilityCommentOriginalValue => GetOriginalValue<string>(nameof(DesignDocumentationAvailabilityComment));
+        public bool DesignDocumentationAvailabilityCommentIsChanged => GetIsChanged(nameof(DesignDocumentationAvailabilityComment));
+
         #endregion
 
         #region ComplexProperties
