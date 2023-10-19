@@ -502,5 +502,16 @@ namespace HVTApp.Model.POCOs
                 sb.Append($" Комментарий: {this.DesignDocumentationAvailabilityComment}");
             return sb.ToString();
         }
+
+        public bool HasDesignDocumentationInfo
+        {
+            get
+            {
+                return this.Statuses
+                    .Where(status => status.StatusEnum == ScriptStep.FinishByConstructor.Value || status.StatusEnum == ScriptStep.VerificationRequestByConstructor.Value)
+                    .Where(x => x.Comment != null)
+                    .Any(status => status.Comment.Contains(NeedDesignDocumentationYes) || status.Comment.Contains(NeedDesignDocumentationNo));
+            }
+        }
     }
 }

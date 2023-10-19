@@ -44,6 +44,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         public bool CurrentUserIsBackManager => GlobalAppProperties.UserIsBackManager;
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
 
+        private string GetBlockInfo(PriceEngineeringTask task)
+        {
+            return $"   Блок ({task.ProductBlock.Designation} (ID в УП ВВА: {task.Number}))";
+        }
         public string DesignDocumentationInfo
         {
             get
@@ -58,41 +62,34 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                 var priceEngineeringTasks = this.UnitOfWork.Repository<PriceEngineeringTasks>().GetById(this.PriceCalculationWrapper.Model.PriceEngineeringTasksId.Value);
                 foreach (var task in priceEngineeringTasks.ChildPriceEngineeringTasks)
                 {
-                    var tasks = task.GetAllPriceEngineeringTasks().Where(x => x.IsFinishedByConstructor == false).ToList();
-                    if (tasks.Any())
+                    var allTasks = task.GetAllPriceEngineeringTasks().ToList();
+
+                    var tasksNotFinished = allTasks.Where(x => x.IsFinishedByConstructor == false).ToList();
+                    var tasksWithNoInfo = allTasks.Except(tasksNotFinished).Where(x => x.HasDesignDocumentationInfo == false).ToList();
+                    var tasksNeedDoc = allTasks.Except(tasksNotFinished).Except(tasksWithNoInfo).Where(x => x.NeedDesignDocumentationDevelopment).ToList();
+
+                    if (tasksNotFinished.Any() || tasksWithNoInfo.Any() || tasksNeedDoc.Any())
                     {
-                        sb.AppendLine($"Тип: {task.ProductBlock.ProductType}; Обозначение: {task.ProductBlock.Designation}");
-                        foreach (var t in tasks)
-                        {
-                            sb.AppendLine($"   Блок ({t.ProductBlock.Designation} (ID в УП ВВА: {t.Number})) окончательно не проработан исполнителем ОГК ВВА.");
-                        }
-
                         sb.AppendLine();
-                    }
-
-                    tasks = task.GetAllPriceEngineeringTasks().Where(x => x.IsFinishedByConstructor && x.NeedDesignDocumentationDevelopment).ToList();
-                    if (tasks.Any())
-                    {
                         sb.AppendLine($"Тип: {task.ProductBlock.ProductType}; Обозначение: {task.ProductBlock.Designation}");
-                        foreach (var t in tasks)
-                        {
-                            sb.AppendLine($"   Блок: {t.ProductBlock.Designation} (ID в УП ВВА: {t.Number}). Заключение по КД (исп. {t.UserConstructor?.Employee.Person}): {t.GetDesignDocumentationAvailabilityInfo()}");
-                        }
+                        
+                        foreach (var t in tasksNotFinished)
+                            sb.AppendLine($"{GetBlockInfo(t)} окончательно не проработан исполнителем ОГК ВВА.");
 
-                        sb.AppendLine();
+                        foreach (var t in tasksWithNoInfo)
+                            sb.AppendLine($"{GetBlockInfo(t)} не имеет актуальной информации о КД (проработан до внедрения соответствующего модуля).");
+
+                        foreach (var t in tasksNeedDoc)
+                            sb.AppendLine($"{GetBlockInfo(t)}. Заключение по КД (исп. {t.UserConstructor?.Employee.Person}): {t.GetDesignDocumentationAvailabilityInfo()}");
                     }
                 }
 
                 var result = sb.ToString();
                 sb.Clear();
                 sb.AppendLine($"Заключение ОГК ВВА по наличию КД (ID в УП ВВА: {priceEngineeringTasks.NumberFull}; ID в TeamCenter: {priceEngineeringTasks.TceNumber}):");
-                if (string.IsNullOrWhiteSpace(result))
-                    sb.AppendLine("Документация в наличии (не потребуется времени на её разработку)");
-                else
-                {
-                    sb.AppendLine();
-                    sb.AppendLine(result);
-                }
+                sb.AppendLine(string.IsNullOrWhiteSpace(result)
+                    ? "Документация в наличии (не потребуется времени на её разработку)"
+                    : result);
 
                 return sb.ToString().TrimEnd('\n', '\r');
             }

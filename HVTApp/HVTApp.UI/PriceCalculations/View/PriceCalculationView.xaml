@@ -46,7 +46,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" MaxHeight="500"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -191,13 +191,14 @@
             </GroupBox>
 
             <Expander Grid.Row="3" IsExpanded="False" Header="Информация о КД" Visibility="{Binding CurrentUserIsManager, Mode=OneTime, Converter={StaticResource VisibilityConverter}}">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <TextBox 
-                        Text="{Binding DesignDocumentationInfo, Mode=OneWay}"
-                        IsReadOnly="True" 
-                        Background="Transparent" 
-                        BorderThickness="0"/>
-                </ScrollViewer>
+                <TextBox HorizontalScrollBarVisibility="Auto" 
+                         VerticalScrollBarVisibility="Auto"
+                         MaxHeight="300"
+                         VerticalAlignment="Stretch"
+                         Text="{Binding DesignDocumentationInfo, Mode=OneWay}"
+                         IsReadOnly="True" 
+                         Background="Transparent" 
+                         BorderThickness="0"/>
             </Expander>
 
         </Grid>
