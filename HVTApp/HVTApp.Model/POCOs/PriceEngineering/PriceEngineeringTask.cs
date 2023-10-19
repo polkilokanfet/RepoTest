@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Annotations;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.Services;
@@ -104,10 +105,13 @@ namespace HVTApp.Model.POCOs
         public bool NeedDesignDocumentationDevelopment { get; set; } = false;
 
         [Designation("Дней на разработку КД")]
-        public short DaysToDesignDocumentationDevelopment { get; set; } = 0;
+        public short? DaysToDesignDocumentationDevelopment { get; set; } = 0;
 
         [Designation("Комментарий по разработке КД"), MaxLength(512)]
         public string DesignDocumentationAvailabilityComment { get; set; }
+
+        [Designation("Требуется оснастка")]
+        public bool NeedEquipment { get; set; } = false;
 
         #endregion
     }

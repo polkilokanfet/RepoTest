@@ -61,7 +61,7 @@
                 </DataTemplate>
             </Expander.HeaderTemplate>
             <TextBox Text="{Binding Message, Mode=OneTime, Converter={StaticResource PriceEngineeringTaskStatusMessageMessageConverter}}" 
-                     FlowDirection="LeftToRight"
+                     FlowDirection="LeftToRight" FontStyle="Italic"
                      VerticalAlignment="Top"
                      TextWrapping="Wrap"
                      IsReadOnly="True"

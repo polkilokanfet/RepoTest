@@ -11,7 +11,9 @@
 
     <UserControl.Resources>
         <converters:PriceEngineeringTaskViewModelConstructorIsTargetTaskVisibilityConverter x:Key="ConstructorIsTargetTaskVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
     </UserControl.Resources>
+
 
     <!--Задача на блок продукта-->
     <view:TaskControl 
@@ -31,36 +33,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <GroupBox Grid.Row="0" Header="Разработка конструкторской документации">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <CheckBox Grid.Column="0"/>
-                        <Label Grid.Column="1" Content="требуется"/>
-                        <Grid Grid.Column="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Grid.Column="0" Content="Дней на разработку: "/>
-                            <editors:XamNumericEditor Grid.Column="1" ValueType="system:Int16"/>
-
-                            <Label Grid.Column="2" Content="Комментарий: "/>
-                            <TextBox Grid.Column="3"/>
-
-                        </Grid>
-
-                    </Grid>
-                </GroupBox>
-
-                <UniformGrid Rows="1" Grid.Row="1">
+                <UniformGrid Rows="1" Grid.Row="0">
 
                     <Button Command="{Binding AddBlockAddedCommand}">
                         <StackPanel Orientation="Horizontal">
@@ -82,6 +55,39 @@
                     </Button>
 
                 </UniformGrid>
+
+                <!--Требуется разработка конструкторской документации-->
+                <Border IsEnabled="{Binding IsEditMode, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="3" Margin="2" Padding="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <Label Content="Требуется разработка конструкторской документации"/>
+                            <CheckBox IsChecked="{Binding NeedDesignDocumentationDevelopment, Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Visibility="{Binding NeedDesignDocumentationDevelopment, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource VisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Content="Дней на разработку:"/>
+                            <editors:XamNumericEditor Grid.Column="1" ValueType="system:Int16" Value="{Binding DaysToDesignDocumentationDevelopment, Mode=TwoWay}"/>
+
+                            <Label Grid.Column="2" Content="Комментарий:"/>
+                            <TextBox Grid.Column="3" Text="{Binding DesignDocumentationAvailabilityComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        </Grid>
+
+
+                    </Grid>
+                </Border>
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>

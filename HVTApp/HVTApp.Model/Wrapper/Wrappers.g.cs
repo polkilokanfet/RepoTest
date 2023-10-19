@@ -2704,12 +2704,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Дней на разработку КД
         /// </summary>
-        public System.Int16 DaysToDesignDocumentationDevelopment
+        public System.Nullable<System.Int16> DaysToDesignDocumentationDevelopment
         {
           get { return Model.DaysToDesignDocumentationDevelopment; }
           set { SetValue(value); }
         }
-        public System.Int16 DaysToDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<System.Int16>(nameof(DaysToDesignDocumentationDevelopment));
+        public System.Nullable<System.Int16> DaysToDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<System.Nullable<System.Int16>>(nameof(DaysToDesignDocumentationDevelopment));
         public bool DaysToDesignDocumentationDevelopmentIsChanged => GetIsChanged(nameof(DaysToDesignDocumentationDevelopment));
 
         /// <summary>
@@ -2722,6 +2722,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String DesignDocumentationAvailabilityCommentOriginalValue => GetOriginalValue<System.String>(nameof(DesignDocumentationAvailabilityComment));
         public bool DesignDocumentationAvailabilityCommentIsChanged => GetIsChanged(nameof(DesignDocumentationAvailabilityComment));
+
+        /// <summary>
+        /// Требуется оснастка
+        /// </summary>
+        public System.Boolean NeedEquipment
+        {
+          get { return Model.NeedEquipment; }
+          set { SetValue(value); }
+        }
+        public System.Boolean NeedEquipmentOriginalValue => GetOriginalValue<System.Boolean>(nameof(NeedEquipment));
+        public bool NeedEquipmentIsChanged => GetIsChanged(nameof(NeedEquipment));
 
         /// <summary>
         /// Id

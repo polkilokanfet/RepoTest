@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -39,20 +41,29 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         public bool NeedDesignDocumentationDevelopment
         {
             get => Model.NeedDesignDocumentationDevelopment;
-            set => SetValue(value);
+            set
+            {
+                SetValue(value);
+                if (value == false)
+                {
+                    DaysToDesignDocumentationDevelopment = null;
+                    DesignDocumentationAvailabilityComment = null;
+                }
+            }
         }
+
         public bool NeedDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<bool>(nameof(NeedDesignDocumentationDevelopment));
         public bool NeedDesignDocumentationDevelopmentIsChanged => GetIsChanged(nameof(NeedDesignDocumentationDevelopment));
 
         /// <summary>
         /// ƒней на разработку  ƒ
         /// </summary>
-        public short DaysToDesignDocumentationDevelopment
+        public short? DaysToDesignDocumentationDevelopment
         {
             get => Model.DaysToDesignDocumentationDevelopment;
             set => SetValue(value);
         }
-        public short DaysToDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<short>(nameof(DaysToDesignDocumentationDevelopment));
+        public short? DaysToDesignDocumentationDevelopmentOriginalValue => GetOriginalValue<short?>(nameof(DaysToDesignDocumentationDevelopment));
         public bool DaysToDesignDocumentationDevelopmentIsChanged => GetIsChanged(nameof(DaysToDesignDocumentationDevelopment));
 
         /// <summary>
@@ -118,6 +129,20 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
             ProductBlocksAdded = new ValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor>(Model.ProductBlocksAdded.Select(x => new TaskProductBlockAddedWrapperConstructor(x)));
             RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (DaysToDesignDocumentationDevelopment.HasValue)
+            {
+                if (DaysToDesignDocumentationDevelopment < 0)
+                    yield return new ValidationResult("ƒней на разработку не должно быть меньше 0", new[] {nameof(DaysToDesignDocumentationDevelopment)});
+                else if (DaysToDesignDocumentationDevelopment > 1024)
+                    yield return new ValidationResult("ƒней на разработку не должно быть больше 1024", new[] { nameof(DaysToDesignDocumentationDevelopment) });
+            }
+
+            if (NeedDesignDocumentationDevelopment && DaysToDesignDocumentationDevelopment.HasValue == false)
+                yield return new ValidationResult("ƒней на разработку не заполнено", new[] { nameof(DaysToDesignDocumentationDevelopment) });
         }
     }
 }

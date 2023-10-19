@@ -90,8 +90,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
 
             sb.AppendLine(vm.IsValidForProduction
-                ? "\nДля производства НЕ потребуется досогласовать техническое задание."
-                : "\nДля производства потребуется досогласовать техническое задание.");
+                ? "\nПредоставленного ТЗ достаточно для производства."
+                : "\nПредоставленного ТЗ недостаточно для производства.");
+
+            sb.AppendLine(vm.NeedDesignDocumentationDevelopment
+                ? $"Требует разработки КД: {vm.DaysToDesignDocumentationDevelopment} дн. {vm.DesignDocumentationAvailabilityComment}"
+                : "Не требует разработки КД.");
 
             return sb.ToString().TrimEnd('\n', '\r');
         }

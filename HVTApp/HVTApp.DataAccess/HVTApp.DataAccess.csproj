@@ -465,6 +465,10 @@
     <Compile Include="Migrations\202309070703274_RemoveSccFromTask.designer.cs">
       <DependentUpon>202309070703274_RemoveSccFromTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310190705501_DesignDocumentationAvailability.cs" />
+    <Compile Include="Migrations\202310190705501_DesignDocumentationAvailability.designer.cs">
+      <DependentUpon>202310190705501_DesignDocumentationAvailability.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -764,6 +768,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309070703274_RemoveSccFromTask.resx">
       <DependentUpon>202309070703274_RemoveSccFromTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310190705501_DesignDocumentationAvailability.resx">
+      <DependentUpon>202310190705501_DesignDocumentationAvailability.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
