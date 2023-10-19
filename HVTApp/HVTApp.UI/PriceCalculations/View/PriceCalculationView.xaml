@@ -7,6 +7,7 @@
               xmlns:history="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Task.History">
     
     <inf:ViewBase.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
 
         <Style x:Key="BoltFontCellsStyle" TargetType="{x:Type infgDp:CellValuePresenter}">
             <Setter Property="ForegroundStyle">
@@ -45,6 +46,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MaxHeight="500"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -54,7 +56,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" Content="Требуется файл: "/>
@@ -187,6 +189,16 @@
             <GroupBox Grid.Row="2" Header="Комментарий">
                 <TextBox Text="{Binding HistoryItem.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </GroupBox>
+
+            <Expander Grid.Row="3" IsExpanded="False" Header="Информация о КД" Visibility="{Binding CurrentUserIsManager, Mode=OneTime, Converter={StaticResource VisibilityConverter}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <TextBox 
+                        Text="{Binding DesignDocumentationInfo, Mode=OneWay}"
+                        IsReadOnly="True" 
+                        Background="Transparent" 
+                        BorderThickness="0"/>
+                </ScrollViewer>
+            </Expander>
 
         </Grid>
     </GroupBox>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -42,6 +43,60 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         public bool CurrentUserIsManager => GlobalAppProperties.UserIsManager;
         public bool CurrentUserIsBackManager => GlobalAppProperties.UserIsBackManager;
         public bool CurrentUserIsPricer => GlobalAppProperties.User.RoleCurrent == Role.Pricer;
+
+        public string DesignDocumentationInfo
+        {
+            get
+            {
+                if (this.PriceCalculationWrapper == null) 
+                    return null;
+
+                if (this.PriceCalculationWrapper.Model.PriceEngineeringTasksId.HasValue == false)
+                    return "Этот расчёт не связан с какой-либо задачей ТСП";
+
+                var sb = new StringBuilder();
+                var priceEngineeringTasks = this.UnitOfWork.Repository<PriceEngineeringTasks>().GetById(this.PriceCalculationWrapper.Model.PriceEngineeringTasksId.Value);
+                foreach (var task in priceEngineeringTasks.ChildPriceEngineeringTasks)
+                {
+                    var tasks = task.GetAllPriceEngineeringTasks().Where(x => x.IsFinishedByConstructor == false).ToList();
+                    if (tasks.Any())
+                    {
+                        sb.AppendLine($"Тип: {task.ProductBlock.ProductType}; Обозначение: {task.ProductBlock.Designation}");
+                        foreach (var t in tasks)
+                        {
+                            sb.AppendLine($"   Блок ({t.ProductBlock.Designation} (ID в УП ВВА: {t.Number})) окончательно не проработан исполнителем ОГК ВВА.");
+                        }
+
+                        sb.AppendLine();
+                    }
+
+                    tasks = task.GetAllPriceEngineeringTasks().Where(x => x.IsFinishedByConstructor && x.NeedDesignDocumentationDevelopment).ToList();
+                    if (tasks.Any())
+                    {
+                        sb.AppendLine($"Тип: {task.ProductBlock.ProductType}; Обозначение: {task.ProductBlock.Designation}");
+                        foreach (var t in tasks)
+                        {
+                            sb.AppendLine($"   Блок: {t.ProductBlock.Designation} (ID в УП ВВА: {t.Number}). Заключение по КД (исп. {t.UserConstructor?.Employee.Person}): {t.GetDesignDocumentationAvailabilityInfo()}");
+                        }
+
+                        sb.AppendLine();
+                    }
+                }
+
+                var result = sb.ToString();
+                sb.Clear();
+                sb.AppendLine($"Заключение ОГК ВВА по наличию КД (ID в УП ВВА: {priceEngineeringTasks.NumberFull}; ID в TeamCenter: {priceEngineeringTasks.TceNumber}):");
+                if (string.IsNullOrWhiteSpace(result))
+                    sb.AppendLine("Документация в наличии (не потребуется времени на её разработку)");
+                else
+                {
+                    sb.AppendLine();
+                    sb.AppendLine(result);
+                }
+
+                return sb.ToString();
+            }
+        }
 
         public bool StartVisibility
         {

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Annotations;
 using HVTApp.Infrastructure.Attributes;
@@ -487,6 +488,16 @@ namespace HVTApp.Model.POCOs
             var messages = new List<IMessage>(this.Messages);
             messages.AddRange(this.Statuses.Select(PriceEngineeringTaskStatusMessage.Convert));
             return messages.OrderByDescending(message => message.Moment);
+        }
+
+        public string GetDesignDocumentationAvailabilityInfo()
+        {
+            if (this.NeedDesignDocumentationDevelopment == false) return "Разработка КД не требуется.";
+            var sb = new StringBuilder();
+            sb.Append($"Требуемое время на разработку КД: {this.DaysToDesignDocumentationDevelopment} дн.");
+            if (string.IsNullOrWhiteSpace(this.DesignDocumentationAvailabilityComment) == false)
+                sb.Append($" Комментарий: {this.DesignDocumentationAvailabilityComment}");
+            return sb.ToString();
         }
     }
 }
