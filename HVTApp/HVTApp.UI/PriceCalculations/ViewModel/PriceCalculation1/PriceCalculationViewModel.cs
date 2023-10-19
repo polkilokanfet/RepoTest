@@ -94,7 +94,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
                     sb.AppendLine(result);
                 }
 
-                return sb.ToString();
+                return sb.ToString().TrimEnd('\n', '\r');
             }
         }
 

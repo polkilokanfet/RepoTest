@@ -93,9 +93,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 ? "\nПредоставленного ТЗ достаточно для производства."
                 : "\nПредоставленного ТЗ недостаточно для производства.");
 
-            sb.AppendLine(vm.NeedDesignDocumentationDevelopment
-                ? $"Требует разработки КД: {vm.DaysToDesignDocumentationDevelopment} дн. {vm.DesignDocumentationAvailabilityComment}"
-                : "Не требует разработки КД.");
+            sb.AppendLine(vm.Model.GetDesignDocumentationAvailabilityInfo());
 
             return sb.ToString().TrimEnd('\n', '\r');
         }

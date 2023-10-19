@@ -490,11 +490,14 @@ namespace HVTApp.Model.POCOs
             return messages.OrderByDescending(message => message.Moment);
         }
 
+        private const string NeedDesignDocumentationYes = "Требуемое время на разработку КД:";
+        private const string NeedDesignDocumentationNo = "Разработка КД не требуется.";
+
         public string GetDesignDocumentationAvailabilityInfo()
         {
-            if (this.NeedDesignDocumentationDevelopment == false) return "Разработка КД не требуется.";
+            if (this.NeedDesignDocumentationDevelopment == false) return NeedDesignDocumentationNo;
             var sb = new StringBuilder();
-            sb.Append($"Требуемое время на разработку КД: {this.DaysToDesignDocumentationDevelopment} дн.");
+            sb.Append($"{NeedDesignDocumentationYes} {this.DaysToDesignDocumentationDevelopment} дн.");
             if (string.IsNullOrWhiteSpace(this.DesignDocumentationAvailabilityComment) == false)
                 sb.Append($" Комментарий: {this.DesignDocumentationAvailabilityComment}");
             return sb.ToString();
