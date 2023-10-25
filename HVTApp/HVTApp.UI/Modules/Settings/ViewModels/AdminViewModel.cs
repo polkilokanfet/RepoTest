@@ -47,19 +47,21 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    int days = 180;
-                    var blocks = unitOfWork.Repository<ProductBlock>()
-                        .Find(block => block.Prices.Count > 1 && 
-                                       block.Prices.Any(x => x.Date <= DateTime.Today.AddDays(days)));
-                    foreach (var block in blocks)
-                    {
-                        foreach (var sumOnDate in block.Prices.Where(x => x.Date > DateTime.Today.AddDays(days)).ToList())
-                        {
-                            block.Prices.Remove(sumOnDate);
-                            unitOfWork.Repository<SumOnDate>().Delete(sumOnDate);
-                        }
-                    }
+                    var tasks = unitOfWork.Repository<TechnicalRequrementsTask>()
+                        .Find(task => task.HistoryElements.Any() &&
+                                      task.HistoryElements.Any(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Instruct) &&
+                                      task.HistoryElements.Any(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Start) == false);
 
+                    foreach (var task in tasks)
+                    {
+                        var g = task.HistoryElements.Single(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Create);
+                        task.HistoryElements.Add(new TechnicalRequrementsTaskHistoryElement()
+                        {
+                            Type = TechnicalRequrementsTaskHistoryElementType.Start,
+                            Moment = g.Moment.AddSeconds(1),
+                            User = g.User
+                        });
+                    }
 
                     unitOfWork.SaveChanges();
                     //StringBuilder sb = new StringBuilder();

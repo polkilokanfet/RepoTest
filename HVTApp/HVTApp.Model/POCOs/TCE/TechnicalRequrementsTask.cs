@@ -106,6 +106,7 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         [Designation("Стартовано?")]
         public bool IsStarted => LastHistoryElement != null &&
+                                 HistoryElements.Any(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Start) &&
                                  LastHistoryElement.Type != TechnicalRequrementsTaskHistoryElementType.Create &&
                                  LastHistoryElement.Type != TechnicalRequrementsTaskHistoryElementType.Reject &&
                                  LastHistoryElement.Type != TechnicalRequrementsTaskHistoryElementType.Stop;
