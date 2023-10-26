@@ -3,6 +3,7 @@ using HVTApp.Model;
 using HVTApp.UI.EngineeringDepartmentTasksQueue.Views;
 using HVTApp.UI.Modules.Products.LaborHours;
 using HVTApp.UI.Modules.Products.Parameters;
+using HVTApp.UI.Modules.Products.StructureCostsNumbers;
 using HVTApp.UI.Modules.Products.Views;
 using HVTApp.UI.Modules.Reports.Reference;
 using HVTApp.UI.PriceEngineering;
@@ -32,6 +33,7 @@ namespace HVTApp.Modules.Products.Menus
             {
                 //Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewDepartmentHead)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewDesignDepartmentHead)));
+                Items.Add(new NavigationItem("StructureCosts", typeof(StructureCostsNumbersView)));
                 Items.Add(new NavigationItem("Статистика работы в ТСП", typeof(PriceEngineeringStatisticsView)));
             }
             else

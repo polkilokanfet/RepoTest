@@ -3,6 +3,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Products.Menus;
 using HVTApp.UI.Modules.Products.Parameters;
+using HVTApp.UI.Modules.Products.StructureCostsNumbers;
 using HVTApp.UI.Modules.Products.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
@@ -21,6 +22,7 @@ namespace HVTApp.Modules.Products
             Container.RegisterViewForNavigation<ParametersView>();
             Container.RegisterViewForNavigation<CreateNewProductTasksView>();
             Container.RegisterViewForNavigation<StructureCostsView>();
+            Container.RegisterViewForNavigation<StructureCostsNumbersView>();
         }
 
         protected override void ResolveOutlookGroup()

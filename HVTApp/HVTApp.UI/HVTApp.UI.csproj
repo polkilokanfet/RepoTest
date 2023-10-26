@@ -263,6 +263,11 @@
     <Compile Include="Modules\Products\Parameters\BlocksControl.xaml.cs">
       <DependentUpon>BlocksControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Products\StructureCostsNumbers\StructureCostsNumber.cs" />
+    <Compile Include="Modules\Products\StructureCostsNumbers\StructureCostsNumbersView.xaml.cs">
+      <DependentUpon>StructureCostsNumbersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Products\StructureCostsNumbers\StructureCostsNumbersViewModel.cs" />
     <Compile Include="Modules\Products\Tabs\TabProductRelations.xaml.cs">
       <DependentUpon>TabProductRelations.xaml</DependentUpon>
     </Compile>
@@ -1700,6 +1705,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Products\Parameters\BlocksControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Products\StructureCostsNumbers\StructureCostsNumbersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -8,7 +8,6 @@ using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Products.ViewModels

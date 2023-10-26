@@ -1,0 +1,80 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.UI.Modules.Products.StructureCostsNumbers.StructureCostsNumbersView">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+            
+        <GroupBox Grid.Column="0" Header="Список блоков оборудования">
+            <infg:XamDataGrid DataSource="{Binding Items}" 
+                              SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:FieldLayout.Fields>
+                            <infg:TextField AlternateBinding="{Binding Model.ProductType, Mode=OneTime}" BindingType="UseAlternateBinding" Label="Тип" Width="200" Converter="{StaticResource ObjectToStringConverter}"/>
+                            <infg:TextField AlternateBinding="{Binding Model.Designation, Mode=OneTime}" BindingType="UseAlternateBinding" Label="Обозначение" Width="200"/>
+                            <infg:TextField AlternateBinding="{Binding ParametersString, Mode=OneTime}" BindingType="UseAlternateBinding" Label="Параметры" Width="250"/>
+                            <infg:TextField AlternateBinding="{Binding StructureCostNumber}" BindingType="UseAlternateBinding" Label="StructureCost" Width="110" />
+                            <infg:TextField AlternateBinding="{Binding Design}" BindingType="UseAlternateBinding" Label="Чертёж" Width="110" />
+                        </infg:FieldLayout.Fields>
+                    </infg:FieldLayout>
+                </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid>
+        </GroupBox>
+            
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
+            
+        <GroupBox Grid.Column="2" Header="Детали">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" Content="Сохранить" Command="{Binding SaveCommand}"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="StructureCost"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedItem.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Чертёж"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedItem.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <GroupBox Grid.Row="2" Header="Параметры блока">
+                    <infg:XamDataGrid Style="{StaticResource ListViewGrid}"
+                                      DataSource="{Binding SelectedItem.Model.Parameters}">
+                        <infg:XamDataGrid.FieldLayouts>
+                            <infg:FieldLayout>
+                                <infg:FieldLayout.Fields>
+                                    <infg:TextField Name="ParameterGroup" Label="Группа" Width="150"/>
+                                    <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                                    <infg:TextField Name="Comment" Label="Комментарий" Width="150" />
+                                </infg:FieldLayout.Fields>
+                            </infg:FieldLayout>
+                        </infg:XamDataGrid.FieldLayouts>
+                    </infg:XamDataGrid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+            
+    </Grid>
+
+</inf:ViewBase>
+
+	
