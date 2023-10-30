@@ -251,12 +251,11 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     this.TaskTotalAcceptedByManagerAction?.Invoke(this.Model);
 
-                    var ms = Container.Resolve<IMessageService>();
-                    if (ms.ShowYesNoMessageDialog("Хотите синхронизировать?") == MessageDialogResult.Yes)
-                    {
-                        //синхронизируем продукты
-                        this.ReplaceProduct(priceEngineeringTask);
-                    }
+                    //синхронизируем продукты
+                    this.ReplaceProduct(priceEngineeringTask);
+
+                    if (this.LoadToTceStartCommand.CanExecute(null))
+                        this.LoadToTceStartCommand.Execute(null);
                 }
             }
 

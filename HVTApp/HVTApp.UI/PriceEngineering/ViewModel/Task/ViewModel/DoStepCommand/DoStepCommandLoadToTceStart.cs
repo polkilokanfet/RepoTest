@@ -15,7 +15,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.LoadToTceStart;
 
-        protected override string ConfirmationMessage => "Вы уверены, что хотите загрузить результаты проработки в Team Center?";
+        protected override string ConfirmationMessage => "Вы хотите загрузить результаты проработки в TeamCenter?";
 
         public DoStepCommandLoadToTceStart(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
