@@ -87,13 +87,13 @@ namespace HVTApp
             AddModuleByRole(catalog, typeof(PriceMakingModule));
             AddModuleByRole(catalog, typeof(SupplyModule));
             AddModuleByRole(catalog, typeof(ProductsModule));
-            AddModuleByRole(catalog, typeof(DirectumLiteModule));
             AddModuleByRole(catalog, typeof(BookRegistrationModule));
             AddModuleByRole(catalog, typeof(ReportsModule));
 
             //catalog.AddModule(typeof(MessengerModule));
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SettingsModule));
+            AddModuleByRole(catalog, typeof(DirectumLiteModule));
 
             _modules = catalog.Modules.ToList();
 
