@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HVTApp.Infrastructure;
@@ -199,14 +200,12 @@ namespace HVTApp.Services.PrintService
 
             var conditions = new List<string>
             {
-                "Комплектация и характеристики оборудования в соответствии с техническим приложением к настоящему предложению.",
                 GetShipmentConditions(offerUnitsGroups),
-                PrintConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.Model.PaymentConditionSet)),
+                PrintPaymentConditions("Условия оплаты:", offerUnitsGroups.GroupBy(x => x.Model.PaymentConditionSet), offer.ValidityDate),
                 PrintConditions("Срок производства (календарных дней, с правом досрочной поставки):", offerUnitsGroups.GroupBy(offerUnitsGroup => offerUnitsGroup.ProductionTerm)),
-                "Точный срок производства оборудования уточняется при заключении контракта.",
                 $"Настоящее предложение действительно при заключении контракта до {offer.ValidityDate.ToShortDateString()} года.",
+                "Комплектация и характеристики оборудования в соответствии с техническим приложением к настоящему предложению.",
                 "В случае изменения технических характеристик оборудования, объёма поставки или сроков заключения контракта условия предложения могут быть пересмотрены.",
-                "Заводская гарантия на оборудование: 5 лет."
             };
 
             docWriter.StartTable(2, GetTableProperties(docWriter, noBordersTableBorderProperties));
@@ -396,22 +395,32 @@ namespace HVTApp.Services.PrintService
             return offerUnitsGroups;
         }
 
+        private static string PrintPaymentConditions(string text, IEnumerable<IGrouping<PaymentConditionSet, OfferUnitsGroup>> offerUnitsGroupsGrouped, DateTime date)
+        {
+            var result = text;
+            var g = offerUnitsGroupsGrouped as IGrouping<PaymentConditionSet, OfferUnitsGroup>[] ?? offerUnitsGroupsGrouped.ToArray();
+            if (g.Length == 1)
+            {
+                var paymentConditionSet = g.First().Key;
+                return result + Environment.NewLine + paymentConditionSet.GetStringForOffer(date);
+            }
+
+            foreach (var unitsGroups in g)
+            {
+                result += Environment.NewLine + "- ";
+                var positions = unitsGroups.Select(x => x.Position).ToStringEnum(", ");
+                var prefix = unitsGroups.Count() == 1 ? "позиции" : "позиций";
+                result += PrintPaymentConditions($"{prefix} {positions}:", unitsGroups.GroupBy(x => x.Model.PaymentConditionSet), date);
+            }
+            return result;
+        }
+
+
         private static string PrintConditions<T>(string text, IEnumerable<IGrouping<T, OfferUnitsGroup>> offerUnitsGroupsGrouped)
         {
             var result = text;
             if (offerUnitsGroupsGrouped.Count() == 1)
             {
-                if (typeof(T) == typeof(PaymentConditionSet))
-                {
-                    var paymentConditionSet = offerUnitsGroupsGrouped.First().Key as PaymentConditionSet;
-                    foreach (var condition in paymentConditionSet.PaymentConditions.OrderBy(x => x))
-                    {
-                        result += Environment.NewLine + " - ";
-                        result += condition + ";";
-                    }
-                    return result.Remove(result.Length - 1, 1) + ".";
-                }
-
                 return $"{text} {offerUnitsGroupsGrouped.First().Key}.";
             }
 

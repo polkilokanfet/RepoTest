@@ -14,7 +14,7 @@ namespace HVTApp.Services.PrintService.Extensions
 
         public static string GetPath(this Offer offer, string path)
         {
-            var fileName = $"{offer.RegNumber} {offer.Date.ToShortDateString()} ({offer.RecipientEmployee.Company.ShortName.ReplaceUncorrectSimbols()}) {DateTime.Today.ToShortDateString()}";
+            var fileName = $"{offer.RegNumber}_{offer.Date.ToShortDateString()}_{DateTime.Today.ToShortDateString()}";
             return GetPath(path, fileName);
         }
 

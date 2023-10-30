@@ -17,43 +17,62 @@ namespace HVTApp.Model.POCOs
         [Designation("Условие"), Required, OrderStatus(10)]
         public virtual PaymentConditionPoint PaymentConditionPoint { get; set; }
 
-        public override string ToString()
+        #region ToString
+
+        private string GetDayForm()
         {
-            string dayName = "дней";
+            if (Math.Abs(DaysToPoint % 100) == 11 || 
+                Math.Abs(DaysToPoint % 100) == 12 ||
+                Math.Abs(DaysToPoint % 100) == 13 || 
+                Math.Abs(DaysToPoint % 100) == 14)
+                return "дней";
 
-            if (Math.Abs(DaysToPoint % 100) != 11 && Math.Abs(DaysToPoint % 100) != 12 && Math.Abs(DaysToPoint % 100) != 13 && Math.Abs(DaysToPoint % 100) != 14)
+            switch (Math.Abs(DaysToPoint % 10))
             {
-                if (Math.Abs(DaysToPoint % 10) == 1)
-                    dayName = "день";
-
-                if (Math.Abs(DaysToPoint % 10) == 2 || Math.Abs(DaysToPoint % 10) == 3 || Math.Abs(DaysToPoint % 10) == 4)
-                    dayName = "дня";
+                case 1:
+                    return "день";
+                case 2:
+                case 3:
+                case 4:
+                    return "дня";
             }
 
-            string daysName = DaysToPoint < 0 
-                ? $"за {-DaysToPoint} {dayName} до" 
-                : $"спустя {DaysToPoint} {dayName} после";
-            if (DaysToPoint == 0) daysName = "в день";
+            return "дней";
+        }
 
-            string pointName = string.Empty;
+        private string PointToString()
+        {
             switch (PaymentConditionPoint.PaymentConditionPointEnum)
             {
                 case (PaymentConditionPointEnum.ProductionStart):
-                    pointName = "начала производства";
-                    break;
+                    return "начала производства";
                 case (PaymentConditionPointEnum.ProductionEnd):
-                    pointName = "окончания производства";
-                    break;
+                    return "окончания производства";
                 case (PaymentConditionPointEnum.Shipment):
-                    pointName = "отгрузки с предприятия";
-                    break;
+                    return "отгрузки с предприятия";
                 case (PaymentConditionPointEnum.Delivery):
-                    pointName = "поставки";
-                    break;
+                    return "поставки";
             }
 
-            return $"{Part * 100}% {daysName} {pointName}";
+            throw new ArgumentException("Неописанная точка");
         }
+
+        public string DaysToPointToString()
+        {
+            var daysToPoint = string.Empty;
+            if (DaysToPoint == 0) daysToPoint = "в день";
+            else if (DaysToPoint < 0) daysToPoint = $"за {-DaysToPoint} {GetDayForm()} до";
+            else if (DaysToPoint > 0) daysToPoint = $"спустя {DaysToPoint} {GetDayForm()} после";
+
+            return $"{daysToPoint} {PointToString()}";
+        }
+
+        public override string ToString()
+        {
+            return $"{Part * 100}% {DaysToPointToString()}";
+        }
+
+        #endregion
 
         public int CompareTo(PaymentCondition other)
         {
