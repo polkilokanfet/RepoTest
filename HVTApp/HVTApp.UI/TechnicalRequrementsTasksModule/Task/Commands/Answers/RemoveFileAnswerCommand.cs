@@ -17,8 +17,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         protected override void ExecuteMethod()
         {
             //диалог
-            var dr = MessageService.ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
-            if (dr != MessageDialogResult.Yes) return;
+            var dr = MessageService.ConfirmationDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
+            if (dr == false) return;
 
             try
             {
@@ -34,7 +34,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             }
             catch (Exception e)
             {
-                MessageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
+                MessageService.Message("Exception", e.PrintAllExceptions());
             }
 
             ViewModel.SelectedAnswerFile = null;

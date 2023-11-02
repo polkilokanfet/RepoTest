@@ -279,8 +279,8 @@ namespace HVTApp.UI.Modules.Directum
             StartCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите стартовать задачу?", defaultYes: true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Вы уверены, что хотите стартовать задачу?", defaultYes: true);
+                    if (dr == false) return;
 
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var directumTaskGroup = new DirectumTaskGroup
@@ -355,8 +355,8 @@ namespace HVTApp.UI.Modules.Directum
             StopCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите прекратить задачу?\nБудут прекращены все параллельные предыдущие и последующие задачи в цепочке", defaultNo: true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Вы уверены, что хотите прекратить задачу?\nБудут прекращены все параллельные предыдущие и последующие задачи в цепочке", defaultNo: true);
+                    if (dr == false) return;
 
                     var moment = DateTime.Now;
                     var message = "Остановлено.";
@@ -394,8 +394,8 @@ namespace HVTApp.UI.Modules.Directum
             PerformCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите выполнить задачу?", defaultYes:true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Вы уверены, что хотите выполнить задачу?", defaultYes:true);
+                    if (dr == false) return;
 
                     var moment = DateTime.Now;
                     Message.Moment = moment;
@@ -427,8 +427,8 @@ namespace HVTApp.UI.Modules.Directum
             AcceptCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите принять выполнение задачи?", defaultYes: true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Вы уверены, что хотите принять выполнение задачи?", defaultYes: true);
+                    if (dr == false) return;
 
                     var moment = DateTime.Now;
                     if (DirectumTask.PreviousTask == null)
@@ -459,8 +459,8 @@ namespace HVTApp.UI.Modules.Directum
             RejectCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Вы уверены, что хотите вернуть на доработку задачу?", defaultNo: true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Вы уверены, что хотите вернуть на доработку задачу?", defaultNo: true);
+                    if (dr == false) return;
 
                     var moment = DateTime.Now;
                     if (DirectumTask.PreviousTask == null)
@@ -533,8 +533,8 @@ namespace HVTApp.UI.Modules.Directum
                 () =>
                 {
                     //диалог
-                    var dr = _messageService.ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = _messageService.ConfirmationDialog("Подтверждение", "Вы уверены, что хотите удалить выделенное приложение?", defaultYes: true);
+                    if (dr == false) return;
 
                     if (_filesToAdd.ContainsKey(SelectedFile))
                     {
@@ -594,7 +594,7 @@ namespace HVTApp.UI.Modules.Directum
                 }
                 catch (Exception e)
                 {
-                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
+                    _messageService.Message(e.GetType().Name, e.PrintAllExceptions());
                 }
             }
 
@@ -616,7 +616,7 @@ namespace HVTApp.UI.Modules.Directum
                 }
                 catch (FileNotFoundException e)
                 {
-                    _messageService.ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
+                    _messageService.Message(e.GetType().Name, e.PrintAllExceptions());
                 }
 
                 UnitOfWork.Repository<DirectumTaskGroupFile>().Delete(file.Model);

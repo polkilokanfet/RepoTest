@@ -14,8 +14,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            var result = MessageService.ShowYesNoMessageDialog("”даление", "ƒействительно хотите удалить из задачи это оборудование?", defaultNo: true);
-            if (result != MessageDialogResult.Yes) return;
+            var dr = MessageService.ConfirmationDialog("”даление", "ƒействительно хотите удалить из задачи это оборудование?", defaultNo: true);
+            if (dr == false) return;
 
             var selectedGroup = (TechnicalRequrements2Wrapper)ViewModel.SelectedItem;
 
@@ -29,7 +29,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
             if (salesUnitsNotForRemove.Any())
             {
-                MessageService.ShowOkMessageDialog("”даление", "¬ы не можете удалить некоторые строки, т.к. они размещены в производстве.");
+                MessageService.Message("”даление", "¬ы не можете удалить некоторые строки, т.к. они размещены в производстве.");
 
                 var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
                 salesUnitsToRemove.ForEach(salesUnit => selectedGroup.SalesUnits.Remove(salesUnit));

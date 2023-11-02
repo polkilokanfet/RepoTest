@@ -15,8 +15,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            var dialogResult = MessageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
-            if (dialogResult != MessageDialogResult.Yes) return;
+            var dialogResult = MessageService.ConfirmationDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
+            if (dialogResult == false) return;
 
             var selectedItem = (PriceCalculationItem2Wrapper)ViewModel.SelectedItem;
             var salesUnit = selectedItem.SalesUnits.First();

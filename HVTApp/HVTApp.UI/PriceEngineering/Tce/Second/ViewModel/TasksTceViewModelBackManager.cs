@@ -33,8 +33,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             if (priceCalculations.Any())
             {
                 var messageService = this.Container.Resolve<IMessageService>();
-                var dr = messageService.ShowYesNoMessageDialog("Сохраненные сейчас данные будут использованы для формирования расчёта ПЗ.\nВы хотите продолжить сохранение?");
-                if (dr != MessageDialogResult.Yes)
+                var dr = messageService.ConfirmationDialog("Сохраненные сейчас данные будут использованы для формирования расчёта ПЗ.\nВы хотите продолжить сохранение?");
+                if (dr == false)
                     return;
 
                 base.SaveItem();
@@ -45,8 +45,8 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                     priceCalculationViewModel.RegenerateScc(priceCalculation.Model);
                     priceCalculationViewModel.StartCommand.Execute(false);
 
-                    dr = messageService.ShowYesNoMessageDialog("Расчёт ПЗ сформирован и запущен на проработку.\nХотите его открыть?");
-                    if (dr == MessageDialogResult.Yes)
+                    dr = messageService.ConfirmationDialog("Расчёт ПЗ сформирован и запущен на проработку.\nХотите его открыть?");
+                    if (dr)
                     {
                         var regionManager = this.Container.Resolve<IRegionManager>();
                         regionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), priceCalculation.Model } });

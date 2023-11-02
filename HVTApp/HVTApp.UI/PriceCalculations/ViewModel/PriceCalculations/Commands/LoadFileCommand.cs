@@ -28,7 +28,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculations.Commands
             var messageService = _container.Resolve<IMessageService>();
             if (!_viewModel.SelectedItem.Files.Any())
             {
-                messageService.ShowOkMessageDialog("Информация", "В этот расчет ещё не загружен ни один файл.");
+                messageService.Message("Информация", "В этот расчет ещё не загружен ни один файл.");
                 return;
             }
 

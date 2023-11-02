@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
@@ -41,7 +40,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
                     if (tasksToInstruct.Any() == false)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Тут нет задач, которые можно поручить.");
+                        Container.Resolve<IMessageService>().Message("Информация", "Тут нет задач, которые можно поручить.");
                         return;
                     }
 
@@ -58,7 +57,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     var user = Container.Resolve<ISelectService>().SelectItem(staff);
                     if (user == null) return;
 
-                    var needVerification = MessageDialogResult.Yes == Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
+                    var needVerification = Container.Resolve<IMessageService>().ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
 
                     foreach (var taskForInstruct in tasksToInstruct)
                     {

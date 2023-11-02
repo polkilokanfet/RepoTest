@@ -30,12 +30,12 @@ namespace HVTApp.Infrastructure.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    messageService.ShowOkMessageDialog("Ошибка экспорта в файл", ex.PrintAllExceptions());
+                    messageService.Message("Ошибка экспорта в файл", ex.PrintAllExceptions());
                     return;
                 }
 
                 // Execute Excel to display the exported workbook.
-                if (messageService.ShowYesNoMessageDialog("Экспорт успешно завершен", "Показать результаты экспорта?", defaultYes:true) == MessageDialogResult.Yes)
+                if (messageService.ConfirmationDialog("Экспорт успешно завершен", "Показать результаты экспорта?", defaultYes:true))
                 {
                     try
                     {
@@ -44,7 +44,7 @@ namespace HVTApp.Infrastructure.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        messageService.ShowOkMessageDialog("Ошибка", ex.PrintAllExceptions());
+                        messageService.Message("Ошибка", ex.PrintAllExceptions());
                     }
                 }
             });

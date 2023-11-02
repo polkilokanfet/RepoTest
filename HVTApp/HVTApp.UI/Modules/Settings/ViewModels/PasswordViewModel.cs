@@ -62,7 +62,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                 {
                     user.Password = StringToGuid.GetHashString(PassNew);
                     unitOfWork.SaveChanges();
-                    container.Resolve<IMessageService>().ShowOkMessageDialog("Пароль изменен", "Пароль успешно изменен.");
+                    container.Resolve<IMessageService>().Message("Пароль изменен", "Пароль успешно изменен.");
 
                     PassOld = string.Empty;
                     PassNew = string.Empty;

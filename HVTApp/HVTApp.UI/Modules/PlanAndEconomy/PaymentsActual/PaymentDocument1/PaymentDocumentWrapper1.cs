@@ -54,7 +54,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             {
                 if (value > DateTime.Today.AddYears(50))
                 {
-                    _messageService.ShowOkMessageDialog("Предупреждение", "Даты позже 50 лет с текущей даты недопустимы!");
+                    _messageService.Message("Предупреждение", "Даты позже 50 лет с текущей даты недопустимы!");
                     return;
                 }
                 Payments.ForEach(payment => payment.Date = value);
@@ -77,13 +77,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             {
                 if (value < 0)
                 {
-                    _messageService.ShowOkMessageDialog("Предупреждение", "Отрицательные платежи недопустимы!");
+                    _messageService.Message("Предупреждение", "Отрицательные платежи недопустимы!");
                     return;
                 }
 
                 if (!Payments.Any())
                 {
-                    _messageService.ShowOkMessageDialog("Предупреждение", "Добавте в платежку оборудование.");
+                    _messageService.Message("Предупреждение", "Добавте в платежку оборудование.");
                     return;
                 }
 
@@ -93,7 +93,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 //если предложена сумма, превышающая, не пропускаем
                 if (value - notPaidWithVat > 0.000001)
                 {
-                    _messageService.ShowOkMessageDialog("Предупреждение", $"Сумма платежки слишком велика. Возможный максимум: {notPaidWithVat:C}");
+                    _messageService.Message("Предупреждение", $"Сумма платежки слишком велика. Возможный максимум: {notPaidWithVat:C}");
                     return;
                 }
 

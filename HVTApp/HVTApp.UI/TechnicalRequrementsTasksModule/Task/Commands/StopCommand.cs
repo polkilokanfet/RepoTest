@@ -1,8 +1,6 @@
 using System;
-using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -16,7 +14,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            if (MessageService.ShowYesNoMessageDialog("Остановка задачи", "Вы уверены, что хотите остановить задачу?") != MessageDialogResult.Yes)
+            if (MessageService.ConfirmationDialog("Остановка задачи", "Вы уверены, что хотите остановить задачу?") == false)
                 return;
 
             ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Stop;

@@ -43,7 +43,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             //проверка на наличие з/з
             if (priceEngineeringTask.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
             {
-                MessageService.ShowOkMessageDialog("Отказ", "В перечне оборудования уже есть позиции с запросом на открытие з/з");
+                MessageService.Message("Отказ", "В перечне оборудования уже есть позиции с запросом на открытие з/з");
                 return;
             }
 
@@ -53,7 +53,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             var notAccepted = tasks.Where(task => possiblePreviousSteps.Contains(task.Status) == false).ToList();
             if (notAccepted.Any())
             {
-                MessageService.ShowOkMessageDialog("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
+                MessageService.Message("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             var notValidForProduction = tasks.Where(task => task.IsValidForProduction == false).ToList();
             if (notValidForProduction.Any())
             {
-                MessageService.ShowOkMessageDialog("Отказ", $"Сначала досогласуйте ТЗ в блоках:\n{notValidForProduction.Select(task => task.ProductBlock).ToStringEnum()}");
+                MessageService.Message("Отказ", $"Сначала досогласуйте ТЗ в блоках:\n{notValidForProduction.Select(task => task.ProductBlock).ToStringEnum()}");
                 return;
             }
 

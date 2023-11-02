@@ -2,7 +2,7 @@
 
 namespace HVTApp.Services.MessageService
 {
-    public partial class YesNoWindow : Window
+    public partial class YesNoWindow
     {
         public YesNoWindow(string title, string message, bool defaultYes = false, bool defaultNo = false)
         {

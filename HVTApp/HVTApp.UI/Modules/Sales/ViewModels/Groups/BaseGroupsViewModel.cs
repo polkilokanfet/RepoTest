@@ -108,7 +108,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RemoveProductIncludedCommand = new DelegateLogCommand(
                 () =>
                 {
-                    if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?", defaultNo: true) == MessageDialogResult.No)
+                    if (Container.Resolve<IMessageService>().ConfirmationDialog("Удаление", "Удалить?", defaultNo: true) == false)
                         return;
 
                     Groups.SelectedGroup.RemoveProductIncluded(Groups.SelectedProductIncluded);
@@ -162,7 +162,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             if (CanRemoveGroup(Groups.SelectedGroup))
             {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) != MessageDialogResult.Yes)
+                if (Container.Resolve<IMessageService>().ConfirmationDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) == false)
                 {
                     return;
                 }

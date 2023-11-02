@@ -1,6 +1,4 @@
 using System;
-using System.Windows.Input;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 
 namespace HVTApp.UI.Commands
@@ -44,8 +42,8 @@ namespace HVTApp.UI.Commands
         {
             if (_showConfirmation)
             {
-                var dr = MessageService.ShowYesNoMessageDialog("Подтверждение намерений", ConfirmationMessage, defaultNo: true);
-                if (dr != MessageDialogResult.Yes) return;
+                var dr = MessageService.ConfirmationDialog("Подтверждение намерений", ConfirmationMessage, defaultNo: true);
+                if (dr == false) return;
             }
 
             base.ExecuteMethod();

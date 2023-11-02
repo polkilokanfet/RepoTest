@@ -17,7 +17,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         protected override void ExecuteMethod()
         {
             var msg = "¬ы уверены, что хотите прин€ть проработку задачи?";
-            if (MessageService.ShowYesNoMessageDialog("", msg) != MessageDialogResult.Yes)
+            if (MessageService.ConfirmationDialog(msg) == false)
                 return;
 
             ViewModel.HistoryElementWrapper.Moment = DateTime.Now;

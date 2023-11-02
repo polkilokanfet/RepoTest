@@ -26,8 +26,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             bool showMessage = parameter is bool b && b;
             if (showMessage == true)
             {
-                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("¬ы уверены, что хотите стартовать задачу?", defaultYes: true);
-                if (dr != MessageDialogResult.Yes) return;
+                var dr = _container.Resolve<IMessageService>().ConfirmationDialog("¬ы уверены, что хотите стартовать задачу?", defaultYes: true);
+                if (dr == false) return;
             }
 
             var historyItemWrapper = _viewModel.HistoryItem;

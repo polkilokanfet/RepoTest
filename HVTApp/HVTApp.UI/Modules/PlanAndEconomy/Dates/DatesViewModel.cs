@@ -88,13 +88,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                             }
                         }
 
-                        var dr = container.Resolve<IMessageService>().ShowYesNoMessageDialog("Применить изменения?", sb.ToString(), defaultYes:true);
-                        if (dr != MessageDialogResult.Yes)
+                        var dr = container.Resolve<IMessageService>().ConfirmationDialog("Применить изменения?", sb.ToString(), defaultYes:true);
+                        if (dr == false)
                             EnumerableExtansions.ForEach(this.Groups.SelectMany(x => x.Units).Where(x => x.IsChanged), x => x.RejectChanges());
                     }
                     catch (Exception e)
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("error", e.PrintAllExceptions());
+                        container.Resolve<IMessageService>().Message("error", e.PrintAllExceptions());
                     }
                 });
         }

@@ -169,7 +169,7 @@ namespace HVTApp.UI.PriceEngineering
                     }
                     catch (Exception e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
+                        Container.Resolve<IMessageService>().Message("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
                     }
                 },
                 () => SelectedTechnicalRequrementsFile != null);
@@ -201,7 +201,7 @@ namespace HVTApp.UI.PriceEngineering
                     }
                     catch (Exception e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при открытии файла", e.PrintAllExceptions());
+                        Container.Resolve<IMessageService>().Message("Ошибка при открытии файла", e.PrintAllExceptions());
                     }
                 },
                 () => SelectedFileAnswer != null);

@@ -41,11 +41,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             if (_showConfirmation)
             {
-                var dr = MessageService.ShowYesNoMessageDialog("Подтверждение", ConfirmationMessage, defaultNo: true);
-                if (dr != MessageDialogResult.Yes)
-                {
+                var dr = MessageService.ConfirmationDialog("Подтверждение", ConfirmationMessage, defaultNo: true);
+                if (dr == false)
                     return;
-                }
             }
 
             this.CheckActualUsers();

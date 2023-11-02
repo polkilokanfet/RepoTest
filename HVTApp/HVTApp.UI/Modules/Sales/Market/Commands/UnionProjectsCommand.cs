@@ -25,7 +25,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            if (_messageService.ShowYesNoMessageDialog("Объединить проекты.", "Вы уверены, что хотите объединить проекты?", defaultNo: true) != MessageDialogResult.Yes)
+            if (_messageService.ConfirmationDialog("Объединить проекты.", "Вы уверены, что хотите объединить проекты?", defaultNo: true) == false)
                 return;
 
             List<ProjectItem> projectItems = _viewModel.SelectedProjectItems.ToList();

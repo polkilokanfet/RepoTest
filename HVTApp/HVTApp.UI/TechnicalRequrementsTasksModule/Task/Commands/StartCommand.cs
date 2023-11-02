@@ -1,8 +1,6 @@
 using System;
-using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -16,7 +14,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            if (MessageService.ShowYesNoMessageDialog("Запуск задачи в ТСЕ", "Вы уверены, что хотите запустить задачу?") != MessageDialogResult.Yes)
+            if (MessageService.ConfirmationDialog("Запуск задачи в ТСЕ", "Вы уверены, что хотите запустить задачу?") == false)
                 return;
 
             ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Start;

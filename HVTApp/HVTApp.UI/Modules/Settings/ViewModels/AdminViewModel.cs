@@ -73,7 +73,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    .ForEach(x => sb.AppendLine($"{x.Project.Manager.Employee.Person.Surname}: {x};"));
                     //Clipboard.SetText(sb.ToString());
 
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog("", $"Finish");
+                    _container.Resolve<IMessageService>().Message("", $"Finish");
 
                 });
         }

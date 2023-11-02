@@ -37,8 +37,8 @@ namespace HVTApp.UI.ViewModels
 
                         if (managersOffline.Any())
                         {
-                            var dr = messageService.ShowYesNoMessageDialog("Некоторые менеджеры не подключены", $"{managersOffline.ToStringEnum()} не подключены. Продолжаем?");
-                            if (dr != MessageDialogResult.Yes) return;
+                            var dr = messageService.ConfirmationDialog("Некоторые менеджеры не подключены", $"{managersOffline.ToStringEnum()} не подключены. Продолжаем?");
+                            if (dr == false) return;
                         }
 
                         managersOffline.ForEach(user => managers.Remove(user));
@@ -60,7 +60,7 @@ namespace HVTApp.UI.ViewModels
                                         eventServiceClient.CopyProjectAttachmentsRequest(selectedProject.Manager.Id, selectedProject.Id, targetDirectoryPath);
                                     }
 
-                                    messageService.ShowOkMessageDialog("Info", $"Started copy proccess to: {selectedDirectoryPath}");
+                                    messageService.Message("Info", $"Started copy proccess to: {selectedDirectoryPath}");
                                 }
                             }
                         }

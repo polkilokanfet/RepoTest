@@ -20,8 +20,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             if (ViewModel.TechnicalRequrementsTaskWrapper.Model.BackManager != null)
             {
-                var dr = MessageService.ShowYesNoMessageDialog("Информация", "Back manager уже назначен. Вы хотите его сменить?");
-                if (dr != MessageDialogResult.Yes) return;
+                var dr = MessageService.ConfirmationDialog("Информация", "Back manager уже назначен. Вы хотите его сменить?");
+                if (dr == false) return;
             }
 
             var backManagers = UnitOfWork.Repository<User>().Find(user => user.IsActual && user.Roles.Any(role => role.Role == Role.BackManager));

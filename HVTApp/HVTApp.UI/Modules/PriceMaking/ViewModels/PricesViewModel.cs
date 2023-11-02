@@ -90,8 +90,8 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             RemovePriceCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить выбранный прайс?", defaultNo: true);
-                    if (dr != MessageDialogResult.Yes)
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Удаление", "Удалить выбранный прайс?", defaultNo: true);
+                    if (dr == false)
                         return;
                     SelectedPriceTask.Prices.Remove(SelectedSumOnDate);
                     if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
@@ -105,8 +105,8 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
             SetPricesFromCalculationsCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Прайсы", "Подтянуть прайсы из калькуляций?", defaultYes:true);
-                    if (dr != MessageDialogResult.Yes)
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Прайсы", "Подтянуть прайсы из калькуляций?", defaultYes:true);
+                    if (dr == false)
                         return;
 
                     var sb = new StringBuilder();
@@ -154,7 +154,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                     if (_unitOfWork.SaveChanges().OperationCompletedSuccessfully)
                     {
                         PriceTasks.Where(priceTask => priceTask.IsValid && priceTask.IsChanged).ForEach(priceTask => priceTask.AcceptChanges());
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", sb.ToString());
+                        Container.Resolve<IMessageService>().Message("Информация", sb.ToString());
                     }
                 });
         }

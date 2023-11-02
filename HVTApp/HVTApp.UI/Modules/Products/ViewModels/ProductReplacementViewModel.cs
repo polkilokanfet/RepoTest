@@ -81,7 +81,7 @@ namespace HVTApp.UI.Modules.Products.ViewModels
 
                     if (UnitOfWork.RemoveEntity(ProductReplaceable).OperationCompletedSuccessfully)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Заменено", $"SalesUnits: {salesUnits.Count}\nOfferUnits: {offerUnits.Count}\n\nЗамененный продукт удален!");
+                        Container.Resolve<IMessageService>().Message("Заменено", $"SalesUnits: {salesUnits.Count}\nOfferUnits: {offerUnits.Count}\n\nЗамененный продукт удален!");
                     }
                 },
                 () => ProductReplaceable != null && ProductTarget != null);

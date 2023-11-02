@@ -1,5 +1,4 @@
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -14,39 +13,39 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            var result = MessageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
-            if (result != MessageDialogResult.Yes) return;
+            var result = MessageService.ConfirmationDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
+            if (result == false) return;
 
             //айтемы для слияния
             var items = ViewModel.TechnicalRequrementsTaskWrapper.Requrements.Where(x => x.IsChecked).ToList();
 
             if (items.Select(x => x.SalesUnit.Facility.Id).Distinct().Count() > 1)
             {
-                MessageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
+                MessageService.Message("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
                 return;
             }
 
             if (items.Select(x => x.SalesUnit.Product.Id).Distinct().Count() > 1)
             {
-                MessageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
+                MessageService.Message("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
                 return;
             }
 
             if (items.Select(x => x.SalesUnit.OrderInTakeDate).Distinct().Count() > 1)
             {
-                MessageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами ОИТ.");
+                MessageService.Message("Слияние", "Вы не можете объединить строки с разными датами ОИТ.");
                 return;
             }
 
             if (items.Select(x => x.SalesUnit.RealizationDateCalculated).Distinct().Count() > 1)
             {
-                MessageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными датами реализации.");
+                MessageService.Message("Слияние", "Вы не можете объединить строки с разными датами реализации.");
                 return;
             }
 
             if (items.Select(x => x.SalesUnit.Producer).Distinct().Count() > 1)
             {
-                MessageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными производителями.");
+                MessageService.Message("Слияние", "Вы не можете объединить строки с разными производителями.");
                 return;
             }
 

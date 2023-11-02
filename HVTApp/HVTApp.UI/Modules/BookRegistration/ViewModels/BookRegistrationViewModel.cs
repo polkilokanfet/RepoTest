@@ -111,7 +111,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 {
                     if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Путь к хранилищу приложений не назначен");
+                        Container.Resolve<IMessageService>().Message("Информация", "Путь к хранилищу приложений не назначен");
                         return;
                     }
 

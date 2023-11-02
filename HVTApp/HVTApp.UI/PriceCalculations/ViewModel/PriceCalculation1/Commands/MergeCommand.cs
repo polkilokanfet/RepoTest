@@ -14,21 +14,21 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            var result = MessageService.ShowYesNoMessageDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
-            if (result != MessageDialogResult.Yes) return;
+            var result = MessageService.ConfirmationDialog("Слияние", "Действительно хотите слить строки, выделенные галкой?", defaultYes: true);
+            if (result == false) return;
 
             //айтемы для слияния
             var items = ViewModel.PriceCalculationWrapper.PriceCalculationItems.Where(x => x.IsChecked).ToList();
 
             if (items.Select(x => x.Facility.Id).Distinct().Count() > 1)
             {
-                MessageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
+                MessageService.Message("Слияние", "Вы не можете объединить строки с разными Объектами поставки.");
                 return;
             }
 
             if (items.Select(x => x.Product.Id).Distinct().Count() > 1)
             {
-                MessageService.ShowOkMessageDialog("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
+                MessageService.Message("Слияние", "Вы не можете объединить строки с разными Продуктами поставки.");
                 return;
             }
 

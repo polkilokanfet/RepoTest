@@ -43,7 +43,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             }
             else
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Всё оборудование из этого проекта или уже в спецификациях или проиграно.");
+                _container.Resolve<IMessageService>().Message("Информация", "Всё оборудование из этого проекта или уже в спецификациях или проиграно.");
             }
         }
 

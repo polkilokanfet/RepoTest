@@ -169,11 +169,11 @@ namespace EventServiceClient2
                 }
                 catch (TimeoutException e)
                 {
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
+                    _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
                 }
                 catch (CommunicationObjectFaultedException e)
                 {
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
+                    _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
                 }
 #if DEBUG
 #else

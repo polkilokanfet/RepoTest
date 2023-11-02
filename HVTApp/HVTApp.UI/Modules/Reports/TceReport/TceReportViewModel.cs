@@ -44,7 +44,7 @@ namespace HVTApp.UI.Modules.Reports.TceReport
         {
             Units.Clear();
             Units.AddRange(_units);
-            Container.Resolve<IMessageService>().ShowOkMessageDialog("Загрузка данных", "Загрузка отчета завершена.");
+            Container.Resolve<IMessageService>().Message("Загрузка данных", "Загрузка отчета завершена.");
         }
     }
 }

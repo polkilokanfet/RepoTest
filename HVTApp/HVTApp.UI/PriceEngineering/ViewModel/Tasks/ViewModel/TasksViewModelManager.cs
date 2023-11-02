@@ -123,7 +123,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     }
                     catch (Exception e)
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
+                        container.Resolve<IMessageService>().Message("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
                     }
                 });
 
@@ -147,7 +147,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     }
                     catch (Exception e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.PrintAllExceptions());
+                        Container.Resolve<IMessageService>().Message("Ошибка при сохранении", e.PrintAllExceptions());
                     }
                 },
                 () => this.TasksWrapper != null && this.TasksWrapper.IsValid && this.TasksWrapper.IsChanged);

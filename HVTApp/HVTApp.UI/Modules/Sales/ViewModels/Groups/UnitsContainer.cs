@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                     }
                     catch (DbUpdateConcurrencyException e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", e.PrintAllExceptions());
+                        Container.Resolve<IMessageService>().Message("Ошибка при сохранении", e.PrintAllExceptions());
                     }
 
                     //регистрация на события изменения строк с оборудованием
@@ -145,11 +145,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             //если придет запрос при несохраненных изменениях
             if (SaveCommand.CanExecute())
             {
-                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo:true);
-                if(dr == MessageDialogResult.Yes)
+                var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo:true);
+                if(dr)
                     SaveCommand.Execute();
-
-                if (dr == MessageDialogResult.No)
+                else
                     IsConfirmGoBackWithoutSaving = true;
             }
 

@@ -16,8 +16,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         protected override void ExecuteMethod()
         {
 
-            var result = MessageService.ShowYesNoMessageDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
-            if (result != MessageDialogResult.Yes) return;
+            var result = MessageService.ConfirmationDialog("Разбиение", "Действительно хотите разбить выбранную строку?", defaultNo: true);
+            if (result == false) return;
 
             var technicalRequrementsWrapper = (TechnicalRequrements2Wrapper)ViewModel.SelectedItem;
             var salesUnit = technicalRequrementsWrapper.SalesUnits.First();

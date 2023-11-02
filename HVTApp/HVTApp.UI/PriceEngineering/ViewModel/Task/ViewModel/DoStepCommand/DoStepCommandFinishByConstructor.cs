@@ -46,13 +46,10 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
             if (vm.Model.RequestForVerificationFromHead == false)
             {
-                var dr = MessageService.ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
-                vm.RequestForVerificationFromConstructor = dr == MessageDialogResult.Yes;
+                vm.RequestForVerificationFromConstructor = MessageService.ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
             }
 
-            var dr1 = MessageService.ShowYesNoMessageDialog("Проверка", "Предоставленного ТЗ достаточно для производства?", defaultNo: true);
-            vm.IsValidForProduction = dr1 == MessageDialogResult.Yes;
-
+            vm.IsValidForProduction = MessageService.ConfirmationDialog("Проверка", "Предоставленного ТЗ достаточно для производства?", defaultNo: true);
 
             var needVerification = vm.Model.RequestForVerificationFromHead || vm.RequestForVerificationFromConstructor;
 

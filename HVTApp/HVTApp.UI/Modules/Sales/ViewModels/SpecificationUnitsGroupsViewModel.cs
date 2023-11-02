@@ -52,7 +52,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             if (CanRemoveGroup(Groups.SelectedGroup))
             {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) != MessageDialogResult.Yes)
+                if (Container.Resolve<IMessageService>().ConfirmationDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) == false)
                 {
                     return;
                 }

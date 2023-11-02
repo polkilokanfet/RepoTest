@@ -17,7 +17,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             if (string.IsNullOrWhiteSpace(ViewModel.HistoryElementWrapper.Comment))
             {
-                MessageService.ShowOkMessageDialog("Информация", "Перед отклонением необходимо заполнить комментарий (причину отклонения)");
+                MessageService.Message("Информация", "Перед отклонением необходимо заполнить комментарий (причину отклонения)");
                 return;
             }
 

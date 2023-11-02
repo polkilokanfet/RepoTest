@@ -34,7 +34,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             }
             catch (Exception e)
             {
-                MessageService.ShowOkMessageDialog("Exception", e.PrintAllExceptions());
+                MessageService.Message("Exception", e.PrintAllExceptions());
                 return;
             }
 
@@ -46,8 +46,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                 ViewModel.SaveCommand.Execute();
             }
 
-            var dialogResult = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Скопировать данные из загруженного расчёта?", defaultYes:true);
-            if (dialogResult == MessageDialogResult.Yes)
+            var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Скопировать данные из загруженного расчёта?", defaultYes:true);
+            if (dr)
                 LoadCostsFromFile(destPath);
         }
 

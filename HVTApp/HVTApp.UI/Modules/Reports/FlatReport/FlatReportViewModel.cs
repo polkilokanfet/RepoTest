@@ -322,7 +322,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
 
                     UnitOfWork.SaveChanges();
                     Container.Resolve<IMessageService>()
-                        .ShowOkMessageDialog("Информация", $"Бюджет \"{budget}\" успешно сохранен.");
+                        .Message("Информация", $"Бюджет \"{budget}\" успешно сохранен.");
                 },
                 () => new List<Role> {Role.Admin, Role.Director, Role.ReportMaker}.Contains(GlobalAppProperties.User.RoleCurrent));
 
@@ -420,7 +420,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                     monthContainers.Cast<ContainerMonthOit>().ForEach(containerMonthOit => containerMonthOit.FillEstimatedDates());
 
                     if (monthContainers.Any(containerMonth => !containerMonth.IsOk))
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
+                        Container.Resolve<IMessageService>().Message("Информация", "Не во всех месяцах удалось выровнять суммы с заданной точностью.");
                 });
 
             ExplodeItemCommand = new DelegateLogCommand(
@@ -538,7 +538,7 @@ namespace HVTApp.UI.Modules.Reports.FlatReport
                 if (!item.EstimatedOrderInTakeDate.BetweenDates(StartDate, FinishDate))
                 {
                     item.InReport = false;
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", $"\"{item}\" вышел за рамки отчетного диапазона дат (по дате ОИТ).");
+                    Container.Resolve<IMessageService>().Message("Информация", $"\"{item}\" вышел за рамки отчетного диапазона дат (по дате ОИТ).");
                 }
                 else
                 {

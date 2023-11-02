@@ -128,7 +128,7 @@ namespace HVTApp.UI.PriceEngineering.ParametersService1
                 {
                     if (designDepartment1.ParameterSetsAddedBlocks.Any() == false)
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомление", $"В КБ \"{designDepartment1.Name}\" нет ни одного дополнительного блока. Обратитесь к администратору.");
+                        container.Resolve<IMessageService>().Message("Уведомление", $"В КБ \"{designDepartment1.Name}\" нет ни одного дополнительного блока. Обратитесь к администратору.");
                         return;
                     }
                     var block = container.Resolve<IGetProductService>().GetProductBlock(designDepartment1.ParameterSetsAddedBlocks);

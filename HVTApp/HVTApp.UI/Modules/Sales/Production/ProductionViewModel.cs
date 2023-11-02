@@ -49,7 +49,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                     if (priceEngineeringTask != null)
                         container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(new NavigationParameters{{nameof(PriceEngineeringTask), priceEngineeringTask}});
                     else
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Задача не найдена...");
+                        container.Resolve<IMessageService>().Message("Информация", "Задача не найдена...");
                 },
                 () => SelectedInProduction != null);
         }

@@ -22,7 +22,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             }
             catch (Exception e)
             {
-                MessageService.ShowOkMessageDialog("Ошибка при открытии файла.", e.PrintAllExceptions());
+                MessageService.Message("Ошибка при открытии файла.", e.PrintAllExceptions());
             }
         }
     }

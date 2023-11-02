@@ -78,7 +78,7 @@ namespace HVTApp.DataAccess
                 message = unitOfWorkOperationResult.Exception.PrintAllExceptions();
             }
 
-            _container.Resolve<IMessageService>().ShowOkMessageDialog(unitOfWorkOperationResult.Exception.GetType().Name, message);
+            _container.Resolve<IMessageService>().Message(unitOfWorkOperationResult.Exception.GetType().Name, message);
             _container.Resolve<IHvtAppLogger>().LogError(unitOfWorkOperationResult.Exception.GetType().Name, unitOfWorkOperationResult.Exception);
         }
 

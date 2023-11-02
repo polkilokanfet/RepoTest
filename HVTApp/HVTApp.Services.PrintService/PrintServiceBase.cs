@@ -124,8 +124,8 @@ namespace HVTApp.Services.PrintService
             //подпись
             if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
             {
-                var drt = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo: true);
-                if (drt == MessageDialogResult.Yes)
+                var drt = Container.Resolve<IMessageService>().ConfirmationDialog("Подпись", "Печать с подписью?", defaultNo: true);
+                if (drt)
                 {
                     try
                     {
@@ -142,7 +142,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                        Container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }
@@ -212,7 +212,7 @@ namespace HVTApp.Services.PrintService
             }
             catch (IOException e)
             {
-                MessageService.ShowOkMessageDialog(e.GetType().Name, e.Message);
+                MessageService.Message(e.GetType().Name, e.Message);
                 return null;
             }
 
@@ -252,9 +252,8 @@ namespace HVTApp.Services.PrintService
 
         protected void OpenDocument(string fullPath)
         {
-            var dr = MessageService.ShowYesNoMessageDialog("Процесс формирования документа завершен",
-                "Формирование документа завершено. Открыть результат?", defaultYes: true);
-            if (dr == MessageDialogResult.Yes)
+            var dr = MessageService.ConfirmationDialog("Формирование документа завершено. Открыть результат?", defaultYes: true);
+            if (dr)
             {
                 try
                 {
@@ -262,7 +261,7 @@ namespace HVTApp.Services.PrintService
                 }
                 catch (Exception e)
                 {
-                    MessageService.ShowOkMessageDialog("Error", e.PrintAllExceptions());
+                    MessageService.Message("Error", e.PrintAllExceptions());
                 }
             }
         }

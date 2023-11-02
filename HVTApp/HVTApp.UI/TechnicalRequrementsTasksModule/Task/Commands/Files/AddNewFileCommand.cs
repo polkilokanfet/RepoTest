@@ -37,7 +37,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 }
                 catch (Exception e)
                 {
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.PrintAllExceptions());
+                    Container.Resolve<IMessageService>().Message("Exception", e.PrintAllExceptions());
                 }
             }
         }

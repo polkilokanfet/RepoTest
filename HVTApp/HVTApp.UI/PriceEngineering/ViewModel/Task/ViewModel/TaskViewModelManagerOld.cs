@@ -122,13 +122,13 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     if (string.IsNullOrEmpty(this.Model.GetPriceEngineeringTasks(UnitOfWork).TceNumber))
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Отказ", "Вашей проработки нет в Team Center");
+                        container.Resolve<IMessageService>().Message("Отказ", "Вашей проработки нет в Team Center");
                         return;
                     }
 
                     if (this.Model.SalesUnits.Any(x => x.Specification == null))
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Отказ", "Создайте перед этим спецификацию");
+                        container.Resolve<IMessageService>().Message("Отказ", "Создайте перед этим спецификацию");
                         return;
                     }
 
@@ -139,7 +139,7 @@ namespace HVTApp.UI.PriceEngineering
                         PriceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id)
                     });
 
-                    container.Resolve<IMessageService>().ShowOkMessageDialog("Успех!", "Запрос на создание счёта успешно создан!");
+                    container.Resolve<IMessageService>().Message("Успех!", "Запрос на создание счёта успешно создан!");
                 });
 
             #endregion
@@ -223,19 +223,19 @@ namespace HVTApp.UI.PriceEngineering
 
                 try
                 {
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение",
+                    Container.Resolve<IMessageService>().Message("Уведомдение",
                         unitOfWork.SaveChanges().OperationCompletedSuccessfully
                             ? $"Заменен продукт в {salesUnits.First()}"
                             : $"Не заменен продукт в {salesUnits.First()}");
                 }
                 catch (Exception e)
                 {
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение", e.PrintAllExceptions());
+                    Container.Resolve<IMessageService>().Message("Уведомдение", e.PrintAllExceptions());
                 }
             }
             catch (Exception e)
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Уведомдение", e.PrintAllExceptions());
+                Container.Resolve<IMessageService>().Message("Уведомдение", e.PrintAllExceptions());
             }
         }
 

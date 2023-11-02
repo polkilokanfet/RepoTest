@@ -118,7 +118,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     }
                     catch (Exception e)
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
+                        container.Resolve<IMessageService>().Message("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
                     }
                 });
         }

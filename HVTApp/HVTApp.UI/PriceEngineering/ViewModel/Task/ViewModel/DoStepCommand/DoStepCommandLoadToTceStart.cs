@@ -51,7 +51,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             var notAccepted = tasks.Where(task => steps.Contains(task.Status) == false).ToList();
             if (notAccepted.Any())
             {
-                MessageService.ShowOkMessageDialog("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
+                MessageService.Message("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
                 return;
             }
 
@@ -88,7 +88,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             {
                 tasks.BackManager = null;
                 unitOfWork.SaveChanges();
-                MessageService.ShowOkMessageDialog("Info", "Back-manager удален из задачи, т.к. его профиль не актуален");
+                MessageService.Message("Info", "Back-manager удален из задачи, т.к. его профиль не актуален");
                 this.ViewModel.Messenger.SendMessage("Back-manager удален из задачи, т.к. его профиль не актуален. Необходимо назначить другого.");
             }
         }

@@ -85,7 +85,7 @@ namespace HVTApp.UI.ViewModels
                     repository.DeleteRange(otherItems);
                     unitOfWork.SaveChanges();
 
-                    container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Объединение успешно завершено!");
+                    container.Resolve<IMessageService>().Message("Информация", "Объединение успешно завершено!");
                 },
                 () => SelectedItems != null && SelectedItems.Count() > 1);
 
@@ -295,8 +295,8 @@ namespace HVTApp.UI.ViewModels
 
         protected void RemoveItemCommand_Execute()
         {
-            var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?", defaultNo:true);
-            if (dr != MessageDialogResult.Yes) return;
+            var dr = MessageService.ConfirmationDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?", defaultNo:true);
+            if (dr == false) return;
 
             try
             {

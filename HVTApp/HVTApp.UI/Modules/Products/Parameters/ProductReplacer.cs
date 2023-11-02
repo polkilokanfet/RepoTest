@@ -126,7 +126,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     this.RemoveBlockDuplicates(blockTarget);
                     _unitOfWork.SaveChanges();
                     SelectedBlockTarget.Parameters.Remove(SelectedParameterInBlock);
-                    container.Resolve<IMessageService>().ShowOkMessageDialog("", "done");
+                    container.Resolve<IMessageService>().Message("", "done");
                 });
 
             AddParameterCommand = new DelegateLogConfirmationCommand(
@@ -138,7 +138,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     blockTarget.Parameters.Add(parameter);
                     this.RemoveBlockDuplicates(blockTarget);
                     _unitOfWork.SaveChanges();
-                    container.Resolve<IMessageService>().ShowOkMessageDialog("", "done");
+                    container.Resolve<IMessageService>().Message("", "done");
                 });
 
             ReplaceCommand = new DelegateLogConfirmationCommand(
@@ -151,7 +151,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     this.BlocksReplace.Remove(SelectedBlockReplace);
                     SelectedBlockReplace = null;
 
-                    container.Resolve<IMessageService>().ShowOkMessageDialog("", "done");
+                    container.Resolve<IMessageService>().Message("", "done");
                 });
         }
 

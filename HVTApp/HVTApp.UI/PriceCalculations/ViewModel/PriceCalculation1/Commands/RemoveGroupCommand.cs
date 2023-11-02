@@ -13,8 +13,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            var result = MessageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo: true);
-            if (result != MessageDialogResult.Yes) return;
+            var result = MessageService.ConfirmationDialog("Удаление", "Действительно хотите удалить из расчета группу оборудования?", defaultNo: true);
+            if (result == false) return;
 
             var groupToRemove = (PriceCalculationItem2Wrapper)ViewModel.SelectedItem;
 
@@ -29,7 +29,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             //если есть то, что нельзя удалять
             if (salesUnitsNotForRemove.Any())
             {
-                MessageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
+                MessageService.Message("Удаление", "Вы не можете удалить некоторые строки, т.к. они размещены в производстве.");
 
                 var salesUnitsToRemove = salesUnits.Except(salesUnitsNotForRemove).ToList();
                 salesUnitsToRemove.ForEach(salesUnit => groupToRemove.SalesUnits.Remove(salesUnit));

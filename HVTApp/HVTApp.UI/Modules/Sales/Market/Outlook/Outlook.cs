@@ -67,7 +67,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                     }
                     catch (Exception e)
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                        container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
                     }
 
                 });
@@ -78,8 +78,8 @@ namespace HVTApp.UI.Modules.Sales.Market
                     if (SelectedMessage == null)
                         return;
 
-                    var dr = _messageService.ShowYesNoMessageDialog("Удаление", "Вы хотите удалить выделенное сообщение?", defaultYes:true);
-                    if (dr == MessageDialogResult.Yes)
+                    var dr = _messageService.ConfirmationDialog("Удаление", "Вы хотите удалить выделенное сообщение?", defaultYes:true);
+                    if (dr)
                     {
                         DeleteMessage(SelectedMessage);
                         Messages.Remove(SelectedMessage);
@@ -129,7 +129,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 },
                 exception =>
                 {
-                    _messageService.ShowOkMessageDialog(exception.GetType().FullName, exception.Message);
+                    _messageService.Message(exception.GetType().FullName, exception.Message);
                 });
         }
 
@@ -147,7 +147,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
             catch (IOException e)
             {
-                _messageService.ShowOkMessageDialog("Exception", e.Message);
+                _messageService.Message("Exception", e.Message);
             }
         }
     }

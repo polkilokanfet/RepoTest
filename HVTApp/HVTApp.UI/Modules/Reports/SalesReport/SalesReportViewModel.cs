@@ -95,7 +95,7 @@ namespace HVTApp.UI.Modules.Reports.SalesReport
             _startDate = _salesReportUnits.Min(x => x.OrderInTakeDate);
             _finishDate = _salesReportUnits.Max(x => x.OrderInTakeDate);
             RefreshUnits();
-            Container.Resolve<IMessageService>().ShowOkMessageDialog("Загрузка данных", "Загрузка отчета завершена.");
+            Container.Resolve<IMessageService>().Message("Загрузка данных", "Загрузка отчета завершена.");
         }
 
         private void RefreshUnits()

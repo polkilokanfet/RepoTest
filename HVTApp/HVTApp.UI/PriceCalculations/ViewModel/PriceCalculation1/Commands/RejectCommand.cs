@@ -24,12 +24,12 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
         {
             if (string.IsNullOrWhiteSpace(_viewModel.HistoryItem.Comment))
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Внимание", "Для отклонения заполните комментарий");
+                _container.Resolve<IMessageService>().Message("Внимание", "Для отклонения заполните комментарий");
                 return;
             }
 
-            var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите отклонить задачу?", defaultYes: true);
-            if (dr != MessageDialogResult.Yes) return;
+            var dr = _container.Resolve<IMessageService>().ConfirmationDialog("Подтверждение", "Вы уверены, что хотите отклонить задачу?", defaultYes: true);
+            if (dr == false) return;
 
             var historyItemWrapper = _viewModel.HistoryItem;
             historyItemWrapper.Moment = DateTime.Now;

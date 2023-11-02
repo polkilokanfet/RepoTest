@@ -45,8 +45,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             RemoveItemCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?", defaultNo:true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = MessageService.ConfirmationDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?", defaultNo:true);
+                    if (dr == false) return;
 
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
 
@@ -62,7 +62,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                         }
                         catch (DbUpdateException e)
                         {
-                            MessageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                            MessageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
                             return;
                         }
                     }

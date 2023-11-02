@@ -23,8 +23,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculations.Commands
         protected override void ExecuteMethod()
         {
             var messageService = _container.Resolve<IMessageService>();
-            var result = messageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить из расчет ПЗ?", defaultNo: true);
-            if (result != MessageDialogResult.Yes) return;
+            var result = messageService.ConfirmationDialog("Удаление", "Действительно хотите удалить из расчет ПЗ?", defaultNo: true);
+            if (result == false) return;
 
             var unitOfWork = _container.Resolve<IUnitOfWork>();
 
@@ -58,7 +58,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculations.Commands
 
             if (calculation.PriceCalculationItems.Any())
             {
-                messageService.ShowOkMessageDialog("Удаление", "Вы не можете удалить некоторые строки в расчете, т.к. они размещены в производстве.");
+                messageService.Message("Удаление", "Вы не можете удалить некоторые строки в расчете, т.к. они размещены в производстве.");
             }
             else
             {

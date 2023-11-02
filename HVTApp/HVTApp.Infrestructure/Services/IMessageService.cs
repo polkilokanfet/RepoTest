@@ -2,8 +2,8 @@
 {
     public interface IMessageService
     {
-        void ShowOkMessageDialog(string title, string message);
-        MessageDialogResult ShowYesNoMessageDialog(string title, string message, bool defaultYes = false, bool defaultNo = false);
-        MessageDialogResult ShowYesNoMessageDialog(string message, bool defaultYes = false, bool defaultNo = false);
+        void Message(string title, string message);
+        bool ConfirmationDialog(string title, string message, bool defaultYes = false, bool defaultNo = false);
+        bool ConfirmationDialog(string message, bool defaultYes = false, bool defaultNo = false);
     }
 }

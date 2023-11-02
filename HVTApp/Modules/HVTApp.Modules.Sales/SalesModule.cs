@@ -64,7 +64,7 @@ namespace HVTApp.Modules.Sales
                     if (_facilities.Any())
                     {
                         var messageService = container.Resolve<IMessageService>();
-                        messageService.ShowOkMessageDialog("Укажите местоположения объектов",
+                        messageService.Message("Укажите местоположения объектов",
                             "В Ваших проектах задействованы объекты без определенного местоположения. Исправьте это недоразумение.");
 
                         var updateDetailsService = container.Resolve<IUpdateDetailsService>();

@@ -65,22 +65,22 @@ namespace HVTApp.Services.FileManagerService
             }
             catch (FileNotFoundException)
             {
-                _messageService.ShowOkMessageDialog("Предупреждение", "Файл не найден в хранилище!");
+                _messageService.Message("Предупреждение", "Файл не найден в хранилище!");
                 return string.Empty;
             }
             catch (FileNotSingleFoundException)
             {
-                _messageService.ShowOkMessageDialog("Предупреждение", "Файлов больше одного!");
+                _messageService.Message("Предупреждение", "Файлов больше одного!");
                 return string.Empty;
             }
             catch (IOException ioException)
             {
-                _messageService.ShowOkMessageDialog(ioException.GetType().ToString(), ioException.PrintAllExceptions());
+                _messageService.Message(ioException.GetType().ToString(), ioException.PrintAllExceptions());
                 return string.Empty;
             }
             catch (Exception e)
             {
-                _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                _messageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
                 return string.Empty;
             }
 
@@ -148,7 +148,7 @@ namespace HVTApp.Services.FileManagerService
                 }
                 catch (Exception e)
                 {
-                    _messageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                    _messageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
                 }
             }
         }

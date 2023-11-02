@@ -39,8 +39,8 @@ namespace HVTApp.Services.PrintService
 
             if (File.Exists(fullPath))
             {
-                var dr = MessageService.ShowYesNoMessageDialog("Внимание", "Это ТКП уже напечатано. Заменить его?", defaultNo: true);
-                if(dr != MessageDialogResult.Yes)
+                var dr = MessageService.ConfirmationDialog("Внимание", "Это ТКП уже напечатано. Заменить его?", defaultNo: true);
+                if(dr == false)
                     return;
             }
 
@@ -149,8 +149,8 @@ namespace HVTApp.Services.PrintService
             ParagraphProperties parPropRight = docWriter.CreateParagraphProperties();
             parPropRight.Alignment = ParagraphAlignment.Right;
 
-            var dr2 = MessageService.ShowYesNoMessageDialog("Обозначение", "Использовать полное обозначение оборудования?", defaultYes: true);
-            bool printFullDesignation = dr2 == MessageDialogResult.Yes;
+            var dr2 = MessageService.ConfirmationDialog("Обозначение", "Использовать полное обозначение оборудования?", defaultYes: true);
+            bool printFullDesignation = dr2;
 
             foreach (var offerUnitsGroupsByFacility in offerUnitsGroupsByFacilities)
             {
@@ -244,8 +244,8 @@ namespace HVTApp.Services.PrintService
             //подпись
             if (GlobalAppProperties.User.Id == GlobalAppProperties.Actual.Developer?.Id)
             {
-                var drt = MessageService.ShowYesNoMessageDialog("Подпись", "Печать с подписью?", defaultNo:true);
-                if (drt == MessageDialogResult.Yes)
+                var drt = MessageService.ConfirmationDialog("Подпись", "Печать с подписью?", defaultNo:true);
+                if (drt)
                 {
                     try
                     {
@@ -262,7 +262,7 @@ namespace HVTApp.Services.PrintService
                     }
                     catch (Exception e)
                     {
-                        MessageService.ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                        MessageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
                         docWriter.PrintTableCell(string.Empty);
                     }
                 }

@@ -22,7 +22,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel.Commands
         }
         protected override void ExecuteMethod()
         {
-            if (_container.Resolve<IMessageService>().ShowYesNoMessageDialog("ѕеремещение", "¬ы уверены, что хотите перенести это оборудование в новый проект?", defaultYes: true) != MessageDialogResult.Yes)
+            if (_container.Resolve<IMessageService>().ConfirmationDialog("ѕеремещение", "¬ы уверены, что хотите перенести это оборудование в новый проект?", defaultYes: true) == false)
             {
                 return;
             }

@@ -1,23 +1,17 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class IncomingRequestViewModel : IncomingRequestDetailsViewModel
     {
-        private readonly IMessageService _messageService;
-        private readonly IFileManagerService _fileManagerService;
-
         //поручить запрос
         public DelegateLogCommand InstructRequestCommand { get; }
         public DelegateLogCommand RequestIsNotActualCommand { get; }
@@ -25,8 +19,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public IncomingRequestViewModel(IUnityContainer container) : base(container)
         {
-            _messageService = container.Resolve<IMessageService>();
-            _fileManagerService = container.Resolve<IFileManagerService>();
+            var messageService = container.Resolve<IMessageService>();
+            var fileManagerService = container.Resolve<IFileManagerService>();
 
             InstructRequestCommand = new DelegateLogCommand(
                 () =>
@@ -43,8 +37,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             RequestIsNotActualCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = _messageService.ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что запрос не актуален?", defaultYes: true);
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = messageService.ConfirmationDialog("Подтверждение", "Вы уверены, что запрос не актуален?", defaultYes: true);
+                    if (dr == false) return;
 
                     Item.IsActual = false;
                     Item.Performers.Clear();
@@ -62,11 +56,11 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 {
                     if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
                     {
-                        _messageService.ShowOkMessageDialog("Информация", "Путь к хранилищу приложений не назначен");
+                        messageService.Message("Информация", "Путь к хранилищу приложений не назначен");
                         return;
                     }
 
-                    var path = _fileManagerService.GetPath(Item.Model.Document);
+                    var path = fileManagerService.GetPath(Item.Model.Document);
                     Process.Start($"\"{path}\"");
                 });
         }

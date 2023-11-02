@@ -53,7 +53,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
                 var salesUnits1 = salesUnits.Where(salesUnit => salesUnit.Product.GetBlocks().All(block => this.HasDesignDepartment(departments, block))).ToList();
                 if (salesUnits1.Any())
                 {
-                    _messageService.ShowOkMessageDialog("ТСП", $"Проработайте следующее оборудование через ТСП:\n{salesUnits1.ToStringEnum()}");
+                    _messageService.Message("ТСП", $"Проработайте следующее оборудование через ТСП:\n{salesUnits1.ToStringEnum()}");
                     salesUnits = salesUnits.Except(salesUnits1).ToList();
                 }
 

@@ -75,7 +75,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             }
             catch (IOException e)
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.Message);
+                Container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.Message);
             }
         }
 

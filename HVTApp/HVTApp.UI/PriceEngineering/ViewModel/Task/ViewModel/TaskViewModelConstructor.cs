@@ -118,8 +118,8 @@ namespace HVTApp.UI.PriceEngineering
                         var emptyParameter = GlobalAppProperties.Actual.EmptyParameterCurrentTransformersSet;
                         if (emptyParameter != null && selectedProductBlock.Parameters.ContainsById(emptyParameter))
                         {
-                            var dr = messageService.ShowYesNoMessageDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
-                            if (dr == MessageDialogResult.Yes)
+                            var dr = messageService.ConfirmationDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
+                            if (dr)
                             {
                                 var rp = productBlockRequiredParameters.ToList();
                                 rp.Add(GlobalAppProperties.Actual.ParameterCurrentTransformersSetCustom);
@@ -239,7 +239,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     if (this.Model.DesignDepartment.ParameterSetsSubTask.Any() == false)
                     {
-                        messageService.ShowOkMessageDialog("Информация", "Ваше КБ не имеет продуктов для поручения.");
+                        messageService.Message("Информация", "Ваше КБ не имеет продуктов для поручения.");
                         return;
                     }
 

@@ -82,7 +82,7 @@ namespace HVTApp.UI.PriceEngineering
                     var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Staff);
                     if (user == null) return;
 
-                    var needVerification = MessageDialogResult.Yes == Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
+                    var needVerification = Container.Resolve<IMessageService>().ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
 
                     this.Instruct(user, needVerification);
                 },

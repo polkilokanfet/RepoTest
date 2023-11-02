@@ -80,12 +80,12 @@ namespace HVTApp.Services.GetProductService
             }
             catch (DependencyParameterException e)
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.Message);
+                Container.Resolve<IMessageService>().Message("Exception", e.Message);
                 return this.GetProduct(originProduct: null);
             }
             catch (Exception e)
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Exception", e.Message);
+                Container.Resolve<IMessageService>().Message("Exception", e.Message);
                 return this.GetProduct(originProduct: null);
             }
         }

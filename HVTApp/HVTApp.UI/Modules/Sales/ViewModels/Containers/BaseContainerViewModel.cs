@@ -66,7 +66,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Containers
                 }
                 catch (DbUpdateException e)
                 {
-                    Container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().ToString(), e.PrintAllExceptions());
+                    Container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
                 }
             }
         }

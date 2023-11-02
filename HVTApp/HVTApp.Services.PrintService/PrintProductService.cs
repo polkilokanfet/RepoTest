@@ -67,7 +67,7 @@ namespace HVTApp.Services.PrintService
             }
             catch (IOException ioException)
             {
-                _container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка", ioException.PrintAllExceptions());
+                _container.Resolve<IMessageService>().Message("Ошибка", ioException.PrintAllExceptions());
             }
         }
 

@@ -22,7 +22,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            if (_messageService.ShowYesNoMessageDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true) != MessageDialogResult.Yes)
+            if (_messageService.ConfirmationDialog("Удалить проект.", "Вы уверены, что хотите удалить проект?", defaultNo: true) == false)
                 return;
 
             var unitOfWork = _container.Resolve<IUnitOfWork>();
@@ -33,7 +33,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
             if (salesUnits.Any(salesUnit => salesUnit.Order != null))
             {
-                _messageService.ShowOkMessageDialog("Информация", "Нельзя удалить проект целиком, т.к. в нем есть оборудование, размещенное в производстве.");
+                _messageService.Message("Информация", "Нельзя удалить проект целиком, т.к. в нем есть оборудование, размещенное в производстве.");
                 return;
             }
 
@@ -42,7 +42,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             var idIntersection = salesUnits.Select(salesUnit => salesUnit.Id).Intersect(budgetUnits.Select(budgetUnit => budgetUnit.SalesUnit.Id)).ToList();
             if (idIntersection.Any())
             {
-                if (_messageService.ShowYesNoMessageDialog("Информация", "В проекте есть оборудование, занесенное в бюджет. Вы уверены, что хотите удалить его?", defaultNo: true) != MessageDialogResult.Yes)
+                if (_messageService.ConfirmationDialog("Информация", "В проекте есть оборудование, занесенное в бюджет. Вы уверены, что хотите удалить его?", defaultNo: true) == false)
                     return;
             }
 

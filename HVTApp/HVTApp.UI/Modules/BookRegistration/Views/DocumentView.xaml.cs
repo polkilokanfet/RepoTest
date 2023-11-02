@@ -83,8 +83,8 @@ namespace HVTApp.UI.Modules.BookRegistration.Views
             //если не добавлено вложений
             if (!Directory.EnumerateFileSystemEntries(_fileManagerService.GetPath(_viewModel.Item.Model)).Any())
             {
-                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Внимание!", "Вы не добавили вложения. \nПродолжить не добавляя вложения?", defaultNo: true);
-                if (dr != MessageDialogResult.Yes)
+                var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Внимание!", "Вы не добавили вложения. \nПродолжить не добавляя вложения?", defaultNo: true);
+                if (dr == false)
                 {
                     continuationCallback(false);
                     return;

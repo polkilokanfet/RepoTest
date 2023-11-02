@@ -215,7 +215,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     var relations = unitOfWork.Repository<ProductRelation>().Find(relation => relation.ParentProductParameters.Contains(parameter) || relation.ChildProductParameters.Contains(parameter));
                     if (relations.Any())
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Info", $"Удалите сначала связи между блоками: {relations.ToStringEnum()}");
+                        container.Resolve<IMessageService>().Message("Info", $"Удалите сначала связи между блоками: {relations.ToStringEnum()}");
                         return;
                     }
 
@@ -223,7 +223,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     var blocks = unitOfWork.Repository<ProductBlock>().Find(block => block.Parameters.Contains(parameter));
                     if (blocks.Any())
                     {
-                        container.Resolve<IMessageService>().ShowOkMessageDialog("Info", $"Удалите сначала параметр из блоков: {blocks.ToStringEnum()}");
+                        container.Resolve<IMessageService>().Message("Info", $"Удалите сначала параметр из блоков: {blocks.ToStringEnum()}");
                         return;
                     }
                     //foreach (var block in blocks)

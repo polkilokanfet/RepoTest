@@ -30,7 +30,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             if (!targetGroup.CanRemove)
             {
-                Container.Resolve<IMessageService>().ShowOkMessageDialog("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
+                Container.Resolve<IMessageService>().Message("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
                 return targetGroup.CanRemove;
             }
             return true;
@@ -50,17 +50,12 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 .Intersect(budgetUnits.Select(budgetUnit => budgetUnit.SalesUnit.Id)).ToList();
             if (idIntersection.Any())
             {
-                var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Информация", "Это оборудование включено в бюджет. Вы уверены, что хотите удалить его?");
+                var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Это оборудование включено в бюджет. Вы уверены, что хотите удалить его?");
 
-                if (dr == MessageDialogResult.Yes)
-                {
+                if (dr)
                     salesUnits.Where(salesUnit => idIntersection.Contains(salesUnit.Id)).ForEach(salesUnit => salesUnit.IsRemoved = true);
-                }
-
-                if (dr == MessageDialogResult.No)
-                {
+                else
                     return;
-                }
             }
 
             //проверка на включение в задачи ТСП

@@ -353,8 +353,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 () =>
                 {
                     //диалог
-                    var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить файл?", defaultNo: true);
-                    if (result != MessageDialogResult.Yes) return;
+                    var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Удаление", "Действительно хотите удалить файл?", defaultNo: true);
+                    if (dr == false) return;
 
                     //поиск конкретной задачи
                     var file =  (TechnicalRequrementsFileWrapper)SelectedItem;
@@ -383,7 +383,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             AddGroupCommand = new DelegateLogCommand(
                 () =>
                 {
-                    messageService.ShowYesNoMessageDialog("Информация", "Пока эта функция не работает. Она реально тут нужна?");
+                    messageService.ConfirmationDialog("Информация", "Пока эта функция не работает. Она реально тут нужна?");
                     ////потенциальные группы
                     //var items = UnitOfWork.Repository<SalesUnit>()
                     //        .Find(x => x.Project.Manager.IsAppCurrentUser())
@@ -452,7 +452,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     var item = (TechnicalRequrements2Wrapper) SelectedItem;
                     if (item.Model.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
                     {
-                        messageService.ShowOkMessageDialog("Информация", "Отказ. Среди оборудования уже есть то, которое в производстве");
+                        messageService.Message("Информация", "Отказ. Среди оборудования уже есть то, которое в производстве");
                         return;
                     }
 
@@ -539,13 +539,13 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 {
                     if (string.IsNullOrEmpty(this.TechnicalRequrementsTaskWrapper.TceNumber))
                     {
-                        messageService.ShowOkMessageDialog("Отказ", "Вашей проработки нет в Team Center");
+                        messageService.Message("Отказ", "Вашей проработки нет в Team Center");
                         return;
                     }
 
                     if (((TechnicalRequrements2Wrapper)SelectedItem).Model.SalesUnits.Any(salesUnit => salesUnit.Specification == null))
                     {
-                        messageService.ShowOkMessageDialog("Отказ", "Создайте перед этим спецификацию");
+                        messageService.Message("Отказ", "Создайте перед этим спецификацию");
                         return;
                     }
 
@@ -556,7 +556,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         TechnicalRequrements = unitOfWork.Repository<TechnicalRequrements>().GetById(((TechnicalRequrements2Wrapper)SelectedItem).Model.Id)
                     });
 
-                    messageService.ShowOkMessageDialog("Успех!", "Запрос на создание счёта успешно создан!");
+                    messageService.Message("Успех!", "Запрос на создание счёта успешно создан!");
 
                 },
                 () =>

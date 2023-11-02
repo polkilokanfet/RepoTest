@@ -23,8 +23,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?", defaultNo: true);
-            if (dr != MessageDialogResult.Yes) return;
+            var dr = _container.Resolve<IMessageService>().ConfirmationDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?", defaultNo: true);
+            if (dr == false) return;
             
             var historyItemWrapper = _viewModel.HistoryItem;
             historyItemWrapper.Moment = DateTime.Now;

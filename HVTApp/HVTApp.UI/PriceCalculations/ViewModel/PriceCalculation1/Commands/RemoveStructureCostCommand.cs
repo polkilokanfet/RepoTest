@@ -1,5 +1,4 @@
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
@@ -15,8 +14,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
         protected override void ExecuteMethod()
         {
-            var result = MessageService.ShowYesNoMessageDialog("Удаление", "Действительно хотите удалить StructureCost?", defaultNo: true);
-            if (result != MessageDialogResult.Yes) return;
+            var dr = MessageService.ConfirmationDialog("Удаление", "Действительно хотите удалить StructureCost?", defaultNo: true);
+            if (dr == false) return;
 
             var structureCost = (StructureCost2Wrapper)ViewModel.SelectedItem;
             var calculationItem2Wrapper = ViewModel.PriceCalculationWrapper.PriceCalculationItems.Single(x => x.StructureCosts.Contains(structureCost));

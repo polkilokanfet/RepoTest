@@ -80,7 +80,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //    () =>
             //    {
             //        var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Вы уверены, что хотите удалить этот заказ?");
-            //        if (dr != MessageDialogResult.Yes) return;
+            //        if (dr == false) return;
 
             //        var order = Item.Model;
 
@@ -271,7 +271,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
             //если были какие-то изменения
             if (SaveOrderCommand.CanExecute())
             {
-                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?", defaultNo:true) == MessageDialogResult.Yes)
+                if (Container.Resolve<IMessageService>().ConfirmationDialog("Сохранение", "Сохранить изменения?", defaultNo:true))
                 {
                     SaveOrderCommand.Execute();
                 }

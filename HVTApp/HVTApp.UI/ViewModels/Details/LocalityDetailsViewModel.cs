@@ -31,7 +31,7 @@ namespace HVTApp.UI.ViewModels
                 {
                     if (!otherCapitals.Any())
                     {
-                        messageService.ShowOkMessageDialog("Информация", "Вы не можете лишить страну единственной столицы!\nСущность не сохранена!");
+                        messageService.Message("Информация", "Вы не можете лишить страну единственной столицы!\nСущность не сохранена!");
                         return false;
                     }
                 }
@@ -56,7 +56,7 @@ namespace HVTApp.UI.ViewModels
                 {
                     if (!otherCapitals.Any())
                     {
-                        messageService.ShowOkMessageDialog("Информация", "Вы не можете лишить округ единственной столицы!\nСущность не сохранена!");
+                        messageService.Message("Информация", "Вы не можете лишить округ единственной столицы!\nСущность не сохранена!");
                         return false;
                     }
                 }
@@ -81,7 +81,7 @@ namespace HVTApp.UI.ViewModels
                 {
                     if (!otherCapitals.Any())
                     {
-                        messageService.ShowOkMessageDialog("Информация", "Вы не можете лишить регион единственной столицы!\nСущность не сохранена!");
+                        messageService.Message("Информация", "Вы не можете лишить регион единственной столицы!\nСущность не сохранена!");
                         return false;
                     }
                 }

@@ -16,8 +16,8 @@ namespace HVTApp.UI.ViewModels
             RemovePasswordCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var dr = MessageService.ShowYesNoMessageDialog("Сброс пароля", "Вы действительно хотите сбросить пароль выбранному пользователю?");
-                    if (dr != MessageDialogResult.Yes) return;
+                    var dr = MessageService.ConfirmationDialog("Сброс пароля", "Вы действительно хотите сбросить пароль выбранному пользователю?");
+                    if (dr == false) return;
 
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
                     var user = unitOfWork.Repository<User>().GetById(SelectedItem.Id);

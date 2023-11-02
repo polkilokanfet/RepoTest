@@ -20,7 +20,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             if (ViewModel.TechnicalRequrementsTaskWrapper.LogisticsCalculationRequired &&
                 !ViewModel.TechnicalRequrementsTaskWrapper.ShippingCostFiles.Any())
             {
-                MessageService.ShowOkMessageDialog("Информация", "Добавьте в задачу расчет транспортных затрат.");
+                MessageService.Message("Информация", "Добавьте в задачу расчет транспортных затрат.");
                 return;
             }
 
@@ -29,7 +29,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 ? "Вы уверены, что хотите завершить проработку задачи?" 
                 : "Вы не вложили ни один ответ конструкторов.\nВы уверены, что хотите завершить проработку задачи?";
 
-            if (MessageService.ShowYesNoMessageDialog("", msg) != MessageDialogResult.Yes)
+            if (MessageService.ConfirmationDialog(msg) == false)
                 return;
 
             ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
