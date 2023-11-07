@@ -180,7 +180,7 @@ namespace EventServiceClient2
                 catch (Exception e)
                 {
                     _container.Resolve<IHvtAppLogger>().LogError("", e);
-                    _container.Resolve<IMessageService>().ShowOkMessageDialog(e.GetType().Name, e.PrintAllExceptions());
+                    _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
                 }
 #endif
             }

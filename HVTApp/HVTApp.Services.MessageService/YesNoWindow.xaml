@@ -5,9 +5,7 @@
         MaxWidth="1024"
         Title="YesNoWindow" 
         SizeToContent="WidthAndHeight" 
-        WindowStartupLocation="CenterOwner" 
-        WindowStyle="None"
-        ResizeMode="NoResize">
+        WindowStartupLocation="CenterOwner" >
     
     <Grid>
         <Grid.RowDefinitions>

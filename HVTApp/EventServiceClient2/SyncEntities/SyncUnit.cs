@@ -143,7 +143,7 @@ namespace EventServiceClient2.SyncEntities
 #else
             catch (Exception e)
             {
-                _messageService.ShowOkMessageDialog(e.GetType().FullName, e.PrintAllExceptions());
+                _messageService.Message(e.GetType().FullName, e.PrintAllExceptions());
             }
 #endif
             return false;

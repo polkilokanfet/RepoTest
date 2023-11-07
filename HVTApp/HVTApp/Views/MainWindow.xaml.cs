@@ -25,8 +25,8 @@ namespace HVTApp.Views
             {
 #if DEBUG
 #else
-                var dr = _container.Resolve<IMessageService>().ShowYesNoMessageDialog("Выход", "Вы уверены, что хотите выйти?", defaultNo:true);
-                if (dr == MessageDialogResult.No)
+                var dr = _container.Resolve<IMessageService>().ConfirmationDialog("Выход", "Вы уверены, что хотите выйти?", defaultNo:true);
+                if (dr == false)
                 {
                     args.Cancel = true;
                     return;
