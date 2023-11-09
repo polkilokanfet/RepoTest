@@ -27,7 +27,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             }
         }
 
-        public bool AutoCost { get; set; } = false;
+        //public bool AutoCost { get; set; } = false;
 
         public SalesUnitDetailsViewModel ViewModel { get; }
 
@@ -45,14 +45,14 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
             //автоматическа простановка цены
             _priceService = container.Resolve<IPriceService>();
-            ViewModel.Item.PropertyChanged += (sender, args) =>
-            {
-                if (AutoCost && args.PropertyName == nameof(SalesUnitWrapper.Product))
-                {
-                    var price = _priceService.GetPrice(ViewModel.Item.Model, item.RealizationDateCalculated, true).SumTotal;
-                    ViewModel.Item.Cost = Math.Round(price / 0.6 / 100.0) * 100.0;
-                }
-            };
+            //ViewModel.Item.PropertyChanged += (sender, args) =>
+            //{
+            //    if (AutoCost && args.PropertyName == nameof(SalesUnitWrapper.Product))
+            //    {
+            //        var price = _priceService.GetPrice(ViewModel.Item.Model, item.RealizationDateCalculated, true).SumTotal;
+            //        ViewModel.Item.Cost = Math.Round(price / 0.6 / 100.0) * 100.0;
+            //    }
+            //};
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;

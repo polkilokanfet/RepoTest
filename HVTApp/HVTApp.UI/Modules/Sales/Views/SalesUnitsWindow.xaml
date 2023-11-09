@@ -80,8 +80,8 @@
             <Label Grid.Column="0" Grid.Row="0" Content="Количество: "/>
             <igWPF:XamNumericEditor Grid.Column="1" Grid.Row="0" Value="{Binding Amount}" ValueType="core:Int32"/>
 
-            <Label Grid.Column="0" Grid.Row="1" Content="Автоматический расчет стоимости: "/>
-            <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding AutoCost}"/>
+            <!--<Label Grid.Column="0" Grid.Row="1" Content="Автоматический расчет стоимости: "/>
+            <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding AutoCost}"/>-->
         </Grid>
         <Button Content="Ok" Command="{Binding OkCommand}"/>
     </StackPanel>
