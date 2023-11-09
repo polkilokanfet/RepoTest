@@ -45,7 +45,7 @@ namespace HVTApp.Model.POCOs
                 sb.AppendLine($" - {condition};");
             }
 
-            return sb.Remove(sb.Length - 1, 1).Append(".").ToString();
+            return sb.Remove(sb.Length - 3, 3).Append(".").ToString();
         }
 
         public override string ToString()

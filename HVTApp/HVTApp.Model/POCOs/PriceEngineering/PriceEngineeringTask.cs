@@ -447,8 +447,8 @@ namespace HVTApp.Model.POCOs
         public override string ToString()
         {
             return SalesUnits.Any() 
-                ? $"Технико-стоимостная проработка объектов: {SalesUnits.Select(salesUnit => salesUnit.Facility).Distinct().OrderBy(x => x.Name).ToStringEnum(", ")}" 
-                : $"Технико-стоимостная проработка блока: {this.ProductBlock}";
+                ? $"ТСП объектов: {SalesUnits.Select(salesUnit => salesUnit.Facility).Distinct().OrderBy(facility => facility.Name).ToStringEnum(", ")}" 
+                : $"ТСП блока: {this.ProductBlock}";
         }
 
         [NotForListView, NotForDetailsView]

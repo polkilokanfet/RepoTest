@@ -64,9 +64,9 @@ namespace HVTApp.UI.PriceEngineering.Items
 
                 return
                     childPriceEngineeringTasks
-                        .Select(childTask => childTask.Entity.ProductBlock)
+                        .Select(childTask => childTask.Entity.ProductBlock.Designation)
                         .Distinct()
-                        .OrderBy(productBlock => productBlock.Designation)
+                        .OrderBy(x => x)
                         .ToStringEnum();
             }
         }

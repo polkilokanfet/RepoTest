@@ -12,7 +12,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
     public class SalesUnitsViewModel : BindableBase, IDialogRequestClose
     {
-        private IPriceService _priceService;
         private int _amount = 1;
         public int Amount
         {
@@ -22,12 +21,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 if (Equals(_amount, value)) return;
                 if (value <= 0) return;
                 _amount = value;
-                (OkCommand).RaiseCanExecuteChanged();
+                OkCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged();
             }
         }
-
-        //public bool AutoCost { get; set; } = false;
 
         public SalesUnitDetailsViewModel ViewModel { get; }
 
@@ -42,17 +39,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
                 () => { CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)); }, 
                 () => ViewModel.Item.IsValid);
             ViewModel.Item.PropertyChanged += (sender, args) => (OkCommand).RaiseCanExecuteChanged();
-
-            //автоматическа простановка цены
-            _priceService = container.Resolve<IPriceService>();
-            //ViewModel.Item.PropertyChanged += (sender, args) =>
-            //{
-            //    if (AutoCost && args.PropertyName == nameof(SalesUnitWrapper.Product))
-            //    {
-            //        var price = _priceService.GetPrice(ViewModel.Item.Model, item.RealizationDateCalculated, true).SumTotal;
-            //        ViewModel.Item.Cost = Math.Round(price / 0.6 / 100.0) * 100.0;
-            //    }
-            //};
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
