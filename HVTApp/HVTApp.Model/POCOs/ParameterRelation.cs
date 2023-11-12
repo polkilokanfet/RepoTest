@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -19,10 +20,12 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            sb.Append("Обязятельные параметры: ");
-            RequiredParameters.ForEach(parameter => sb.Append($"{parameter.ToString().ToLower()}; "));
-            return sb.ToString();
+            if (RequiredParameters.Any() == false) return "ParameterRelation is empty";
+
+            return RequiredParameters
+                .OrderBy(x => x)
+                .Select(parameter => $"[{parameter.ParameterGroup} :: {parameter.ToString().ToLower()}]")
+                .ToStringEnum();
         }
     }
 }
