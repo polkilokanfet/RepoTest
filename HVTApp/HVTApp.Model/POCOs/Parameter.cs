@@ -38,6 +38,13 @@ namespace HVTApp.Model.POCOs
             return Value;
         }
 
+        public string ToStringWithGroup()
+        {
+            return $"[{ParameterGroup} :: {Value}]";
+        }
+
+        #region Compare
+
         public int CompareTo(Parameter other)
         {
             if (ReferenceEquals(this, other)) return 0;
@@ -82,6 +89,8 @@ namespace HVTApp.Model.POCOs
             return first.ParameterGroup.CompareTo(second.ParameterGroup);
         }
 
+        #endregion
+
         /// <summary>
         /// В каком-либо из путей к началу есть этот параметр
         /// </summary>
@@ -104,7 +113,7 @@ namespace HVTApp.Model.POCOs
                 _previousParameterRelations = this.ParameterRelations.ToList();
                 _pathsToOrigin = Paths(null).Where(pathToOrigin => pathToOrigin.IsFull).Distinct(new PathComparer()).ToList();
             }
-
+            
             return _pathsToOrigin;
         }
         List<PathToOrigin> _pathsToOrigin;
@@ -261,7 +270,9 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return string.Join(" => ", Parameters);
+            return Parameters
+                .Select(parameter => parameter.ToStringWithGroup())
+                .ToStringEnum(" => ");
         }
     }
 }

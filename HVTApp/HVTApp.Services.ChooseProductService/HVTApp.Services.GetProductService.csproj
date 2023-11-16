@@ -98,6 +98,7 @@
     <Compile Include="Converter\ParameterSelectorToParameterGroupNameConverter.cs" />
     <Compile Include="GetProductServiceWpf.cs" />
     <Compile Include="Ext.cs" />
+    <Compile Include="PathNode.cs" />
     <Compile Include="ProductGeneration\BlockGeneration.cs" />
     <Compile Include="Selectors\ParameterFlaged.cs" />
     <Compile Include="Selectors\ParameterSelector.cs" />

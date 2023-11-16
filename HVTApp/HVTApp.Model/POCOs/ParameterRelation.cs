@@ -23,8 +23,8 @@ namespace HVTApp.Model.POCOs
             if (RequiredParameters.Any() == false) return "ParameterRelation is empty";
 
             return RequiredParameters
-                .OrderBy(x => x)
-                .Select(parameter => $"[{parameter.ParameterGroup} :: {parameter.ToString().ToLower()}]")
+                .OrderBy(parameter => parameter)
+                .Select(parameter => parameter.ToStringWithGroup())
                 .ToStringEnum();
         }
     }

@@ -47,18 +47,25 @@ namespace HVTApp.Services.GetProductService.ProductGeneration
             return blocks.Distinct(new BlockComparer());
         }
 
-        private IEnumerable<ProductBlock> GetBlocks(List<PathToOrigin> paths, List<PathToOrigin> potentialPaths)
+        private static IEnumerable<ProductBlock> GetBlocks(IReadOnlyCollection<PathToOrigin> paths, List<PathToOrigin> potentialPaths)
         {
-            if (!potentialPaths.Any())
+            if (potentialPaths.Any() == false)
             {
-                yield return new ProductBlock { Parameters = paths.SelectMany(x => x.Parameters).ToList() };
+                yield return new ProductBlock
+                {
+                    Parameters = paths.SelectMany(pathToOrigin => pathToOrigin.Parameters).ToList()
+                };
                 yield break;
             }
 
             //исключаем пути без обязательных параметров
-            var requiredParameters = paths.SelectMany(x => x.Relations).SelectMany(x => x.RequiredParameters).Distinct().ToList();
+            var requiredParameters = paths
+                .SelectMany(pathToOrigin => pathToOrigin.Relations)
+                .SelectMany(parameterRelation => parameterRelation.RequiredParameters)
+                .Distinct()
+                .ToList();
             if (requiredParameters.Any())
-                potentialPaths = potentialPaths.Where(x => requiredParameters.AllContainsIn(x.Parameters)).ToList();
+                potentialPaths = potentialPaths.Where(pathToOrigin => requiredParameters.AllContainsIn(pathToOrigin.Parameters)).ToList();
 
             //исключаем пути с одной группой на конце
             var groups = paths.Select(x => x.Parameters.First().ParameterGroup).Distinct().ToList();
