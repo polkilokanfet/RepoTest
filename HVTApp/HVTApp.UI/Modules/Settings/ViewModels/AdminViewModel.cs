@@ -13,6 +13,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using HVTApp.Model;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
@@ -46,24 +47,29 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //}
 
 
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    var tasks = unitOfWork.Repository<TechnicalRequrementsTask>()
-                        .Find(task => task.HistoryElements.Any() &&
-                                      task.HistoryElements.Any(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Instruct) &&
-                                      task.HistoryElements.Any(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Start) == false);
+                    //var unitOfWork = _container.Resolve<IUnitOfWork>();
+                    //var tasks = unitOfWork.Repository<TechnicalRequrementsTask>()
+                    //    .Find(task => task.HistoryElements.Any() &&
+                    //                  task.HistoryElements.Any(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Instruct) &&
+                    //                  task.HistoryElements.Any(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Start) == false);
 
-                    foreach (var task in tasks)
-                    {
-                        var g = task.HistoryElements.Single(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Create);
-                        task.HistoryElements.Add(new TechnicalRequrementsTaskHistoryElement()
-                        {
-                            Type = TechnicalRequrementsTaskHistoryElementType.Start,
-                            Moment = g.Moment.AddSeconds(1),
-                            User = g.User
-                        });
-                    }
+                    //foreach (var task in tasks)
+                    //{
+                    //    var g = task.HistoryElements.Single(x => x.Type == TechnicalRequrementsTaskHistoryElementType.Create);
+                    //    task.HistoryElements.Add(new TechnicalRequrementsTaskHistoryElement()
+                    //    {
+                    //        Type = TechnicalRequrementsTaskHistoryElementType.Start,
+                    //        Moment = g.Moment.AddSeconds(1),
+                    //        User = g.User
+                    //    });
+                    //}
 
-                    unitOfWork.SaveChanges();
+                    //unitOfWork.SaveChanges();
+
+
+                    _container.Resolve<IGetProductService>().GenerateBlocks();
+
+
                     //StringBuilder sb = new StringBuilder();
                     //res
                     //    .OrderBy(x => x.Project.Manager.Id)

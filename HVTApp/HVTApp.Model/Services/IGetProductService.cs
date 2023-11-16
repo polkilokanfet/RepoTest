@@ -42,5 +42,7 @@ namespace HVTApp.Model.Services
         /// <param name="originProductBlock"></param>
         /// <returns></returns>
         ProductBlock GetProductBlock(IEnumerable<IParametersContainer> parametersContainers, ProductBlock originProductBlock = null);
+
+        IEnumerable<ProductBlock> GenerateBlocks();
     }
 }

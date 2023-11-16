@@ -15,6 +15,9 @@ namespace HVTApp.Services.GetProductService
         private List<PathNode> _nextPathNodes = new List<PathNode>();
         public IEnumerable<PathNode> NextPathNodes => _nextPathNodes;
 
+        public bool IsStartNode => PreviousPathNode == null;
+        public bool IsFinishNode => NextPathNodes.Any() == false;
+
         /// <summary>
         /// Параметр в узле
         /// </summary>
@@ -52,40 +55,13 @@ namespace HVTApp.Services.GetProductService
 
             return _pathToOrigin;
         }
-    }
 
-    internal static class PathNodesGenerator
-    {
-        public static IEnumerable<PathNode> GetPathNodes(IEnumerable<Parameter> allParameters)
+        public string GetPathToOriginString()
         {
-            var parameters = allParameters as List<Parameter> ?? allParameters.ToList();
-
-            //параметры начала
-            var originParameters = parameters.Where(parameter => parameter.IsOrigin).ToList();
-
-            //их сразу в результат
-            var result = originParameters.Select(parameter => new PathNode(parameter, null, null)).ToList();
-
-            while (parameters.Any())
-            {
-                parameters = parameters.Where(parameter => parameter.ParameterRelations.Except(result.Select(node => node.Relation)).Any()).ToList();
-                foreach (var parameter in parameters)
-                {
-                    var relations = parameter.ParameterRelations.Except(result.Select(node => node.Relation));
-                    foreach (var relation in relations)
-                    {
-                        var nodes = result
-                            //в узле должен быть параметр из связи
-                            .Where(node => relation.RequiredParameters.Contains(node.Parameter))
-                            //в пути узла к началу должны быть оставшиеся параметры связи
-                            .Where(node => relation.RequiredParameters.Except(new[] {node.Parameter}).AllContainsIn(node.GetPathToOrigin()));
-
-                        result.AddRange(nodes.Select(node => node.AddNextPathNode(parameter, relation)));
-                    }
-                }
-            }
-
-            return result;
+            var rr = GetPathToOrigin().ToList();
+            rr.Reverse();
+            rr.Add(this.Parameter);
+            return rr.ToStringEnum(" => ");
         }
     }
 }

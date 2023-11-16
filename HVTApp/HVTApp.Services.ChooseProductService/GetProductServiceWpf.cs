@@ -266,6 +266,12 @@ namespace HVTApp.Services.GetProductService
 
             return productBlocks.Single(x => x.Equals(result));
         }
-    }
 
+        public IEnumerable<ProductBlock> GenerateBlocks()
+        {
+            var parameters = this.Container.Resolve<IUnitOfWork>().Repository<Parameter>().GetAll();
+            var nodes = PathNodesGenerator.GetPathNodes(parameters);
+            return PathNodesGenerator.GetAllBlocks(nodes);
+        }
+    }
 }
