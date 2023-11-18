@@ -271,7 +271,7 @@ namespace HVTApp.Services.GetProductService
         {
             var parameters = this.Container.Resolve<IUnitOfWork>().Repository<Parameter>().GetAll();
             var nodes = PathNodesGenerator.GetPathNodes(parameters);
-            return PathNodesGenerator.GetAllBlocks(nodes);
+            return PathNodesGenerator.GetAllBlocks(nodes).Distinct();
         }
     }
 }

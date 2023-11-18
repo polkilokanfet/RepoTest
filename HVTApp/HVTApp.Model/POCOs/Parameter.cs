@@ -35,7 +35,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return Value;
+            return $"{ParameterGroup.Name} :: {Value}";
         }
 
         public string ToStringWithGroup()

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -12,7 +11,7 @@ namespace HVTApp.Services.GetProductService
     {
         public PathNode PreviousPathNode { get; }
 
-        private List<PathNode> _nextPathNodes = new List<PathNode>();
+        private readonly List<PathNode> _nextPathNodes = new List<PathNode>();
         public IEnumerable<PathNode> NextPathNodes => _nextPathNodes;
 
         public bool IsStartNode => PreviousPathNode == null;
@@ -40,28 +39,39 @@ namespace HVTApp.Services.GetProductService
         }
 
         private List<Parameter> _pathToOrigin;
-        public IEnumerable<Parameter> GetPathToOrigin()
+        /// <summary>
+        /// Вернуть путь от текущего узла к стартовому
+        /// </summary>
+        /// <param name="includeNodeParameter">Включить в путь параметр этого узла</param>
+        /// <returns></returns>
+        public IEnumerable<Parameter> GetPathToStartParameter(bool includeNodeParameter = false)
         {
             if (_pathToOrigin == null)
             {
-                _pathToOrigin = new List<Parameter>();
-                var node = this.PreviousPathNode;
-                while (node != null)
-                {
-                    _pathToOrigin.Add(node.Parameter);
-                    node = node.PreviousPathNode;
-                }
+                _pathToOrigin = this.PreviousPathNode == null 
+                    ? new List<Parameter>() 
+                    : this.PreviousPathNode.GetPathToStartParameter(true).ToList();
             }
 
-            return _pathToOrigin;
+            return includeNodeParameter 
+                ? new[] {this.Parameter}.Union(_pathToOrigin) 
+                : _pathToOrigin;
         }
 
-        public string GetPathToOriginString()
+        public bool IsValid()
         {
-            var rr = GetPathToOrigin().ToList();
-            rr.Reverse();
-            rr.Add(this.Parameter);
-            return rr.ToStringEnum(" => ");
+            //в пути должны быть только параметры с уникальными группами
+            if (this.GetPathToStartParameter(true)
+                .GroupBy(x => x.ParameterGroup)
+                .All(x => x.Count() == 1) == false)
+                return false;
+
+            return true;
+        }
+
+        public override string ToString()
+        {
+            return $"Param: [{Parameter}]; Relation: [{Relation}]";
         }
     }
 }

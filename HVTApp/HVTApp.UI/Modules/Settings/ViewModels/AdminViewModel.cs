@@ -68,7 +68,8 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
 
                     var rr = _container.Resolve<IGetProductService>().GenerateBlocks().ToList();
-                    var s = rr.Select(x => x.Parameters.ToStringEnum()).OrderBy(x => x).ToList();
+                    var r = rr.Where(block => block.Parameters.GroupBy(p => p.ParameterGroup).Any(x => x.Count() != 1)).ToList();
+                    var s = rr.Select(block => block.Parameters.Select(p => p.Value).ToStringEnum(" ][ ")).OrderBy(x => x).ToList();
                     var sb = new StringBuilder();
                     foreach (var ss in s)
                     {

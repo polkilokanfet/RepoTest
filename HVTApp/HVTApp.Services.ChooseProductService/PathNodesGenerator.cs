@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -34,7 +35,8 @@ namespace HVTApp.Services.GetProductService
                             //в узле должен быть параметр из связи
                             .Where(node => relation.RequiredParameters.Contains(node.Parameter))
                             //в пути узла к началу должны быть параметры связи
-                            .Where(node => relation.RequiredParameters.AllContainsIn(node.GetPathToOrigin().Union(new[] { node.Parameter })))
+                            .Where(node => relation.RequiredParameters.AllContainsIn(node.GetPathToStartParameter(true)))
+                            .Where(node => node.GetPathToStartParameter(true).Select(p => p.ParameterGroup).Contains(parameter.ParameterGroup) == false)
                             .ToList();
 
                         foreach (var node in nodes)
@@ -55,99 +57,53 @@ namespace HVTApp.Services.GetProductService
                     break;
             }
 
+            if (result.Any(x => x.IsValid() == false))
+                throw new Exception("Сформирован невалидный узел");
+
             return result;
         }
 
         public static IEnumerable<ProductBlock> GetAllBlocks(IEnumerable<PathNode> nodes)
         {
             return nodes
-                .Where(x => x.IsStartNode)
-                .SelectMany(x => GetParametersChains(x, new List<Parameter>()))
-                .Select(x => new ProductBlock(){Parameters = x.ToList()});
-
-            return nodes.Where(x => x.IsStartNode).SelectMany(x => GetBlocks(new ProductBlock(), x));
-        }
-
-        private static IEnumerable<ProductBlock> GetBlocks(ProductBlock block, PathNode node)
-        {
-            block.Parameters.Add(node.Parameter);
-            if (node.NextPathNodes.Any() == false)
-            {
-                yield return block;
-            }
-            else
-            {
-                foreach (var nextPathNode in node.NextPathNodes)
-                {
-                    var pb = new ProductBlock() {Parameters = block.Parameters.ToList()};
-                    foreach (var productBlock in GetBlocks(pb, nextPathNode))
-                    {
-                        yield return productBlock;
-                    }
-                }
-            }
-
-            //List<ProductBlock> result = new List<ProductBlock>() {block};
-
-            //var p = block.Parameters.ToList();
-
-            //block.Parameters.Add(node.Parameter);
-            //foreach (var nextNode in node.NextPathNodes)
-            //{
-            //    if (CanGo(block, nextNode))
-            //    {
-            //        result.AddRange(GetBlocks(block, nextNode));
-            //    }
-            //    else
-            //    {
-            //        var pb = new ProductBlock {Parameters = p.ToList()};
-            //        result.AddRange(GetBlocks(pb, nextNode));
-            //    }
-            //}
-
-            //return result.Distinct();
-        }
-
-        private static ProductBlock GetBlock(ProductBlock block, PathNode node)
-        {
-            block.Parameters.Add(node.Parameter);
-            foreach (var nextNode in node.NextPathNodes)
-            {
-                if (CanGo(block, nextNode)) 
-                    GetBlock(block, nextNode);
-            }
-
-            return block;
-        }
-
-        private static bool CanGo(ProductBlock block, PathNode node)
-        {
-            if (block.Parameters.Contains(node.Parameter)) return false;
-            if (block.Parameters.Select(parameter => parameter.ParameterGroup).Contains(node.Parameter.ParameterGroup)) return false;
-            return true;
+                .Where(node => node.IsStartNode)
+                .SelectMany(node => GetParametersChains(node, new List<Parameter>()))
+                .Select(parameters => new ProductBlock(){Parameters = parameters.ToList()});
         }
 
 
-        private static IEnumerable<IEnumerable<Parameter>> GetParametersChains(PathNode node, IEnumerable<Parameter> inputParameters)
+        private static IEnumerable<IEnumerable<Parameter>> GetParametersChains(PathNode inputNode, IEnumerable<Parameter> inputParameters)
         {
-            var pp = inputParameters.Union(new[] {node.Parameter}).ToList();
+            var parametersWithCurrent = inputParameters.Union(new[] {inputNode.Parameter}).ToList();
 
-            if (node.NextPathNodes.Any() == false)
+            if (parametersWithCurrent.GroupBy(x => x.ParameterGroup).Any(x => x.Count() != 1))
+                throw new Exception();
+
+
+            if (inputNode.NextPathNodes.Any() == false)
             {
-                yield return pp;
+                yield return parametersWithCurrent;
             }
             else
             {
                 List<IEnumerable<Parameter>> result = null;
 
-                var nextNodesGroups = node.NextPathNodes.GroupBy(x => x.Parameter.ParameterGroup).ToList();
+                //делим все следующие узлы по группам (параметров)
+                var nextNodesGroups = inputNode.NextPathNodes
+                    .GroupBy(node => node.Parameter.ParameterGroup)
+                    .ToList();
 
                 do
                 {
                     var targetNodesGroup = nextNodesGroups.First();
                     nextNodesGroups.Remove(targetNodesGroup);
 
-                    var chains = targetNodesGroup.SelectMany(x => GetParametersChains(x, pp).ToList()).ToList();
+                    var chains = targetNodesGroup
+                        .SelectMany(node => GetParametersChains(node, parametersWithCurrent).ToList())
+                        .ToList();
+
+                    if (chains.Any(x => x.GroupBy(parameter => parameter.ParameterGroup).Any(q => q.Count() != 1)))
+                        throw new Exception();
 
                     if (result == null)
                     {
@@ -160,8 +116,12 @@ namespace HVTApp.Services.GetProductService
                             result.Remove(r);
                             foreach (var targetNodeParametersChain in chains)
                             {
+                                var mbr = r.Union(targetNodeParametersChain).Distinct().ToList();
 
-                                result.Add(r.Union(targetNodeParametersChain).Distinct().ToList());
+                                if (mbr.GroupBy(x => x.ParameterGroup).Any(x => x.Count() != 1))
+                                    result.Add(targetNodeParametersChain);
+                                else
+                                    result.Add(mbr);
                             }
                         }
                     }
