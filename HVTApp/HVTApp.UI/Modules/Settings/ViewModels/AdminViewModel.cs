@@ -67,7 +67,14 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //unitOfWork.SaveChanges();
 
 
-                    _container.Resolve<IGetProductService>().GenerateBlocks();
+                    var rr = _container.Resolve<IGetProductService>().GenerateBlocks().ToList();
+                    var s = rr.Select(x => x.Parameters.ToStringEnum()).OrderBy(x => x).ToList();
+                    var sb = new StringBuilder();
+                    foreach (var ss in s)
+                    {
+                        sb.AppendLine(ss);
+                    }
+                    //_container.Resolve<IMessageService>().Message("", sb.ToString());
 
 
                     //StringBuilder sb = new StringBuilder();
@@ -79,7 +86,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    .ForEach(x => sb.AppendLine($"{x.Project.Manager.Employee.Person.Surname}: {x};"));
                     //Clipboard.SetText(sb.ToString());
 
-                    _container.Resolve<IMessageService>().Message("", $"Finish");
+                    //_container.Resolve<IMessageService>().Message("", $"Finish");
 
                 });
         }
