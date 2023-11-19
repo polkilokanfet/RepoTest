@@ -67,14 +67,33 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //unitOfWork.SaveChanges();
 
 
-                    var rr = _container.Resolve<IGetProductService>().GenerateBlocks().ToList();
-                    var r = rr.Where(block => block.Parameters.GroupBy(p => p.ParameterGroup).Any(x => x.Count() != 1)).ToList();
-                    var s = rr.Select(block => block.Parameters.Select(p => p.Value).ToStringEnum(" ][ ")).OrderBy(x => x).ToList();
+                    var blocks = container.Resolve<IGetProductService>().GenerateBlocks().ToList();
+                    var r = blocks.Where(block => block.Parameters.GroupBy(p => p.ParameterGroup).Any(x => x.Count() != 1)).ToList();
+                    var s = blocks.Select(block => block.Parameters.Select(p => p.Value).ToStringEnum(" ][ ")).OrderBy(x => x).ToList();
                     var sb = new StringBuilder();
                     foreach (var ss in s)
                     {
                         sb.AppendLine(ss);
                     }
+
+                    do
+                    {
+                        var rnd = (new Random()).Next(blocks.Count);
+                        var block = blocks[rnd];
+
+                        var unitOfWork = container.Resolve<IUnitOfWork>();
+                        var pb = new ProductBlock()
+                        {
+                            Parameters = block.Parameters.Select(x => unitOfWork.Repository<Parameter>().GetById(x.Id)).ToList()
+                        };
+                        unitOfWork.Repository<ProductBlock>().Add(pb);
+                        unitOfWork.SaveChanges();
+
+                        //block = unitOfWork.Repository<ProductBlock>().Find(x => x.Parameters.MembersAreSame(pb.Parameters)).Single();
+
+                        container.Resolve<IGetProductService>().GetProductBlock(pb);
+                    } while (true);
+
                     //_container.Resolve<IMessageService>().Message("", sb.ToString());
 
 

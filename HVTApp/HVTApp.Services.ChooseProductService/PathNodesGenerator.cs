@@ -154,10 +154,6 @@ namespace HVTApp.Services.GetProductService
             if (_nodes.Select(x => x.Parameter.ParameterGroup).Contains(node.Parameter.ParameterGroup))
                 throw new ArgumentException(@"Нельзя добавлять несколько параметров из одной группы", nameof(node));
 
-            //var parentNode = _nodes.SingleOrDefault(x => node.GetPathToStart().Contains(x));
-            //if (parentNode != null)
-            //    _nodes.Remove(parentNode);
-
             _nodes.Add(node);
         }
 
@@ -195,6 +191,11 @@ namespace HVTApp.Services.GetProductService
         public IEnumerable<Parameter> GetParameters()
         {
             return this.Nodes.Select(node => node.Parameter).Distinct();
+        }
+
+        public bool IsFull()
+        {
+            return _nodes.All(x => x.GetPathToStart().AllContainsIn(this._nodes));
         }
     }
 
