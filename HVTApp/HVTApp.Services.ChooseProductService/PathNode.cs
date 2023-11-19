@@ -75,6 +75,16 @@ namespace HVTApp.Services.GetProductService
                 : _pathToOrigin;
         }
 
+        public IEnumerable<PathNode> GetPathToStart()
+        {
+            var node = this;
+            do
+            {
+                yield return node;
+                node = node.PreviousPathNode;
+            } while (node != null);
+        }
+
         public bool IsValid()
         {
             //в пути должны быть только параметры с уникальными группами

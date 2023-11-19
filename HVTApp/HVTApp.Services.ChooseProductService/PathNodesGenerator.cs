@@ -41,7 +41,7 @@ namespace HVTApp.Services.GetProductService
 
                 if (result.Count == rr)
                 {
-                    GetComplexParameterRelations(allParameters);
+                    //GetComplexParameterRelations(allParameters);
                     break;
                 }
             }
@@ -56,67 +56,38 @@ namespace HVTApp.Services.GetProductService
         {
             return nodes
                 .Where(node => node.IsStartNode)
-                .SelectMany(node => GetParametersChains(node, new List<Parameter>()))
-                .Select(parameters => new ProductBlock(){Parameters = parameters.ToList()});
+                .SelectMany(node => GetChains(node, new ParametersChain()))
+                .Select(chain => new ProductBlock(){Parameters = chain.GetParameters().ToList()});
         }
 
 
-        private static IEnumerable<IEnumerable<Parameter>> GetParametersChains(PathNode inputNode, IEnumerable<Parameter> inputParameters)
+        private static IEnumerable<ParametersChain> GetChains(PathNode inputNode, ParametersChain inputChain)
         {
-            var parametersWithCurrent = inputParameters.Union(new[] {inputNode.Parameter}).ToList();
-
-            if (parametersWithCurrent.GroupBy(x => x.ParameterGroup).Any(x => x.Count() != 1))
-                throw new Exception();
-
+            inputChain.AddNode(inputNode);
 
             if (inputNode.NextPathNodes.Any() == false)
             {
-                yield return parametersWithCurrent;
+                yield return inputChain;
             }
             else
             {
-                List<IEnumerable<Parameter>> result = null;
+                var result = new ChainsContainer();
 
                 //делим все следующие узлы по группам (параметров)
                 var nextNodesGroups = inputNode.NextPathNodes
                     .GroupBy(node => node.Parameter.ParameterGroup)
                     .ToList();
 
-                do
+                foreach (var nextNodesGroup in nextNodesGroups)
                 {
-                    var targetNodesGroup = nextNodesGroups.First();
-                    nextNodesGroups.Remove(targetNodesGroup);
-
-                    var chains = targetNodesGroup
-                        .SelectMany(node => GetParametersChains(node, parametersWithCurrent).ToList())
+                    var chains = nextNodesGroup
+                        .SelectMany(node => GetChains(node, inputChain.GetCopy()))
                         .ToList();
 
-                    if (chains.Any(x => x.GroupBy(parameter => parameter.ParameterGroup).Any(q => q.Count() != 1)))
-                        throw new Exception();
+                    result.Add(chains);
+                }
 
-                    if (result == null)
-                    {
-                        result = chains;
-                    }
-                    else
-                    {
-                        foreach (var r in result.ToList())
-                        {
-                            result.Remove(r);
-                            foreach (var targetNodeParametersChain in chains)
-                            {
-                                var mbr = r.Union(targetNodeParametersChain).Distinct().ToList();
-
-                                if (mbr.GroupBy(x => x.ParameterGroup).Any(x => x.Count() != 1))
-                                    result.Add(targetNodeParametersChain);
-                                else
-                                    result.Add(mbr);
-                            }
-                        }
-                    }
-                } while (nextNodesGroups.Any());
-
-                foreach (var m in result)
+                foreach (var m in result.Chains)
                 {
                     yield return m;
                 }
@@ -169,5 +140,73 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
+    }
+
+    internal class ParametersChain
+    {
+        private readonly List<PathNode> _nodes = new List<PathNode>();
+        public IEnumerable<PathNode> Nodes => _nodes;
+
+        public void AddNode(PathNode node)
+        {
+            if (_nodes.Any(x => x.GetPathToStart().Contains(node)))
+                throw new ArgumentException(@"Попытка добавления", nameof(node));
+
+            var parentNode = _nodes.SingleOrDefault(x => node.GetPathToStart().Contains(x));
+            if (parentNode != null)
+                _nodes.Remove(parentNode);
+
+            _nodes.Add(node);
+        }
+
+        public ParametersChain GetCopy()
+        {
+            var result = new ParametersChain();
+            this.Nodes.ForEach(result.AddNode);
+            return result;
+        }
+
+        public void AddChain(ParametersChain chain)
+        {
+            foreach (var node in chain.Nodes)
+            {
+                this.AddNode(node);
+            }
+        }
+
+        public IEnumerable<Parameter> GetParameters()
+        {
+            return this.Nodes.SelectMany(pathNode => pathNode.GetPathToStartParameter(true)).Distinct();
+        }
+    }
+
+    internal class ChainsContainer
+    {
+        private List<ParametersChain> _chains;
+        public IEnumerable<ParametersChain> Chains => _chains;
+
+        public void Add(IEnumerable<ParametersChain> chains)
+        {
+            if (_chains == null)
+            {
+                _chains = chains.ToList();
+                return;
+            }
+
+            var chainsToAdd = chains as ParametersChain[] ?? chains.ToArray();
+            foreach (var chainInContainer in _chains.ToList())
+            {
+                var chainCopy = chainInContainer.GetCopy();
+                _chains.Remove(chainInContainer);
+
+                foreach (var c2 in chainsToAdd)
+                {
+                    var c = chainCopy.GetCopy();
+                    c.AddChain(c2);
+                    _chains.Add(c);
+                    
+                }
+            }
+        }
     }
 }
