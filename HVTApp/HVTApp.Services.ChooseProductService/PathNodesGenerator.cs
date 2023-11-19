@@ -92,7 +92,6 @@ namespace HVTApp.Services.GetProductService
                     yield return m;
                 }
             }
-
         }
 
 
@@ -149,12 +148,15 @@ namespace HVTApp.Services.GetProductService
 
         public void AddNode(PathNode node)
         {
-            if (_nodes.Any(x => x.GetPathToStart().Contains(node)))
-                throw new ArgumentException(@"ѕопытка добавлени€", nameof(node));
+            if (_nodes.Contains(node))
+                throw new ArgumentException(@"“акой узел уже добавлен", nameof(node));
 
-            var parentNode = _nodes.SingleOrDefault(x => node.GetPathToStart().Contains(x));
-            if (parentNode != null)
-                _nodes.Remove(parentNode);
+            if (_nodes.Select(x => x.Parameter.ParameterGroup).Contains(node.Parameter.ParameterGroup))
+                throw new ArgumentException(@"Ќельз€ добавл€ть несколько параметров из одной группы", nameof(node));
+
+            //var parentNode = _nodes.SingleOrDefault(x => node.GetPathToStart().Contains(x));
+            //if (parentNode != null)
+            //    _nodes.Remove(parentNode);
 
             _nodes.Add(node);
         }
@@ -170,13 +172,29 @@ namespace HVTApp.Services.GetProductService
         {
             foreach (var node in chain.Nodes)
             {
-                this.AddNode(node);
+                //если такой узел уже есть в цепочке - пропускаем добавление
+                if (_nodes.Contains(node))
+                    continue;
+
+                //если в цепочке уже есть параметр из той же группы
+                var sameGroupNode = _nodes.SingleOrDefault(x => x.Parameter.ParameterGroup.Equals(node.Parameter.ParameterGroup));
+                if (sameGroupNode != null)
+                {
+                    //удал€ем этот узел и все от него завис€щие узлы
+                    _nodes.Remove(sameGroupNode);
+                    foreach (var pathNode in _nodes.Where(x => x.GetPathToStart().Contains(sameGroupNode) && x.Relation.RequiredParameters.Contains(sameGroupNode.Parameter)).ToList())
+                    {
+                        _nodes.Remove(pathNode);
+                    }
+                }
+
+                _nodes.Add(node);
             }
         }
 
         public IEnumerable<Parameter> GetParameters()
         {
-            return this.Nodes.SelectMany(pathNode => pathNode.GetPathToStartParameter(true)).Distinct();
+            return this.Nodes.Select(node => node.Parameter).Distinct();
         }
     }
 
@@ -202,6 +220,11 @@ namespace HVTApp.Services.GetProductService
                 foreach (var c2 in chainsToAdd)
                 {
                     var c = chainCopy.GetCopy();
+                    var rr = c.Nodes.Select(x => x.Parameter).Union(c2.Nodes.Select(x => x.Parameter)).GroupBy(x => x.ParameterGroup).Any(x => x.Count() != 1);
+                    if (rr)
+                    {
+                        _chains.Add(chainCopy.GetCopy());
+                    }
                     c.AddChain(c2);
                     _chains.Add(c);
                     
