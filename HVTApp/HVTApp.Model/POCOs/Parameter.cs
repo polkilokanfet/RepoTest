@@ -38,11 +38,6 @@ namespace HVTApp.Model.POCOs
             return $"{ParameterGroup.Name} :: {Value}";
         }
 
-        public string ToStringWithGroup()
-        {
-            return $"[{ParameterGroup} :: {Value}]";
-        }
-
         #region Compare
 
         public int CompareTo(Parameter other)
@@ -270,9 +265,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return Parameters
-                .Select(parameter => parameter.ToStringWithGroup())
-                .ToStringEnum(" => ");
+            return Parameters.ToStringEnum(" => ");
         }
     }
 }

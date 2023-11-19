@@ -1,9 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
 {
+    internal class PathNodeComplex
+    {
+
+    }
+
     /// <summary>
     /// Узел пути
     /// </summary>
@@ -24,15 +30,26 @@ namespace HVTApp.Services.GetProductService
 
         public ParameterRelation Relation { get; }
 
-        public PathNode(Parameter parameter, PathNode previousPathNode, ParameterRelation relation)
+        /// <summary>
+        /// Конструктор для стартовых узлов
+        /// </summary>
+        /// <param name="parameter"></param>
+        public PathNode(Parameter parameter)
         {
             Parameter = parameter;
+        }
+
+        private PathNode(Parameter parameter, PathNode previousPathNode, ParameterRelation relation) : this(parameter)
+        {
             PreviousPathNode = previousPathNode;
             Relation = relation;
         }
 
         public PathNode AddNextPathNode(Parameter parameter, ParameterRelation relation)
         {
+            if(this.GetPathToStartParameter(true).Select(p => p.ParameterGroup).Contains(parameter.ParameterGroup))
+                throw new ArgumentException(@"В пути к началу не должно быть пересечений по группам параметров", nameof(parameter));
+
             var node = new PathNode(parameter, this, relation);
             _nextPathNodes.Add(node);
             return node;

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
@@ -11,54 +10,44 @@ namespace HVTApp.Services.GetProductService
     {
         public static IEnumerable<PathNode> GetPathNodes(IEnumerable<Parameter> allParameters)
         {
-            var parameters = allParameters as List<Parameter> ?? allParameters.ToList();
+            var parameters = allParameters.ToList();
 
-            //параметры начала
-            var originParameters = parameters.Where(parameter => parameter.IsOrigin).ToList();
+           //параметры начала сразу в результат
+            var result = parameters
+                .Where(parameter => parameter.IsOrigin)
+                .Select(parameter => new PathNode(parameter))
+                .ToList();
 
-            //их сразу в результат
-            var result = originParameters.Select(parameter => new PathNode(parameter, null, null)).ToList();
-
-            var relationsDictionary = new Dictionary<Parameter, List<ParameterRelation>>();
-            parameters.Where(x => x.IsOrigin == false).ForEach(x => relationsDictionary.Add(x, x.ParameterRelations.ToList()));
-
-            while (relationsDictionary.Any())
+            while (parameters.Any())
             {
                 var rr = result.Count;
-                parameters = relationsDictionary.Select(x => x.Key).ToList();
-                //var ss = result.Select(x => x.GetPathToOriginString()).OrderBy(x => x).ToStringEnum(Environment.NewLine);
-                foreach (var parameter in parameters)
+                var relationsInResult = result.Select(node => node.Relation).ToList();
+                parameters = parameters.Where(parameter => parameter.ParameterRelations.Except(relationsInResult).Any()).ToList();
+
+                foreach (var targetParameter in parameters)
                 {
-                    foreach (var relation in relationsDictionary[parameter].ToList())
+                    foreach (var targetRelation in targetParameter.ParameterRelations.Except(relationsInResult))
                     {
-                        var nodes = result
+                        var targetNodes = result
                             //в узле должен быть параметр из связи
-                            .Where(node => relation.RequiredParameters.Contains(node.Parameter))
+                            .Where(node => targetRelation.RequiredParameters.Contains(node.Parameter))
                             //в пути узла к началу должны быть параметры связи
-                            .Where(node => relation.RequiredParameters.AllContainsIn(node.GetPathToStartParameter(true)))
-                            .Where(node => node.GetPathToStartParameter(true).Select(p => p.ParameterGroup).Contains(parameter.ParameterGroup) == false)
+                            .Where(node => targetRelation.RequiredParameters.AllContainsIn(node.GetPathToStartParameter(true)))
                             .ToList();
 
-                        foreach (var node in nodes)
-                        {
-                            result.Add(node.AddNextPathNode(parameter, relation));
-                            if (relationsDictionary.ContainsKey(parameter))
-                            {
-                                relationsDictionary[parameter].Remove(relation);
-                                if (relationsDictionary[parameter].Any() == false)
-                                    relationsDictionary.Remove(parameter);
-                            }
-                        }
-                        //result.AddRange(nodes.Select(node => node.AddNextPathNode(parameter, relation)));
+                        result.AddRange(targetNodes.Select(node => node.AddNextPathNode(targetParameter, targetRelation)));
                     }
                 }
 
-                if (result.Count == rr) 
+                if (result.Count == rr)
+                {
+                    GetComplexParameterRelations(allParameters);
                     break;
+                }
             }
 
-            if (result.Any(x => x.IsValid() == false))
-                throw new Exception("Сформирован невалидный узел");
+            if (result.Any(node => node.IsValid() == false))
+                throw new Exception($"Сформированы невалидные узелы: {result.Where(node => node.IsValid() == false).ToStringEnum()}");
 
             return result;
         }
@@ -134,5 +123,51 @@ namespace HVTApp.Services.GetProductService
             }
 
         }
+
+
+        public static Dictionary<Parameter, IEnumerable<ParameterRelation>> GetComplexParameterRelations(IEnumerable<Parameter> allParameters)
+        {
+            var parameters = allParameters.ToList();
+            var result = new Dictionary<Parameter, IEnumerable<ParameterRelation>>();
+
+            //параметры начала сразу в результат
+            var nodes = parameters
+                .Where(parameter => parameter.IsOrigin)
+                .Select(parameter => new PathNode(parameter))
+                .ToList();
+
+            while (parameters.Any())
+            {
+                var rr = nodes.Count;
+                var relationsInResult = nodes.Select(node => node.Relation).ToList();
+                parameters = parameters.Where(parameter => parameter.ParameterRelations.Except(relationsInResult).Any()).ToList();
+
+                foreach (var targetParameter in parameters)
+                {
+                    foreach (var targetRelation in targetParameter.ParameterRelations.Except(relationsInResult))
+                    {
+                        var targetNodes = nodes
+                            //в узле должен быть параметр из связи
+                            .Where(node => targetRelation.RequiredParameters.Contains(node.Parameter))
+                            //в пути узла к началу должны быть параметры связи
+                            .Where(node => targetRelation.RequiredParameters.AllContainsIn(node.GetPathToStartParameter(true)))
+                            .ToList();
+
+                        nodes.AddRange(targetNodes.Select(node => node.AddNextPathNode(targetParameter, targetRelation)));
+                    }
+                }
+
+                if (nodes.Count == rr)
+                    break;
+            }
+
+            foreach (var parameter in parameters)
+            {
+                result.Add(parameter, parameter.ParameterRelations.Except(nodes.Select(node => node.Relation)));
+            }
+
+            return result;
+        }
+
     }
 }

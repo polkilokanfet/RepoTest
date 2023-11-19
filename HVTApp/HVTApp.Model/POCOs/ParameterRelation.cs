@@ -16,15 +16,15 @@ namespace HVTApp.Model.POCOs
         [Designation("Обязательные параметры перед")]
         public virtual List<Parameter> RequiredParameters { get; set; } = new List<Parameter>();
 
+        [Designation("Id связанного параметра")]
         public Guid ParameterId { get; set; }
 
         public override string ToString()
         {
-            if (RequiredParameters.Any() == false) return "ParameterRelation is empty";
+            if (RequiredParameters.Any() == false) return $"{nameof(ParameterRelation)} is empty";
 
             return RequiredParameters
                 .OrderBy(parameter => parameter)
-                .Select(parameter => parameter.ToStringWithGroup())
                 .ToStringEnum();
         }
     }
