@@ -2,6 +2,7 @@
 using System.Windows;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
+using HVTApp.Model.Services;
 using HVTApp.Views;
 
 namespace HVTApp

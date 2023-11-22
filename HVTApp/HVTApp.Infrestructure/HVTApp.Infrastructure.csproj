@@ -126,7 +126,6 @@
     <Compile Include="ILookupItemNavigation.cs" />
     <Compile Include="INavigationItem.cs" />
     <Compile Include="Interfaces\ICommandRaiseCanExecuteChanged.cs" />
-    <Compile Include="Interfaces\Services\AuthenticationService\IAuthenticationService.cs" />
     <Compile Include="Interfaces\Services\ChooseService\ChooseDialogEventArgs.cs" />
     <Compile Include="Interfaces\Services\ChooseService\IChooseService.cs" />
     <Compile Include="Interfaces\Services\ChooseService\IChooseViewModel.cs" />
@@ -212,7 +211,9 @@
     <Resource Include="Images\Copy_32x32.png" />
     <Content Include="Images\Print_16x16.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\Services\AuthenticationService\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

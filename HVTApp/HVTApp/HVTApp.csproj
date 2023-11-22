@@ -160,7 +160,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Auth.cs" />
     <Compile Include="HvtAppLogger.cs" />
     <Compile Include="HvtAppLogger2.cs" />
     <Compile Include="Views\SplashScreenWindow.xaml.cs">

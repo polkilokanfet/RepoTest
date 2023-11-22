@@ -12,7 +12,6 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services;
-using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -69,16 +68,34 @@ namespace HVTApp
         private List<ModuleInfo> _modules;
         private readonly SplashScreenWindow _splashScreenWindow = new SplashScreenWindow();
 
-        public Bootstrapper()
-        {
-            GlobalAppProperties.User = new Auth().GetCurrentUser();
-            _splashScreenWindow.Show();
-        }
+        //protected override IModuleCatalog CreateModuleCatalog()
+        //{
+        //    var catalog = new ModuleCatalog();
 
-        protected override IModuleCatalog CreateModuleCatalog()
-        {
-            var catalog = new ModuleCatalog();
+        //    catalog.AddModule(typeof(UiModule));
 
+        //    //AddModuleByRole(catalog, typeof(DirectorModule));
+        //    //AddModuleByRole(catalog, typeof(SalesModule));
+        //    //AddModuleByRole(catalog, typeof(PlanAndEconomyModule));
+        //    //AddModuleByRole(catalog, typeof(PriceMakingModule));
+        //    //AddModuleByRole(catalog, typeof(SupplyModule));
+        //    //AddModuleByRole(catalog, typeof(ProductsModule));
+        //    //AddModuleByRole(catalog, typeof(BookRegistrationModule));
+        //    //AddModuleByRole(catalog, typeof(ReportsModule));
+
+        //    ////catalog.AddModule(typeof(MessengerModule));
+        //    //catalog.AddModule(typeof(BaseEntitiesModule));
+        //    //catalog.AddModule(typeof(SettingsModule));
+        //    //AddModuleByRole(catalog, typeof(DirectumLiteModule));
+
+        //    //_modules = catalog.Modules.ToList();
+
+        //    return catalog;
+        //}
+
+        protected void CreateModuleCatalog2(IModuleCatalog catalog1)
+        {
+            var catalog = (ModuleCatalog)catalog1;
             catalog.AddModule(typeof(UiModule));
 
             AddModuleByRole(catalog, typeof(DirectorModule));
@@ -96,9 +113,8 @@ namespace HVTApp
             AddModuleByRole(catalog, typeof(DirectumLiteModule));
 
             _modules = catalog.Modules.ToList();
-
-            return catalog;
         }
+
 
         protected override void ConfigureContainer()
         {
@@ -142,6 +158,16 @@ namespace HVTApp
 
             Container.RegisterType<IModelsStore, ModelsStore>(new ContainerControlledLifetimeManager());
             //Container.RegisterInstance(typeof(IModelsStore), new ModelsStore(Container));
+
+
+            //костыли
+            var user = this.Container.Resolve<IAuthenticationService>().GetAuthenticationUser();
+            if (user == null) throw new NoUserException();
+            GlobalAppProperties.User = user;
+
+            _splashScreenWindow.Show();
+
+            this.CreateModuleCatalog2(this.ModuleCatalog);
         }
 
         protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
@@ -240,4 +266,12 @@ namespace HVTApp
             }
         }
     }
+
+    //internal static class PrH
+    //{
+    //    public static void AddModule(this IModuleCatalog catalog, Type moduleType)
+    //    {
+    //        catalog.AddModule(new ModuleInfo(moduleType.ToString(), moduleType.ToString()));
+    //    }
+    //}
 }

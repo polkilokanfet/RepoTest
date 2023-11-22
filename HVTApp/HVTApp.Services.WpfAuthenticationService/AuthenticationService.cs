@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
+﻿using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 
 namespace HVTApp.Services.WpfAuthenticationService
 {
@@ -11,7 +10,6 @@ namespace HVTApp.Services.WpfAuthenticationService
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
 
-        public User User { get; private set; }
         public AuthenticationService(IUnitOfWork unitOfWork, IDialogService dialogService)
         {
             _unitOfWork = unitOfWork;
@@ -20,18 +18,17 @@ namespace HVTApp.Services.WpfAuthenticationService
             _dialogService.Register<AuthenticationWindowModel, AuthenticationWindow>();
         }
 
-        public bool Authentication()
+        public User GetAuthenticationUser()
         {
             var users = _unitOfWork.Repository<User>().GetAll();
             var authenticationWindowModel = new AuthenticationWindowModel(users);
             bool? result = _dialogService.ShowDialog(authenticationWindowModel);
             if (result.HasValue && result.Value)
             {
-                User = authenticationWindowModel.User;
-                return true;
+                return authenticationWindowModel.User;
             }
 
-            return false;
+            return null;
         }
     }
 }
