@@ -23,8 +23,8 @@ namespace HVTApp.Infrastructure.Comparers
             }
 
             // Open the two files.
-            var fs1 = new FileStream(file1Path, FileMode.Open);
-            var fs2 = new FileStream(file2Path, FileMode.Open);
+            var fs1 = new FileStream(file1Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            var fs2 = new FileStream(file2Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
             // Check the file sizes. If they are not the same, the files
             // are not the same.
