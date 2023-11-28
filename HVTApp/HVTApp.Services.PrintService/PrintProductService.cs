@@ -96,8 +96,8 @@ namespace HVTApp.Services.PrintService
             foreach (var parameter in product.ProductBlock.ParametersOrdered)
             {
                 docWriter.StartTableRow();
-                docWriter.PrintTableCell($"{parameter.ParameterGroup}");
-                docWriter.PrintTableCell($"{parameter}");
+                docWriter.PrintTableCell($"{parameter.ParameterGroup.Name}");
+                docWriter.PrintTableCell($"{parameter.Value}");
                 docWriter.EndTableRow();
             }
 
