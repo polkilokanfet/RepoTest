@@ -15,7 +15,7 @@
         <!--Техническое задание-->
         <view:FilesSingleControl 
             Grid.Column="0"
-            Caption="Файлы технического задания (от ОП ВВА) "
+            Caption="Файлы технического задания (от ОП ВВА):"
             LoadAllFilesCommand="{Binding LoadTechnicalRequirementsFilesCommand}"
             OpenFileCommand="{Binding OpenTechnicalRequirementsFileCommand}"
             Files="{Binding FilesTechnicalRequirements}"
@@ -30,7 +30,7 @@
         <!--Проработка ОГК-->
         <view:FilesSingleControl 
             Grid.Column="2"
-            Caption="Файлы проработки (от ОГК ВВА) "
+            Caption="Файлы проработки (от ОГК ВВА):"
             LoadAllFilesCommand="{Binding LoadAnswerFilesCommand}"
             OpenFileCommand="{Binding OpenAnswerFileCommand}"
             Files="{Binding FilesAnswers}"

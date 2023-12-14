@@ -5,16 +5,20 @@
              x:Name="Root">
 
     <!--Дополнительные блоки-->
-    <GroupBox Header="Дополнительные блоки"
-              DataContext="{Binding ElementName=Root, Path=ViewModel}">
+    <Border Margin="2" Padding="2" CornerRadius="4" BorderThickness="1" BorderBrush="Black"
+            DataContext="{Binding ElementName=Root, Path=ViewModel}">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Label Grid.Row="0" Content="Дополнительные блоки:" HorizontalAlignment="Left"/>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <ListBox 
+                    Margin="2" Background="Transparent"
                     ItemsSource="{Binding ProductBlocksAdded}" 
                     SelectedItem="{Binding SelectedBlockAdded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     BorderThickness="0">
@@ -34,10 +38,10 @@
                 </ListBox>
             </ScrollViewer>
 
-            <ContentPresenter Grid.Row="1"
+            <ContentPresenter Grid.Row="2"
                             DataContext="{Binding ElementName=Root, Path=ViewModel}"
                             Content="{Binding ElementName=Root, Path=ButtonsArea}"/>
         </Grid>
-    </GroupBox>
+    </Border>
 
 </UserControl>

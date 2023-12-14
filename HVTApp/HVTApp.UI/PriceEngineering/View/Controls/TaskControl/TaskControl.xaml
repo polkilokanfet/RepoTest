@@ -26,7 +26,6 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0" 
-                    MaxHeight="500"
                     BorderBrush="Blue"  
                     BorderThickness="{Binding Converter={StaticResource BoarderThicknessConverter}}">
 
