@@ -139,5 +139,21 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
+
+        /// <summary>
+        /// Задача создана только для запуска производства из ТСЕ
+        /// </summary>
+        public bool IsJustForProduction
+        {
+            get
+            {
+                var statusesArray = Model.Statuses.OrderBy(x => x.Moment).ToArray();
+                if (statusesArray.Length < 3) return false;
+                if (statusesArray[0].StatusEnum != 0) return false;
+                if (statusesArray[1].StatusEnum != 1) return false;
+                if (statusesArray[2].StatusEnum != 13) return false;
+                return true;
+            }
+        }
     }
 }

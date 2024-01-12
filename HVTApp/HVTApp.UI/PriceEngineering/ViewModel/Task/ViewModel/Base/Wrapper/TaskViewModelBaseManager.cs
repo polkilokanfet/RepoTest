@@ -60,7 +60,12 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
             if (this.DesignDepartment == null)
-                yield return new ValidationResult($"{nameof(DesignDepartment)} is required", new []{nameof(DesignDepartment)});
+                //для задач запущенных только на открытие производства из ТСЕ бюро назначать не обязательно
+                if (this is TaskViewModelManager vm && vm.IsJustForProduction)
+                {
+                }
+                else
+                    yield return new ValidationResult($"{nameof(DesignDepartment)} is required", new []{nameof(DesignDepartment)});
         }
     }
 }
