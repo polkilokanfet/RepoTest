@@ -12,18 +12,20 @@
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Действия">
+    <infRib:RibbonGroup Caption="BackManager">
 
-        <infRib:ButtonTool Caption="Назначит бэк-менеджера"
-                           Command="{Binding InstructBackManagerCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/in.png" />
+        <StackPanel Orientation="Vertical">
+            <infRib:ButtonTool Caption="Назначить"
+                               Command="{Binding InstructBackManagerCommand}"
+                               SmallImage="/HVTApp.UI;component/Images/in.png" 
+                               HorizontalAlignment="Stretch"/>
+            <TextBox
+                IsReadOnly="True"
+                Text="{Binding TasksWrapper.BackManager, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                Background="Transparent" 
+                BorderThickness="0"/>
+        </StackPanel>
 
     </infRib:RibbonGroup>
-
-    <!--<infRib:RibbonGroup Caption="Номер заявки в ТСЕ">
-        <TextBox Text="{Binding TasksWrapper.Model.TceNumber, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
-                 Width="100"
-                 IsReadOnly="True"/>
-    </infRib:RibbonGroup>-->
 
 </inf:RibbonTabItemWithViewModel>
