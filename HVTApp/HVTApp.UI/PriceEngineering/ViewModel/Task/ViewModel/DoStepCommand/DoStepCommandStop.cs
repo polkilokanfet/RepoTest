@@ -6,6 +6,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
+    /// <summary>
+    /// Остановить проработку задачи
+    /// </summary>
     public class DoStepCommandStop : DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.Stop;

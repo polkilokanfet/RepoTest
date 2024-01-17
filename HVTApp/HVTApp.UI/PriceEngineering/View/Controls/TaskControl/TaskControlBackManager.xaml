@@ -97,15 +97,15 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Позиция в ТСЕ"/>
                             <TextBox Grid.Column="1" 
-                                     Text="{Binding TcePosition, UpdateSourceTrigger=PropertyChanged}"
-                                     IsEnabled="{Binding TaskViewModel.IsEditMode, ElementName=Root}"/>
+                                     Text="{Binding TcePosition, UpdateSourceTrigger=PropertyChanged}"/>
+                                     <!--IsEnabled="{Binding TaskViewModel.IsEditMode, ElementName=Root}"/>-->
                         </Grid>
 
                         <!--SCC-->
                         <GroupBox Grid.Row="2" Header="Соответствие стракчакостов">
                             <ItemsControl 
-                                IsEnabled="{Binding TaskViewModel.IsEditMode, ElementName=Root}"
                                 ItemsSource="{Binding ElementName=Root, Path=TaskViewModel.TasksTceItem.SccVersions, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                                <!--IsEnabled="{Binding TaskViewModel.IsEditMode, ElementName=Root}"-->
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <view1:SccVersionControl SccVersion="{Binding  UpdateSourceTrigger=PropertyChanged}" Margin="0 1"/>

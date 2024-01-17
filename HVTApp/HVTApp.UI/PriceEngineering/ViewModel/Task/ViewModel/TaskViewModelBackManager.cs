@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
@@ -16,6 +20,9 @@ namespace HVTApp.UI.PriceEngineering
 
         public override bool IsEditMode => this.Model.Status.Equals(ScriptStep.LoadToTceStart);
 
+        /// <summary>
+        /// Сборка задач ТСП в которую входит эта задача
+        /// </summary>
         public TasksTceItem TasksTceItem { get; }
 
         #region Commands
@@ -34,37 +41,93 @@ namespace HVTApp.UI.PriceEngineering
 
             LoadToTceFinishCommand = new DoStepCommandLoadToTceFinish(this, container, () => LoadToTceFinishedEvent?.Invoke());
 
-            TasksTceItem.PropertyChanged += (sender, args) =>
-            {
-                SaveCommand.RaiseCanExecuteChanged();
-                LoadToTceFinishCommand.RaiseCanExecuteChanged();
-            };
-
-            this.Statuses.CollectionChanged += (sender, args) =>
-            {
-                RaisePropertyChanged(nameof(IsEditMode));
-                LoadToTceFinishCommand.RaiseCanExecuteChanged();
-            };
-
-            this.TasksWrapperBackManager.PropertyChanged += (sender, args) =>
-            {
-                SaveCommand.RaiseCanExecuteChanged();
-                LoadToTceFinishCommand.RaiseCanExecuteChanged();
-            };
-            
+            this.TasksTceItem.PropertyChanged += TasksTceItemOnPropertyChanged;
+            this.Statuses.CollectionChanged += StatusesOnCollectionChanged;
+            this.TasksWrapperBackManager.PropertyChanged += TasksTceItemOnPropertyChanged;
+            this.SavedEvent += OnSavedEvent; //Костыль для фиксации изменений после завершения этапа "Задача загружена с ТСЕ"
         }
+
+        #region OnEvents
+
+        private void OnSavedEvent()
+        {
+            if (string.IsNullOrWhiteSpace(_changesMessage) == false)
+                this.Messenger.SendMessage(_changesMessage);
+
+            _changesMessage = null;
+        }
+
+        private void StatusesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(IsEditMode));
+            LoadToTceFinishCommand.RaiseCanExecuteChanged();
+        }
+
+        private void TasksTceItemOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            SaveCommand.RaiseCanExecuteChanged();
+            LoadToTceFinishCommand.RaiseCanExecuteChanged();
+        }
+        
+        #endregion
 
         public override void AcceptChanges()
         {
+            if (this.IsEditMode == false && this.Statuses.IsChanged == false)
+                _changesMessage = this.GetChangesMessage(); //Костыль для фиксации изменений после завершения этапа "Задача загружена с ТСЕ"
+
             TasksTceItem.AcceptChanges();
             base.AcceptChanges();
         }
 
         protected override bool SaveCommand_CanExecuteMethod()
         {
-            if (this.Model.Status.Equals(ScriptStep.LoadToTceStart) == false)
+            //if (this.IsEditMode == false) return false;
+            if (this.IsEditMode == false && 
+                (TasksTceItem.IsValid == false || this.TasksWrapperBackManager.IsValid == false))
                 return false;
+
             return TasksTceItem.IsChanged || this.TasksWrapperBackManager.IsChanged;
+        }
+
+        #region Костыль для фиксации изменений после завершения этапа "Задача загружена с ТСЕ"
+
+        private string _changesMessage = null;
+
+        private string GetChangesMessage()
+        {
+            if (this.TasksTceItem.IsChanged == false &&
+                this.TasksWrapperBackManager.IsChanged == false)
+                return null;
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Внесены изменения в TeamCenter:");
+
+            if (this.TasksWrapperBackManager.TceNumberIsChanged)
+                sb.AppendLine($" - заявка: {this.TasksWrapperBackManager.TceNumberOriginalValue} => {this.TasksWrapperBackManager.TceNumber}");
+
+            if (this.TasksTceItem.TcePositionIsChanged)
+                sb.AppendLine($" - позиция: {this.TasksTceItem.TcePositionOriginalValue} => {this.TasksTceItem.TcePosition}");
+
+            var modifiedSccVersions = this.TasksTceItem.SccVersions.Where(x => x.IsChanged).ToList();
+            foreach (var sccVersion in modifiedSccVersions)
+            {
+                sb.AppendLine($" - версия scc: {sccVersion.VersionOriginalValue} => {sccVersion.Version}");
+            }
+
+            return sb.ToString();
+        }
+
+        #endregion
+
+        public override void Dispose()
+        {
+            TasksTceItem.PropertyChanged -= TasksTceItemOnPropertyChanged;
+            this.Statuses.CollectionChanged -= StatusesOnCollectionChanged;
+            this.TasksWrapperBackManager.PropertyChanged -= TasksTceItemOnPropertyChanged;
+            this.SavedEvent -= OnSavedEvent;
+
+            base.Dispose();
         }
     }
 }

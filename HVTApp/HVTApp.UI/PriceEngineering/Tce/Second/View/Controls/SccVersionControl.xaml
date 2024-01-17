@@ -46,8 +46,8 @@
                 <Label Grid.Column="5" Content=" V:"/>
 
                 <editors:XamNumericEditor Grid.Column="6"
-                                          Value="{Binding ElementName=Root, Path=SccVersion.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ValueType="system:Int32"
-                                          IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TasksTceView}}, Path=DataContext.AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Value="{Binding ElementName=Root, Path=SccVersion.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ValueType="system:Int32"/>
+                                          <!--IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TasksTceView}}, Path=DataContext.AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>-->
             </Grid>
 
             <Separator Background="Black" Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>

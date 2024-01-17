@@ -79,7 +79,7 @@ namespace HVTApp.UI.PriceEngineering
                         .Publish(new NotificationArgsPriceEngineeringTask(this.Model, new[] {argsItem}));
                 },
                 () => this.Model.Status.Equals(ScriptStep.ProductionRequestStart));
-
+            
             StopProductionRequestConfirmCommand = new DoStepCommandStopProductionRequestConfirm(this, container);
             StopProductionRequestRejectCommand = new DoStepCommandStopProductionRequestReject(this, container);
         }
