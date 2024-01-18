@@ -24,132 +24,47 @@ namespace EventServiceClient2
             _eventAggregator = eventAggregator;
         }
 
+        private void M<T>(T entity, EventServiceActionType eventServiceActionType)
+            where T : class, IBaseEntity
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWork>();
+
+            try
+            {
+                var units = unitOfWork.Repository<EventServiceUnit>()
+                    .Find(unit => unit.TargetEntityId == entity.Id && 
+                                  unit.EventServiceActionType == eventServiceActionType);
+
+                if (!units.Any()) return;
+
+                unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
+                unitOfWork.SaveChanges();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                unitOfWork.Dispose();
+            }
+        }
+
         public void Start()
         {
-            _eventAggregator.GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Subscribe(
-                technicalRequrementsTask =>
-                {
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    try
-                    {
-                        var units = unitOfWork.Repository<EventServiceUnit>()
-                            .Find(unit => unit.TargetEntityId == technicalRequrementsTask.Id && unit.EventServiceActionType == EventServiceActionType.StartTechnicalRequrementsTask);
+            _eventAggregator.GetEvent<AfterInstructTechnicalRequrementsTaskEvent>()
+                .Subscribe(x => M(x, EventServiceActionType.StartTechnicalRequrementsTask));
 
-                        if (units.Any())
-                        {
-                            unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
-                            unitOfWork.SaveChanges();
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    finally
-                    {
-                        unitOfWork.Dispose();
-                    }
+            _eventAggregator.GetEvent<AfterStopTechnicalRequrementsTaskEvent>()
+                .Subscribe(x => M(x, EventServiceActionType.StartTechnicalRequrementsTask));
 
-                });
+            _eventAggregator.GetEvent<AfterFinishPriceCalculationEvent>()
+                .Subscribe(x => M(x, EventServiceActionType.StartPriceCalculation));
 
-            _eventAggregator.GetEvent<AfterStopTechnicalRequrementsTaskEvent>().Subscribe(
-                technicalRequrementsTask =>
-                {
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    try
-                    {
-                        var units = unitOfWork.Repository<EventServiceUnit>()
-                            .Find(unit => unit.TargetEntityId == technicalRequrementsTask.Id && unit.EventServiceActionType == EventServiceActionType.StartTechnicalRequrementsTask);
+            _eventAggregator.GetEvent<AfterStopPriceCalculationEvent>()
+                .Subscribe(x => M(x, EventServiceActionType.StartPriceCalculation));
 
-                        if (units.Any())
-                        {
-                            unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
-                            unitOfWork.SaveChanges();
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    finally
-                    {
-                        unitOfWork.Dispose();
-                    }
-
-                });
-
-            _eventAggregator.GetEvent<AfterFinishPriceCalculationEvent>().Subscribe(
-                priceCalculation =>
-                {
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    try
-                    {
-                        var units = unitOfWork.Repository<EventServiceUnit>()
-                            .Find(unit => unit.TargetEntityId == priceCalculation.Id && unit.EventServiceActionType == EventServiceActionType.StartPriceCalculation);
-
-                        if (units.Any())
-                        {
-                            unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
-                            unitOfWork.SaveChanges();
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    finally
-                    {
-                        unitOfWork.Dispose();
-                    }
-
-                });
-
-            _eventAggregator.GetEvent<AfterStopPriceCalculationEvent>().Subscribe(
-                priceCalculation =>
-                {
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    try
-                    {
-                        var units = unitOfWork.Repository<EventServiceUnit>()
-                            .Find(unit => unit.TargetEntityId == priceCalculation.Id && unit.EventServiceActionType == EventServiceActionType.StartPriceCalculation);
-
-                        if (units.Any())
-                        {
-                            unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
-                            unitOfWork.SaveChanges();
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    finally
-                    {
-                        unitOfWork.Dispose();
-                    }
-
-                });
-
-            _eventAggregator.GetEvent<AfterRejectPriceCalculationEvent>().Subscribe(
-                priceCalculation =>
-                {
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
-                    try
-                    {
-                        var units = unitOfWork.Repository<EventServiceUnit>()
-                            .Find(unit => unit.TargetEntityId == priceCalculation.Id && unit.EventServiceActionType == EventServiceActionType.StartPriceCalculation);
-
-                        if (units.Any())
-                        {
-                            unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
-                            unitOfWork.SaveChanges();
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    finally
-                    {
-                        unitOfWork.Dispose();
-                    }
-                });
-
+            _eventAggregator.GetEvent<AfterRejectPriceCalculationEvent>()
+                .Subscribe(x => M(x, EventServiceActionType.StartPriceCalculation));
         }
     }
 }
