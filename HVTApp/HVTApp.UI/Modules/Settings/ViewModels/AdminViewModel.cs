@@ -34,17 +34,17 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
             Command = new DelegateLogCommand(
                 () =>
                 {
-                    //try
-                    //{
-                    //    _container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
-                    //    _container.Resolve<IEmailService>().SendMail("kosolapov.ep@mail.ru", "SubjTest", "BodyTest");
-                    //    _container.Resolve<IMessageService>().ShowOkMessageDialog("Send letter", "Success!");
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    _container.Resolve<IHvtAppLogger>().LogError(e.PrintAllExceptions(), e);
-                    //    _container.Resolve<IMessageService>().ShowOkMessageDialog("Error", e.PrintAllExceptions());
-                    //}
+                    try
+                    {
+                        _container.Resolve<IEmailService>().SendMail("kosolapov.ag@gmail.com", "SubjTest", "BodyTest");
+                        _container.Resolve<IEmailService>().SendMail("kosolapov.ep@mail.ru", "SubjTest", "BodyTest");
+                        _container.Resolve<IMessageService>().Message("Send letter", "Success!");
+                    }
+                    catch (Exception e)
+                    {
+                        _container.Resolve<IHvtAppLogger>().LogError(e.PrintAllExceptions(), e);
+                        _container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
+                    }
 
 
                     //var unitOfWork = _container.Resolve<IUnitOfWork>();
@@ -66,65 +66,8 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     //unitOfWork.SaveChanges();
 
-
-                    var blocks = container.Resolve<IGetProductService>().GenerateBlocks().ToList();
-                    var r = blocks.Where(block => block.Parameters.GroupBy(p => p.ParameterGroup).Any(x => x.Count() != 1)).ToList();
-                    var s = blocks.Select(block => block.Parameters.Select(p => p.Value).ToStringEnum(" ][ ")).OrderBy(x => x).ToList();
-                    var sb = new StringBuilder();
-                    foreach (var ss in s)
-                    {
-                        sb.AppendLine(ss);
-                    }
-
-                    do
-                    {
-                        var rnd = (new Random()).Next(blocks.Count);
-                        var block = blocks[rnd];
-
-                        var unitOfWork = container.Resolve<IUnitOfWork>();
-                        var pb = new ProductBlock()
-                        {
-                            Parameters = block.Parameters.Select(x => unitOfWork.Repository<Parameter>().GetById(x.Id)).ToList()
-                        };
-                        unitOfWork.Repository<ProductBlock>().Add(pb);
-                        unitOfWork.SaveChanges();
-
-                        //block = unitOfWork.Repository<ProductBlock>().Find(x => x.Parameters.MembersAreSame(pb.Parameters)).Single();
-
-                        container.Resolve<IGetProductService>().GetProductBlock(pb);
-                    } while (true);
-
-                    //_container.Resolve<IMessageService>().Message("", sb.ToString());
-
-
-                    //StringBuilder sb = new StringBuilder();
-                    //res
-                    //    .OrderBy(x => x.Project.Manager.Id)
-                    //    .ThenBy(x => x.Project.Id)
-                    //    .ThenBy(x => x.Product.Id)
-                    //    .ToList()
-                    //    .ForEach(x => sb.AppendLine($"{x.Project.Manager.Employee.Person.Surname}: {x};"));
                     //Clipboard.SetText(sb.ToString());
-
-                    //_container.Resolve<IMessageService>().Message("", $"Finish");
-
                 });
         }
-    }
-
-    [Serializable]
-    public class Main
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string Name { get; set; } = "main";
-        public Dependent Dependent { get; set; }
-    }
-
-    [Serializable]
-    public class Dependent
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string Name { get; set; } = "dependent";
-
     }
 }

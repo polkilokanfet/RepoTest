@@ -25,7 +25,8 @@ namespace HVTApp.Services.EmailService
                 client.Connect("smtp.gmail.com", 25, false);
 
                 // Note: only needed if the SMTP server requires authentication
-                client.Authenticate(from, "uetm741258963");
+                //client.Authenticate(from, "uetm741258963");
+                client.Authenticate(from, "kxag dkbm qsih ajri");
 
                 client.Send(message);
                 client.Disconnect(true);
