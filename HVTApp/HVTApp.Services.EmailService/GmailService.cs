@@ -1,19 +1,18 @@
 ﻿using HVTApp.Infrastructure.Interfaces.Services;
 using MailKit.Net.Smtp;
-using MailKit.Security;
 using MimeKit;
 
 namespace HVTApp.Services.EmailService
 {
-    public class MailKitService : IEmailService
+    public class GmailService : IEmailService
     {
         public void SendMail(string to, string subject, string body)
         {
-            const string from = "kosolapov_ag@uetm.ru";
+            const string from = "apphvt@gmail.com";
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("HVTApp", from));
-            message.To.Add(new MailboxAddress(to, to));
+            message.To.Add(new MailboxAddress("Mrs. Chanandler Bong", to));
             message.Subject = subject;
 
             message.Body = new TextPart("plain")
@@ -23,14 +22,15 @@ namespace HVTApp.Services.EmailService
 
             using (var client = new SmtpClient())
             {
-                client.Connect("mx1.uetm.ru", 25, SecureSocketOptions.None);
+                client.Connect("smtp.gmail.com", 25, false);
 
                 // Note: only needed if the SMTP server requires authentication
-                client.Authenticate(from, "Qazxsw-12");
+                //client.Authenticate(from, "uetm741258963");
+                client.Authenticate(from, "kxag dkbm qsih ajri");
 
                 client.Send(message);
                 client.Disconnect(true);
             }
-		}
+        }
     }
 }

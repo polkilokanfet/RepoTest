@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailService.cs" />
+    <Compile Include="GmailService.cs" />
     <Compile Include="MailKitService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
