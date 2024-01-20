@@ -65,12 +65,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             return sb.ToString().TrimEnd('\n', '\r');
         }
 
-        protected override void CheckActualUsers()
+        protected override void BeforeDoStepAction()
         {
             if (this.ViewModel.UserConstructor?.IsActual == false)
             {
                 this.ViewModel.Model.UserConstructor = null;
-                MessageService.Message("Info", "Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален");
+                MessageService.Message("Информация", "Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален");
                 this.ViewModel.Messenger.SendMessage("Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален. Руководителю КБ необходимо назначить другого исполнителя.");
             }
         }

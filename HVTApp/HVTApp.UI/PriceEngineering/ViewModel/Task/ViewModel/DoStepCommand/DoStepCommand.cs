@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.EventServiceEvents.Args;
@@ -19,12 +18,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         private readonly Action _doAfterAction;
         protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
-        private bool _showConfirmation = true;
 
         protected abstract ScriptStep Step { get; }
         protected abstract string ConfirmationMessage { get; }
 
-        #region ctors
+        #region ctor
 
         protected DoStepCommand(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
         {
@@ -37,25 +35,23 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         #endregion
 
-        protected override void ExecuteMethod()
+        /// <summary>
+        /// Выполнить команду без подтверждения от пользователя
+        /// </summary>
+        public void ExecuteWithoutConfirmation()
         {
-            if (_showConfirmation)
-            {
-                var dr = MessageService.ConfirmationDialog("Подтверждение", ConfirmationMessage, defaultNo: true);
-                if (dr == false)
-                    return;
-            }
-
-            this.CheckActualUsers();
+            if (this.AllowDoStepAction() == false) return;
+            this.BeforeDoStepAction();
             this.DoStepAction();
             this.SendNotification();
             _doAfterAction?.Invoke();
         }
 
-        //Проверка исполнителей на актуальность
-        protected virtual void CheckActualUsers()
+        protected override void ExecuteMethod()
         {
-            
+            var dr = MessageService.ConfirmationDialog("Подтверждение", ConfirmationMessage, defaultNo: true);
+            if (dr == false) return;
+            this.ExecuteWithoutConfirmation();
         }
 
         /// <summary>
@@ -63,7 +59,8 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// </summary>
         protected virtual void SendNotification()
         {
-            this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
+            this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>()
+                .Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
         }
 
         /// <summary>
@@ -72,7 +69,25 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// <returns></returns>
         protected abstract IEnumerable<NotificationArgsItem> GetEventServiceItems();
 
+        /// <summary>
+        /// Добавить ли этот же статус во все вложенные подзадачи
+        /// </summary>
         protected virtual bool SetSameStatusOnSubTasks => false;
+
+        /// <summary>
+        /// Проверка на выполнение всех необходимых условий для применения основного действия
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool AllowDoStepAction() => true;
+
+        /// <summary>
+        /// Предварительное действие по переходу на новый статус
+        /// </summary>
+        protected virtual void BeforeDoStepAction() { }
+
+        /// <summary>
+        /// Основное действие по переходу на новый статус
+        /// </summary>
         protected virtual void DoStepAction()
         {
             var status = ViewModel.Statuses.Add(this.Step, this.GetStatusComment());
@@ -95,25 +110,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             this.RaiseCanExecuteChanged();
         }
 
-        /// <summary>
-        /// Выполнить команду без подтверждения от пользователя
-        /// </summary>
-        public void ExecuteWithoutConfirmation()
-        {
-            _showConfirmation = false;
-            base.Execute();
-            _showConfirmation = true;
-        }
+        protected override bool CanExecuteMethod() => ViewModel.IsValid &&
+                                                      Step.AllowDoStep(ViewModel.Status);
 
-        protected override bool CanExecuteMethod()
-        {
-            return ViewModel.IsValid && 
-                   Step.AllowDoStep(ViewModel.Status);
-        }
-
-        protected virtual string GetStatusComment()
-        {
-            return null;
-        }
+        protected virtual string GetStatusComment() => null;
     }
 }

@@ -33,10 +33,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool SetSameStatusOnSubTasks => true;
 
-        protected override void DoStepAction()
+        protected override void BeforeDoStepAction()
         {
             ViewModel.Model.SalesUnits.ForEach(salesUnit => salesUnit.Order = null);
-            base.DoStepAction();
         }
 
         protected override bool CanExecuteMethod()

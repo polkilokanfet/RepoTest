@@ -29,22 +29,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool SetSameStatusOnSubTasks => true;
 
-        /// <summary>
-        /// Требуется разослать уведомления
-        /// </summary>
-        private bool _allowNotification;
-
-        protected override void DoStepAction()
+        protected override bool AllowDoStepAction()
         {
-            _allowNotification = false;
-
             var priceEngineeringTask = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id);
 
             //проверка на наличие з/з
             if (priceEngineeringTask.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
             {
                 MessageService.Message("Отказ", "В перечне оборудования уже есть позиции с запросом на открытие з/з");
-                return;
+                return false;
             }
 
             //проверка на непринятые блоки
@@ -54,7 +47,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             if (notAccepted.Any())
             {
                 MessageService.Message("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
-                return;
+                return false;
             }
 
             //проверка на валидность для производства
@@ -62,24 +55,16 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             if (notValidForProduction.Any())
             {
                 MessageService.Message("Отказ", $"Сначала досогласуйте ТЗ в блоках:\n{notValidForProduction.Select(task => task.ProductBlock).ToStringEnum()}");
-                return;
+                return false;
             }
 
-            _allowNotification = true;
-
-            var now = DateTime.Now;
-            foreach (var salesUnit in ViewModel.SalesUnits)
-            {
-                salesUnit.SignalToStartProduction = now;
-            }
-
-            base.DoStepAction();
+            return true;
         }
 
-        protected override void SendNotification()
+        protected override void BeforeDoStepAction()
         {
-            if (_allowNotification)
-                base.SendNotification();
+            var now = DateTime.Now;
+            ViewModel.SalesUnits.ForEach(x => x.SignalToStartProduction = now);
         }
     }
 }

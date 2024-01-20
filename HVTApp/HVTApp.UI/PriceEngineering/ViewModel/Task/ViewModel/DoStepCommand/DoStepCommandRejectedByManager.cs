@@ -9,7 +9,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     public class DoStepCommandRejectedByManager : DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.RejectByManager;
-        protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить проработку задачи?";
+        protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить проработку задачи исполнителю?";
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
             yield return new NotificationArgsItem(ViewModel.UserConstructor, Role.Constructor, $"Проработка ТСП отклонена менеджером: {ViewModel.Model}");

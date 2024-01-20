@@ -29,7 +29,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool SetSameStatusOnSubTasks => true;
 
-        protected override void DoStepAction()
+        protected override void BeforeDoStepAction()
         {
             var vm = (TaskViewModelPlanMaker) ViewModel;
             var ordersGroups = vm.SalesUnits.GroupBy(x => new {OrderNumber = x.OrderNumber.Trim(), x.DateOpen});
@@ -39,7 +39,6 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 EnumerableExtensions.ForEach(ordersGroup, x => x.Model.Order = order);
             }
             vm.SignalToStartProductionDone = DateTime.Now;
-            base.DoStepAction();
         }
 
         protected override string GetStatusComment()

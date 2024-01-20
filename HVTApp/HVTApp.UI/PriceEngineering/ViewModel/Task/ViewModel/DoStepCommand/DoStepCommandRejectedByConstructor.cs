@@ -19,13 +19,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
             var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
-            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"Исполнитель отклонил Ваше ТСП: {ViewModel.Model}");
+            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"Исполнитель отклонил Вашу ТСП: {ViewModel.Model}");
         }
 
-        protected override void DoStepAction()
+        protected override void BeforeDoStepAction()
         {
             ViewModel.RejectChanges();
-            base.DoStepAction();
         }
 
         protected override bool CanExecuteMethod()

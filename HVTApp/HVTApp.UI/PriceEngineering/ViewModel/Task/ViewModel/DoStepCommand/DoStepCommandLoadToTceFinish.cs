@@ -15,7 +15,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         private readonly Action _doAfter;
         protected override ScriptStep Step => ScriptStep.LoadToTceFinish;
 
-        protected override string ConfirmationMessage => "Вы уверены, что загрузили результаты проработки в ТС?";
+        protected override string ConfirmationMessage => "Вы уверены, что загрузили результаты проработки в Team Center?";
 
         public DoStepCommandLoadToTceFinish(TaskViewModelBackManager viewModel, IUnityContainer container, Action doAfter) : base(viewModel, container)
         {
@@ -28,7 +28,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ТСП загружено в TeamCenter: {ViewModel.Model}");
         }
 
-        protected override void DoStepAction()
+        protected override void BeforeDoStepAction()
         {
             var moment = DateTime.Now;
             var tasks = ViewModel.Model.ChildPriceEngineeringTasks
@@ -42,7 +42,10 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                     StatusEnum = ScriptStep.LoadToTceFinish.Value
                 });
             }
+        }
 
+        protected override void DoStepAction()
+        {
             base.DoStepAction();
             _doAfter?.Invoke();
         }
