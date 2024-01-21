@@ -27,7 +27,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"Производство открыто: {ViewModel.Model}");
         }
 
-        protected override bool SetSameStatusOnSubTasks => true;
+        protected override bool NeedAddSameStatusOnSubTasks => true;
 
         protected override void BeforeDoStepAction()
         {

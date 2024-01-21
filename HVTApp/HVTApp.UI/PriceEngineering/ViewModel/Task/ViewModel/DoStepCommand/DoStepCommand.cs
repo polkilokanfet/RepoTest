@@ -49,8 +49,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void ExecuteMethod()
         {
-            var dr = MessageService.ConfirmationDialog("ѕодтверждение", ConfirmationMessage, defaultNo: true);
-            if (dr == false) return;
+            if (MessageService.ConfirmationDialog("ѕодтверждение", ConfirmationMessage, defaultNo: true) == false) return;
             this.ExecuteWithoutConfirmation();
         }
 
@@ -72,7 +71,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// <summary>
         /// ƒобавить ли этот же статус во все вложенные подзадачи
         /// </summary>
-        protected virtual bool SetSameStatusOnSubTasks => false;
+        protected virtual bool NeedAddSameStatusOnSubTasks => false;
 
         /// <summary>
         /// ѕроверка на выполнение всех необходимых условий дл€ применени€ основного действи€
@@ -91,23 +90,27 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected virtual void DoStepAction()
         {
             var status = ViewModel.Statuses.Add(this.Step, this.GetStatusComment());
-
             //установка подобного статуса во все вложенные задачи
-            if (SetSameStatusOnSubTasks)
-            {
-                foreach (var task in ViewModel.Model.GetAllPriceEngineeringTasks().Where(t => t.Id != ViewModel.Model.Id))
-                {
-                    task.Statuses.Add(new PriceEngineeringTaskStatus
-                    {
-                        Moment = status.Moment,
-                        StatusEnum = status.StatusEnum,
-                        Comment = GetStatusComment()
-                    });
-                }
-            }
-
+            if (NeedAddSameStatusOnSubTasks) this.AddSameStatusOnSubTasks(status);
             ViewModel.SaveCommand.Execute();
             this.RaiseCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// ”становка подобного статуса во все вложенные задачи
+        /// </summary>
+        /// <param name="status"></param>
+        private void AddSameStatusOnSubTasks(PriceEngineeringTaskStatus status)
+        {
+            foreach (var task in ViewModel.Model.GetAllPriceEngineeringTasks().Where(priceEngineeringTask => priceEngineeringTask.Id != ViewModel.Model.Id))
+            {
+                task.Statuses.Add(new PriceEngineeringTaskStatus
+                {
+                    Moment = status.Moment,
+                    StatusEnum = status.StatusEnum,
+                    Comment = GetStatusComment()
+                });
+            }
         }
 
         protected override bool CanExecuteMethod() => ViewModel.IsValid &&

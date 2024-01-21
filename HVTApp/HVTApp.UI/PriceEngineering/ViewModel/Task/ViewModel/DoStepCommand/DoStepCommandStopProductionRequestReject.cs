@@ -31,7 +31,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             return $"Запрос на остановку производства отклонён ({GlobalAppProperties.User}).";
         }
 
-        protected override bool SetSameStatusOnSubTasks => true;
+        protected override bool NeedAddSameStatusOnSubTasks => true;
 
         protected override bool CanExecuteMethod()
         {

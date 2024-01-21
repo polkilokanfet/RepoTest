@@ -23,6 +23,6 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override bool SetSameStatusOnSubTasks => true;
+        protected override bool NeedAddSameStatusOnSubTasks => true;
     }
 }
