@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -13,7 +10,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
     public class DoStepCommandFinishByConstructor : DoStepCommand<TaskViewModelConstructor>
     {
-        protected override ScriptStep Step => ScriptStep.FinishByConstructor;
+        protected override ScriptStep Step => ViewModel.Model.VerificationIsRequested
+            ? ScriptStep.VerificationRequestByConstructor
+            : ScriptStep.FinishByConstructor;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите завершить проработку?";
 
@@ -34,23 +33,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
         }
 
-        protected override void DoStepAction()
+        protected override void BeforeDoStepAction()
         {
             if (ViewModel.Model.RequestForVerificationFromHead == false)
-            {
                 ViewModel.RequestForVerificationFromConstructor = MessageService.ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
-            }
 
             ViewModel.IsValidForProduction = MessageService.ConfirmationDialog("Проверка", "Предоставленного ТЗ достаточно для производства?", defaultNo: true);
-
-            var step = ViewModel.Model.VerificationIsRequested
-                ? ScriptStep.VerificationRequestByConstructor
-                : ScriptStep.FinishByConstructor;
-            ViewModel.Statuses.Add(step, GetStatusComment());
-            ViewModel.SaveCommand.Execute();
-
-            ViewModel.AddAnswerFilesCommand.RaiseCanExecuteChanged();
-            ViewModel.RemoveAnswerFileCommand.RaiseCanExecuteChanged();
         }
 
         protected override string GetStatusComment()
