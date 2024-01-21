@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -24,8 +23,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
-            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ТСП загружено в TeamCenter: {ViewModel.Model}");
+            yield return new NotificationArgsItem(Manager, Role.SalesManager, $"ТСП загружено в TeamCenter: {ViewModel.Model}");
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;

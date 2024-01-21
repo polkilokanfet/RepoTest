@@ -23,8 +23,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork);
-            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"Производство открыто: {ViewModel.Model}");
+            yield return new NotificationArgsItem(Manager, Role.SalesManager, $"Производство открыто: {ViewModel.Model}");
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;

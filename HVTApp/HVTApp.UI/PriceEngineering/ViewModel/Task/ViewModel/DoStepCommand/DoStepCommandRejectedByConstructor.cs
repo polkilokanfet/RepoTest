@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -18,7 +17,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            yield return new NotificationArgsItem(ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager, Role.SalesManager, $"Исполнитель отклонил Вашу ТСП: {ViewModel.Model}");
+            yield return new NotificationArgsItem(Manager, Role.SalesManager, $"Исполнитель отклонил Вашу ТСП: {ViewModel.Model}");
         }
 
         protected override void BeforeDoStepAction()

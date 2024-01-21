@@ -22,7 +22,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            yield return new NotificationArgsItem(ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager, Role.SalesManager, $"«апрос на остановку производства отклонен: {ViewModel.Model}");
+            yield return new NotificationArgsItem(Manager, Role.SalesManager, $"«апрос на остановку производства отклонен: {ViewModel.Model}");
         }
 
         protected override string GetStatusComment()

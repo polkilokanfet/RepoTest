@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
@@ -20,10 +21,13 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         private readonly Action _doAfterAction;
         protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
-        protected readonly IUnitOfWork UnitOfWork;
 
         protected abstract ScriptStep Step { get; }
         protected abstract string ConfirmationMessage { get; }
+
+        protected readonly IUnitOfWork UnitOfWork;
+
+        protected User Manager => ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager;
 
         #region ctor
 

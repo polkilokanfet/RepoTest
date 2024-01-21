@@ -18,7 +18,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            yield return new NotificationArgsItem(ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
+            yield return new NotificationArgsItem(Manager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
             yield return new NotificationArgsItem(ViewModel.UserConstructor.Model, Role.Constructor, $"ТСП проверено руководителем: {ViewModel.Model}");
         }
 
