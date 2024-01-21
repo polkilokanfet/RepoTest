@@ -30,7 +30,7 @@ namespace HVTApp.UI.PriceEngineering.Items
                 if (base.ToShow)
                     return true;
 
-                if (Entity.ChildPriceEngineeringTasks.Any(task => task.Status.Equals(ScriptStep.StopProductionRequest)))
+                if (Entity.ChildPriceEngineeringTasks.Any(task => task.Status.Equals(ScriptStep.ProductionRequestStop)))
                     return true;
 
                 return Entity.BackManager == null &&

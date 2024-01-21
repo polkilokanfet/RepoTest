@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model.Events;
-using HVTApp.Model.Events.EventServiceEvents;
-using Prism.Events;
 
 namespace HVTApp.Model.POCOs
 {
@@ -118,7 +115,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Запрос на остановку производства
         /// </summary>
-        public static readonly ScriptStep StopProductionRequest = new StopProductionRequestStep();
+        public static readonly ScriptStep ProductionRequestStop = new ProductionRequestStopStep();
 
         #endregion
 
@@ -443,7 +440,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class StopProductionRequestStep : ScriptStep
+        private sealed class ProductionRequestStopStep : ScriptStep
         {
             public override string Description => "Запрос на остановку производства";
 
@@ -458,7 +455,7 @@ namespace HVTApp.Model.POCOs
                 Role.BackManagerBoss
             };
 
-            public StopProductionRequestStep() : base(15, Role.SalesManager)
+            public ProductionRequestStopStep() : base(15, Role.SalesManager)
             {
             }
         }

@@ -22,7 +22,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             {
                 ScriptStep.LoadToTceStart,
                 ScriptStep.ProductionRequestStart,
-                ScriptStep.StopProductionRequest
+                ScriptStep.ProductionRequestStop
             };
 
             return engineeringTasks

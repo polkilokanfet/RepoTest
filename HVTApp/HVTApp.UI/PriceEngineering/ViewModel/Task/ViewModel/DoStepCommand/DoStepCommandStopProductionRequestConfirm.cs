@@ -41,7 +41,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             return
                 GlobalAppProperties.User.RoleCurrent == Role.BackManagerBoss &&
-                ViewModel.Status.Equals(ScriptStep.StopProductionRequest);
+                ViewModel.Status.Equals(ScriptStep.ProductionRequestStop);
         }
     }
 }
