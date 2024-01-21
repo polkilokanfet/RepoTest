@@ -7,19 +7,18 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandRejectedByConstructor : DoStepCommand
+    public class DoStepCommandRejectedByConstructor : DoStepCommand<TaskViewModelConstructor>
     {
         protected override ScriptStep Step => ScriptStep.RejectByConstructor;
         protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить проработку задачи?";
 
-        public DoStepCommandRejectedByConstructor(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandRejectedByConstructor(TaskViewModelConstructor viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
-            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"Исполнитель отклонил Вашу ТСП: {ViewModel.Model}");
+            yield return new NotificationArgsItem(ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager, Role.SalesManager, $"Исполнитель отклонил Вашу ТСП: {ViewModel.Model}");
         }
 
         protected override void BeforeDoStepAction()

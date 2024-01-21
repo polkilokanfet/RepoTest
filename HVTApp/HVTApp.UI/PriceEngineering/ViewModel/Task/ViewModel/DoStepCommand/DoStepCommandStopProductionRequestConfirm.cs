@@ -10,19 +10,19 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     /// <summary>
     /// ќстановка производства дл€ BackManagerBoss (подтверждение)
     /// </summary>
-    public class DoStepCommandStopProductionRequestConfirm : DoStepCommandStop
+    public class DoStepCommandStopProductionRequestConfirm : DoStepCommand<TaskViewModelBackManagerBoss>
     {
         protected override ScriptStep Step => ScriptStep.Stop;
 
         protected override string ConfirmationMessage => "¬ы уверены, что хотите согласовать остановку производства этого оборудовани€?";
 
-        public DoStepCommandStopProductionRequestConfirm(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandStopProductionRequestConfirm(TaskViewModelBackManagerBoss viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
+            var tasks = ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork);
             yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ѕроизводство остановлено: {ViewModel.Model}");
         }
 

@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandStopProductionRequest : DoStepCommand
+    public class DoStepCommandStopProductionRequest : DoStepCommand<TaskViewModelManagerOld>
     {
         protected override ScriptStep Step => ScriptStep.StopProductionRequest;
         protected override string ConfirmationMessage => "Вы уверены, что хотите остановить производство этого оборудования?";
@@ -19,7 +19,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
         }
 
-        public DoStepCommandStopProductionRequest(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandStopProductionRequest(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 

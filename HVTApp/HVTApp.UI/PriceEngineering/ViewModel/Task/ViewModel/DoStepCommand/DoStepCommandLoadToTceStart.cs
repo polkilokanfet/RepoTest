@@ -11,13 +11,13 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandLoadToTceStart : DoStepCommand
+    public class DoStepCommandLoadToTceStart : DoStepCommand<TaskViewModelManagerOld>
     {
         protected override ScriptStep Step => ScriptStep.LoadToTceStart;
 
         protected override string ConfirmationMessage => "Вы хотите загрузить результаты проработки в TeamCenter?";
 
-        public DoStepCommandLoadToTceStart(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandLoadToTceStart(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
@@ -29,30 +29,31 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(unitOfWork);
+            var tasks = ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork);
             if (tasks.BackManager == null)
             {
-                foreach (var user in unitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
+                foreach (var user in UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
                 {
-                    yield return new NotificationArgsItem(user, Role.BackManagerBoss, $"Поручите загрузку в ТС: {ViewModel.Model}");
+                    yield return new NotificationArgsItem(user, Role.BackManagerBoss, $"Поручите загрузку в ТeamСenter: {ViewModel.Model}");
                 }
             }
             else
             {
-                yield return new NotificationArgsItem(tasks.BackManager, Role.BackManager, $"Загрузите в ТС: {ViewModel.Model}");
+                yield return new NotificationArgsItem(tasks.BackManager, Role.BackManager, $"Загрузите в ТeamСenter: {ViewModel.Model}");
             }
         }
 
         protected override bool AllowDoStepAction()
         {
             var steps = new [] {ScriptStep.Accept, ScriptStep.LoadToTceStart, ScriptStep.LoadToTceFinish};
-            var tasks = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
+            var tasks = UnitOfWork.Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
             var notAccepted = tasks.Where(task => steps.Contains(task.Status) == false).ToList();
             if (notAccepted.Any() == false) return true;
             MessageService.Message("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
             return false;
         }
+
+        protected override bool NeedAddSameStatusOnSubTasks => true;
 
         protected override void BeforeDoStepAction()
         {
@@ -70,20 +71,20 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
             #endregion
 
-           foreach (var childPriceEngineeringTask in this.ViewModel.ChildPriceEngineeringTasks)
-            {
-                if (childPriceEngineeringTask is TaskViewModelManagerOld task)
-                {
-                    if (task.LoadToTceStartCommand.CanExecute(null))
-                    {
-                        ((DoStepCommandLoadToTceStart)task.LoadToTceStartCommand).ExecuteWithoutConfirmation();
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException("Неверный тип задачи");
-                }
-            }
+           //foreach (var childPriceEngineeringTask in this.ViewModel.ChildPriceEngineeringTasks)
+           // {
+           //     if (childPriceEngineeringTask is TaskViewModelManagerOld task)
+           //     {
+           //         if (task.LoadToTceStartCommand.CanExecute(null))
+           //         {
+           //             ((DoStepCommandLoadToTceStart)task.LoadToTceStartCommand).ExecuteWithoutConfirmation();
+           //         }
+           //     }
+           //     else
+           //     {
+           //         throw new ArgumentException("Неверный тип задачи");
+           //     }
+           // }
         }
 
         protected override bool CanExecuteMethod()

@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandAcceptedByManager : DoStepCommand
+    public class DoStepCommandAcceptedByManager : DoStepCommand<TaskViewModelManagerOld>
     {
         protected override ScriptStep Step => ScriptStep.Accept;
         protected override string ConfirmationMessage => "Вы уверены, что хотите принять проработку задачи?";
@@ -16,7 +16,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             yield return new NotificationArgsItem(ViewModel.UserConstructor, Role.Constructor, $"ТСП принята менеджером: {ViewModel.Model}");
         }
 
-        public DoStepCommandAcceptedByManager(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction) : base(viewModel, container, doAfterAction)
+        public DoStepCommandAcceptedByManager(TaskViewModelManagerOld viewModel, IUnityContainer container, Action doAfterAction) : base(viewModel, container, doAfterAction)
         {
         }
     }

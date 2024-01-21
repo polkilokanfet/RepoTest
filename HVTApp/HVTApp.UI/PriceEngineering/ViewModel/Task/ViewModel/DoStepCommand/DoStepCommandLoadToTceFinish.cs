@@ -10,12 +10,12 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandLoadToTceFinish : DoStepCommand
+    public class DoStepCommandLoadToTceFinish : DoStepCommand<TaskViewModelBackManager>
     {
         private readonly Action _doAfter;
         protected override ScriptStep Step => ScriptStep.LoadToTceFinish;
 
-        protected override string ConfirmationMessage => "Вы уверены, что загрузили результаты проработки в Team Center?";
+        protected override string ConfirmationMessage => "Вы уверены, что загрузили результаты проработки в TeamCenter?";
 
         public DoStepCommandLoadToTceFinish(TaskViewModelBackManager viewModel, IUnityContainer container, Action doAfter) : base(viewModel, container)
         {
@@ -28,21 +28,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ТСП загружено в TeamCenter: {ViewModel.Model}");
         }
 
-        protected override void BeforeDoStepAction()
-        {
-            var moment = DateTime.Now;
-            var tasks = ViewModel.Model.ChildPriceEngineeringTasks
-                .SelectMany(task => task.GetAllPriceEngineeringTasks())
-                .Where(task => task.Status.Equals(ScriptStep.LoadToTceStart));
-            foreach (var task in tasks)
-            {
-                task.Statuses.Add(new PriceEngineeringTaskStatus
-                {
-                    Moment = moment,
-                    StatusEnum = ScriptStep.LoadToTceFinish.Value
-                });
-            }
-        }
+        protected override bool NeedAddSameStatusOnSubTasks => true;
 
         protected override void DoStepAction()
         {
@@ -52,10 +38,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override string GetStatusComment()
         {
-            var vm = (TaskViewModelBackManager)ViewModel;
             var sb = new StringBuilder();
-            sb.AppendLine($"Заявка в TeamCenter: {vm.TasksWrapperBackManager.TceNumber}");
-            foreach (var sccVersion in vm.TasksTceItem.SccVersions.Where(x => x.IsActual))
+            sb.AppendLine($"Заявка в TeamCenter: {ViewModel.TasksWrapperBackManager.TceNumber}");
+            foreach (var sccVersion in ViewModel.TasksTceItem.SccVersions.Where(scc => scc.IsActual))
             {
                 sb.AppendLine($" - {sccVersion.Name}: [{sccVersion.OriginalStructureCostNumber} => {sccVersion.Version}]");
             }
@@ -65,9 +50,8 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool CanExecuteMethod()
         {
-            var vm = (TaskViewModelBackManager) ViewModel;
-            return vm.TasksWrapperBackManager.IsValid && 
-                   vm.TasksTceItem.IsValid &&
+            return ViewModel.TasksWrapperBackManager.IsValid && 
+                   ViewModel.TasksTceItem.IsValid &&
                    ViewModel.Status.Equals(ScriptStep.LoadToTceStart);
         }
     }

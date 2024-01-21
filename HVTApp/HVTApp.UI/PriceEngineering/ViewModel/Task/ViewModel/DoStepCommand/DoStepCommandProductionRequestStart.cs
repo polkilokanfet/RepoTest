@@ -9,13 +9,13 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandProductionRequestStart : DoStepCommand
+    public class DoStepCommandProductionRequestStart : DoStepCommand<TaskViewModelManagerOld>
     {
         protected override ScriptStep Step => ScriptStep.ProductionRequestStart;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите открыть производство?";
 
-        public DoStepCommandProductionRequestStart(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandProductionRequestStart(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
@@ -31,7 +31,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool AllowDoStepAction()
         {
-            var priceEngineeringTask = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id);
+            var priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id);
 
             //проверка на наличие з/з
             if (priceEngineeringTask.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))

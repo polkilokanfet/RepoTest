@@ -9,12 +9,12 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandStart : DoStepCommand
+    public class DoStepCommandStart : DoStepCommand<TaskViewModelBaseStartable>
     {
         protected override ScriptStep Step => ScriptStep.Start;
         protected override string ConfirmationMessage => "¬ы уверены, что хотите запустить проработку?";
 
-        public DoStepCommandStart(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandStart(TaskViewModelBaseStartable viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 

@@ -10,20 +10,19 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     /// <summary>
     /// Остановка производства для BackManagerBoss (отклонение)
     /// </summary>
-    public class DoStepCommandStopProductionRequestReject : DoStepCommand
+    public class DoStepCommandStopProductionRequestReject : DoStepCommand<TaskViewModelBackManagerBoss>
     {
         protected override ScriptStep Step => ScriptStep.ProductionRequestFinish;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить запрос на остановку производства этого оборудования?";
 
-        public DoStepCommandStopProductionRequestReject(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandStopProductionRequestReject(TaskViewModelBackManagerBoss viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
-            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"Запрос на остановку производства отклонен: {ViewModel.Model}");
+            yield return new NotificationArgsItem(ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager, Role.SalesManager, $"Запрос на остановку производства отклонен: {ViewModel.Model}");
         }
 
         protected override string GetStatusComment()

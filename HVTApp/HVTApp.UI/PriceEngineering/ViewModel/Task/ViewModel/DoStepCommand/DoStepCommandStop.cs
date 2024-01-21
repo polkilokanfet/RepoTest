@@ -9,13 +9,13 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     /// <summary>
     /// ќстановить проработку задачи
     /// </summary>
-    public class DoStepCommandStop : DoStepCommand
+    public class DoStepCommandStop : DoStepCommand<TaskViewModelManagerOld>
     {
         protected override ScriptStep Step => ScriptStep.Stop;
 
         protected override string ConfirmationMessage => "¬ы уверены, что хотите остановить проработку задачи?";
 
-        public DoStepCommandStop(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandStop(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 

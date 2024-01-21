@@ -7,21 +7,19 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandAcceptByHead: DoStepCommand
+    public class DoStepCommandAcceptByHead: DoStepCommand<TaskViewModelDesignDepartmentHead>
     {
         protected override ScriptStep Step => ScriptStep.VerificationAcceptByHead;
         protected override string ConfirmationMessage => "Вы уверены, что хотите принять результаты проработки?";
 
-        public DoStepCommandAcceptByHead(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandAcceptByHead(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
-            yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
-
-            yield return new NotificationArgsItem(ViewModel.UserConstructor, Role.Constructor, $"ТСП проверено руководителем: {ViewModel.Model}");
+            yield return new NotificationArgsItem(ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
+            yield return new NotificationArgsItem(ViewModel.UserConstructor.Model, Role.Constructor, $"ТСП проверено руководителем: {ViewModel.Model}");
         }
 
         protected override void DoStepAction()
@@ -29,6 +27,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             ViewModel.Statuses.Add(ScriptStep.VerificationAcceptByHead);
             ViewModel.Statuses.Add(ScriptStep.FinishByConstructor);
             ViewModel.SaveCommand.Execute();
+            this.RaiseCanExecuteChanged();
         }
     }
 }

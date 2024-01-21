@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.EventServiceEvents.Args;
@@ -11,25 +12,28 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public abstract class DoStepCommand : DelegateLogCommand
+    public abstract class DoStepCommand<TTaskViewModel> : DelegateLogCommand, IDisposable
+    where TTaskViewModel : TaskViewModel
     {
         public IUnityContainer Container { get; }
-        protected readonly TaskViewModel ViewModel;
+        protected readonly TTaskViewModel ViewModel;
         private readonly Action _doAfterAction;
         protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
+        protected readonly IUnitOfWork UnitOfWork;
 
         protected abstract ScriptStep Step { get; }
         protected abstract string ConfirmationMessage { get; }
 
         #region ctor
 
-        protected DoStepCommand(TaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
+        protected DoStepCommand(TTaskViewModel viewModel, IUnityContainer container, Action doAfterAction = null)
         {
             Container = container;
             ViewModel = viewModel;
             MessageService = container.Resolve<IMessageService>();
             EventAggregator = container.Resolve<IEventAggregator>();
+            UnitOfWork = container.Resolve<IUnitOfWork>();
             _doAfterAction = doAfterAction;
         }
 
@@ -108,7 +112,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 {
                     Moment = status.Moment,
                     StatusEnum = status.StatusEnum,
-                    Comment = GetStatusComment()
+                    Comment = status.Comment
                 });
             }
         }
@@ -117,5 +121,10 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                                                       Step.AllowDoStep(ViewModel.Status);
 
         protected virtual string GetStatusComment() => null;
+
+        public void Dispose()
+        {
+            UnitOfWork?.Dispose();
+        }
     }
 }

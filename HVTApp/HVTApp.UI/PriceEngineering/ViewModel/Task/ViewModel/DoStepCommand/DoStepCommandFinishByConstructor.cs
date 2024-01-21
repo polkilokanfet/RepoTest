@@ -11,86 +11,76 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandFinishByConstructor : DoStepCommand
+    public class DoStepCommandFinishByConstructor : DoStepCommand<TaskViewModelConstructor>
     {
         protected override ScriptStep Step => ScriptStep.FinishByConstructor;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите завершить проработку?";
 
-        public DoStepCommandFinishByConstructor(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandFinishByConstructor(TaskViewModelConstructor viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
         protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
         {
-            var tasks = ViewModel.Model.GetPriceEngineeringTasks(Container.Resolve<IUnitOfWork>());
+            var manager = ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork).UserManager;
 
-            if (this.ViewModel.Model.RequestForVerificationFromHead ||
-                this.ViewModel.Model.RequestForVerificationFromConstructor)
+            if (this.ViewModel.Model.VerificationIsRequested)
             {
                 yield return new NotificationArgsItem(ViewModel.Model.DesignDepartment.Head, Role.DesignDepartmentHead, $"Проверьте ТСП: {ViewModel.Model}");
-                yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ТСП на проверке: {ViewModel.Model}");
+                yield return new NotificationArgsItem(manager, Role.SalesManager, $"ТСП на проверке: {ViewModel.Model}");
             }
             else
             {
-                yield return new NotificationArgsItem(tasks.UserManager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
+                yield return new NotificationArgsItem(manager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
             }
         }
 
         protected override void DoStepAction()
         {
-            if (this.ViewModel is TaskViewModelConstructor == false)
-                throw new ArgumentException();
-
-            var vm = (TaskViewModelConstructor) ViewModel;
-
-            if (vm.Model.RequestForVerificationFromHead == false)
+            if (ViewModel.Model.RequestForVerificationFromHead == false)
             {
-                vm.RequestForVerificationFromConstructor = MessageService.ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
+                ViewModel.RequestForVerificationFromConstructor = MessageService.ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
             }
 
-            vm.IsValidForProduction = MessageService.ConfirmationDialog("Проверка", "Предоставленного ТЗ достаточно для производства?", defaultNo: true);
+            ViewModel.IsValidForProduction = MessageService.ConfirmationDialog("Проверка", "Предоставленного ТЗ достаточно для производства?", defaultNo: true);
 
-            var needVerification = vm.Model.RequestForVerificationFromHead || vm.RequestForVerificationFromConstructor;
-
-            var step = needVerification
+            var step = ViewModel.Model.VerificationIsRequested
                 ? ScriptStep.VerificationRequestByConstructor
                 : ScriptStep.FinishByConstructor;
-            vm.Statuses.Add(step, GetStatusComment());
-            vm.SaveCommand.Execute();
+            ViewModel.Statuses.Add(step, GetStatusComment());
+            ViewModel.SaveCommand.Execute();
 
-            vm.AddAnswerFilesCommand.RaiseCanExecuteChanged();
-            vm.RemoveAnswerFileCommand.RaiseCanExecuteChanged();
+            ViewModel.AddAnswerFilesCommand.RaiseCanExecuteChanged();
+            ViewModel.RemoveAnswerFileCommand.RaiseCanExecuteChanged();
         }
 
         protected override string GetStatusComment()
         {
-            var vm = (TaskViewModelConstructor)ViewModel;
-
             var sb = new StringBuilder()
                 .AppendLine("Информация о результатах проработки.")
                 .AppendLine("Основной блок:")
-                .AppendLine($" - {vm.ProductBlockEngineer.PrintToMessage()}");
+                .AppendLine($" - {ViewModel.ProductBlockEngineer.PrintToMessage()}");
 
-            var pba = vm.ProductBlocksAdded.Where(blockAdded => blockAdded.Model.IsRemoved == false).ToList();
+            var pba = ViewModel.ProductBlocksAdded.Where(blockAdded => blockAdded.Model.IsRemoved == false).ToList();
             if (pba.Any())
             {
                 sb.AppendLine("Добавленные блоки:");
                 pba.ForEach(blockAdded => sb.AppendLine($" - {blockAdded}"));
             }
 
-            var fa = vm.FilesAnswers.Where(x => x.IsActual).ToList();
+            var fa = ViewModel.FilesAnswers.Where(x => x.IsActual).ToList();
             if (fa.Any())
             {
                 sb.AppendLine("Актуальные приложенные файлы ОГК:");
                 fa.ForEach(fileAnswer => sb.AppendLine($" - {fileAnswer}"));
             }
 
-            sb.AppendLine(vm.IsValidForProduction
+            sb.AppendLine(ViewModel.IsValidForProduction
                 ? "\nПредоставленного ТЗ достаточно для производства."
                 : "\nПредоставленного ТЗ недостаточно для производства.");
 
-            sb.AppendLine(vm.Model.GetDesignDocumentationAvailabilityInfo());
+            sb.AppendLine(ViewModel.Model.GetDesignDocumentationAvailabilityInfo());
 
             return sb.ToString().TrimEnd('\n', '\r');
         }

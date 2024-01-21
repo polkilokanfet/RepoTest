@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandRejectedByManager : DoStepCommand
+    public class DoStepCommandRejectedByManager : DoStepCommand<TaskViewModelManagerOld>
     {
         protected override ScriptStep Step => ScriptStep.RejectByManager;
         protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить проработку задачи исполнителю?";
@@ -15,7 +15,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             yield return new NotificationArgsItem(ViewModel.UserConstructor, Role.Constructor, $"Проработка ТСП отклонена менеджером: {ViewModel.Model}");
         }
 
-        public DoStepCommandRejectedByManager(TaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandRejectedByManager(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
     }
