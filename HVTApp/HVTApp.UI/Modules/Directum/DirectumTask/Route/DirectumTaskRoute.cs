@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;

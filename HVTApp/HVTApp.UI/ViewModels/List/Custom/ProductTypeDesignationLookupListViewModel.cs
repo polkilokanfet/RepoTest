@@ -1,4 +1,4 @@
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Products.Views;
 using Prism.Regions;

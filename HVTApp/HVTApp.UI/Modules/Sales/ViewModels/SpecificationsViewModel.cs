@@ -1,7 +1,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;

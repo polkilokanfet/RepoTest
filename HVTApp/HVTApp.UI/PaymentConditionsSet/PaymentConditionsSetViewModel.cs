@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.Events;

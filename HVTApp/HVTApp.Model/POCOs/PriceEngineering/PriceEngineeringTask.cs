@@ -8,7 +8,7 @@ using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Annotations;
 using HVTApp.Infrastructure.Attributes;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.Services;
 
 namespace HVTApp.Model.POCOs

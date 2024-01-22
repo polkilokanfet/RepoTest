@@ -1,5 +1,5 @@
 using System;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule

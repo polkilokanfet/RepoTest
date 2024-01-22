@@ -1,4 +1,4 @@
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 

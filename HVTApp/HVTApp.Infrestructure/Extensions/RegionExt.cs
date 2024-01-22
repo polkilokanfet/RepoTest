@@ -1,6 +1,6 @@
 ﻿using Prism.Regions;
 
-namespace HVTApp.Infrastructure.Extansions
+namespace HVTApp.Infrastructure.Extensions
 {
     public static class RegionExt
     {

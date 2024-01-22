@@ -1,4 +1,4 @@
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceCalculations.View;
 using Microsoft.Practices.Unity;

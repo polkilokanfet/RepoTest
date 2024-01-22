@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HVTApp.Infrastructure.Extansions
+namespace HVTApp.Infrastructure.Extensions
 {
     public static class ExceptionExt
     {

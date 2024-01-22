@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using Infragistics.Documents.Excel;
 using Infragistics.Windows.DataPresenter;

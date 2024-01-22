@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.UI.Modules.Reports.FlatReport.Containers;
 using Microsoft.Practices.ObjectBuilder2;
 

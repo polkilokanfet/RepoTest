@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HVTApp.Infrastructure.Extansions
+namespace HVTApp.Infrastructure.Extensions
 {
     public static class StringExt
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace HVTApp.Infrastructure.Extansions
+namespace HVTApp.Infrastructure.Extensions
 {
     public static class DateExtansions
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Services;
@@ -52,7 +53,7 @@ namespace NotificationsService
             {
                 User = _unitOfWork.Repository<User>().GetById(notification.RecipientUser.Id),
                 Role = notification.RecipientRole,
-                Message = notification.Message,
+                Message = notification.GetMessageSimple(),
                 TargetEntityId = notification.PriceEngineeringTask.Id,
                 EventServiceActionType = EventServiceActionType.PriceEngineeringTaskNotification
             };
@@ -67,7 +68,7 @@ namespace NotificationsService
         {
             var recipientEmailAddress = notification.RecipientUser.Employee.Email;
             if(string.IsNullOrEmpty(recipientEmailAddress) == false)
-                _emailService.SendMail(recipientEmailAddress, "TestSubject", notification.Message);
+                _emailService.SendMail(recipientEmailAddress, notification.PriceEngineeringTask.Status.Description, notification.GetMessageEmail());
         }
 
         public void Dispose()

@@ -1,4 +1,4 @@
-﻿using HVTApp.Infrastructure.Extansions;
+﻿using HVTApp.Infrastructure.Extensions;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Project1;
 using HVTApp.UI.Modules.Sales.Views;

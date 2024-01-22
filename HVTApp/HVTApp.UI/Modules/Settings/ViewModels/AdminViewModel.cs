@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Xml.Serialization;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;

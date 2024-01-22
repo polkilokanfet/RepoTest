@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventServiceClient2.SyncEntities;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -469,7 +469,7 @@ namespace EventServiceClient2
                     item.RecipientUser.Id,
                     item.RecipientRole,
                     item.PriceEngineeringTask.Id,
-                    item.Message);
+                    item.GetMessageSimple());
             }
             //хост недоступен
             catch (TimeoutException)

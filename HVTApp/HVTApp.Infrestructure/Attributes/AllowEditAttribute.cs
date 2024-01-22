@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 
 namespace HVTApp.Infrastructure.Attributes
 {

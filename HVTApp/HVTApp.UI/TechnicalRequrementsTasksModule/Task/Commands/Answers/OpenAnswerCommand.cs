@@ -1,5 +1,5 @@
 using System;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using Microsoft.Practices.Unity;
 

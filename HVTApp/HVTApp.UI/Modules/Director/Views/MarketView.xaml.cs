@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.UI.Modules.Director.Tabs;
 using HVTApp.UI.Modules.Director.ViewModels;

@@ -1,6 +1,6 @@
 using System.Linq;
 using HVTApp.Infrastructure.Attributes;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.UI.Converter;
 
 namespace HVTApp.UI.Lookup

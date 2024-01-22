@@ -2,7 +2,7 @@
 using HVTApp.Infrastructure.Interfaces.Services;
 using System.Net;
 using System.Net.Mail;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using Microsoft.Practices.Unity;
 

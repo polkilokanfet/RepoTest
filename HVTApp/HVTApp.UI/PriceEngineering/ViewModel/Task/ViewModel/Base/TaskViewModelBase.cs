@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Comparers;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;

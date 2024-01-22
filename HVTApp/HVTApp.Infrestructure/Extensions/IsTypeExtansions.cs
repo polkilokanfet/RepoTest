@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using HVTApp.Infrastructure.Attributes;
 
-namespace HVTApp.Infrastructure.Extansions
+namespace HVTApp.Infrastructure.Extensions
 {
     public static class GeneratorHelpers
     {

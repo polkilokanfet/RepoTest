@@ -1,6 +1,6 @@
 using System;
 using System.Windows;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
 using Prism.Commands;

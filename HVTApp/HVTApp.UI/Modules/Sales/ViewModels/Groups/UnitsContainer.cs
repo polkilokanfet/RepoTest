@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.UI.Commands;
