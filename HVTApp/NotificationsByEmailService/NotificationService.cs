@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events.EventServiceEvents;
@@ -64,11 +65,29 @@ namespace NotificationsService
         /// Отправляем уведомление по email
         /// </summary>
         /// <param name="notification"></param>
-        private void SendNotificationByEmail(NotificationAboutPriceEngineeringTaskEventArg notification)
+        private bool SendNotificationByEmail(NotificationAboutPriceEngineeringTaskEventArg notification)
         {
+            var result = false;
+
             var recipientEmailAddress = notification.RecipientUser.Employee.Email;
             if(string.IsNullOrEmpty(recipientEmailAddress) == false)
-                _emailService.SendMail(recipientEmailAddress, notification.PriceEngineeringTask.Status.Description, notification.GetMessageEmail());
+            {
+                Task.Run(() =>
+                {
+                    _emailService.SendMail(recipientEmailAddress, notification.PriceEngineeringTask.Status.Description, notification.GetMessageEmail());
+                }).Await(
+                    () =>
+                    {
+                        result = true;
+                    },
+                    e =>
+                    {
+
+                    });
+
+            }
+
+            return result;
         }
 
         public void Dispose()
