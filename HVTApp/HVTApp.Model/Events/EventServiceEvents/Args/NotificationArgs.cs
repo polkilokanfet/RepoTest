@@ -11,9 +11,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
         where T : BaseEntity
     {
         public T Entity { get; }
-        public IEnumerable<NotificationArgsItem> EventServiceItems { get; }
+        public IEnumerable<NotificationItem> EventServiceItems { get; }
 
-        protected NotificationArgs(T entity, IEnumerable<NotificationArgsItem> eventServiceItems)
+        protected NotificationArgs(T entity, IEnumerable<NotificationItem> eventServiceItems)
         {
             Entity = entity;
             EventServiceItems = eventServiceItems;
@@ -22,19 +22,19 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
 
     public class NotificationArgsPriceEngineeringTask : NotificationArgs<PriceEngineeringTask>
     {
-        public NotificationArgsPriceEngineeringTask(PriceEngineeringTask entity, IEnumerable<NotificationArgsItem> eventServiceItems) 
+        public NotificationArgsPriceEngineeringTask(PriceEngineeringTask entity, IEnumerable<NotificationItem> eventServiceItems) 
             : base(entity, eventServiceItems)
         {
         }
     }
 
-    public class NotificationArgsItem
+    public class NotificationItem
     {
         public User User { get; }
         public Role Role { get; }
         public string Message { get; }
 
-        public NotificationArgsItem(User user, Role role, string message)
+        public NotificationItem(User user, Role role, string message)
         {
             User = user;
             Role = role;

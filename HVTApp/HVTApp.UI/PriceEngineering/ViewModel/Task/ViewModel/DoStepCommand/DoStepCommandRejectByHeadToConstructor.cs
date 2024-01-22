@@ -11,10 +11,10 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected override ScriptStep Step => ScriptStep.VerificationRejectByHead;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите отправить задачу на доработку исполнителю?";
-        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationItem> GetEventServiceItems()
         {
-            yield return new NotificationArgsItem(Manager, Role.SalesManager, $"ТСП требует доработки: {ViewModel.Model}");
-            yield return new NotificationArgsItem(ViewModel.UserConstructor.Model, Role.Constructor, $"ТСП требует доработки: {ViewModel.Model}");
+            yield return new NotificationItem(Manager, Role.SalesManager, $"ТСП требует доработки: {ViewModel.Model}");
+            yield return new NotificationItem(ViewModel.UserConstructor.Model, Role.Constructor, $"ТСП требует доработки: {ViewModel.Model}");
         }
 
         public DoStepCommandRejectByHeadToConstructor(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)

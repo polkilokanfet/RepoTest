@@ -19,11 +19,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationItem> GetEventServiceItems()
         {
             if (ViewModel.Model.UserConstructor != null)
             {
-                yield return new NotificationArgsItem(ViewModel.Model.UserConstructor, Role.Constructor, $"ТСП остановлена: {ViewModel.Model}");
+                yield return new NotificationItem(ViewModel.Model.UserConstructor, Role.Constructor, $"ТСП остановлена: {ViewModel.Model}");
             }
         }
 

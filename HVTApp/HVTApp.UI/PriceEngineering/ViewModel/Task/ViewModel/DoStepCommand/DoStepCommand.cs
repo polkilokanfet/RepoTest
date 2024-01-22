@@ -74,7 +74,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// Формирование аргументов для отправки уведомлений
         /// </summary>
         /// <returns></returns>
-        protected abstract IEnumerable<NotificationArgsItem> GetEventServiceItems();
+        protected abstract IEnumerable<NotificationItem> GetEventServiceItems();
 
         /// <summary>
         /// Добавить ли этот же статус во все вложенные подзадачи

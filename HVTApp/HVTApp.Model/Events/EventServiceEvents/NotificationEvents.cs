@@ -4,7 +4,15 @@ using Prism.Events;
 
 namespace HVTApp.Model.Events.EventServiceEvents
 {
-    public abstract class PriceEngeeniringTaskNotificationEventG<T> : PubSubEvent<T> where T : NotificationArgs<PriceEngineeringTask> { }
+    public abstract class PriceEngineeringTaskNotificationEventG<T> : PubSubEvent<T> where T : NotificationArgs<PriceEngineeringTask> { }
 
-    public class PriceEngineeringTaskNotificationEvent : PriceEngeeniringTaskNotificationEventG<NotificationArgsPriceEngineeringTask> { }
+    public class PriceEngineeringTaskNotificationEvent : PriceEngineeringTaskNotificationEventG<NotificationArgsPriceEngineeringTask> { }
+
+    /// <summary>
+    /// Отправка по сети через приложение
+    /// </summary>
+    public interface ISendNotificationThroughApp
+    {
+        bool SendNotification(NotificationArgsPriceEngineeringTask args, NotificationItem item);
+    }
 }

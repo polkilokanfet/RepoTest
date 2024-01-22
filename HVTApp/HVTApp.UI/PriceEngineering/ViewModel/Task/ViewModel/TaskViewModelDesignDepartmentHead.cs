@@ -111,7 +111,7 @@ namespace HVTApp.UI.PriceEngineering
             Messenger.SendMessage(sb.ToString());
             this.SaveCommand.Execute();
 
-            var argsItem = new NotificationArgsItem(user, Role.Constructor, $"Проработайте ТСП: {this.Model}");
+            var argsItem = new NotificationItem(user, Role.Constructor, $"Проработайте ТСП: {this.Model}");
             Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.Model, new[] { argsItem }));
         }
 

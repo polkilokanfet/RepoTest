@@ -21,9 +21,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             _doAfter = doAfter;
         }
 
-        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationItem> GetEventServiceItems()
         {
-            yield return new NotificationArgsItem(Manager, Role.SalesManager, $"ТСП загружено в TeamCenter: {ViewModel.Model}");
+            yield return new NotificationItem(Manager, Role.SalesManager, $"ТСП загружено в TeamCenter: {ViewModel.Model}");
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;

@@ -19,11 +19,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationItem> GetEventServiceItems()
         {
             foreach (var user in Container.Resolve<IUnitOfWork>().Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
             {
-                yield return new NotificationArgsItem(user, Role.BackManagerBoss, $"Назначьте плановика: {ViewModel.Model}");
+                yield return new NotificationItem(user, Role.BackManagerBoss, $"Назначьте плановика: {ViewModel.Model}");
             }
         }
 

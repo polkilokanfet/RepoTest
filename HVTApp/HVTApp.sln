@@ -103,9 +103,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.GetCostsFro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.GetFilePathsService", "HVTApp.Services.GetFilePathsService\HVTApp.Services.GetFilePathsService.csproj", "{149FD7AD-7C60-418E-8D6D-20B7CB5B0F41}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationsByEmail", "NotificationsByEmail", "{DDFC2831-D560-4264-962A-048B11AD8759}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{DDFC2831-D560-4264-962A-048B11AD8759}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationsByEmailService", "NotificationsByEmailService\NotificationsByEmailService.csproj", "{6E34B770-759A-4BCE-9514-D43F7E1E1F4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationsService", "NotificationsByEmailService\NotificationsService.csproj", "{6E34B770-759A-4BCE-9514-D43F7E1E1F4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -26,19 +26,19 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
         }
 
-        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationItem> GetEventServiceItems()
         {
             var tasks = ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork);
             if (tasks.BackManager == null)
             {
                 foreach (var user in UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
                 {
-                    yield return new NotificationArgsItem(user, Role.BackManagerBoss, $"Поручите загрузку в ТeamСenter: {ViewModel.Model}");
+                    yield return new NotificationItem(user, Role.BackManagerBoss, $"Поручите загрузку в ТeamСenter: {ViewModel.Model}");
                 }
             }
             else
             {
-                yield return new NotificationArgsItem(tasks.BackManager, Role.BackManager, $"Загрузите в ТeamСenter: {ViewModel.Model}");
+                yield return new NotificationItem(tasks.BackManager, Role.BackManager, $"Загрузите в ТeamСenter: {ViewModel.Model}");
             }
         }
 

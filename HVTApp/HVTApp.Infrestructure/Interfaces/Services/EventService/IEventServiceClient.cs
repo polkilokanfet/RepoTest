@@ -18,7 +18,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         /// <returns></returns>
         void CopyProjectAttachmentsRequest(Guid userId, Guid projectId, string targetDirectory);
 
+        #region MessageToChat
+
         void SendMessageToChat(string message);
         void SendMessageToUser(Guid recipientId, string message);
+
+        #endregion
     }
 }

@@ -18,6 +18,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Modules.BaseEntities;
@@ -55,6 +56,7 @@ using HVTApp.UI;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
 using Microsoft.Practices.Unity;
+using NotificationsService;
 using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
@@ -153,6 +155,9 @@ namespace HVTApp
             Container.RegisterType<IGetFilePaths, GetFilePathsService1>();
 
             Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISendNotificationThroughApp, EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
+
             Container.RegisterType<EventServiceUnitWatcher>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
 
@@ -215,6 +220,7 @@ namespace HVTApp
             if(true)
             #endif
                 Container.Resolve<IEventServiceClient>().Start();
+            Container.Resolve<INotificationService>().Start();
             Container.Resolve<EventServiceUnitWatcher>().Start();
             #endregion
 

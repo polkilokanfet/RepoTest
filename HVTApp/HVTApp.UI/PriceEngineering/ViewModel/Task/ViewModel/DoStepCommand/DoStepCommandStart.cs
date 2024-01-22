@@ -18,12 +18,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationItem> GetEventServiceItems()
         {
             if(ViewModel.Model.UserConstructor != null)
-                yield return new NotificationArgsItem(ViewModel.Model.UserConstructor, Role.Constructor, $"Проработайте ТСП: {ViewModel.Model}");
+                yield return new NotificationItem(ViewModel.Model.UserConstructor, Role.Constructor, $"Проработайте ТСП: {ViewModel.Model}");
             else if (ViewModel.Model.DesignDepartment != null)
-                yield return new NotificationArgsItem(ViewModel.Model.DesignDepartment.Head, Role.DesignDepartmentHead, $"Поручите ТСП: {ViewModel.Model}");
+                yield return new NotificationItem(ViewModel.Model.DesignDepartment.Head, Role.DesignDepartmentHead, $"Поручите ТСП: {ViewModel.Model}");
         }
 
         protected override bool CanExecuteMethod()

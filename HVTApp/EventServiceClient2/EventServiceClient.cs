@@ -10,6 +10,7 @@ using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents;
+using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
@@ -17,7 +18,7 @@ using Prism.Events;
 
 namespace EventServiceClient2
 {
-    public partial class EventServiceClient : IEventServiceClient, EventServiceClient2.ServiceReference1.IEventServiceCallback
+    public partial class EventServiceClient : IEventServiceClient, ISendNotificationThroughApp, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
         private Guid _appSessionId;
         private readonly IUnityContainer _container;
@@ -61,52 +62,6 @@ namespace EventServiceClient2
 
             SyncContainer = new SyncContainer(_container);
             SyncContainer.ServiceHostIsDisabled += DisableWaitRestart;
-
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Subscribe(
-                notificationArgsPriceEngineeringTask =>
-                {
-                    foreach (var item in notificationArgsPriceEngineeringTask.EventServiceItems)
-                    {
-                        bool notificated = false;
-                        if (this.HostIsEnabled)
-                        {
-                            try
-                            {
-                                notificated = EventServiceHost.PriceEngineeringTaskNotificationEvent(
-                                    this._appSessionId,
-                                    GlobalAppProperties.User.Id,
-                                    item.User.Id, 
-                                    item.Role,
-                                    notificationArgsPriceEngineeringTask.Entity.Id,
-                                    item.Message);
-                            }
-                            //хост недоступен
-                            catch (TimeoutException)
-                            {
-                                DisableWaitRestart();
-                            }
-                            catch
-                            {
-                            }
-                        }
-
-                        //Если уведомление не дошло, сохраняем его в базе данных
-                        if (notificated == false)
-                        {
-                            var unitOfWork = container.Resolve<IUnitOfWork>();
-                            var unit = new EventServiceUnit
-                            {
-                                User = unitOfWork.Repository<User>().GetById(item.User.Id),
-                                Role = item.Role,
-                                Message = item.Message,
-                                TargetEntityId = notificationArgsPriceEngineeringTask.Entity.Id,
-                                EventServiceActionType = EventServiceActionType.PriceEngineeringTaskNotification
-                            };
-                            unitOfWork.SaveEntity(unit);
-                            unitOfWork.Dispose();
-                        }
-                    }
-                }, true);
         }
 
         public void Start()
@@ -498,6 +453,35 @@ namespace EventServiceClient2
             catch
             {
             }
+        }
+
+        public bool SendNotification(NotificationArgsPriceEngineeringTask args, NotificationItem item)
+        {
+            bool notificationSent = false;
+
+            if (!this.HostIsEnabled) return false;
+
+            try
+            {
+                notificationSent = EventServiceHost.PriceEngineeringTaskNotificationEvent(
+                    this._appSessionId,
+                    GlobalAppProperties.User.Id,
+                    item.User.Id,
+                    item.Role,
+                    args.Entity.Id,
+                    item.Message);
+            }
+            //хост недоступен
+            catch (TimeoutException)
+            {
+                DisableWaitRestart();
+            }
+            catch
+            {
+                DisableWaitRestart();
+            }
+
+            return notificationSent;
         }
     }
 }

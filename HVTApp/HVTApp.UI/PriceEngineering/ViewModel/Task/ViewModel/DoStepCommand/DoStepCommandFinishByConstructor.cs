@@ -20,16 +20,16 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationArgsItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationItem> GetEventServiceItems()
         {
             if (this.ViewModel.Model.VerificationIsRequested)
             {
-                yield return new NotificationArgsItem(ViewModel.Model.DesignDepartment.Head, Role.DesignDepartmentHead, $"Проверьте ТСП: {ViewModel.Model}");
-                yield return new NotificationArgsItem(Manager, Role.SalesManager, $"ТСП на проверке: {ViewModel.Model}");
+                yield return new NotificationItem(ViewModel.Model.DesignDepartment.Head, Role.DesignDepartmentHead, $"Проверьте ТСП: {ViewModel.Model}");
+                yield return new NotificationItem(Manager, Role.SalesManager, $"ТСП на проверке: {ViewModel.Model}");
             }
             else
             {
-                yield return new NotificationArgsItem(Manager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
+                yield return new NotificationItem(Manager, Role.SalesManager, $"ТСП проработано: {ViewModel.Model}");
             }
         }
 
