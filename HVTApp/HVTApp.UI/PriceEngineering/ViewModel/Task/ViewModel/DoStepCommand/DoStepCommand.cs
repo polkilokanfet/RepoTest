@@ -66,15 +66,17 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// </summary>
         protected virtual void SendNotification()
         {
-            this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>()
-                .Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
+            foreach (var item in this.GetEventServiceItems())
+            {
+                this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(item);
+            }
         }
 
         /// <summary>
         /// Формирование аргументов для отправки уведомлений
         /// </summary>
         /// <returns></returns>
-        protected abstract IEnumerable<NotificationItem> GetEventServiceItems();
+        protected abstract IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems();
 
         /// <summary>
         /// Добавить ли этот же статус во все вложенные подзадачи

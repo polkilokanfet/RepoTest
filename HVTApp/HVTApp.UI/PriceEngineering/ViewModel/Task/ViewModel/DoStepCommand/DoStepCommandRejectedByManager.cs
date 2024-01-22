@@ -10,9 +10,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.RejectByManager;
         protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить проработку задачи исполнителю?";
-        protected override IEnumerable<NotificationItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems()
         {
-            yield return new NotificationItem(ViewModel.UserConstructor, Role.Constructor, $"Проработка ТСП отклонена менеджером: {ViewModel.Model}");
+            yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, ViewModel.UserConstructor, Role.Constructor, $"Проработка ТСП отклонена менеджером: {ViewModel.Model}");
         }
 
         public DoStepCommandRejectedByManager(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)

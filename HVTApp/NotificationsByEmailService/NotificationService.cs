@@ -31,21 +31,13 @@ namespace NotificationsService
                 .Subscribe(OnPriceEngineeringTaskNotificationEvent, true);
         }
 
-        private void OnPriceEngineeringTaskNotificationEvent(NotificationArgsPriceEngineeringTask args)
+        private void OnPriceEngineeringTaskNotificationEvent(NotificationAboutPriceEngineeringTaskEventArg notification)
         {
-            foreach (var item in args.EventServiceItems)
+            if (_sendNotificationThroughApp.SendNotification(notification) == false)
             {
-                if (_sendNotificationThroughApp.SendNotification(args, item) == false)
-                {
-                    //Если уведомление не дошло внутри приложения,
-                    //сохраняем уведомление в базе данных
-                    this.SaveNotificationInDataBase(args, item);
-
-                    //отправляем уведомление по email
-                    var recipientEmailAddress = item.User.Employee.Email;
-                    if(string.IsNullOrEmpty(recipientEmailAddress) == false)
-                        _emailService.SendMail(recipientEmailAddress, "test", "test");
-                }
+                //Если уведомление не дошло внутри приложения,
+                SaveNotificationInDataBase(notification); //сохраняем уведомление в базе данных
+                SendNotificationByEmail(notification); //отправляем уведомление по email
             }
         }
 
@@ -53,18 +45,25 @@ namespace NotificationsService
         /// Сохранение уведомления в базе данных
         /// </summary>
         /// <param name="args"></param>
-        /// <param name="item"></param>
-        private void SaveNotificationInDataBase(NotificationArgsPriceEngineeringTask args, NotificationItem item)
+        /// <param name="notification"></param>
+        private void SaveNotificationInDataBase(NotificationAboutPriceEngineeringTaskEventArg notification)
         {
             var unit = new EventServiceUnit
             {
-                User = _unitOfWork.Repository<User>().GetById(item.User.Id),
-                Role = item.Role,
-                Message = item.Message,
-                TargetEntityId = args.Entity.Id,
+                User = _unitOfWork.Repository<User>().GetById(notification.RecipientUser.Id),
+                Role = notification.RecipientRole,
+                Message = notification.Message,
+                TargetEntityId = notification.PriceEngineeringTask.Id,
                 EventServiceActionType = EventServiceActionType.PriceEngineeringTaskNotification
             };
             _unitOfWork.SaveEntity(unit);
+        }
+
+        private void SendNotificationByEmail(NotificationAboutPriceEngineeringTaskEventArg notification)
+        {
+            var recipientEmailAddress = notification.RecipientUser.Employee.Email;
+            if(string.IsNullOrEmpty(recipientEmailAddress) == false)
+                _emailService.SendMail(recipientEmailAddress, "TestSubject", notification.Message);
         }
 
         public void Dispose()

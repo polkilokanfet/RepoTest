@@ -11,11 +11,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.ProductionRequestStop;
         protected override string ConfirmationMessage => "Вы уверены, что хотите остановить производство этого оборудования?";
-        protected override IEnumerable<NotificationItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems()
         {
             foreach (var user in UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
             {
-                yield return new NotificationItem(user, Role.BackManagerBoss, $"Запрос на остановку производства: {ViewModel.Model}");
+                yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, user, Role.BackManagerBoss, $"Запрос на остановку производства: {ViewModel.Model}");
             }
         }
 

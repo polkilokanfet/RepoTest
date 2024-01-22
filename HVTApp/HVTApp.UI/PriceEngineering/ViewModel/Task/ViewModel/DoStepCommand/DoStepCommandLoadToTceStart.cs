@@ -23,22 +23,22 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected override void SendNotification()
         {
             if (this.ViewModel.Model.ParentPriceEngineeringTaskId.HasValue == false)
-                this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(new NotificationArgsPriceEngineeringTask(this.ViewModel.Model, this.GetEventServiceItems()));
+                base.SendNotification();
         }
 
-        protected override IEnumerable<NotificationItem> GetEventServiceItems()
+        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems()
         {
             var tasks = ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork);
             if (tasks.BackManager == null)
             {
                 foreach (var user in UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
                 {
-                    yield return new NotificationItem(user, Role.BackManagerBoss, $"Поручите загрузку в ТeamСenter: {ViewModel.Model}");
+                    yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, user, Role.BackManagerBoss, $"Поручите загрузку в ТeamСenter: {ViewModel.Model}");
                 }
             }
             else
             {
-                yield return new NotificationItem(tasks.BackManager, Role.BackManager, $"Загрузите в ТeamСenter: {ViewModel.Model}");
+                yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, tasks.BackManager, Role.BackManager, $"Загрузите в ТeamСenter: {ViewModel.Model}");
             }
         }
 

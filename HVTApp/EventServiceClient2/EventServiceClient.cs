@@ -455,7 +455,7 @@ namespace EventServiceClient2
             }
         }
 
-        public bool SendNotification(NotificationArgsPriceEngineeringTask args, NotificationItem item)
+        public bool SendNotification(NotificationAboutPriceEngineeringTaskEventArg item)
         {
             bool notificationSent = false;
 
@@ -466,9 +466,9 @@ namespace EventServiceClient2
                 notificationSent = EventServiceHost.PriceEngineeringTaskNotificationEvent(
                     this._appSessionId,
                     GlobalAppProperties.User.Id,
-                    item.User.Id,
-                    item.Role,
-                    args.Entity.Id,
+                    item.RecipientUser.Id,
+                    item.RecipientRole,
+                    item.PriceEngineeringTask.Id,
                     item.Message);
             }
             //хост недоступен
