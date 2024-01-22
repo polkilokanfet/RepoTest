@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using HVTApp.Infrastructure;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -15,9 +14,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems()
+        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, Manager, Role.SalesManager, $"Исполнитель отклонил Вашу ТСП: {ViewModel.Model}");
+            yield return new NotificationAboutPriceEngineeringTaskEventArg.RejectedByConstructor(ViewModel.Model, Manager);
         }
 
         protected override void BeforeDoStepAction()

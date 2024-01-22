@@ -75,8 +75,9 @@
     <Compile Include="Events\AfterSaveSyncEvents.cs" />
     <Compile Include="Events\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents.g.cs" />
+    <Compile Include="Events\EventServiceEvents\Args\NotificationAboutPriceEngineeringTaskEventArg.cs" />
     <Compile Include="Events\EventServiceEvents\ISendNotificationThroughApp.cs" />
-    <Compile Include="Events\EventServiceEvents\NotificationEvents.cs" />
+    <Compile Include="Events\EventServiceEvents\PriceEngineeringTaskNotificationEvent.cs" />
     <Compile Include="Events\PubSubEventArgs.cs" />
     <Compile Include="Events\EventServiceEvents\Args\NotificationArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />

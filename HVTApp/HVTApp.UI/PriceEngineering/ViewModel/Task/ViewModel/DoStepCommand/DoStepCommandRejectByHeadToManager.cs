@@ -16,9 +16,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems()
+        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, Manager, Role.SalesManager, $"Руководитель КБ отклонил Вашу ТСП: {ViewModel.Model}");
+            yield return new NotificationAboutPriceEngineeringTaskEventArg.RejectByHeadToManager(ViewModel.Model, Manager);
         }
 
         protected override bool CanExecuteMethod()

@@ -66,7 +66,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// </summary>
         protected virtual void SendNotification()
         {
-            foreach (var item in this.GetEventServiceItems())
+            foreach (var item in this.GetNotificationsArgs())
             {
                 this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(item);
             }
@@ -76,7 +76,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// Формирование аргументов для отправки уведомлений
         /// </summary>
         /// <returns></returns>
-        protected abstract IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems();
+        protected abstract IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs();
 
         /// <summary>
         /// Добавить ли этот же статус во все вложенные подзадачи

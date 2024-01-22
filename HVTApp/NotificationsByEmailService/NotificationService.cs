@@ -36,8 +36,8 @@ namespace NotificationsService
             if (_sendNotificationThroughApp.SendNotification(notification) == false)
             {
                 //Если уведомление не дошло внутри приложения,
-                SaveNotificationInDataBase(notification); //сохраняем уведомление в базе данных
-                SendNotificationByEmail(notification); //отправляем уведомление по email
+                SaveNotificationInDataBase(notification);   //сохраняем уведомление в базе данных
+                SendNotificationByEmail(notification);      //отправляем уведомление по email
             }
         }
 
@@ -59,6 +59,10 @@ namespace NotificationsService
             _unitOfWork.SaveEntity(unit);
         }
 
+        /// <summary>
+        /// Отправляем уведомление по email
+        /// </summary>
+        /// <param name="notification"></param>
         private void SendNotificationByEmail(NotificationAboutPriceEngineeringTaskEventArg notification)
         {
             var recipientEmailAddress = notification.RecipientUser.Employee.Email;

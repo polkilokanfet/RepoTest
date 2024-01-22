@@ -51,7 +51,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     var task1 = this.TasksWrapper.Model.ChildPriceEngineeringTasks.FirstOrDefault(x => x.Status.Equals(ScriptStep.LoadToTceStart));
                     if (task1 != null)
                     {
-                        var arg = new NotificationAboutPriceEngineeringTaskEventArg(task1, backManager, Role.BackManager, $"Загрузите ТСП в Team Center: {task1}");
+                        var arg = new NotificationAboutPriceEngineeringTaskEventArg.LoadToTceStartBackManager(task1, backManager);
                         container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(arg);
                     }
                 },

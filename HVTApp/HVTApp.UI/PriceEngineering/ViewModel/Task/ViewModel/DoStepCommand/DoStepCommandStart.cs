@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HVTApp.Infrastructure;
-using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -18,12 +16,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems()
+        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
         {
             if(ViewModel.Model.UserConstructor != null)
-                yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, ViewModel.Model.UserConstructor, Role.Constructor, $"Проработайте ТСП: {ViewModel.Model}");
+                yield return new NotificationAboutPriceEngineeringTaskEventArg.StartConstructor(ViewModel.Model);
             else if (ViewModel.Model.DesignDepartment != null)
-                yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, ViewModel.Model.DesignDepartment.Head, Role.DesignDepartmentHead, $"Поручите ТСП: {ViewModel.Model}");
+                yield return new NotificationAboutPriceEngineeringTaskEventArg.StartDesignDepartmentHead(ViewModel.Model);
         }
 
         protected override bool CanExecuteMethod()

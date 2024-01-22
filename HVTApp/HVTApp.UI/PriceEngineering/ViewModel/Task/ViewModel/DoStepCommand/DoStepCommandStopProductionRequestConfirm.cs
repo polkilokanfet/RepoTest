@@ -20,9 +20,9 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetEventServiceItems()
+        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg(this.ViewModel.Model, Manager, Role.SalesManager, $"Производство остановлено: {ViewModel.Model}");
+            yield return new NotificationAboutPriceEngineeringTaskEventArg.StopProductionRequestConfirm(ViewModel.Model, Manager);
         }
 
         protected override string GetStatusComment()
