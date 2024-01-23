@@ -42,6 +42,8 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
 
         #endregion
 
+        public string Message => GetMessageSimple();
+
         protected NotificationAboutPriceEngineeringTaskEventArg(PriceEngineeringTask priceEngineeringTask, User recipientUser, Role recipientRole)
         {
             PriceEngineeringTask = priceEngineeringTask;
@@ -49,20 +51,7 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             RecipientRole = recipientRole;
         }
 
-        public abstract string GetMessageSimple();
-
-        public string GetMessageEmail()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"Номер задачи: {PriceEngineeringTask.Number}");
-            sb.AppendLine(this.GetMessageEmail2());
-            return sb.ToString();
-        }
-
-        protected virtual string GetMessageEmail2()
-        {
-            return GetMessageSimple();
-        }
+        protected abstract string GetMessageSimple();
 
         public class VerificationAcceptByHeadToManager : NotificationAboutPriceEngineeringTaskEventArg
         {
@@ -70,9 +59,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП проработано: {this.PriceEngineeringTask}";
+                return $"ТСП проработано";
             }
         }
 
@@ -82,9 +71,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП проверено руководителем: {this.PriceEngineeringTask}";
+                return $"ТСП проверено руководителем";
             }
         }
 
@@ -94,9 +83,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП принята менеджером: {PriceEngineeringTask}";
+                return $"ТСП принята менеджером";
             }
         }
 
@@ -106,9 +95,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Проверьте ТСП: {PriceEngineeringTask}";
+                return $"Проверьте ТСП";
             }
         }
 
@@ -118,9 +107,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП на проверке: {PriceEngineeringTask}";
+                return $"ТСП на проверке";
             }
         }
 
@@ -130,9 +119,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП проработано: {PriceEngineeringTask}";
+                return $"ТСП проработано";
             }
         }
 
@@ -142,9 +131,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП загружено в TeamCenter: {PriceEngineeringTask}";
+                return $"ТСП загружено в TeamCenter";
             }
         }
 
@@ -154,9 +143,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Поручите загрузку в Тeam Сenter: {PriceEngineeringTask}";
+                return $"Поручите загрузку в Тeam Сenter";
             }
         }
 
@@ -166,9 +155,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Загрузите в Тeam Сenter: {PriceEngineeringTask}";
+                return $"Загрузите в Тeam Сenter";
             }
         }
 
@@ -178,9 +167,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Производство открыто: {PriceEngineeringTask}";
+                return $"Производство открыто";
             }
         }
 
@@ -190,9 +179,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Назначьте плановика: {PriceEngineeringTask}";
+                return $"Назначьте плановика";
             }
         }
 
@@ -202,9 +191,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Откройте производство по ТСП: {PriceEngineeringTask}";
+                return $"Откройте производство по ТСП";
             }
         }
 
@@ -214,9 +203,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП требует доработки: {PriceEngineeringTask}";
+                return $"ТСП требует доработки";
             }
         }
 
@@ -226,9 +215,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП требует доработки: {PriceEngineeringTask}";
+                return $"ТСП требует доработки";
             }
         }
 
@@ -238,9 +227,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Руководитель КБ отклонил ТСП: {PriceEngineeringTask}";
+                return $"Руководитель КБ отклонил ТСП";
             }
         }
 
@@ -250,9 +239,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Исполнитель отклонил ТСП: {PriceEngineeringTask}";
+                return $"Исполнитель отклонил ТСП";
             }
         }
 
@@ -262,9 +251,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Проработка ТСП отклонена менеджером: {PriceEngineeringTask}";
+                return $"Проработка ТСП отклонена менеджером";
             }
         }
 
@@ -274,9 +263,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Поручите ТСП: {PriceEngineeringTask}";
+                return $"Поручите ТСП";
             }
         }
 
@@ -286,9 +275,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Проработайте ТСП: {PriceEngineeringTask}";
+                return $"Проработайте ТСП";
             }
         }
 
@@ -298,9 +287,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"ТСП остановлена: {PriceEngineeringTask}";
+                return $"ТСП остановлена";
             }
         }
 
@@ -310,9 +299,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Запрошена остановка производства: {PriceEngineeringTask}";
+                return $"Запрошена остановка производства";
             }
         }
 
@@ -322,9 +311,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Производство остановлено: {PriceEngineeringTask}";
+                return $"Производство остановлено";
             }
         }
 
@@ -334,9 +323,9 @@ namespace HVTApp.Model.Events.EventServiceEvents.Args
             {
             }
 
-            public override string GetMessageSimple()
+            protected override string GetMessageSimple()
             {
-                return $"Запрос на остановку производства отклонен: {PriceEngineeringTask}";
+                return $"Запрос на остановку производства отклонен";
             }
         }
     }

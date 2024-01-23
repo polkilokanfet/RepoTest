@@ -469,7 +469,7 @@ namespace EventServiceClient2
                     item.RecipientUser.Id,
                     item.RecipientRole,
                     item.PriceEngineeringTask.Id,
-                    item.GetMessageSimple());
+                    $"{item.Message}: {item.PriceEngineeringTask}");
             }
             //хост недоступен
             catch (TimeoutException)
