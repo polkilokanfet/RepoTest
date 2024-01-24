@@ -105,7 +105,7 @@ namespace NotificationsService
 
             sb.AppendLine($"Проект: {salesUnit?.Project}");
             sb.AppendLine($"Объект: {salesUnit?.Facility}");
-            sb.AppendLine($"Оборудование: {taskTop.ProductBlock}");
+            sb.AppendLine($"Оборудование: {taskTop.ProductBlock};");
             sb.AppendLine($"Блок оборудования: {task.ProductBlock}");
             sb.AppendLine(string.Empty);
 

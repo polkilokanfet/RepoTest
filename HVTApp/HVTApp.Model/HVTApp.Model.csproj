@@ -130,6 +130,7 @@
     <Compile Include="POCOs\PriceEngineering\IParametersContainer.cs" />
     <Compile Include="POCOs\PriceEngineering\IProductBlockContainer.cs" />
     <Compile Include="POCOs\PriceEngineering\IStructureCostVersionsContainer.cs" />
+    <Compile Include="POCOs\PriceEngineering\NotificationsReportsSettings.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTask.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskFileAnswer.cs" />
     <Compile Include="POCOs\PriceEngineering\PriceEngineeringTaskFileTechnicalRequirements.cs" />

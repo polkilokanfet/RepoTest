@@ -165,7 +165,8 @@ namespace HVTApp.Model.POCOs
                     ScriptStep.LoadToTceStart,
                     ScriptStep.LoadToTceFinish,
                     ScriptStep.ProductionRequestStart,
-                    ScriptStep.ProductionRequestFinish
+                    ScriptStep.ProductionRequestFinish,
+                    ScriptStep.ProductionRequestStop
                 };
 
                 return statuses.Contains(Status);
@@ -513,6 +514,45 @@ namespace HVTApp.Model.POCOs
                     .Where(status => status.StatusEnum == ScriptStep.FinishByConstructor.Value || status.StatusEnum == ScriptStep.VerificationRequestByConstructor.Value)
                     .Where(x => x.Comment != null)
                     .Any(status => status.Comment.Contains(NeedDesignDocumentationYes) || status.Comment.Contains(NeedDesignDocumentationNo));
+            }
+        }
+
+
+        /// <summary>
+        /// Проработано КБ ОГК и не остановлено менеджером
+        /// </summary>
+        public bool IsFinishedByDesignDepartment
+        {
+            get
+            {
+                var statuses = new List<ScriptStep>
+                {
+                    ScriptStep.VerificationAcceptByHead,
+                    ScriptStep.Accept,
+                    ScriptStep.LoadToTceStart,
+                    ScriptStep.LoadToTceFinish,
+                    ScriptStep.ProductionRequestStart,
+                    ScriptStep.ProductionRequestFinish,
+                    ScriptStep.ProductionRequestStop
+                };
+
+                return statuses.Contains(Status);
+            }
+        }
+
+        /// <summary>
+        /// Момент окончания работы КБ ОГК над этой задачей
+        /// </summary>
+        public DateTime? MomentFinishByDesignDepartment
+        {
+            get
+            {
+                if (IsFinishedByDesignDepartment == false) return null;
+
+                return this.Statuses
+                    .Where(x => x.StatusEnum == ScriptStep.FinishByConstructor.Value)
+                    .OrderBy(x => x.Moment)
+                    .Last().Moment;
             }
         }
     }
