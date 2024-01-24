@@ -242,6 +242,13 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class NotificationsReportsSettingsRepository : BaseRepository<NotificationsReportsSettings>, INotificationsReportsSettingsRepository
+    {
+		public NotificationsReportsSettingsRepository(DbContext context) : base(context) 
+		{
+		}
+    }
+
     public partial class PriceEngineeringTaskRepository : BaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
     {
 		public PriceEngineeringTaskRepository(DbContext context) : base(context) 

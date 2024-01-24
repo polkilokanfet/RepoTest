@@ -41,6 +41,7 @@
 
                         <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="UnitPrice" Label="Стоимость единицы" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PriceCalculation" Label="Расчет себестоимости оборудования" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Product" Label="Продукт" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Facility" Label="Объект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto" AllowResize="True" />
@@ -50,8 +51,10 @@
                         <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PriceCalculationId" Label="PriceCalculationId" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="Price" Label="Price" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="PositionInTeamCenter" Label="Позиция в TeamCenter" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="OrderInTakeDate" Label="Дата ОИТ" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="HasPrice" Label="HasPrice" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="FinishDate" Label="FinishDate" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -47,6 +47,10 @@ namespace HVTApp.UI
             //_dialogService.Register<CreateNewProductTaskDetailsViewModel, CreateNewProductTaskDetailsView>();
 			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();
             _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
+            //Container.RegisterViewForNavigation<InvoiceForPaymentTaskLookupListView>();
+            //_dialogService.Register<InvoiceForPaymentTaskDetailsViewModel, InvoiceForPaymentTaskDetailsView>();
+			//_selectService.Register<InvoiceForPaymentTaskLookupListView, InvoiceForPaymentTask>();
+            _updateDetailsService.Register<InvoiceForPaymentTask, InvoiceForPaymentTaskDetailsView>();
             Container.RegisterViewForNavigation<DesignDepartmentLookupListView>();
             //_dialogService.Register<DesignDepartmentDetailsViewModel, DesignDepartmentDetailsView>();
 			_selectService.Register<DesignDepartmentLookupListView, DesignDepartment>();
@@ -143,6 +147,10 @@ namespace HVTApp.UI
             //_dialogService.Register<DesignDepartmentParametersSubTaskDetailsViewModel, DesignDepartmentParametersSubTaskDetailsView>();
 			_selectService.Register<DesignDepartmentParametersSubTaskLookupListView, DesignDepartmentParametersSubTask>();
             _updateDetailsService.Register<DesignDepartmentParametersSubTask, DesignDepartmentParametersSubTaskDetailsView>();
+            Container.RegisterViewForNavigation<NotificationsReportsSettingsLookupListView>();
+            //_dialogService.Register<NotificationsReportsSettingsDetailsViewModel, NotificationsReportsSettingsDetailsView>();
+			_selectService.Register<NotificationsReportsSettingsLookupListView, NotificationsReportsSettings>();
+            _updateDetailsService.Register<NotificationsReportsSettings, NotificationsReportsSettingsDetailsView>();
             Container.RegisterViewForNavigation<PriceEngineeringTaskLookupListView>();
             //_dialogService.Register<PriceEngineeringTaskDetailsViewModel, PriceEngineeringTaskDetailsView>();
 			_selectService.Register<PriceEngineeringTaskLookupListView, PriceEngineeringTask>();

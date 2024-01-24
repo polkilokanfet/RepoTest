@@ -39,8 +39,10 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:NumericField Name="Number" Label="№" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="DesignDepartment" Label="Бюро конструкторов" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="UserConstructor" Label="Конструктор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="UserPlanMaker" Label="Плановик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="Amount" Label="Количество блоков продукта" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ProductBlockManager" Label="Блок продукта от менеджера" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="ProductBlockEngineer" Label="Блок продукта от инженера-конструктора" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
@@ -49,18 +51,31 @@
                         <infg:TextField Name="FilesAnswers" Label="Файлы ответов ОГК" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Messages" Label="Переписка" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ChildPriceEngineeringTasks" Label="Дочерние задачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:DateTimeField Name="TermPriority" Label="Приоритет проработки задачи" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="StructureCostVersions" Label="Версии SCC" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="PriceCalculationItems" Label="Строки расчётов ПЗ" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Statuses" Label="Статусы проработки" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="RequestForVerificationFromHead" Label="Запрос на проверку от руководителя" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsValidForProduction" Label="ТЗ валидно для производства" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="RequestForVerificationFromConstructor" Label="Запрос на проверку от исполнителя" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="UserConstructorInitiator" Label="Инициатор подзадачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:CheckBoxField Name="VerificationIsRequested" Label="VerificationIsRequested" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="TcePosition" Label="Позиция в ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
-                        <infg:CheckBoxField Name="IsTotalStopped" Label="IsTotalStopped" Width="Auto" AllowResize="True" />
-                        <infg:CheckBoxField Name="IsTotalAccepted" Label="IsTotalAccepted" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="NeedEquipment" Label="Требуется оснастка" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="NeedDesignDocumentationDevelopment" Label="Требуется разработка КД" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="MomentFinishByDesignDepartment" Label="MomentFinishByDesignDepartment" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsStoppedTotal" Label="IsStoppedTotal" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsStarted" Label="IsStarted" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsInProcessByConstructor" Label="IsInProcessByConstructor" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsFinishedByDesignDepartment" Label="IsFinishedByDesignDepartment" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsFinishedByConstructor" Label="IsFinishedByConstructor" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsAcceptedTotal" Label="IsAcceptedTotal" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsAccepted" Label="IsAccepted" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="HasSccInTce" Label="HasSccInTce" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="HasDesignDocumentationInfo" Label="HasDesignDocumentationInfo" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="DesignDocumentationAvailabilityComment" Label="Комментарий по разработке КД" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

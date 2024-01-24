@@ -40,6 +40,7 @@
 					<infg:FieldLayout.Fields>
 
                         <infg:TextField Name="PriceEngineeringTaskId" Label="Id технико-стоимостной проработки" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="StatusEnum" Label="StatusEnum" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="Moment" Label="Момент" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

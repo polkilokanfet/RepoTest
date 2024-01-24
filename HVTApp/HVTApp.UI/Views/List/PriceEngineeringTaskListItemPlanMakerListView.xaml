@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.ParameterRelationLookupListView">
+              x:Class="HVTApp.UI.Views.PriceEngineeringTaskListItemPlanMakerListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ParameterRelationLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=PriceEngineeringTaskListItemPlanMakerListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="ParameterRelationLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="PriceEngineeringTaskListItemPlanMakerListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -39,8 +39,8 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="RequiredParameters" Label="Обязательные параметры перед" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                        <infg:TextField Name="ParameterId" Label="Id связанного параметра" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="ToShow" Label="ToShow" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="StatusString" Label="StatusString" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -47,6 +47,7 @@
                         <infg:TextField Name="Prices" Label="Себестоимости" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ParametersOrdered" Label="Параметры (упорядоченные)" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="LaborCosts" Label="Трудозатраты (н/ч на ед.)" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsSupervision" Label="Шеф-монтаж" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsNew" Label="Новый" Width="Auto" AllowResize="True" />

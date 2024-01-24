@@ -59,6 +59,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="№" Visibility="{Binding VisibilityNumberPriceEngineeringTask, ElementName=Root}"/>
@@ -200,13 +208,28 @@
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
 										 Visibility="{Binding VisibilitySalesUnitsPriceEngineeringTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="20" Content="Позиция в ТСЕ" Visibility="{Binding VisibilityTcePositionPriceEngineeringTask, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="20"
+        <Label Grid.Column="0" Grid.Row ="20" Content="Требуется разработка КД" Visibility="{Binding VisibilityNeedDesignDocumentationDevelopmentPriceEngineeringTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="20" MinWidth="200" 
+                  IsChecked="{Binding Item.NeedDesignDocumentationDevelopment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityNeedDesignDocumentationDevelopmentPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="21" Content="Требуется оснастка" Visibility="{Binding VisibilityNeedEquipmentPriceEngineeringTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="21" MinWidth="200" 
+                  IsChecked="{Binding Item.NeedEquipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityNeedEquipmentPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="22" Content="Позиция в ТСЕ" Visibility="{Binding VisibilityTcePositionPriceEngineeringTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="22"
                  Text="{Binding Item.TcePosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityTcePositionPriceEngineeringTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="21" Content="Инициатор подзадачи" Visibility="{Binding VisibilityUserConstructorInitiatorPriceEngineeringTask, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="21" 
+        <Label Grid.Column="0" Grid.Row ="23" Content="Комментарий по разработке КД" Visibility="{Binding VisibilityDesignDocumentationAvailabilityCommentPriceEngineeringTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="23"
+                 Text="{Binding Item.DesignDocumentationAvailabilityComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityDesignDocumentationAvailabilityCommentPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="24" Content="Инициатор подзадачи" Visibility="{Binding VisibilityUserConstructorInitiatorPriceEngineeringTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="24" 
                                     Item="{Binding Item.UserConstructorInitiator}" 
                                     AddItemCommand="{Binding SelectUserConstructorInitiatorCommand}" 
                                     RemoveItemCommand="{Binding ClearUserConstructorInitiatorCommand}"

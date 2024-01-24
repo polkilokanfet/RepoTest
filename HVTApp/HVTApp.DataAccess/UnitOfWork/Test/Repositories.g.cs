@@ -173,6 +173,11 @@ namespace HVTApp.DataAccess
         public DesignDepartmentParametersSubTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class NotificationsReportsSettingsRepositoryTest : TestBaseRepository<NotificationsReportsSettings>, INotificationsReportsSettingsRepository
+    {
+        public NotificationsReportsSettingsRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class PriceEngineeringTaskRepositoryTest : TestBaseRepository<PriceEngineeringTask>, IPriceEngineeringTaskRepository
     {
         public PriceEngineeringTaskRepositoryTest(TestData testData) : base(testData) {}

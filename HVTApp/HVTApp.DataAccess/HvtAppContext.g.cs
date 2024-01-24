@@ -43,6 +43,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new DesignDepartmentParametersConfiguration());
             modelBuilder.Configurations.Add(new DesignDepartmentParametersAddedBlocksConfiguration());
             modelBuilder.Configurations.Add(new DesignDepartmentParametersSubTaskConfiguration());
+            modelBuilder.Configurations.Add(new NotificationsReportsSettingsConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskFileAnswerConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskFileTechnicalRequirementsConfiguration());
@@ -152,6 +153,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<DesignDepartmentParameters> DesignDepartmentParametersDbSet { get; set; }
         public virtual DbSet<DesignDepartmentParametersAddedBlocks> DesignDepartmentParametersAddedBlocksDbSet { get; set; }
         public virtual DbSet<DesignDepartmentParametersSubTask> DesignDepartmentParametersSubTaskDbSet { get; set; }
+        public virtual DbSet<NotificationsReportsSettings> NotificationsReportsSettingsDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTask> PriceEngineeringTaskDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskFileAnswer> PriceEngineeringTaskFileAnswerDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskFileTechnicalRequirements> PriceEngineeringTaskFileTechnicalRequirementsDbSet { get; set; }

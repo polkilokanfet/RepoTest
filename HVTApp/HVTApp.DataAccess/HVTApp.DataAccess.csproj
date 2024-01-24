@@ -107,9 +107,11 @@
     <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\IncomingRequestConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\InvoiceForPaymentTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LaborHoursConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LogUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\NotificationsReportsSettingsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PriceCalculationHistoryItemConfiguration.cs" />
@@ -469,6 +471,10 @@
     <Compile Include="Migrations\202310190705501_DesignDocumentationAvailability.designer.cs">
       <DependentUpon>202310190705501_DesignDocumentationAvailability.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401241143307_NotificationsReportsSettings.cs" />
+    <Compile Include="Migrations\202401241143307_NotificationsReportsSettings.designer.cs">
+      <DependentUpon>202401241143307_NotificationsReportsSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -771,6 +777,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310190705501_DesignDocumentationAvailability.resx">
       <DependentUpon>202310190705501_DesignDocumentationAvailability.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401241143307_NotificationsReportsSettings.resx">
+      <DependentUpon>202401241143307_NotificationsReportsSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -46,6 +46,7 @@ namespace HVTApp.DataAccess
             context.DesignDepartmentParametersDbSet.AddRange(testData.GetAll<DesignDepartmentParameters>());
             context.DesignDepartmentParametersAddedBlocksDbSet.AddRange(testData.GetAll<DesignDepartmentParametersAddedBlocks>());
             context.DesignDepartmentParametersSubTaskDbSet.AddRange(testData.GetAll<DesignDepartmentParametersSubTask>());
+            context.NotificationsReportsSettingsDbSet.AddRange(testData.GetAll<NotificationsReportsSettings>());
             context.PriceEngineeringTaskDbSet.AddRange(testData.GetAll<PriceEngineeringTask>());
             context.PriceEngineeringTaskFileAnswerDbSet.AddRange(testData.GetAll<PriceEngineeringTaskFileAnswer>());
             context.PriceEngineeringTaskFileTechnicalRequirementsDbSet.AddRange(testData.GetAll<PriceEngineeringTaskFileTechnicalRequirements>());

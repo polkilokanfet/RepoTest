@@ -106,6 +106,9 @@ namespace HVTApp.DataAccess
             DesignDepartmentParametersSubTaskRepository = new DesignDepartmentParametersSubTaskRepository(_context);
             DesignDepartmentParametersSubTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            NotificationsReportsSettingsRepository = new NotificationsReportsSettingsRepository(_context);
+            NotificationsReportsSettingsRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             PriceEngineeringTaskRepository = new PriceEngineeringTaskRepository(_context);
             PriceEngineeringTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -357,6 +360,7 @@ namespace HVTApp.DataAccess
             DesignDepartmentParametersRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentParametersAddedBlocksRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentParametersSubTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            NotificationsReportsSettingsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskFileAnswerRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskFileTechnicalRequirementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -465,6 +469,7 @@ namespace HVTApp.DataAccess
         protected IDesignDepartmentParametersRepository DesignDepartmentParametersRepository;
         protected IDesignDepartmentParametersAddedBlocksRepository DesignDepartmentParametersAddedBlocksRepository;
         protected IDesignDepartmentParametersSubTaskRepository DesignDepartmentParametersSubTaskRepository;
+        protected INotificationsReportsSettingsRepository NotificationsReportsSettingsRepository;
         protected IPriceEngineeringTaskRepository PriceEngineeringTaskRepository;
         protected IPriceEngineeringTaskFileAnswerRepository PriceEngineeringTaskFileAnswerRepository;
         protected IPriceEngineeringTaskFileTechnicalRequirementsRepository PriceEngineeringTaskFileTechnicalRequirementsRepository;

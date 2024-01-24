@@ -2585,6 +2585,57 @@ namespace HVTApp.Model.Wrapper
     }
 
 		
+    public partial class NotificationsReportsSettingsWrapper : WrapperBase<NotificationsReportsSettings>
+	{
+	    public NotificationsReportsSettingsWrapper(NotificationsReportsSettings model) : base(model) { }
+
+        #region SimpleProperties
+
+        /// <summary>
+        /// Когда отправлен последний отчёт ГК ВВА
+        /// </summary>
+        public System.DateTime ChiefEngineerReportMoment
+        {
+          get { return Model.ChiefEngineerReportMoment; }
+          set { SetValue(value); }
+        }
+        public System.DateTime ChiefEngineerReportMomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(ChiefEngineerReportMoment));
+        public bool ChiefEngineerReportMomentIsChanged => GetIsChanged(nameof(ChiefEngineerReportMoment));
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return Model.Id; }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+
+        #region CollectionProperties
+
+        /// <summary>
+        /// Список рассылки отчёта ГК ВВА
+        /// </summary>
+        public IValidatableChangeTrackingCollection<UserWrapper> ChiefEngineerReportDistributionList { get; private set; }
+        #endregion
+
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.ChiefEngineerReportDistributionList == null) throw new ArgumentException("ChiefEngineerReportDistributionList cannot be null");
+          ChiefEngineerReportDistributionList = new ValidatableChangeTrackingCollection<UserWrapper>(Model.ChiefEngineerReportDistributionList.Select(e => new UserWrapper(e)));
+          RegisterCollection(ChiefEngineerReportDistributionList, Model.ChiefEngineerReportDistributionList);
+        }
+	}
+
+    public class NotificationsReportsSettingsEmptyWrapper : WrapperBase<NotificationsReportsSettings>
+	{
+	    public NotificationsReportsSettingsEmptyWrapper(NotificationsReportsSettings model) : base(model) { }
+    }
+
+		
     public partial class PriceEngineeringTaskWrapper : WrapperBase<PriceEngineeringTask>
 	{
 	    public PriceEngineeringTaskWrapper(PriceEngineeringTask model) : base(model) { }
@@ -2854,6 +2905,11 @@ namespace HVTApp.Model.Wrapper
         #region GetProperties
 
         /// <summary>
+        /// VerificationIsRequested
+        /// </summary>
+        public System.Boolean VerificationIsRequested => Model.VerificationIsRequested; 
+
+        /// <summary>
         /// IsInProcessByConstructor
         /// </summary>
         public System.Boolean IsInProcessByConstructor => Model.IsInProcessByConstructor; 
@@ -2892,6 +2948,21 @@ namespace HVTApp.Model.Wrapper
         /// HasSccInTce
         /// </summary>
         public System.Boolean HasSccInTce => Model.HasSccInTce; 
+
+        /// <summary>
+        /// HasDesignDocumentationInfo
+        /// </summary>
+        public System.Boolean HasDesignDocumentationInfo => Model.HasDesignDocumentationInfo; 
+
+        /// <summary>
+        /// IsFinishedByDesignDepartment
+        /// </summary>
+        public System.Boolean IsFinishedByDesignDepartment => Model.IsFinishedByDesignDepartment; 
+
+        /// <summary>
+        /// MomentFinishByDesignDepartment
+        /// </summary>
+        public System.Nullable<System.DateTime> MomentFinishByDesignDepartment => Model.MomentFinishByDesignDepartment; 
 
         /// <summary>
         /// Статус
@@ -7283,7 +7354,7 @@ namespace HVTApp.Model.Wrapper
         #region SimpleProperties
 
         /// <summary>
-        /// ParameterId
+        /// Id связанного параметра
         /// </summary>
         public System.Guid ParameterId
         {

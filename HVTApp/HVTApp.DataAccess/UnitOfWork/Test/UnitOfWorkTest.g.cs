@@ -41,6 +41,7 @@ namespace HVTApp.DataAccess
             DesignDepartmentParametersRepository = new DesignDepartmentParametersRepositoryTest(testData);
             DesignDepartmentParametersAddedBlocksRepository = new DesignDepartmentParametersAddedBlocksRepositoryTest(testData);
             DesignDepartmentParametersSubTaskRepository = new DesignDepartmentParametersSubTaskRepositoryTest(testData);
+            NotificationsReportsSettingsRepository = new NotificationsReportsSettingsRepositoryTest(testData);
             PriceEngineeringTaskRepository = new PriceEngineeringTaskRepositoryTest(testData);
             PriceEngineeringTaskFileAnswerRepository = new PriceEngineeringTaskFileAnswerRepositoryTest(testData);
             PriceEngineeringTaskFileTechnicalRequirementsRepository = new PriceEngineeringTaskFileTechnicalRequirementsRepositoryTest(testData);
@@ -151,6 +152,7 @@ namespace HVTApp.DataAccess
         public IDesignDepartmentParametersRepository DesignDepartmentParametersRepository { get; }
         public IDesignDepartmentParametersAddedBlocksRepository DesignDepartmentParametersAddedBlocksRepository { get; }
         public IDesignDepartmentParametersSubTaskRepository DesignDepartmentParametersSubTaskRepository { get; }
+        public INotificationsReportsSettingsRepository NotificationsReportsSettingsRepository { get; }
         public IPriceEngineeringTaskRepository PriceEngineeringTaskRepository { get; }
         public IPriceEngineeringTaskFileAnswerRepository PriceEngineeringTaskFileAnswerRepository { get; }
         public IPriceEngineeringTaskFileTechnicalRequirementsRepository PriceEngineeringTaskFileTechnicalRequirementsRepository { get; }

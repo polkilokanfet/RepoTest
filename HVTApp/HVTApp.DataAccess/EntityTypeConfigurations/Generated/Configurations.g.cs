@@ -37,6 +37,7 @@ namespace HVTApp.DataAccess
     public partial class DesignDepartmentParametersConfiguration : EntityTypeConfiguration<DesignDepartmentParameters> { }
     public partial class DesignDepartmentParametersAddedBlocksConfiguration : EntityTypeConfiguration<DesignDepartmentParametersAddedBlocks> { }
     public partial class DesignDepartmentParametersSubTaskConfiguration : EntityTypeConfiguration<DesignDepartmentParametersSubTask> { }
+    public partial class NotificationsReportsSettingsConfiguration : EntityTypeConfiguration<NotificationsReportsSettings> { }
     public partial class PriceEngineeringTaskConfiguration : EntityTypeConfiguration<PriceEngineeringTask> { }
     public partial class PriceEngineeringTaskFileAnswerConfiguration : EntityTypeConfiguration<PriceEngineeringTaskFileAnswer> { }
     public partial class PriceEngineeringTaskFileTechnicalRequirementsConfiguration : EntityTypeConfiguration<PriceEngineeringTaskFileTechnicalRequirements> { }

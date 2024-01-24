@@ -1571,7 +1571,6 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPriceCalculationCommand_Execute_Default() 
 		{
-						//Item.PriceCalculation = null;		    
 		}
 
 		private void SelectPaymentConditionSetCommand_Execute_Default() 
@@ -1747,6 +1746,51 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromParametersCommand_CanExecute_Default()
 			{
 				return SelectedParametersItem != null;
+			}
+
+
+    }
+
+    public partial class NotificationsReportsSettingsDetailsViewModel : BaseDetailsViewModel<NotificationsReportsSettingsWrapper, NotificationsReportsSettings, AfterSaveNotificationsReportsSettingsEvent>
+    {
+		private Func<List<User>> _getEntitiesForAddInChiefEngineerReportDistributionListCommand;
+		public DelegateLogCommand AddInChiefEngineerReportDistributionListCommand { get; }
+		public DelegateLogCommand RemoveFromChiefEngineerReportDistributionListCommand { get; private set; }
+		private UserWrapper _selectedChiefEngineerReportDistributionListItem;
+		public UserWrapper SelectedChiefEngineerReportDistributionListItem 
+		{ 
+			get { return _selectedChiefEngineerReportDistributionListItem; }
+			set 
+			{ 
+				if (Equals(_selectedChiefEngineerReportDistributionListItem, value)) return;
+				_selectedChiefEngineerReportDistributionListItem = value;
+				RaisePropertyChanged();
+				RemoveFromChiefEngineerReportDistributionListCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+        public NotificationsReportsSettingsDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInChiefEngineerReportDistributionListCommand == null) _getEntitiesForAddInChiefEngineerReportDistributionListCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
+			if (AddInChiefEngineerReportDistributionListCommand == null) AddInChiefEngineerReportDistributionListCommand = new DelegateLogCommand(AddInChiefEngineerReportDistributionListCommand_Execute_Default);
+			if (RemoveFromChiefEngineerReportDistributionListCommand == null) RemoveFromChiefEngineerReportDistributionListCommand = new DelegateLogCommand(RemoveFromChiefEngineerReportDistributionListCommand_Execute_Default, RemoveFromChiefEngineerReportDistributionListCommand_CanExecute_Default);
+
+		}
+
+			private void AddInChiefEngineerReportDistributionListCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<User, UserWrapper>(_getEntitiesForAddInChiefEngineerReportDistributionListCommand(), Item.ChiefEngineerReportDistributionList);
+			}
+
+			private void RemoveFromChiefEngineerReportDistributionListCommand_Execute_Default()
+			{
+				Item.ChiefEngineerReportDistributionList.Remove(SelectedChiefEngineerReportDistributionListItem);
+			}
+
+			private bool RemoveFromChiefEngineerReportDistributionListCommand_CanExecute_Default()
+			{
+				return SelectedChiefEngineerReportDistributionListItem != null;
 			}
 
 
@@ -2099,7 +2143,6 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<ScriptStep, ScriptStepWrapper>(_getEntitiesForSelectStatusCommand(), nameof(Item.Status), Item.Status?.Id);
 		}
 
 		private void ClearStatusCommand_Execute_Default() 
@@ -2109,7 +2152,6 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusesAllCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
 		}
 
 		private void ClearStatusesAllCommand_Execute_Default() 
@@ -2498,7 +2540,6 @@ namespace HVTApp.UI.ViewModels
 
 		private void SelectStatusesAllCommand_Execute_Default() 
 		{
-            //SelectAndSetWrapper<IEnumerable`1, IEnumerable`1Wrapper>(_getEntitiesForSelectStatusesAllCommand(), nameof(Item.StatusesAll), Item.StatusesAll?.Id);
 		}
 
 		private void ClearStatusesAllCommand_Execute_Default() 

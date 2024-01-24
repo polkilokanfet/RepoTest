@@ -40,6 +40,8 @@
 					<infg:FieldLayout.Fields>
 
                         <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="SalesUnitId" Label="SalesUnitId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PaymentDocumentId" Label="PaymentDocumentId" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

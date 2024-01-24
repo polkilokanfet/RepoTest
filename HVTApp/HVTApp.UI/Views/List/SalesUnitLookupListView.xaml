@@ -80,6 +80,7 @@
                         <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PriceCalculationItems" Label="PriceCalculationItems" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="PaymentsPlannedGenerated" Label="Расчетные плановые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="PaymentsPlannedCalculated" Label="Расчетные плановые платежи + сохраненные" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
@@ -96,6 +97,7 @@
                         <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="FirstPaymentDateCalculated" Label="Первый платеж по заказу" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата окончания производства" Width="Auto" AllowResize="True" />

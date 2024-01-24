@@ -44,7 +44,9 @@
                         <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Files" Label="Файлы" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="PositionInTeamCenter" Label="Позиция в TeamCenter" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsActual" Label="Актуально" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="TaskId" Label="TaskId" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
