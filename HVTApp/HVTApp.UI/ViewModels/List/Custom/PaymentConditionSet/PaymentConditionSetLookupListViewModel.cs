@@ -89,7 +89,7 @@ namespace HVTApp.UI.ViewModels
             {
                 foreach (var set in filteredSets.ToList())
                 {
-                    if (set.PaymentConditions.All(x => !conditionFilter.Includes(x.Entity)))
+                    if (set.Entity.PaymentConditions.All(x => !conditionFilter.Includes(x)))
                     {
                         filteredSets.Remove(set);
                     }

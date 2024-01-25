@@ -444,11 +444,6 @@ namespace HVTApp.UI.Views
             set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Entity)].Visibility = value; }
         }
 
-        public System.Windows.Visibility UnitsVisibility
-        {
-            get { return BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Units)].Visibility; }
-            set { BudgetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BudgetLookup.Units)].Visibility = value; }
-        }
 
 
 		#endregion
@@ -682,12 +677,6 @@ namespace HVTApp.UI.Views
         {
             get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CompanyLookup.AddressLegal)].Visibility; }
             set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CompanyLookup.AddressLegal)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility AddressPostVisibility
-        {
-            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CompanyLookup.AddressPost)].Visibility; }
-            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CompanyLookup.AddressPost)].Visibility = value; }
         }
 
         public System.Windows.Visibility EntityVisibility
@@ -1764,23 +1753,7 @@ namespace HVTApp.UI.Views
             set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Messages)].Visibility = value; }
         }
 
-        public System.Windows.Visibility ChildsVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Childs)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Childs)].Visibility = value; }
-        }
 
-        public System.Windows.Visibility ParallelVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Parallel)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Parallel)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility NextVisibility
-        {
-            get { return DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Next)].Visibility; }
-            set { DirectumTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DirectumTaskLookup.Next)].Visibility = value; }
-        }
 
 
 		#endregion
@@ -4206,11 +4179,6 @@ namespace HVTApp.UI.Views
             set { PaymentConditionSetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionSetLookup.Entity)].Visibility = value; }
         }
 
-        public System.Windows.Visibility PaymentConditionsVisibility
-        {
-            get { return PaymentConditionSetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionSetLookup.PaymentConditions)].Visibility; }
-            set { PaymentConditionSetLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentConditionSetLookup.PaymentConditions)].Visibility = value; }
-        }
 
 
 		#endregion
@@ -5584,12 +5552,6 @@ namespace HVTApp.UI.Views
         {
             get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.ProductBlockEngineer)].Visibility; }
             set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.ProductBlockEngineer)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility ProductBlockVisibility
-        {
-            get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.ProductBlock)].Visibility; }
-            set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.ProductBlock)].Visibility = value; }
         }
 
         public System.Windows.Visibility EntityVisibility
@@ -7078,12 +7040,6 @@ namespace HVTApp.UI.Views
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Entity)].Visibility; }
             set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Entity)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility ParametersVisibility
-        {
-            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Parameters)].Visibility; }
-            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Parameters)].Visibility = value; }
         }
 
         public System.Windows.Visibility PricesVisibility

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Items
 {
+    [NotForListViewGeneration]
     public class PriceEngineeringTasksListItemPlanMaker : 
         PriceEngineeringTasksListItemBase<PriceEngineeringTaskListItemPlanMaker>
     {

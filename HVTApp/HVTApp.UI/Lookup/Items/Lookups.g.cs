@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace HVTApp.UI.Lookup
 {
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Объединение стран")]
 	public partial class CountryUnionLookup : LookupItem<CountryUnion>
 	{
@@ -22,7 +22,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<CountryLookup> Countries { get { return GetLookupEnum<CountryLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Банковская гарантия")]
 	public partial class BankGuaranteeLookup : LookupItem<BankGuarantee>
 	{
@@ -45,7 +45,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Банковская гарантия (тип)")]
 	public partial class BankGuaranteeTypeLookup : LookupItem<BankGuaranteeType>
 	{
@@ -59,7 +59,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Бюджет")]
 	public partial class BudgetLookup : LookupItem<Budget>
 	{
@@ -81,10 +81,8 @@ namespace HVTApp.UI.Lookup
         public System.String Name => Entity.Name;
 
         #endregion
-		[OrderStatus(1)]
-	    public List<BudgetUnitLookup> Units { get { return GetLookupEnum<BudgetUnitLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Единица бюджета")]
 	public partial class BudgetUnitLookup : LookupItem<BudgetUnit>
 	{
@@ -128,7 +126,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Конструктора - параметры (список)")]
 	public partial class ConstructorParametersListLookup : LookupItem<ConstructorParametersList>
 	{
@@ -144,7 +142,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Конструктора - параметры")]
 	public partial class ConstructorsParametersLookup : LookupItem<ConstructorsParameters>
 	{
@@ -162,7 +160,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ConstructorParametersListLookup> PatametersLists { get { return GetLookupEnum<ConstructorParametersListLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Расходы в процентах")]
 	public partial class CostsPercentsLookup : LookupItem<CostsPercents>
 	{
@@ -185,7 +183,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Задание на создание нового продукта")]
 	public partial class CreateNewProductTaskLookup : LookupItem<CreateNewProductTask>
 	{
@@ -211,7 +209,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Счёт на оплату (задание)")]
 	public partial class InvoiceForPaymentTaskLookup : LookupItem<InvoiceForPaymentTask>
 	{
@@ -234,7 +232,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Департамент ОГК")]
 	public partial class DesignDepartmentLookup : LookupItem<DesignDepartment>
 	{
@@ -262,7 +260,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(30)]
 	    public List<DesignDepartmentParametersSubTaskLookup> ParameterSetsSubTask { get { return GetLookupEnum<DesignDepartmentParametersSubTaskLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Задача")]
 	public partial class DirectumTaskLookup : LookupItem<DirectumTask>
 	{
@@ -310,14 +308,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(55)]
 	    public List<DirectumTaskMessageLookup> Messages { get { return GetLookupEnum<DirectumTaskMessageLookup>().ToList(); } }
-		[OrderStatus(1)]
-	    public List<DirectumTaskLookup> Childs { get { return GetLookupEnum<DirectumTaskLookup>().ToList(); } }
-		[OrderStatus(1)]
-	    public List<DirectumTaskLookup> Parallel { get { return GetLookupEnum<DirectumTaskLookup>().ToList(); } }
-		[OrderStatus(1)]
-	    public List<DirectumTaskLookup> Next { get { return GetLookupEnum<DirectumTaskLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Группа задач")]
 	public partial class DirectumTaskGroupLookup : LookupItem<DirectumTaskGroup>
 	{
@@ -353,7 +345,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<DirectumTaskGroupFileLookup> Files { get { return GetLookupEnum<DirectumTaskGroupFileLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Файл (DirectumLite)")]
 	public partial class DirectumTaskGroupFileLookup : LookupItem<DirectumTaskGroupFile>
 	{
@@ -379,7 +371,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Сообщение в задаче")]
 	public partial class DirectumTaskMessageLookup : LookupItem<DirectumTaskMessage>
 	{
@@ -402,7 +394,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Номер документа")]
 	public partial class DocumentNumberLookup : LookupItem<DocumentNumber>
 	{
@@ -416,7 +408,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	//[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("EventServiceUnit")]
 	public partial class EventServiceUnitLookup : LookupItem<EventServiceUnit>
 	{
@@ -445,7 +437,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Входящий запрос")]
 	public partial class IncomingRequestLookup : LookupItem<IncomingRequest>
 	{
@@ -476,7 +468,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(40)]
 	    public List<EmployeeLookup> Performers { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Нормо-час стоимость")]
 	public partial class LaborHourCostLookup : LookupItem<LaborHourCost>
 	{
@@ -493,7 +485,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Нормо-часы")]
 	public partial class LaborHoursLookup : LookupItem<LaborHours>
 	{
@@ -512,7 +504,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(8)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Запись лога")]
 	public partial class LogUnitLookup : LookupItem<LogUnit>
 	{
@@ -538,7 +530,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Причина проигрыша")]
 	public partial class LosingReasonLookup : LookupItem<LosingReason>
 	{
@@ -552,7 +544,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Область рынка")]
 	public partial class MarketFieldLookup : LookupItem<MarketField>
 	{
@@ -568,7 +560,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(9)]
 	    public List<ActivityFieldLookup> ActivityFields { get { return GetLookupEnum<ActivityFieldLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Платеж совершённый")]
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
@@ -594,7 +586,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Условие платежа (точка отсчета)")]
 	public partial class PaymentConditionPointLookup : LookupItem<PaymentConditionPoint>
 	{
@@ -611,7 +603,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Платеж плановый")]
 	public partial class PaymentPlannedLookup : LookupItem<PaymentPlanned>
 	{
@@ -640,7 +632,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Штрафные санкции")]
 	public partial class PenaltyLookup : LookupItem<Penalty>
 	{
@@ -660,7 +652,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Расчет себестоимости оборудования")]
 	public partial class PriceCalculationLookup : LookupItem<PriceCalculation>
 	{
@@ -713,7 +705,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<PriceCalculationFileLookup> Files { get { return GetLookupEnum<PriceCalculationFileLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Расчет себестоимости оборудования (файл)")]
 	public partial class PriceCalculationFileLookup : LookupItem<PriceCalculationFile>
 	{
@@ -730,7 +722,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Элемент истории расчета ПЗ")]
 	public partial class PriceCalculationHistoryItemLookup : LookupItem<PriceCalculationHistoryItem>
 	{
@@ -759,7 +751,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Единица расчета себестоимости оборудования")]
 	public partial class PriceCalculationItemLookup : LookupItem<PriceCalculationItem>
 	{
@@ -807,7 +799,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<StructureCostLookup> StructureCosts { get { return GetLookupEnum<StructureCostLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Параметры департамента ОГК")]
 	public partial class DesignDepartmentParametersLookup : LookupItem<DesignDepartmentParameters>
 	{
@@ -826,7 +818,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Параметры департамента ОГК (добавленное оборудование)")]
 	public partial class DesignDepartmentParametersAddedBlocksLookup : LookupItem<DesignDepartmentParametersAddedBlocks>
 	{
@@ -845,7 +837,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Параметры департамента ОГК (для подзадач)")]
 	public partial class DesignDepartmentParametersSubTaskLookup : LookupItem<DesignDepartmentParametersSubTask>
 	{
@@ -864,7 +856,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Настройки рассылки отчётов")]
 	public partial class NotificationsReportsSettingsLookup : LookupItem<NotificationsReportsSettings>
 	{
@@ -880,7 +872,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(8)]
 	    public List<UserLookup> ChiefEngineerReportDistributionList { get { return GetLookupEnum<UserLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка")]
 	public partial class PriceEngineeringTaskLookup : LookupItem<PriceEngineeringTask>
 	{
@@ -985,15 +977,6 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(850)]
 	    public ProductBlockLookup ProductBlockEngineer { get { return GetLookup<ProductBlockLookup>(); } }
 
-		//[OrderStatus(1)]
-	 //   public ScriptStepLookup Status { get { return GetLookup<ScriptStepLookup>(); } }
-
-		//[OrderStatus(1)]
-	 //   public IEnumerable`1Lookup StatusesAll { get { return GetLookup<IEnumerable`1Lookup>(); } }
-
-		[OrderStatus(1)]
-	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
-
         #endregion
 		[OrderStatus(800)]
 	    public List<PriceEngineeringTaskProductBlockAddedLookup> ProductBlocksAdded { get { return GetLookupEnum<PriceEngineeringTaskProductBlockAddedLookup>().ToList(); } }
@@ -1014,7 +997,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(10)]
 	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка (файл ответа ОГК)")]
 	public partial class PriceEngineeringTaskFileAnswerLookup : LookupItem<PriceEngineeringTaskFileAnswer>
 	{
@@ -1040,7 +1023,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка (файл технического задания)")]
 	public partial class PriceEngineeringTaskFileTechnicalRequirementsLookup : LookupItem<PriceEngineeringTaskFileTechnicalRequirements>
 	{
@@ -1063,7 +1046,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка (сообщение)")]
 	public partial class PriceEngineeringTaskMessageLookup : LookupItem<PriceEngineeringTaskMessage>
 	{
@@ -1089,7 +1072,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка (добавленный блок)")]
 	public partial class PriceEngineeringTaskProductBlockAddedLookup : LookupItem<PriceEngineeringTaskProductBlockAdded>
 	{
@@ -1123,7 +1106,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(80)]
 	    public List<StructureCostVersionLookup> StructureCostVersions { get { return GetLookupEnum<StructureCostVersionLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка (группа)")]
 	public partial class PriceEngineeringTasksLookup : LookupItem<PriceEngineeringTasks>
 	{
@@ -1165,9 +1148,6 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1800)]
 	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
 
-		//[OrderStatus(1)]
-	 //   public IEnumerable`1Lookup StatusesAll { get { return GetLookup<IEnumerable`1Lookup>(); } }
-
         #endregion
 		[OrderStatus(610)]
 	    public List<PriceEngineeringTasksFileTechnicalRequirementsLookup> FilesTechnicalRequirements { get { return GetLookupEnum<PriceEngineeringTasksFileTechnicalRequirementsLookup>().ToList(); } }
@@ -1176,7 +1156,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(50)]
 	    public List<PriceCalculationLookup> PriceCalculations { get { return GetLookupEnum<PriceCalculationLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка (файл группы технических заданий)")]
 	public partial class PriceEngineeringTasksFileTechnicalRequirementsLookup : LookupItem<PriceEngineeringTasksFileTechnicalRequirements>
 	{
@@ -1202,7 +1182,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("PriceEngineeringTaskStatus")]
 	public partial class PriceEngineeringTaskStatusLookup : LookupItem<PriceEngineeringTaskStatus>
 	{
@@ -1225,7 +1205,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка - версия стракчакоста")]
 	public partial class StructureCostVersionLookup : LookupItem<StructureCostVersion>
 	{
@@ -1248,7 +1228,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Категория продукта")]
 	public partial class ProductCategoryLookup : LookupItem<ProductCategory>
 	{
@@ -1267,7 +1247,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(50)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Director)] [AllowEditAttribute(Role.ReportMaker)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Director)] [AllowEditAttribute(Infrastructure.Role.ReportMaker)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Стоимость и ПЗ категории продукта")]
 	public partial class ProductCategoryPriceAndCostLookup : LookupItem<ProductCategoryPriceAndCost>
 	{
@@ -1293,7 +1273,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Включенное в стоимость оборудование")]
 	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
 	{
@@ -1322,7 +1302,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Обозначение продукта")]
 	public partial class ProductDesignationLookup : LookupItem<ProductDesignation>
 	{
@@ -1340,7 +1320,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ProductDesignationLookup> Parents { get { return GetLookupEnum<ProductDesignationLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тип продукта")]
 	public partial class ProductTypeLookup : LookupItem<ProductType>
 	{
@@ -1354,7 +1334,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Обозначение типа продукта")]
 	public partial class ProductTypeDesignationLookup : LookupItem<ProductTypeDesignation>
 	{
@@ -1370,7 +1350,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тип проекта")]
 	public partial class ProjectTypeLookup : LookupItem<ProjectType>
 	{
@@ -1384,7 +1364,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Стандартный маржинальный доход")]
 	public partial class StandartMarginalIncomeLookup : LookupItem<StandartMarginalIncome>
 	{
@@ -1400,7 +1380,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(9)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Стандартный срок производства")]
 	public partial class StandartProductionTermLookup : LookupItem<StandartProductionTerm>
 	{
@@ -1416,7 +1396,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(9)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Стракчакост")]
 	public partial class StructureCostLookup : LookupItem<StructureCost>
 	{
@@ -1460,7 +1440,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Шеф-монтаж")]
 	public partial class SupervisionLookup : LookupItem<Supervision>
 	{
@@ -1492,7 +1472,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Файл-ответ ОГК")]
 	public partial class AnswerFileTceLookup : LookupItem<AnswerFileTce>
 	{
@@ -1518,7 +1498,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Файл расчета транспортных затрат")]
 	public partial class ShippingCostFileLookup : LookupItem<ShippingCostFile>
 	{
@@ -1535,7 +1515,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тех.задание")]
 	public partial class TechnicalRequrementsLookup : LookupItem<TechnicalRequrements>
 	{
@@ -1568,7 +1548,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(10)]
 	    public List<TechnicalRequrementsFileLookup> Files { get { return GetLookupEnum<TechnicalRequrementsFileLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тех.задание (файл)")]
 	public partial class TechnicalRequrementsFileLookup : LookupItem<TechnicalRequrementsFile>
 	{
@@ -1591,7 +1571,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тех.задание (задача)")]
 	public partial class TechnicalRequrementsTaskLookup : LookupItem<TechnicalRequrementsTask>
 	{
@@ -1666,7 +1646,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<TechnicalRequrementsTaskHistoryElementLookup> HistoryElements { get { return GetLookupEnum<TechnicalRequrementsTaskHistoryElementLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Статус тех.задания (задача)")]
 	public partial class TechnicalRequrementsTaskHistoryElementLookup : LookupItem<TechnicalRequrementsTaskHistoryElement>
 	{
@@ -1695,7 +1675,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Группа пользователей")]
 	public partial class UserGroupLookup : LookupItem<UserGroup>
 	{
@@ -1711,7 +1691,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<UserLookup> Users { get { return GetLookupEnum<UserLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Общие настройки")]
 	public partial class GlobalPropertiesLookup : LookupItem<GlobalProperties>
 	{
@@ -1830,7 +1810,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Адрес")]
 	public partial class AddressLookup : LookupItem<Address>
 	{
@@ -1850,7 +1830,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Страна")]
 	public partial class CountryLookup : LookupItem<Country>
 	{
@@ -1864,7 +1844,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Округ")]
 	public partial class DistrictLookup : LookupItem<District>
 	{
@@ -1884,7 +1864,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Населенный пункт")]
 	public partial class LocalityLookup : LookupItem<Locality>
 	{
@@ -1919,7 +1899,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тип населенного пункта")]
 	public partial class LocalityTypeLookup : LookupItem<LocalityType>
 	{
@@ -1936,7 +1916,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Регион")]
 	public partial class RegionLookup : LookupItem<Region>
 	{
@@ -1956,7 +1936,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Сумма (фэйк)")]
 	public partial class SumLookup : LookupItem<Sum>
 	{
@@ -1976,7 +1956,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Курс обмена валют")]
 	public partial class CurrencyExchangeRateLookup : LookupItem<CurrencyExchangeRate>
 	{
@@ -1999,7 +1979,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Заметка")]
 	public partial class NoteLookup : LookupItem<Note>
 	{
@@ -2019,7 +1999,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Единица ТКП")]
 	public partial class OfferUnitLookup : LookupItem<OfferUnit>
 	{
@@ -2062,17 +2042,15 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ProductIncludedLookup> ProductsIncluded { get { return GetLookupEnum<ProductIncludedLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Условия оплаты")]
 	public partial class PaymentConditionSetLookup : LookupItem<PaymentConditionSet>
 	{
 		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 
 		{
 		}
-				[OrderStatus(1)]
-	    public List<PaymentConditionLookup> PaymentConditions { get { return GetLookupEnum<PaymentConditionLookup>().ToList(); } }
-	}
-	[AllowEditAttribute(Role.Admin)]
+			}
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Блок")]
 	public partial class ProductBlockLookup : LookupItem<ProductBlock>
 	{
@@ -2128,15 +2106,13 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 		[OrderStatus(1)]
-	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
-		[OrderStatus(1)]
 	    public List<SumOnDateLookup> Prices { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
 		[OrderStatus(1)]
 	    public List<SumOnDateLookup> FixedCosts { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
 		[OrderStatus(1)]
 	    public List<ParameterLookup> ParametersOrdered { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Зависимое оборудование")]
 	public partial class ProductDependentLookup : LookupItem<ProductDependent>
 	{
@@ -2159,7 +2135,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Банковские реквизиты")]
 	public partial class BankDetailsLookup : LookupItem<BankDetails>
 	{
@@ -2182,7 +2158,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Компания")]
 	public partial class CompanyLookup : LookupItem<Company>
 	{
@@ -2215,16 +2191,13 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public AddressLookup AddressLegal { get { return GetLookup<AddressLookup>(); } }
 
-		[OrderStatus(1)]
-	    public AddressLookup AddressPost { get { return GetLookup<AddressLookup>(); } }
-
         #endregion
 		[OrderStatus(-10)]
 	    public List<BankDetailsLookup> BankDetailsList { get { return GetLookupEnum<BankDetailsLookup>().ToList(); } }
 		[OrderStatus(1)]
 	    public List<ActivityFieldLookup> ActivityFilds { get { return GetLookupEnum<ActivityFieldLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Организационная форма")]
 	public partial class CompanyFormLookup : LookupItem<CompanyForm>
 	{
@@ -2241,7 +2214,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Регистрационные данные")]
 	public partial class DocumentsRegistrationDetailsLookup : LookupItem<DocumentsRegistrationDetails>
 	{
@@ -2258,7 +2231,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Должность")]
 	public partial class EmployeesPositionLookup : LookupItem<EmployeesPosition>
 	{
@@ -2272,7 +2245,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тип объекта")]
 	public partial class FacilityTypeLookup : LookupItem<FacilityType>
 	{
@@ -2289,7 +2262,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Сфера деятельности")]
 	public partial class ActivityFieldLookup : LookupItem<ActivityField>
 	{
@@ -2306,7 +2279,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Контракт")]
 	public partial class ContractLookup : LookupItem<Contract>
 	{
@@ -2329,7 +2302,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Единица измерения")]
 	public partial class MeasureLookup : LookupItem<Measure>
 	{
@@ -2346,7 +2319,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Параметр")]
 	public partial class ParameterLookup : LookupItem<Parameter>
 	{
@@ -2377,7 +2350,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ParameterRelationLookup> ParameterRelations { get { return GetLookupEnum<ParameterRelationLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Группа параметров")]
 	public partial class ParameterGroupLookup : LookupItem<ParameterGroup>
 	{
@@ -2403,7 +2376,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Связи продуктов")]
 	public partial class ProductRelationLookup : LookupItem<ProductRelation>
 	{
@@ -2427,7 +2400,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(6)]
 	    public List<ParameterLookup> ChildProductParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Персона")]
 	public partial class PersonLookup : LookupItem<Person>
 	{
@@ -2450,7 +2423,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Ограничение использования параметра")]
 	public partial class ParameterRelationLookup : LookupItem<ParameterRelation>
 	{
@@ -2466,7 +2439,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ParameterLookup> RequiredParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Единица продаж")]
 	public partial class SalesUnitLookup : LookupItem<SalesUnit>
 	{
@@ -2693,7 +2666,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<PaymentPlannedLookup> PaymentsPlannedCalculated { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Документ")]
 	public partial class DocumentLookup : LookupItem<Document>
 	{
@@ -2748,7 +2721,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<EmployeeLookup> CopyToRecipients { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Сумма на дату")]
 	public partial class SumOnDateLookup : LookupItem<SumOnDate>
 	{
@@ -2765,7 +2738,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Продукт")]
 	public partial class ProductLookup : LookupItem<Product>
 	{
@@ -2802,7 +2775,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<ProductDependentLookup> DependentProducts { get { return GetLookupEnum<ProductDependentLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Предложение")]
 	public partial class OfferLookup : LookupItem<Offer>
 	{
@@ -2866,7 +2839,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<EmployeeLookup> CopyToRecipients { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Сотрудник")]
 	public partial class EmployeeLookup : LookupItem<Employee>
 	{
@@ -2898,7 +2871,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.PlanMaker)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.PlanMaker)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Заводской заказ")]
 	public partial class OrderLookup : LookupItem<Order>
 	{
@@ -2915,7 +2888,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Условие платежа")]
 	public partial class PaymentConditionLookup : LookupItem<PaymentCondition>
 	{
@@ -2938,7 +2911,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Платежный документ")]
 	public partial class PaymentDocumentLookup : LookupItem<PaymentDocument>
 	{
@@ -2960,7 +2933,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
 	    public List<PaymentActualLookup> Payments { get { return GetLookupEnum<PaymentActualLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Объект")]
 	public partial class FacilityLookup : LookupItem<Facility>
 	{
@@ -2986,7 +2959,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Проект")]
 	public partial class ProjectLookup : LookupItem<Project>
 	{
@@ -3017,7 +2990,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(-10)]
 	    public List<NoteLookup> Notes { get { return GetLookupEnum<NoteLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Роль пользователя")]
 	public partial class UserRoleLookup : LookupItem<UserRole>
 	{
@@ -3034,7 +3007,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Спецификация")]
 	public partial class SpecificationLookup : LookupItem<Specification>
 	{
@@ -3063,7 +3036,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Конкурс")]
 	public partial class TenderLookup : LookupItem<Tender>
 	{
@@ -3102,7 +3075,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(6)]
 	    public List<CompanyLookup> Participants { get { return GetLookupEnum<CompanyLookup>().ToList(); } }
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Тип тендера")]
 	public partial class TenderTypeLookup : LookupItem<TenderType>
 	{
@@ -3119,7 +3092,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Пользователь")]
 	public partial class UserLookup : LookupItem<User>
 	{

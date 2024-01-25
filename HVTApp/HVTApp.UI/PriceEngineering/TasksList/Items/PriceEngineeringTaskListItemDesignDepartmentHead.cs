@@ -1,7 +1,9 @@
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Items
 {
+    [NotForListViewGeneration]
     public class PriceEngineeringTaskListItemDesignDepartmentHead : PriceEngineeringTaskListItemBase
     {
         public PriceEngineeringTaskListItemDesignDepartmentHead(PriceEngineeringTask entity) : base(entity)

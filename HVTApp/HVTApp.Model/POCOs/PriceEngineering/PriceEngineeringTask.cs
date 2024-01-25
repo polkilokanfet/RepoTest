@@ -121,7 +121,7 @@ namespace HVTApp.Model.POCOs
 
     public partial class PriceEngineeringTask
     {
-        [Designation("Статус"), NotMapped]
+        [Designation("Статус"), NotMapped, NotForListView]
         public ScriptStep Status
         {
             get

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.PriceEngineering.Items
 {
+    [NotForListViewGeneration]
     public class PriceEngineeringTasksListItemBackManager : PriceEngineeringTasksListItemBase<PriceEngineeringTaskListItemBackManager>
     {
         protected override IEnumerable<SalesUnit> GetSalesUnits()

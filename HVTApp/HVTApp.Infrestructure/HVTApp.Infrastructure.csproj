@@ -87,6 +87,7 @@
     <Compile Include="Attributes\DesignationPluralAttribute.cs" />
     <Compile Include="Attributes\ModuleAccessAttribute.cs" />
     <Compile Include="Attributes\NotForDetailsViewAttribute.cs" />
+    <Compile Include="Attributes\NotForListViewGenerationAttribute.cs" />
     <Compile Include="Attributes\NotForListViewAttribute.cs" />
     <Compile Include="Attributes\NotForWrapperAttribute.cs" />
     <Compile Include="Attributes\NotUpdateAttribute.cs" />

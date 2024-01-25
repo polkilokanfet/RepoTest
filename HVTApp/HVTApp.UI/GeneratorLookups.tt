@@ -51,8 +51,8 @@ namespace HVTApp.UI.Lookup
 		<#+
 
 		GenerateSimpleLookupProperties(modelType.AllSimpleProperties().Where(x => x.Name != "Id"));
-		GenerateComplexLookupProperties(modelType.AllComplexProperties());
-		GenerateCollectionLookupProperties(modelType.AllCollectionProperties());
+		GenerateComplexLookupProperties(modelType.AllComplexPropertiesForLookupGeneration());
+		GenerateCollectionLookupProperties(modelType.AllCollectionPropertiesForLookupGenerator());
 		#>
 	}
 <#+

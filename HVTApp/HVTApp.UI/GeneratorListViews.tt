@@ -18,10 +18,10 @@
     GenerateListViewModels(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("ListViewModels.g.cs", "ViewModels/List/Generated");
 
-	GenerateListViewsCs(GeneratorHelpers.GetModelTypesLookups());
+	GenerateListViewsCs(GeneratorHelpers.GetModelTypesForListViewsGeneration());
 	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List/cs");
 
-    GenerateListViewsXaml(GeneratorHelpers.GetModelTypesLookups());
+    GenerateListViewsXaml(GeneratorHelpers.GetModelTypesForListViewsGeneration());
 
 #><#+
     private void GenerateListViewModels(IEnumerable<Type> modelTypes)

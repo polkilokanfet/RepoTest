@@ -17,7 +17,7 @@ namespace HVTApp.Infrastructure.Attributes
         public override string ToString()
         {
             return Roles.Any()
-                ? Roles.OrderBy(role => role).Select(role => $"[{this.GetType().Name}(Role.{role.ToString()})]").ToStringEnum(" ")
+                ? Roles.OrderBy(role => role).Select(role => $"[{this.GetType().Name}(Infrastructure.Role.{role.ToString()})]").ToStringEnum(" ")
                 : string.Empty;
         }
     }

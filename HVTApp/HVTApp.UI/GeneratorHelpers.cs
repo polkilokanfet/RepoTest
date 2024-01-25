@@ -81,6 +81,15 @@ namespace HVTApp.UI
                 OrderBy(x => x.Name);
         }
 
+        public static IEnumerable<Type> GetModelTypesForListViewsGeneration()
+        {
+            foreach (var type in GetModelTypesLookups())
+            {
+                var a = type.GetCustomAttribute<NotForListViewGenerationAttribute>();
+                if (a == null) yield return type;
+            }
+        }
+
 
         public static IEnumerable<PropertyInfo> GetPropertiesForListViews(this Type typeLookup)
         {
@@ -226,7 +235,16 @@ namespace HVTApp.UI
         public static IEnumerable<PropertyInfo> AllCollectionProperties(this Type type)
         {
             return GetProps(type).Except(type.AllSimpleProperties())
-                    .Where(p => p.PropertyType.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
+                .Where(p => p.PropertyType.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
+        }
+
+        public static IEnumerable<PropertyInfo> AllCollectionPropertiesForLookupGenerator(this Type type)
+        {
+            foreach (var propertyInfo in AllCollectionProperties(type))
+            {
+                var a = propertyInfo.GetCustomAttribute<NotForListViewAttribute>();
+                if (a == null) yield return propertyInfo;
+            }
         }
 
         public static IEnumerable<PropertyInfo> AllCollectionProperties(this IEnumerable<PropertyInfo> propertyInfos)
@@ -244,6 +262,20 @@ namespace HVTApp.UI
         {
             //var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
             return GetProps(type).Except(type.AllSimpleProperties()).Except(type.AllCollectionProperties()).Except(type.SimpleProperties<double>()).Except(type.SimpleProperties<DateTime>());
+        }
+        public static IEnumerable<PropertyInfo> AllComplexPropertiesForLookupGeneration(this Type type)
+        {
+            var propertyInfos = GetProps(type)
+                .Except(type.AllSimpleProperties())
+                .Except(type.AllCollectionPropertiesForLookupGenerator())
+                .Except(type.SimpleProperties<double>())
+                .Except(type.SimpleProperties<DateTime>());
+            foreach (var propertyInfo in propertyInfos)
+            {
+                var a = propertyInfo.GetCustomAttribute<NotForListViewAttribute>();
+                if (a == null) yield return propertyInfo;
+            }
+
         }
 
         public static IEnumerable<PropertyInfo> AllComplexProperties(this IEnumerable<PropertyInfo> propertyInfos)
