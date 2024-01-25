@@ -47,9 +47,9 @@ namespace HVTApp.UI
             //_dialogService.Register<CreateNewProductTaskDetailsViewModel, CreateNewProductTaskDetailsView>();
 			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();
             _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
-            //Container.RegisterViewForNavigation<InvoiceForPaymentTaskLookupListView>();
+            Container.RegisterViewForNavigation<InvoiceForPaymentTaskLookupListView>();
             //_dialogService.Register<InvoiceForPaymentTaskDetailsViewModel, InvoiceForPaymentTaskDetailsView>();
-			//_selectService.Register<InvoiceForPaymentTaskLookupListView, InvoiceForPaymentTask>();
+			_selectService.Register<InvoiceForPaymentTaskLookupListView, InvoiceForPaymentTask>();
             _updateDetailsService.Register<InvoiceForPaymentTask, InvoiceForPaymentTaskDetailsView>();
             Container.RegisterViewForNavigation<DesignDepartmentLookupListView>();
             //_dialogService.Register<DesignDepartmentDetailsViewModel, DesignDepartmentDetailsView>();

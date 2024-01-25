@@ -13,7 +13,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сфера деятельности")]
 	[DesignationPlural("ActivityFieldLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ActivityFieldLookupListView : ViewBase
     {
         public ActivityFieldLookupListView()
@@ -67,7 +67,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Адрес")]
 	[DesignationPlural("AddressLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class AddressLookupListView : ViewBase
     {
         public AddressLookupListView()
@@ -139,7 +139,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Файл-ответ ОГК")]
 	[DesignationPlural("AnswerFileTceLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class AnswerFileTceLookupListView : ViewBase
     {
         public AnswerFileTceLookupListView()
@@ -211,7 +211,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковские реквизиты")]
 	[DesignationPlural("BankDetailsLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class BankDetailsLookupListView : ViewBase
     {
         public BankDetailsLookupListView()
@@ -277,7 +277,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковская гарантия")]
 	[DesignationPlural("BankGuaranteeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class BankGuaranteeLookupListView : ViewBase
     {
         public BankGuaranteeLookupListView()
@@ -337,7 +337,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковская гарантия (тип)")]
 	[DesignationPlural("BankGuaranteeTypeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class BankGuaranteeTypeLookupListView : ViewBase
     {
         public BankGuaranteeTypeLookupListView()
@@ -385,7 +385,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Бюджет")]
 	[DesignationPlural("BudgetLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class BudgetLookupListView : ViewBase
     {
         public BudgetLookupListView()
@@ -445,14 +445,13 @@ namespace HVTApp.UI.Views
         }
 
 
-
 		#endregion
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица бюджета")]
 	[DesignationPlural("BudgetUnitLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class BudgetUnitLookupListView : ViewBase
     {
         public BudgetUnitLookupListView()
@@ -554,7 +553,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Организационная форма")]
 	[DesignationPlural("CompanyFormLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class CompanyFormLookupListView : ViewBase
     {
         public CompanyFormLookupListView()
@@ -608,7 +607,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Компания")]
 	[DesignationPlural("CompanyLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class CompanyLookupListView : ViewBase
     {
         public CompanyLookupListView()
@@ -704,7 +703,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Конструктора - параметры (список)")]
 	[DesignationPlural("ConstructorParametersListLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ConstructorParametersListLookupListView : ViewBase
     {
         public ConstructorParametersListLookupListView()
@@ -758,7 +757,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Конструктора - параметры")]
 	[DesignationPlural("ConstructorsParametersLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ConstructorsParametersLookupListView : ViewBase
     {
         public ConstructorsParametersLookupListView()
@@ -818,7 +817,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Контракт")]
 	[DesignationPlural("ContractLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ContractLookupListView : ViewBase
     {
         public ContractLookupListView()
@@ -878,7 +877,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Расходы в процентах")]
 	[DesignationPlural("CostsPercentsLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class CostsPercentsLookupListView : ViewBase
     {
         public CostsPercentsLookupListView()
@@ -944,7 +943,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Страна")]
 	[DesignationPlural("CountryLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class CountryLookupListView : ViewBase
     {
         public CountryLookupListView()
@@ -992,7 +991,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Объединение стран")]
 	[DesignationPlural("CountryUnionLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class CountryUnionLookupListView : ViewBase
     {
         public CountryUnionLookupListView()
@@ -1046,7 +1045,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Задание на создание нового продукта")]
 	[DesignationPlural("CreateNewProductTaskLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class CreateNewProductTaskLookupListView : ViewBase
     {
         public CreateNewProductTaskLookupListView()
@@ -1112,7 +1111,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Курс обмена валют")]
 	[DesignationPlural("CurrencyExchangeRateLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class CurrencyExchangeRateLookupListView : ViewBase
     {
         public CurrencyExchangeRateLookupListView()
@@ -1178,7 +1177,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Департамент ОГК")]
 	[DesignationPlural("DesignDepartmentLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DesignDepartmentLookupListView : ViewBase
     {
         public DesignDepartmentLookupListView()
@@ -1256,7 +1255,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Параметры департамента ОГК (добавленное оборудование)")]
 	[DesignationPlural("DesignDepartmentParametersAddedBlocksLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DesignDepartmentParametersAddedBlocksLookupListView : ViewBase
     {
         public DesignDepartmentParametersAddedBlocksLookupListView()
@@ -1316,7 +1315,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Параметры департамента ОГК")]
 	[DesignationPlural("DesignDepartmentParametersLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DesignDepartmentParametersLookupListView : ViewBase
     {
         public DesignDepartmentParametersLookupListView()
@@ -1376,7 +1375,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Параметры департамента ОГК (для подзадач)")]
 	[DesignationPlural("DesignDepartmentParametersSubTaskLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DesignDepartmentParametersSubTaskLookupListView : ViewBase
     {
         public DesignDepartmentParametersSubTaskLookupListView()
@@ -1436,7 +1435,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Файл (DirectumLite)")]
 	[DesignationPlural("DirectumTaskGroupFileLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DirectumTaskGroupFileLookupListView : ViewBase
     {
         public DirectumTaskGroupFileLookupListView()
@@ -1502,7 +1501,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Группа задач")]
 	[DesignationPlural("DirectumTaskGroupLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DirectumTaskGroupLookupListView : ViewBase
     {
         public DirectumTaskGroupLookupListView()
@@ -1634,7 +1633,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Задача")]
 	[DesignationPlural("DirectumTaskLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DirectumTaskLookupListView : ViewBase
     {
         public DirectumTaskLookupListView()
@@ -1754,15 +1753,13 @@ namespace HVTApp.UI.Views
         }
 
 
-
-
 		#endregion
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сообщение в задаче")]
 	[DesignationPlural("DirectumTaskMessageLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DirectumTaskMessageLookupListView : ViewBase
     {
         public DirectumTaskMessageLookupListView()
@@ -1822,7 +1819,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Округ")]
 	[DesignationPlural("DistrictLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DistrictLookupListView : ViewBase
     {
         public DistrictLookupListView()
@@ -1876,7 +1873,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Документ")]
 	[DesignationPlural("DocumentLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DocumentLookupListView : ViewBase
     {
         public DocumentLookupListView()
@@ -2020,7 +2017,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Номер документа")]
 	[DesignationPlural("DocumentNumberLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DocumentNumberLookupListView : ViewBase
     {
         public DocumentNumberLookupListView()
@@ -2068,7 +2065,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регистрационные данные")]
 	[DesignationPlural("DocumentsRegistrationDetailsLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class DocumentsRegistrationDetailsLookupListView : ViewBase
     {
         public DocumentsRegistrationDetailsLookupListView()
@@ -2122,7 +2119,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сотрудник")]
 	[DesignationPlural("EmployeeLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class EmployeeLookupListView : ViewBase
     {
         public EmployeeLookupListView()
@@ -2200,7 +2197,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Должность")]
 	[DesignationPlural("EmployeesPositionLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class EmployeesPositionLookupListView : ViewBase
     {
         public EmployeesPositionLookupListView()
@@ -2248,7 +2245,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("EventServiceUnit")]
 	[DesignationPlural("EventServiceUnitLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class EventServiceUnitLookupListView : ViewBase
     {
         public EventServiceUnitLookupListView()
@@ -2320,7 +2317,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Объект")]
 	[DesignationPlural("FacilityLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class FacilityLookupListView : ViewBase
     {
         public FacilityLookupListView()
@@ -2386,7 +2383,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип объекта")]
 	[DesignationPlural("FacilityTypeLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class FacilityTypeLookupListView : ViewBase
     {
         public FacilityTypeLookupListView()
@@ -2440,7 +2437,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Общие настройки")]
 	[DesignationPlural("GlobalPropertiesLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class GlobalPropertiesLookupListView : ViewBase
     {
         public GlobalPropertiesLookupListView()
@@ -2692,7 +2689,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Входящий запрос")]
 	[DesignationPlural("IncomingRequestLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class IncomingRequestLookupListView : ViewBase
     {
         public IncomingRequestLookupListView()
@@ -2773,70 +2770,70 @@ namespace HVTApp.UI.Views
 		#endregion
     }
 
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("Счёт на оплату (задание)")]
-	//[DesignationPlural("InvoiceForPaymentTaskLookup")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class InvoiceForPaymentTaskLookupListView : ViewBase
- //   {
- //       public InvoiceForPaymentTaskLookupListView()
- //       {
- //           InitializeComponent();
- //       }
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Счёт на оплату (задание)")]
+	[DesignationPlural("InvoiceForPaymentTaskLookup")]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
+    public partial class InvoiceForPaymentTaskLookupListView : ViewBase
+    {
+        public InvoiceForPaymentTaskLookupListView()
+        {
+            InitializeComponent();
+        }
 
- //       public InvoiceForPaymentTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, InvoiceForPaymentTaskLookupListViewModel InvoiceForPaymentTaskLookupListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = InvoiceForPaymentTaskLookupListViewModel;
-	//		InvoiceForPaymentTaskLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
+        public InvoiceForPaymentTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, InvoiceForPaymentTaskLookupListViewModel InvoiceForPaymentTaskLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = InvoiceForPaymentTaskLookupListViewModel;
+			InvoiceForPaymentTaskLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
 		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((InvoiceForPaymentTaskLookupListViewModel)DataContext).Load();
- //       }
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((InvoiceForPaymentTaskLookupListViewModel)DataContext).Load();
+        }
 
-	//	#region VisibilityProps
+		#region VisibilityProps
 
- //       public System.Windows.Visibility MomentVisibility
- //       {
- //           get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Moment)].Visibility; }
- //           set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Moment)].Visibility = value; }
- //       }
+        public System.Windows.Visibility MomentVisibility
+        {
+            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Moment)].Visibility; }
+            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Moment)].Visibility = value; }
+        }
 
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.DisplayMember)].Visibility; }
- //           set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.DisplayMember)].Visibility = value; }
- //       }
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.DisplayMember)].Visibility; }
+            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.DisplayMember)].Visibility = value; }
+        }
 
- //       public System.Windows.Visibility PriceEngineeringTaskVisibility
- //       {
- //           get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.PriceEngineeringTask)].Visibility; }
- //           set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.PriceEngineeringTask)].Visibility = value; }
- //       }
+        public System.Windows.Visibility PriceEngineeringTaskVisibility
+        {
+            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.PriceEngineeringTask)].Visibility; }
+            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.PriceEngineeringTask)].Visibility = value; }
+        }
 
- //       public System.Windows.Visibility TechnicalRequrementsVisibility
- //       {
- //           get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.TechnicalRequrements)].Visibility; }
- //           set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.TechnicalRequrements)].Visibility = value; }
- //       }
+        public System.Windows.Visibility TechnicalRequrementsVisibility
+        {
+            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.TechnicalRequrements)].Visibility; }
+            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.TechnicalRequrements)].Visibility = value; }
+        }
 
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Entity)].Visibility; }
- //           set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Entity)].Visibility = value; }
- //       }
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Entity)].Visibility; }
+            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Entity)].Visibility = value; }
+        }
 
 
-	//	#endregion
- //   }
+		#endregion
+    }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Нормо-час стоимость")]
 	[DesignationPlural("LaborHourCostLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class LaborHourCostLookupListView : ViewBase
     {
         public LaborHourCostLookupListView()
@@ -2890,7 +2887,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Нормо-часы")]
 	[DesignationPlural("LaborHoursLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class LaborHoursLookupListView : ViewBase
     {
         public LaborHoursLookupListView()
@@ -2962,7 +2959,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Населенный пункт")]
 	[DesignationPlural("LocalityLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class LocalityLookupListView : ViewBase
     {
         public LocalityLookupListView()
@@ -3046,7 +3043,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип населенного пункта")]
 	[DesignationPlural("LocalityTypeLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class LocalityTypeLookupListView : ViewBase
     {
         public LocalityTypeLookupListView()
@@ -3100,7 +3097,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Запись лога")]
 	[DesignationPlural("LogUnitLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class LogUnitLookupListView : ViewBase
     {
         public LogUnitLookupListView()
@@ -3166,7 +3163,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Причина проигрыша")]
 	[DesignationPlural("LosingReasonLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class LosingReasonLookupListView : ViewBase
     {
         public LosingReasonLookupListView()
@@ -3214,7 +3211,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Область рынка")]
 	[DesignationPlural("MarketFieldLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class MarketFieldLookupListView : ViewBase
     {
         public MarketFieldLookupListView()
@@ -3268,7 +3265,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица измерения")]
 	[DesignationPlural("MeasureLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class MeasureLookupListView : ViewBase
     {
         public MeasureLookupListView()
@@ -3322,7 +3319,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Заметка")]
 	[DesignationPlural("NoteLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class NoteLookupListView : ViewBase
     {
         public NoteLookupListView()
@@ -3382,7 +3379,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Настройки рассылки отчётов")]
 	[DesignationPlural("NotificationsReportsSettingsLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class NotificationsReportsSettingsLookupListView : ViewBase
     {
         public NotificationsReportsSettingsLookupListView()
@@ -3436,7 +3433,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Предложение")]
 	[DesignationPlural("OfferLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class OfferLookupListView : ViewBase
     {
         public OfferLookupListView()
@@ -3598,7 +3595,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица ТКП")]
 	[DesignationPlural("OfferUnitLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class OfferUnitLookupListView : ViewBase
     {
         public OfferUnitLookupListView()
@@ -3700,7 +3697,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Заводской заказ")]
 	[DesignationPlural("OrderLookup")]
-	[AllowEditAttribute(Role.PlanMaker)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.PlanMaker)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class OrderLookupListView : ViewBase
     {
         public OrderLookupListView()
@@ -3754,7 +3751,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Группа параметров")]
 	[DesignationPlural("ParameterGroupLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ParameterGroupLookupListView : ViewBase
     {
         public ParameterGroupLookupListView()
@@ -3820,7 +3817,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Параметр")]
 	[DesignationPlural("ParameterLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ParameterLookupListView : ViewBase
     {
         public ParameterLookupListView()
@@ -3898,7 +3895,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Ограничение использования параметра")]
 	[DesignationPlural("ParameterRelationLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ParameterRelationLookupListView : ViewBase
     {
         public ParameterRelationLookupListView()
@@ -3952,7 +3949,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платеж совершённый")]
 	[DesignationPlural("PaymentActualLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PaymentActualLookupListView : ViewBase
     {
         public PaymentActualLookupListView()
@@ -4024,7 +4021,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Условие платежа")]
 	[DesignationPlural("PaymentConditionLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PaymentConditionLookupListView : ViewBase
     {
         public PaymentConditionLookupListView()
@@ -4084,7 +4081,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Условие платежа (точка отсчета)")]
 	[DesignationPlural("PaymentConditionPointLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PaymentConditionPointLookupListView : ViewBase
     {
         public PaymentConditionPointLookupListView()
@@ -4138,7 +4135,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Условия оплаты")]
 	[DesignationPlural("PaymentConditionSetLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PaymentConditionSetLookupListView : ViewBase
     {
         public PaymentConditionSetLookupListView()
@@ -4180,14 +4177,13 @@ namespace HVTApp.UI.Views
         }
 
 
-
 		#endregion
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платежный документ")]
 	[DesignationPlural("PaymentDocumentLookup")]
-	[AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PaymentDocumentLookupListView : ViewBase
     {
         public PaymentDocumentLookupListView()
@@ -4253,7 +4249,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платеж плановый")]
 	[DesignationPlural("PaymentPlannedLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PaymentPlannedLookupListView : ViewBase
     {
         public PaymentPlannedLookupListView()
@@ -4325,7 +4321,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Штрафные санкции")]
 	[DesignationPlural("PenaltyLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PenaltyLookupListView : ViewBase
     {
         public PenaltyLookupListView()
@@ -4385,7 +4381,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Персона")]
 	[DesignationPlural("PersonLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Economist)] [AllowEditAttribute(Role.DataBaseFiller)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Economist)] [AllowEditAttribute(Infrastructure.Role.DataBaseFiller)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PersonLookupListView : ViewBase
     {
         public PersonLookupListView()
@@ -4451,7 +4447,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Расчет себестоимости оборудования (файл)")]
 	[DesignationPlural("PriceCalculationFileLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceCalculationFileLookupListView : ViewBase
     {
         public PriceCalculationFileLookupListView()
@@ -4511,7 +4507,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Элемент истории расчета ПЗ")]
 	[DesignationPlural("PriceCalculationHistoryItemLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceCalculationHistoryItemLookupListView : ViewBase
     {
         public PriceCalculationHistoryItemLookupListView()
@@ -4583,7 +4579,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица расчета себестоимости оборудования")]
 	[DesignationPlural("PriceCalculationItemLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceCalculationItemLookupListView : ViewBase
     {
         public PriceCalculationItemLookupListView()
@@ -4727,7 +4723,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Расчет себестоимости оборудования")]
 	[DesignationPlural("PriceCalculationLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceCalculationLookupListView : ViewBase
     {
         public PriceCalculationLookupListView()
@@ -4877,7 +4873,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка (файл ответа ОГК)")]
 	[DesignationPlural("PriceEngineeringTaskFileAnswerLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTaskFileAnswerLookupListView : ViewBase
     {
         public PriceEngineeringTaskFileAnswerLookupListView()
@@ -4949,7 +4945,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка (файл технического задания)")]
 	[DesignationPlural("PriceEngineeringTaskFileTechnicalRequirementsLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTaskFileTechnicalRequirementsLookupListView : ViewBase
     {
         public PriceEngineeringTaskFileTechnicalRequirementsLookupListView()
@@ -5012,334 +5008,10 @@ namespace HVTApp.UI.Views
 		#endregion
     }
 
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTaskListItemBackManager")]
-	//[DesignationPlural("PriceEngineeringTaskListItemBackManager")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTaskListItemBackManagerListView : ViewBase
- //   {
- //       public PriceEngineeringTaskListItemBackManagerListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTaskListItemBackManagerListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskListItemBackManagerListViewModel PriceEngineeringTaskListItemBackManagerListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTaskListItemBackManagerListViewModel;
-	//		PriceEngineeringTaskListItemBackManagerListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTaskListItemBackManagerListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.StatusString)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.ToShow)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.Entity)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManager.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTaskListItemBackManagerBoss")]
-	//[DesignationPlural("PriceEngineeringTaskListItemBackManagerBoss")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTaskListItemBackManagerBossListView : ViewBase
- //   {
- //       public PriceEngineeringTaskListItemBackManagerBossListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTaskListItemBackManagerBossListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskListItemBackManagerBossListViewModel PriceEngineeringTaskListItemBackManagerBossListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTaskListItemBackManagerBossListViewModel;
-	//		PriceEngineeringTaskListItemBackManagerBossListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTaskListItemBackManagerBossListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.ToShow)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.StatusString)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.Entity)].Visibility; }
- //           set { PriceEngineeringTaskListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemBackManagerBoss.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTaskListItemConstructor")]
-	//[DesignationPlural("PriceEngineeringTaskListItemConstructor")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTaskListItemConstructorListView : ViewBase
- //   {
- //       public PriceEngineeringTaskListItemConstructorListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTaskListItemConstructorListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskListItemConstructorListViewModel PriceEngineeringTaskListItemConstructorListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTaskListItemConstructorListViewModel;
-	//		PriceEngineeringTaskListItemConstructorListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTaskListItemConstructorListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.ToShow)].Visibility; }
- //           set { PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.StatusString)].Visibility; }
- //           set { PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.Entity)].Visibility; }
- //           set { PriceEngineeringTaskListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemConstructor.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTaskListItemDesignDepartmentHead")]
-	//[DesignationPlural("PriceEngineeringTaskListItemDesignDepartmentHead")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTaskListItemDesignDepartmentHeadListView : ViewBase
- //   {
- //       public PriceEngineeringTaskListItemDesignDepartmentHeadListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTaskListItemDesignDepartmentHeadListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskListItemDesignDepartmentHeadListViewModel PriceEngineeringTaskListItemDesignDepartmentHeadListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTaskListItemDesignDepartmentHeadListViewModel;
-	//		PriceEngineeringTaskListItemDesignDepartmentHeadListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTaskListItemDesignDepartmentHeadListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.StatusString)].Visibility; }
- //           set { PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.ToShow)].Visibility; }
- //           set { PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.Entity)].Visibility; }
- //           set { PriceEngineeringTaskListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemDesignDepartmentHead.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTaskListItemPlanMaker")]
-	//[DesignationPlural("PriceEngineeringTaskListItemPlanMaker")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTaskListItemPlanMakerListView : ViewBase
- //   {
- //       public PriceEngineeringTaskListItemPlanMakerListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTaskListItemPlanMakerListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskListItemPlanMakerListViewModel PriceEngineeringTaskListItemPlanMakerListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTaskListItemPlanMakerListViewModel;
-	//		PriceEngineeringTaskListItemPlanMakerListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTaskListItemPlanMakerListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.ToShow)].Visibility; }
- //           set { PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.StatusString)].Visibility; }
- //           set { PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.Entity)].Visibility; }
- //           set { PriceEngineeringTaskListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemPlanMaker.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTaskListItemSalesManager")]
-	//[DesignationPlural("PriceEngineeringTaskListItemSalesManager")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTaskListItemSalesManagerListView : ViewBase
- //   {
- //       public PriceEngineeringTaskListItemSalesManagerListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTaskListItemSalesManagerListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTaskListItemSalesManagerListViewModel PriceEngineeringTaskListItemSalesManagerListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTaskListItemSalesManagerListViewModel;
-	//		PriceEngineeringTaskListItemSalesManagerListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTaskListItemSalesManagerListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.StatusString)].Visibility; }
- //           set { PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.ToShow)].Visibility; }
- //           set { PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.Entity)].Visibility; }
- //           set { PriceEngineeringTaskListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskListItemSalesManager.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка")]
 	[DesignationPlural("PriceEngineeringTaskLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTaskLookupListView : ViewBase
     {
         public PriceEngineeringTaskLookupListView()
@@ -5621,7 +5293,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка (сообщение)")]
 	[DesignationPlural("PriceEngineeringTaskMessageLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTaskMessageLookupListView : ViewBase
     {
         public PriceEngineeringTaskMessageLookupListView()
@@ -5687,7 +5359,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка (добавленный блок)")]
 	[DesignationPlural("PriceEngineeringTaskProductBlockAddedLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTaskProductBlockAddedLookupListView : ViewBase
     {
         public PriceEngineeringTaskProductBlockAddedLookupListView()
@@ -5771,7 +5443,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка (файл группы технических заданий)")]
 	[DesignationPlural("PriceEngineeringTasksFileTechnicalRequirementsLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTasksFileTechnicalRequirementsLookupListView : ViewBase
     {
         public PriceEngineeringTasksFileTechnicalRequirementsLookupListView()
@@ -5840,874 +5512,10 @@ namespace HVTApp.UI.Views
 		#endregion
     }
 
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTasksListItemBackManager")]
-	//[DesignationPlural("PriceEngineeringTasksListItemBackManager")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTasksListItemBackManagerListView : ViewBase
- //   {
- //       public PriceEngineeringTasksListItemBackManagerListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTasksListItemBackManagerListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTasksListItemBackManagerListViewModel PriceEngineeringTasksListItemBackManagerListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTasksListItemBackManagerListViewModel;
-	//		PriceEngineeringTasksListItemBackManagerListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTasksListItemBackManagerListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowFiltVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ToShowFilt)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ToShowFilt)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TermPriorityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.TermPriority)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.TermPriority)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility FacilitiesVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Facilities)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Facilities)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility OrdersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Orders)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Orders)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ProductBlocksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ProductBlocks)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ProductBlocks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility UsersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Users)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Users)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.StatusString)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility NumbersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Numbers)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Numbers)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ToShow)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TceNumberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.TceNumber)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.TceNumber)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility WorkUpToVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.WorkUpTo)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.WorkUpTo)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility CommentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Comment)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Comment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility IsAcceptedVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.IsAccepted)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.IsAccepted)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StartMomentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.StartMoment)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.StartMoment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.BackManagerString)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.BackManagerString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.BackManager)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.BackManager)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ChildPriceEngineeringTasksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ChildPriceEngineeringTasks)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.ChildPriceEngineeringTasks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Entity)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManager.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTasksListItemBackManagerBoss")]
-	//[DesignationPlural("PriceEngineeringTasksListItemBackManagerBoss")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTasksListItemBackManagerBossListView : ViewBase
- //   {
- //       public PriceEngineeringTasksListItemBackManagerBossListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTasksListItemBackManagerBossListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTasksListItemBackManagerBossListViewModel PriceEngineeringTasksListItemBackManagerBossListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTasksListItemBackManagerBossListViewModel;
-	//		PriceEngineeringTasksListItemBackManagerBossListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTasksListItemBackManagerBossListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ToShow)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowFiltVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ToShowFilt)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ToShowFilt)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TermPriorityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.TermPriority)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.TermPriority)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility FacilitiesVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Facilities)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Facilities)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility OrdersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Orders)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Orders)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ProductBlocksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ProductBlocks)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ProductBlocks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility UsersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Users)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Users)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.StatusString)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility NumbersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Numbers)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Numbers)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TceNumberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.TceNumber)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.TceNumber)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility WorkUpToVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.WorkUpTo)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.WorkUpTo)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility CommentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Comment)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Comment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility IsAcceptedVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.IsAccepted)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.IsAccepted)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StartMomentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.StartMoment)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.StartMoment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.BackManagerString)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.BackManagerString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.BackManager)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.BackManager)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ChildPriceEngineeringTasksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ChildPriceEngineeringTasks)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.ChildPriceEngineeringTasks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Entity)].Visibility; }
- //           set { PriceEngineeringTasksListItemBackManagerBossListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemBackManagerBoss.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTasksListItemConstructor")]
-	//[DesignationPlural("PriceEngineeringTasksListItemConstructor")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTasksListItemConstructorListView : ViewBase
- //   {
- //       public PriceEngineeringTasksListItemConstructorListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTasksListItemConstructorListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTasksListItemConstructorListViewModel PriceEngineeringTasksListItemConstructorListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTasksListItemConstructorListViewModel;
-	//		PriceEngineeringTasksListItemConstructorListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTasksListItemConstructorListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowFiltVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ToShowFilt)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ToShowFilt)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TermPriorityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.TermPriority)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.TermPriority)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility FacilitiesVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Facilities)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Facilities)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility OrdersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Orders)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Orders)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ProductBlocksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ProductBlocks)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ProductBlocks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility UsersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Users)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Users)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.StatusString)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility NumbersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Numbers)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Numbers)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ToShow)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TceNumberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.TceNumber)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.TceNumber)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility WorkUpToVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.WorkUpTo)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.WorkUpTo)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility CommentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Comment)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Comment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility IsAcceptedVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.IsAccepted)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.IsAccepted)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StartMomentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.StartMoment)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.StartMoment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.BackManagerString)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.BackManagerString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.BackManager)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.BackManager)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ChildPriceEngineeringTasksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ChildPriceEngineeringTasks)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.ChildPriceEngineeringTasks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Entity)].Visibility; }
- //           set { PriceEngineeringTasksListItemConstructorListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemConstructor.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTasksListItemDesignDepartmentHead")]
-	//[DesignationPlural("PriceEngineeringTasksListItemDesignDepartmentHead")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTasksListItemDesignDepartmentHeadListView : ViewBase
- //   {
- //       public PriceEngineeringTasksListItemDesignDepartmentHeadListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTasksListItemDesignDepartmentHeadListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTasksListItemDesignDepartmentHeadListViewModel PriceEngineeringTasksListItemDesignDepartmentHeadListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTasksListItemDesignDepartmentHeadListViewModel;
-	//		PriceEngineeringTasksListItemDesignDepartmentHeadListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTasksListItemDesignDepartmentHeadListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowFiltVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ToShowFilt)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ToShowFilt)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TermPriorityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.TermPriority)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.TermPriority)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility FacilitiesVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Facilities)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Facilities)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility OrdersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Orders)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Orders)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ProductBlocksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ProductBlocks)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ProductBlocks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility UsersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Users)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Users)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.StatusString)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility NumbersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Numbers)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Numbers)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ToShow)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TceNumberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.TceNumber)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.TceNumber)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility WorkUpToVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.WorkUpTo)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.WorkUpTo)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility CommentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Comment)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Comment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility IsAcceptedVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.IsAccepted)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.IsAccepted)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StartMomentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.StartMoment)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.StartMoment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.BackManagerString)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.BackManagerString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.BackManager)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.BackManager)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ChildPriceEngineeringTasksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ChildPriceEngineeringTasks)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.ChildPriceEngineeringTasks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Entity)].Visibility; }
- //           set { PriceEngineeringTasksListItemDesignDepartmentHeadListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemDesignDepartmentHead.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTasksListItemPlanMaker")]
-	//[DesignationPlural("PriceEngineeringTasksListItemPlanMaker")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTasksListItemPlanMakerListView : ViewBase
- //   {
- //       public PriceEngineeringTasksListItemPlanMakerListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTasksListItemPlanMakerListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTasksListItemPlanMakerListViewModel PriceEngineeringTasksListItemPlanMakerListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTasksListItemPlanMakerListViewModel;
-	//		PriceEngineeringTasksListItemPlanMakerListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTasksListItemPlanMakerListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ToShow)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowFiltVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ToShowFilt)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ToShowFilt)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TermPriorityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.TermPriority)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.TermPriority)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility FacilitiesVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Facilities)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Facilities)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility OrdersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Orders)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Orders)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ProductBlocksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ProductBlocks)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ProductBlocks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility UsersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Users)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Users)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.StatusString)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility NumbersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Numbers)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Numbers)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TceNumberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.TceNumber)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.TceNumber)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility WorkUpToVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.WorkUpTo)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.WorkUpTo)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility CommentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Comment)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Comment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility IsAcceptedVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.IsAccepted)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.IsAccepted)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StartMomentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.StartMoment)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.StartMoment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.BackManagerString)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.BackManagerString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.BackManager)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.BackManager)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ChildPriceEngineeringTasksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ChildPriceEngineeringTasks)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.ChildPriceEngineeringTasks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Entity)].Visibility; }
- //           set { PriceEngineeringTasksListItemPlanMakerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemPlanMaker.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
- //   [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	//[Designation("PriceEngineeringTasksListItemSalesManager")]
-	//[DesignationPlural("PriceEngineeringTasksListItemSalesManager")]
-	//[AllowEditAttribute(Role.Admin)]
- //   public partial class PriceEngineeringTasksListItemSalesManagerListView : ViewBase
- //   {
- //       public PriceEngineeringTasksListItemSalesManagerListView()
- //       {
- //           InitializeComponent();
- //       }
-
- //       public PriceEngineeringTasksListItemSalesManagerListView(IRegionManager regionManager, IEventAggregator eventAggregator, PriceEngineeringTasksListItemSalesManagerListViewModel PriceEngineeringTasksListItemSalesManagerListViewModel) : base(regionManager, eventAggregator)
- //       {
- //           InitializeComponent();
- //           DataContext = PriceEngineeringTasksListItemSalesManagerListViewModel;
-	//		PriceEngineeringTasksListItemSalesManagerListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
- //           Loaded += OnLoaded;
- //       }
-		        
- //       private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
- //       {
-	//		((PriceEngineeringTasksListItemSalesManagerListViewModel)DataContext).Load();
- //       }
-
-	//	#region VisibilityProps
-
- //       public System.Windows.Visibility ToShowFiltVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ToShowFilt)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ToShowFilt)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TermPriorityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.TermPriority)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.TermPriority)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility FacilitiesVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Facilities)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Facilities)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility OrdersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Orders)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Orders)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ProductBlocksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ProductBlocks)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ProductBlocks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility UsersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Users)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Users)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StatusStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.StatusString)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.StatusString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility NumbersVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Numbers)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Numbers)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ToShowVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ToShow)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ToShow)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility TceNumberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.TceNumber)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.TceNumber)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility WorkUpToVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.WorkUpTo)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.WorkUpTo)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility CommentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Comment)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Comment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility IsAcceptedVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.IsAccepted)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.IsAccepted)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility StartMomentVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.StartMoment)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.StartMoment)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerStringVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.BackManagerString)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.BackManagerString)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility DisplayMemberVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.DisplayMember)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.DisplayMember)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility BackManagerVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.BackManager)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.BackManager)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility ChildPriceEngineeringTasksVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ChildPriceEngineeringTasks)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.ChildPriceEngineeringTasks)].Visibility = value; }
- //       }
-
- //       public System.Windows.Visibility EntityVisibility
- //       {
- //           get { return PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Entity)].Visibility; }
- //           set { PriceEngineeringTasksListItemSalesManagerListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTasksListItemSalesManager.Entity)].Visibility = value; }
- //       }
-
-
-	//	#endregion
- //   }
-
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка (группа)")]
 	[DesignationPlural("PriceEngineeringTasksLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTasksLookupListView : ViewBase
     {
         public PriceEngineeringTasksLookupListView()
@@ -6845,7 +5653,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("PriceEngineeringTaskStatus")]
 	[DesignationPlural("PriceEngineeringTaskStatusLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class PriceEngineeringTaskStatusLookupListView : ViewBase
     {
         public PriceEngineeringTaskStatusLookupListView()
@@ -6911,7 +5719,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Блок")]
 	[DesignationPlural("ProductBlockLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductBlockLookupListView : ViewBase
     {
         public ProductBlockLookupListView()
@@ -7067,7 +5875,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Категория продукта")]
 	[DesignationPlural("ProductCategoryLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductCategoryLookupListView : ViewBase
     {
         public ProductCategoryLookupListView()
@@ -7127,7 +5935,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Стоимость и ПЗ категории продукта")]
 	[DesignationPlural("ProductCategoryPriceAndCostLookup")]
-	[AllowEditAttribute(Role.Director)] [AllowEditAttribute(Role.ReportMaker)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Director)] [AllowEditAttribute(Infrastructure.Role.ReportMaker)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductCategoryPriceAndCostLookupListView : ViewBase
     {
         public ProductCategoryPriceAndCostLookupListView()
@@ -7193,7 +6001,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Зависимое оборудование")]
 	[DesignationPlural("ProductDependentLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductDependentLookupListView : ViewBase
     {
         public ProductDependentLookupListView()
@@ -7253,7 +6061,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Обозначение продукта")]
 	[DesignationPlural("ProductDesignationLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductDesignationLookupListView : ViewBase
     {
         public ProductDesignationLookupListView()
@@ -7313,7 +6121,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Включенное в стоимость оборудование")]
 	[DesignationPlural("ProductIncludedLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductIncludedLookupListView : ViewBase
     {
         public ProductIncludedLookupListView()
@@ -7385,7 +6193,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Продукт")]
 	[DesignationPlural("ProductLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductLookupListView : ViewBase
     {
         public ProductLookupListView()
@@ -7475,7 +6283,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Связи продуктов")]
 	[DesignationPlural("ProductRelationLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductRelationLookupListView : ViewBase
     {
         public ProductRelationLookupListView()
@@ -7559,7 +6367,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Обозначение типа продукта")]
 	[DesignationPlural("ProductTypeDesignationLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductTypeDesignationLookupListView : ViewBase
     {
         public ProductTypeDesignationLookupListView()
@@ -7613,7 +6421,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип продукта")]
 	[DesignationPlural("ProductTypeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProductTypeLookupListView : ViewBase
     {
         public ProductTypeLookupListView()
@@ -7661,7 +6469,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Проект")]
 	[DesignationPlural("ProjectLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProjectLookupListView : ViewBase
     {
         public ProjectLookupListView()
@@ -7811,7 +6619,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип проекта")]
 	[DesignationPlural("ProjectTypeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ProjectTypeLookupListView : ViewBase
     {
         public ProjectTypeLookupListView()
@@ -7859,7 +6667,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регион")]
 	[DesignationPlural("RegionLookup")]
-	[AllowEditAttribute(Role.SalesManager)] [AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class RegionLookupListView : ViewBase
     {
         public RegionLookupListView()
@@ -7913,7 +6721,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица продаж")]
 	[DesignationPlural("SalesUnitLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class SalesUnitLookupListView : ViewBase
     {
         public SalesUnitLookupListView()
@@ -8399,7 +7207,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Файл расчета транспортных затрат")]
 	[DesignationPlural("ShippingCostFileLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class ShippingCostFileLookupListView : ViewBase
     {
         public ShippingCostFileLookupListView()
@@ -8453,7 +7261,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Спецификация")]
 	[DesignationPlural("SpecificationLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class SpecificationLookupListView : ViewBase
     {
         public SpecificationLookupListView()
@@ -8537,7 +7345,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Стандартный маржинальный доход")]
 	[DesignationPlural("StandartMarginalIncomeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class StandartMarginalIncomeLookupListView : ViewBase
     {
         public StandartMarginalIncomeLookupListView()
@@ -8591,7 +7399,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Стандартный срок производства")]
 	[DesignationPlural("StandartProductionTermLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class StandartProductionTermLookupListView : ViewBase
     {
         public StandartProductionTermLookupListView()
@@ -8645,7 +7453,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Стракчакост")]
 	[DesignationPlural("StructureCostLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class StructureCostLookupListView : ViewBase
     {
         public StructureCostLookupListView()
@@ -8747,7 +7555,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Технико-стоимостная проработка - версия стракчакоста")]
 	[DesignationPlural("StructureCostVersionLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class StructureCostVersionLookupListView : ViewBase
     {
         public StructureCostVersionLookupListView()
@@ -8813,7 +7621,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сумма (фэйк)")]
 	[DesignationPlural("SumLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class SumLookupListView : ViewBase
     {
         public SumLookupListView()
@@ -8873,7 +7681,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сумма на дату")]
 	[DesignationPlural("SumOnDateLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class SumOnDateLookupListView : ViewBase
     {
         public SumOnDateLookupListView()
@@ -8927,7 +7735,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Шеф-монтаж")]
 	[DesignationPlural("SupervisionLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class SupervisionLookupListView : ViewBase
     {
         public SupervisionLookupListView()
@@ -9005,7 +7813,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тех.задание (файл)")]
 	[DesignationPlural("TechnicalRequrementsFileLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class TechnicalRequrementsFileLookupListView : ViewBase
     {
         public TechnicalRequrementsFileLookupListView()
@@ -9071,7 +7879,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тех.задание")]
 	[DesignationPlural("TechnicalRequrementsLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class TechnicalRequrementsLookupListView : ViewBase
     {
         public TechnicalRequrementsLookupListView()
@@ -9161,7 +7969,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Статус тех.задания (задача)")]
 	[DesignationPlural("TechnicalRequrementsTaskHistoryElementLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class TechnicalRequrementsTaskHistoryElementLookupListView : ViewBase
     {
         public TechnicalRequrementsTaskHistoryElementLookupListView()
@@ -9233,7 +8041,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тех.задание (задача)")]
 	[DesignationPlural("TechnicalRequrementsTaskLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class TechnicalRequrementsTaskLookupListView : ViewBase
     {
         public TechnicalRequrementsTaskLookupListView()
@@ -9431,7 +8239,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Конкурс")]
 	[DesignationPlural("TenderLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class TenderLookupListView : ViewBase
     {
         public TenderLookupListView()
@@ -9527,7 +8335,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип тендера")]
 	[DesignationPlural("TenderTypeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class TenderTypeLookupListView : ViewBase
     {
         public TenderTypeLookupListView()
@@ -9581,7 +8389,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Группа пользователей")]
 	[DesignationPlural("UserGroupLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class UserGroupLookupListView : ViewBase
     {
         public UserGroupLookupListView()
@@ -9635,7 +8443,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Пользователь")]
 	[DesignationPlural("UserLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class UserLookupListView : ViewBase
     {
         public UserLookupListView()
@@ -9713,7 +8521,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Роль пользователя")]
 	[DesignationPlural("UserRoleLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class UserRoleLookupListView : ViewBase
     {
         public UserRoleLookupListView()

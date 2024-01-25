@@ -3004,6 +3004,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\List\InvoiceForPaymentTaskLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\List\LaborHourCostLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
