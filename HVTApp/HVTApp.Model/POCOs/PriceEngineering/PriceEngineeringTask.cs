@@ -253,6 +253,9 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        /// <summary>
+        /// Задача была запущена на проработку и не остановлена в текущий момент
+        /// </summary>
         public bool IsStarted =>
             Status.Equals(ScriptStep.Stop) == false &&
             Status.Equals(ScriptStep.Create) == false &&
@@ -525,6 +528,9 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
+                if (Status.Value == ScriptStep.RejectByHead.Value) return true;
+                if (Status.Value == ScriptStep.RejectByConstructor.Value) return true;
+
                 var statuses = new List<ScriptStep>
                 {
                     ScriptStep.VerificationAcceptByHead,
@@ -536,7 +542,8 @@ namespace HVTApp.Model.POCOs
                     ScriptStep.ProductionRequestStop
                 };
 
-                return statuses.Contains(Status);
+                return statuses.Contains(Status) && 
+                       this.Statuses.Select(x => x.StatusEnum).Contains(ScriptStep.FinishByConstructor.Value);
             }
         }
 
@@ -550,10 +557,20 @@ namespace HVTApp.Model.POCOs
                 if (IsFinishedByDesignDepartment == false) return null;
 
                 return this.Statuses
-                    .Where(x => x.StatusEnum == ScriptStep.FinishByConstructor.Value)
+                    .Where(x => x.StatusEnum == ScriptStep.FinishByConstructor.Value || x.StatusEnum == ScriptStep.RejectByHead.Value || x.StatusEnum == ScriptStep.RejectByConstructor.Value)
                     .OrderBy(x => x.Moment)
                     .Last().Moment;
             }
+        }
+
+        public DateTime? GetDeadline(IUnitOfWork unitOfWork)
+        {
+            if (StartMoment.HasValue == false) return default;
+            
+            var deadline = this.GetPriceEngineeringTasks(unitOfWork).WorkUpTo;
+            return StartMoment.Value < deadline 
+                ? deadline 
+                : StartMoment.Value.AddDays(2);
         }
     }
 }

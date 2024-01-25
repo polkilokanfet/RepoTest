@@ -16,7 +16,7 @@ namespace HVTApp.Model.POCOs
         public DateTime ChiefEngineerReportMoment { get; set; }
 
         [Designation("Список рассылки отчёта ГК ВВА"), OrderStatus(8), Required]
-        public List<User> ChiefEngineerReportDistributionList { get; set; } = new List<User>();
+        public virtual List<User> ChiefEngineerReportDistributionList { get; set; } = new List<User>();
 
         #endregion
     }

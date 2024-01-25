@@ -423,6 +423,10 @@
       <Project>{6E34B770-759A-4BCE-9514-D43F7E1E1F4E}</Project>
       <Name>NotificationsService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NotificationsReportsService\NotificationsReportsService.csproj">
+      <Project>{B1580731-EB08-49EC-813E-EC828A142A59}</Project>
+      <Name>NotificationsReportsService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bender.ico" />
