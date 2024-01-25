@@ -121,7 +121,7 @@ namespace HVTApp.Model.POCOs
 
     public partial class PriceEngineeringTask
     {
-        [Designation("Статус"), NotMapped, NotForListView]
+        [Designation("Статус"), NotMapped, NotForListView, NotForDetailsView]
         public ScriptStep Status
         {
             get
@@ -221,7 +221,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Статусы этой задачи и всех вложенных
         /// </summary>
-        [Designation("Статусы этой задачи и всех вложенных"), NotMapped, NotForListView]
+        [Designation("Статусы этой задачи и всех вложенных"), NotMapped, NotForListView, NotForDetailsView]
         public IEnumerable<ScriptStep> StatusesAll
         {
             get

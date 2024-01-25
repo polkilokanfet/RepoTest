@@ -238,6 +238,18 @@ namespace HVTApp.UI
                 .Where(p => p.PropertyType.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
         }
 
+        public static IEnumerable<PropertyInfo> AllCollectionPropertiesForDetailsGeneration(this Type type)
+        {
+            foreach (var propertyInfo in AllCollectionProperties(type))
+            {
+                var attribute1 = propertyInfo.GetCustomAttribute<NotForDetailsViewAttribute>();
+                var attribute2 = propertyInfo.GetCustomAttribute<NotForWrapperAttribute>();
+                if (attribute1 == null && attribute2 == null) yield return propertyInfo;
+            }
+        }
+
+
+
         public static IEnumerable<PropertyInfo> AllCollectionPropertiesForLookupGenerator(this Type type)
         {
             foreach (var propertyInfo in AllCollectionProperties(type))
@@ -263,19 +275,24 @@ namespace HVTApp.UI
             //var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
             return GetProps(type).Except(type.AllSimpleProperties()).Except(type.AllCollectionProperties()).Except(type.SimpleProperties<double>()).Except(type.SimpleProperties<DateTime>());
         }
+
+        public static IEnumerable<PropertyInfo> AllComplexPropertiesForDetailsGeneration(this Type type)
+        {
+            foreach (var propertyInfo in AllComplexProperties(type))
+            {
+                var attribute1 = propertyInfo.GetCustomAttribute<NotForDetailsViewAttribute>();
+                var attribute2 = propertyInfo.GetCustomAttribute<NotForWrapperAttribute>();
+                if (attribute1 == null && attribute2 == null) yield return propertyInfo;
+            }
+        }
+
         public static IEnumerable<PropertyInfo> AllComplexPropertiesForLookupGeneration(this Type type)
         {
-            var propertyInfos = GetProps(type)
-                .Except(type.AllSimpleProperties())
-                .Except(type.AllCollectionPropertiesForLookupGenerator())
-                .Except(type.SimpleProperties<double>())
-                .Except(type.SimpleProperties<DateTime>());
-            foreach (var propertyInfo in propertyInfos)
+            foreach (var propertyInfo in AllComplexProperties(type))
             {
                 var a = propertyInfo.GetCustomAttribute<NotForListViewAttribute>();
                 if (a == null) yield return propertyInfo;
             }
-
         }
 
         public static IEnumerable<PropertyInfo> AllComplexProperties(this IEnumerable<PropertyInfo> propertyInfos)

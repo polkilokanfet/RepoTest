@@ -146,7 +146,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Банковские гарантии")]
         public virtual List<BankGuarantee> BankGuarantees { get; set; } = new List<BankGuarantee>();
 
-        [NotForWrapper]
+        [NotForWrapper, NotForDetailsView]
         public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 
 
