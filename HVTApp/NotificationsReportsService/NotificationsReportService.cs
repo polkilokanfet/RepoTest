@@ -6,6 +6,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 
 namespace NotificationsReportsService
 {
@@ -22,10 +23,11 @@ namespace NotificationsReportsService
 
         private bool CanStart(NotificationsReportsSettings settings, DateTime now)
         {
-            if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday || DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+            if (settings == null)
                 return false;
 
-            if (settings == null || settings.ChiefEngineerReportDistributionList.Any() == false)
+            if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday || 
+                DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
                 return false;
 
             if (settings.ChiefEngineerReportMoment.AddDays(1) > now)
@@ -41,18 +43,14 @@ namespace NotificationsReportsService
             if (CanStart(settings, now) == false) return;
 
             Task.Run(
-                () =>
-                {
-                    var subject = $"[Отчёт из УП ВВА] Отчёт для ОГК НВВА ({settings.ChiefEngineerReportMoment} - {now})";
-                    var chiefEngineerReport = new ChiefEngineerReport(_unitOfWork, settings.ChiefEngineerReportMoment, now).GetReport();
-                    if (string.IsNullOrWhiteSpace(chiefEngineerReport)) return;
-                    foreach (var user in settings.ChiefEngineerReportDistributionList)
+                    () =>
                     {
-                        var email = user.Employee.Email;
-                        if (string.IsNullOrWhiteSpace(email)) continue;
-                        Task.Run(() => _emailService.SendMail(email, subject, chiefEngineerReport)).Await();
-                    }
-                }).Await(
+                        if (settings != null && settings.ChiefEngineerReportDistributionList.Any())
+                            this.GetAndSendChiefEngineerReport(settings, now);
+
+                        this.GetAndSendDeadlineReports(now);
+                    })
+                .Await(
                 () =>
                 {
                     settings.ChiefEngineerReportMoment = now;
@@ -63,6 +61,41 @@ namespace NotificationsReportsService
                 {
                     _unitOfWork.Dispose();
                 });
+        }
+
+        private void GetAndSendChiefEngineerReport(NotificationsReportsSettings settings, DateTime now)
+        {
+            var subject = $"[Отчёт из УП ВВА] Отчёт для ОГК НВВА ({settings.ChiefEngineerReportMoment} - {now})";
+            var chiefEngineerReport =
+                new ChiefEngineerReport(_unitOfWork, settings.ChiefEngineerReportMoment, now).GetReport();
+            if (string.IsNullOrWhiteSpace(chiefEngineerReport)) return;
+            foreach (var user in settings.ChiefEngineerReportDistributionList)
+            {
+                var email = user.Employee.Email;
+                if (string.IsNullOrWhiteSpace(email)) continue;
+                Task.Run(() => _emailService.SendMail(email, subject, chiefEngineerReport)).Await();
+            }
+        }
+
+        private void GetAndSendDeadlineReports(DateTime moment)
+        {
+            var tasks = _unitOfWork.Repository<PriceEngineeringTask>().Find(task =>
+                task.UserConstructor != null &&
+                task.IsStarted &&
+                task.IsFinishedByConstructor == false &&
+                task.GetDeadline(_unitOfWork).Value < moment &&
+                task.GetTopPriceEngineeringTask(_unitOfWork).SalesUnits.Any());
+
+            foreach (var task in tasks)
+            {
+                var email = task.UserConstructor.Employee.Email;
+                if (string.IsNullOrWhiteSpace(email)) continue;
+                Task.Run(() =>
+                {
+                    _emailService.SendMail(email, "[Уведомление из УП ВВА] Истек срок проработки блока ТСП", DeadlineReport.GetReport(_unitOfWork, task));
+                    _emailService.SendMail("kosolapov_ag@uetm.ru", "[Уведомление из УП ВВА] Истек срок проработки блока ТСП", DeadlineReport.GetReport(_unitOfWork, task));
+                }).Await();
+            }
         }
     }
 }

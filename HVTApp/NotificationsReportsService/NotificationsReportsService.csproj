@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChiefEngineerReport.cs" />
+    <Compile Include="DeadlineReport.cs" />
     <Compile Include="NotificationsReportService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

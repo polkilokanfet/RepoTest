@@ -57,7 +57,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             var sender = UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id);
 
             DetailsViewModel.Item.Project = new ProjectWrapper(project);
-            DetailsViewModel.Item.ValidityDate = DateTime.Today.AddMonths(2);
+            DetailsViewModel.Item.ValidityDate = DateTime.Today.AddMonths(1);
             DetailsViewModel.Item.Author = new EmployeeWrapper(author);
             DetailsViewModel.Item.SenderEmployee = new EmployeeWrapper(sender);
 

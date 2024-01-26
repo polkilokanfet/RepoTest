@@ -92,36 +92,15 @@ namespace NotificationsService
 
         private string GetEmailMessage(NotificationAboutPriceEngineeringTaskEventArg notification)
         {
-            var task = notification.PriceEngineeringTask;
-            var tasks = task.GetPriceEngineeringTasks(_unitOfWork);
-            var taskTop = task.GetTopPriceEngineeringTask(_unitOfWork);
-            var salesUnit = taskTop.SalesUnits.FirstOrDefault();
-
             var sb = new StringBuilder();
-            sb.AppendLine($"Номер сборки в УП ВВА: {tasks.NumberFull}");
-            sb.AppendLine($"Номер задачи в УП ВВА: {task.Number}");
-            sb.AppendLine($"Номер задачи в Team Center: {tasks.TceNumber}");
-            sb.AppendLine(string.Empty);
-
-            sb.AppendLine($"Проект: {salesUnit?.Project}");
-            sb.AppendLine($"Объект: {salesUnit?.Facility}");
-            sb.AppendLine($"Оборудование: {taskTop.ProductBlock};");
-            sb.AppendLine($"Блок оборудования: {task.ProductBlock}");
-            sb.AppendLine(string.Empty);
-
-            sb.AppendLine($"Бюро ОГК: {task.DesignDepartment}");
-            sb.AppendLine($"Исполнитель: {task.UserConstructor}");
-            sb.AppendLine($"Менеджер: {tasks.UserManager}");
-            sb.AppendLine($"Back-менеджер: {tasks.BackManager}");
+            sb.AppendLine(notification.PriceEngineeringTask.GetInformationForReport(_unitOfWork));
             sb.AppendLine(string.Empty);
             sb.AppendLine(string.Empty);
-
             sb.AppendLine($"Автор: {notification.SenderUser.Employee}");
             sb.AppendLine("Уведомление:");
             sb.AppendLine(notification.Message);
             return sb.ToString();
         }
-
 
         public void Dispose()
         {

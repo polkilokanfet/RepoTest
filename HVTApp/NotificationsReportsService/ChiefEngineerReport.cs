@@ -33,7 +33,7 @@ namespace NotificationsReportsService
             _tasksBad = unitOfWork.Repository<PriceEngineeringTask>().Find(task =>
                 task.DesignDepartment != null &&
                 task.IsStarted &&
-                task.IsFinishedByDesignDepartment == false && 
+                task.IsFinishedByDesignDepartment == false &&
                 task.GetDeadline(unitOfWork).Value < momentFinish &&
                 task.GetTopPriceEngineeringTask(unitOfWork).SalesUnits.Any());
         }

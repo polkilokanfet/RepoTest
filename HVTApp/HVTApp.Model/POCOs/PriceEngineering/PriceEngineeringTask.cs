@@ -158,6 +158,7 @@ namespace HVTApp.Model.POCOs
             {
                 var statuses = new List<ScriptStep>
                 {
+                    ScriptStep.RejectByConstructor,
                     ScriptStep.FinishByConstructor,
                     ScriptStep.VerificationRequestByConstructor,
                     ScriptStep.VerificationAcceptByHead,
@@ -571,6 +572,32 @@ namespace HVTApp.Model.POCOs
             return StartMoment.Value < deadline 
                 ? deadline 
                 : StartMoment.Value.AddDays(2);
+        }
+
+        public string GetInformationForReport(IUnitOfWork unitOfWork)
+        {
+            var tasks = this.GetPriceEngineeringTasks(unitOfWork);
+            var taskTop = this.GetTopPriceEngineeringTask(unitOfWork);
+            var salesUnit = taskTop.SalesUnits.FirstOrDefault();
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"Номер сборки в УП ВВА: {tasks.NumberFull}");
+            sb.AppendLine($"Номер задачи в УП ВВА: {this.Number}");
+            sb.AppendLine($"Номер задачи в Team Center: {tasks.TceNumber}");
+            sb.AppendLine(string.Empty);
+
+            sb.AppendLine($"Проект: {salesUnit?.Project}");
+            sb.AppendLine($"Объект: {salesUnit?.Facility}");
+            sb.AppendLine($"Оборудование: {taskTop.ProductBlock};");
+            sb.AppendLine($"Блок оборудования: {this.ProductBlock}");
+            sb.AppendLine(string.Empty);
+
+            sb.AppendLine($"Бюро ОГК: {this.DesignDepartment}");
+            sb.AppendLine($"Исполнитель: {this.UserConstructor}");
+            sb.AppendLine($"Менеджер: {tasks.UserManager}");
+            sb.AppendLine($"Back-менеджер: {tasks.BackManager}");
+
+            return sb.ToString();
         }
     }
 }

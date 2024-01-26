@@ -36,7 +36,7 @@ namespace HVTApp.Model.POCOs
         /// Проработать до
         /// </summary>
         [Designation("Проработать до"), Required, OrderStatus(1500)]
-        public DateTime WorkUpTo { get; set; } = DateTime.Today.AddDays(3);
+        public DateTime WorkUpTo { get; set; } = DateTime.Today.AddDays(3).SkipWeekend();
 
         [Designation("Комментарий"), OrderStatus(1400), MaxLength(1024)]
         public string Comment { get; set; }
