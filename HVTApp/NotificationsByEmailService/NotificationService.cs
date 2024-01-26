@@ -43,6 +43,7 @@ namespace NotificationsService
             Task.Run(
                 () =>
                 {
+                    //отправка уведомления только через приложение
                     notificationSentThroughApp = _sendNotificationThroughApp.SendNotification(notification);
                 }).Await(
                 () =>
@@ -82,11 +83,9 @@ namespace NotificationsService
             var recipientEmailAddress = notification.RecipientUser.Employee.Email;
             if(string.IsNullOrEmpty(recipientEmailAddress) == false)
             {
-                Task.Run(() =>
-                {
-                    var subject = $"[Уведомление из УП ВВА] ТСП на новом этапе: {notification.PriceEngineeringTask.Status.Description}";
-                    _emailService.SendMail(recipientEmailAddress, subject, GetEmailMessage(notification));
-                }).Await();
+                var subject = $"[Уведомление из УП ВВА] ТСП на новом этапе: {notification.PriceEngineeringTask.Status.Description}";
+                var message = GetEmailMessage(notification);
+                Task.Run(() =>  _emailService.SendMail(recipientEmailAddress, subject, message)).Await();
             }
         }
 

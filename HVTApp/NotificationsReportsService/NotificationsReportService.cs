@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
@@ -14,6 +15,8 @@ namespace NotificationsReportsService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailService _emailService;
+
+        private readonly List<LogUnit> _logUnits = new List<LogUnit>();
 
         public NotificationsReportService(IUnitOfWork unitOfWork, IEmailService emailService)
         {
@@ -53,12 +56,29 @@ namespace NotificationsReportsService
                 .Await(
                 () =>
                 {
+                    if (_logUnits.Any())
+                    {
+                        foreach (var logUnit in _logUnits)
+                        {
+                            _unitOfWork.SaveEntity(logUnit);
+                        }
+                    }
+
                     settings.ChiefEngineerReportMoment = now;
                     _unitOfWork.SaveChanges();
                     _unitOfWork.Dispose();
                 },
                 e =>
                 {
+                    if (_logUnits.Any())
+                    {
+                        foreach (var logUnit in _logUnits)
+                        {
+                            _unitOfWork.SaveEntity(logUnit);
+                        }
+
+                        _unitOfWork.SaveChanges();
+                    }
                     _unitOfWork.Dispose();
                 });
         }
@@ -66,14 +86,27 @@ namespace NotificationsReportsService
         private void GetAndSendChiefEngineerReport(NotificationsReportsSettings settings, DateTime now)
         {
             var subject = $"[Отчёт из УП ВВА] Отчёт для ОГК НВВА ({settings.ChiefEngineerReportMoment} - {now})";
-            var chiefEngineerReport =
+            var report =
                 new ChiefEngineerReport(_unitOfWork, settings.ChiefEngineerReportMoment, now).GetReport();
-            if (string.IsNullOrWhiteSpace(chiefEngineerReport)) return;
+            if (string.IsNullOrWhiteSpace(report)) return;
             foreach (var user in settings.ChiefEngineerReportDistributionList)
             {
                 var email = user.Employee.Email;
                 if (string.IsNullOrWhiteSpace(email)) continue;
-                Task.Run(() => _emailService.SendMail(email, subject, chiefEngineerReport)).Await();
+                try
+                {
+                    _emailService.SendMail(email, subject, report);
+                }
+                catch (Exception e)
+                {
+                    var logUnit = new LogUnit()
+                    {
+                        Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                        Head = $"GetAndSendChiefEngineerReport {email}",
+                        Message = e.PrintAllExceptions()
+                    };
+                    _logUnits.Add(logUnit);
+                }
             }
         }
 
@@ -81,6 +114,7 @@ namespace NotificationsReportsService
         {
             var tasks = _unitOfWork.Repository<PriceEngineeringTask>().Find(task =>
                 task.UserConstructor != null &&
+                task.UserConstructor.IsActual &&
                 task.IsStarted &&
                 task.IsFinishedByConstructor == false &&
                 task.GetDeadline(_unitOfWork).Value < moment &&
@@ -90,11 +124,22 @@ namespace NotificationsReportsService
             {
                 var email = task.UserConstructor.Employee.Email;
                 if (string.IsNullOrWhiteSpace(email)) continue;
-                Task.Run(() =>
+                var report = DeadlineReport.GetReport(_unitOfWork, task);
+
+                try
                 {
-                    _emailService.SendMail(email, "[Уведомление из УП ВВА] Истек срок проработки блока ТСП", DeadlineReport.GetReport(_unitOfWork, task));
-                    _emailService.SendMail("kosolapov_ag@uetm.ru", "[Уведомление из УП ВВА] Истек срок проработки блока ТСП", DeadlineReport.GetReport(_unitOfWork, task));
-                }).Await();
+                    _emailService.SendMail(email, "[Уведомление из УП ВВА] Истек срок проработки блока ТСП", report);
+                }
+                catch (Exception e)
+                {
+                    var logUnit = new LogUnit()
+                    {
+                        Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                        Head = $"GetAndSendDeadlineReports {email}",
+                        Message = e.PrintAllExceptions()
+                    };
+                    _logUnits.Add(logUnit);
+                }
             }
         }
     }
