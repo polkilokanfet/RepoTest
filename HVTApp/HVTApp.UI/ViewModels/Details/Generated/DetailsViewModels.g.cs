@@ -1642,12 +1642,33 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<User>> _getEntitiesForAddInSavePaymentDocumentDistributionListCommand;
+		public DelegateLogCommand AddInSavePaymentDocumentDistributionListCommand { get; }
+		public DelegateLogCommand RemoveFromSavePaymentDocumentDistributionListCommand { get; private set; }
+		private UserWrapper _selectedSavePaymentDocumentDistributionListItem;
+		public UserWrapper SelectedSavePaymentDocumentDistributionListItem 
+		{ 
+			get { return _selectedSavePaymentDocumentDistributionListItem; }
+			set 
+			{ 
+				if (Equals(_selectedSavePaymentDocumentDistributionListItem, value)) return;
+				_selectedSavePaymentDocumentDistributionListItem = value;
+				RaisePropertyChanged();
+				RemoveFromSavePaymentDocumentDistributionListCommand.RaiseCanExecuteChanged();
+			}
+		}
+
         public NotificationsReportsSettingsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForAddInChiefEngineerReportDistributionListCommand == null) _getEntitiesForAddInChiefEngineerReportDistributionListCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
 			if (AddInChiefEngineerReportDistributionListCommand == null) AddInChiefEngineerReportDistributionListCommand = new DelegateLogCommand(AddInChiefEngineerReportDistributionListCommand_Execute_Default);
 			if (RemoveFromChiefEngineerReportDistributionListCommand == null) RemoveFromChiefEngineerReportDistributionListCommand = new DelegateLogCommand(RemoveFromChiefEngineerReportDistributionListCommand_Execute_Default, RemoveFromChiefEngineerReportDistributionListCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInSavePaymentDocumentDistributionListCommand == null) _getEntitiesForAddInSavePaymentDocumentDistributionListCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
+			if (AddInSavePaymentDocumentDistributionListCommand == null) AddInSavePaymentDocumentDistributionListCommand = new DelegateLogCommand(AddInSavePaymentDocumentDistributionListCommand_Execute_Default);
+			if (RemoveFromSavePaymentDocumentDistributionListCommand == null) RemoveFromSavePaymentDocumentDistributionListCommand = new DelegateLogCommand(RemoveFromSavePaymentDocumentDistributionListCommand_Execute_Default, RemoveFromSavePaymentDocumentDistributionListCommand_CanExecute_Default);
 
 		}
 
@@ -1664,6 +1685,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromChiefEngineerReportDistributionListCommand_CanExecute_Default()
 			{
 				return SelectedChiefEngineerReportDistributionListItem != null;
+			}
+
+			private void AddInSavePaymentDocumentDistributionListCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<User, UserWrapper>(_getEntitiesForAddInSavePaymentDocumentDistributionListCommand(), Item.SavePaymentDocumentDistributionList);
+			}
+
+			private void RemoveFromSavePaymentDocumentDistributionListCommand_Execute_Default()
+			{
+				Item.SavePaymentDocumentDistributionList.Remove(SelectedSavePaymentDocumentDistributionListItem);
+			}
+
+			private bool RemoveFromSavePaymentDocumentDistributionListCommand_CanExecute_Default()
+			{
+				return SelectedSavePaymentDocumentDistributionListItem != null;
 			}
 
 

@@ -2668,6 +2668,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityChiefEngineerReportDistributionListNotificationsReportsSettings = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.NotificationsReportsSettings).GetProperty(nameof(HVTApp.Model.POCOs.NotificationsReportsSettings.SavePaymentDocumentDistributionList)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettings = Visibility.Collapsed;
+
 
         }
 
@@ -2685,6 +2689,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityChiefEngineerReportDistributionListNotificationsReportsSettingsProperty); }
             set { SetValue(VisibilityChiefEngineerReportDistributionListNotificationsReportsSettingsProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettingsProperty = DependencyProperty.Register("VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettings", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettings
+        {
+            get { return (Visibility) GetValue(VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettingsProperty); }
+            set { SetValue(VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettingsProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -9512,6 +9524,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityVatPaymentDocument = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.PaymentDocument).GetProperty(nameof(HVTApp.Model.POCOs.PaymentDocument.SumWithVat)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySumWithVatPaymentDocument = Visibility.Collapsed;
+
 
         }
 
@@ -9545,6 +9561,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityVatPaymentDocumentProperty); }
             set { SetValue(VisibilityVatPaymentDocumentProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySumWithVatPaymentDocumentProperty = DependencyProperty.Register("VisibilitySumWithVatPaymentDocument", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySumWithVatPaymentDocument
+        {
+            get { return (Visibility) GetValue(VisibilitySumWithVatPaymentDocumentProperty); }
+            set { SetValue(VisibilitySumWithVatPaymentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 	}

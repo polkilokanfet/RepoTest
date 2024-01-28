@@ -18,6 +18,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Список рассылки отчёта ГК ВВА"), OrderStatus(8), Required]
         public virtual List<User> ChiefEngineerReportDistributionList { get; set; } = new List<User>();
 
+        [Designation("Список рассылки уведомлений о платежах"), OrderStatus(7)]
+        public virtual List<User> SavePaymentDocumentDistributionList { get; set; } = new List<User>();
+
         #endregion
     }
 }

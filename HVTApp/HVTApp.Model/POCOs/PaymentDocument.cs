@@ -25,6 +25,12 @@ namespace HVTApp.Model.POCOs
         [Designation("НДС"), Required]
         public double Vat { get; set; } = GlobalAppProperties.Actual.Vat;
 
+        /// <summary>
+        /// Сумма с НДС
+        /// </summary>
+        [NotMapped]
+        public double SumWithVat => (1 + Vat/100) * Payments.Sum(paymentActual => paymentActual.Sum);
+
         public override string ToString()
         {
             return $"Платеж №{Number} от {Date.ToShortDateString()} г.";

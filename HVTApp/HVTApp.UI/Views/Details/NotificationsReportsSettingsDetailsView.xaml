@@ -26,6 +26,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Когда отправлен последний отчёт ГК ВВА" Visibility="{Binding VisibilityChiefEngineerReportMomentNotificationsReportsSettings, ElementName=Root}"/>
@@ -40,6 +41,14 @@
 										 AddItemCommand="{Binding AddInChiefEngineerReportDistributionListCommand}"
 										 RemoveItemCommand="{Binding RemoveFromChiefEngineerReportDistributionListCommand}"
 										 Visibility="{Binding VisibilityChiefEngineerReportDistributionListNotificationsReportsSettings, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Список рассылки уведомлений о платежах" Visibility="{Binding VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettings, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										 Items="{Binding Path=Item.SavePaymentDocumentDistributionList}"
+										 SelectedItem="{Binding SelectedSavePaymentDocumentDistributionListItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInSavePaymentDocumentDistributionListCommand}"
+										 RemoveItemCommand="{Binding RemoveFromSavePaymentDocumentDistributionListCommand}"
+										 Visibility="{Binding VisibilitySavePaymentDocumentDistributionListNotificationsReportsSettings, ElementName=Root}"/>
 
 
     </Grid>

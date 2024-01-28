@@ -2620,6 +2620,11 @@ namespace HVTApp.Model.Wrapper
         /// Список рассылки отчёта ГК ВВА
         /// </summary>
         public IValidatableChangeTrackingCollection<UserWrapper> ChiefEngineerReportDistributionList { get; private set; }
+
+        /// <summary>
+        /// Список рассылки уведомлений о платежах
+        /// </summary>
+        public IValidatableChangeTrackingCollection<UserWrapper> SavePaymentDocumentDistributionList { get; private set; }
         #endregion
 
         protected override void InitializeCollectionProperties()
@@ -2627,6 +2632,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.ChiefEngineerReportDistributionList == null) throw new ArgumentException("ChiefEngineerReportDistributionList cannot be null");
           ChiefEngineerReportDistributionList = new ValidatableChangeTrackingCollection<UserWrapper>(Model.ChiefEngineerReportDistributionList.Select(e => new UserWrapper(e)));
           RegisterCollection(ChiefEngineerReportDistributionList, Model.ChiefEngineerReportDistributionList);
+          if (Model.SavePaymentDocumentDistributionList == null) throw new ArgumentException("SavePaymentDocumentDistributionList cannot be null");
+          SavePaymentDocumentDistributionList = new ValidatableChangeTrackingCollection<UserWrapper>(Model.SavePaymentDocumentDistributionList.Select(e => new UserWrapper(e)));
+          RegisterCollection(SavePaymentDocumentDistributionList, Model.SavePaymentDocumentDistributionList);
         }
 	}
 
@@ -8815,6 +8823,11 @@ namespace HVTApp.Model.Wrapper
         /// Дата
         /// </summary>
         public System.DateTime Date => Model.Date; 
+
+        /// <summary>
+        /// SumWithVat
+        /// </summary>
+        public System.Double SumWithVat => Model.SumWithVat; 
         #endregion
 
         protected override void InitializeCollectionProperties()

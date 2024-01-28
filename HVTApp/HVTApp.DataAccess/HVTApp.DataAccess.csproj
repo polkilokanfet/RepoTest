@@ -475,6 +475,10 @@
     <Compile Include="Migrations\202401241143307_NotificationsReportsSettings.designer.cs">
       <DependentUpon>202401241143307_NotificationsReportsSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401281801319_SavePaymentDocumentDistributionList.cs" />
+    <Compile Include="Migrations\202401281801319_SavePaymentDocumentDistributionList.designer.cs">
+      <DependentUpon>202401281801319_SavePaymentDocumentDistributionList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -780,6 +784,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202401241143307_NotificationsReportsSettings.resx">
       <DependentUpon>202401241143307_NotificationsReportsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401281801319_SavePaymentDocumentDistributionList.resx">
+      <DependentUpon>202401281801319_SavePaymentDocumentDistributionList.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

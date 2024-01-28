@@ -5,6 +5,7 @@ namespace HVTApp.DataAccess
         public NotificationsReportsSettingsConfiguration()
         {
             HasMany(settings => settings.ChiefEngineerReportDistributionList).WithMany();
+            HasMany(settings => settings.SavePaymentDocumentDistributionList).WithMany();
         }
     }
 }

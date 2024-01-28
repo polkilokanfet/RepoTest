@@ -154,7 +154,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             //var entity = new ActualPaymentEventEntity(this.Item.Model, units);
 
             base.SaveItem();
-            //EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(this.Item.Model);
+            EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(this.Item.Model);
 
 
             //EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(entity);
