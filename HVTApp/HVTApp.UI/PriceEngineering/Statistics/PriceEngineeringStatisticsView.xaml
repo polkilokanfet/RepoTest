@@ -28,13 +28,18 @@
         <dp:XamDataGrid.FieldLayouts>
             <dp:FieldLayout>
                 <dp:FieldLayout.Fields>
-                    <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.StartMoment}" Label="Старт" Width="Auto" AllowResize="False" />
+                    
+                    <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.StartMoment}" Label="Старт ОП" Width="Auto" AllowResize="False" />
+                    <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding DeadLine}" Label="Deadline" Width="Auto" AllowResize="False" />
+                    <dp:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.IsFinishedByDesignDepartment}" Label="IsFinishedByDesignDepartment" Width="Auto" AllowResize="True" />
+                    <dp:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.MomentFinishByDesignDepartment}" Label="Финиш КБ" Width="Auto" AllowResize="False" />
+                    <dp:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding DaysOverDeadLine}" Label="DaysOverDeadLine" Width="Auto" AllowResize="True" />
                     <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Facility}" Label="Объект" Width="200" AllowResize="True" />
-                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.ProductBlock}" Label="Блок" Width="200" AllowResize="True" />
-                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.Status}" Label="Статус" Width="200" AllowResize="True" />
-                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.DesignDepartment}" Label="КБ" Width="200" AllowResize="True" />
-                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.DesignDepartment.Head}" Label="Руководитель КБ" Width="200" AllowResize="True" />
-                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.UserConstructor}" Label="Исполнитель" Width="200" AllowResize="True" />
+                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.ProductBlock}" Label="Блок" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.Status}" Label="Статус" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.DesignDepartment}" Label="КБ" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.DesignDepartment.Head.Employee.Person}" Label="Руководитель КБ" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding PriceEngineeringTask.UserConstructor}" Label="Исполнитель" Width="200" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                     <dp:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding TotalProcessingTimeDesignDepartment}" Label="Время проработки ОГК (дн.)" Width="Auto" AllowResize="True" />
                     <!--<dataPresenter:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" />
                     <dataPresenter:TextField Name="Comment" Label="Комментарий" Width="250" AllowResize="True" />

@@ -152,6 +152,9 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        /// <summary>
+        /// Проработка задачи завершена исполнителем
+        /// </summary>
         public bool IsFinishedByConstructor
         {
             get
@@ -521,6 +524,20 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        /// <summary>
+        /// Статусы свидетельствующие о том, что задача проработана ОГК
+        /// </summary>
+        private static readonly List<ScriptStep> StatusesFinishedByDesignDepartment = new List<ScriptStep>
+        {
+            ScriptStep.FinishByConstructor,
+            ScriptStep.VerificationAcceptByHead,
+            ScriptStep.Accept,
+            ScriptStep.LoadToTceStart,
+            ScriptStep.LoadToTceFinish,
+            ScriptStep.ProductionRequestStart,
+            ScriptStep.ProductionRequestFinish,
+            ScriptStep.ProductionRequestStop
+        };
 
         /// <summary>
         /// Проработано КБ ОГК и не остановлено менеджером
@@ -532,19 +549,8 @@ namespace HVTApp.Model.POCOs
                 if (Status.Value == ScriptStep.RejectByHead.Value) return true;
                 if (Status.Value == ScriptStep.RejectByConstructor.Value) return true;
 
-                var statuses = new List<ScriptStep>
-                {
-                    ScriptStep.VerificationAcceptByHead,
-                    ScriptStep.Accept,
-                    ScriptStep.LoadToTceStart,
-                    ScriptStep.LoadToTceFinish,
-                    ScriptStep.ProductionRequestStart,
-                    ScriptStep.ProductionRequestFinish,
-                    ScriptStep.ProductionRequestStop
-                };
-
-                return statuses.Contains(Status) && 
-                       this.Statuses.Select(x => x.StatusEnum).Contains(ScriptStep.FinishByConstructor.Value);
+                return StatusesFinishedByDesignDepartment.Contains(Status) && 
+                       this.Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.FinishByConstructor.Value);
             }
         }
 
@@ -556,10 +562,14 @@ namespace HVTApp.Model.POCOs
             get
             {
                 if (IsFinishedByDesignDepartment == false) return null;
-
+                
                 return this.Statuses
-                    .Where(x => x.StatusEnum == ScriptStep.FinishByConstructor.Value || x.StatusEnum == ScriptStep.RejectByHead.Value || x.StatusEnum == ScriptStep.RejectByConstructor.Value)
-                    .OrderBy(x => x.Moment)
+                    .Where(status => 
+                        status.StatusEnum == ScriptStep.FinishByConstructor.Value ||
+                        status.StatusEnum == ScriptStep.VerificationAcceptByHead.Value ||
+                        status.StatusEnum == ScriptStep.RejectByHead.Value ||
+                        status.StatusEnum == ScriptStep.RejectByConstructor.Value)
+                    .OrderBy(status => status.Moment)
                     .Last().Moment;
             }
         }

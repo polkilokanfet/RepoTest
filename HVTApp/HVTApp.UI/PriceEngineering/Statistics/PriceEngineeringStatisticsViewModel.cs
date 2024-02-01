@@ -21,11 +21,12 @@ namespace HVTApp.UI.PriceEngineering.Statistics
         public PriceEngineeringStatisticsItem SelectedItem { get; set; }
 
         public ICommandRaiseCanExecuteChanged OpenCommand { get; }
+
         public PriceEngineeringStatisticsViewModel(IUnityContainer container) : base(container)
         {
             Items = this.UnitOfWork.Repository<PriceEngineeringTask>()
                 .GetAll()
-                .Select(priceEngineeringTask => new PriceEngineeringStatisticsItem(priceEngineeringTask, GetFacility(priceEngineeringTask)))
+                .Select(priceEngineeringTask => new PriceEngineeringStatisticsItem(priceEngineeringTask, GetFacility(priceEngineeringTask), priceEngineeringTask.GetDeadline(UnitOfWork)))
                 .OrderBy(item => item.PriceEngineeringTask.StartMoment);
 
             if (GlobalAppProperties.UserIsDesignDepartmentHead)
@@ -47,7 +48,24 @@ namespace HVTApp.UI.PriceEngineering.Statistics
         {
             public PriceEngineeringTask PriceEngineeringTask { get; }
             public string Facility { get; }
+            public DateTime? DeadLine { get; }
 
+            public double? DaysOverDeadLine
+            {
+                get
+                {
+                    if (DeadLine.HasValue == false) return null;
+
+                    if (PriceEngineeringTask.MomentFinishByDesignDepartment.HasValue)
+                        return (PriceEngineeringTask.MomentFinishByDesignDepartment.Value - DeadLine.Value).TotalDays;
+
+                    return (DateTime.Now - DeadLine.Value).TotalDays;
+                }
+            }
+
+            /// <summary>
+            /// Общее время проработки ОГК
+            /// </summary>
             public double? TotalProcessingTimeDesignDepartment
             {
                 get
@@ -86,32 +104,20 @@ namespace HVTApp.UI.PriceEngineering.Statistics
                 }
             }
 
-            public PriceEngineeringStatisticsItem(PriceEngineeringTask priceEngineeringTask, string facility)
+            public PriceEngineeringStatisticsItem(PriceEngineeringTask priceEngineeringTask, string facility, DateTime? deadLine)
             {
                 PriceEngineeringTask = priceEngineeringTask;
                 Facility = facility;
+                DeadLine = deadLine;
             }
         }
 
         private string GetFacility(PriceEngineeringTask priceEngineeringTask)
         {
-            var topTask = GetTopTask(priceEngineeringTask);
+            var topTask = priceEngineeringTask.GetTopPriceEngineeringTask(UnitOfWork);
             return topTask.SalesUnits.Any()
                 ? topTask.SalesUnits.First().Facility.ToString()
-                : "удалены все SalesUnit";
+                : "Error (удалены все SalesUnit из верхней задачи)";
         }
-
-        private PriceEngineeringTask GetTopTask(PriceEngineeringTask priceEngineeringTask)
-        {
-            var topTask = priceEngineeringTask;
-            while (topTask.ParentPriceEngineeringTaskId.HasValue)
-            {
-                topTask = UnitOfWork.Repository<PriceEngineeringTask>()
-                    .GetById(topTask.ParentPriceEngineeringTaskId.Value);
-            }
-
-            return topTask;
-        }
-
     }
 }

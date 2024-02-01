@@ -44,14 +44,14 @@ namespace NotificationsReportsService
 
             if (_tasksGood.Any())
             {
-                sb.AppendLine($"Количество проработанных блоков оборудования ({_tasksGood.Count}):");
+                sb.AppendLine($"Количество проработанных блоков оборудования ({_tasksGood.Count} шт.):");
                 sb.AppendLine(this.GetReport(_tasksGood));
             }
 
             if (_tasksBad.Any())
             {
                 sb.AppendLine();
-                sb.AppendLine($"Количество блоков с истекшим сроком проработки ({_tasksBad.Count}):");
+                sb.AppendLine($"Количество блоков с истекшим сроком проработки ({_tasksBad.Count} шт.):");
                 sb.AppendLine(this.GetReport(_tasksBad));
             }
 
