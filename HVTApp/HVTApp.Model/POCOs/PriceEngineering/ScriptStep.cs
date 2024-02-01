@@ -295,7 +295,8 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start,
-                VerificationRejectByHead
+                VerificationRejectByHead,
+                RejectByManager
             };
 
             protected override IEnumerable<Role> RolesForShow => new[]
