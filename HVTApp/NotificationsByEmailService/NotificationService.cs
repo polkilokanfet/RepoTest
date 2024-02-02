@@ -57,7 +57,7 @@ namespace NotificationsService
             var manager = salesUnits.First().Project.Manager;
             var email = manager.Employee.Email;
             var subject = "[Уведомление из УП ВВА] Пришла денюжка!";
-            var message = GetEmailMessageOnAfterSavePaymentDocumentEvent(paymentDocument, salesUnits, manager);
+            var message = GetEmailMessageOnAfterSavePaymentDocumentEvent(paymentDocument, salesUnits);
 
             var emails = _unitOfWork.Repository<NotificationsReportsSettings>().GetAll().First().SavePaymentDocumentDistributionList
                 .Where(user => string.IsNullOrEmpty(user.Employee.Email) == false)
@@ -71,16 +71,20 @@ namespace NotificationsService
             }
         }
 
-        private string GetEmailMessageOnAfterSavePaymentDocumentEvent(PaymentDocument paymentDocument, IEnumerable<SalesUnit> salesUnits, User manager)
+        private string GetEmailMessageOnAfterSavePaymentDocumentEvent(PaymentDocument paymentDocument, IEnumerable<SalesUnit> salesUnits)
         {
+            var units = salesUnits.ToList();
             var sb = new StringBuilder();
             sb.AppendLine($"Платежный документ №{paymentDocument.Number} от {paymentDocument.Date.ToShortDateString()} г.");
             sb.AppendLine($"Сумма с НДС: {paymentDocument.SumWithVat:N} руб.");
-            sb.AppendLine($"Менеджер: {manager.Employee.Person}");
+            sb.AppendLine($"Менеджер: {units.GroupBy(x => x.Project.Manager).Select(x => x.Key.Employee.Person).ToStringEnum()}");
+            sb.AppendLine($"Контрагент: {units.Where(x => x.Specification != null).GroupBy(x => x.Specification).Select(x => x.Key.Contract.Contragent).ToStringEnum()}");
+            sb.AppendLine($"Договор: {units.Where(x => x.Specification != null).GroupBy(x => x.Specification).Select(x => x.Key.Contract.Number).ToStringEnum()}");
+            sb.AppendLine($"Спецификация: {units.Where(x => x.Specification != null).GroupBy(x => x.Specification).Select(x => $"{x.Key.Number} от {x.Key.Date.ToShortDateString()}").ToStringEnum()}");
             sb.AppendLine("За позиции:");
-            foreach (var salesUnit in salesUnits)
+            foreach (var salesUnit in units)
             {
-                sb.AppendLine($" - Контрагент:{salesUnit.Specification?.Contract.Contragent}; Договор: {salesUnit.Specification?.Contract.Number}; Спецификация: {salesUnit.Specification?.Number}; Объект: {salesUnit.Facility}; Наименование: {salesUnit.Product}");
+                sb.AppendLine($" - з/з: {salesUnit.Order?.Number}; поз.: {salesUnit.OrderPosition}; Объект: {salesUnit.Facility}; Наименование: {salesUnit.Product}");
             }
 
             return sb.ToString();
