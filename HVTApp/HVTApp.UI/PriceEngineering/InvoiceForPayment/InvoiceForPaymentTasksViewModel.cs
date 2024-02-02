@@ -174,12 +174,7 @@ namespace HVTApp.UI.PriceEngineering.InvoiceForPayment
                 var salesUnits = task.PriceEngineeringTask?.SalesUnits ?? task.TechnicalRequrements.SalesUnits;
                 var salesUnit = salesUnits.First();
 
-                FixedCost = -1.0 * salesUnits
-                    .SelectMany(x => x.ProductsIncluded)
-                    .Where(x => x.Product.ProductBlock.IsSupervision)
-                    .Where(x => x.Product.ProductBlock.FixedCosts.Any())
-                    .Select(x => x.Product.ProductBlock.FixedCosts.Last().Sum)
-                    .Sum();
+                FixedCost = -1.0 * salesUnits.Sum(x => x.FixedCost);
 
                 Order = salesUnit.Order?.ToString();
                 OrderPositions = salesUnits.Select(unit => unit.OrderPosition).GetOrderPositions();
