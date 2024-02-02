@@ -278,6 +278,30 @@ namespace HVTApp.Model.POCOs
             Sum(condition => Cost * condition.Part);
 
 
+        /// <summary>
+        /// Сумма фиксированных затрат
+        /// </summary>
+        [Designation("Сумма фиксированных затрат"), NotMapped]
+        public double FixedCost
+        {
+            get
+            {
+                var result = this.ProductsIncluded
+                    .Where(x => x.CustomFixedPrice.HasValue)
+                    .Sum(x => x.CustomFixedPrice.Value);
+
+                result = result + this.ProductsIncluded
+                    .Where(x => x.CustomFixedPrice.HasValue == false)
+                    .Select(x => x.Product.ProductBlock)
+                    .Where(x => x.GetFixedCost(OrderInTakeDate).HasValue)
+                    .Sum(x => x.GetFixedCost(OrderInTakeDate).Value);
+
+                return result;
+            }
+        }
+
+
+
         #endregion
 
         #region Даты

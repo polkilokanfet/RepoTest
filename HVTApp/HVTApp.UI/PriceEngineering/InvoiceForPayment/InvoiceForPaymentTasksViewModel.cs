@@ -61,7 +61,8 @@ namespace HVTApp.UI.PriceEngineering.InvoiceForPayment
         protected override void AfterGetData()
         {
             Units.Clear();
-            Units.AddRange(_units);
+            if(_units != null)
+                Units.AddRange(_units);
         }
 
         public class Unit
@@ -282,6 +283,5 @@ namespace HVTApp.UI.PriceEngineering.InvoiceForPayment
                 return segment;
             }
         }
-
     }
 }

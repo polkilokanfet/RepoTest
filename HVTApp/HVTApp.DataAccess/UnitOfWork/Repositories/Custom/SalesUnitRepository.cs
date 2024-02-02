@@ -282,6 +282,17 @@ namespace HVTApp.DataAccess
                 .ToList();
         }
 
+        public IEnumerable<SalesUnit> GetForCommonInfo(IEnumerable<Facility> facilities)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            return Context.Set<SalesUnit>().AsQueryable()
+                .Include(salesUnit => salesUnit.Facility)
+                .AsEnumerable()
+                .Where(salesUnit => salesUnit.IsRemoved == false && facilities.Contains(salesUnit.Facility))
+                .ToList();
+        }
+
         //public async Task<IEnumerable<SalesUnit>> GetUsersSalesUnitsAsync()
         //{
         //    var su = await this.GetAllAsync();

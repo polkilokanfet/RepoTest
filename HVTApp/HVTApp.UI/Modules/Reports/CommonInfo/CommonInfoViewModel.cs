@@ -15,17 +15,37 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
         private IEnumerable<CommonInfoUnitGroup> _salesReportUnits;
         public ObservableCollection<CommonInfoUnitGroup> Units { get; } = new ObservableCollection<CommonInfoUnitGroup>();
 
-        public CommonInfoViewModel(IUnityContainer container) : base(container)
+        public string FacilityNameCondition { get; set; } = null;
+
+        public CommonInfoViewModel(IUnityContainer container) : base(container, false)
         {
+            this.IsLoaded = GlobalAppProperties.UserIsManager == false;
         }
 
         protected override void GetData()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            var salesUnits = GlobalAppProperties.UserIsManager
-                ? ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllNotRemovedNotLoosen().Where(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()).ToList()
-                : ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllNotRemovedNotLoosen().ToList();
+            List<SalesUnit> salesUnits;
+
+            if (string.IsNullOrWhiteSpace(this.FacilityNameCondition))
+            {
+                salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllNotRemovedNotLoosen().ToList();
+            }
+            else
+            {
+                var facilities = UnitOfWork.Repository<Facility>()
+                    .Find(facility => facility.Name.ToLower().Contains(FacilityNameCondition.Trim().ToLower()))
+                    .ToList();
+
+                salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>())
+                    .GetForCommonInfo(facilities)
+                    .Where(x => x.IsLoosen == false)
+                    .ToList();
+            }
+
+            if (GlobalAppProperties.UserIsManager)
+                salesUnits = salesUnits.Where(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()).ToList();
 
             //проставляем количество родительских юнитов включенного оборудования
             var productsIncluded = salesUnits.SelectMany(salesUnit => salesUnit.ProductsIncluded).ToList();
@@ -44,7 +64,8 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
         protected override void AfterGetData()
         {
             Units.Clear();
-            Units.AddRange(_salesReportUnits);
+            if (_salesReportUnits != null && _salesReportUnits.Any())
+                Units.AddRange(_salesReportUnits);
         }
     }
 }

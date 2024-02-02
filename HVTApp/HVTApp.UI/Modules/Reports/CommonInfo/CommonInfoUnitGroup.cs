@@ -150,8 +150,13 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
             var costDelivery = salesUnits.Select(unit => unit.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
             CostDelivery = -1.0 * costDelivery;
 
-            var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.RealizationDateCalculated, true);
-            FixedCost = -1.0 * price.SumFixedTotal * Amount;
+            //var price = GlobalAppProperties.PriceService.GetPrice(salesUnit, salesUnit.RealizationDateCalculated, true);
+            //salesUnit.ProductsIncluded.Select(x => x.Product.ProductBlock.FixedCosts)
+            //FixedCost = -1.0 * price.SumFixedTotal * Amount;
+
+            OrderInTakeDate = salesUnit.OrderInTakeDate;
+
+            FixedCost = -1.0 * salesUnits.Sum(x => x.FixedCost);
 
             Manager = $"{salesUnit.Project.Manager.Employee.Person}";
 
@@ -165,8 +170,6 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
                 ContractDate = specification.Contract.Date;
             }
 
-
-            OrderInTakeDate = salesUnit.OrderInTakeDate;
 
             PaymentConditionSet = salesUnit.PaymentConditionSet;
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

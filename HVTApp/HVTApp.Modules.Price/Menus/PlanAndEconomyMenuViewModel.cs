@@ -2,6 +2,7 @@
 using HVTApp.Model;
 using HVTApp.UI.Modules.PlanAndEconomy.Dates;
 using HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates;
+using HVTApp.UI.Modules.PlanAndEconomy.InformationForTeamCenter;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.SpecificationSignDates;
@@ -32,7 +33,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
                 Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
                 Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
-                Items.Add(new NavigationItem("Задачи на счета", typeof(InvoiceForPaymentTasksView)));
+                Items.Add(new NavigationItem("Задачи на счета", typeof(InformationForTeamCenterView)));
                 Items.Add(new NavigationItem("Спецификации", typeof(SpecificationSignDatesView)));
                 Items.Add(new NavigationItem("Шеф-монтаж", typeof(SupervisionView)));
                 //Items.Add(new NavigationItem("Услуги", typeof(ServiceRealizationDatesView)));

@@ -79,5 +79,10 @@ namespace HVTApp.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<SalesUnit> GetForCommonInfo(IEnumerable<Facility> facilities)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

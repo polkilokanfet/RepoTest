@@ -220,6 +220,12 @@
     <Compile Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.xaml.cs">
       <DependentUpon>TabServiceRealizationDates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\PlanAndEconomy\InformationForTeamCenter\InformationForTeamCenterManagerView.xaml.cs">
+      <DependentUpon>InformationForTeamCenterManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PlanAndEconomy\InformationForTeamCenter\InformationForTeamCenterView.xaml.cs">
+      <DependentUpon>InformationForTeamCenterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentActualWrapper2.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\AddPaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\BasePaymentDocumentCommand.cs" />
@@ -1613,6 +1619,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\PlanAndEconomy\Dates\ServiceRealizationDates\TabServiceRealizationDates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\InformationForTeamCenter\InformationForTeamCenterManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PlanAndEconomy\InformationForTeamCenter\InformationForTeamCenterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

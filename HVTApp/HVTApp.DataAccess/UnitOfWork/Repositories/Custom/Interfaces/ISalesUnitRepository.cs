@@ -105,5 +105,7 @@ namespace HVTApp.DataAccess
         /// <param name="salesUnitsIds">В соответствии с Id</param>
         /// <returns></returns>
         IEnumerable<SalesUnit> GetForFlatReportView(IEnumerable<Guid> salesUnitsIds);
+
+        IEnumerable<SalesUnit> GetForCommonInfo(IEnumerable<Facility> facilities);
     }
 }

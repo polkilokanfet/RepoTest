@@ -1,5 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
+using HVTApp.UI.Modules.PlanAndEconomy.InformationForTeamCenter;
 using HVTApp.UI.Modules.Reports.CommonInfo;
 using HVTApp.UI.Modules.Reports.FairnessCheck;
 using HVTApp.UI.Modules.Reports.FlatReport;
@@ -34,7 +35,8 @@ namespace HVTApp.Modules.Reports.Menus
                 Items.Add(new NavigationItem("Проверка справедливости", typeof(FairnessCheckView)));
 
             Items.Add(new NavigationItem("Референс", typeof(ReferenceView)));
-            Items.Add(new NavigationItem("Сводная информация (для счета)", typeof(CommonInfoView)));
+            if (GlobalAppProperties.UserIsManager)
+                Items.Add(new NavigationItem("Сводная информация (для счета)", typeof(InformationForTeamCenterManagerView)));
             //Items.Add(new NavigationItem("Продажи", typeof(SalesReportView)));
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Admin ||

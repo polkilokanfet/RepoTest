@@ -9,6 +9,7 @@ using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.Modules.Directum.ToAccept;
 using HVTApp.UI.Modules.Directum.ToPerform;
+using HVTApp.UI.Modules.PlanAndEconomy.InformationForTeamCenter;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
@@ -101,6 +102,8 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<TechnicalRequrementsTasksView>();
             Container.RegisterViewForNavigation<LaborHoursView>();
             Container.RegisterViewForNavigation<PaymentConditionSetLookupListView1>();
+            Container.RegisterViewForNavigation<InformationForTeamCenterView>();
+            Container.RegisterViewForNavigation<InformationForTeamCenterManagerView>();
 
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewConstructor>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewPlanMaker>();

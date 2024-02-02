@@ -120,5 +120,18 @@ namespace HVTApp.Model.POCOs
             if (Designation != null) return Designation;
             return ParametersToString();
         }
+
+        /// <summary>
+        /// Вернуть ближайшую фиксированную стоимость до определенной даты
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public double? GetFixedCost(DateTime date)
+        {
+            if (this.FixedCosts.Any() == false) return default;
+            var costs = this.FixedCosts.Where(x => x.Date <= date).ToList();
+            if (costs.Any() == false) return default;
+            return costs.OrderBy(x => x.Date).Last().Sum;
+        }
     }
 }
