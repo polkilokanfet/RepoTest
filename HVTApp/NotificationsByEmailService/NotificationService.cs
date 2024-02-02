@@ -80,7 +80,7 @@ namespace NotificationsService
             sb.AppendLine("За позиции:");
             foreach (var salesUnit in salesUnits)
             {
-                sb.AppendLine($" - Договор: {salesUnit.Specification?.Contract.Number}; Спецификация: {salesUnit.Specification?.Number}; Объект: {salesUnit.Facility}; Наименование: {salesUnit.Product}");
+                sb.AppendLine($" - Контрагент:{salesUnit.Specification?.Contract.Contragent}; Договор: {salesUnit.Specification?.Contract.Number}; Спецификация: {salesUnit.Specification?.Number}; Объект: {salesUnit.Facility}; Наименование: {salesUnit.Product}");
             }
 
             return sb.ToString();

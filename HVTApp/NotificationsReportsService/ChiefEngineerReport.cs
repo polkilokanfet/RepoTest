@@ -67,7 +67,7 @@ namespace NotificationsReportsService
             foreach (var tasks in tasksByHead)
             {
                 var head = tasks.Key;
-                sb.AppendLine($" - {head} рук. {head.Employee.Person} => {tasks.Count()} шт.");
+                sb.AppendLine($" - Руководитель конструкторского бюро: {head.Employee.Person} => {tasks.Count()} шт.");
                 var tasksByDepartment = tasks
                     .GroupBy(x => x.DesignDepartment)
                     .OrderByDescending(x => x.Count());
