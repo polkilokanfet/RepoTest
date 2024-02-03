@@ -222,12 +222,12 @@ namespace HVTApp
             if (false)
             #endif
             {
-                Container.Resolve<IEventServiceClient>().Start();
                 Container.Resolve<INotificationService>().Start();
                 Container.Resolve<INotificationsReportService>().Start();
                 Container.Resolve<EventServiceUnitWatcher>().Start();
             }
             #endregion
+                Container.Resolve<IEventServiceClient>().Start();
 
             Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>
             {

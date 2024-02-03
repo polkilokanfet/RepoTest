@@ -50,11 +50,7 @@ namespace HVTApp
 
         protected override void OnExit(ExitEventArgs e)
         {
-            if (GlobalAppProperties.MessageService != null)
-            {
-                GlobalAppProperties.EventServiceClient.Stop();
-            }
-
+            GlobalAppProperties.EventServiceClient?.Stop();
             base.OnExit(e);
         }
     }

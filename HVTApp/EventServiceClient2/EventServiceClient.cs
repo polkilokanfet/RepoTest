@@ -61,7 +61,7 @@ namespace EventServiceClient2
             _endpointAddress = new EndpointAddress(EventServiceAddresses.TcpBaseAddress);
 
             SyncContainer = new SyncContainer(_container);
-            SyncContainer.ServiceHostIsDisabled += DisableWaitRestart;
+            SyncContainer.ServiceHostIsDisabled += StopWaitRestart;
         }
 
         public void Start()
@@ -108,39 +108,53 @@ namespace EventServiceClient2
                     catch (Exception)
                     {
                         //очистить следы от предыдущего подключения, подождать и рестартануть
-                        this.DisableWaitRestart();
+                        this.StopWaitRestart();
                     }
                 }).Await();
         }
 
         public void Stop()
         {
-            //отключаемся от сервера
-            if (HostIsEnabled)
-            {
-                try
+            Task.Run(
+                () =>
                 {
-                    EventServiceHost.Disconnect(_appSessionId);
-                }
-                catch (TimeoutException e)
-                {
-                    _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
-                }
-                catch (CommunicationObjectFaultedException e)
-                {
-                    _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
-                }
-#if DEBUG
-#else
-                catch (Exception e)
-                {
-                    _container.Resolve<IHvtAppLogger>().LogError("", e);
-                    _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
-                }
-#endif
-            }
+                    #region not
+                    //                    if (HostIsEnabled)
+                    //                    {
+                    //                        try
+                    //                        {
+                    //                            EventServiceHost.Disconnect(_appSessionId);
+                    //                        }
+                    //                        catch (TimeoutException e)
+                    //                        {
+                    //                            _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
+                    //                        }
+                    //                        catch (CommunicationObjectFaultedException e)
+                    //                        {
+                    //                            _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
+                    //                        }
+                    //#if DEBUG
+                    //#else
+                    //                        catch (Exception e)
+                    //                        {
+                    //                            _container.Resolve<IHvtAppLogger>().LogError("", e);
+                    //                            _container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
+                    //                        }
+                    //#endif
+                    //                    }
+                    #endregion
+                    if (HostIsEnabled) EventServiceHost.Disconnect(_appSessionId);
 
-            this.Disable();
+                })
+                .Await(
+                    () => this.Disable(),
+                    e =>
+                    {
+                        _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
+                        //_container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
+                        this.Disable();
+                    }
+                );
         }
 
         /// <summary>
@@ -159,16 +173,24 @@ namespace EventServiceClient2
         /// <summary>
         /// Очистить старое, подождать, рестартовать
         /// </summary>
-        private void DisableWaitRestart()
+        private void StopWaitRestart()
         {
-            Disable();
+            Stop();
+            SleepInvokeInOtherThread(this.Start, 600);
+        }
 
-            //рестартуем
+        /// <summary>
+        /// Создать новый поток, уснуть, запустить действие в этом новом потоке
+        /// </summary>
+        /// <param name="action">Действие</param>
+        /// <param name="seconds">На сколько секунд уснуть</param>
+        private void SleepInvokeInOtherThread(Action action, int seconds)
+        {
             Task.Run(
                 () =>
                 {
-                    Thread.Sleep(new TimeSpan(0,0,10,0));
-                    this.Start();
+                    Thread.Sleep(new TimeSpan(0, 0, 0, seconds));
+                    action.Invoke();
                 }).Await();
         }
 
@@ -192,7 +214,7 @@ namespace EventServiceClient2
                         }
                         catch (Exception)
                         {
-                            this.DisableWaitRestart();
+                            this.StopWaitRestart();
                         }
                     }
                 }).Await();
@@ -216,7 +238,7 @@ namespace EventServiceClient2
                 }
                 catch (CommunicationObjectFaultedException)
                 {
-                    this.DisableWaitRestart();
+                    this.StopWaitRestart();
                     return false;
                 }
             }
@@ -471,11 +493,11 @@ namespace EventServiceClient2
             //хост недоступен
             catch (TimeoutException)
             {
-                DisableWaitRestart();
+                StopWaitRestart();
             }
             catch
             {
-                DisableWaitRestart();
+                StopWaitRestart();
             }
 
             return notificationSent;
