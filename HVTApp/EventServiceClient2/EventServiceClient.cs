@@ -149,11 +149,8 @@ namespace EventServiceClient2
         private void Disable()
         {
             //сносим хост
-            if (EventServiceHost != null)
-            {
-                EventServiceHost.Abort();
-                EventServiceHost = null;
-            }
+            EventServiceHost?.Abort();
+            EventServiceHost = null;
 
             //освобождаем контейнер синхронизации
             SyncContainer.Disconnect();
