@@ -60,29 +60,29 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         #region Directum
 
         [OperationContract]
-        bool SaveDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
+        bool SaveDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId);
 
         [OperationContract]
-        bool StartDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
+        bool StartDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId);
 
         [OperationContract]
-        bool StopDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
+        bool StopDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId);
 
         [OperationContract]
-        bool PerformDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
+        bool PerformDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId);
 
         [OperationContract]
-        bool AcceptDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
+        bool AcceptDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId);
 
         [OperationContract]
-        bool RejectDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid taskId);
+        bool RejectDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId);
 
         #endregion
 
         #region PriceCalculation
 
         [OperationContract]
-        bool SavePriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
+        bool SavePriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId);
 
         /// <summary>
         /// Публикация события старта расчета ПЗ
@@ -92,59 +92,59 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         /// <param name="priceCalculationId">Id расчета ПЗ</param>
         /// <returns>Доставлено ли уведомление целевому пользователю</returns>
         [OperationContract]
-        bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
+        bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId);
 
         [OperationContract]
-        bool FinishPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
+        bool FinishPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId);
 
         [OperationContract]
-        bool CancelPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
+        bool CancelPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId);
 
         [OperationContract]
-        bool RejectPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceCalculationId);
+        bool RejectPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId);
 
         #endregion
 
         #region Incoming
 
         [OperationContract]
-        bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid requestId);
+        bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid requestId);
 
         [OperationContract]
-        bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid documentId);
+        bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid documentId);
 
         #endregion
 
         #region TechnicalRequarementsTask
 
         [OperationContract]
-        bool SaveTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool SaveTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         [OperationContract]
-        bool StartTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool StartTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         [OperationContract]
-        bool InstructTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool InstructTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         [OperationContract]
-        bool StopTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool StopTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         [OperationContract]
-        bool RejectTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool RejectTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         [OperationContract]
-        bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         [OperationContract]
-        bool FinishTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool FinishTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         [OperationContract]
-        bool AcceptTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid technicalRequarementsTaskId);
+        bool AcceptTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId);
 
         #endregion
 
         [OperationContract]
-        bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid paymentDocumentId);
+        bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid paymentDocumentId);
     }
 
     public partial interface IEventService
@@ -155,45 +155,45 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         #region PriceEngineeringTasks
 
         [OperationContract]
-        bool PriceEngineeringTasksStartPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTasksId);
+        bool PriceEngineeringTasksStartPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTasksId);
 
 
         [OperationContract]
-        bool PriceEngineeringTaskStartPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskStartPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
         [OperationContract]
-        bool PriceEngineeringTaskInstructPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskInstructPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
         [OperationContract]
-        bool PriceEngineeringTaskFinishPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
-
-
-        [OperationContract]
-        bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
-
+        bool PriceEngineeringTaskFinishPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
 
         [OperationContract]
-        bool PriceEngineeringTaskAcceptPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
         [OperationContract]
-        bool PriceEngineeringTaskRejectByManagerPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
         [OperationContract]
-        bool PriceEngineeringTaskRejectByConstructorPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
-        [OperationContract]
-        bool PriceEngineeringTaskStopPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid priceEngineeringTaskId);
 
 
         [OperationContract]
-        bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Guid messageId);
+        bool PriceEngineeringTaskAcceptPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool PriceEngineeringTaskRejectByManagerPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool PriceEngineeringTaskRejectByConstructorPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
+
+        [OperationContract]
+        bool PriceEngineeringTaskStopPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
+
+
+        [OperationContract]
+        bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid messageId);
 
         #endregion
     }

@@ -31,7 +31,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, paymentDocumentId) => EventServiceClient.SavePaymentDocumentPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, paymentDocumentId);
+                return (targetUserId, targetRole, paymentDocumentId) => EventServiceClient.SavePaymentDocumentPublishEvent(targetUserId, targetRole, paymentDocumentId);
             }
         }
 

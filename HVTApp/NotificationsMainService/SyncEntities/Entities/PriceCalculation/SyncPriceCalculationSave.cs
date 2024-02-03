@@ -26,7 +26,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId) => EventServiceClient.SavePriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
+                return (targetUserId, targetRole, priceCalculationId) => EventServiceClient.SavePriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
             }
         }
 

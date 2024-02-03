@@ -35,7 +35,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId) => EventServiceClient.PriceEngineeringTaskFinishGoToVerificationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
+                return (targetUserId, targetRole, priceEngineeringTaskId) => EventServiceClient.PriceEngineeringTaskFinishGoToVerificationPublishEvent(targetUserId, targetRole, priceEngineeringTaskId);
             }
         }
 

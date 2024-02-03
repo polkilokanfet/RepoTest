@@ -44,7 +44,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId) => EventServiceClient.CancelPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
+                return (targetUserId, targetRole, priceCalculationId) => EventServiceClient.CancelPriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
             }
         }
 

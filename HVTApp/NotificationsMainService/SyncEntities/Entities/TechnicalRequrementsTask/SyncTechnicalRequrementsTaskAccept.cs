@@ -29,7 +29,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.AcceptTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
+                return (targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.AcceptTechnicalRequarementsTaskPublishEvent(targetUserId, targetRole, technicalRequarementsTaskId);
             }
         }
 

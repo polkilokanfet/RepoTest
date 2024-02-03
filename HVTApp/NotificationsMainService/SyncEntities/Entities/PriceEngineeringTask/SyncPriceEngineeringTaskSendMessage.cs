@@ -41,7 +41,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, messageId) => EventServiceClient.PriceEngineeringTaskSendMessagePublishEvent(eventSourceAppSessionId, targetUserId, targetRole, messageId);
+                return (targetUserId, targetRole, messageId) => EventServiceClient.PriceEngineeringTaskSendMessagePublishEvent(targetUserId, targetRole, messageId);
             }
         }
 

@@ -58,154 +58,154 @@ namespace EventServiceClient2.ServiceReference1 {
         System.Threading.Tasks.Task SendMessageToUserAsync(System.Guid authorId, System.Guid recipientId, string message);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveDirectumTaskPublishEventResponse")]
-        bool SaveDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        bool SaveDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveDirectumTaskPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> SaveDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        System.Threading.Tasks.Task<bool> SaveDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartDirectumTaskPublishEventResponse")]
-        bool StartDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        bool StartDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartDirectumTaskPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> StartDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        System.Threading.Tasks.Task<bool> StartDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopDirectumTaskPublishEventResponse")]
-        bool StopDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        bool StopDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopDirectumTaskPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> StopDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        System.Threading.Tasks.Task<bool> StopDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/PerformDirectumTaskPublishEventResponse")]
-        bool PerformDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        bool PerformDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/PerformDirectumTaskPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> PerformDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        System.Threading.Tasks.Task<bool> PerformDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEventResponse")]
-        bool AcceptDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        bool AcceptDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> AcceptDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        System.Threading.Tasks.Task<bool> AcceptDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectDirectumTaskPublishEventResponse")]
-        bool RejectDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        bool RejectDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectDirectumTaskPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> RejectDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId);
+        System.Threading.Tasks.Task<bool> RejectDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePriceCalculationPublishEventResponse")]
-        bool SavePriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        bool SavePriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePriceCalculationPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> SavePriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        System.Threading.Tasks.Task<bool> SavePriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse")]
-        bool StartPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        bool StartPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> StartPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        System.Threading.Tasks.Task<bool> StartPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishPriceCalculationPublishEventResponse")]
-        bool FinishPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        bool FinishPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishPriceCalculationPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> FinishPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        System.Threading.Tasks.Task<bool> FinishPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/CancelPriceCalculationPublishEventResponse")]
-        bool CancelPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        bool CancelPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/CancelPriceCalculationPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> CancelPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        System.Threading.Tasks.Task<bool> CancelPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectPriceCalculationPublishEventResponse")]
-        bool RejectPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        bool RejectPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectPriceCalculationPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> RejectPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId);
+        System.Threading.Tasks.Task<bool> RejectPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingRequestPublishEventResponse")]
-        bool SaveIncomingRequestPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
+        bool SaveIncomingRequestPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid requestId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingRequestPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> SaveIncomingRequestPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId);
+        System.Threading.Tasks.Task<bool> SaveIncomingRequestPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid requestId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEventResponse")]
-        bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId);
+        bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid documentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId);
+        System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid documentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEventRespons" +
             "e")]
-        bool SaveTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool SaveTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEventRespons" +
             "e")]
-        System.Threading.Tasks.Task<bool> SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEventRespon" +
             "se")]
-        bool StartTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool StartTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEventRespon" +
             "se")]
-        System.Threading.Tasks.Task<bool> StartTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> StartTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEventRes" +
             "ponse")]
-        bool InstructTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool InstructTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEventRes" +
             "ponse")]
-        System.Threading.Tasks.Task<bool> InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEventRespons" +
             "e")]
-        bool StopTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool StopTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEventRespons" +
             "e")]
-        System.Threading.Tasks.Task<bool> StopTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> StopTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEventRespo" +
             "nse")]
-        bool RejectTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool RejectTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEventRespo" +
             "nse")]
-        System.Threading.Tasks.Task<bool> RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
             "lishEvent", ReplyAction="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
             "lishEventResponse")]
-        bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
             "lishEvent", ReplyAction="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPub" +
             "lishEventResponse")]
-        System.Threading.Tasks.Task<bool> RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEventRespo" +
             "nse")]
-        bool FinishTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool FinishTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEventRespo" +
             "nse")]
-        System.Threading.Tasks.Task<bool> FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventRespo" +
             "nse")]
-        bool AcceptTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        bool AcceptTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent", ReplyAction="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventRespo" +
             "nse")]
-        System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId);
+        System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
-        bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
+        bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid paymentDocumentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent", ReplyAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId);
+        System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid paymentDocumentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEventResponse")]
         bool PriceEngineeringTaskNotificationEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, string message);
@@ -214,98 +214,98 @@ namespace EventServiceClient2.ServiceReference1 {
         System.Threading.Tasks.Task<bool> PriceEngineeringTaskNotificationEventAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, string message);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEventResponse")]
-        bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId);
+        bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTasksId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTasksStartPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTasksStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTasksStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTasksId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEventResponse")]
-        bool PriceEngineeringTaskStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStartPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEventResponse" +
             "")]
-        bool PriceEngineeringTaskInstructPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskInstructPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskInstructPublishEventResponse" +
             "")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskInstructPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskInstructPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEventResponse")]
-        bool PriceEngineeringTaskFinishPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskFinishPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishGoToVerificationPublis" +
             "hEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishGoToVerificationPublis" +
             "hEventResponse")]
-        bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskFinishGoToVerificationPublis" +
             "hEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskFinishGoToVerificationPublis" +
             "hEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishGoToVerificationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishGoToVerificationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationRejectedByHeadPu" +
             "blishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationRejectedByHeadPu" +
             "blishEventResponse")]
-        bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationRejectedByHeadPu" +
             "blishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationRejectedByHeadPu" +
             "blishEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationRejectedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationRejectedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationAcceptedByHeadPu" +
             "blishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationAcceptedByHeadPu" +
             "blishEventResponse")]
-        bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationAcceptedByHeadPu" +
             "blishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskVerificationAcceptedByHeadPu" +
             "blishEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationAcceptedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationAcceptedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEventResponse")]
-        bool PriceEngineeringTaskAcceptPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskAcceptPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskAcceptPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskAcceptPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskAcceptPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEventR" +
             "esponse")]
-        bool PriceEngineeringTaskRejectByManagerPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskRejectByManagerPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByManagerPublishEventR" +
             "esponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByManagerPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByManagerPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
             "ent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
             "entResponse")]
-        bool PriceEngineeringTaskRejectByConstructorPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskRejectByConstructorPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
             "ent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskRejectByConstructorPublishEv" +
             "entResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByConstructorPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByConstructorPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEventResponse")]
-        bool PriceEngineeringTaskStopPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        bool PriceEngineeringTaskStopPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStopPublishEventResponse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventRespo" +
             "nse")]
-        bool PriceEngineeringTaskSendMessagePublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId);
+        bool PriceEngineeringTaskSendMessagePublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid messageId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventRespo" +
             "nse")]
-        System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId);
+        System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid messageId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskStatusChangedEventResponse")]
         bool PriceEngineeringTaskStatusChangedEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId);
@@ -557,180 +557,180 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.SendMessageToUserAsync(authorId, recipientId, message);
         }
         
-        public bool SaveDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.SaveDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
+        public bool SaveDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.SaveDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public System.Threading.Tasks.Task<bool> SaveDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.SaveDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
+        public System.Threading.Tasks.Task<bool> SaveDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.SaveDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public bool StartDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.StartDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
+        public bool StartDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.StartDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public System.Threading.Tasks.Task<bool> StartDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.StartDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
+        public System.Threading.Tasks.Task<bool> StartDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.StartDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public bool StopDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.StopDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
+        public bool StopDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.StopDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public System.Threading.Tasks.Task<bool> StopDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.StopDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
+        public System.Threading.Tasks.Task<bool> StopDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.StopDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public bool PerformDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.PerformDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
+        public bool PerformDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.PerformDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PerformDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.PerformDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
+        public System.Threading.Tasks.Task<bool> PerformDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.PerformDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public bool AcceptDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.AcceptDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
+        public bool AcceptDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.AcceptDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public System.Threading.Tasks.Task<bool> AcceptDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.AcceptDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
+        public System.Threading.Tasks.Task<bool> AcceptDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.AcceptDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public bool RejectDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.RejectDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, taskId);
+        public bool RejectDirectumTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.RejectDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public System.Threading.Tasks.Task<bool> RejectDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid taskId) {
-            return base.Channel.RejectDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, taskId);
+        public System.Threading.Tasks.Task<bool> RejectDirectumTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid taskId) {
+            return base.Channel.RejectDirectumTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, taskId);
         }
         
-        public bool SavePriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.SavePriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public bool SavePriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.SavePriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task<bool> SavePriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.SavePriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> SavePriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.SavePriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public bool StartPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.StartPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public bool StartPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.StartPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task<bool> StartPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.StartPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> StartPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.StartPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public bool FinishPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.FinishPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public bool FinishPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.FinishPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task<bool> FinishPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.FinishPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> FinishPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.FinishPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public bool CancelPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.CancelPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public bool CancelPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.CancelPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task<bool> CancelPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.CancelPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> CancelPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.CancelPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public bool RejectPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.RejectPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public bool RejectPriceCalculationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.RejectPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public System.Threading.Tasks.Task<bool> RejectPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceCalculationId) {
-            return base.Channel.RejectPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceCalculationId);
+        public System.Threading.Tasks.Task<bool> RejectPriceCalculationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceCalculationId) {
+            return base.Channel.RejectPriceCalculationPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
         }
         
-        public bool SaveIncomingRequestPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
-            return base.Channel.SaveIncomingRequestPublishEvent(eventSourceAppSessionId, targetUserId, requestId);
+        public bool SaveIncomingRequestPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid requestId) {
+            return base.Channel.SaveIncomingRequestPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, requestId);
         }
         
-        public System.Threading.Tasks.Task<bool> SaveIncomingRequestPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid requestId) {
-            return base.Channel.SaveIncomingRequestPublishEventAsync(eventSourceAppSessionId, targetUserId, requestId);
+        public System.Threading.Tasks.Task<bool> SaveIncomingRequestPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid requestId) {
+            return base.Channel.SaveIncomingRequestPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, requestId);
         }
         
-        public bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId) {
-            return base.Channel.SaveIncomingDocumentPublishEvent(eventSourceAppSessionId, targetUserId, documentId);
+        public bool SaveIncomingDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid documentId) {
+            return base.Channel.SaveIncomingDocumentPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, documentId);
         }
         
-        public System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid documentId) {
-            return base.Channel.SaveIncomingDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, documentId);
+        public System.Threading.Tasks.Task<bool> SaveIncomingDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid documentId) {
+            return base.Channel.SaveIncomingDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, documentId);
         }
         
-        public bool SaveTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.SaveTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool SaveTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.SaveTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.SaveTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> SaveTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.SaveTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool StartTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.StartTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool StartTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StartTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> StartTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.StartTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> StartTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StartTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool InstructTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.InstructTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool InstructTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.InstructTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.InstructTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> InstructTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.InstructTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool StopTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.StopTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool StopTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StopTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> StopTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.StopTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> StopTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.StopTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool RejectTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.RejectTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool RejectTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.RejectTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> RejectTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.RejectByFrontManagerTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool FinishTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.FinishTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool FinishTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.FinishTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.FinishTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> FinishTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.FinishTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool AcceptTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.AcceptTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public bool AcceptTechnicalRequarementsTaskPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.AcceptTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid technicalRequarementsTaskId) {
-            return base.Channel.AcceptTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, technicalRequarementsTaskId);
+        public System.Threading.Tasks.Task<bool> AcceptTechnicalRequarementsTaskPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid technicalRequarementsTaskId) {
+            return base.Channel.AcceptTechnicalRequarementsTaskPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
         }
         
-        public bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
-            return base.Channel.SavePaymentDocumentPublishEvent(eventSourceAppSessionId, targetUserId, paymentDocumentId);
+        public bool SavePaymentDocumentPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid paymentDocumentId) {
+            return base.Channel.SavePaymentDocumentPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, paymentDocumentId);
         }
         
-        public System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid paymentDocumentId) {
-            return base.Channel.SavePaymentDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, paymentDocumentId);
+        public System.Threading.Tasks.Task<bool> SavePaymentDocumentPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid paymentDocumentId) {
+            return base.Channel.SavePaymentDocumentPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, paymentDocumentId);
         }
         
         public bool PriceEngineeringTaskNotificationEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, string message) {
@@ -741,100 +741,100 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.PriceEngineeringTaskNotificationEventAsync(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, message);
         }
         
-        public bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId) {
-            return base.Channel.PriceEngineeringTasksStartPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTasksId);
+        public bool PriceEngineeringTasksStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTasksId) {
+            return base.Channel.PriceEngineeringTasksStartPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTasksId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTasksStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTasksId) {
-            return base.Channel.PriceEngineeringTasksStartPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTasksId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTasksStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTasksId) {
+            return base.Channel.PriceEngineeringTasksStartPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTasksId);
         }
         
-        public bool PriceEngineeringTaskStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskStartPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskStartPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStartPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskStartPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStartPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStartPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskInstructPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskInstructPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskInstructPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskInstructPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskInstructPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskInstructPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskInstructPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskInstructPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskFinishPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskFinishPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskFinishPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskFinishPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskFinishPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskFinishPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskFinishGoToVerificationPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskFinishGoToVerificationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishGoToVerificationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskFinishGoToVerificationPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskFinishGoToVerificationPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskFinishGoToVerificationPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationRejectedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskVerificationRejectedByHeadPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationRejectedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskVerificationRejectedByHeadPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationAcceptedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskVerificationAcceptedByHeadPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskVerificationAcceptedByHeadPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskVerificationAcceptedByHeadPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskAcceptPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskAcceptPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskAcceptPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskAcceptPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskAcceptPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskAcceptPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskAcceptPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskAcceptPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskRejectByManagerPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskRejectByManagerPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskRejectByManagerPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByManagerPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByManagerPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskRejectByManagerPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByManagerPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByManagerPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskRejectByConstructorPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskRejectByConstructorPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskRejectByConstructorPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByConstructorPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByConstructorPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskRejectByConstructorPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskRejectByConstructorPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskRejectByConstructorPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskStopPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskStopPublishEvent(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public bool PriceEngineeringTaskStopPublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStopPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid priceEngineeringTaskId) {
-            return base.Channel.PriceEngineeringTaskStopPublishEventAsync(eventSourceAppSessionId, targetUserId, priceEngineeringTaskId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskStopPublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid priceEngineeringTaskId) {
+            return base.Channel.PriceEngineeringTaskStopPublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, priceEngineeringTaskId);
         }
         
-        public bool PriceEngineeringTaskSendMessagePublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId) {
-            return base.Channel.PriceEngineeringTaskSendMessagePublishEvent(eventSourceAppSessionId, targetUserId, messageId);
+        public bool PriceEngineeringTaskSendMessagePublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid messageId) {
+            return base.Channel.PriceEngineeringTaskSendMessagePublishEvent(eventSourceAppSessionId, targetUserId, targetRole, messageId);
         }
         
-        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, System.Guid messageId) {
-            return base.Channel.PriceEngineeringTaskSendMessagePublishEventAsync(eventSourceAppSessionId, targetUserId, messageId);
+        public System.Threading.Tasks.Task<bool> PriceEngineeringTaskSendMessagePublishEventAsync(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid messageId) {
+            return base.Channel.PriceEngineeringTaskSendMessagePublishEventAsync(eventSourceAppSessionId, targetUserId, targetRole, messageId);
         }
         
         public bool PriceEngineeringTaskStatusChangedEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId) {

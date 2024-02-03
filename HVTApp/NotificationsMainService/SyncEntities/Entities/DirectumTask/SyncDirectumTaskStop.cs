@@ -24,7 +24,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, taskId) => EventServiceClient.StopDirectumTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, taskId);
+                return (targetUserId, targetRole, taskId) => EventServiceClient.StopDirectumTaskPublishEvent(targetUserId, targetRole, taskId);
             }
         }
 

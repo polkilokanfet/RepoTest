@@ -42,7 +42,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId) => EventServiceClient.RejectPriceCalculationPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, priceCalculationId);
+                return (targetUserId, targetRole, priceCalculationId) => EventServiceClient.RejectPriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
             }
         }
 

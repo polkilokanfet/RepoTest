@@ -115,7 +115,7 @@ namespace NotificationsMainService.SyncEntities
             try
             {
                 //публикуем действие
-                return ActionPublishThroughEventServiceForUser.Invoke(this.EventServiceClient.AppSessionId, targetUser.Id, targetRole, model.Id);
+                return ActionPublishThroughEventServiceForUser.Invoke(targetUser.Id, targetRole, model.Id);
             }
             catch (TimeoutException)
             {
@@ -148,5 +148,5 @@ namespace NotificationsMainService.SyncEntities
         }
     }
 
-    public delegate bool ActionPublishThroughEventServiceForUserDelegate(Guid sourceEventAppSessionId, Guid targetUserId, Role targetRole, Guid modelId);
+    public delegate bool ActionPublishThroughEventServiceForUserDelegate(Guid targetUserId, Role targetRole, Guid modelId);
 }

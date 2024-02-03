@@ -23,7 +23,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, requestId) => EventServiceClient.SaveIncomingRequestPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, requestId);
+                return (targetUserId, targetRole, requestId) => EventServiceClient.SaveIncomingRequestPublishEvent(targetUserId, targetRole, requestId);
             }
         }
 

@@ -32,7 +32,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             get
             {
-                return (eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.StartTechnicalRequarementsTaskPublishEvent(eventSourceAppSessionId, targetUserId, targetRole, technicalRequarementsTaskId);
+                return (targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.StartTechnicalRequarementsTaskPublishEvent(targetUserId, targetRole, technicalRequarementsTaskId);
             }
         }
 
