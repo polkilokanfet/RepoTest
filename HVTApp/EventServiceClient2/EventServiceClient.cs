@@ -20,7 +20,6 @@ namespace EventServiceClient2
 {
     public partial class EventServiceClient : IEventServiceClient, ISendNotificationThroughApp, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
-        private Guid _appSessionId;
         private readonly IUnityContainer _container;
         private readonly IPopupNotificationsService _popupNotificationsService;
         private readonly IFileManagerService _fileManagerService;
@@ -37,6 +36,8 @@ namespace EventServiceClient2
         private bool HostIsEnabled => EventServiceHost != null && 
                                       EventServiceHost.State != CommunicationState.Faulted && 
                                       EventServiceHost.State != CommunicationState.Closed;
+
+        public Guid AppSessionId { get; private set; } = Guid.NewGuid();
 
         private ServiceReference1.EventServiceClient EventServiceHost { get; set; }
 
@@ -88,13 +89,13 @@ namespace EventServiceClient2
                         EventServiceHost = new ServiceReference1.EventServiceClient(new InstanceContext(this), _netTcpBinding, _endpointAddress);
 
                         //текущая сессия
-                        _appSessionId = Guid.NewGuid();
+                        AppSessionId = Guid.NewGuid();
 
                         //коннектимся к сервису
-                        if (EventServiceHost.Connect(_appSessionId, _userId, _userRole))
+                        if (EventServiceHost.Connect(AppSessionId, _userId, _userRole))
                         {
                             //Подключение контейнера синхронизации
-                            SyncContainer.Connect(EventServiceHost, _appSessionId);
+                            SyncContainer.Connect(EventServiceHost, AppSessionId);
 
                             //циклический пинг хоста
                             PingHost();
@@ -143,7 +144,7 @@ namespace EventServiceClient2
                     //#endif
                     //                    }
                     #endregion
-                    if (HostIsEnabled) EventServiceHost.Disconnect(_appSessionId);
+                    if (HostIsEnabled) EventServiceHost.Disconnect(AppSessionId);
 
                 })
                 .Await(
@@ -208,7 +209,7 @@ namespace EventServiceClient2
                         {
                             if (EventServiceHost.HostIsAlive())
                             {
-                                Thread.Sleep(new TimeSpan(0, 0, 2, 0));
+                                Thread.Sleep(new TimeSpan(0, 0, 5, 0));
                                 this.PingHost();
                             }
                         }
@@ -483,7 +484,7 @@ namespace EventServiceClient2
             try
             {
                 notificationSent = EventServiceHost.PriceEngineeringTaskNotificationEvent(
-                    this._appSessionId,
+                    this.AppSessionId,
                     GlobalAppProperties.User.Id,
                     item.RecipientUser.Id,
                     item.RecipientRole,
@@ -501,6 +502,212 @@ namespace EventServiceClient2
             }
 
             return notificationSent;
+        }
+    }
+
+    public partial class EventServiceClient : IEventServiceClient
+    {
+        public bool SaveDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool StartDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool StopDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PerformDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AcceptDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RejectDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SavePriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceCalculationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceCalculationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FinishPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceCalculationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CancelPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceCalculationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RejectPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceCalculationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid requestId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid documentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool StartTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool InstructTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool StopTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RejectTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId,
+            Role targetRole, Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FinishTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AcceptTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid technicalRequarementsTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid paymentDocumentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskNotificationEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId,
+            Role userTargetRole, Guid priceEngineeringTaskId, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTasksStartPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceEngineeringTasksId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskStartPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskInstructPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskFinishPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId,
+            Role targetRole, Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId,
+            Role targetRole, Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId,
+            Role targetRole, Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskAcceptPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskRejectByManagerPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskRejectByConstructorPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId,
+            Role targetRole, Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskStopPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid priceEngineeringTaskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole,
+            Guid messageId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

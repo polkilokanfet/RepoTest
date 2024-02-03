@@ -146,6 +146,7 @@
     <Compile Include="IOutlookBarGroup.cs" />
     <Compile Include="Services\IGetInformationFromExcelFileService.cs" />
     <Compile Include="Services\IGetFilePaths.cs" />
+    <Compile Include="Services\INotificationMainService.cs" />
     <Compile Include="Services\INotificationService.cs" />
     <Compile Include="Services\INotificationsReportService.cs" />
     <Compile Include="Services\IPrintPriceEngineering.cs" />

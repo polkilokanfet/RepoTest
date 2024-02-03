@@ -4,7 +4,7 @@ using System.ServiceModel;
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
     [ServiceContract]
-    public partial interface IEventServiceCallback
+    public interface IEventServiceCallback
     {
         /// <summary>
         /// Реакция клиента на остановку сервиса

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using Microsoft.Practices.Unity;
 using Prism.Events;
 
-namespace EventServiceClient2.SyncEntities
+namespace NotificationsMainService.SyncEntities
 {
     public abstract class SyncUnit<TModel, TAfterSaveEvent> : ISyncUnit, ITargetUser<TModel>
         where TAfterSaveEvent : PubSubEvent<TModel>, new()
@@ -17,18 +16,20 @@ namespace EventServiceClient2.SyncEntities
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
-        protected readonly IUnitOfWork UnitOfWork;
-        protected Guid AppSessionId { get; private set; }
 
-        protected ServiceReference1.EventServiceClient EventServiceHost { get; private set; }
+        protected readonly IUnitOfWork UnitOfWork;
+
+        protected IEventServiceClient EventServiceClient { get; }
         public Type ModelType => typeof(TModel);
         public Type EventType => typeof(TAfterSaveEvent);
 
-        protected SyncUnit(IUnityContainer container)
+        protected SyncUnit(IEventAggregator eventAggregator, INotificationFromDataBaseService notificationFromDataBaseService, IUnitOfWork unitOfWork, IEventServiceClient eventServiceClient)
         {
-            _eventAggregator = container.Resolve<IEventAggregator>();
-            _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
-            UnitOfWork = container.Resolve<IUnitOfWork>();
+            _eventAggregator = eventAggregator;
+            _notificationFromDataBaseService = notificationFromDataBaseService;
+            UnitOfWork = unitOfWork;
+            EventServiceClient = eventServiceClient;
+            
             Subscribe();
         }
 
@@ -60,11 +61,10 @@ namespace EventServiceClient2.SyncEntities
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        protected virtual IEnumerable<Guid> GetTargetUsersIds(TModel model)
+        private IEnumerable<User> GetTargetUsers(TModel model)
         {
             return UnitOfWork.Repository<User>()
                 .Find(user => user.IsActual && this.IsTargetUser(user, model))
-                .Select(user => user.Id)
                 .Distinct();
         }
 
@@ -79,27 +79,30 @@ namespace EventServiceClient2.SyncEntities
         private void PublishThroughEventService(TModel model)
         {
             //список Id пользователей, которым адресовано уведомление
-            var targetUsersIds = GetTargetUsersIds(model).Distinct().ToList();
+            var targetUsers = GetTargetUsers(model).ToList();
 
             //список Id пользователей, которым не доставлено уведомление
-            var usersIdsWhoDidNotReciveNotification = targetUsersIds.ToList();
+            var usersWhoDidNotReciveNotification = targetUsers.ToList();
 
             //рассылка уведомлений
-            foreach (var targetUsersId in targetUsersIds)
+            foreach (var targetUser in targetUsers)
             {
-                //пользователь получил уведомление?
-                if (PublishNotificationForUser(targetUsersId, model))
+                var roles = targetUser.Roles.Select(x => x.Role).Intersect(this.GetRolesForNotification());
+
+                foreach (var role in roles)
                 {
-                    usersIdsWhoDidNotReciveNotification.Remove(targetUsersId);
+                    //пользователь получил уведомление?
+                    if (PublishNotificationForUser(targetUser, role, model))
+                        usersWhoDidNotReciveNotification.Remove(targetUser);
                 }
             }
 
             //сохранение в базу данных уведомлений, которые не были доставлены адресатам
-            foreach (var userId in usersIdsWhoDidNotReciveNotification)
+            foreach (var user in usersWhoDidNotReciveNotification)
             {
                 var unit = new EventServiceUnit
                 {
-                    User = UnitOfWork.Repository<User>().GetById(userId),
+                    User = user,
                     TargetEntityId = model.Id,
                     EventServiceActionType = this.EventServiceActionType
                 };
@@ -107,31 +110,15 @@ namespace EventServiceClient2.SyncEntities
             }
         }
 
-        private bool PublishNotificationForUser(Guid targetUserId, TModel model)
+        private bool PublishNotificationForUser(User targetUser, Role targetRole, TModel model)
         {
-            if (EventServiceHost == null)
-                return false;
-
             try
             {
-                //если хост есть и он в рабочем состоянии
-                if (EventServiceHost.State != CommunicationState.Faulted &&
-                    EventServiceHost.State != CommunicationState.Closed)
-                {
-                    //публикуем действие
-                    return ActionPublishThroughEventServiceForUser.Invoke(this.AppSessionId, targetUserId, model.Id);
-                }
-                else
-                {
-                    //кидаем событие
-                    ServiceHostDisabled?.Invoke();
-                }
+                //публикуем действие
+                return ActionPublishThroughEventServiceForUser.Invoke(this.EventServiceClient.AppSessionId, targetUser.Id, targetRole, model.Id);
             }
-            //хост недоступен
             catch (TimeoutException)
             {
-                //кидаем событие
-                ServiceHostDisabled?.Invoke();
             }
 #if DEBUG
 #else
@@ -154,27 +141,12 @@ namespace EventServiceClient2.SyncEntities
             Subscribe();
         }
 
-        public void Connect(ServiceReference1.EventServiceClient eventServiceHost, Guid appSessionId)
-        {
-            this.EventServiceHost = eventServiceHost;
-            this.AppSessionId = appSessionId;
-        }
-
-        public void Disconnect()
-        {
-            this.EventServiceHost = null;
-        }
-
-        /// <summary>
-        /// Хост сервиса недоступен
-        /// </summary>
-        public event Action ServiceHostDisabled;
-
         public void Dispose()
         {
             Unsubscribe();
+            UnitOfWork.Dispose();
         }
     }
 
-    public delegate bool ActionPublishThroughEventServiceForUserDelegate(Guid appId, Guid targetUserId, Guid modelId);
+    public delegate bool ActionPublishThroughEventServiceForUserDelegate(Guid sourceEventAppSessionId, Guid targetUserId, Role targetRole, Guid modelId);
 }

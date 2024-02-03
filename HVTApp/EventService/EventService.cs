@@ -49,15 +49,9 @@ namespace EventService
             PrintMessageEvent?.Invoke($"Disconnected ({appSession})");
         }
 
-        public bool HostIsAlive()
-        {
-            return true;
-        }
+        public bool HostIsAlive() => true;
 
-        public bool UserIsConnected(Guid userId)
-        {
-            return _appSessions.Any(appSession => appSession.UserId == userId);
-        }
+        public bool UserIsConnected(Guid userId) => _appSessions.Any(appSession => appSession.UserId == userId);
 
         public bool CopyProjectAttachments(Guid userId, Guid projectId, string targetDirectory)
         {

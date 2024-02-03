@@ -56,6 +56,8 @@ using HVTApp.UI;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
 using Microsoft.Practices.Unity;
+using NotificationsFromDataBaseService;
+using NotificationsMainService;
 using NotificationsReportsService;
 using NotificationsService;
 using Prism.Events;
@@ -159,6 +161,9 @@ namespace HVTApp
             Container.RegisterType<ISendNotificationThroughApp, EventServiceClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationsReportService, NotificationsReportService>();
+            Container.RegisterType<INotificationMainService, NotificationMainService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationFromDataBaseService, NotificationFromDataBaseService>(new ContainerControlledLifetimeManager());
+            
 
             Container.RegisterType<EventServiceUnitWatcher>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
@@ -225,9 +230,11 @@ namespace HVTApp
                 Container.Resolve<INotificationService>().Start();
                 Container.Resolve<INotificationsReportService>().Start();
                 Container.Resolve<EventServiceUnitWatcher>().Start();
+                //Container.Resolve<IEventServiceClient>().Start();
             }
             #endregion
-                Container.Resolve<IEventServiceClient>().Start();
+
+            Container.Resolve<INotificationMainService>().Start();
 
             Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>
             {

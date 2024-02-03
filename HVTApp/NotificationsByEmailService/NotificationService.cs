@@ -7,12 +7,11 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.EventServiceEvents.Args;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.ObjectBuilder2;
+using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -24,6 +23,7 @@ namespace NotificationsService
         private readonly IEventAggregator _eventAggregator;
         private readonly ISendNotificationThroughApp _sendNotificationThroughApp;
         private readonly IEmailService _emailService;
+        private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
 
         public NotificationService(IUnityContainer container)
         {
@@ -31,6 +31,7 @@ namespace NotificationsService
             _unitOfWork = container.Resolve<IUnitOfWork>();
             _eventAggregator = container.Resolve<IEventAggregator>();
             _emailService = container.Resolve<IEmailService>();
+            _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
         }
 
         public void Start()
@@ -109,27 +110,9 @@ namespace NotificationsService
                     if (notificationSentThroughApp) return;
                     
                     //Если уведомление не дошло внутри приложения,
-                    SaveNotificationInDataBase(notification); //сохраняем уведомление в базе данных
+                    _notificationFromDataBaseService.SaveNotificationInDataBase(notification); //сохраняем уведомление в базе данных
                     SendNotificationByEmail(notification); //отправляем уведомление по email
                 });
-        }
-
-        /// <summary>
-        /// Сохранение уведомления в базе данных
-        /// </summary>
-        /// <param name="args"></param>
-        /// <param name="notification"></param>
-        private void SaveNotificationInDataBase(NotificationAboutPriceEngineeringTaskEventArg notification)
-        {
-            var unit = new EventServiceUnit
-            {
-                User = _unitOfWork.Repository<User>().GetById(notification.RecipientUser.Id),
-                Role = notification.RecipientRole,
-                Message = $"{notification.Message}: {notification.PriceEngineeringTask}",
-                TargetEntityId = notification.PriceEngineeringTask.Id,
-                EventServiceActionType = EventServiceActionType.PriceEngineeringTaskNotification
-            };
-            _unitOfWork.SaveEntity(unit);
         }
 
         /// <summary>
