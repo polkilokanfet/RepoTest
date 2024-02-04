@@ -67,8 +67,8 @@ namespace EventServiceClient2
                     try
                     {
 
-                        //проверка на то стартован ли уже сервис
-                        if (HostIsEnabled)
+                        //проверка на то стартован ли уже сервис и доступен ли он
+                        if (HostIsEnabled && EventServiceHost.HostIsAlive())
                             return;
 
                         //инициализация клиента сервиса
@@ -156,22 +156,8 @@ namespace EventServiceClient2
         private void StopWaitRestart()
         {
             Stop();
-            SleepInvokeInOtherThread(this.Start, 600);
-        }
-
-        /// <summary>
-        /// Создать новый поток, уснуть, запустить действие в этом новом потоке
-        /// </summary>
-        /// <param name="action">Действие</param>
-        /// <param name="seconds">На сколько секунд уснуть</param>
-        private void SleepInvokeInOtherThread(Action action, int seconds)
-        {
-            Task.Run(
-                () =>
-                {
-                    Thread.Sleep(new TimeSpan(0, 0, 0, seconds));
-                    action.Invoke();
-                }).Await();
+            Action start = Start;
+            start.SleepThenExecuteInAnotherThread(300);
         }
 
         /// <summary>
@@ -179,25 +165,27 @@ namespace EventServiceClient2
         /// </summary>
         private void PingHost()
         {
-            Task.Run(
-                () =>
+            Action a = () =>
+            {
+                if (HostIsEnabled)
                 {
-                    if (HostIsEnabled)
+                    try
                     {
-                        try
+                        if (EventServiceHost.HostIsAlive())
                         {
-                            if (EventServiceHost.HostIsAlive())
-                            {
-                                Thread.Sleep(new TimeSpan(0, 0, 5, 0));
-                                this.PingHost();
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            this.StopWaitRestart();
+                            this.PingHost();
+                            return;
                         }
                     }
-                }).Await();
+                    catch
+                    {
+                    }
+                }
+
+                this.StopWaitRestart();
+            };
+
+            a.SleepThenExecuteInAnotherThread(300);
         }
 
         public void CopyProjectAttachmentsRequest(Guid userId, Guid projectId, string targetDirectory)

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HVTApp.Infrastructure.Extensions
@@ -26,5 +27,23 @@ namespace HVTApp.Infrastructure.Extensions
 
             lastAction?.Invoke();
         }
+
+        /// <summary>
+        /// Создать новый поток, уснуть, запустить действие в этом новом потоке
+        /// </summary>
+        /// <param name="action">Действие</param>
+        /// <param name="seconds">На сколько секунд уснуть</param>
+        public static void SleepThenExecuteInAnotherThread(this Action action, int seconds)
+        {
+            Task.Run(
+                () =>
+                {
+                    Thread.Sleep(new TimeSpan(0, 0, 0, seconds));
+                    action.Invoke();
+                }).Await();
+        }
+
     }
+
+
 }
