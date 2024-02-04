@@ -131,13 +131,12 @@ namespace EventServiceClient2
 
                 })
                 .Await(
-                    () => this.Disable(),
-                    e =>
+                    errorCallback: e =>
                     {
                         _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
                         //_container.Resolve<IMessageService>().Message(e.GetType().Name, e.PrintAllExceptions());
-                        this.Disable();
-                    }
+                    },
+                    lastAction: this.Disable
                 );
         }
 
