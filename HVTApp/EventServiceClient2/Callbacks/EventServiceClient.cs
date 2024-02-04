@@ -411,115 +411,115 @@ namespace EventServiceClient2
 
         #region PriceEngineeringTasks
 
-        public bool OnPriceEngineeringTasksStartServiceCallback(Guid priceEngineeringTasksId)
-        {
-            var priceEngineeringTasks = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasksId);
+        //public bool OnPriceEngineeringTasksStartServiceCallback(Guid priceEngineeringTasksId)
+        //{
+        //    var priceEngineeringTasks = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasksId);
 
-            var message = $"{priceEngineeringTasks.UserManager} запустил: {priceEngineeringTasks}";
-            var title = $"{priceEngineeringTasks} с Id {priceEngineeringTasks.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTasks, message, title);
-            return true;
-        }
+        //    var message = $"{priceEngineeringTasks.UserManager} запустил: {priceEngineeringTasks}";
+        //    var title = $"{priceEngineeringTasks} с Id {priceEngineeringTasks.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTasks, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskStartServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskStartServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Перезапущено: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Перезапущено: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskStopServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskStopServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Остановлено: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Остановлено: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskInstructServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskInstructServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Поручено: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Поручено: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskFinishServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskFinishServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Проработано: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Проработано: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskFinishGoToVerificationServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskFinishGoToVerificationServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Проработано: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Проработано: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Возвращено на дороботку начальником отдела: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Возвращено на дороботку начальником отдела: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Принято руководителем КБ: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Принято руководителем КБ: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskRejectByManagerServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskRejectByManagerServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Отклонено менеджером: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Отклонено менеджером: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskRejectByConstructorServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskRejectByConstructorServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Отклонено: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Отклонено: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
-        public bool OnPriceEngineeringTaskAcceptServiceCallback(Guid priceEngineeringTaskId)
-        {
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
+        //public bool OnPriceEngineeringTaskAcceptServiceCallback(Guid priceEngineeringTaskId)
+        //{
+        //    var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
 
-            var message = $"Принято: {priceEngineeringTask}";
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
-            return true;
-        }
+        //    var message = $"Принято: {priceEngineeringTask}";
+        //    var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
+        //    _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        //    return true;
+        //}
 
 
         public bool OnPriceEngineeringTaskSendMessageServiceCallback(Guid messageId)
@@ -536,8 +536,7 @@ namespace EventServiceClient2
             Application.Current.Dispatcher.Invoke(
                 () =>
                 {
-                    _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>()
-                        .Publish(taskMessage);
+                    _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>().Publish(taskMessage);
                 });
 
             return true;
@@ -555,11 +554,6 @@ namespace EventServiceClient2
             var message = $"123";
             var title = $"Сохранено п/п №{paymentDocument.Number} от {paymentDocument.Date.ToShortDateString()} г.";
             _popupNotificationsService.ShowPopupNotification(paymentDocument, message, title);
-            return true;
-        }
-
-        public bool PriceEngineeringTaskRejectByHeadPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
             return true;
         }
     }

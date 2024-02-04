@@ -75,11 +75,11 @@
     <Compile Include="Events\AfterSaveSyncEvents.cs" />
     <Compile Include="Events\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents.g.cs" />
-    <Compile Include="Events\EventServiceEvents\Args\NotificationAboutPriceEngineeringTaskEventArg.cs" />
     <Compile Include="Events\EventServiceEvents\ISendNotificationThroughApp.cs" />
     <Compile Include="Events\EventServiceEvents\PriceEngineeringTaskNotificationEvent.cs" />
+    <Compile Include="Events\NotificationArgs\NotificationAboutPriceEngineeringTaskEventArg.cs" />
+    <Compile Include="Events\NotificationArgs\NotificationArgs.cs" />
     <Compile Include="Events\PubSubEventArgs.cs" />
-    <Compile Include="Events\EventServiceEvents\Args\NotificationArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="GeneratorWrappers.cs">
       <DependentUpon>GeneratorWrappers.tt</DependentUpon>
@@ -343,7 +343,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Notifications\" />
     <Folder Include="POCOs\Generated\" />
   </ItemGroup>
   <ItemGroup>

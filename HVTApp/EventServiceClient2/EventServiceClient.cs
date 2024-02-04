@@ -7,7 +7,7 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents;
-using HVTApp.Model.Events.EventServiceEvents.Args;
+using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
@@ -363,70 +363,6 @@ namespace EventServiceClient2
                     case EventServiceActionType.SaveIncomingRequest:
                     {
                         this.CheckMessageInDbAction(unit, unitOfWork, OnSaveIncomingRequestServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.SaveActualPayment:
-                    {
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTasksStart:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTasksStartServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskStart:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskStartServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskStop:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskStopServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskInstruct:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskInstructServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskFinish:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskFinishServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskAccept:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskAcceptServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskRejectByManager:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskRejectByManagerServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskRejectByConstructor:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskRejectByConstructorServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskSendMessage:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskSendMessageServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskFinishGoToVerificationServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback);
                         break;
                     }
                 }

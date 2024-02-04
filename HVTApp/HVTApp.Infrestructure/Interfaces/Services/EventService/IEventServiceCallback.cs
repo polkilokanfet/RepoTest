@@ -55,47 +55,6 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         bool OnPriceEngineeringNotificationServiceCallback(Guid priceEngineeringTaskId, string message);
 
 
-
-        [OperationContract]
-        bool OnPriceEngineeringTasksStartServiceCallback(Guid priceEngineeringTasksId);
-
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskStartServiceCallback(Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskStopServiceCallback(Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskInstructServiceCallback(Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskFinishServiceCallback(Guid priceEngineeringTaskId);
-
-
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskFinishGoToVerificationServiceCallback(Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskVerificationRejectedByHeadServiceCallback(Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskVerificationAcceptedByHeadServiceCallback(Guid priceEngineeringTaskId);
-
-
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskRejectByManagerServiceCallback(Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskRejectByConstructorServiceCallback(Guid priceEngineeringTaskId);
-
-        [OperationContract]
-        bool OnPriceEngineeringTaskAcceptServiceCallback(Guid priceEngineeringTaskId);
-
-
-
         [OperationContract]
         bool OnPriceEngineeringTaskSendMessageServiceCallback(Guid messageId);
 

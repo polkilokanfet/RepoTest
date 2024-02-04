@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
-using HVTApp.Model.Events.EventServiceEvents.Args;
+using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 

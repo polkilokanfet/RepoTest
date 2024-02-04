@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -15,36 +15,18 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
         }
 
-        public override bool IsTargetUser(User user, PriceCalculation priceCalculation)
+        protected override IEnumerable<User> GetUsersForNotification(PriceCalculation model)
         {
-            if (priceCalculation.Initiator.Id == user.Id) return true;
-            //if (user.Roles.Any(userRole => userRole.Role == Role.Pricer)) return true;
-            if (priceCalculation.FrontManager?.Id == user.Id) return true;
-            return false;
+            return model.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Project.Manager).Distinct();
         }
 
-        protected override IEnumerable<Role> GetRolesForNotification()
+        protected override IEnumerable<Role> GetRolesForNotification(PriceCalculation model)
         {
             yield return Role.SalesManager;
-            yield return Role.BackManager;
         }
 
-        public override bool CurrentUserIsTargetForNotification(PriceCalculation priceCalculation)
-        {
-            if (GlobalAppProperties.UserIsManager &&
-                GlobalAppProperties.User.Id != priceCalculation.FrontManager?.Id)
-                return false;
-
-            return base.CurrentUserIsTargetForNotification(priceCalculation);
-        }
-
-        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
-        {
-            get
-            {
-                return (targetUserId, targetRole, priceCalculationId) => EventServiceClient.RejectPriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
-            }
-        }
+        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser => 
+            (targetUserId, targetRole, priceCalculationId) => EventServiceClient.RejectPriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
 
         protected override EventServiceActionType EventServiceActionType => EventServiceActionType.RejectPriceCalculation;
     }

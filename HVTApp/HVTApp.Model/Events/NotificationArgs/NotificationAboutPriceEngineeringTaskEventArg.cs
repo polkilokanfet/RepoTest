@@ -1,8 +1,7 @@
-using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Model.Events.EventServiceEvents.Args
+namespace HVTApp.Model.Events.NotificationArgs
 {
     /// <summary>
     /// Единица уведомления

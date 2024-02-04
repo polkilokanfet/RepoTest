@@ -7,6 +7,8 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.Model.Events.EventServiceEvents;
+using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Items;
@@ -106,24 +108,29 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 () => SelectedItem != null);
 
             container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTasksEvent>().Subscribe(OnItem);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Subscribe(OnItem);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTasksStartedEvent>().Subscribe(OnItem);
 
             container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Subscribe(OnItemChild);
 
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStartedEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByHeadEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Subscribe(OnItemChild);
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStartedEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByHeadEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Subscribe(OnItemChild);
+            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Subscribe(OnItemChild);
+
+            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Subscribe(OnItemChild2);
 
             Load();
         }
 
-        protected abstract TTasks GetItem(PriceEngineeringTasks model);
+        private void OnItemChild2(NotificationAboutPriceEngineeringTaskEventArg obj)
+        {
+            this.OnItemChild(obj.PriceEngineeringTask);
+        }
 
         private void OnItemChild(PriceEngineeringTask priceEngineeringTask)
         {
@@ -135,6 +142,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 item.Refresh();
             }
         }
+
+        protected abstract TTasks GetItem(PriceEngineeringTasks model);
 
         private void OnItem(PriceEngineeringTasks priceEngineeringTasks)
         {

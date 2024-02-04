@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
-namespace HVTApp.Model.Events.EventServiceEvents.Args
+namespace HVTApp.Model.Events.NotificationArgs
 {
     /// <summary>
     /// Аргументы для EventService

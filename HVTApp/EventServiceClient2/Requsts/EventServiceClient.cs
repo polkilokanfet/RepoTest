@@ -123,61 +123,6 @@ namespace EventServiceClient2
             return this.EventServiceHost.PriceEngineeringTaskNotificationEvent(_appSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, message);
         }
 
-        public bool PriceEngineeringTasksStartPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTasksId)
-        {
-            return this.EventServiceHost.PriceEngineeringTasksStartPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTasksId);
-        }
-
-        public bool PriceEngineeringTaskStartPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskStartPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskInstructPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskInstructPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskFinishPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskFinishPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskFinishGoToVerificationPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskFinishGoToVerificationPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskVerificationRejectedByHeadPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskVerificationAcceptedByHeadPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskAcceptPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskAcceptPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskRejectByManagerPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskRejectByManagerPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskRejectByConstructorPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskRejectByConstructorPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
-        public bool PriceEngineeringTaskStopPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
-        {
-            return this.EventServiceHost.PriceEngineeringTaskStopPublishEvent(_appSessionId, targetUserId, targetRole, priceEngineeringTaskId);
-        }
-
         public bool PriceEngineeringTaskSendMessagePublishEvent(Guid targetUserId, Role targetRole, Guid messageId)
         {
             return this.EventServiceHost.PriceEngineeringTaskSendMessagePublishEvent(_appSessionId, targetUserId, targetRole, messageId);

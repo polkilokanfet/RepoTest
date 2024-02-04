@@ -14,24 +14,19 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
         }
 
-        public override bool IsTargetUser(User user, TechnicalRequrementsTask technicalRequrementsTask)
+        protected override IEnumerable<User> GetUsersForNotification(TechnicalRequrementsTask model)
         {
-            if (technicalRequrementsTask.FrontManager?.Id == user.Id) return true;
-            return false;
+            if (model.FrontManager != null) 
+                yield return model.FrontManager;
         }
 
-        protected override IEnumerable<Role> GetRolesForNotification()
+        protected override IEnumerable<Role> GetRolesForNotification(TechnicalRequrementsTask model)
         {
             yield return Role.SalesManager;
         }
 
-        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
-        {
-            get
-            {
-                return (targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.FinishTechnicalRequarementsTaskPublishEvent(targetUserId, targetRole, technicalRequarementsTaskId);
-            }
-        }
+        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser => 
+            (targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.FinishTechnicalRequarementsTaskPublishEvent(targetUserId, targetRole, technicalRequarementsTaskId);
 
         protected override EventServiceActionType EventServiceActionType => EventServiceActionType.FinishTechnicalRequrementsTask;
 

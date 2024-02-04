@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Model.Events;
@@ -14,21 +14,18 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
         }
 
-        public override bool IsTargetUser(User user, PriceCalculation priceCalculation)
+        protected override IEnumerable<User> GetUsersForNotification(PriceCalculation model)
         {
-            if (priceCalculation.Initiator.Id == user.Id) return true;
-            if (user.Roles.Any(userRole => userRole.Role == Role.Pricer)) return true;
-            if (priceCalculation.FrontManager?.Id == user.Id) return true;
-            return false;
+            yield break;
         }
 
-        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
+        protected override IEnumerable<Role> GetRolesForNotification(PriceCalculation model)
         {
-            get
-            {
-                return (targetUserId, targetRole, priceCalculationId) => EventServiceClient.SavePriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
-            }
+            yield break;
         }
+
+        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser => 
+            (targetUserId, targetRole, priceCalculationId) => EventServiceClient.SavePriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
 
         protected override EventServiceActionType EventServiceActionType => EventServiceActionType.SavePriceCalculation;
     }

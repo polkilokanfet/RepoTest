@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents;
-using HVTApp.Model.Events.EventServiceEvents.Args;
+using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 

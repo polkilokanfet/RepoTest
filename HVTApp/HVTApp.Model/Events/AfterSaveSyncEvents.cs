@@ -53,20 +53,20 @@ namespace HVTApp.Model.Events
 
     #region PriceEngineeringTasks
 
-    public class PriceEngineeringTasksStartedEvent : PubSubEvent<PriceEngineeringTasks> { }
+    //public class PriceEngineeringTasksStartedEvent : PubSubEvent<PriceEngineeringTasks> { }
 
-    public class PriceEngineeringTaskStartedEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskStoppedEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskInstructedEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskFinishedEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskAcceptedEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskRejectedByManagerEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskRejectedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskRejectedByConstructorEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskStartedEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskStoppedEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskInstructedEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskFinishedEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskAcceptedEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskRejectedByManagerEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskRejectedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskRejectedByConstructorEvent : PubSubEvent<PriceEngineeringTask> { }
 
-    public class PriceEngineeringTaskFinishedGoToVerificationEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskVerificationRejectedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
-    public class PriceEngineeringTaskVerificationAcceptedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskFinishedGoToVerificationEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskVerificationRejectedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
+    //public class PriceEngineeringTaskVerificationAcceptedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
 
     public class PriceEngineeringTaskSendMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }
     public class PriceEngineeringTaskReciveMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }

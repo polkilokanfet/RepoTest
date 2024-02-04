@@ -15,26 +15,25 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
         }
 
-        public override bool IsTargetUser(User user, TechnicalRequrementsTask technicalRequrementsTask)
+        protected override IEnumerable<User> GetUsersForNotification(TechnicalRequrementsTask model)
         {
-            if (user.Roles.Any(userRole => userRole.Role == Role.BackManagerBoss)) return true;
-            if (technicalRequrementsTask.BackManager?.Id == user.Id) return true;
-            return false;
+            if (model.BackManager != null)
+                yield return model.BackManager;
+            else
+                foreach (var user in UnitOfWork.Repository<User>().Find(x => x.Roles.Select(xx => xx.Role).Contains(Role.BackManagerBoss)))
+                    yield return user;
         }
 
-        protected override IEnumerable<Role> GetRolesForNotification()
+        protected override IEnumerable<Role> GetRolesForNotification(TechnicalRequrementsTask model)
         {
-            yield return Role.BackManager;
-            yield return Role.BackManagerBoss;
+            if (model.BackManager != null)
+                yield return Role.BackManager;
+            else
+                yield return Role.BackManagerBoss;
         }
 
-        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
-        {
-            get
-            {
-                return (targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.StartTechnicalRequarementsTaskPublishEvent(targetUserId, targetRole, technicalRequarementsTaskId);
-            }
-        }
+        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser => 
+            (targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.StartTechnicalRequarementsTaskPublishEvent(targetUserId, targetRole, technicalRequarementsTaskId);
 
         protected override EventServiceActionType EventServiceActionType => EventServiceActionType.StartTechnicalRequrementsTask;
 

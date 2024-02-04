@@ -130,10 +130,5 @@ namespace EventService
                 }
             }
         }
-
-        public bool PriceEngineeringTaskStatusChangedEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

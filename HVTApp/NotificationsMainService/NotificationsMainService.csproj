@@ -61,38 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskAccept.cs" />
-    <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskPerform.cs" />
-    <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskReject.cs" />
-    <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskSave.cs" />
-    <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskStart.cs" />
-    <Compile Include="SyncEntities\Entities\DirectumTask\SyncDirectumTaskStop.cs" />
-    <Compile Include="SyncEntities\Entities\IncomingRequest\SyncIncomingRequest.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationCancel.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationFinish.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationReject.cs" />
-    <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationSave.cs" />
     <Compile Include="SyncEntities\Entities\PriceCalculation\SyncPriceCalculationStart.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskAccept.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinish.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinishedGoToVerification.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskInstruct.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByConstructorToManager.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByHeadToManager.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByManager.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskSendMessage.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTasksStart.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskStart.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskStop.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskVerificationAcceptedByHead.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskVerificationRejectedByHead.cs" />
     <Compile Include="SyncEntities\Entities\SyncPaymentDocument.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskAccept.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskFinish.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskInstruct.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskReject.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskRejectByFrontManager.cs" />
-    <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskSave.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskStart.cs" />
     <Compile Include="SyncEntities\Entities\TechnicalRequrementsTask\SyncTechnicalRequrementsTaskStop.cs" />
     <Compile Include="SyncEntities\ISyncUnit.cs" />
@@ -115,5 +93,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
