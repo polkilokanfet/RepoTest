@@ -10,7 +10,7 @@ using Prism.Events;
 
 namespace NotificationsMainService.SyncEntities
 {
-    public abstract class SyncUnit<TModel, TAfterSaveEvent> : ISyncUnit, ITargetUser<TModel>
+    public abstract class SyncUnit<TModel, TAfterSaveEvent> : ISyncUnit//, ITargetUser<TModel>
         where TAfterSaveEvent : PubSubEvent<TModel>, new()
         where TModel : BaseEntity
     {
@@ -43,29 +43,23 @@ namespace NotificationsMainService.SyncEntities
             _eventAggregator.GetEvent<TAfterSaveEvent>().Unsubscribe(PublishThroughEventService);
         }
 
-        public abstract bool IsTargetUser(User user, TModel model);
-
-        public virtual bool CurrentUserIsTargetForNotification(TModel model)
-        {
-            return IsTargetUser(GlobalAppProperties.User, model) && 
-                   GetRolesForNotification().Contains(GlobalAppProperties.User.RoleCurrent);
-        }
-
-        protected virtual IEnumerable<Role> GetRolesForNotification()
-        {
-            return (Role[]) Enum.GetValues(typeof(Role));
-        }
-
         /// <summary>
         /// Вычисление пользователей-адресатов этого уведомления
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private IEnumerable<User> GetTargetUsers(TModel model)
+        protected virtual IEnumerable<User> GetUsersForNotification(TModel model)
         {
-            return UnitOfWork.Repository<User>()
-                .Find(user => user.IsActual && this.IsTargetUser(user, model))
-                .Distinct();
+            return UnitOfWork.Repository<User>().Find(user => user.IsActual);
+        }
+
+        /// <summary>
+        /// Роли пользователей, которым должны быть отправлены уведомления
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IEnumerable<Role> GetRolesForNotification(TModel model)
+        {
+            return (Role[]) Enum.GetValues(typeof(Role));
         }
 
         protected abstract ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser { get; }
@@ -79,7 +73,7 @@ namespace NotificationsMainService.SyncEntities
         private void PublishThroughEventService(TModel model)
         {
             //список Id пользователей, которым адресовано уведомление
-            var targetUsers = GetTargetUsers(model).ToList();
+            var targetUsers = GetUsersForNotification(model).ToList();
 
             //список Id пользователей, которым не доставлено уведомление
             var usersWhoDidNotReciveNotification = targetUsers.ToList();
@@ -87,7 +81,7 @@ namespace NotificationsMainService.SyncEntities
             //рассылка уведомлений
             foreach (var targetUser in targetUsers)
             {
-                var roles = targetUser.Roles.Select(x => x.Role).Intersect(this.GetRolesForNotification());
+                var roles = targetUser.Roles.Select(userRole => userRole.Role).Intersect(this.GetRolesForNotification(model));
 
                 foreach (var role in roles)
                 {

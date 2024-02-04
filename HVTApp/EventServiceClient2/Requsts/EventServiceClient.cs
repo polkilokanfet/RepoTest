@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Interfaces.Services.EventService;
 
 namespace EventServiceClient2
 {
+    //Тут собраны запросы к хосту
     public partial class EventServiceClient : IEventServiceClient
     {
         public bool SaveDirectumTaskPublishEvent(Guid targetUserId, Role targetRole, Guid taskId)

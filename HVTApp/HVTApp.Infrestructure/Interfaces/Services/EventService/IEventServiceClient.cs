@@ -148,10 +148,12 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         
         bool PriceEngineeringTaskRejectByManagerPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
-        
+
         bool PriceEngineeringTaskRejectByConstructorPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
-        
+        bool PriceEngineeringTaskRejectByHeadPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
+
+
         bool PriceEngineeringTaskStopPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId);
 
 

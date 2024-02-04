@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -15,9 +14,9 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
         }
 
-        public override bool IsTargetUser(User user, PriceEngineeringTask priceEngineeringTask)
+        protected override IEnumerable<User> GetUsersForNotification(PriceEngineeringTask model)
         {
-            return priceEngineeringTask.UserConstructor?.Id == user.Id;
+            yield return model.UserConstructor;
         }
 
         protected override IEnumerable<Role> GetRolesForNotification()
@@ -25,18 +24,8 @@ namespace NotificationsMainService.SyncEntities.Entities
             yield return Role.Constructor;
         }
 
-        public override bool CurrentUserIsTargetForNotification(PriceEngineeringTask priceEngineeringTask)
-        {
-            return GlobalAppProperties.UserIsConstructor;
-        }
-
-        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser
-        {
-            get
-            {
-                return (targetUserId, targetRole, priceEngineeringTaskId) => EventServiceClient.PriceEngineeringTaskInstructPublishEvent(targetUserId, targetRole, priceEngineeringTaskId);
-            }
-        }
+        protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser => 
+            (targetUserId, targetRole, priceEngineeringTaskId) => EventServiceClient.PriceEngineeringTaskInstructPublishEvent(targetUserId, targetRole, priceEngineeringTaskId);
 
         protected override EventServiceActionType EventServiceActionType => EventServiceActionType.PriceEngineeringTaskInstruct;
     }

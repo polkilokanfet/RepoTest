@@ -77,7 +77,8 @@
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinish.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskFinishedGoToVerification.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskInstruct.cs" />
-    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByConstructor.cs" />
+    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByConstructorToManager.cs" />
+    <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByHeadToManager.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskRejectByManager.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTaskSendMessage.cs" />
     <Compile Include="SyncEntities\Entities\PriceEngineeringTask\SyncPriceEngineeringTasksStart.cs" />

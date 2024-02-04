@@ -19,7 +19,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         {
             if (message.Author?.Id == user.Id) return false;
 
-            var priceEngineeringTask = UnitOfWork.Repository<HVTApp.Model.POCOs.PriceEngineeringTask>().GetById(message.PriceEngineeringTaskId);
+            var priceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(message.PriceEngineeringTaskId);
             if (priceEngineeringTask != null)
             {
                 if (user.Id == priceEngineeringTask.UserConstructor?.Id) return true;

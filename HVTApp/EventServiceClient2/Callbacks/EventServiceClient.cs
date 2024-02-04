@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.BookRegistration.Views;
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Prism.Regions;
 
 namespace EventServiceClient2
 {
@@ -559,6 +555,11 @@ namespace EventServiceClient2
             var message = $"123";
             var title = $"Сохранено п/п №{paymentDocument.Number} от {paymentDocument.Date.ToShortDateString()} г.";
             _popupNotificationsService.ShowPopupNotification(paymentDocument, message, title);
+            return true;
+        }
+
+        public bool PriceEngineeringTaskRejectByHeadPublishEvent(Guid targetUserId, Role targetRole, Guid priceEngineeringTaskId)
+        {
             return true;
         }
     }
