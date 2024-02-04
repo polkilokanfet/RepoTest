@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
@@ -10,6 +11,17 @@ namespace EventService
 {
     public partial class EventService : IEventService
     {
+        /// <summary>
+        /// Закрыть все приложения пользователей
+        /// </summary>
+        public void ApplicationsShutdown()
+        {
+            foreach (var appSession in _appSessions)
+            {
+                Task.Run(() => {appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().ApplicationShutdown();}).Await();
+            }
+        }
+
         /// <summary>
         /// Публикация события через сервис синхронизации
         /// </summary>

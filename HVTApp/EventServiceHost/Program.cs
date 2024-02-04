@@ -41,7 +41,22 @@ namespace EventServiceHost
                 host.Opened += (sender, eventArgs) => { Console.WriteLine("Service is ready...\nPress <enter> to terminate service."); };
                 host.Open();
 
-                Console.ReadLine();
+                while (true)
+                {
+                    var ss = Console.ReadLine();
+
+                    if (ss == "q")
+                        break;
+
+                    if (ss == "x")
+                    {
+                        EventService.ApplicationsShutdown();
+                        continue;
+                    }
+
+                    Console.WriteLine("q - Stop service; x - Users Applications Shutdown");
+                }
+                
             }
         }
     }

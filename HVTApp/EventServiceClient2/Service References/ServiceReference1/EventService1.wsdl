@@ -205,6 +205,9 @@
   <wsdl:message name="IEventService_PriceEngineeringTaskSendMessagePublishEvent_OutputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTaskSendMessagePublishEventResponse" />
   </wsdl:message>
+  <wsdl:message name="IEventService_ApplicationShutdown_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ApplicationShutdown" />
+  </wsdl:message>
   <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
   </wsdl:message>
@@ -494,6 +497,9 @@
     <wsdl:operation name="PriceEngineeringTaskSendMessagePublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventResponse" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApplicationShutdown">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/ApplicationShutdown" message="tns:IEventService_ApplicationShutdown_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnServiceDisposeEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
@@ -889,6 +895,12 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplicationShutdown">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/ApplicationShutdown" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

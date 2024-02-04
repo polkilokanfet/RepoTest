@@ -7,6 +7,12 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
     public interface IEventServiceCallback
     {
         /// <summary>
+        /// Закрыть приложение у пользователя
+        /// </summary>
+        [OperationContract(IsOneWay = true)]
+        void ApplicationShutdown();
+
+        /// <summary>
         /// Реакция клиента на остановку сервиса
         /// </summary>
         [OperationContract(IsOneWay = true)]

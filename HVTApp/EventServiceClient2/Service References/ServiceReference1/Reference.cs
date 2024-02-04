@@ -225,6 +225,9 @@ namespace EventServiceClient2.ServiceReference1 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IEventServiceCallback {
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/ApplicationShutdown")]
+        void ApplicationShutdown();
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnServiceDisposeEvent")]
         void OnServiceDisposeEvent();
         

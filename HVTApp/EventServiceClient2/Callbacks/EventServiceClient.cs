@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -12,6 +16,26 @@ namespace EventServiceClient2
     //действия, когда прилетают события из сервера синхронизации
     public partial class EventServiceClient
     {
+        public void ApplicationShutdown()
+        {
+            int t = 120;
+
+            Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(
+                    () =>
+                    {
+                        this._container.Resolve<IMessageService>().Message("Внимание", $"Приложение будет закрыто через {t} секунд для установки обновлений.\nСохраните сделанные изменения.");
+                    });
+            }).Await();
+
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    Task.Run(() => Thread.Sleep(t * 1000)).Await(() => { Application.Current.Shutdown(); });
+                });
+        }
+
         /// <summary>
         /// Реакция сервиса-клиента на остановку сервиса-сервера
         /// </summary>
