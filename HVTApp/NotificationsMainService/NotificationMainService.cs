@@ -158,40 +158,40 @@ namespace NotificationsMainService
         #endregion
 
 
-        /// <summary>
-        /// Публикация события синхронизации только внутри текущего приложения (для текущего пользователя приложения)
-        /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TEvent"></typeparam>
-        /// <param name="model"></param>
-        public bool PublishWithinAppForCurrentUser<TModel, TEvent>(TModel model)
-            where TModel : BaseEntity
-            where TEvent : PubSubEvent<TModel>
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
+        ///// <summary>
+        ///// Публикация события синхронизации только внутри текущего приложения (для текущего пользователя приложения)
+        ///// </summary>
+        ///// <typeparam name="TModel"></typeparam>
+        ///// <typeparam name="TEvent"></typeparam>
+        ///// <param name="model"></param>
+        //public bool PublishWithinAppForCurrentUser<TModel, TEvent>(TModel model)
+        //    where TModel : BaseEntity
+        //    where TEvent : PubSubEvent<TModel>
+        //{
+        //    if (model == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(model));
+        //    }
 
-            //поиск целевого контейнера
-            var targetSyncUnit = _syncUnitsContainer.GetSyncUnit(typeof(TModel), typeof(TEvent));
+        //    //поиск целевого контейнера
+        //    var targetSyncUnit = _syncUnitsContainer.GetSyncUnit(typeof(TModel), typeof(TEvent));
 
-            //если пользователь текущего приложения является целевым для этого события
-            if (((ITargetUser<TModel>)targetSyncUnit).CurrentUserIsTargetForNotification(model))
-            {
-                //переводим в основной поток
-                System.Windows.Application.Current.Dispatcher.Invoke(
-                    () =>
-                    {
-                        //публикуем событие
-                        targetSyncUnit.PublishWithinApp(model);
-                    });
+        //    //если пользователь текущего приложения является целевым для этого события
+        //    if (((ITargetUser<TModel>)targetSyncUnit).CurrentUserIsTargetForNotification(model))
+        //    {
+        //        //переводим в основной поток
+        //        System.Windows.Application.Current.Dispatcher.Invoke(
+        //            () =>
+        //            {
+        //                //публикуем событие
+        //                targetSyncUnit.PublishWithinApp(model);
+        //            });
 
-                return true;
-            }
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         public void Dispose()
         {

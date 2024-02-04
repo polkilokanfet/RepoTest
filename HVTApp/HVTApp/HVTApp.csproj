@@ -419,10 +419,6 @@
       <Project>{ab8b448c-dd74-4d60-a041-3e5d03a32180}</Project>
       <Name>HVTApp.Modules.Sales</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NotificationsByEmailService\NotificationsService.csproj">
-      <Project>{6E34B770-759A-4BCE-9514-D43F7E1E1F4E}</Project>
-      <Name>NotificationsService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NotificationsFromDataBaseService\NotificationsFromDataBaseService.csproj">
       <Project>{68EB380E-4F94-43FF-B0A2-63FB550F59DC}</Project>
       <Name>NotificationsFromDataBaseService</Name>
