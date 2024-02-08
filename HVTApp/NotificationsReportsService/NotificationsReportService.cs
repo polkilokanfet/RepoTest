@@ -40,7 +40,7 @@ namespace NotificationsReportsService
             return true;
         }
 
-        public void Start()
+        public void SendReports()
         {
             var settings = _unitOfWork.Repository<NotificationsReportsSettings>().GetAll().FirstOrDefault();
             var now = DateTime.Now;

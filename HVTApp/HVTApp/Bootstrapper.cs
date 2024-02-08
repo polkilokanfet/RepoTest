@@ -161,9 +161,8 @@ namespace HVTApp
             Container.RegisterType<INotificationsReportService, NotificationsReportService>();
             Container.RegisterType<INotificationMainService, NotificationMainService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationFromDataBaseService, NotificationFromDataBaseService>(new ContainerControlledLifetimeManager());
-            
+            Container.RegisterType<INotificationUnitWatcher, NotificationUnitWatcher>(new ContainerControlledLifetimeManager());
 
-            Container.RegisterType<EventServiceUnitWatcher>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IModelsStore, ModelsStore>(new ContainerControlledLifetimeManager());
@@ -224,10 +223,8 @@ namespace HVTApp
             #if DEBUG
             if (false)
             #endif
-                Container.Resolve<INotificationsReportService>().Start();
-
+            { }
             #endregion
-            Container.Resolve<EventServiceUnitWatcher>().Start();
 
             Container.Resolve<INotificationMainService>().Start();
 

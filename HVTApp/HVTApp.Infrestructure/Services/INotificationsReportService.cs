@@ -2,6 +2,6 @@
 {
     public interface INotificationsReportService
     {
-        void Start();
+        void SendReports();
     }
 }

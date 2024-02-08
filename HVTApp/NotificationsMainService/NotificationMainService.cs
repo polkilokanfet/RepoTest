@@ -28,6 +28,8 @@ namespace NotificationsMainService
         private readonly IEventAggregator _eventAggregator;
         private readonly ISendNotificationThroughApp _sendNotificationThroughApp;
         private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
+        private readonly INotificationsReportService _notificationsReportService;
+        private readonly INotificationUnitWatcher _notificationUnitWatcher;
         private readonly IEmailService _emailService;
         private readonly SyncUnitsContainer _syncUnitsContainer = new SyncUnitsContainer();
 
@@ -37,6 +39,8 @@ namespace NotificationsMainService
             _eventAggregator = container.Resolve<IEventAggregator>();
             _sendNotificationThroughApp = container.Resolve<ISendNotificationThroughApp>();
             _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
+            _notificationsReportService = container.Resolve<INotificationsReportService>();
+            _notificationUnitWatcher = container.Resolve<INotificationUnitWatcher>();
             _emailService = container.Resolve<IEmailService>();
             EventServiceClient = container.Resolve<IEventServiceClient>();
 
@@ -49,6 +53,8 @@ namespace NotificationsMainService
 
         public void Start()
         {
+            _notificationsReportService.SendReports();
+            _notificationUnitWatcher.Start();
             this.EventServiceClient.Start();
 
             //подписка на уведомления о событиях в ТСП

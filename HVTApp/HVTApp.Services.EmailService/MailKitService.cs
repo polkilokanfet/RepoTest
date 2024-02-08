@@ -10,6 +10,9 @@ namespace HVTApp.Services.EmailService
         public void SendMail(string to, string subject, string body)
         {
             const string from = "kosolapov_ag@uetm.ru";
+#if DEBUG
+            to = "kosolapov.ep@mail.ru";
+#endif
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("HVTApp", from));

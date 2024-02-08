@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -12,12 +13,12 @@ namespace NotificationsMainService
     /// <summary>
     /// Класс, который следит за актуальностью EventServiceUnit в базе данных
     /// </summary>
-    public class EventServiceUnitWatcher
+    public class NotificationUnitWatcher : INotificationUnitWatcher
     {
         private readonly IUnityContainer _container;
         private readonly IEventAggregator _eventAggregator;
 
-        public EventServiceUnitWatcher(IUnityContainer container, IEventAggregator eventAggregator)
+        public NotificationUnitWatcher(IUnityContainer container, IEventAggregator eventAggregator)
         {
             _container = container;
             _eventAggregator = eventAggregator;
