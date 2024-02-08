@@ -76,7 +76,7 @@
     <Compile Include="Events\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents.g.cs" />
     <Compile Include="Events\EventServiceEvents\ISendNotificationThroughApp.cs" />
-    <Compile Include="Events\EventServiceEvents\PriceEngineeringTaskNotificationEvent.cs" />
+    <Compile Include="Events\EventServiceEvents\NotificationEvent.cs" />
     <Compile Include="Events\NotificationArgs\NotificationAboutPriceEngineeringTaskEventArg.cs" />
     <Compile Include="Events\NotificationArgs\NotificationArgs.cs" />
     <Compile Include="Events\PubSubEventArgs.cs" />
@@ -177,6 +177,7 @@
     <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Services\IFileManagerService.cs" />
     <Compile Include="Services\INotificationFromDataBaseService.cs" />
+    <Compile Include="Services\INotificationGeneratorService.cs" />
     <Compile Include="Services\IPopupNotificationsService.cs" />
     <Compile Include="Services\IPriceService.cs" />
     <Compile Include="Services\IPrintBlankLetterService.cs" />

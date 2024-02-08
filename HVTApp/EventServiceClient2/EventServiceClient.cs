@@ -17,6 +17,8 @@ namespace EventServiceClient2
     public partial class EventServiceClient : IEventServiceClient, ISendNotificationThroughApp, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
         private readonly IUnityContainer _container;
+        private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
+        private readonly INotificationGeneratorService _notificationGeneratorService;
         private readonly IPopupNotificationsService _popupNotificationsService;
         private readonly IFileManagerService _fileManagerService;
         private readonly IFilesStorageService _filesStorageService;
@@ -40,6 +42,8 @@ namespace EventServiceClient2
         public EventServiceClient(IUnityContainer container)
         {
             _container = container;
+            _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
+            _notificationGeneratorService = container.Resolve<INotificationGeneratorService>();
             _popupNotificationsService = container.Resolve<IPopupNotificationsService>();
             _fileManagerService = container.Resolve<IFileManagerService>();
             _filesStorageService = container.Resolve<IFilesStorageService>();
@@ -56,17 +60,10 @@ namespace EventServiceClient2
             Task.Run(
                 () =>
                 {
-                    try
-                    {
-                        CheckMessagesInDb();
-                    }
-                    catch (Exception)
-                    {
-                    }
+                    Task.Run(() => _notificationFromDataBaseService.CheckMessagesInDbAndShowNotifications()).Await();
 
                     try
                     {
-
                         //проверка на то стартован ли уже сервис и доступен ли он
                         if (HostIsEnabled && EventServiceHost.HostIsAlive())
                             return;
@@ -242,9 +239,9 @@ namespace EventServiceClient2
                         catch
                         {
                         }
-
-                        continue;
                     }
+
+                    continue;
                 }
 
                 if (unit.Role.HasValue == false || GlobalAppProperties.User.RoleCurrent != unit.Role)
@@ -383,7 +380,7 @@ namespace EventServiceClient2
             }
         }
 
-        public bool SendNotification(NotificationAboutPriceEngineeringTaskEventArg item)
+        public bool SendNotification(NotificationUnit unit)
         {
             bool notificationSent = false;
 
@@ -393,11 +390,11 @@ namespace EventServiceClient2
             {
                 notificationSent = EventServiceHost.PriceEngineeringTaskNotificationEvent(
                     this._appSessionId,
-                    GlobalAppProperties.User.Id,
-                    item.RecipientUser.Id,
-                    item.RecipientRole,
-                    item.PriceEngineeringTask.Id,
-                    $"{item.Message}: {item.PriceEngineeringTask}");
+                    unit.SenderUser.Id,
+                    unit.RecipientUser.Id,
+                    unit.RecipientRole,
+                    unit.TargetEntityId,
+                    $"{_notificationGeneratorService.GetTargetActionInfo(unit)}: {_notificationGeneratorService.GetTargetActionInfo(unit)}");
             }
             //хост недоступен
             catch (TimeoutException)

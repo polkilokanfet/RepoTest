@@ -112,7 +112,7 @@ namespace HVTApp.UI.PriceEngineering
             this.SaveCommand.Execute();
 
             var arg = new NotificationAboutPriceEngineeringTaskEventArg.StartConstructor(this.Model);
-            Container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(arg);
+            Container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(arg);
         }
 
         /// <summary>

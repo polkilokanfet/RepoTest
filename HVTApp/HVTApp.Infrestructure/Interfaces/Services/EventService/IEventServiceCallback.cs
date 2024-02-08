@@ -128,11 +128,5 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         /// <returns>жив?</returns>
         [OperationContract]
         bool IsAlive();
-
-        /// <summary>
-        /// Проверить сообщения, сохраненные в базе данных
-        /// </summary>
-        [OperationContract(IsOneWay = true)]
-        void CheckMessagesInDb();
     }
 }

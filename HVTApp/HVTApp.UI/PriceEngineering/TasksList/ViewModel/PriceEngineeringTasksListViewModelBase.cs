@@ -112,24 +112,30 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
             container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Subscribe(OnItemChild);
 
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStartedEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskInstructedEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskAcceptedEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByManagerEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByConstructorEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskRejectedByHeadEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskStoppedEvent>().Subscribe(OnItemChild);
-            //container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskFinishedGoToVerificationEvent>().Subscribe(OnItemChild);
-
-            container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Subscribe(OnItemChild2);
+            container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Subscribe(OnItemChild2);
 
             Load();
         }
 
-        private void OnItemChild2(NotificationAboutPriceEngineeringTaskEventArg obj)
+        private void OnItemChild2(NotificationUnit notificationUnit)
         {
-            this.OnItemChild(obj.PriceEngineeringTask);
+            switch (notificationUnit.ActionType)
+            {
+                case EventServiceActionType.PriceEngineeringTaskStart:
+                case EventServiceActionType.PriceEngineeringTaskStop:
+                case EventServiceActionType.PriceEngineeringTaskInstruct:
+                case EventServiceActionType.PriceEngineeringTaskFinish:
+                case EventServiceActionType.PriceEngineeringTaskAccept:
+                case EventServiceActionType.PriceEngineeringTaskRejectByManager:
+                case EventServiceActionType.PriceEngineeringTaskRejectByConstructor:
+                case EventServiceActionType.PriceEngineeringTaskSendMessage:
+                case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
+                case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                case EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead:
+                case EventServiceActionType.PriceEngineeringTaskNotification:
+                    this.OnItemChild(this.UnitOfWork.Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId));
+                    break;
+            }
         }
 
         private void OnItemChild(PriceEngineeringTask priceEngineeringTask)

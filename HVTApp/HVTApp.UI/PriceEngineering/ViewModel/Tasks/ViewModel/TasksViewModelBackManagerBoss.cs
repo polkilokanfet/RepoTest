@@ -52,7 +52,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     if (task1 != null)
                     {
                         var arg = new NotificationAboutPriceEngineeringTaskEventArg.LoadToTceStartBackManager(task1, backManager);
-                        container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(arg);
+                        container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(arg);
                     }
                 },
                 () =>

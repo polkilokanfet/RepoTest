@@ -52,7 +52,7 @@ namespace NotificationsMainService
             this.EventServiceClient.Start();
 
             //подписка на уведомления о событиях в ТСП
-            _eventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Subscribe(OnPriceEngineeringTaskNotificationEvent, true);
+            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(OnNotificationEvent, true);
 
             //подписка на сохранение платежного документа
             _eventAggregator.GetEvent<AfterSavePaymentDocumentEvent>().Subscribe(OnAfterSavePaymentDocumentEvent, true);
@@ -60,7 +60,7 @@ namespace NotificationsMainService
 
         #region OnPriceEngineeringTaskNotificationEvent
 
-        private void OnPriceEngineeringTaskNotificationEvent(NotificationAboutPriceEngineeringTaskEventArg notification)
+        private void OnNotificationEvent(NotificationUnit notification)
         {
             var notificationSentThroughApp = true;
 
@@ -76,7 +76,7 @@ namespace NotificationsMainService
 
                     //Если уведомление не дошло внутри приложения,
                     _notificationFromDataBaseService.SaveNotificationInDataBase(notification); //сохраняем уведомление в базе данных
-                    SendNotificationByEmail(notification); //отправляем уведомление по email
+                    //SendNotificationByEmail(notification); //отправляем уведомление по email
                 });
         }
 

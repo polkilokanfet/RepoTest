@@ -68,7 +68,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             foreach (var item in this.GetNotificationsArgs())
             {
-                this.EventAggregator.GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(item);
+                this.EventAggregator.GetEvent<NotificationEvent>().Publish(item);
             }
         }
 

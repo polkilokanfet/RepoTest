@@ -1,5 +1,4 @@
 ﻿using HVTApp.Model.Events.NotificationArgs;
-using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Services
 {
@@ -8,9 +7,9 @@ namespace HVTApp.Model.Services
         /// <summary>
         /// Сохранение уведомления в базе данных
         /// </summary>
-        /// <param name="notification"></param>
-        void SaveNotificationInDataBase(NotificationAboutPriceEngineeringTaskEventArg notification);
+        /// <param name="unit"></param>
+        void SaveNotificationInDataBase(NotificationUnit unit);
 
-        void SaveNotificationInDataBase(EventServiceUnit unit);
+        void CheckMessagesInDbAndShowNotifications();
     }
 }

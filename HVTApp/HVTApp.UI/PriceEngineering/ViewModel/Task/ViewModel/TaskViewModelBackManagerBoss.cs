@@ -74,7 +74,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.Messenger.SendMessage($"Назначен плановик: {planMaker.Employee.Person}");
 
                     var arg = new NotificationAboutPriceEngineeringTaskEventArg.ProductionRequestStartPlanMaker(Model, planMaker);
-                    container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskNotificationEvent>().Publish(arg);
+                    container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(arg);
                 },
                 () => this.Model.Status.Equals(ScriptStep.ProductionRequestStart));
             

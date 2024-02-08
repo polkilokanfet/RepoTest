@@ -102,11 +102,11 @@ namespace NotificationsFromDataBaseService
         }
     }
 
-    public class NotificationGeneratorService
+    public class NotificationService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public NotificationGeneratorService(IUnitOfWork unitOfWork)
+        public NotificationService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

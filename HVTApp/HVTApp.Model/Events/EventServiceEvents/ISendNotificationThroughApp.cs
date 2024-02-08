@@ -7,6 +7,6 @@ namespace HVTApp.Model.Events.EventServiceEvents
     /// </summary>
     public interface ISendNotificationThroughApp
     {
-        bool SendNotification(NotificationAboutPriceEngineeringTaskEventArg item);
+        bool SendNotification(NotificationUnit unit);
     }
 }
