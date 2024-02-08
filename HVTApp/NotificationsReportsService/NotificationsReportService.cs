@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
@@ -128,6 +129,7 @@ namespace NotificationsReportsService
 
                 try
                 {
+                    Thread.Sleep(1000);
                     _emailService.SendMail(email, "[Уведомление из УП ВВА] Истек срок проработки блока ТСП", report);
                 }
                 catch (Exception e)

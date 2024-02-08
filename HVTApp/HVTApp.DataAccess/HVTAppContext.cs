@@ -16,7 +16,7 @@ namespace HVTApp.DataAccess
 #endif
             Database.SetInitializer(new HvtAppDataBaseInitializer());
             //ожидание ответа от сервера
-            ((IObjectContextAdapter) this).ObjectContext.CommandTimeout = 180;
+            ((IObjectContextAdapter) this).ObjectContext.CommandTimeout = 300;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

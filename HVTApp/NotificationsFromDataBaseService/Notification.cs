@@ -65,6 +65,7 @@ namespace NotificationsFromDataBaseService
 
         public override string GetTargetActionInfo()
         {
+            throw new NotImplementedException();
             switch (Unit.ActionType)
             {
                 case EventServiceActionType.PriceEngineeringTaskStart:
@@ -112,6 +113,7 @@ namespace NotificationsFromDataBaseService
 
         private INotification GetNotification(NotificationUnit unit)
         {
+            throw new NotImplementedException();
             switch (unit.ActionType)
             {
                 case EventServiceActionType.SavePriceCalculation:

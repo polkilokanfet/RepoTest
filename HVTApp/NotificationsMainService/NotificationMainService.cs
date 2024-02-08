@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.NotificationArgs;
@@ -90,7 +91,17 @@ namespace NotificationsMainService
             {
                 var subject = $"[Уведомление из УП ВВА] ТСП на новом этапе: {notification.PriceEngineeringTask.Status.Description}";
                 var message = GetEmailMessageOnPriceEngineeringTaskNotificationEvent(notification);
-                Task.Run(() => _emailService.SendMail(recipientEmailAddress, subject, message)).Await();
+                Task.Run(() => _emailService.SendMail(recipientEmailAddress, subject, message)).Await(
+                    errorCallback: e =>
+                    {
+                        var logUnit = new LogUnit()
+                        {
+                            Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
+                            Head = $"SendNotificationByEmail {recipientEmailAddress}",
+                            Message = e.PrintAllExceptions()
+                        };
+                        _unitOfWork.SaveEntity(logUnit);
+                    });
             }
         }
 

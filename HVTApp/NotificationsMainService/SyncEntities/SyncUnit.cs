@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -15,6 +17,7 @@ namespace NotificationsMainService.SyncEntities
         where TModel : BaseEntity
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IMessageService _messageService;
         private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
 
         protected readonly IUnitOfWork UnitOfWork;
@@ -23,13 +26,14 @@ namespace NotificationsMainService.SyncEntities
         public Type ModelType => typeof(TModel);
         public Type EventType => typeof(TAfterSaveEvent);
 
-        protected SyncUnit(IEventAggregator eventAggregator, INotificationFromDataBaseService notificationFromDataBaseService, IUnitOfWork unitOfWork, IEventServiceClient eventServiceClient)
+        protected SyncUnit(IEventAggregator eventAggregator, INotificationFromDataBaseService notificationFromDataBaseService, IUnitOfWork unitOfWork, IEventServiceClient eventServiceClient, IMessageService messageService)
         {
             _eventAggregator = eventAggregator;
             _notificationFromDataBaseService = notificationFromDataBaseService;
             UnitOfWork = unitOfWork;
             EventServiceClient = eventServiceClient;
-            
+            _messageService = messageService;
+
             Subscribe();
         }
 

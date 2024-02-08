@@ -224,10 +224,8 @@ namespace HVTApp
             #if DEBUG
             if (false)
             #endif
-            {
                 Container.Resolve<INotificationsReportService>().Start();
-                //Container.Resolve<IEventServiceClient>().Start();
-            }
+
             #endregion
             Container.Resolve<EventServiceUnitWatcher>().Start();
 

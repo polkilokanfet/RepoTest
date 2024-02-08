@@ -242,117 +242,122 @@ namespace EventServiceClient2
                         catch
                         {
                         }
+
+                        continue;
                     }
                 }
+
+                if (unit.Role.HasValue == false || GlobalAppProperties.User.RoleCurrent != unit.Role)
+                    continue;
 
                 switch (unit.EventServiceActionType)
+            {
+                case EventServiceActionType.SavePriceCalculation:
                 {
-                    case EventServiceActionType.SavePriceCalculation:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnSavePriceCalculationServiceCallback);
-                        break;
-                    }
-                    //старт расчета ПЗ
-                    case EventServiceActionType.StartPriceCalculation:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnStartPriceCalculationServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.CancelPriceCalculation:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnCancelPriceCalculationServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.RejectPriceCalculation:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnRejectPriceCalculationServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.FinishPriceCalculation:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnFinishPriceCalculationServiceCallback);
-                        break;
-                    }
-
-                    case EventServiceActionType.SaveTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnSaveTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.StartTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnStartTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-                    //поручение расчета ПЗ
-                    case EventServiceActionType.InstructTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnInstructTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.RejectTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnRejectTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.RejectByFrontManagerTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.FinishTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnFinishTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.AcceptTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnAcceptTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.StopTechnicalRequrementsTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnStopTechnicalRequarementsTaskServiceCallback);
-                        break;
-                    }
-
-                    case EventServiceActionType.SaveDirectumTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnSaveDirectumTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.StartDirectumTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnStartDirectumTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.StopDirectumTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnStopDirectumTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.PerformDirectumTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnPerformDirectumTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.AcceptDirectumTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnAcceptDirectumTaskServiceCallback);
-                        break;
-                    }
-                    case EventServiceActionType.RejectDirectumTask:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnRejectDirectumTaskServiceCallback);
-                        break;
-                    }
-
-                    case EventServiceActionType.SaveIncomingRequest:
-                    {
-                        this.CheckMessageInDbAction(unit, unitOfWork, OnSaveIncomingRequestServiceCallback);
-                        break;
-                    }
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnSavePriceCalculationServiceCallback);
+                    break;
                 }
+                //старт расчета ПЗ
+                case EventServiceActionType.StartPriceCalculation:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnStartPriceCalculationServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.CancelPriceCalculation:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnCancelPriceCalculationServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.RejectPriceCalculation:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnRejectPriceCalculationServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.FinishPriceCalculation:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnFinishPriceCalculationServiceCallback);
+                    break;
+                }
+
+                case EventServiceActionType.SaveTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnSaveTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.StartTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnStartTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+                //поручение расчета ПЗ
+                case EventServiceActionType.InstructTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnInstructTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.RejectTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnRejectTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.RejectByFrontManagerTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.FinishTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnFinishTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.AcceptTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnAcceptTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.StopTechnicalRequrementsTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnStopTechnicalRequarementsTaskServiceCallback);
+                    break;
+                }
+
+                case EventServiceActionType.SaveDirectumTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnSaveDirectumTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.StartDirectumTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnStartDirectumTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.StopDirectumTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnStopDirectumTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.PerformDirectumTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnPerformDirectumTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.AcceptDirectumTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnAcceptDirectumTaskServiceCallback);
+                    break;
+                }
+                case EventServiceActionType.RejectDirectumTask:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnRejectDirectumTaskServiceCallback);
+                    break;
+                }
+
+                case EventServiceActionType.SaveIncomingRequest:
+                {
+                    this.CheckMessageInDbAction(unit, unitOfWork, OnSaveIncomingRequestServiceCallback);
+                    break;
+                }
+            }
             }
 
             unitOfWork.SaveChanges();

@@ -12,7 +12,7 @@
 //{
 //    public class SyncPaymentDocument : SyncUnit<PaymentDocument, AfterSaveActualPaymentDocumentEvent>
 //    {
-//        public SyncPaymentDocument(IEventAggregator eventAggregator, INotificationFromDataBaseService notificationFromDataBaseService, IUnitOfWork unitOfWork, IEventServiceClient eventServiceClient) : base(eventAggregator, notificationFromDataBaseService, unitOfWork, eventServiceClient)
+//        public SyncPaymentDocument(IEventAggregator eventAggregator, INotificationFromDataBaseService notificationFromDataBaseService, IUnitOfWork unitOfWork, IEventServiceClient eventServiceClient, IMessageService messageService) : base(eventAggregator, notificationFromDataBaseService, unitOfWork, eventServiceClient, messageService)
 //        {
 //        }
 
