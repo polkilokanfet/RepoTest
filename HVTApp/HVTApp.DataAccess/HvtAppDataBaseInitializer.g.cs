@@ -12,6 +12,7 @@ namespace HVTApp.DataAccess
         {
             TestData testData = new TestData();
 
+            context.NotificationUnitDbSet.AddRange(testData.GetAll<NotificationUnit>());
             context.CountryUnionDbSet.AddRange(testData.GetAll<CountryUnion>());
             context.BankGuaranteeDbSet.AddRange(testData.GetAll<BankGuarantee>());
             context.BankGuaranteeTypeDbSet.AddRange(testData.GetAll<BankGuaranteeType>());

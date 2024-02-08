@@ -1,8 +1,8 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
 
-namespace HVTApp.Model.Events.NotificationArgs
+namespace HVTApp.Model.POCOs
 {
     public class NotificationUnit : BaseEntity
     {
@@ -15,7 +15,10 @@ namespace HVTApp.Model.Events.NotificationArgs
         /// <summary>
         /// отправитель
         /// </summary>
-        public User SenderUser { get; set; } = GlobalAppProperties.User;
+        [Required]
+        public virtual User SenderUser { get; set; }
+
+        public Guid SenderUserId { get; set; } = GlobalAppProperties.User.Id;
 
         /// <summary>
         /// роль отправителя
@@ -29,7 +32,10 @@ namespace HVTApp.Model.Events.NotificationArgs
         /// <summary>
         /// Получатель
         /// </summary>
-        public User RecipientUser { get; set; }
+        [Required]
+        public virtual User RecipientUser { get; set; }
+
+        public Guid RecipientUserId { get; set; }
 
         /// <summary>
         /// Роль получателя

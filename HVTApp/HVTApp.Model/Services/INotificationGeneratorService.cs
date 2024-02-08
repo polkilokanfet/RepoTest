@@ -1,5 +1,5 @@
 ﻿using System;
-using HVTApp.Model.Events.NotificationArgs;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Services
 {

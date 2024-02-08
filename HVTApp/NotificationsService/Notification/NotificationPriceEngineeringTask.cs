@@ -4,7 +4,6 @@ using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
-using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.View;
 using Prism.Regions;

@@ -1,7 +1,6 @@
 ﻿using System;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
-using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 

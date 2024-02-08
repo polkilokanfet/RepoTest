@@ -7,6 +7,102 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 namespace HVTApp.Model.Wrapper
 {
 	
+    public partial class NotificationUnitWrapper : WrapperBase<NotificationUnit>
+	{
+	    public NotificationUnitWrapper(NotificationUnit model) : base(model) { }
+
+        #region SimpleProperties
+
+        /// <summary>
+        /// ActionType
+        /// </summary>
+        public HVTApp.Model.POCOs.EventServiceActionType ActionType
+        {
+          get { return Model.ActionType; }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.EventServiceActionType ActionTypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.EventServiceActionType>(nameof(ActionType));
+        public bool ActionTypeIsChanged => GetIsChanged(nameof(ActionType));
+
+        /// <summary>
+        /// TargetEntityId
+        /// </summary>
+        public System.Guid TargetEntityId
+        {
+          get { return Model.TargetEntityId; }
+          set { SetValue(value); }
+        }
+        public System.Guid TargetEntityIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TargetEntityId));
+        public bool TargetEntityIdIsChanged => GetIsChanged(nameof(TargetEntityId));
+
+        /// <summary>
+        /// SenderRole
+        /// </summary>
+        public HVTApp.Infrastructure.Role SenderRole
+        {
+          get { return Model.SenderRole; }
+          set { SetValue(value); }
+        }
+        public HVTApp.Infrastructure.Role SenderRoleOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(SenderRole));
+        public bool SenderRoleIsChanged => GetIsChanged(nameof(SenderRole));
+
+        /// <summary>
+        /// RecipientRole
+        /// </summary>
+        public HVTApp.Infrastructure.Role RecipientRole
+        {
+          get { return Model.RecipientRole; }
+          set { SetValue(value); }
+        }
+        public HVTApp.Infrastructure.Role RecipientRoleOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(RecipientRole));
+        public bool RecipientRoleIsChanged => GetIsChanged(nameof(RecipientRole));
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return Model.Id; }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+
+        #region ComplexProperties
+
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+	    public UserWrapper SenderUser 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(SenderUser, value); }
+        }
+
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+	    public UserWrapper RecipientUser 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(RecipientUser, value); }
+        }
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(SenderUser), Model.SenderUser == null ? null : new UserWrapper(Model.SenderUser));
+            InitializeComplexProperty<UserWrapper>(nameof(RecipientUser), Model.RecipientUser == null ? null : new UserWrapper(Model.RecipientUser));
+        }
+	}
+
+    public class NotificationUnitEmptyWrapper : WrapperBase<NotificationUnit>
+	{
+	    public NotificationUnitEmptyWrapper(NotificationUnit model) : base(model) { }
+    }
+
+		
     public partial class CountryUnionWrapper : WrapperBase<CountryUnion>
 	{
 	    public CountryUnionWrapper(CountryUnion model) : base(model) { }
@@ -7912,6 +8008,11 @@ namespace HVTApp.Model.Wrapper
         /// Сумма отгрузки
         /// </summary>
         public System.Double SumToShipping => Model.SumToShipping; 
+
+        /// <summary>
+        /// Сумма фиксированных затрат
+        /// </summary>
+        public System.Double FixedCost => Model.FixedCost; 
 
         /// <summary>
         /// ОИТ

@@ -3,6 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class NotificationUnitConfiguration : EntityTypeConfiguration<NotificationUnit> { }
     public partial class CountryUnionConfiguration : EntityTypeConfiguration<CountryUnion> { }
     public partial class BankGuaranteeConfiguration : EntityTypeConfiguration<BankGuarantee> { }
     public partial class BankGuaranteeTypeConfiguration : EntityTypeConfiguration<BankGuaranteeType> { }

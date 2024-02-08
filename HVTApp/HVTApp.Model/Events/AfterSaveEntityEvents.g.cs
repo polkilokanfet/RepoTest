@@ -3,6 +3,7 @@ using Prism.Events;
 
 namespace HVTApp.Model.Events
 {
+	public partial class AfterSaveNotificationUnitEvent : PubSubEvent<NotificationUnit> { }
 	public partial class AfterSaveCountryUnionEvent : PubSubEvent<CountryUnion> { }
 	public partial class AfterSaveBankGuaranteeEvent : PubSubEvent<BankGuarantee> { }
 	public partial class AfterSaveBankGuaranteeTypeEvent : PubSubEvent<BankGuaranteeType> { }

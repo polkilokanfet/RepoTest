@@ -1,8 +1,8 @@
 ﻿using System;
 using HVTApp.Infrastructure;
-using HVTApp.Model.Events.NotificationArgs;
 using Prism.Regions;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Model.POCOs;
 
 namespace NotificationsService
 {

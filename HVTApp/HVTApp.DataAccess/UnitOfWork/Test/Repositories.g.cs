@@ -3,6 +3,11 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class NotificationUnitRepositoryTest : TestBaseRepository<NotificationUnit>, INotificationUnitRepository
+    {
+        public NotificationUnitRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class CountryUnionRepositoryTest : TestBaseRepository<CountryUnion>, ICountryUnionRepository
     {
         public CountryUnionRepositoryTest(TestData testData) : base(testData) {}

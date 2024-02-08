@@ -9,6 +9,7 @@ namespace HVTApp.DataAccess
         protected void AddConfigurations(DbModelBuilder modelBuilder)
         {
 			#region Configurations
+            modelBuilder.Configurations.Add(new NotificationUnitConfiguration());
             modelBuilder.Configurations.Add(new CountryUnionConfiguration());
             modelBuilder.Configurations.Add(new BankGuaranteeConfiguration());
             modelBuilder.Configurations.Add(new BankGuaranteeTypeConfiguration());
@@ -119,6 +120,7 @@ namespace HVTApp.DataAccess
         }
 
 		#region DbSets
+        public virtual DbSet<NotificationUnit> NotificationUnitDbSet { get; set; }
         public virtual DbSet<CountryUnion> CountryUnionDbSet { get; set; }
         public virtual DbSet<BankGuarantee> BankGuaranteeDbSet { get; set; }
         public virtual DbSet<BankGuaranteeType> BankGuaranteeTypeDbSet { get; set; }

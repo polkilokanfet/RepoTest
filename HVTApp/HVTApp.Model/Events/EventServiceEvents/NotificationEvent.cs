@@ -1,4 +1,4 @@
-using HVTApp.Model.Events.NotificationArgs;
+using HVTApp.Model.POCOs;
 using Prism.Events;
 
 namespace HVTApp.Model.Events.EventServiceEvents

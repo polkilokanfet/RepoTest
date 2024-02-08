@@ -78,7 +78,7 @@
     <Compile Include="Events\EventServiceEvents\ISendNotificationThroughApp.cs" />
     <Compile Include="Events\EventServiceEvents\NotificationEvent.cs" />
     <Compile Include="Events\NotificationArgs\NotificationAboutPriceEngineeringTaskEventArg.cs" />
-    <Compile Include="Events\NotificationArgs\NotificationUnit.cs" />
+    <Compile Include="POCOs\NotificationUnit.cs" />
     <Compile Include="Events\PubSubEventArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="GeneratorWrappers.cs">

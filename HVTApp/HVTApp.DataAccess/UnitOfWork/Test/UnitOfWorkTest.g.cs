@@ -7,6 +7,7 @@ namespace HVTApp.DataAccess
         public UnitOfWorkTest(TestData testData)
         {
 			#region RepositoriesInit
+            NotificationUnitRepository = new NotificationUnitRepositoryTest(testData);
             CountryUnionRepository = new CountryUnionRepositoryTest(testData);
             BankGuaranteeRepository = new BankGuaranteeRepositoryTest(testData);
             BankGuaranteeTypeRepository = new BankGuaranteeTypeRepositoryTest(testData);
@@ -118,6 +119,7 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        public INotificationUnitRepository NotificationUnitRepository { get; }
         public ICountryUnionRepository CountryUnionRepository { get; }
         public IBankGuaranteeRepository BankGuaranteeRepository { get; }
         public IBankGuaranteeTypeRepository BankGuaranteeTypeRepository { get; }

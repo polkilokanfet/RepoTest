@@ -4,6 +4,9 @@ namespace HVTApp.DataAccess
     {
         private void InitializeRepositories()
         {
+            NotificationUnitRepository = new NotificationUnitRepository(_context);
+            NotificationUnitRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             CountryUnionRepository = new CountryUnionRepository(_context);
             CountryUnionRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -326,6 +329,7 @@ namespace HVTApp.DataAccess
 
         private void DisposeRepositories()
         {
+            NotificationUnitRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CountryUnionRepository.OperationFailedEvent -= OnOperationFailedEvent;
             BankGuaranteeRepository.OperationFailedEvent -= OnOperationFailedEvent;
             BankGuaranteeTypeRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -435,6 +439,7 @@ namespace HVTApp.DataAccess
         }
 
         #region Repositories
+        protected INotificationUnitRepository NotificationUnitRepository;
         protected ICountryUnionRepository CountryUnionRepository;
         protected IBankGuaranteeRepository BankGuaranteeRepository;
         protected IBankGuaranteeTypeRepository BankGuaranteeTypeRepository;
