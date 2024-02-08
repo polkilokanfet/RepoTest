@@ -111,8 +111,17 @@ namespace HVTApp.UI.PriceEngineering
             Messenger.SendMessage(sb.ToString());
             this.SaveCommand.Execute();
 
-            var arg = new NotificationAboutPriceEngineeringTaskEventArg.StartConstructor(this.Model);
-            Container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(arg);
+            var notificationUnit = new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskInstructToConstructor,
+                RecipientRole = Role.Constructor,
+                RecipientUser = UserConstructor.Model,
+                SenderRole = GlobalAppProperties.User.RoleCurrent,
+                SenderUser = GlobalAppProperties.User,
+                TargetEntityId = Model.Id
+            };
+
+            Container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(notificationUnit);
         }
 
         /// <summary>

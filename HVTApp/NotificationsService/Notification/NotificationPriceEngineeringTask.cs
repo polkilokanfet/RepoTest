@@ -56,7 +56,7 @@ namespace NotificationsService
                 case EventServiceActionType.PriceEngineeringTaskStop:
                     return "Менеджер остановил проработку задачи";
 
-                case EventServiceActionType.PriceEngineeringTaskInstruct:
+                case EventServiceActionType.PriceEngineeringTaskInstructToConstructor:
                     break;
                 case EventServiceActionType.PriceEngineeringTaskFinish:
                     break;
@@ -64,7 +64,7 @@ namespace NotificationsService
                     break;
                 case EventServiceActionType.PriceEngineeringTaskRejectByManager:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskRejectByConstructor:
+                case EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager:
                     break;
                 case EventServiceActionType.PriceEngineeringTaskSendMessage:
                     break;

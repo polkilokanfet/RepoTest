@@ -3,7 +3,6 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
-using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -26,19 +25,31 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 base.SendNotification();
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
             var tasks = ViewModel.Model.GetPriceEngineeringTasks(UnitOfWork);
             if (tasks.BackManager == null)
             {
                 foreach (var user in UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
                 {
-                    yield return new NotificationAboutPriceEngineeringTaskEventArg.LoadToTceStartBackManagerBoss(this.ViewModel.Model, user);
+                    yield return new NotificationUnit
+                    {
+                        ActionType = EventServiceActionType.PriceEngineeringTaskLoadToTceStart,
+                        RecipientRole = Role.BackManagerBoss,
+                        RecipientUser = user,
+                        TargetEntityId = ViewModel.Model.Id
+                    };
                 }
             }
             else
             {
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.LoadToTceStartBackManager(ViewModel.Model, tasks.BackManager);
+                yield return new NotificationUnit
+                {
+                    ActionType = EventServiceActionType.PriceEngineeringTaskLoadToTceStart,
+                    RecipientRole = Role.BackManager,
+                    RecipientUser = tasks.BackManager,
+                    TargetEntityId = ViewModel.Model.Id
+                };
             }
         }
 

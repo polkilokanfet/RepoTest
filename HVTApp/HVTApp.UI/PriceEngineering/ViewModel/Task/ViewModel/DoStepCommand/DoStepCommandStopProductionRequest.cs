@@ -11,16 +11,23 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.ProductionRequestStop;
         protected override string ConfirmationMessage => "Вы уверены, что хотите остановить производство этого оборудования?";
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
-        {
-            foreach (var user in UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
-            {
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.StopProductionRequest(ViewModel.Model, user);
-            }
-        }
 
         public DoStepCommandStopProductionRequest(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)
         {
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            foreach (var user in UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss)))
+            {
+                yield return new NotificationUnit
+                {
+                    ActionType = EventServiceActionType.PriceEngineeringTaskProductionRequestStop,
+                    RecipientRole = Role.BackManagerBoss,
+                    RecipientUser = user,
+                    TargetEntityId = ViewModel.Model.Id
+                };
+            }
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;

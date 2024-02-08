@@ -3,6 +3,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
@@ -73,8 +74,14 @@ namespace HVTApp.UI.PriceEngineering
 
                     this.Messenger.SendMessage($"Назначен плановик: {planMaker.Employee.Person}");
 
-                    var arg = new NotificationAboutPriceEngineeringTaskEventArg.ProductionRequestStartPlanMaker(Model, planMaker);
-                    container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(arg);
+                    var notificationUnit = new NotificationUnit
+                        {
+                            ActionType = EventServiceActionType.PriceEngineeringTaskInstructToPlanMaker,
+                            RecipientRole = Role.PlanMaker,
+                            RecipientUser = planMaker,
+                            TargetEntityId = Model.Id
+                        };
+                    container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(notificationUnit);
                 },
                 () => this.Model.Status.Equals(ScriptStep.ProductionRequestStart));
             

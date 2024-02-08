@@ -51,8 +51,15 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     var task1 = this.TasksWrapper.Model.ChildPriceEngineeringTasks.FirstOrDefault(x => x.Status.Equals(ScriptStep.LoadToTceStart));
                     if (task1 != null)
                     {
-                        var arg = new NotificationAboutPriceEngineeringTaskEventArg.LoadToTceStartBackManager(task1, backManager);
-                        container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(arg);
+                        var notificationUnit = new NotificationUnit
+                        {
+                            ActionType = EventServiceActionType.PriceEngineeringTasksInstructToBackManager,
+                            RecipientRole = Role.BackManager,
+                            RecipientUser = backManager,
+                            TargetEntityId = this.TasksWrapper.Model.Id
+                        };
+
+                        container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(notificationUnit);
                     }
                 },
                 () =>

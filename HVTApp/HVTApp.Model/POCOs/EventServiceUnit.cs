@@ -56,11 +56,11 @@ namespace HVTApp.Model.POCOs
 
         PriceEngineeringTaskStart,
         PriceEngineeringTaskStop,
-        PriceEngineeringTaskInstruct,
+        PriceEngineeringTaskInstructToConstructor,
         PriceEngineeringTaskFinish,
         PriceEngineeringTaskAccept,
         PriceEngineeringTaskRejectByManager,
-        PriceEngineeringTaskRejectByConstructor,
+        PriceEngineeringTaskRejectByConstructorToManager,
         PriceEngineeringTaskSendMessage,
         PriceEngineeringTaskFinishGoToVerification, 
         PriceEngineeringTaskVerificationRejectedByHead,
@@ -68,6 +68,19 @@ namespace HVTApp.Model.POCOs
 
         SavePaymentDocument,
 
-        PriceEngineeringTaskNotification
+        PriceEngineeringTaskNotification,
+
+        PriceEngineeringTaskInstructToPlanMaker,
+        PriceEngineeringTaskLoadToTceStart,
+        PriceEngineeringTaskLoadToTceFinish,
+        PriceEngineeringTaskProductionRequestStart,
+        PriceEngineeringTaskProductionRequestFinish,
+        PriceEngineeringTaskProductionRequestStop,
+        PriceEngineeringTaskProductionRequestStopConfirm,
+        PriceEngineeringTaskProductionRequestStopReject,
+        PriceEngineeringTaskRejectByHeadToManager,
+        
+
+        PriceEngineeringTasksInstructToBackManager,
     }
 }

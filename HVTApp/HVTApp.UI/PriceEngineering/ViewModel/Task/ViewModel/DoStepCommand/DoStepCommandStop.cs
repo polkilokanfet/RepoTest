@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HVTApp.Infrastructure;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -18,11 +19,17 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
             if (ViewModel.Model.UserConstructor != null)
             {
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.StopConstructor(ViewModel.Model);
+                yield return new NotificationUnit
+                {
+                    ActionType = EventServiceActionType.PriceEngineeringTaskStop,
+                    RecipientRole = Role.Constructor,
+                    RecipientUser = ViewModel.Model.UserConstructor,
+                    TargetEntityId = ViewModel.Model.Id
+                };
             }
         }
 

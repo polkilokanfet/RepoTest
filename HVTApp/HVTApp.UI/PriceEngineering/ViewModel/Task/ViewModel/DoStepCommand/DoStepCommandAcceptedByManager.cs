@@ -11,9 +11,16 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.Accept;
         protected override string ConfirmationMessage => "¬ы уверены, что хотите прин€ть проработку задачи?";
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.AcceptedByManager(this.ViewModel.Model);
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskAccept,
+                RecipientRole = Role.Constructor,
+                RecipientUser = ViewModel.Model.UserConstructor,
+                TargetEntityId = ViewModel.Model.Id
+            };
         }
 
         public DoStepCommandAcceptedByManager(TaskViewModelManagerOld viewModel, IUnityContainer container, Action doAfterAction) : base(viewModel, container, doAfterAction)

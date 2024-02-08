@@ -73,11 +73,11 @@ namespace NotificationsService
                 case EventServiceActionType.PriceEngineeringTasksStart:
                 case EventServiceActionType.PriceEngineeringTaskStart:
                 case EventServiceActionType.PriceEngineeringTaskStop:
-                case EventServiceActionType.PriceEngineeringTaskInstruct:
+                case EventServiceActionType.PriceEngineeringTaskInstructToConstructor:
                 case EventServiceActionType.PriceEngineeringTaskFinish:
                 case EventServiceActionType.PriceEngineeringTaskAccept:
                 case EventServiceActionType.PriceEngineeringTaskRejectByManager:
-                case EventServiceActionType.PriceEngineeringTaskRejectByConstructor:
+                case EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager:
                 case EventServiceActionType.PriceEngineeringTaskSendMessage:
                 case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
                 case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:

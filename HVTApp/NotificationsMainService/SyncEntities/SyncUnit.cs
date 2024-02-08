@@ -104,7 +104,7 @@ namespace NotificationsMainService.SyncEntities
                     TargetEntityId = model.Id,
                     EventServiceActionType = this.EventServiceActionType
                 };
-                _notificationFromDataBaseService.SaveNotificationInDataBase(unit);
+                //_notificationFromDataBaseService.SaveNotificationInDataBase(unit);
             }
         }
 

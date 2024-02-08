@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
@@ -19,9 +20,16 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.ProductionRequestFinish(ViewModel.Model, Manager);
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskProductionRequestFinish,
+                RecipientRole = Role.SalesManager,
+                RecipientUser = Manager,
+                TargetEntityId = ViewModel.Model.Id
+            };
+
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;

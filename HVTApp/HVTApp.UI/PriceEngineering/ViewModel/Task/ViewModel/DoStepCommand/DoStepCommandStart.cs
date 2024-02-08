@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HVTApp.Infrastructure;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -14,14 +15,6 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         public DoStepCommandStart(TaskViewModelBaseStartable viewModel, IUnityContainer container) : base(viewModel, container)
         {
-        }
-
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
-        {
-            if(ViewModel.Model.UserConstructor != null)
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.StartConstructor(ViewModel.Model);
-            else if (ViewModel.Model.DesignDepartment != null)
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.StartDesignDepartmentHead(ViewModel.Model);
         }
 
         protected override bool CanExecuteMethod()
@@ -61,6 +54,26 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             }
 
             return sb.ToString().TrimEnd('\n', '\r');
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            if(ViewModel.Model.UserConstructor != null)
+                yield return new NotificationUnit
+                {
+                    ActionType = EventServiceActionType.PriceEngineeringTaskStart,
+                    RecipientRole = Role.Constructor,
+                    RecipientUser = ViewModel.Model.UserConstructor,
+                    TargetEntityId = ViewModel.Model.Id
+                };
+            else if (ViewModel.Model.DesignDepartment != null)
+                yield return new NotificationUnit
+                {
+                    ActionType = EventServiceActionType.PriceEngineeringTaskStart,
+                    RecipientRole = Role.DesignDepartmentHead,
+                    RecipientUser = ViewModel.Model.DesignDepartment.Head,
+                    TargetEntityId = ViewModel.Model.Id
+                };
         }
 
         protected override void BeforeDoStepAction()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HVTApp.Infrastructure;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -15,9 +16,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.RejectByHeadToManager(ViewModel.Model, Manager);
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskRejectByHeadToManager,
+                RecipientRole = Role.SalesManager,
+                RecipientUser = Manager,
+                TargetEntityId = ViewModel.Model.Id
+            };
         }
 
         protected override bool CanExecuteMethod()

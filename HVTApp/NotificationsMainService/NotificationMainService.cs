@@ -86,43 +86,6 @@ namespace NotificationsMainService
                 });
         }
 
-        /// <summary>
-        /// Отправляем уведомление по email
-        /// </summary>
-        /// <param name="notification"></param>
-        private void SendNotificationByEmail(NotificationAboutPriceEngineeringTaskEventArg notification)
-        {
-            var recipientEmailAddress = notification.RecipientUser.Employee.Email;
-            if (string.IsNullOrEmpty(recipientEmailAddress) == false)
-            {
-                var subject = $"[Уведомление из УП ВВА] ТСП на новом этапе: {notification.PriceEngineeringTask.Status.Description}";
-                var message = GetEmailMessageOnPriceEngineeringTaskNotificationEvent(notification);
-                Task.Run(() => _emailService.SendMail(recipientEmailAddress, subject, message)).Await(
-                    errorCallback: e =>
-                    {
-                        var logUnit = new LogUnit()
-                        {
-                            Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                            Head = $"SendNotificationByEmail {recipientEmailAddress}",
-                            Message = e.PrintAllExceptions()
-                        };
-                        _unitOfWork.SaveEntity(logUnit);
-                    });
-            }
-        }
-
-        private string GetEmailMessageOnPriceEngineeringTaskNotificationEvent(NotificationAboutPriceEngineeringTaskEventArg notification)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine(notification.PriceEngineeringTask.GetInformationForReport(_unitOfWork));
-            sb.AppendLine(string.Empty);
-            sb.AppendLine(string.Empty);
-            sb.AppendLine($"Автор: {notification.SenderUser.Employee}");
-            sb.AppendLine("Уведомление:");
-            sb.AppendLine(notification.Message);
-            return sb.ToString();
-        }
-
         #endregion
 
 

@@ -19,17 +19,27 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         public DoStepCommandFinishByConstructor(TaskViewModelConstructor viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
-
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
             if (this.ViewModel.Model.VerificationIsRequested)
             {
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.FinishByConstructorToDesignDepartmentHead(ViewModel.Model);
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.FinishByConstructorToManager1(ViewModel.Model, Manager);
+                yield return new NotificationUnit
+                {
+                    ActionType = EventServiceActionType.PriceEngineeringTaskFinishGoToVerification,
+                    RecipientRole = Role.DesignDepartmentHead,
+                    RecipientUser = ViewModel.Model.DesignDepartment.Head,
+                    TargetEntityId = ViewModel.Model.Id
+                };
             }
             else
             {
-                yield return new NotificationAboutPriceEngineeringTaskEventArg.FinishByConstructorToManager2(ViewModel.Model, Manager);
+                yield return new NotificationUnit
+                {
+                    ActionType = EventServiceActionType.PriceEngineeringTaskFinish,
+                    RecipientRole = Role.SalesManager,
+                    RecipientUser = Manager,
+                    TargetEntityId = ViewModel.Model.Id
+                };
             }
         }
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -16,10 +15,23 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.VerificationAcceptByHeadToManager(this.ViewModel.Model, Manager);
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.VerificationAcceptByHeadToConstructor(this.ViewModel.Model);
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead,
+                RecipientRole = Role.SalesManager,
+                RecipientUser = Manager,
+                TargetEntityId = ViewModel.Model.Id
+            };
+
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead,
+                RecipientRole = Role.Constructor,
+                RecipientUser = ViewModel.Model.UserConstructor,
+                TargetEntityId = ViewModel.Model.Id
+            };
         }
 
         protected override void DoStepAction()

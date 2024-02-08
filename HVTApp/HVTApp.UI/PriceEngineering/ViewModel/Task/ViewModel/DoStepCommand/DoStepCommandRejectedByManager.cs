@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HVTApp.Infrastructure;
 using HVTApp.Model.Events.NotificationArgs;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -9,9 +10,16 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.RejectByManager;
         protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить проработку задачи исполнителю?";
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.RejectedByManager(ViewModel.Model);
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskRejectByManager,
+                RecipientRole = Role.Constructor,
+                RecipientUser = ViewModel.Model.UserConstructor,
+                TargetEntityId = ViewModel.Model.Id
+            };
         }
 
         public DoStepCommandRejectedByManager(TaskViewModelManagerOld viewModel, IUnityContainer container) : base(viewModel, container)

@@ -20,14 +20,20 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
-        {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.StopProductionRequestReject(ViewModel.Model, Manager);
-        }
-
         protected override string GetStatusComment()
         {
             return $"Запрос на остановку производства отклонён ({GlobalAppProperties.User}).";
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskProductionRequestStopReject,
+                RecipientRole = Role.SalesManager,
+                RecipientUser = Manager,
+                TargetEntityId = ViewModel.Model.Id
+            };
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;

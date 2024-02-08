@@ -59,6 +59,7 @@ using Microsoft.Practices.Unity;
 using NotificationsFromDataBaseService;
 using NotificationsMainService;
 using NotificationsReportsService;
+using NotificationsService;
 using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
@@ -161,6 +162,8 @@ namespace HVTApp
             Container.RegisterType<INotificationsReportService, NotificationsReportService>();
             Container.RegisterType<INotificationMainService, NotificationMainService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationFromDataBaseService, NotificationFromDataBaseService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationGeneratorService, NotificationGeneratorService>(new ContainerControlledLifetimeManager());
+            
             Container.RegisterType<INotificationUnitWatcher, NotificationUnitWatcher>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());

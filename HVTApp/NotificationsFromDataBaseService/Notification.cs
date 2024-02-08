@@ -76,7 +76,7 @@ namespace NotificationsFromDataBaseService
                 case EventServiceActionType.PriceEngineeringTaskStop:
                     return "Менеджер остановил проработку задачи";
 
-                case EventServiceActionType.PriceEngineeringTaskInstruct:
+                case EventServiceActionType.PriceEngineeringTaskInstructToConstructor:
                     break;
                 case EventServiceActionType.PriceEngineeringTaskFinish:
                     break;
@@ -84,7 +84,7 @@ namespace NotificationsFromDataBaseService
                     break;
                 case EventServiceActionType.PriceEngineeringTaskRejectByManager:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskRejectByConstructor:
+                case EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager:
                     break;
                 case EventServiceActionType.PriceEngineeringTaskSendMessage:
                     break;
@@ -165,11 +165,11 @@ namespace NotificationsFromDataBaseService
                 case EventServiceActionType.PriceEngineeringTasksStart:
                 case EventServiceActionType.PriceEngineeringTaskStart:
                 case EventServiceActionType.PriceEngineeringTaskStop:
-                case EventServiceActionType.PriceEngineeringTaskInstruct:
+                case EventServiceActionType.PriceEngineeringTaskInstructToConstructor:
                 case EventServiceActionType.PriceEngineeringTaskFinish:
                 case EventServiceActionType.PriceEngineeringTaskAccept:
                 case EventServiceActionType.PriceEngineeringTaskRejectByManager:
-                case EventServiceActionType.PriceEngineeringTaskRejectByConstructor:
+                case EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager:
                 case EventServiceActionType.PriceEngineeringTaskSendMessage:
                 case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
                 case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:

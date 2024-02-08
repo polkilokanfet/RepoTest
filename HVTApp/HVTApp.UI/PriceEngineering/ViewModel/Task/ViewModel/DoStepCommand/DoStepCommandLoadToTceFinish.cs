@@ -21,9 +21,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             _doAfter = doAfter;
         }
 
-        protected override IEnumerable<NotificationAboutPriceEngineeringTaskEventArg> GetNotificationsArgs()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            yield return new NotificationAboutPriceEngineeringTaskEventArg.LoadToTceFinish(ViewModel.Model, Manager);
+            yield return new NotificationUnit
+            {
+                ActionType = EventServiceActionType.PriceEngineeringTaskLoadToTceFinish,
+                RecipientRole = Role.SalesManager,
+                RecipientUser = Manager,
+                TargetEntityId = ViewModel.Model.Id
+            };
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;
