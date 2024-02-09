@@ -34,7 +34,7 @@ namespace HVTApp.Views
 #endif
 
                 //остановка синхронизатора
-                _container.Resolve<IEventServiceClient>().Stop();
+                //_container.Resolve<IEventServiceClient>().Stop();
             };
         }
 
