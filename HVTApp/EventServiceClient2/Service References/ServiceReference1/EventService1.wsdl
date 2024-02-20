@@ -211,9 +211,6 @@
   <wsdl:message name="IEventService_OnServiceDisposeEvent_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnServiceDisposeEvent" />
   </wsdl:message>
-  <wsdl:message name="IEventService_CopyProjectAttachmentsCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:CopyProjectAttachmentsCallback" />
-  </wsdl:message>
   <wsdl:message name="IEventService_OnSendMessageToChat_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSendMessageToChat" />
   </wsdl:message>
@@ -370,9 +367,6 @@
   <wsdl:message name="IEventService_IsAlive_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:IsAliveResponse" />
   </wsdl:message>
-  <wsdl:message name="IEventService_CheckMessagesInDb_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:CheckMessagesInDb" />
-  </wsdl:message>
   <wsdl:portType name="IEventService">
     <wsdl:operation name="Connect">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/Connect" message="tns:IEventService_Connect_InputMessage" />
@@ -504,9 +498,6 @@
     <wsdl:operation name="OnServiceDisposeEvent">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnServiceDisposeEvent" message="tns:IEventService_OnServiceDisposeEvent_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CopyProjectAttachmentsCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback" message="tns:IEventService_CopyProjectAttachmentsCallback_OutputCallbackMessage" />
-    </wsdl:operation>
     <wsdl:operation name="OnSendMessageToChat">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSendMessageToChat" message="tns:IEventService_OnSendMessageToChat_OutputCallbackMessage" />
     </wsdl:operation>
@@ -612,9 +603,6 @@
     <wsdl:operation name="IsAlive">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/IsAlive" message="tns:IEventService_IsAlive_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/IsAliveResponse" message="tns:IEventService_IsAlive_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CheckMessagesInDb">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/CheckMessagesInDb" message="tns:IEventService_CheckMessagesInDb_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IEventService" type="tns:IEventService">
@@ -911,12 +899,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CopyProjectAttachmentsCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback" style="document" />
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="OnSendMessageToChat">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnSendMessageToChat" style="document" />
       <wsdl:output>
@@ -1150,12 +1132,6 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CheckMessagesInDb">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/CheckMessagesInDb" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

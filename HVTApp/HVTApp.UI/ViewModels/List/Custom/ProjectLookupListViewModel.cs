@@ -57,7 +57,7 @@ namespace HVTApp.UI.ViewModels
 
                                         var targetDirectoryPath = Path.Combine(selectedDirectoryPath, selectedProject.Id.ToString().Replace("-", string.Empty));
                                         this.Container.Resolve<IFileManagerService>().CreateDirectoryPathIfNotExists(targetDirectoryPath);
-                                        eventServiceClient.CopyProjectAttachmentsRequest(selectedProject.Manager.Id, selectedProject.Id, targetDirectoryPath);
+                                        //eventServiceClient.CopyProjectAttachmentsRequest(selectedProject.Manager.Id, selectedProject.Id, targetDirectoryPath);
                                     }
 
                                     messageService.Message("Info", $"Started copy proccess to: {selectedDirectoryPath}");

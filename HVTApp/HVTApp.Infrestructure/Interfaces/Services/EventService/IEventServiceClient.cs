@@ -4,19 +4,22 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
     public interface IEventServiceClient : IEventServiceCallback
     {
+        /// <summary>
+        /// Сигнал о начале старта сервиса
+        /// </summary>
+        event Action StartActionInProgressEvent;
+
+        /// <summary>
+        /// Стартовать сервис синхронизации
+        /// </summary>
         void Start();
+
+        /// <summary>
+        /// Остановить сервис синхронизации
+        /// </summary>
         void Stop();
 
         bool UserConnected(Guid userId);
-
-        /// <summary>
-        /// Скопировать приложения к проекту
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="projectId"></param>
-        /// <param name="targetDirectory">Куда копировать</param>
-        /// <returns></returns>
-        void CopyProjectAttachmentsRequest(Guid userId, Guid projectId, string targetDirectory);
 
         #region MessageToChat
 

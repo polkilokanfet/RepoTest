@@ -18,15 +18,6 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         [OperationContract(IsOneWay = true)]
         void OnServiceDisposeEvent();
 
-        /// <summary>
-        /// Скопировать приложения к проекту
-        /// </summary>
-        /// <param name="projectId">Id проекта</param>
-        /// <param name="targetDirectory">Куда копировать</param>
-        /// <returns></returns>
-        [OperationContract(IsOneWay = true)]
-        void CopyProjectAttachmentsCallback(Guid projectId, string targetDirectory);
-
         [OperationContract(IsOneWay = true)]
         void OnSendMessageToChat(Guid authorId, string message);
 

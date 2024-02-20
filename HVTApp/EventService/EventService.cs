@@ -60,7 +60,7 @@ namespace EventService
             {
                 try
                 {
-                    appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().CopyProjectAttachmentsCallback(projectId, targetDirectory);
+                    //appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().CopyProjectAttachmentsCallback(projectId, targetDirectory);
                     this.PrintMessageEvent?.Invoke($"CopyProjectAttachments() done to directory {targetDirectory}. userId={userId}, projectId={projectId}");
                     return true;
                 }

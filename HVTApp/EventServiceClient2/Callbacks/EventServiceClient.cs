@@ -49,18 +49,6 @@ namespace EventServiceClient2
             return true;
         }
 
-        /// <summary>
-        /// Скопировать приложения к проекту
-        /// </summary>
-        /// <param name="projectId">Id проекта</param>
-        /// <param name="targetDirectory">Куда копировать</param>
-        /// <returns></returns>
-        public void CopyProjectAttachmentsCallback(Guid projectId, string targetDirectory)
-        {
-            Project project = _container.Resolve<IUnitOfWork>().Repository<Project>().GetById(projectId);
-            _filesStorageService.CopyDirectory(_fileManagerService.GetPath(project), targetDirectory);
-        }
-
         #region Directum
 
         public bool OnSaveDirectumTaskServiceCallback(Guid taskId)

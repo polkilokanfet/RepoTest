@@ -231,9 +231,6 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnServiceDisposeEvent")]
         void OnServiceDisposeEvent();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CopyProjectAttachmentsCallback")]
-        void CopyProjectAttachmentsCallback(System.Guid projectId, string targetDirectory);
-        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/OnSendMessageToChat")]
         void OnSendMessageToChat(System.Guid authorId, string message);
         
@@ -330,9 +327,6 @@ namespace EventServiceClient2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/IsAlive", ReplyAction="http://tempuri.org/IEventService/IsAliveResponse")]
         bool IsAlive();
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEventService/CheckMessagesInDb")]
-        void CheckMessagesInDb();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

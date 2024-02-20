@@ -261,7 +261,6 @@ namespace HVTApp
             GlobalAppProperties.PriceService = Container.Resolve<IPriceService>();
             GlobalAppProperties.HvtAppLogger = Container.Resolve<IHvtAppLogger>();
             GlobalAppProperties.MessageService = Container.Resolve<IMessageService>();
-            //GlobalAppProperties.EventServiceClient = Container.Resolve<IEventServiceClient>();
         }
 
         /// <summary>

@@ -54,6 +54,9 @@ namespace NotificationsMainService
         {
             _notificationsReportService.SendReports();
             _notificationUnitWatcher.Start();
+
+            this.EventServiceClient.StartActionInProgressEvent += EventServiceClientOnStartActionInProgressEvent;
+
             this.EventServiceClient.Start();
 
             //подписка на уведомления о событиях в ТСП
@@ -61,6 +64,12 @@ namespace NotificationsMainService
 
             //подписка на сохранение платежного документа
             _eventAggregator.GetEvent<AfterSavePaymentDocumentEvent>().Subscribe(OnAfterSavePaymentDocumentEvent, true);
+        }
+
+        private void EventServiceClientOnStartActionInProgressEvent()
+        {
+            //при старте сервиса синхронизации необходимо проверить уведомления из базы данных
+            Task.Run(() => _notificationFromDataBaseService.CheckMessagesInDbAndShowNotifications()).Await();
         }
 
         #region OnPriceEngineeringTaskNotificationEvent
@@ -174,6 +183,7 @@ namespace NotificationsMainService
 
         public void Dispose()
         {
+            this.EventServiceClient.StartActionInProgressEvent -= EventServiceClientOnStartActionInProgressEvent;
             _syncUnitsContainer.Dispose();
             _unitOfWork.Dispose();
         }

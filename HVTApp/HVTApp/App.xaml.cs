@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Windows;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Interfaces.Services.EventService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Services;
 using HVTApp.Views;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp
 {
     public partial class App : Application
     {
+        private Bootstrapper _bootstrapper;
+
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
@@ -23,8 +28,8 @@ namespace HVTApp
 
                 try
                 {
-                    var bootstrapper = new Bootstrapper();
-                    bootstrapper.Run();
+                    _bootstrapper = new Bootstrapper();
+                    _bootstrapper.Run();
                 }
                 catch (NoUserException)
                 {
@@ -50,7 +55,7 @@ namespace HVTApp
 
         protected override void OnExit(ExitEventArgs e)
         {
-            GlobalAppProperties.EventServiceClient?.Stop();
+            _bootstrapper?.Container.Resolve<IEventServiceClient>().Stop();
             base.OnExit(e);
         }
     }
