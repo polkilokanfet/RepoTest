@@ -61,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PopupNotificationsService.cs" />
+    <Compile Include="PopupWindow2.xaml.cs">
+      <DependentUpon>PopupWindow2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopupWindow.xaml.cs">
       <DependentUpon>PopupWindow.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="PopupWindow2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PopupWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

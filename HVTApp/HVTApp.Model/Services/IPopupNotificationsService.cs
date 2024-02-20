@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure;
+﻿using System;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Services
 {
@@ -6,5 +7,7 @@ namespace HVTApp.Model.Services
     {
         void ShowPopupNotification<TModel>(TModel model, string text, string title = null)
             where TModel : BaseEntity;
+
+        void ShowNotification(string text, string title = null, Action action = null);
     }
 }

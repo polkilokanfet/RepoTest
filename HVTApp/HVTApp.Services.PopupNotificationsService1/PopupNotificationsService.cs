@@ -33,6 +33,17 @@ namespace HVTApp.Services.PopupNotificationsService1
                 });
         }
 
+        public void ShowNotification(string text, string title = null, Action action = null)
+        {
+            //переводим всплывающее окно в основной поток
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    new PopupWindow(text, title, GetAction(model)).Show();
+                });
+
+        }
+
         private Action GetAction<TModel>(TModel model)
         {
             if (typeof(TModel) == typeof(DirectumTask))
