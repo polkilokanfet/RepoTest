@@ -7,6 +7,44 @@ using System.Linq;
 namespace HVTApp.UI.Lookup
 {
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
+	[Designation("NotificationUnit")]
+	public partial class NotificationUnitLookup : LookupItem<NotificationUnit>
+	{
+		public NotificationUnitLookup(NotificationUnit entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public HVTApp.Model.POCOs.EventServiceActionType ActionType => Entity.ActionType;
+
+		[OrderStatus(1)]
+        public System.Guid TargetEntityId => Entity.TargetEntityId;
+
+		[OrderStatus(1)]
+        public System.Guid SenderUserId => Entity.SenderUserId;
+
+		[OrderStatus(1)]
+        public HVTApp.Infrastructure.Role SenderRole => Entity.SenderRole;
+
+		[OrderStatus(1)]
+        public System.Guid RecipientUserId => Entity.RecipientUserId;
+
+		[OrderStatus(1)]
+        public HVTApp.Infrastructure.Role RecipientRole => Entity.RecipientRole;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public UserLookup SenderUser { get { return GetLookup<UserLookup>(); } }
+
+		[OrderStatus(1)]
+	    public UserLookup RecipientUser { get { return GetLookup<UserLookup>(); } }
+
+        #endregion
+	}
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Объединение стран")]
 	public partial class CountryUnionLookup : LookupItem<CountryUnion>
 	{
@@ -405,35 +443,6 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 		[OrderStatus(1)]
         public System.Int32 Number => Entity.Number;
-
-        #endregion
-	}
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
-	[Designation("EventServiceUnit")]
-	public partial class EventServiceUnitLookup : LookupItem<EventServiceUnit>
-	{
-		public EventServiceUnitLookup(EventServiceUnit entity) : base(entity) 
-		{
-		}
-		
-        #region SimpleProperties
-		[OrderStatus(8)]
-        public System.Nullable<HVTApp.Infrastructure.Role> Role => Entity.Role;
-
-		[OrderStatus(5)]
-        public System.Guid TargetEntityId => Entity.TargetEntityId;
-
-		[OrderStatus(7)]
-        public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionType => Entity.EventServiceActionType;
-
-		[OrderStatus(3)]
-        public System.String Message => Entity.Message;
-
-        #endregion
-
-        #region ComplexProperties
-		[OrderStatus(10)]
-	    public UserLookup User { get { return GetLookup<UserLookup>(); } }
 
         #endregion
 	}
@@ -871,6 +880,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(8)]
 	    public List<UserLookup> ChiefEngineerReportDistributionList { get { return GetLookupEnum<UserLookup>().ToList(); } }
+		[OrderStatus(7)]
+	    public List<UserLookup> SavePaymentDocumentDistributionList { get { return GetLookupEnum<UserLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка")]
@@ -2569,6 +2580,9 @@ namespace HVTApp.UI.Lookup
         public System.Double SumToShipping => Entity.SumToShipping;
 
 		[OrderStatus(1)]
+        public System.Double FixedCost => Entity.FixedCost;
+
+		[OrderStatus(1)]
         public System.Nullable<System.DateTime> OrderInTakeDateInjected => Entity.OrderInTakeDateInjected;
 
 		[OrderStatus(990)]
@@ -2928,6 +2942,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Double Vat => Entity.Vat;
+
+		[OrderStatus(1)]
+        public System.Double SumWithVat => Entity.SumWithVat;
 
         #endregion
 		[OrderStatus(1)]

@@ -97,6 +97,7 @@
                         <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="FixedCost" Label="Сумма фиксированных затрат" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="FirstPaymentDateCalculated" Label="Первый платеж по заказу" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" AllowResize="True" />

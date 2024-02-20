@@ -88,7 +88,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskGroupFileConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DirectumTaskMessageConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\EventServiceUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\GlobalPropertiesConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CreateNewProductTaskConfiguration.cs" />
@@ -484,6 +483,10 @@
     <Compile Include="Migrations\202402081544137_NotificationUnit1.designer.cs">
       <DependentUpon>202402081544137_NotificationUnit1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402200604175_RemoveEventServiceUnit.cs" />
+    <Compile Include="Migrations\202402200604175_RemoveEventServiceUnit.designer.cs">
+      <DependentUpon>202402200604175_RemoveEventServiceUnit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -795,6 +798,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402081544137_NotificationUnit1.resx">
       <DependentUpon>202402081544137_NotificationUnit1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402200604175_RemoveEventServiceUnit.resx">
+      <DependentUpon>202402200604175_RemoveEventServiceUnit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

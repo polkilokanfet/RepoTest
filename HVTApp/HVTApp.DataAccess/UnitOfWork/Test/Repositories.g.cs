@@ -88,11 +88,6 @@ namespace HVTApp.DataAccess
         public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class EventServiceUnitRepositoryTest : TestBaseRepository<EventServiceUnit>, IEventServiceUnitRepository
-    {
-        public EventServiceUnitRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class IncomingRequestRepositoryTest : TestBaseRepository<IncomingRequest>, IIncomingRequestRepository
     {
         public IncomingRequestRepositoryTest(TestData testData) : base(testData) {}

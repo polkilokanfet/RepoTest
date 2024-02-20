@@ -98,13 +98,13 @@ namespace NotificationsMainService.SyncEntities
             //сохранение в базу данных уведомлений, которые не были доставлены адресатам
             foreach (var user in usersWhoDidNotReciveNotification)
             {
-                var unit = new EventServiceUnit
-                {
-                    User = user,
-                    TargetEntityId = model.Id,
-                    EventServiceActionType = this.EventServiceActionType
-                };
-                //_notificationFromDataBaseService.SaveNotificationInDataBase(unit);
+                //var unit = new EventServiceUnit
+                //{
+                //    User = user,
+                //    TargetEntityId = model.Id,
+                //    EventServiceActionType = this.EventServiceActionType
+                //};
+                ////_notificationFromDataBaseService.SaveNotificationInDataBase(unit);
             }
         }
 

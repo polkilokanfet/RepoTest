@@ -123,13 +123,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class EventServiceUnitRepository : BaseRepository<EventServiceUnit>, IEventServiceUnitRepository
-    {
-		public EventServiceUnitRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
     public partial class IncomingRequestRepository : BaseRepository<IncomingRequest>, IIncomingRequestRepository
     {
 		public IncomingRequestRepository(DbContext context) : base(context) 

@@ -36,6 +36,17 @@ namespace HVTApp.Model.Wrapper
         public bool TargetEntityIdIsChanged => GetIsChanged(nameof(TargetEntityId));
 
         /// <summary>
+        /// SenderUserId
+        /// </summary>
+        public System.Guid SenderUserId
+        {
+          get { return Model.SenderUserId; }
+          set { SetValue(value); }
+        }
+        public System.Guid SenderUserIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SenderUserId));
+        public bool SenderUserIdIsChanged => GetIsChanged(nameof(SenderUserId));
+
+        /// <summary>
         /// SenderRole
         /// </summary>
         public HVTApp.Infrastructure.Role SenderRole
@@ -45,6 +56,17 @@ namespace HVTApp.Model.Wrapper
         }
         public HVTApp.Infrastructure.Role SenderRoleOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(SenderRole));
         public bool SenderRoleIsChanged => GetIsChanged(nameof(SenderRole));
+
+        /// <summary>
+        /// RecipientUserId
+        /// </summary>
+        public System.Guid RecipientUserId
+        {
+          get { return Model.RecipientUserId; }
+          set { SetValue(value); }
+        }
+        public System.Guid RecipientUserIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientUserId));
+        public bool RecipientUserIdIsChanged => GetIsChanged(nameof(RecipientUserId));
 
         /// <summary>
         /// RecipientRole
@@ -1351,92 +1373,6 @@ namespace HVTApp.Model.Wrapper
     public class DocumentNumberEmptyWrapper : WrapperBase<DocumentNumber>
 	{
 	    public DocumentNumberEmptyWrapper(DocumentNumber model) : base(model) { }
-    }
-
-		
-    public partial class EventServiceUnitWrapper : WrapperBase<EventServiceUnit>
-	{
-	    public EventServiceUnitWrapper(EventServiceUnit model) : base(model) { }
-
-        #region SimpleProperties
-
-        /// <summary>
-        /// Роль
-        /// </summary>
-        public System.Nullable<HVTApp.Infrastructure.Role> Role
-        {
-          get { return Model.Role; }
-          set { SetValue(value); }
-        }
-        public System.Nullable<HVTApp.Infrastructure.Role> RoleOriginalValue => GetOriginalValue<System.Nullable<HVTApp.Infrastructure.Role>>(nameof(Role));
-        public bool RoleIsChanged => GetIsChanged(nameof(Role));
-
-        /// <summary>
-        /// Id целевой сущности
-        /// </summary>
-        public System.Guid TargetEntityId
-        {
-          get { return Model.TargetEntityId; }
-          set { SetValue(value); }
-        }
-        public System.Guid TargetEntityIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TargetEntityId));
-        public bool TargetEntityIdIsChanged => GetIsChanged(nameof(TargetEntityId));
-
-        /// <summary>
-        /// Тип действия
-        /// </summary>
-        public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionType
-        {
-          get { return Model.EventServiceActionType; }
-          set { SetValue(value); }
-        }
-        public HVTApp.Model.POCOs.EventServiceActionType EventServiceActionTypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.EventServiceActionType>(nameof(EventServiceActionType));
-        public bool EventServiceActionTypeIsChanged => GetIsChanged(nameof(EventServiceActionType));
-
-        /// <summary>
-        /// Сообщение
-        /// </summary>
-        public System.String Message
-        {
-          get { return Model.Message; }
-          set { SetValue(value); }
-        }
-        public System.String MessageOriginalValue => GetOriginalValue<System.String>(nameof(Message));
-        public bool MessageIsChanged => GetIsChanged(nameof(Message));
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return Model.Id; }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Пользователь
-        /// </summary>
-	    public UserWrapper User 
-        {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(User, value); }
-        }
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<UserWrapper>(nameof(User), Model.User == null ? null : new UserWrapper(Model.User));
-        }
-	}
-
-    public class EventServiceUnitEmptyWrapper : WrapperBase<EventServiceUnit>
-	{
-	    public EventServiceUnitEmptyWrapper(EventServiceUnit model) : base(model) { }
     }
 
 		

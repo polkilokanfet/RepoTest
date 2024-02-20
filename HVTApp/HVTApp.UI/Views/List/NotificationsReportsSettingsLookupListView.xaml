@@ -41,6 +41,7 @@
 
                         <infg:DateTimeField Name="ChiefEngineerReportMoment" Label="Когда отправлен последний отчёт ГК ВВА" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ChiefEngineerReportDistributionList" Label="Список рассылки отчёта ГК ВВА" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="SavePaymentDocumentDistributionList" Label="Список рассылки уведомлений о платежах" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

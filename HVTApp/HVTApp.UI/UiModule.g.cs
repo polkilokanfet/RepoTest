@@ -11,6 +11,10 @@ namespace HVTApp.UI
     {
 		private void RegisterViews()
         {
+            Container.RegisterViewForNavigation<NotificationUnitLookupListView>();
+            //_dialogService.Register<NotificationUnitDetailsViewModel, NotificationUnitDetailsView>();
+			_selectService.Register<NotificationUnitLookupListView, NotificationUnit>();
+            _updateDetailsService.Register<NotificationUnit, NotificationUnitDetailsView>();
             Container.RegisterViewForNavigation<CountryUnionLookupListView>();
             //_dialogService.Register<CountryUnionDetailsViewModel, CountryUnionDetailsView>();
 			_selectService.Register<CountryUnionLookupListView, CountryUnion>();
@@ -75,10 +79,6 @@ namespace HVTApp.UI
             //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
 			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
             _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
-            Container.RegisterViewForNavigation<EventServiceUnitLookupListView>();
-            //_dialogService.Register<EventServiceUnitDetailsViewModel, EventServiceUnitDetailsView>();
-			_selectService.Register<EventServiceUnitLookupListView, EventServiceUnit>();
-            _updateDetailsService.Register<EventServiceUnit, EventServiceUnitDetailsView>();
             Container.RegisterViewForNavigation<IncomingRequestLookupListView>();
             //_dialogService.Register<IncomingRequestDetailsViewModel, IncomingRequestDetailsView>();
 			_selectService.Register<IncomingRequestLookupListView, IncomingRequest>();

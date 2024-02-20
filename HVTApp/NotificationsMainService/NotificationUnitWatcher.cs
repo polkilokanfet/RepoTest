@@ -27,27 +27,27 @@ namespace NotificationsMainService
         private void M<T>(T entity, EventServiceActionType eventServiceActionType)
             where T : class, IBaseEntity
         {
-            Task.Run(
-                () =>
-                {
-                    using (var unitOfWork = _container.Resolve<IUnitOfWork>())
-                    {
-                        try
-                        {
-                            var units = unitOfWork.Repository<EventServiceUnit>()
-                                .Find(unit => unit.TargetEntityId == entity.Id && 
-                                              unit.EventServiceActionType == eventServiceActionType);
+            //Task.Run(
+            //    () =>
+            //    {
+            //        using (var unitOfWork = _container.Resolve<IUnitOfWork>())
+            //        {
+            //            try
+            //            {
+            //                var units = unitOfWork.Repository<EventServiceUnit>()
+            //                    .Find(unit => unit.TargetEntityId == entity.Id && 
+            //                                  unit.EventServiceActionType == eventServiceActionType);
 
-                            if (!units.Any()) return;
+            //                if (!units.Any()) return;
 
-                            unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
-                            unitOfWork.SaveChanges();
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }).Await();
+            //                unitOfWork.Repository<EventServiceUnit>().DeleteRange(units);
+            //                unitOfWork.SaveChanges();
+            //            }
+            //            catch
+            //            {
+            //            }
+            //        }
+            //    }).Await();
         }
 
         public void Start()

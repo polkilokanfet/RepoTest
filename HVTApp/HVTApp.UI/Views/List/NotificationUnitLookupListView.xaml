@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.EventServiceUnitLookupListView">
+              x:Class="HVTApp.UI.Views.NotificationUnitLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=EventServiceUnitLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=NotificationUnitLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="EventServiceUnitLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="NotificationUnitLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -39,9 +39,11 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="User" Label="Пользователь" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                        <infg:TextField Name="TargetEntityId" Label="Id целевой сущности" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="Message" Label="Сообщение" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="SenderUser" Label="Пользователь" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="RecipientUser" Label="Пользователь" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="TargetEntityId" Label="TargetEntityId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="SenderUserId" Label="SenderUserId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="RecipientUserId" Label="RecipientUserId" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

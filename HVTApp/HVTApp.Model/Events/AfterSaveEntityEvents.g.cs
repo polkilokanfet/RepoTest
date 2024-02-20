@@ -20,7 +20,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveDirectumTaskGroupFileEvent : PubSubEvent<DirectumTaskGroupFile> { }
 	public partial class AfterSaveDirectumTaskMessageEvent : PubSubEvent<DirectumTaskMessage> { }
 	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
-	public partial class AfterSaveEventServiceUnitEvent : PubSubEvent<EventServiceUnit> { }
 	public partial class AfterSaveIncomingRequestEvent : PubSubEvent<IncomingRequest> { }
 	public partial class AfterSaveLaborHourCostEvent : PubSubEvent<LaborHourCost> { }
 	public partial class AfterSaveLaborHoursEvent : PubSubEvent<LaborHours> { }

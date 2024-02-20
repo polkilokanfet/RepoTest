@@ -10,6 +10,55 @@ using HVTApp.UI.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
+    public partial class NotificationUnitDetailsViewModel : BaseDetailsViewModel<NotificationUnitWrapper, NotificationUnit, AfterSaveNotificationUnitEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectSenderUserCommand;
+		private Func<List<User>> _getEntitiesForSelectSenderUserCommand;
+		public DelegateLogCommand SelectSenderUserCommand { get; private set; }
+		public DelegateLogCommand ClearSenderUserCommand { get; private set; }
+
+		//private Func<Task<List<User>>> _getEntitiesForSelectRecipientUserCommand;
+		private Func<List<User>> _getEntitiesForSelectRecipientUserCommand;
+		public DelegateLogCommand SelectRecipientUserCommand { get; private set; }
+		public DelegateLogCommand ClearRecipientUserCommand { get; private set; }
+
+        public NotificationUnitDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectSenderUserCommand == null) _getEntitiesForSelectSenderUserCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectSenderUserCommand == null) SelectSenderUserCommand = new DelegateLogCommand(SelectSenderUserCommand_Execute_Default);
+			if (ClearSenderUserCommand == null) ClearSenderUserCommand = new DelegateLogCommand(ClearSenderUserCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectRecipientUserCommand == null) _getEntitiesForSelectRecipientUserCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectRecipientUserCommand == null) SelectRecipientUserCommand = new DelegateLogCommand(SelectRecipientUserCommand_Execute_Default);
+			if (ClearRecipientUserCommand == null) ClearRecipientUserCommand = new DelegateLogCommand(ClearRecipientUserCommand_Execute_Default);
+
+		}
+
+		private void SelectSenderUserCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectSenderUserCommand(), nameof(Item.SenderUser), Item.SenderUser?.Id);
+		}
+
+		private void ClearSenderUserCommand_Execute_Default() 
+		{
+						Item.SenderUser = null;		    
+		}
+
+		private void SelectRecipientUserCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectRecipientUserCommand(), nameof(Item.RecipientUser), Item.RecipientUser?.Id);
+		}
+
+		private void ClearRecipientUserCommand_Execute_Default() 
+		{
+						Item.RecipientUser = null;		    
+		}
+
+
+    }
+
     public partial class CountryUnionDetailsViewModel : BaseDetailsViewModel<CountryUnionWrapper, CountryUnion, AfterSaveCountryUnionEvent>
     {
 		private Func<List<Country>> _getEntitiesForAddInCountriesCommand;
@@ -881,35 +930,6 @@ namespace HVTApp.UI.ViewModels
     {
         public DocumentNumberDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-		}
-
-
-    }
-
-    public partial class EventServiceUnitDetailsViewModel : BaseDetailsViewModel<EventServiceUnitWrapper, EventServiceUnit, AfterSaveEventServiceUnitEvent>
-    {
-		//private Func<Task<List<User>>> _getEntitiesForSelectUserCommand;
-		private Func<List<User>> _getEntitiesForSelectUserCommand;
-		public DelegateLogCommand SelectUserCommand { get; private set; }
-		public DelegateLogCommand ClearUserCommand { get; private set; }
-
-        public EventServiceUnitDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectUserCommand == null) _getEntitiesForSelectUserCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
-			if (SelectUserCommand == null) SelectUserCommand = new DelegateLogCommand(SelectUserCommand_Execute_Default);
-			if (ClearUserCommand == null) ClearUserCommand = new DelegateLogCommand(ClearUserCommand_Execute_Default);
-
-		}
-
-		private void SelectUserCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectUserCommand(), nameof(Item.User), Item.User?.Id);
-		}
-
-		private void ClearUserCommand_Execute_Default() 
-		{
-						Item.User = null;		    
 		}
 
 

@@ -1,4 +1,4 @@
-<inf:ViewBase x:Class="HVTApp.UI.Views.EventServiceUnitDetailsView"
+<inf:ViewBase x:Class="HVTApp.UI.Views.NotificationUnitDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -29,19 +29,24 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Пользователь" Visibility="{Binding VisibilityUserEventServiceUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Пользователь" Visibility="{Binding VisibilitySenderUserNotificationUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
-                                    Item="{Binding Item.User}" 
-                                    AddItemCommand="{Binding SelectUserCommand}" 
-                                    RemoveItemCommand="{Binding ClearUserCommand}"
-									Visibility="{Binding VisibilityUserEventServiceUnit, ElementName=Root}"/>
+                                    Item="{Binding Item.SenderUser}" 
+                                    AddItemCommand="{Binding SelectSenderUserCommand}" 
+                                    RemoveItemCommand="{Binding ClearSenderUserCommand}"
+									Visibility="{Binding VisibilitySenderUserNotificationUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Сообщение" Visibility="{Binding VisibilityMessageEventServiceUnit, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1"
-                 Text="{Binding Item.Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityMessageEventServiceUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Пользователь" Visibility="{Binding VisibilityRecipientUserNotificationUnit, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.RecipientUser}" 
+                                    AddItemCommand="{Binding SelectRecipientUserCommand}" 
+                                    RemoveItemCommand="{Binding ClearRecipientUserCommand}"
+									Visibility="{Binding VisibilityRecipientUserNotificationUnit, ElementName=Root}"/>
 
 
     </Grid>

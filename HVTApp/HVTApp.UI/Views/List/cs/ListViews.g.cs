@@ -2243,78 +2243,6 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("EventServiceUnit")]
-	[DesignationPlural("EventServiceUnitLookup")]
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
-    public partial class EventServiceUnitLookupListView : ViewBase
-    {
-        public EventServiceUnitLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public EventServiceUnitLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, EventServiceUnitLookupListViewModel EventServiceUnitLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = EventServiceUnitLookupListViewModel;
-			EventServiceUnitLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			((EventServiceUnitLookupListViewModel)DataContext).Load();
-        }
-
-		#region VisibilityProps
-
-        public System.Windows.Visibility RoleVisibility
-        {
-            get { return EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.Role)].Visibility; }
-            set { EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.Role)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility TargetEntityIdVisibility
-        {
-            get { return EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.TargetEntityId)].Visibility; }
-            set { EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.TargetEntityId)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility EventServiceActionTypeVisibility
-        {
-            get { return EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.EventServiceActionType)].Visibility; }
-            set { EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.EventServiceActionType)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility MessageVisibility
-        {
-            get { return EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.Message)].Visibility; }
-            set { EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.Message)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.DisplayMember)].Visibility; }
-            set { EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.DisplayMember)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility UserVisibility
-        {
-            get { return EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.User)].Visibility; }
-            set { EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.User)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.Entity)].Visibility; }
-            set { EventServiceUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.EventServiceUnitLookup.Entity)].Visibility = value; }
-        }
-
-
-		#endregion
-    }
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Объект")]
 	[DesignationPlural("FacilityLookup")]
 	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
@@ -3426,6 +3354,102 @@ namespace HVTApp.UI.Views
             set { NotificationsReportsSettingsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationsReportsSettingsLookup.ChiefEngineerReportDistributionList)].Visibility = value; }
         }
 
+        public System.Windows.Visibility SavePaymentDocumentDistributionListVisibility
+        {
+            get { return NotificationsReportsSettingsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationsReportsSettingsLookup.SavePaymentDocumentDistributionList)].Visibility; }
+            set { NotificationsReportsSettingsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationsReportsSettingsLookup.SavePaymentDocumentDistributionList)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("NotificationUnit")]
+	[DesignationPlural("NotificationUnitLookup")]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
+    public partial class NotificationUnitLookupListView : ViewBase
+    {
+        public NotificationUnitLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public NotificationUnitLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, NotificationUnitLookupListViewModel NotificationUnitLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = NotificationUnitLookupListViewModel;
+			NotificationUnitLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((NotificationUnitLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility ActionTypeVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.ActionType)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.ActionType)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility TargetEntityIdVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.TargetEntityId)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.TargetEntityId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility SenderUserIdVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.SenderUserId)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.SenderUserId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility SenderRoleVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.SenderRole)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.SenderRole)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility RecipientUserIdVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientUserId)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientUserId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility RecipientRoleVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientRole)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientRole)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.DisplayMember)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility SenderUserVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.SenderUser)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.SenderUser)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility RecipientUserVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientUser)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientUser)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.Entity)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.Entity)].Visibility = value; }
+        }
+
 
 		#endregion
     }
@@ -4222,6 +4246,12 @@ namespace HVTApp.UI.Views
         {
             get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Vat)].Visibility; }
             set { PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Vat)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility SumWithVatVisibility
+        {
+            get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.SumWithVat)].Visibility; }
+            set { PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.SumWithVat)].Visibility = value; }
         }
 
         public System.Windows.Visibility DisplayMemberVisibility
@@ -6982,6 +7012,12 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumToShipping)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumToShipping)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility FixedCostVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FixedCost)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FixedCost)].Visibility = value; }
         }
 
         public System.Windows.Visibility OrderInTakeDateInjectedVisibility

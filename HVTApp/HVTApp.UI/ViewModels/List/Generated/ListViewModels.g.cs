@@ -7,6 +7,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.ViewModels
 {
+	public partial class NotificationUnitLookupListViewModel : BaseListViewModel<NotificationUnit, NotificationUnitLookup, AfterSaveNotificationUnitEvent, AfterSelectNotificationUnitEvent, AfterRemoveNotificationUnitEvent>
+    {
+        public NotificationUnitLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class CountryUnionLookupListViewModel : BaseListViewModel<CountryUnion, CountryUnionLookup, AfterSaveCountryUnionEvent, AfterSelectCountryUnionEvent, AfterRemoveCountryUnionEvent>
     {
         public CountryUnionLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -85,11 +90,6 @@ namespace HVTApp.UI.ViewModels
 	public partial class DocumentNumberLookupListViewModel : BaseListViewModel<DocumentNumber, DocumentNumberLookup, AfterSaveDocumentNumberEvent, AfterSelectDocumentNumberEvent, AfterRemoveDocumentNumberEvent>
     {
         public DocumentNumberLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-	public partial class EventServiceUnitLookupListViewModel : BaseListViewModel<EventServiceUnit, EventServiceUnitLookup, AfterSaveEventServiceUnitEvent, AfterSelectEventServiceUnitEvent, AfterRemoveEventServiceUnitEvent>
-    {
-        public EventServiceUnitLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 	public partial class IncomingRequestLookupListViewModel : BaseListViewModel<IncomingRequest, IncomingRequestLookup, AfterSaveIncomingRequestEvent, AfterSelectIncomingRequestEvent, AfterRemoveIncomingRequestEvent>

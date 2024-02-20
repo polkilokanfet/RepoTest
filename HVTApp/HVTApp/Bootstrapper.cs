@@ -157,14 +157,14 @@ namespace HVTApp
             Container.RegisterType<IGetInformationFromExcelFileService, GetInformationFromExcelFileService1>();
             Container.RegisterType<IGetFilePaths, GetFilePathsService1>();
 
-            //Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<ISendNotificationThroughApp, EventServiceClient>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<INotificationsReportService, NotificationsReportService>();
-            //Container.RegisterType<INotificationMainService, NotificationMainService>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<INotificationFromDataBaseService, NotificationFromDataBaseService>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<INotificationGeneratorService, NotificationGeneratorService>(new ContainerControlledLifetimeManager());
-            
-            //Container.RegisterType<INotificationUnitWatcher, NotificationUnitWatcher>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IEventServiceClient, EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISendNotificationThroughApp, EventServiceClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationsReportService, NotificationsReportService>();
+            Container.RegisterType<INotificationMainService, NotificationMainService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationFromDataBaseService, NotificationFromDataBaseService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationGeneratorService, NotificationGeneratorService>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterType<INotificationUnitWatcher, NotificationUnitWatcher>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IMessenger, Messenger>(new ContainerControlledLifetimeManager());
 
@@ -174,8 +174,7 @@ namespace HVTApp
 
             //костыли
             var user = this.Container.Resolve<IAuthenticationService>().GetAuthenticationUser();
-            if (user == null) throw new NoUserException();
-            GlobalAppProperties.User = user;
+            GlobalAppProperties.User = user ?? throw new NoUserException();
 
             _splashScreenWindow.Show();
 
@@ -229,7 +228,7 @@ namespace HVTApp
             //{ }
             //#endregion
 
-            //Container.Resolve<INotificationMainService>().Start();
+            Container.Resolve<INotificationMainService>().Start();
 
             Container.Resolve<IEventAggregator>().GetEvent<ModuleIsInitializedEvent>().Subscribe(moduleType =>
             {

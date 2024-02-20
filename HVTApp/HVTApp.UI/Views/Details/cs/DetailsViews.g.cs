@@ -12,6 +12,125 @@ using System.Linq;
 
 namespace HVTApp.UI.Views
 {
+    public partial class NotificationUnitDetailsView : ViewBase
+    {
+        public NotificationUnitDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public NotificationUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, NotificationUnitDetailsViewModel NotificationUnitDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = NotificationUnitDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.ActionType)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityActionTypeNotificationUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.TargetEntityId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityTargetEntityIdNotificationUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.SenderUser)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySenderUserNotificationUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.SenderUserId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySenderUserIdNotificationUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.SenderRole)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySenderRoleNotificationUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.RecipientUser)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityRecipientUserNotificationUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.RecipientUserId)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityRecipientUserIdNotificationUnit = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.RecipientRole)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityRecipientRoleNotificationUnit = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityActionTypeNotificationUnitProperty = DependencyProperty.Register("VisibilityActionTypeNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityActionTypeNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilityActionTypeNotificationUnitProperty); }
+            set { SetValue(VisibilityActionTypeNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityTargetEntityIdNotificationUnitProperty = DependencyProperty.Register("VisibilityTargetEntityIdNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityTargetEntityIdNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilityTargetEntityIdNotificationUnitProperty); }
+            set { SetValue(VisibilityTargetEntityIdNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySenderUserNotificationUnitProperty = DependencyProperty.Register("VisibilitySenderUserNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySenderUserNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilitySenderUserNotificationUnitProperty); }
+            set { SetValue(VisibilitySenderUserNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySenderUserIdNotificationUnitProperty = DependencyProperty.Register("VisibilitySenderUserIdNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySenderUserIdNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilitySenderUserIdNotificationUnitProperty); }
+            set { SetValue(VisibilitySenderUserIdNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySenderRoleNotificationUnitProperty = DependencyProperty.Register("VisibilitySenderRoleNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySenderRoleNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilitySenderRoleNotificationUnitProperty); }
+            set { SetValue(VisibilitySenderRoleNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityRecipientUserNotificationUnitProperty = DependencyProperty.Register("VisibilityRecipientUserNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityRecipientUserNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilityRecipientUserNotificationUnitProperty); }
+            set { SetValue(VisibilityRecipientUserNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityRecipientUserIdNotificationUnitProperty = DependencyProperty.Register("VisibilityRecipientUserIdNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityRecipientUserIdNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilityRecipientUserIdNotificationUnitProperty); }
+            set { SetValue(VisibilityRecipientUserIdNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityRecipientRoleNotificationUnitProperty = DependencyProperty.Register("VisibilityRecipientRoleNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityRecipientRoleNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilityRecipientRoleNotificationUnitProperty); }
+            set { SetValue(VisibilityRecipientRoleNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+	}
+
     public partial class CountryUnionDetailsView : ViewBase
     {
         public CountryUnionDetailsView()
@@ -1264,89 +1383,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityNumberDocumentNumberProperty); }
             set { SetValue(VisibilityNumberDocumentNumberProperty, value); OnPropertyChanged(); }
-        }
-
-	}
-
-    public partial class EventServiceUnitDetailsView : ViewBase
-    {
-        public EventServiceUnitDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public EventServiceUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, EventServiceUnitDetailsViewModel EventServiceUnitDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = EventServiceUnitDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-            //attr = typeof(HVTApp.Model.POCOs.EventServiceUnit).GetProperty(nameof(HVTApp.Model.POCOs.EventServiceUnit.User)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityUserEventServiceUnit = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.EventServiceUnit).GetProperty(nameof(HVTApp.Model.POCOs.EventServiceUnit.Role)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityRoleEventServiceUnit = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.EventServiceUnit).GetProperty(nameof(HVTApp.Model.POCOs.EventServiceUnit.TargetEntityId)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityTargetEntityIdEventServiceUnit = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.EventServiceUnit).GetProperty(nameof(HVTApp.Model.POCOs.EventServiceUnit.EventServiceActionType)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityEventServiceActionTypeEventServiceUnit = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.EventServiceUnit).GetProperty(nameof(HVTApp.Model.POCOs.EventServiceUnit.Message)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityMessageEventServiceUnit = Visibility.Collapsed;
-
-
-        }
-
-
-        public static readonly DependencyProperty VisibilityUserEventServiceUnitProperty = DependencyProperty.Register("VisibilityUserEventServiceUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityUserEventServiceUnit
-        {
-            get { return (Visibility) GetValue(VisibilityUserEventServiceUnitProperty); }
-            set { SetValue(VisibilityUserEventServiceUnitProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityRoleEventServiceUnitProperty = DependencyProperty.Register("VisibilityRoleEventServiceUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityRoleEventServiceUnit
-        {
-            get { return (Visibility) GetValue(VisibilityRoleEventServiceUnitProperty); }
-            set { SetValue(VisibilityRoleEventServiceUnitProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityTargetEntityIdEventServiceUnitProperty = DependencyProperty.Register("VisibilityTargetEntityIdEventServiceUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityTargetEntityIdEventServiceUnit
-        {
-            get { return (Visibility) GetValue(VisibilityTargetEntityIdEventServiceUnitProperty); }
-            set { SetValue(VisibilityTargetEntityIdEventServiceUnitProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityEventServiceActionTypeEventServiceUnitProperty = DependencyProperty.Register("VisibilityEventServiceActionTypeEventServiceUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityEventServiceActionTypeEventServiceUnit
-        {
-            get { return (Visibility) GetValue(VisibilityEventServiceActionTypeEventServiceUnitProperty); }
-            set { SetValue(VisibilityEventServiceActionTypeEventServiceUnitProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityMessageEventServiceUnitProperty = DependencyProperty.Register("VisibilityMessageEventServiceUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityMessageEventServiceUnit
-        {
-            get { return (Visibility) GetValue(VisibilityMessageEventServiceUnitProperty); }
-            set { SetValue(VisibilityMessageEventServiceUnitProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -8036,6 +8072,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilitySumToShippingSalesUnit = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.FixedCost)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityFixedCostSalesUnit = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.OrderInTakeDateInjected)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityOrderInTakeDateInjectedSalesUnit = Visibility.Collapsed;
@@ -8557,6 +8597,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilitySumToShippingSalesUnitProperty); }
             set { SetValue(VisibilitySumToShippingSalesUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityFixedCostSalesUnitProperty = DependencyProperty.Register("VisibilityFixedCostSalesUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityFixedCostSalesUnit
+        {
+            get { return (Visibility) GetValue(VisibilityFixedCostSalesUnitProperty); }
+            set { SetValue(VisibilityFixedCostSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
