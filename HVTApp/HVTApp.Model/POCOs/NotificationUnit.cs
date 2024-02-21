@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 
 namespace HVTApp.Model.POCOs
 {
     public class NotificationUnit : BaseEntity
     {
-        public EventServiceActionType ActionType { get; set; }
+        public NotificationActionType ActionType { get; set; }
 
         public Guid TargetEntityId { get; set; }
 

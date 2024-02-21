@@ -53,26 +53,6 @@ namespace EventService
 
         public bool UserIsConnected(Guid userId) => _appSessions.Any(appSession => appSession.UserId == userId);
 
-        public bool CopyProjectAttachments(Guid userId, Guid projectId, string targetDirectory)
-        {
-            var appSession = _appSessions.FirstOrDefault(session => session.UserId == userId);
-            if (appSession != null)
-            {
-                try
-                {
-                    //appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().CopyProjectAttachmentsCallback(projectId, targetDirectory);
-                    this.PrintMessageEvent?.Invoke($"CopyProjectAttachments() done to directory {targetDirectory}. userId={userId}, projectId={projectId}");
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    this.PrintMessageEvent?.Invoke(e.PrintAllExceptions());
-                }
-            }
-
-            return false;
-        }
-
         /// <summary>
         /// Закрытие хоста
         /// </summary>
@@ -92,8 +72,6 @@ namespace EventService
                 }
             }
         }
-
-
 
         public void SendMessageToChat(Guid authorId, string message)
         {

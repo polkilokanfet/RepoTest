@@ -3,6 +3,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Enums;
 
 namespace HVTApp.UI.Lookup
 {
@@ -16,7 +17,7 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.EventServiceActionType ActionType => Entity.ActionType;
+        public NotificationActionType ActionType => Entity.ActionType;
 
 		[OrderStatus(1)]
         public System.Guid TargetEntityId => Entity.TargetEntityId;

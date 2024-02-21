@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -47,33 +48,33 @@ namespace NotificationsService
             throw new NotImplementedException();
             switch (Unit.ActionType)
             {
-                case EventServiceActionType.PriceEngineeringTaskStart:
+                case NotificationActionType.PriceEngineeringTaskStart:
                     return Unit.RecipientRole == Role.DesignDepartmentHead
                         ? "Назначьте исполнителя"
                         : "Проработайте задачу";
 
-                case EventServiceActionType.PriceEngineeringTaskStop:
+                case NotificationActionType.PriceEngineeringTaskStop:
                     return "Менеджер остановил проработку задачи";
 
-                case EventServiceActionType.PriceEngineeringTaskInstructToConstructor:
+                case NotificationActionType.PriceEngineeringTaskInstructToConstructor:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskFinish:
+                case NotificationActionType.PriceEngineeringTaskFinish:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskAccept:
+                case NotificationActionType.PriceEngineeringTaskAccept:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskRejectByManager:
+                case NotificationActionType.PriceEngineeringTaskRejectByManager:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager:
+                case NotificationActionType.PriceEngineeringTaskRejectByConstructorToManager:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskSendMessage:
+                case NotificationActionType.PriceEngineeringTaskSendMessage:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
+                case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
                     break;
-                case EventServiceActionType.PriceEngineeringTaskNotification:
+                case NotificationActionType.PriceEngineeringTaskNotification:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
@@ -18,7 +19,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             yield return new NotificationUnit
             {
-                ActionType = EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager,
+                ActionType = NotificationActionType.PriceEngineeringTaskRejectByConstructorToManager,
                 RecipientRole = Role.SalesManager,
                 RecipientUser = Manager,
                 TargetEntityId = ViewModel.Model.Id

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
@@ -60,7 +61,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             if(ViewModel.Model.UserConstructor != null)
                 yield return new NotificationUnit
                 {
-                    ActionType = EventServiceActionType.PriceEngineeringTaskStart,
+                    ActionType = NotificationActionType.PriceEngineeringTaskStart,
                     RecipientRole = Role.Constructor,
                     RecipientUser = ViewModel.Model.UserConstructor,
                     TargetEntityId = ViewModel.Model.Id
@@ -68,7 +69,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             else if (ViewModel.Model.DesignDepartment != null)
                 yield return new NotificationUnit
                 {
-                    ActionType = EventServiceActionType.PriceEngineeringTaskStart,
+                    ActionType = NotificationActionType.PriceEngineeringTaskStart,
                     RecipientRole = Role.DesignDepartmentHead,
                     RecipientUser = ViewModel.Model.DesignDepartment.Head,
                     TargetEntityId = ViewModel.Model.Id

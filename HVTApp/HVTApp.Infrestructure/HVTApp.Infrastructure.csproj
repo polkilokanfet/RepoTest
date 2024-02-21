@@ -110,6 +110,7 @@
     <Compile Include="Converters\ReverseBoolConverter.cs" />
     <Compile Include="Converters\TextToVisibilityConverter.cs" />
     <Compile Include="Converters\ValueConverterBase.cs" />
+    <Compile Include="Enums\NotificationActionType.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtansions.cs" />
     <Compile Include="Extensions\DateExtansions.cs" />
@@ -173,7 +174,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RibbonTabItemWithViewModel.cs" />
     <Compile Include="RibbonTabAttribute.cs" />
-    <Compile Include="Role.cs" />
+    <Compile Include="Enums\Role.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\IMessagesOutlookService.cs" />
     <Compile Include="Services\IPrintOfferService.cs" />

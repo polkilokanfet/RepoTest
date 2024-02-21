@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
@@ -29,6 +30,6 @@ namespace NotificationsMainService.SyncEntities.Entities
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser => 
             (targetUserId, targetRole, priceCalculationId) => EventServiceClient.RejectPriceCalculationPublishEvent(targetUserId, targetRole, priceCalculationId);
 
-        protected override EventServiceActionType EventServiceActionType => EventServiceActionType.RejectPriceCalculation;
+        protected override NotificationActionType NotificationActionType => NotificationActionType.RejectPriceCalculation;
     }
 }

@@ -2,15 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Уведомление" 
+        Height="200"
         Width="400" 
-        ResizeMode="NoResize"
-        SizeToContent="Height"
+        ResizeMode="CanMinimize"
         Loaded="Window_Loaded">
-    
-    <StackPanel>
-        <ScrollViewer Margin="5" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <TextBlock x:Name="TextBlock"/>
-        </ScrollViewer>
-        <Button x:Name="OpenButton" Content="Открыть" Click="OpenButton_OnClick"></Button>
-    </StackPanel>
+
+    <Button Click="OpenButton_OnClick">
+        <TextBlock x:Name="TextBlock" TextWrapping="WrapWithOverflow"/>
+    </Button>
+
 </Window>

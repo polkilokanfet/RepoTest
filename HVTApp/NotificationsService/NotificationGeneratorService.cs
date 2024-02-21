@@ -1,5 +1,6 @@
 ﻿using System;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -23,65 +24,65 @@ namespace NotificationsService
             throw new NotImplementedException();
             switch (unit.ActionType)
             {
-                case EventServiceActionType.SavePriceCalculation:
+                case NotificationActionType.SavePriceCalculation:
                     break;
-                case EventServiceActionType.StartPriceCalculation:
+                case NotificationActionType.StartPriceCalculation:
                     break;
-                case EventServiceActionType.CancelPriceCalculation:
+                case NotificationActionType.CancelPriceCalculation:
                     break;
-                case EventServiceActionType.RejectPriceCalculation:
+                case NotificationActionType.RejectPriceCalculation:
                     break;
-                case EventServiceActionType.FinishPriceCalculation:
+                case NotificationActionType.FinishPriceCalculation:
                     break;
-                case EventServiceActionType.SaveTechnicalRequrementsTask:
+                case NotificationActionType.SaveTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.StartTechnicalRequrementsTask:
+                case NotificationActionType.StartTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.InstructTechnicalRequrementsTask:
+                case NotificationActionType.InstructTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.RejectTechnicalRequrementsTask:
+                case NotificationActionType.RejectTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.RejectByFrontManagerTechnicalRequrementsTask:
+                case NotificationActionType.RejectByFrontManagerTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.FinishTechnicalRequrementsTask:
+                case NotificationActionType.FinishTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.AcceptTechnicalRequrementsTask:
+                case NotificationActionType.AcceptTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.StopTechnicalRequrementsTask:
+                case NotificationActionType.StopTechnicalRequrementsTask:
                     break;
-                case EventServiceActionType.SaveDirectumTask:
+                case NotificationActionType.SaveDirectumTask:
                     break;
-                case EventServiceActionType.StartDirectumTask:
+                case NotificationActionType.StartDirectumTask:
                     break;
-                case EventServiceActionType.StopDirectumTask:
+                case NotificationActionType.StopDirectumTask:
                     break;
-                case EventServiceActionType.PerformDirectumTask:
+                case NotificationActionType.PerformDirectumTask:
                     break;
-                case EventServiceActionType.AcceptDirectumTask:
+                case NotificationActionType.AcceptDirectumTask:
                     break;
-                case EventServiceActionType.RejectDirectumTask:
+                case NotificationActionType.RejectDirectumTask:
                     break;
-                case EventServiceActionType.SaveIncomingRequest:
+                case NotificationActionType.SaveIncomingRequest:
                     break;
-                case EventServiceActionType.SaveActualPayment:
+                case NotificationActionType.SaveActualPayment:
                     break;
-                case EventServiceActionType.SavePaymentDocument:
+                case NotificationActionType.SavePaymentDocument:
                     break;
 
 
-                case EventServiceActionType.PriceEngineeringTasksStart:
-                case EventServiceActionType.PriceEngineeringTaskStart:
-                case EventServiceActionType.PriceEngineeringTaskStop:
-                case EventServiceActionType.PriceEngineeringTaskInstructToConstructor:
-                case EventServiceActionType.PriceEngineeringTaskFinish:
-                case EventServiceActionType.PriceEngineeringTaskAccept:
-                case EventServiceActionType.PriceEngineeringTaskRejectByManager:
-                case EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager:
-                case EventServiceActionType.PriceEngineeringTaskSendMessage:
-                case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
-                case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:
-                case EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                case EventServiceActionType.PriceEngineeringTaskNotification:
+                case NotificationActionType.PriceEngineeringTasksStart:
+                case NotificationActionType.PriceEngineeringTaskStart:
+                case NotificationActionType.PriceEngineeringTaskStop:
+                case NotificationActionType.PriceEngineeringTaskInstructToConstructor:
+                case NotificationActionType.PriceEngineeringTaskFinish:
+                case NotificationActionType.PriceEngineeringTaskAccept:
+                case NotificationActionType.PriceEngineeringTaskRejectByManager:
+                case NotificationActionType.PriceEngineeringTaskRejectByConstructorToManager:
+                case NotificationActionType.PriceEngineeringTaskSendMessage:
+                case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
+                case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
+                case NotificationActionType.PriceEngineeringTaskNotification:
                     return new NotificationPriceEngineeringTask(_unitOfWork, unit, _regionManager);
 
 

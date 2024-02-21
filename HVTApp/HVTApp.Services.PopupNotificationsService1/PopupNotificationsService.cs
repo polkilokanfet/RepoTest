@@ -39,9 +39,8 @@ namespace HVTApp.Services.PopupNotificationsService1
             Application.Current.Dispatcher.Invoke(
                 () =>
                 {
-                    new PopupWindow(text, title, GetAction(model)).Show();
+                    new PopupWindow2(text, title, action).Show();
                 });
-
         }
 
         private Action GetAction<TModel>(TModel model)

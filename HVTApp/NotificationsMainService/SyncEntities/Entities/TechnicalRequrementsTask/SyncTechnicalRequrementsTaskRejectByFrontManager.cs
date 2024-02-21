@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
@@ -30,7 +31,7 @@ namespace NotificationsMainService.SyncEntities.Entities
         protected override ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser => 
             (targetUserId, targetRole, technicalRequarementsTaskId) => EventServiceClient.RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(targetUserId, targetRole, technicalRequarementsTaskId);
 
-        protected override EventServiceActionType EventServiceActionType => EventServiceActionType.RejectByFrontManagerTechnicalRequrementsTask;
+        protected override NotificationActionType NotificationActionType => NotificationActionType.RejectByFrontManagerTechnicalRequrementsTask;
 
     }
 }

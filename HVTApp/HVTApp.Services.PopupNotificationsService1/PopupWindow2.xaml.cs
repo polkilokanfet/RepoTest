@@ -38,7 +38,8 @@ namespace HVTApp.Services.PopupNotificationsService1
             this.Close();
 
             //запускаем действие
-            _action?.Invoke();
+            if (_action == null) return;
+            _action.Invoke();
 
             //делаем главное окно активным
             if (System.Windows.Application.Current.MainWindow != null)

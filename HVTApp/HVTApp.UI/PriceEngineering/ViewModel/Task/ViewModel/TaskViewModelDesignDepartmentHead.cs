@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
@@ -112,7 +113,7 @@ namespace HVTApp.UI.PriceEngineering
 
             var notificationUnit = new NotificationUnit
             {
-                ActionType = EventServiceActionType.PriceEngineeringTaskInstructToConstructor,
+                ActionType = NotificationActionType.PriceEngineeringTaskInstructToConstructor,
                 RecipientRole = Role.Constructor,
                 RecipientUser = UserConstructor.Model,
                 SenderRole = GlobalAppProperties.User.RoleCurrent,

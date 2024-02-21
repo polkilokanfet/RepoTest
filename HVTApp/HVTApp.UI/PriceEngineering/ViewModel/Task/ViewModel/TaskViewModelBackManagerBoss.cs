@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
@@ -75,7 +76,7 @@ namespace HVTApp.UI.PriceEngineering
 
                     var notificationUnit = new NotificationUnit
                         {
-                            ActionType = EventServiceActionType.PriceEngineeringTaskInstructToPlanMaker,
+                            ActionType = NotificationActionType.PriceEngineeringTaskInstructToPlanMaker,
                             RecipientRole = Role.PlanMaker,
                             RecipientUser = planMaker,
                             TargetEntityId = Model.Id

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -33,7 +34,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 {
                     yield return new NotificationUnit
                     {
-                        ActionType = EventServiceActionType.PriceEngineeringTaskLoadToTceStart,
+                        ActionType = NotificationActionType.PriceEngineeringTaskLoadToTceStart,
                         RecipientRole = Role.BackManagerBoss,
                         RecipientUser = user,
                         TargetEntityId = ViewModel.Model.Id
@@ -44,7 +45,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             {
                 yield return new NotificationUnit
                 {
-                    ActionType = EventServiceActionType.PriceEngineeringTaskLoadToTceStart,
+                    ActionType = NotificationActionType.PriceEngineeringTaskLoadToTceStart,
                     RecipientRole = Role.BackManager,
                     RecipientUser = tasks.BackManager,
                     TargetEntityId = ViewModel.Model.Id

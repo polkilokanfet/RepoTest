@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
@@ -52,7 +53,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     {
                         var notificationUnit = new NotificationUnit
                         {
-                            ActionType = EventServiceActionType.PriceEngineeringTasksInstructToBackManager,
+                            ActionType = NotificationActionType.PriceEngineeringTasksInstructToBackManager,
                             RecipientRole = Role.BackManager,
                             RecipientUser = backManager,
                             TargetEntityId = this.TasksWrapper.Model.Id

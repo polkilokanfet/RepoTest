@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
@@ -24,7 +25,7 @@ namespace NotificationsMainService
             _eventAggregator = eventAggregator;
         }
 
-        private void M<T>(T entity, EventServiceActionType eventServiceActionType)
+        private void M<T>(T entity, NotificationActionType notificationActionType)
             where T : class, IBaseEntity
         {
             //Task.Run(
@@ -53,19 +54,19 @@ namespace NotificationsMainService
         public void Start()
         {
             _eventAggregator.GetEvent<AfterInstructTechnicalRequrementsTaskEvent>()
-                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, EventServiceActionType.StartTechnicalRequrementsTask));
+                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, NotificationActionType.StartTechnicalRequrementsTask));
 
             _eventAggregator.GetEvent<AfterStopTechnicalRequrementsTaskEvent>()
-                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, EventServiceActionType.StartTechnicalRequrementsTask));
+                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, NotificationActionType.StartTechnicalRequrementsTask));
 
             _eventAggregator.GetEvent<AfterFinishPriceCalculationEvent>()
-                .Subscribe(priceCalculation => M(priceCalculation, EventServiceActionType.StartPriceCalculation));
+                .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
 
             _eventAggregator.GetEvent<AfterStopPriceCalculationEvent>()
-                .Subscribe(priceCalculation => M(priceCalculation, EventServiceActionType.StartPriceCalculation));
+                .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
 
             _eventAggregator.GetEvent<AfterRejectPriceCalculationEvent>()
-                .Subscribe(priceCalculation => M(priceCalculation, EventServiceActionType.StartPriceCalculation));
+                .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
         }
     }
 }

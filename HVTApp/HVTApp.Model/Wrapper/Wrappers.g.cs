@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -16,12 +17,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// ActionType
         /// </summary>
-        public HVTApp.Model.POCOs.EventServiceActionType ActionType
+        public NotificationActionType ActionType
         {
           get { return Model.ActionType; }
           set { SetValue(value); }
         }
-        public HVTApp.Model.POCOs.EventServiceActionType ActionTypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.EventServiceActionType>(nameof(ActionType));
+        public NotificationActionType ActionTypeOriginalValue => GetOriginalValue<NotificationActionType>(nameof(ActionType));
         public bool ActionTypeIsChanged => GetIsChanged(nameof(ActionType));
 
         /// <summary>

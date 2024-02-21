@@ -49,7 +49,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         #region PriceEngineeringTask
 
         [OperationContract]
-        bool OnPriceEngineeringNotificationServiceCallback(Guid priceEngineeringTaskId, string message);
+        bool OnPriceEngineeringNotificationServiceCallback(string message, );
 
 
         [OperationContract]

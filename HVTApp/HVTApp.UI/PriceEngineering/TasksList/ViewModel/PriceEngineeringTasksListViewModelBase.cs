@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
@@ -120,18 +121,18 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         {
             switch (notificationUnit.ActionType)
             {
-                case EventServiceActionType.PriceEngineeringTaskStart:
-                case EventServiceActionType.PriceEngineeringTaskStop:
-                case EventServiceActionType.PriceEngineeringTaskInstructToConstructor:
-                case EventServiceActionType.PriceEngineeringTaskFinish:
-                case EventServiceActionType.PriceEngineeringTaskAccept:
-                case EventServiceActionType.PriceEngineeringTaskRejectByManager:
-                case EventServiceActionType.PriceEngineeringTaskRejectByConstructorToManager:
-                case EventServiceActionType.PriceEngineeringTaskSendMessage:
-                case EventServiceActionType.PriceEngineeringTaskFinishGoToVerification:
-                case EventServiceActionType.PriceEngineeringTaskVerificationRejectedByHead:
-                case EventServiceActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                case EventServiceActionType.PriceEngineeringTaskNotification:
+                case NotificationActionType.PriceEngineeringTaskStart:
+                case NotificationActionType.PriceEngineeringTaskStop:
+                case NotificationActionType.PriceEngineeringTaskInstructToConstructor:
+                case NotificationActionType.PriceEngineeringTaskFinish:
+                case NotificationActionType.PriceEngineeringTaskAccept:
+                case NotificationActionType.PriceEngineeringTaskRejectByManager:
+                case NotificationActionType.PriceEngineeringTaskRejectByConstructorToManager:
+                case NotificationActionType.PriceEngineeringTaskSendMessage:
+                case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
+                case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
+                case NotificationActionType.PriceEngineeringTaskNotification:
                     this.OnItemChild(this.UnitOfWork.Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId));
                     break;
             }

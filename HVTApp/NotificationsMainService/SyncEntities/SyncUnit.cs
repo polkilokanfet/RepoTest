@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
@@ -68,7 +69,7 @@ namespace NotificationsMainService.SyncEntities
 
         protected abstract ActionPublishThroughEventServiceForUserDelegate ActionPublishThroughEventServiceForUser { get; }
 
-        protected abstract EventServiceActionType EventServiceActionType { get; }
+        protected abstract NotificationActionType NotificationActionType { get; }
 
         /// <summary>
         /// Публикация события через сервис синхронизации
