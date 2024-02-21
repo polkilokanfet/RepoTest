@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using HVTApp.Infrastructure.Enums;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
@@ -49,7 +50,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         #region PriceEngineeringTask
 
         [OperationContract]
-        bool OnPriceEngineeringNotificationServiceCallback(string message, );
+        bool OnPriceEngineeringNotificationServiceCallback(string message, NotificationActionType actionType, Guid targetEntityId);
 
 
         [OperationContract]

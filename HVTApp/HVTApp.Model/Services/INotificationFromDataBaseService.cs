@@ -11,5 +11,7 @@ namespace HVTApp.Model.Services
         void SaveNotificationInDataBase(NotificationUnit unit);
 
         void CheckMessagesInDbAndShowNotifications();
+
+        void ShowNotification(NotificationUnit notificationUnit);
     }
 }

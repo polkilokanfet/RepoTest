@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -415,11 +416,17 @@ namespace EventServiceClient2
 
         #region PriceEngineeringTasks
 
-        public bool OnPriceEngineeringNotificationServiceCallback(Guid priceEngineeringTaskId, string message)
-        {1
-            var priceEngineeringTask = _container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(priceEngineeringTaskId);
-            var title = $"{priceEngineeringTask} с Id {priceEngineeringTask.Id}";
-            _popupNotificationsService.ShowPopupNotification(priceEngineeringTask, message, title);
+        public bool OnPriceEngineeringNotificationServiceCallback(string message, NotificationActionType actionType, Guid targetEntityId)
+        {
+            var notificationUnit = new NotificationUnit
+            {
+                ActionType = actionType,
+                RecipientRole = GlobalAppProperties.User.RoleCurrent,
+                RecipientUser = GlobalAppProperties.User,
+                RecipientUserId = GlobalAppProperties.User.Id,
+                TargetEntityId = targetEntityId
+            };
+            _notificationFromDataBaseService.ShowNotification(notificationUnit);
             return true;
         }
 

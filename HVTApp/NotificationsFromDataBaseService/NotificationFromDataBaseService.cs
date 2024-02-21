@@ -29,11 +29,11 @@ namespace NotificationsFromDataBaseService
             _unitOfWork.SaveEntity(unit);
         }
 
-        private void ShowNotification(NotificationUnit notificationUnit)
+        public void ShowNotification(NotificationUnit notificationUnit)
         {
             var message = _notificationGeneratorService.GetTargetEntityInfo(notificationUnit);
             var action = _notificationGeneratorService.GetOpenTargetEntityViewAction(notificationUnit);
-            //_popupNotificationsService.ShowPopupNotification();
+            _popupNotificationsService.ShowNotification(message, "test", action);
         }
 
         public void CheckMessagesInDbAndShowNotifications()

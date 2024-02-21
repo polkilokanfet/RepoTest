@@ -15,8 +15,8 @@ namespace EventServiceClient2
     public partial class EventServiceClient : IEventServiceClient, ISendNotificationThroughApp, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
         private readonly IUnityContainer _container;
+        private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
         private readonly INotificationGeneratorService _notificationGeneratorService;
-        private readonly IPopupNotificationsService _popupNotificationsService;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
         private readonly Role _userRole = GlobalAppProperties.User.RoleCurrent;
 
@@ -38,7 +38,7 @@ namespace EventServiceClient2
         {
             _container = container;
             _notificationGeneratorService = container.Resolve<INotificationGeneratorService>();
-            _popupNotificationsService = container.Resolve<IPopupNotificationsService>();
+            _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
 
             //увеличиваем таймаут бездействия
             //SendTimeout = new TimeSpan(7, 0, 0, 0),
