@@ -59,7 +59,9 @@
   <ItemGroup>
     <Compile Include="Notification\Notification.cs" />
     <Compile Include="NotificationGeneratorService.cs" />
+    <Compile Include="Notification\NotificationPriceCalculation.cs" />
     <Compile Include="Notification\NotificationPriceEngineeringTask.cs" />
+    <Compile Include="Notification\NotificationTechnicalRequrementsTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

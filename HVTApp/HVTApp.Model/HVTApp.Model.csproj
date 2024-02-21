@@ -177,7 +177,6 @@
     <Compile Include="Services\IFileManagerService.cs" />
     <Compile Include="Services\INotificationFromDataBaseService.cs" />
     <Compile Include="Services\INotificationGeneratorService.cs" />
-    <Compile Include="Services\IPopupNotificationsService.cs" />
     <Compile Include="Services\IPriceService.cs" />
     <Compile Include="Services\IPrintBlankLetterService.cs" />
     <Compile Include="Services\IPrintSupervisionLetterService.cs" />

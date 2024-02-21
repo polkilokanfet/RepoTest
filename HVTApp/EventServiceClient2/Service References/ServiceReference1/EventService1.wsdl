@@ -17,6 +17,7 @@
       <xsd:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure" />
+      <xsd:import schemaLocation="http://localhost:8301/EventService.EventService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure.Enums" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IEventService_Connect_InputMessage">
@@ -43,12 +44,6 @@
   <wsdl:message name="IEventService_UserIsConnected_OutputMessage">
     <wsdl:part name="parameters" element="tns:UserIsConnectedResponse" />
   </wsdl:message>
-  <wsdl:message name="IEventService_CopyProjectAttachments_InputMessage">
-    <wsdl:part name="parameters" element="tns:CopyProjectAttachments" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_CopyProjectAttachments_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CopyProjectAttachmentsResponse" />
-  </wsdl:message>
   <wsdl:message name="IEventService_SendMessageToChat_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToChat" />
   </wsdl:message>
@@ -61,143 +56,11 @@
   <wsdl:message name="IEventService_SendMessageToUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToUserResponse" />
   </wsdl:message>
-  <wsdl:message name="IEventService_SaveDirectumTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:SaveDirectumTaskPublishEvent" />
+  <wsdl:message name="IEventService_NotificationEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotificationEvent" />
   </wsdl:message>
-  <wsdl:message name="IEventService_SaveDirectumTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SaveDirectumTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StartDirectumTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:StartDirectumTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StartDirectumTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:StartDirectumTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StopDirectumTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:StopDirectumTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StopDirectumTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:StopDirectumTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_PerformDirectumTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:PerformDirectumTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_PerformDirectumTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:PerformDirectumTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_AcceptDirectumTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:AcceptDirectumTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_AcceptDirectumTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AcceptDirectumTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectDirectumTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:RejectDirectumTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectDirectumTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RejectDirectumTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SavePriceCalculationPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:SavePriceCalculationPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SavePriceCalculationPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SavePriceCalculationPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StartPriceCalculationPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:StartPriceCalculationPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StartPriceCalculationPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:StartPriceCalculationPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_FinishPriceCalculationPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:FinishPriceCalculationPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_FinishPriceCalculationPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:FinishPriceCalculationPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_CancelPriceCalculationPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:CancelPriceCalculationPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_CancelPriceCalculationPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CancelPriceCalculationPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectPriceCalculationPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:RejectPriceCalculationPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectPriceCalculationPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RejectPriceCalculationPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SaveIncomingRequestPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:SaveIncomingRequestPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SaveIncomingRequestPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SaveIncomingRequestPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SaveIncomingDocumentPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:SaveIncomingDocumentPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SaveIncomingDocumentPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SaveIncomingDocumentPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SaveTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:SaveTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SaveTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SaveTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StartTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:StartTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StartTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:StartTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_InstructTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:InstructTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_InstructTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InstructTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StopTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:StopTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_StopTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:StopTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:RejectTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RejectTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectByFrontManagerTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:RejectByFrontManagerTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_RejectByFrontManagerTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RejectByFrontManagerTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_FinishTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:FinishTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_FinishTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:FinishTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_AcceptTechnicalRequarementsTaskPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:AcceptTechnicalRequarementsTaskPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_AcceptTechnicalRequarementsTaskPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AcceptTechnicalRequarementsTaskPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SavePaymentDocumentPublishEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:SavePaymentDocumentPublishEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_SavePaymentDocumentPublishEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SavePaymentDocumentPublishEventResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_PriceEngineeringTaskNotificationEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskNotificationEvent" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_PriceEngineeringTaskNotificationEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:PriceEngineeringTaskNotificationEventResponse" />
+  <wsdl:message name="IEventService_NotificationEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NotificationEventResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTaskSendMessagePublishEvent" />
@@ -217,149 +80,17 @@
   <wsdl:message name="IEventService_OnSendMessageToUser_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnSendMessageToUser" />
   </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveDirectumTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskServiceCallback" />
+  <wsdl:message name="IEventService_OnNotificationCallback_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnNotificationCallback" />
   </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveDirectumTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveDirectumTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStartDirectumTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStartDirectumTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStartDirectumTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStartDirectumTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStopDirectumTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStopDirectumTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStopDirectumTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStopDirectumTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnPerformDirectumTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnPerformDirectumTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnPerformDirectumTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnPerformDirectumTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnAcceptDirectumTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnAcceptDirectumTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnAcceptDirectumTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnAcceptDirectumTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectDirectumTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectDirectumTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectDirectumTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectDirectumTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnPriceEngineeringNotificationServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnPriceEngineeringNotificationServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnPriceEngineeringNotificationServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnPriceEngineeringNotificationServiceCallbackResponse" />
+  <wsdl:message name="IEventService_OnNotificationCallback_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnNotificationCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskSendMessageServiceCallback" />
   </wsdl:message>
   <wsdl:message name="IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnPriceEngineeringTaskSendMessageServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSavePaymentDocumentServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSavePaymentDocumentServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSavePaymentDocumentServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSavePaymentDocumentServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSavePriceCalculationServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSavePriceCalculationServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSavePriceCalculationServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStartPriceCalculationServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStartPriceCalculationServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStartPriceCalculationServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStartPriceCalculationServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnFinishPriceCalculationServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnFinishPriceCalculationServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnFinishPriceCalculationServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnFinishPriceCalculationServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnCancelPriceCalculationServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnCancelPriceCalculationServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnCancelPriceCalculationServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnCancelPriceCalculationServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectPriceCalculationServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectPriceCalculationServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectPriceCalculationServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectPriceCalculationServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveIncomingRequestServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveIncomingRequestServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveIncomingDocumentServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveIncomingDocumentServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveIncomingDocumentServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveIncomingDocumentServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnSaveTechnicalRequarementsTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStartTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStartTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStartTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStartTechnicalRequarementsTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnInstructTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnInstructTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnInstructTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnInstructTechnicalRequarementsTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStopTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStopTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnStopTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnStopTechnicalRequarementsTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectTechnicalRequarementsTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnFinishTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnFinishTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnFinishTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnFinishTechnicalRequarementsTaskServiceCallbackResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnAcceptTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnAcceptTechnicalRequarementsTaskServiceCallback" />
-  </wsdl:message>
-  <wsdl:message name="IEventService_OnAcceptTechnicalRequarementsTaskServiceCallback_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:OnAcceptTechnicalRequarementsTaskServiceCallbackResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_IsAlive_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:IsAlive" />
@@ -384,10 +115,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/UserIsConnected" message="tns:IEventService_UserIsConnected_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/UserIsConnectedResponse" message="tns:IEventService_UserIsConnected_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CopyProjectAttachments">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/CopyProjectAttachments" message="tns:IEventService_CopyProjectAttachments_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/CopyProjectAttachmentsResponse" message="tns:IEventService_CopyProjectAttachments_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="SendMessageToChat">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SendMessageToChat" message="tns:IEventService_SendMessageToChat_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SendMessageToChatResponse" message="tns:IEventService_SendMessageToChat_OutputMessage" />
@@ -396,97 +123,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SendMessageToUser" message="tns:IEventService_SendMessageToUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SendMessageToUserResponse" message="tns:IEventService_SendMessageToUser_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SaveDirectumTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent" message="tns:IEventService_SaveDirectumTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SaveDirectumTaskPublishEventResponse" message="tns:IEventService_SaveDirectumTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="StartDirectumTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent" message="tns:IEventService_StartDirectumTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/StartDirectumTaskPublishEventResponse" message="tns:IEventService_StartDirectumTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="StopDirectumTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent" message="tns:IEventService_StopDirectumTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/StopDirectumTaskPublishEventResponse" message="tns:IEventService_StopDirectumTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="PerformDirectumTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent" message="tns:IEventService_PerformDirectumTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PerformDirectumTaskPublishEventResponse" message="tns:IEventService_PerformDirectumTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="AcceptDirectumTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent" message="tns:IEventService_AcceptDirectumTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEventResponse" message="tns:IEventService_AcceptDirectumTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RejectDirectumTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent" message="tns:IEventService_RejectDirectumTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/RejectDirectumTaskPublishEventResponse" message="tns:IEventService_RejectDirectumTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SavePriceCalculationPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent" message="tns:IEventService_SavePriceCalculationPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SavePriceCalculationPublishEventResponse" message="tns:IEventService_SavePriceCalculationPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="StartPriceCalculationPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent" message="tns:IEventService_StartPriceCalculationPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/StartPriceCalculationPublishEventResponse" message="tns:IEventService_StartPriceCalculationPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="FinishPriceCalculationPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent" message="tns:IEventService_FinishPriceCalculationPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/FinishPriceCalculationPublishEventResponse" message="tns:IEventService_FinishPriceCalculationPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CancelPriceCalculationPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent" message="tns:IEventService_CancelPriceCalculationPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/CancelPriceCalculationPublishEventResponse" message="tns:IEventService_CancelPriceCalculationPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RejectPriceCalculationPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent" message="tns:IEventService_RejectPriceCalculationPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/RejectPriceCalculationPublishEventResponse" message="tns:IEventService_RejectPriceCalculationPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SaveIncomingRequestPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent" message="tns:IEventService_SaveIncomingRequestPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SaveIncomingRequestPublishEventResponse" message="tns:IEventService_SaveIncomingRequestPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SaveIncomingDocumentPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent" message="tns:IEventService_SaveIncomingDocumentPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEventResponse" message="tns:IEventService_SaveIncomingDocumentPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SaveTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_SaveTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_SaveTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="StartTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_StartTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_StartTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InstructTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_InstructTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_InstructTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="StopTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_StopTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_StopTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RejectTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_RejectTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_RejectTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RejectByFrontManagerTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_RejectByFrontManagerTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_RejectByFrontManagerTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="FinishTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_FinishTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_FinishTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="AcceptTechnicalRequarementsTaskPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent" message="tns:IEventService_AcceptTechnicalRequarementsTaskPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEventResponse" message="tns:IEventService_AcceptTechnicalRequarementsTaskPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SavePaymentDocumentPublishEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent" message="tns:IEventService_SavePaymentDocumentPublishEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SavePaymentDocumentPublishEventResponse" message="tns:IEventService_SavePaymentDocumentPublishEvent_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="PriceEngineeringTaskNotificationEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEvent" message="tns:IEventService_PriceEngineeringTaskNotificationEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEventResponse" message="tns:IEventService_PriceEngineeringTaskNotificationEvent_OutputMessage" />
+    <wsdl:operation name="NotificationEvent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/NotificationEvent" message="tns:IEventService_NotificationEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/NotificationEventResponse" message="tns:IEventService_NotificationEvent_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="PriceEngineeringTaskSendMessagePublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage" />
@@ -504,101 +143,13 @@
     <wsdl:operation name="OnSendMessageToUser">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSendMessageToUser" message="tns:IEventService_OnSendMessageToUser_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="OnSaveDirectumTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback" message="tns:IEventService_OnSaveDirectumTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnSaveDirectumTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnStartDirectumTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallback" message="tns:IEventService_OnStartDirectumTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnStartDirectumTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnStopDirectumTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallback" message="tns:IEventService_OnStopDirectumTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnStopDirectumTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnPerformDirectumTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallback" message="tns:IEventService_OnPerformDirectumTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnPerformDirectumTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnAcceptDirectumTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallback" message="tns:IEventService_OnAcceptDirectumTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnAcceptDirectumTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" message="tns:IEventService_OnRejectDirectumTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallbackResponse" message="tns:IEventService_OnRejectDirectumTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnPriceEngineeringNotificationServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallback" message="tns:IEventService_OnPriceEngineeringNotificationServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringNotificationServiceCallback_InputCallbackMessage" />
+    <wsdl:operation name="OnNotificationCallback">
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnNotificationCallback" message="tns:IEventService_OnNotificationCallback_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnNotificationCallbackResponse" message="tns:IEventService_OnNotificationCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="OnPriceEngineeringTaskSendMessageServiceCallback">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallback" message="tns:IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallbackResponse" message="tns:IEventService_OnPriceEngineeringTaskSendMessageServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnSavePaymentDocumentServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSavePaymentDocumentServiceCallback" message="tns:IEventService_OnSavePaymentDocumentServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSavePaymentDocumentServiceCallbackResponse" message="tns:IEventService_OnSavePaymentDocumentServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnSavePriceCalculationServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback" message="tns:IEventService_OnSavePriceCalculationServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallbackResponse" message="tns:IEventService_OnSavePriceCalculationServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnStartPriceCalculationServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback" message="tns:IEventService_OnStartPriceCalculationServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallbackResponse" message="tns:IEventService_OnStartPriceCalculationServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnFinishPriceCalculationServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback" message="tns:IEventService_OnFinishPriceCalculationServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallbackResponse" message="tns:IEventService_OnFinishPriceCalculationServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnCancelPriceCalculationServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback" message="tns:IEventService_OnCancelPriceCalculationServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallbackResponse" message="tns:IEventService_OnCancelPriceCalculationServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectPriceCalculationServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback" message="tns:IEventService_OnRejectPriceCalculationServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallbackResponse" message="tns:IEventService_OnRejectPriceCalculationServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingRequestServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback" message="tns:IEventService_OnSaveIncomingRequestServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallbackResponse" message="tns:IEventService_OnSaveIncomingRequestServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingDocumentServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback" message="tns:IEventService_OnSaveIncomingDocumentServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallbackResponse" message="tns:IEventService_OnSaveIncomingDocumentServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnSaveTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnSaveTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnStartTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStartTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnStartTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnStartTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnStartTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnInstructTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnInstructTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnInstructTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnStopTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnStopTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnStopTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnRejectTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnFinishTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnFinishTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnFinishTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="OnAcceptTechnicalRequarementsTaskServiceCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/OnAcceptTechnicalRequarementsTaskServiceCallback" message="tns:IEventService_OnAcceptTechnicalRequarementsTaskServiceCallback_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/OnAcceptTechnicalRequarementsTaskServiceCallbackResponse" message="tns:IEventService_OnAcceptTechnicalRequarementsTaskServiceCallback_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="IsAlive">
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/IsAlive" message="tns:IEventService_IsAlive_OutputCallbackMessage" />
@@ -644,15 +195,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CopyProjectAttachments">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/CopyProjectAttachments" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SendMessageToChat">
       <soap12:operation soapAction="http://tempuri.org/IEventService/SendMessageToChat" style="document" />
       <wsdl:input>
@@ -671,206 +213,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="SaveDirectumTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/SaveDirectumTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="StartDirectumTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/StartDirectumTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="StopDirectumTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/StopDirectumTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="PerformDirectumTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/PerformDirectumTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AcceptDirectumTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/AcceptDirectumTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RejectDirectumTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/RejectDirectumTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SavePriceCalculationPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/SavePriceCalculationPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="StartPriceCalculationPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/StartPriceCalculationPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="FinishPriceCalculationPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/FinishPriceCalculationPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CancelPriceCalculationPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/CancelPriceCalculationPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RejectPriceCalculationPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/RejectPriceCalculationPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SaveIncomingRequestPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/SaveIncomingRequestPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SaveIncomingDocumentPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/SaveIncomingDocumentPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SaveTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/SaveTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="StartTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/StartTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InstructTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/InstructTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="StopTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/StopTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RejectTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/RejectTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RejectByFrontManagerTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/RejectByFrontManagerTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="FinishTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/FinishTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AcceptTechnicalRequarementsTaskPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/AcceptTechnicalRequarementsTaskPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SavePaymentDocumentPublishEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/SavePaymentDocumentPublishEvent" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="PriceEngineeringTaskNotificationEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/PriceEngineeringTaskNotificationEvent" style="document" />
+    <wsdl:operation name="NotificationEvent">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/NotificationEvent" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -911,62 +255,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="OnSaveDirectumTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveDirectumTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnStartDirectumTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStartDirectumTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnStopDirectumTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStopDirectumTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnPerformDirectumTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPerformDirectumTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnAcceptDirectumTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnAcceptDirectumTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectDirectumTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectDirectumTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnPriceEngineeringNotificationServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringNotificationServiceCallback" style="document" />
+    <wsdl:operation name="OnNotificationCallback">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/OnNotificationCallback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -976,150 +266,6 @@
     </wsdl:operation>
     <wsdl:operation name="OnPriceEngineeringTaskSendMessageServiceCallback">
       <soap12:operation soapAction="http://tempuri.org/IEventService/OnPriceEngineeringTaskSendMessageServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnSavePaymentDocumentServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSavePaymentDocumentServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnSavePriceCalculationServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSavePriceCalculationServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnStartPriceCalculationServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStartPriceCalculationServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnFinishPriceCalculationServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnFinishPriceCalculationServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnCancelPriceCalculationServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnCancelPriceCalculationServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectPriceCalculationServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectPriceCalculationServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingRequestServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingRequestServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnSaveIncomingDocumentServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveIncomingDocumentServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnSaveTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnSaveTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnStartTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStartTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnInstructTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnInstructTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnStopTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnStopTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnFinishTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnFinishTechnicalRequarementsTaskServiceCallback" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="OnAcceptTechnicalRequarementsTaskServiceCallback">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/OnAcceptTechnicalRequarementsTaskServiceCallback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

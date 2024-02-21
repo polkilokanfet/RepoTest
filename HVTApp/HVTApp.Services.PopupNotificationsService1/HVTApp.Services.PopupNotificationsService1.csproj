@@ -64,9 +64,6 @@
     <Compile Include="PopupWindow2.xaml.cs">
       <DependentUpon>PopupWindow2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PopupWindow.xaml.cs">
-      <DependentUpon>PopupWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,19 +93,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PopupWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518D16-6EA7-4B34-A308-E7AD991421BC}</Project>
       <Name>HVTApp.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
-      <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
-      <Name>HVTApp.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
       <Project>{984DF0F0-471D-4E38-B701-9DFC536217A8}</Project>

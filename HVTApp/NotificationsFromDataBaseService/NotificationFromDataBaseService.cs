@@ -1,5 +1,6 @@
 ﻿using System;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -24,8 +25,12 @@ namespace NotificationsFromDataBaseService
         /// </summary>
         public void SaveNotificationInDataBase(NotificationUnit unit)
         {
-            unit.SenderUser = _unitOfWork.Repository<User>().GetById(unit.SenderUser.Id);
-            unit.RecipientUser = _unitOfWork.Repository<User>().GetById(unit.RecipientUser.Id);
+            var senderUserId = unit.SenderUser?.Id ?? unit.SenderUserId;
+            unit.SenderUser = _unitOfWork.Repository<User>().GetById(senderUserId);
+
+            var recipientUserId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
+            unit.RecipientUser = _unitOfWork.Repository<User>().GetById(recipientUserId);
+
             _unitOfWork.SaveEntity(unit);
         }
 

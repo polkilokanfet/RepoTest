@@ -94,8 +94,6 @@ namespace NotificationsFromDataBaseService
                     break;
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
                     break;
-                case NotificationActionType.PriceEngineeringTaskNotification:
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -174,7 +172,6 @@ namespace NotificationsFromDataBaseService
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
                 case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                case NotificationActionType.PriceEngineeringTaskNotification:
                     return new NotificationPriceEngineeringTask(_unitOfWork, unit);
 
 

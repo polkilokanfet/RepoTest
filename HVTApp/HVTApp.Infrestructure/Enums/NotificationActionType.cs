@@ -44,8 +44,6 @@
 
         SavePaymentDocument,
 
-        PriceEngineeringTaskNotification,
-
         PriceEngineeringTaskInstructToPlanMaker,
         PriceEngineeringTaskLoadToTceStart,
         PriceEngineeringTaskLoadToTceFinish,

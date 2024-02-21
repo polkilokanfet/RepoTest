@@ -21,35 +21,26 @@ namespace NotificationsService
 
         private INotificationHelper GetNotification(NotificationUnit unit)
         {
-            throw new NotImplementedException();
             switch (unit.ActionType)
             {
                 case NotificationActionType.SavePriceCalculation:
-                    break;
                 case NotificationActionType.StartPriceCalculation:
-                    break;
                 case NotificationActionType.CancelPriceCalculation:
-                    break;
                 case NotificationActionType.RejectPriceCalculation:
-                    break;
                 case NotificationActionType.FinishPriceCalculation:
-                    break;
+                    return new NotificationPriceCalculation(_unitOfWork, unit, _regionManager);
+
                 case NotificationActionType.SaveTechnicalRequrementsTask:
-                    break;
                 case NotificationActionType.StartTechnicalRequrementsTask:
-                    break;
                 case NotificationActionType.InstructTechnicalRequrementsTask:
-                    break;
                 case NotificationActionType.RejectTechnicalRequrementsTask:
-                    break;
                 case NotificationActionType.RejectByFrontManagerTechnicalRequrementsTask:
-                    break;
                 case NotificationActionType.FinishTechnicalRequrementsTask:
-                    break;
                 case NotificationActionType.AcceptTechnicalRequrementsTask:
-                    break;
                 case NotificationActionType.StopTechnicalRequrementsTask:
-                    break;
+                    return new NotificationTechnicalRequrementsTask(_unitOfWork, unit, _regionManager);
+
+
                 case NotificationActionType.SaveDirectumTask:
                     break;
                 case NotificationActionType.StartDirectumTask:
@@ -77,19 +68,30 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskFinish:
                 case NotificationActionType.PriceEngineeringTaskAccept:
                 case NotificationActionType.PriceEngineeringTaskRejectByManager:
+                case NotificationActionType.PriceEngineeringTaskRejectByHeadToManager:
                 case NotificationActionType.PriceEngineeringTaskRejectByConstructorToManager:
                 case NotificationActionType.PriceEngineeringTaskSendMessage:
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
                 case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                case NotificationActionType.PriceEngineeringTaskNotification:
+                case NotificationActionType.PriceEngineeringTaskInstructToPlanMaker:
+                case NotificationActionType.PriceEngineeringTaskLoadToTceStart:
+                case NotificationActionType.PriceEngineeringTaskLoadToTceFinish:
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStart:
+                case NotificationActionType.PriceEngineeringTaskProductionRequestFinish:
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
                     return new NotificationPriceEngineeringTask(_unitOfWork, unit, _regionManager);
 
+                case NotificationActionType.PriceEngineeringTasksInstructToBackManager:
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
+            throw new NotImplementedException();
         }
 
         public string GetTargetEntityInfo(NotificationUnit unit)

@@ -204,13 +204,16 @@ namespace EventServiceClient2
 
             try
             {
-                result = EventServiceHost.PriceEngineeringTaskNotificationEvent(
+                var senderId = unit.SenderUser?.Id ?? unit.SenderUserId;
+                var recipientId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
+
+                result = EventServiceHost.NotificationEvent(
                     this._appSessionId,
-                    unit.SenderUser.Id,
-                    unit.RecipientUser.Id,
+                    senderId,
+                    recipientId,
                     unit.RecipientRole,
-                    unit.TargetEntityId,
-                    $"{_notificationGeneratorService.GetTargetActionInfo(unit)}: {_notificationGeneratorService.GetTargetActionInfo(unit)}");
+                    unit.TargetEntityId, 
+                    unit.ActionType);
             }
             //хост недоступен
             catch (TimeoutException)

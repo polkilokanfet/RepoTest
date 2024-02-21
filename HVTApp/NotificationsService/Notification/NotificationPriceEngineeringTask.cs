@@ -36,7 +36,7 @@ namespace NotificationsService
             sb.AppendLine(string.Empty);
 
             sb.AppendLine($"Бюро ОГК: {TargetUnit.DesignDepartment}");
-            sb.AppendLine($"Исполнитель: {TargetUnit.UserConstructor}");
+            sb.AppendLine($"Исполнитель (от ОГК): {TargetUnit.UserConstructor}");
             sb.AppendLine($"Менеджер: {tasks.UserManager}");
             sb.AppendLine($"Back-менеджер: {tasks.BackManager}");
 
@@ -45,7 +45,6 @@ namespace NotificationsService
 
         public override string GetTargetActionInfo()
         {
-            throw new NotImplementedException();
             switch (Unit.ActionType)
             {
                 case NotificationActionType.PriceEngineeringTaskStart:
@@ -54,7 +53,7 @@ namespace NotificationsService
                         : "Проработайте задачу";
 
                 case NotificationActionType.PriceEngineeringTaskStop:
-                    return "Менеджер остановил проработку задачи";
+                    return "Менеджер остановил проработку блока ТСП";
 
                 case NotificationActionType.PriceEngineeringTaskInstructToConstructor:
                     break;
@@ -64,8 +63,13 @@ namespace NotificationsService
                     break;
                 case NotificationActionType.PriceEngineeringTaskRejectByManager:
                     break;
+
+                case NotificationActionType.PriceEngineeringTaskRejectByHeadToManager:
+                    return "Проработка блока ТСП отклонена руководителем КБ";
+
                 case NotificationActionType.PriceEngineeringTaskRejectByConstructorToManager:
-                    break;
+                    return "Проработка блока ТСП отклонена исполнителем";
+
                 case NotificationActionType.PriceEngineeringTaskSendMessage:
                     break;
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
@@ -74,11 +78,11 @@ namespace NotificationsService
                     break;
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
                     break;
-                case NotificationActionType.PriceEngineeringTaskNotification:
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            throw new NotImplementedException();
         }
 
         public override Action GetOpenTargetEntityViewAction()

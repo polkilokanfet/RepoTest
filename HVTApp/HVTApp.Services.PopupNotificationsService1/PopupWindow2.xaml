@@ -2,13 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Уведомление" 
-        Height="200"
+        Height="150"
         Width="400" 
         ResizeMode="CanMinimize"
         Loaded="Window_Loaded">
 
-    <Button Click="OpenButton_OnClick">
-        <TextBlock x:Name="TextBlock" TextWrapping="WrapWithOverflow"/>
-    </Button>
-
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Button Click="OpenButton_OnClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock x:Name="TextBlock" TextWrapping="WrapWithOverflow"/>
+        </Button>
+    </ScrollViewer>
 </Window>

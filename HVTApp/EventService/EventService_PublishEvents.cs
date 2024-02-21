@@ -4,6 +4,7 @@ using System.Reflection;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 
@@ -129,154 +130,154 @@ namespace EventService
             this.Disconnect(appSession.AppSessionId);
         }
 
-        #region Directum
+        //#region Directum
 
-        public bool SaveDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId, 
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskServiceCallback(taskId));
-        }
+        //public bool SaveDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId, 
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveDirectumTaskServiceCallback(taskId));
+        //}
 
-        public bool StartDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartDirectumTaskServiceCallback(taskId));
-        }
+        //public bool StartDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartDirectumTaskServiceCallback(taskId));
+        //}
 
-        public bool StopDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopDirectumTaskServiceCallback(taskId));
-        }
+        //public bool StopDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopDirectumTaskServiceCallback(taskId));
+        //}
 
-        public bool PerformDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPerformDirectumTaskServiceCallback(taskId));
-        }
+        //public bool PerformDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPerformDirectumTaskServiceCallback(taskId));
+        //}
 
-        public bool AcceptDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptDirectumTaskServiceCallback(taskId));
-        }
+        //public bool AcceptDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptDirectumTaskServiceCallback(taskId));
+        //}
 
-        public bool RejectDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectDirectumTaskServiceCallback(taskId));
-        }
-        #endregion
+        //public bool RejectDirectumTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid taskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectDirectumTaskServiceCallback(taskId));
+        //}
+        //#endregion
 
-        #region PriceCalculation
+        //#region PriceCalculation
 
-        public bool SavePriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId, 
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationServiceCallback(priceCalculationId));
-        }
+        //public bool SavePriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId, 
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePriceCalculationServiceCallback(priceCalculationId));
+        //}
 
-        public bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartPriceCalculationServiceCallback(priceCalculationId));
-        }
+        //public bool StartPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartPriceCalculationServiceCallback(priceCalculationId));
+        //}
 
-        public bool FinishPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishPriceCalculationServiceCallback(priceCalculationId));
-        }
+        //public bool FinishPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishPriceCalculationServiceCallback(priceCalculationId));
+        //}
 
-        public bool CancelPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelPriceCalculationServiceCallback(priceCalculationId));
-        }
+        //public bool CancelPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnCancelPriceCalculationServiceCallback(priceCalculationId));
+        //}
 
-        public bool RejectPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectPriceCalculationServiceCallback(priceCalculationId));
-        }
+        //public bool RejectPriceCalculationPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid priceCalculationId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectPriceCalculationServiceCallback(priceCalculationId));
+        //}
 
-        #endregion
+        //#endregion
 
-        #region IncomingRequest
+        //#region IncomingRequest
 
-        public bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid requestId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
-        }
+        //public bool SaveIncomingRequestPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid requestId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingRequestServiceCallback(requestId));
+        //}
 
-        #endregion
+        //#endregion
 
-        #region IncomingDocument
+        //#region IncomingDocument
 
-        public bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid documentId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
-        }
+        //public bool SaveIncomingDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid documentId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveIncomingDocumentServiceCallback(documentId));
+        //}
 
-        #endregion
+        //#endregion
 
-        #region TechnicalRequarementsTask
+        //#region TechnicalRequarementsTask
 
-        public bool SaveTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool SaveTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSaveTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        public bool StartTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool StartTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStartTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        public bool InstructTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnInstructTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool InstructTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnInstructTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        public bool StopTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool StopTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnStopTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        public bool RejectTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool RejectTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        public bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool RejectByFrontManagerTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnRejectByFrontManagerTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        public bool FinishTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool FinishTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnFinishTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        public bool AcceptTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
-        }
+        //public bool AcceptTechnicalRequarementsTaskPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid technicalRequarementsTaskId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnAcceptTechnicalRequarementsTaskServiceCallback(technicalRequarementsTaskId));
+        //}
 
-        #endregion
+        //#endregion
 
         #region PriceEngineeringTasks
 
-        public bool PriceEngineeringTaskNotificationEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, string message)
+        public bool NotificationEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, NotificationActionType actionType)
         {
             bool result = false;
 
@@ -288,11 +289,11 @@ namespace EventService
                 .ToList();
 
             PrintMessageEvent?.Invoke("-------------------");
-            PrintMessageEvent?.Invoke($"Invoke {nameof(PriceEngineeringTaskNotificationEvent)} (sourceEventAppSessionId: {eventSourceAppSessionId} targetUserId: {userTargetId}");
+            PrintMessageEvent?.Invoke($"Invoke {nameof(NotificationEvent)} {actionType} (sourceEventAppSessionId: {eventSourceAppSessionId} targetUserId: {userTargetId}");
 
             if (targetAppSessions.Any() == false)
             {
-                PrintMessageEvent?.Invoke(" - Service have no target connected user");
+                PrintMessageEvent?.Invoke($" - Service have no target connected user (role: {userTargetRole}, userId: {userTargetId})");
             }
             else
             {
@@ -300,7 +301,7 @@ namespace EventService
                 {
                     try
                     {
-                        if (appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnPriceEngineeringNotificationServiceCallback(priceEngineeringTaskId, message))
+                        if (appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnNotificationCallback(actionType, priceEngineeringTaskId))
                         {
                             result = true;
                             PrintMessageEvent?.Invoke($" + Success ({appSession})");
@@ -318,7 +319,7 @@ namespace EventService
                     catch (Exception e)
                     {
                         PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} ({appSession})");
-                        PrintMessageEvent?.Invoke($"!Exception on Invoke {nameof(PriceEngineeringTaskNotificationEvent)} ({this.GetType().FullName}) by appSession {eventSourceAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
+                        PrintMessageEvent?.Invoke($"!Exception on Invoke {nameof(NotificationEvent)} ({this.GetType().FullName}) by appSession {eventSourceAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
                         this.Disconnect(appSession.AppSessionId);
                     }
                 }
@@ -337,10 +338,10 @@ namespace EventService
 
         #endregion
 
-        public bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid paymentDocumentId)
-        {
-            return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
-                appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePaymentDocumentServiceCallback(paymentDocumentId));
-        }
+        //public bool SavePaymentDocumentPublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid paymentDocumentId)
+        //{
+        //    return PublishEventByServiceForUser(targetUserId, targetRole, eventSourceAppSessionId,
+        //        appSession => appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnSavePaymentDocumentServiceCallback(paymentDocumentId));
+        //}
     }
 }
