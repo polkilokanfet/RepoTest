@@ -10,6 +10,8 @@ namespace HVTApp.Model.Services
         /// <param name="unit"></param>
         void SaveNotificationInDataBase(NotificationUnit unit);
 
+        void RemoveNotificationFromDataBase(NotificationUnit unit);
+
         void CheckMessagesInDbAndShowNotifications();
 
         void ShowNotification(NotificationUnit notificationUnit);

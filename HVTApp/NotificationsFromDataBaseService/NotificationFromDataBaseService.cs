@@ -33,6 +33,13 @@ namespace NotificationsFromDataBaseService
             _unitOfWork.SaveEntity(unit);
         }
 
+        public void RemoveNotificationFromDataBase(NotificationUnit unit)
+        {
+            var notificationUnit = _unitOfWork.Repository<NotificationUnit>().GetById(unit.Id);
+            if (notificationUnit == null) return;
+            _unitOfWork.RemoveEntity(notificationUnit);
+        }
+
         public void ShowNotification(NotificationUnit notificationUnit)
         {
             var title = _notificationGeneratorService.GetActionInfo(notificationUnit);

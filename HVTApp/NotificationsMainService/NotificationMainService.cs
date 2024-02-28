@@ -79,6 +79,9 @@ namespace NotificationsMainService
         private void OnNotificationEvent(NotificationUnit notification)
         {
             var result = true;
+            
+            //сохраняем уведомление в базе данных
+            _notificationFromDataBaseService.SaveNotificationInDataBase(notification); 
 
             Task.Run(
                 () =>
@@ -88,11 +91,13 @@ namespace NotificationsMainService
                 }).Await(
                 completedCallback:() =>
                 {
-                    if (result) return;
+                    if (result)
+                    {
+                        _notificationFromDataBaseService.RemoveNotificationFromDataBase(notification);
+                        return;
+                    }
 
                     //Если уведомление не дошло внутри приложения,
-                    _notificationFromDataBaseService.SaveNotificationInDataBase(notification); //сохраняем уведомление в базе данных
-
                     //отправляем уведомление по email
                     var emailAddress = notification.RecipientUser?.Employee.Email;
                     if (string.IsNullOrEmpty(emailAddress)) return;
