@@ -65,8 +65,8 @@ namespace NotificationsMainService
             _eventAggregator.GetEvent<AfterStopPriceCalculationEvent>()
                 .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
 
-            _eventAggregator.GetEvent<AfterRejectPriceCalculationEvent>()
-                .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
+            //_eventAggregator.GetEvent<AfterRejectPriceCalculationEvent>()
+            //    .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
         }
     }
 }

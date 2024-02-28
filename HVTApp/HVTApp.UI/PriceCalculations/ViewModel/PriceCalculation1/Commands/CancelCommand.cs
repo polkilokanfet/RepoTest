@@ -3,8 +3,10 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
@@ -34,6 +36,16 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                     };
                 }
             }
+        }
+
+        protected override void ExecuteMethod()
+        {
+            base.ExecuteMethod();
+            if (this.DialogResult)
+            {
+                Container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Publish(this.ViewModel.PriceCalculationWrapper.Model);
+            }
+
         }
 
         protected override bool CanExecuteMethod()

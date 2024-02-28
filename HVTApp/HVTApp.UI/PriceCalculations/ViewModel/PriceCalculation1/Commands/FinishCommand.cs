@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
@@ -42,7 +44,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
             //добавление новых ПЗ в блоки
             if (this.DialogResult)
+            {
+                Container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Publish(this.ViewModel.PriceCalculationWrapper.Model);
                 AddPricesInProductBlocks();
+            }
         }
 
         /// <summary>

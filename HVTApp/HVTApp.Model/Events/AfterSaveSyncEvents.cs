@@ -10,6 +10,10 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 
+    public class AfterFinishPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+
+    public class AfterStopPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
+
     #region Directum
 
     public class AfterStartDirectumTaskEvent : PubSubEvent<DirectumTask> { }

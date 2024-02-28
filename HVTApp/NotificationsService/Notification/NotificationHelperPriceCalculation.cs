@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
@@ -19,7 +21,16 @@ namespace NotificationsService
 
         public override string GetCommonInfo()
         {
-            return this.TargetUnit.ToString();
+            var priceCalculation = this.TargetUnit;
+            var sb = new StringBuilder();
+            sb.AppendLine("Расчёт переменных затрат");
+            sb.AppendLine("Оборудование:");
+            foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems.Where(x => x.SalesUnits.Any()))
+            {
+                var salesUnit = priceCalculationItem.SalesUnits.First();
+                sb.AppendLine($" - Объект: {salesUnit.Facility}; Оборудование: {salesUnit.Product}; Количество: {priceCalculationItem.SalesUnits.Count}");
+            }
+            return sb.ToString();
         }
 
         public override string GetActionInfo()
@@ -43,8 +54,9 @@ namespace NotificationsService
 
         public override Action GetOpenTargetEntityViewAction()
         {
-            var parameters = new NavigationParameters { { string.Empty, this.TargetUnit } };
-            return () => RegionManager.RequestNavigateContentRegion<PriceCalculationView>(new NavigationParameters { { nameof(PriceCalculation), parameters } });
+            var priceCalculation = this.TargetUnit;
+            var parameters = new NavigationParameters { { string.Empty, priceCalculation } };
+            return () => RegionManager.RequestNavigateContentRegion<PriceCalculationView>(parameters);
         }
     }
 }
