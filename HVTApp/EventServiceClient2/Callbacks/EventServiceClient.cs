@@ -63,7 +63,6 @@ namespace EventServiceClient2
                 TargetEntityId = targetEntityId
             };
             _notificationFromDataBaseService.ShowNotification(notificationUnit);
-            _notificationGeneratorService.RefreshTargetEntityAction(notificationUnit);
             return true;
         }
 

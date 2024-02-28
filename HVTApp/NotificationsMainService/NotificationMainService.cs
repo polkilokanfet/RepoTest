@@ -8,13 +8,11 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
-//using NotificationsMainService.SyncEntities;
 using Prism.Events;
 
 namespace NotificationsMainService
@@ -31,7 +29,6 @@ namespace NotificationsMainService
         private readonly INotificationsReportService _notificationsReportService;
         private readonly INotificationUnitWatcher _notificationUnitWatcher;
         private readonly IEmailService _emailService;
-        //private readonly SyncUnitsContainer _syncUnitsContainer = new SyncUnitsContainer();
 
         public NotificationMainService(IUnityContainer container)
         {
@@ -44,12 +41,6 @@ namespace NotificationsMainService
             _notificationUnitWatcher = container.Resolve<INotificationUnitWatcher>();
             _emailService = container.Resolve<IEmailService>();
             EventServiceClient = container.Resolve<IEventServiceClient>();
-
-            //var types = this.GetType().Assembly.GetTypes().Where(x => x.IsAbstract == false && x.GetInterfaces().Contains(typeof(ISyncUnit)));
-            //foreach (var unitType in types)
-            //{
-            //    _syncUnitsContainer.Add((ISyncUnit)container.Resolve(unitType));
-            //}
         }
 
         public void Start()

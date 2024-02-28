@@ -52,8 +52,7 @@ namespace NotificationsService
 
         public override Action GetOpenTargetEntityViewAction()
         {
-            var priceCalculation = this.TargetUnit;
-            var parameters = new NavigationParameters { { string.Empty, priceCalculation } };
+            var parameters = new NavigationParameters { { string.Empty, this.TargetUnit } };
             return () => RegionManager.RequestNavigateContentRegion<PriceCalculationView>(parameters);
         }
     }

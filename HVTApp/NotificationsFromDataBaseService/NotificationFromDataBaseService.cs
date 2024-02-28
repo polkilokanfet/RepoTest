@@ -46,6 +46,9 @@ namespace NotificationsFromDataBaseService
             var message = _notificationGeneratorService.GetCommonInfo(notificationUnit);
             var action = _notificationGeneratorService.GetOpenTargetEntityViewAction(notificationUnit);
             _popupNotificationsService.ShowNotification(message, title, action);
+
+            //обновление измененной сущности
+            _notificationGeneratorService.RefreshTargetEntityAction(notificationUnit);
         }
 
         public void CheckMessagesInDbAndShowNotifications()
@@ -59,9 +62,6 @@ namespace NotificationsFromDataBaseService
             {
                 //показ уведомления
                 this.ShowNotification(notificationUnit);
-
-                //обновление измененной сущности
-                _notificationGeneratorService.RefreshTargetEntityAction(notificationUnit);
 
                 //удаление уведомления
                 _unitOfWork.Repository<NotificationUnit>().Delete(notificationUnit);

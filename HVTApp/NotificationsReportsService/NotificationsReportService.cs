@@ -31,6 +31,9 @@ namespace NotificationsReportsService
 
         private bool CanStart(NotificationsReportsSettings settings, DateTime now)
         {
+            if (GlobalAppProperties.User.Roles.Any(x => x.Role == Role.Admin) == false)
+                return false;
+
             if (settings == null)
                 return false;
 
