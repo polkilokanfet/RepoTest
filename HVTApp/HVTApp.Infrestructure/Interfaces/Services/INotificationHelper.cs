@@ -4,8 +4,8 @@ namespace HVTApp.Infrastructure.Interfaces.Services
 {
     public interface INotificationHelper
     {
-        string GetTargetEntityInfo();
-        string GetTargetActionInfo();
+        string GetCommonInfo();
+        string GetActionInfo();
         Action GetOpenTargetEntityViewAction();
     }
 }

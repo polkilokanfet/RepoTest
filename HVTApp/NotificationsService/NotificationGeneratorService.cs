@@ -94,14 +94,14 @@ namespace NotificationsService
             throw new NotImplementedException();
         }
 
-        public string GetTargetEntityInfo(NotificationUnit unit)
+        public string GetCommonInfo(NotificationUnit unit)
         {
-            return this.GetNotification(unit).GetTargetEntityInfo();
+            return this.GetNotification(unit).GetCommonInfo();
         }
 
-        public string GetTargetActionInfo(NotificationUnit unit)
+        public string GetActionInfo(NotificationUnit unit)
         {
-            return this.GetNotification(unit).GetTargetActionInfo();
+            return this.GetNotification(unit).GetActionInfo();
         }
 
         public Action GetOpenTargetEntityViewAction(NotificationUnit unit)

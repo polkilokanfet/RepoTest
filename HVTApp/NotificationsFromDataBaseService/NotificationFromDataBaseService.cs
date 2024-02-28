@@ -1,5 +1,4 @@
-﻿using System;
-using HVTApp.Infrastructure;
+﻿using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -36,7 +35,7 @@ namespace NotificationsFromDataBaseService
 
         public void ShowNotification(NotificationUnit notificationUnit)
         {
-            var message = _notificationGeneratorService.GetTargetEntityInfo(notificationUnit);
+            var message = _notificationGeneratorService.GetCommonInfo(notificationUnit);
             var action = _notificationGeneratorService.GetOpenTargetEntityViewAction(notificationUnit);
             _popupNotificationsService.ShowNotification(message, "test", action);
         }

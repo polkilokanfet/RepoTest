@@ -17,7 +17,7 @@ namespace NotificationsService
         {
         }
 
-        public override string GetTargetEntityInfo()
+        public override string GetCommonInfo()
         {
             var tasks = TargetUnit.GetPriceEngineeringTasks(UnitOfWork);
             var taskTop = TargetUnit.GetTopPriceEngineeringTask(UnitOfWork);
@@ -43,7 +43,7 @@ namespace NotificationsService
             return sb.ToString();
         }
 
-        public override string GetTargetActionInfo()
+        public override string GetActionInfo()
         {
             switch (Unit.ActionType)
             {

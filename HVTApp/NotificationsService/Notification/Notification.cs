@@ -22,8 +22,8 @@ namespace NotificationsService
             RegionManager = regionManager;
         }
 
-        public abstract string GetTargetEntityInfo();
-        public abstract string GetTargetActionInfo();
+        public abstract string GetCommonInfo();
+        public abstract string GetActionInfo();
         public abstract Action GetOpenTargetEntityViewAction();
     }
 }

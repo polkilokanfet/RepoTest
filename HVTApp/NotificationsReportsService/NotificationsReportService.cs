@@ -4,25 +4,29 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Services;
 
 namespace NotificationsReportsService
 {
     public class NotificationsReportService : INotificationsReportService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly INotificationGeneratorService _notificationGeneratorService;
         private readonly IEmailService _emailService;
 
         private readonly List<LogUnit> _logUnits = new List<LogUnit>();
 
-        public NotificationsReportService(IUnitOfWork unitOfWork, IEmailService emailService)
+        public NotificationsReportService(IUnitOfWork unitOfWork, IEmailService emailService, INotificationGeneratorService notificationGeneratorService)
         {
             _unitOfWork = unitOfWork;
             _emailService = emailService;
+            _notificationGeneratorService = notificationGeneratorService;
         }
 
         private bool CanStart(NotificationsReportsSettings settings, DateTime now)
@@ -125,7 +129,13 @@ namespace NotificationsReportsService
             {
                 var email = task.UserConstructor.Employee.Email;
                 if (string.IsNullOrWhiteSpace(email)) continue;
-                var report = DeadlineReport.GetReport(_unitOfWork, task);
+
+                var notificationUnit = new NotificationUnit()
+                {
+                    ActionType = NotificationActionType.PriceEngineeringTaskInstructToConstructor,
+                    TargetEntityId = task.Id
+                };
+                var report = _notificationGeneratorService.GetCommonInfo(notificationUnit); //DeadlineReport.GetReport(_unitOfWork, task);
 
                 try
                 {

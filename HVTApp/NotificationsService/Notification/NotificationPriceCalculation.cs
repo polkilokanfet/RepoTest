@@ -14,12 +14,12 @@ namespace NotificationsService
         {
         }
 
-        public override string GetTargetEntityInfo()
+        public override string GetCommonInfo()
         {
             return this.TargetUnit.ToString();
         }
 
-        public override string GetTargetActionInfo()
+        public override string GetActionInfo()
         {
             switch (Unit.ActionType)
             {

@@ -5,8 +5,20 @@ namespace HVTApp.Model.Services
 {
     public interface INotificationGeneratorService
     {
-        string GetTargetEntityInfo(NotificationUnit unit);
-        string GetTargetActionInfo(NotificationUnit unit);
+        /// <summary>
+        /// Общая информация
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        string GetCommonInfo(NotificationUnit unit);
+
+        /// <summary>
+        /// Информация о требуемом действии
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        string GetActionInfo(NotificationUnit unit);
+
         Action GetOpenTargetEntityViewAction(NotificationUnit unit);
     }
 }
