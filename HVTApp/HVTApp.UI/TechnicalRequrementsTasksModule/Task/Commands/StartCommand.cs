@@ -1,40 +1,58 @@
-using System;
-using HVTApp.Model.Events;
+using System.Collections.Generic;
+using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class StartCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    public class StartCommand : BaseNotifyTechnicalRequrementsTaskViewModelCommand
     {
+        protected override string ConfirmationMessage => "Вы уверены, что хотите запустить задачу?";
+        protected override TechnicalRequrementsTaskHistoryElementType HistoryElementType => TechnicalRequrementsTaskHistoryElementType.Start;
+
         public StartCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
-        protected override void ExecuteMethod()
+        protected override void ActionBeforeSave()
         {
-            if (MessageService.ConfirmationDialog("Запуск задачи в ТСЕ", "Вы уверены, что хотите запустить задачу?") == false)
-                return;
-
-            ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Start;
-            ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
-            ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
-
             //удаление бэк менеджера, если он уже не работает в компании
             if (ViewModel.TechnicalRequrementsTaskWrapper.BackManager != null &&
                 ViewModel.TechnicalRequrementsTaskWrapper.BackManager.IsActual == false)
             {
                 ViewModel.TechnicalRequrementsTaskWrapper.BackManager = null;
             }
+        }
 
-            ViewModel.SaveCommand.Execute();
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            if (ViewModel.TechnicalRequrementsTaskWrapper.BackManager != null)
+            {
+                yield return new NotificationUnit
+                {
+                    ActionType = NotificationActionType.StartTechnicalRequirementsTask,
+                    RecipientRole = Role.BackManager,
+                    RecipientUser = ViewModel.TechnicalRequrementsTaskWrapper.BackManager.Model,
+                    TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                };
+            }
+            else
+            {
+                var users = UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss));
 
-            this.RaiseCanExecuteChanged();
-
-            Container.Resolve<IEventAggregator>().GetEvent<AfterStartTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
-
-            ViewModel.SetNewHistoryElement();
+                foreach (var user in users)
+                {
+                    yield return new NotificationUnit
+                    {
+                        ActionType = NotificationActionType.StartTechnicalRequirementsTask,
+                        RecipientRole = Role.BackManagerBoss,
+                        RecipientUser = user,
+                        TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                    };
+                }
+            }
         }
 
         protected override bool CanExecuteMethod()

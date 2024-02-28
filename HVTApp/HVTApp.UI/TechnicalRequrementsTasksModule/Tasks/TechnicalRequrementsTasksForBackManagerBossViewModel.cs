@@ -9,7 +9,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public TechnicalRequrementsTasksForBackManagerBossViewModel(IUnityContainer container) : base(container)
         {
             //подписка на событие старта задачи в ТСЕ (событие прилетает из сервиса синхронизации)
-            EventAggregator.GetEvent<AfterStartTechnicalRequrementsTaskEvent>().Subscribe(OnAfterSaveEntity);
+            EventAggregator.GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Subscribe(OnAfterSaveEntity, true);
         }
 
         protected override bool TaskIsActual(TechnicalRequrementsTask technicalRequrementsTask)

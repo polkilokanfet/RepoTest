@@ -1,15 +1,20 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model.Events;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class FinishCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    public class FinishCommand : BaseNotifyTechnicalRequrementsTaskViewModelCommand
     {
+        protected override string ConfirmationMessage => ViewModel.TechnicalRequrementsTaskWrapper.AnswerFiles.Any() 
+                ? "¬ы уверены, что хотите завершить проработку задачи?" 
+                : "¬ы не вложили ни один ответ конструкторов.\n¬ы уверены, что хотите завершить проработку задачи?";
+
+        protected override TechnicalRequrementsTaskHistoryElementType HistoryElementType => TechnicalRequrementsTaskHistoryElementType.Finish;
+
         public FinishCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
@@ -24,25 +29,27 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 return;
             }
 
-            //если не вложены ответы конструкторов
-            var msg = ViewModel.TechnicalRequrementsTaskWrapper.AnswerFiles.Any() 
-                ? "¬ы уверены, что хотите завершить проработку задачи?" 
-                : "¬ы не вложили ни один ответ конструкторов.\n¬ы уверены, что хотите завершить проработку задачи?";
-
-            if (MessageService.ConfirmationDialog(msg) == false)
-                return;
-
-            ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
-            ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Finish;
-            ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
-
-            ViewModel.SaveCommand.Execute();
-
-            this.RaiseCanExecuteChanged();
-
-            Container.Resolve<IEventAggregator>().GetEvent<AfterFinishTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+            base.ExecuteMethod();
 
             ViewModel.HistoryElementWrapper = null;
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            var manager = ViewModel.TechnicalRequrementsTaskWrapper.Model.Requrements
+                .SelectMany(x => x.SalesUnits)
+                .FirstOrDefault()?.Project.Manager;
+
+            if (manager != null)
+            {
+                yield return new NotificationUnit
+                {
+                    ActionType = NotificationActionType.FinishTechnicalRequirementsTask,
+                    RecipientRole = Role.SalesManager,
+                    RecipientUser = manager,
+                    TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                };
+            }
         }
 
         protected override bool CanExecuteMethod()

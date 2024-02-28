@@ -1,5 +1,3 @@
-using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using Prism.Events;

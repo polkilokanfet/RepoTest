@@ -1,13 +1,16 @@
-using System;
-using HVTApp.Model.Events;
+using System.Collections.Generic;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class RejectCommandByFrontManager : BaseTechnicalRequrementsTaskViewModelCommand
+    public class RejectCommandByFrontManager : BaseNotifyTechnicalRequrementsTaskViewModelCommand
     {
+        protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить данную проработку?";
+        protected override TechnicalRequrementsTaskHistoryElementType HistoryElementType => TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager;
+
         public RejectCommandByFrontManager(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
@@ -20,17 +23,23 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 return;
             }
 
-            ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.RejectByFrontManager;
-            ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
-            ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
-
-            ViewModel.SaveCommand.Execute();
-
-            this.RaiseCanExecuteChanged();
-
-            Container.Resolve<IEventAggregator>().GetEvent<AfterRejectByFrontManagerTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+            base.ExecuteMethod();
 
             ViewModel.HistoryElementWrapper = null;
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            if (ViewModel.TechnicalRequrementsTaskWrapper.BackManager != null)
+            {
+                yield return new NotificationUnit
+                {
+                    ActionType = NotificationActionType.RejectByFrontManagerTechnicalRequirementsTask,
+                    RecipientRole = Role.BackManager,
+                    RecipientUser = ViewModel.TechnicalRequrementsTaskWrapper.BackManager.Model,
+                    TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                };
+            }
         }
 
         protected override bool CanExecuteMethod()

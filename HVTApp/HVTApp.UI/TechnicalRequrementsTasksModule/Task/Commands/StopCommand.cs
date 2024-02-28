@@ -1,34 +1,53 @@
-using System;
-using HVTApp.Model.Events;
+using System.Collections.Generic;
+using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class StopCommand : BaseTechnicalRequrementsTaskViewModelCommand
+    public class StopCommand : BaseNotifyTechnicalRequrementsTaskViewModelCommand
     {
+        protected override string ConfirmationMessage => "Вы уверены, что хотите остановить задачу?";
+        protected override TechnicalRequrementsTaskHistoryElementType HistoryElementType => TechnicalRequrementsTaskHistoryElementType.Stop;
+
         public StopCommand(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
 
-        protected override void ExecuteMethod()
+        protected override void ActionBeforeSave()
         {
-            if (MessageService.ConfirmationDialog("Остановка задачи", "Вы уверены, что хотите остановить задачу?") == false)
-                return;
-
-            ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Stop;
-            ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
-            ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
             ViewModel.TechnicalRequrementsTaskWrapper.DesiredFinishDate = null;
+        }
 
-            ViewModel.SaveCommand.Execute();
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            if (ViewModel.TechnicalRequrementsTaskWrapper.BackManager != null)
+            {
+                yield return new NotificationUnit
+                {
+                    ActionType = NotificationActionType.StopTechnicalRequirementsTask,
+                    RecipientRole = Role.BackManager,
+                    RecipientUser = ViewModel.TechnicalRequrementsTaskWrapper.BackManager.Model,
+                    TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                };
+            }
+            else
+            {
+                var users = UnitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.BackManagerBoss));
 
-            this.RaiseCanExecuteChanged();
-
-            Container.Resolve<IEventAggregator>().GetEvent<AfterStopTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
-
-            ViewModel.SetNewHistoryElement();
+                foreach (var user in users)
+                {
+                    yield return new NotificationUnit
+                    {
+                        ActionType = NotificationActionType.StopTechnicalRequirementsTask,
+                        RecipientRole = Role.BackManagerBoss,
+                        RecipientUser = user,
+                        TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                    };
+                }
+            }
         }
 
         protected override bool CanExecuteMethod()

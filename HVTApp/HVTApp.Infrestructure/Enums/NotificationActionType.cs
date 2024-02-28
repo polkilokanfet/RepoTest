@@ -2,13 +2,13 @@
 {
     public enum NotificationActionType
     {
-        SavePriceCalculation,
+        //SavePriceCalculation,
         StartPriceCalculation,
         CancelPriceCalculation,
         RejectPriceCalculation,
         FinishPriceCalculation,
 
-        SaveTechnicalRequirementsTask,
+        //SaveTechnicalRequirementsTask,
         StartTechnicalRequirementsTask,
         InstructTechnicalRequirementsTask,
         RejectTechnicalRequirementsTask,
@@ -28,6 +28,8 @@
 
         //SaveActualPayment,
 
+        //SavePaymentDocument,
+
         PriceEngineeringTasksStart,
 
         PriceEngineeringTaskStart,
@@ -41,8 +43,6 @@
         PriceEngineeringTaskFinishGoToVerification, 
         PriceEngineeringTaskVerificationRejectedByHead,
         PriceEngineeringTaskVerificationAcceptedByHead,
-
-        //SavePaymentDocument,
 
         PriceEngineeringTaskInstructToPlanMaker,
         PriceEngineeringTaskLoadToTceStart,

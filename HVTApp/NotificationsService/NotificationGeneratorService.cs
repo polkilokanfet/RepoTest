@@ -26,14 +26,12 @@ namespace NotificationsService
         {
             switch (unit.ActionType)
             {
-                case NotificationActionType.SavePriceCalculation:
                 case NotificationActionType.StartPriceCalculation:
                 case NotificationActionType.CancelPriceCalculation:
                 case NotificationActionType.RejectPriceCalculation:
                 case NotificationActionType.FinishPriceCalculation:
                     return new NotificationHelperPriceCalculation(_unitOfWork, unit, _regionManager, _eventAggregator);
 
-                case NotificationActionType.SaveTechnicalRequirementsTask:
                 case NotificationActionType.StartTechnicalRequirementsTask:
                 case NotificationActionType.InstructTechnicalRequirementsTask:
                 case NotificationActionType.RejectTechnicalRequirementsTask:

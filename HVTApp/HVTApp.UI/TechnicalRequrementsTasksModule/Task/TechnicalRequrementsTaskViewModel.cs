@@ -337,8 +337,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public TechnicalRequrementsTaskViewModel(IUnityContainer container) : base(container)
         {
             var messageService = container.Resolve<IMessageService>();
-            container.Resolve<IEventAggregator>().GetEvent<AfterStartTechnicalRequrementsTaskEvent>().Subscribe(AfterStartStopTask);
-            container.Resolve<IEventAggregator>().GetEvent<AfterStopTechnicalRequrementsTaskEvent>().Subscribe(AfterStartStopTask);
 
             //сохранение изменений
             SaveCommand = new SaveCommand(this, this.Container);
@@ -567,15 +565,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     SelectedItem is TechnicalRequrements2Wrapper);
 
             SetNewHistoryElement();
-        }
-
-        private void AfterStartStopTask(TechnicalRequrementsTask task)
-        {
-            if (this.TechnicalRequrementsTaskWrapper != null &&
-                this.TechnicalRequrementsTaskWrapper.Model.Id == task.Id)
-            {
-                RaisePropertyChanged(nameof(IsStarted));
-            }
         }
 
         private void RaiseCanExecuteChangeInAllCommands()

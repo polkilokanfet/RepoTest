@@ -37,8 +37,6 @@ namespace NotificationsService
         {
             switch (Unit.ActionType)
             {
-                case NotificationActionType.SavePriceCalculation:
-                    return "Сохранен расчёт переменных затрат";
                 case NotificationActionType.StartPriceCalculation:
                     return "Запущен расчёт переменных затрат";
                 case NotificationActionType.CancelPriceCalculation:

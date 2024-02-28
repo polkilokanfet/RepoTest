@@ -1,14 +1,17 @@
-using System;
-using HVTApp.Model.Events;
+using System.Collections.Generic;
+using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.TechnicalRequrementsTasksModule
 {
-    public class RejectCommandByBackManager : BaseTechnicalRequrementsTaskViewModelCommand
+    public class RejectCommandByBackManager : BaseNotifyTechnicalRequrementsTaskViewModelCommand
     {
+        protected override string ConfirmationMessage => "¬ы уверены, что хотите отклонить эту задачу?";
+        protected override TechnicalRequrementsTaskHistoryElementType HistoryElementType => TechnicalRequrementsTaskHistoryElementType.Reject;
+
         public RejectCommandByBackManager(TechnicalRequrementsTaskViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
@@ -21,17 +24,27 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 return;
             }
 
-            ViewModel.HistoryElementWrapper.Type = TechnicalRequrementsTaskHistoryElementType.Reject;
-            ViewModel.HistoryElementWrapper.Moment = DateTime.Now;
-            ViewModel.TechnicalRequrementsTaskWrapper.HistoryElements.Add(ViewModel.HistoryElementWrapper);
-
-            ViewModel.SaveCommand.Execute();
-
-            this.RaiseCanExecuteChanged();
-
-            Container.Resolve<IEventAggregator>().GetEvent<AfterRejectTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+            base.ExecuteMethod();
 
             ViewModel.HistoryElementWrapper = null;
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            var manager = ViewModel.TechnicalRequrementsTaskWrapper.Model.Requrements
+                .SelectMany(x => x.SalesUnits)
+                .FirstOrDefault()?.Project.Manager;
+
+            if (manager != null)
+            {
+                yield return new NotificationUnit
+                {
+                    ActionType = NotificationActionType.RejectTechnicalRequirementsTask,
+                    RecipientRole = Role.SalesManager,
+                    RecipientUser = manager,
+                    TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                };
+            }
         }
 
         protected override bool CanExecuteMethod()

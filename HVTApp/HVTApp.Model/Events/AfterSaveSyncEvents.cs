@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -24,34 +18,7 @@ namespace HVTApp.Model.Events
 
     #endregion
 
-    #region TechnicalRequrementsTask
-
-    public class AfterStartTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
-    public class AfterInstructTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
-    public class AfterRejectTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
-    public class AfterRejectByFrontManagerTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
-    public class AfterStopTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
-    public class AfterFinishTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
-    public class AfterAcceptTechnicalRequrementsTaskEvent : PubSubEvent<TechnicalRequrementsTask> { }
-
-    #endregion
-
     #region PriceEngineeringTasks
-
-    //public class PriceEngineeringTasksStartedEvent : PubSubEvent<PriceEngineeringTasks> { }
-
-    //public class PriceEngineeringTaskStartedEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskStoppedEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskInstructedEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskFinishedEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskAcceptedEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskRejectedByManagerEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskRejectedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskRejectedByConstructorEvent : PubSubEvent<PriceEngineeringTask> { }
-
-    //public class PriceEngineeringTaskFinishedGoToVerificationEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskVerificationRejectedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
-    //public class PriceEngineeringTaskVerificationAcceptedByHeadEvent : PubSubEvent<PriceEngineeringTask> { }
 
     public class PriceEngineeringTaskSendMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }
     public class PriceEngineeringTaskReciveMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }
@@ -66,35 +33,4 @@ namespace HVTApp.Model.Events
     //public class AfterSaveActualPaymentEvent : PubSubEvent<SalesUnit> { }
 
     //#endregion
-
-    ///// <summary>
-    ///// Контейнер для передачи информации при синхронизации поступивших платежей.
-    ///// </summary>
-    //public class ActualPaymentEventEntity
-    //{
-    //    public PaymentDocument PaymentDocument { get; }
-    //    public IEnumerable<SalesUnit> SalesUnits { get; }
-
-    //    public ActualPaymentEventEntity(PaymentDocument paymentDocument, IEnumerable<SalesUnit> salesUnits)
-    //    {
-    //        PaymentDocument = paymentDocument;
-    //        SalesUnits = salesUnits;
-    //    }
-
-    //    public override string ToString()
-    //    {
-    //        StringBuilder sb = new StringBuilder();
-    //        sb.Append(PaymentDocument);
-    //        foreach (var salesUnit in SalesUnits)
-    //        {
-    //            sb.AppendLine($"за {salesUnit}");
-    //            foreach (var payment in PaymentDocument.Payments.Where(paymentActual => salesUnit.PaymentsActual.ContainsById(paymentActual)))
-    //            {
-    //                sb.AppendLine($" - {payment}");
-    //            }
-    //        }
-
-    //        return sb.ToString();
-    //    }
-    //}
 }

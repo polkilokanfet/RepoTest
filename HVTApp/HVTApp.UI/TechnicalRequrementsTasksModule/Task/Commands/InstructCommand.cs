@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Events;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
@@ -45,7 +47,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 ViewModel.SaveCommand.Execute();
 
                 Container.Resolve<IEventAggregator>().GetEvent<AfterSaveTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
-                Container.Resolve<IEventAggregator>().GetEvent<AfterInstructTechnicalRequrementsTaskEvent>().Publish(ViewModel.TechnicalRequrementsTaskWrapper.Model);
+
+                var notificationUnit = new NotificationUnit
+                {
+                    ActionType = NotificationActionType.InstructTechnicalRequirementsTask,
+                    RecipientRole = Role.BackManager,
+                    RecipientUser = ViewModel.TechnicalRequrementsTaskWrapper.BackManager.Model,
+                    TargetEntityId = ViewModel.TechnicalRequrementsTaskWrapper.Model.Id
+                };
+                Container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(notificationUnit);
 
                 ViewModel.SetNewHistoryElement();
             }

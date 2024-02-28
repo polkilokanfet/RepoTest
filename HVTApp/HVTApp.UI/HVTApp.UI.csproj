@@ -710,6 +710,7 @@
     <Compile Include="Tabs\TabProductBlocks.xaml.cs">
       <DependentUpon>TabProductBlocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseNotifyTechnicalRequrementsTaskViewModelCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProjectItemToColorConverter.cs" />
