@@ -350,6 +350,7 @@
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilterByProject.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
+    <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\BaseBasePriceCalculationCommandNotifyCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\Wrapper\StructureCost2Wrapper.cs" />
     <Compile Include="PriceEngineering\Converters\AddedBlockAmountToStringConverter.cs" />
     <Compile Include="PriceEngineering\Converters\BlockAddedIsEnabledConverter.cs" />

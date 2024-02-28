@@ -33,26 +33,15 @@ namespace NotificationsService
                 case NotificationActionType.FinishPriceCalculation:
                     return new NotificationHelperPriceCalculation(_unitOfWork, unit, _regionManager, _eventAggregator);
 
-                case NotificationActionType.SaveTechnicalRequrementsTask:
-                case NotificationActionType.StartTechnicalRequrementsTask:
-                case NotificationActionType.InstructTechnicalRequrementsTask:
-                case NotificationActionType.RejectTechnicalRequrementsTask:
-                case NotificationActionType.RejectByFrontManagerTechnicalRequrementsTask:
-                case NotificationActionType.FinishTechnicalRequrementsTask:
-                case NotificationActionType.AcceptTechnicalRequrementsTask:
-                case NotificationActionType.StopTechnicalRequrementsTask:
+                case NotificationActionType.SaveTechnicalRequirementsTask:
+                case NotificationActionType.StartTechnicalRequirementsTask:
+                case NotificationActionType.InstructTechnicalRequirementsTask:
+                case NotificationActionType.RejectTechnicalRequirementsTask:
+                case NotificationActionType.RejectByFrontManagerTechnicalRequirementsTask:
+                case NotificationActionType.FinishTechnicalRequirementsTask:
+                case NotificationActionType.AcceptTechnicalRequirementsTask:
+                case NotificationActionType.StopTechnicalRequirementsTask:
                     return new NotificationHelperTechnicalRequrementsTask(_unitOfWork, unit, _regionManager, _eventAggregator);
-
-                case NotificationActionType.SaveDirectumTask:
-                case NotificationActionType.StartDirectumTask:
-                case NotificationActionType.StopDirectumTask:
-                case NotificationActionType.PerformDirectumTask:
-                case NotificationActionType.AcceptDirectumTask:
-                case NotificationActionType.RejectDirectumTask:
-                case NotificationActionType.SaveIncomingRequest:
-                case NotificationActionType.SaveActualPayment:
-                case NotificationActionType.SavePaymentDocument:
-                    throw new NotImplementedException();
 
                 case NotificationActionType.PriceEngineeringTaskStart:
                 case NotificationActionType.PriceEngineeringTaskStop:

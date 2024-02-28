@@ -2,8 +2,10 @@
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.PriceEngineering.View;
 using Prism.Events;
 using Prism.Regions;
 
@@ -51,7 +53,19 @@ namespace NotificationsService
 
         public override Action GetOpenTargetEntityViewAction()
         {
-            return () => { };
+            var parameters = new NavigationParameters { { string.Empty, this.TargetUnit } };
+
+            switch (this.Unit.RecipientRole)
+            {
+                case Role.BackManager:
+                    return () => RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManager>(parameters);
+
+                case Role.BackManagerBoss:
+                    return () => RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManagerBoss>(parameters);
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

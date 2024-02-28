@@ -54,10 +54,10 @@ namespace NotificationsMainService
         public void Start()
         {
             _eventAggregator.GetEvent<AfterInstructTechnicalRequrementsTaskEvent>()
-                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, NotificationActionType.StartTechnicalRequrementsTask));
+                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, NotificationActionType.StartTechnicalRequirementsTask));
 
             _eventAggregator.GetEvent<AfterStopTechnicalRequrementsTaskEvent>()
-                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, NotificationActionType.StartTechnicalRequrementsTask));
+                .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, NotificationActionType.StartTechnicalRequirementsTask));
 
             _eventAggregator.GetEvent<AfterFinishPriceCalculationEvent>()
                 .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));

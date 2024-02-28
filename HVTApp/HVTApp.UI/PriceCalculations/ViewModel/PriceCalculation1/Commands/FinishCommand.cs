@@ -1,49 +1,48 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Services;
-using HVTApp.Model.Events;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
-    public class FinishCommand : DelegateLogCommand
+    public class FinishCommand : BaseBasePriceCalculationCommandNotifyCommand
     {
-        private readonly PriceCalculationViewModel _viewModel;
-        private readonly IUnityContainer _container;
+        protected override string ConfirmationMessage => "Вы уверены, что хотите завершить расчёт ПЗ?";
+        protected override PriceCalculationHistoryItemType HistoryItemType => PriceCalculationHistoryItemType.Finish;
 
-        public FinishCommand(PriceCalculationViewModel viewModel, IUnityContainer container)
+        public FinishCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
-            _viewModel = viewModel;
-            _container = container;
+        }
+
+        protected override bool CanExecuteMethod()
+        {
+            if (ViewModel.PriceCalculationWrapper == null)
+            {
+                return false;
+            }
+
+            if (ViewModel.PriceCalculationWrapper.IsNeedExcelFile && !ViewModel.CalculationHasFile)
+            {
+                return false;
+            }
+
+            return ViewModel.IsStarted &&
+                   !ViewModel.IsFinished &&
+                   ViewModel.PriceCalculationWrapper.IsValid &&
+                   ViewModel.PriceCalculationWrapper.PriceCalculationItems.SelectMany(item => item.StructureCosts).All(structureCost => structureCost.UnitPrice.HasValue);
+
         }
 
         protected override void ExecuteMethod()
         {
-            var dr = _container.Resolve<IMessageService>().ConfirmationDialog("Подтверждение", "Вы уверены, что хотите завершить задачу?", defaultYes: true);
-            if (dr == false) return;
-
-            var historyItemWrapper = _viewModel.HistoryItem;
-            historyItemWrapper.Moment = DateTime.Now;
-            historyItemWrapper.Type = PriceCalculationHistoryItemType.Finish;
-            _viewModel.PriceCalculationWrapper.History.Add(historyItemWrapper);
-
-            _viewModel.SaveCommand.Execute();
-
-            _viewModel.CanChangePriceOnPropertyChanged();
-
-            _viewModel.SaveCommand.RaiseCanExecuteChanged();
-            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
-            _container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
-            _viewModel.RefreshCommands();
-
-            _viewModel.GenerateNewHistoryItem();
+            base.ExecuteMethod();
 
             //добавление новых ПЗ в блоки
-            AddPricesInProductBlocks();
+            if (this.DialogResult)
+                AddPricesInProductBlocks();
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
         /// </summary>
         private void AddPricesInProductBlocks()
         {
-            var structureCosts = _viewModel.PriceCalculationWrapper.Model.PriceCalculationItems
+            var structureCosts = ViewModel.PriceCalculationWrapper.Model.PriceCalculationItems
                 .SelectMany(calculationItem => calculationItem.StructureCosts)
                 .Where(structureCost => structureCost.OriginalStructureCostNumber != null &&
                                         structureCost.OriginalStructureCostProductBlock != null)
@@ -59,7 +58,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
             if (structureCosts.Any())
             {
-                var unitOfWork = _container.Resolve<IUnitOfWork>();
+                var unitOfWork = Container.Resolve<IUnitOfWork>();
                 foreach (var structureCost in structureCosts)
                 {
                     if (structureCost.OriginalStructureCostProductBlock.StructureCostNumber ==
@@ -92,23 +91,23 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             }
         }
 
-        protected override bool CanExecuteMethod()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            if (_viewModel.PriceCalculationWrapper == null)
+            var users = ViewModel.PriceCalculationWrapper.Model.PriceCalculationItems
+                .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
+                .Select(salesUnit => salesUnit.Project.Manager)
+                .Distinct();
+
+            foreach (var user in users)
             {
-                return false;
+                yield return new NotificationUnit
+                {
+                    ActionType = NotificationActionType.FinishPriceCalculation,
+                    RecipientRole = Role.SalesManager,
+                    RecipientUser = user,
+                    TargetEntityId = ViewModel.PriceCalculationWrapper.Model.Id
+                };
             }
-
-            if (_viewModel.PriceCalculationWrapper.IsNeedExcelFile && !_viewModel.CalculationHasFile)
-            {
-                return false;
-            }
-
-            return _viewModel.IsStarted &&
-                   !_viewModel.IsFinished &&
-                   _viewModel.PriceCalculationWrapper.IsValid &&
-                   _viewModel.PriceCalculationWrapper.PriceCalculationItems.SelectMany(item => item.StructureCosts).All(structureCost => structureCost.UnitPrice.HasValue);
-
         }
     }
 }

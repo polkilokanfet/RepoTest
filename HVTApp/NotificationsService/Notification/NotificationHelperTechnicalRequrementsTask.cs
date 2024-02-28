@@ -26,21 +26,21 @@ namespace NotificationsService
         {
             switch (Unit.ActionType)
             {
-                case NotificationActionType.SaveTechnicalRequrementsTask:
+                case NotificationActionType.SaveTechnicalRequirementsTask:
                     return "задача ТСЕ";
-                case NotificationActionType.StartTechnicalRequrementsTask:
+                case NotificationActionType.StartTechnicalRequirementsTask:
                     return "Запущена задача ТСЕ";
-                case NotificationActionType.InstructTechnicalRequrementsTask:
+                case NotificationActionType.InstructTechnicalRequirementsTask:
                     return "Поручена задача ТСЕ";
-                case NotificationActionType.RejectTechnicalRequrementsTask:
+                case NotificationActionType.RejectTechnicalRequirementsTask:
                     return "Отклонена задача ТСЕ";
-                case NotificationActionType.RejectByFrontManagerTechnicalRequrementsTask:
+                case NotificationActionType.RejectByFrontManagerTechnicalRequirementsTask:
                     return "Отклонена задача ТСЕ";
-                case NotificationActionType.FinishTechnicalRequrementsTask:
+                case NotificationActionType.FinishTechnicalRequirementsTask:
                     return "Завершена задача ТСЕ";
-                case NotificationActionType.AcceptTechnicalRequrementsTask:
+                case NotificationActionType.AcceptTechnicalRequirementsTask:
                     return "Принята задача ТСЕ";
-                case NotificationActionType.StopTechnicalRequrementsTask:
+                case NotificationActionType.StopTechnicalRequirementsTask:
                     return "Остановлена задача ТСЕ";
                 default:
                     throw new ArgumentOutOfRangeException();

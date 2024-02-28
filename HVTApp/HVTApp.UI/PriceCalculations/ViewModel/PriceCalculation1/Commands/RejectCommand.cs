@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -9,55 +12,58 @@ using Prism.Events;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
-    public class RejectCommand : DelegateLogCommand
+    public class RejectCommand : BaseBasePriceCalculationCommandNotifyCommand
     {
-        private readonly PriceCalculationViewModel _viewModel;
-        private readonly IUnityContainer _container;
-
-        public RejectCommand(PriceCalculationViewModel viewModel, IUnityContainer container)
+        public RejectCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
-            _viewModel = viewModel;
-            _container = container;
         }
+
+        protected override string ConfirmationMessage => "Вы уверены, что хотите отклонить задачу?";
+        protected override PriceCalculationHistoryItemType HistoryItemType => PriceCalculationHistoryItemType.Reject;
 
         protected override void ExecuteMethod()
         {
-            if (string.IsNullOrWhiteSpace(_viewModel.HistoryItem.Comment))
+            if (string.IsNullOrWhiteSpace(ViewModel.HistoryItem.Comment))
             {
-                _container.Resolve<IMessageService>().Message("Внимание", "Для отклонения заполните комментарий");
+                Container.Resolve<IMessageService>().Message("Внимание", "Для отклонения заполните комментарий");
                 return;
             }
 
-            var dr = _container.Resolve<IMessageService>().ConfirmationDialog("Подтверждение", "Вы уверены, что хотите отклонить задачу?", defaultYes: true);
-            if (dr == false) return;
+            base.ExecuteMethod();
 
-            var historyItemWrapper = _viewModel.HistoryItem;
-            historyItemWrapper.Moment = DateTime.Now;
-            historyItemWrapper.Type = PriceCalculationHistoryItemType.Reject;
-            _viewModel.PriceCalculationWrapper.History.Add(historyItemWrapper);
+            ViewModel.CanChangePriceOnPropertyChanged();
+        }
 
-            _viewModel.SaveCommand.Execute();
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            var users = ViewModel.PriceCalculationWrapper.Model.PriceCalculationItems
+                .SelectMany(priceCalculationItem => priceCalculationItem.SalesUnits)
+                .Select(salesUnit => salesUnit.Project.Manager)
+                .Distinct();
 
-            _viewModel.CanChangePriceOnPropertyChanged();
-
-            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
-            _container.Resolve<IEventAggregator>().GetEvent<AfterRejectPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
-            _viewModel.RefreshCommands();
-
-            _viewModel.GenerateNewHistoryItem();
+            foreach (var user in users)
+            {
+                yield return new NotificationUnit
+                {
+                    ActionType = NotificationActionType.RejectPriceCalculation,
+                    RecipientRole = Role.SalesManager,
+                    RecipientUser = user,
+                    TargetEntityId = ViewModel.PriceCalculationWrapper.Model.Id
+                };
+            }
         }
 
         protected override bool CanExecuteMethod()
         {
-            if (_viewModel.PriceCalculationWrapper == null)
+            if (ViewModel.PriceCalculationWrapper == null)
             {
                 return false;
             }
 
-            return _viewModel.IsStarted &&
-                   !_viewModel.IsFinished &&
-                   !_viewModel.IsRejected &&
-                   _viewModel.PriceCalculationWrapper.IsValid;
+            return ViewModel.IsStarted &&
+                   !ViewModel.IsFinished &&
+                   !ViewModel.IsRejected &&
+                   ViewModel.PriceCalculationWrapper.IsValid;
         }
     }
 }

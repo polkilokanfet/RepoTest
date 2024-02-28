@@ -1,50 +1,45 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 {
-    public class CancelCommand : DelegateLogCommand
+    public class CancelCommand : BaseBasePriceCalculationCommandNotifyCommand
     {
-        private readonly PriceCalculationViewModel _viewModel;
-        private readonly IUnityContainer _container;
+        protected override string ConfirmationMessage => "Вы уверены, что хотите остановить расчёт ПЗ?";
+        protected override PriceCalculationHistoryItemType HistoryItemType => PriceCalculationHistoryItemType.Stop;
 
-        public CancelCommand(PriceCalculationViewModel viewModel, IUnityContainer container)
+        public CancelCommand(PriceCalculationViewModel viewModel, IUnityContainer container) : base(viewModel, container)
         {
-            _viewModel = viewModel;
-            _container = container;
         }
 
-        protected override void ExecuteMethod()
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            var dr = _container.Resolve<IMessageService>().ConfirmationDialog("Подтверждение", "Вы уверены, что хотите остановить задачу?", defaultNo: true);
-            if (dr == false) return;
-            
-            var historyItemWrapper = _viewModel.HistoryItem;
-            historyItemWrapper.Moment = DateTime.Now;
-            historyItemWrapper.Type = PriceCalculationHistoryItemType.Stop;
-            _viewModel.PriceCalculationWrapper.History.Add(historyItemWrapper);
+            using (var unitOfWork = Container.Resolve<IUnitOfWork>())
+            {
+                var users = unitOfWork.Repository<User>().Find(user => user.Roles.Any(role => role.Role == Role.Pricer));
 
-            _viewModel.SaveCommand.Execute();
-
-            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
-            _container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Publish(_viewModel.PriceCalculationWrapper.Model);
-
-            _viewModel.RefreshCommands();
-
-            _viewModel.GenerateNewHistoryItem();
+                foreach (var user in users)
+                {
+                    yield return new NotificationUnit
+                    {
+                        ActionType = NotificationActionType.CancelPriceCalculation,
+                        RecipientRole = Role.Pricer,
+                        RecipientUser = user,
+                        TargetEntityId = ViewModel.PriceCalculationWrapper.Model.Id
+                    };
+                }
+            }
         }
 
         protected override bool CanExecuteMethod()
         {
-            return _viewModel.IsStarted &&
-                   GlobalAppProperties.User.Id == _viewModel.PriceCalculationWrapper.Initiator?.Model.Id;
+            return ViewModel.IsStarted &&
+                   GlobalAppProperties.User.Id == ViewModel.PriceCalculationWrapper.Initiator?.Model.Id;
         }
     }
 }

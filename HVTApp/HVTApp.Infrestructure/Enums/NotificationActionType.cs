@@ -8,25 +8,25 @@
         RejectPriceCalculation,
         FinishPriceCalculation,
 
-        SaveTechnicalRequrementsTask,
-        StartTechnicalRequrementsTask,
-        InstructTechnicalRequrementsTask,
-        RejectTechnicalRequrementsTask,
-        RejectByFrontManagerTechnicalRequrementsTask,
-        FinishTechnicalRequrementsTask,
-        AcceptTechnicalRequrementsTask,
-        StopTechnicalRequrementsTask,
+        SaveTechnicalRequirementsTask,
+        StartTechnicalRequirementsTask,
+        InstructTechnicalRequirementsTask,
+        RejectTechnicalRequirementsTask,
+        RejectByFrontManagerTechnicalRequirementsTask,
+        FinishTechnicalRequirementsTask,
+        AcceptTechnicalRequirementsTask,
+        StopTechnicalRequirementsTask,
 
-        SaveDirectumTask,
-        StartDirectumTask,
-        StopDirectumTask,
-        PerformDirectumTask,
-        AcceptDirectumTask,
-        RejectDirectumTask,
+        //SaveDirectumTask,
+        //StartDirectumTask,
+        //StopDirectumTask,
+        //PerformDirectumTask,
+        //AcceptDirectumTask,
+        //RejectDirectumTask,
 
-        SaveIncomingRequest,
+        //SaveIncomingRequest,
 
-        SaveActualPayment,
+        //SaveActualPayment,
 
         PriceEngineeringTasksStart,
 
@@ -42,7 +42,7 @@
         PriceEngineeringTaskVerificationRejectedByHead,
         PriceEngineeringTaskVerificationAcceptedByHead,
 
-        SavePaymentDocument,
+        //SavePaymentDocument,
 
         PriceEngineeringTaskInstructToPlanMaker,
         PriceEngineeringTaskLoadToTceStart,
