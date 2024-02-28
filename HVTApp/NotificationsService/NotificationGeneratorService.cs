@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using Prism.Events;
 using Prism.Regions;
 
 namespace NotificationsService
@@ -12,11 +13,13 @@ namespace NotificationsService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
 
-        public NotificationGeneratorService(IUnitOfWork unitOfWork, IRegionManager regionManager)
+        public NotificationGeneratorService(IUnitOfWork unitOfWork, IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _unitOfWork = unitOfWork;
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
         }
 
         private INotificationHelper GetNotification(NotificationUnit unit)
@@ -28,7 +31,7 @@ namespace NotificationsService
                 case NotificationActionType.CancelPriceCalculation:
                 case NotificationActionType.RejectPriceCalculation:
                 case NotificationActionType.FinishPriceCalculation:
-                    return new NotificationPriceCalculation(_unitOfWork, unit, _regionManager);
+                    return new NotificationHelperPriceCalculation(_unitOfWork, unit, _regionManager, _eventAggregator);
 
                 case NotificationActionType.SaveTechnicalRequrementsTask:
                 case NotificationActionType.StartTechnicalRequrementsTask:
@@ -38,30 +41,19 @@ namespace NotificationsService
                 case NotificationActionType.FinishTechnicalRequrementsTask:
                 case NotificationActionType.AcceptTechnicalRequrementsTask:
                 case NotificationActionType.StopTechnicalRequrementsTask:
-                    return new NotificationTechnicalRequrementsTask(_unitOfWork, unit, _regionManager);
-
+                    return new NotificationHelperTechnicalRequrementsTask(_unitOfWork, unit, _regionManager, _eventAggregator);
 
                 case NotificationActionType.SaveDirectumTask:
-                    break;
                 case NotificationActionType.StartDirectumTask:
-                    break;
                 case NotificationActionType.StopDirectumTask:
-                    break;
                 case NotificationActionType.PerformDirectumTask:
-                    break;
                 case NotificationActionType.AcceptDirectumTask:
-                    break;
                 case NotificationActionType.RejectDirectumTask:
-                    break;
                 case NotificationActionType.SaveIncomingRequest:
-                    break;
                 case NotificationActionType.SaveActualPayment:
-                    break;
                 case NotificationActionType.SavePaymentDocument:
-                    break;
+                    throw new NotImplementedException();
 
-
-                case NotificationActionType.PriceEngineeringTasksStart:
                 case NotificationActionType.PriceEngineeringTaskStart:
                 case NotificationActionType.PriceEngineeringTaskStop:
                 case NotificationActionType.PriceEngineeringTaskInstructToConstructor:
@@ -82,16 +74,15 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
-                    return new NotificationPriceEngineeringTask(_unitOfWork, unit, _regionManager);
+                    return new NotificationHelperPriceEngineeringTask(_unitOfWork, unit, _regionManager, _eventAggregator);
 
+                case NotificationActionType.PriceEngineeringTasksStart:
                 case NotificationActionType.PriceEngineeringTasksInstructToBackManager:
-                    break;
+                    return new NotificationHelperPriceEngineeringTasks(_unitOfWork, unit, _regionManager, _eventAggregator);
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            throw new NotImplementedException();
         }
 
         public string GetCommonInfo(NotificationUnit unit)
@@ -109,5 +100,9 @@ namespace NotificationsService
             return this.GetNotification(unit).GetOpenTargetEntityViewAction();
         }
 
+        public void RefreshTargetEntityAction(NotificationUnit unit)
+        {
+            this.GetNotification(unit).RefreshTargetEntityAction();
+        }
     }
 }

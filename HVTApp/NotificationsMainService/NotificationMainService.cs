@@ -26,6 +26,7 @@ namespace NotificationsMainService
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEventAggregator _eventAggregator;
         private readonly ISendNotificationThroughApp _sendNotificationThroughApp;
+        private readonly INotificationGeneratorService _notificationGeneratorService;
         private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
         private readonly INotificationsReportService _notificationsReportService;
         private readonly INotificationUnitWatcher _notificationUnitWatcher;
@@ -37,6 +38,7 @@ namespace NotificationsMainService
             _unitOfWork = container.Resolve<IUnitOfWork>();
             _eventAggregator = container.Resolve<IEventAggregator>();
             _sendNotificationThroughApp = container.Resolve<ISendNotificationThroughApp>();
+            _notificationGeneratorService = container.Resolve<INotificationGeneratorService>();
             _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
             _notificationsReportService = container.Resolve<INotificationsReportService>();
             _notificationUnitWatcher = container.Resolve<INotificationUnitWatcher>();
@@ -84,13 +86,19 @@ namespace NotificationsMainService
                     //отправка уведомления только через приложение
                     result = _sendNotificationThroughApp.SendNotification(notification);
                 }).Await(
-                () =>
+                completedCallback:() =>
                 {
                     if (result) return;
 
                     //Если уведомление не дошло внутри приложения,
                     _notificationFromDataBaseService.SaveNotificationInDataBase(notification); //сохраняем уведомление в базе данных
-                    //SendNotificationByEmail(notification); //отправляем уведомление по email
+
+                    //отправляем уведомление по email
+                    var emailAddress = notification.RecipientUser?.Employee.Email;
+                    if (string.IsNullOrEmpty(emailAddress)) return;
+                    var subject = _notificationGeneratorService.GetActionInfo(notification);
+                    var body = _notificationGeneratorService.GetCommonInfo(notification);
+                    _emailService.SendMail(emailAddress, subject, body);
                 });
         }
 
@@ -148,7 +156,6 @@ namespace NotificationsMainService
         public void Dispose()
         {
             this.EventServiceClient.StartActionInProgressEvent -= EventServiceClientOnStartActionInProgressEvent;
-            //_syncUnitsContainer.Dispose();
             _unitOfWork.Dispose();
         }
     }

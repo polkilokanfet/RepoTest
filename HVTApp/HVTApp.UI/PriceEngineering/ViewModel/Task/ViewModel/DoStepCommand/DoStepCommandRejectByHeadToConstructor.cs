@@ -21,7 +21,6 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 RecipientUser = ViewModel.Model.UserConstructor,
                 TargetEntityId = ViewModel.Model.Id
             };
-
         }
 
         public DoStepCommandRejectByHeadToConstructor(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)

@@ -57,11 +57,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Notification\Notification.cs" />
+    <Compile Include="Notification\NotificationHelper.cs" />
     <Compile Include="NotificationGeneratorService.cs" />
-    <Compile Include="Notification\NotificationPriceCalculation.cs" />
-    <Compile Include="Notification\NotificationPriceEngineeringTask.cs" />
-    <Compile Include="Notification\NotificationTechnicalRequrementsTask.cs" />
+    <Compile Include="Notification\NotificationHelperPriceCalculation.cs" />
+    <Compile Include="Notification\NotificationHelperPriceEngineeringTask.cs" />
+    <Compile Include="Notification\NotificationHelperPriceEngineeringTasks.cs" />
+    <Compile Include="Notification\NotificationHelperTechnicalRequrementsTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

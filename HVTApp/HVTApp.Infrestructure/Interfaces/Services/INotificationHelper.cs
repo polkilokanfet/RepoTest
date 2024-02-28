@@ -7,5 +7,6 @@ namespace HVTApp.Infrastructure.Interfaces.Services
         string GetCommonInfo();
         string GetActionInfo();
         Action GetOpenTargetEntityViewAction();
+        void RefreshTargetEntityAction();
     }
 }

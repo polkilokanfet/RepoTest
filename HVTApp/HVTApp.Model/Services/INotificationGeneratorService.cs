@@ -20,5 +20,7 @@ namespace HVTApp.Model.Services
         string GetActionInfo(NotificationUnit unit);
 
         Action GetOpenTargetEntityViewAction(NotificationUnit unit);
+
+        void RefreshTargetEntityAction(NotificationUnit unit);
     }
 }

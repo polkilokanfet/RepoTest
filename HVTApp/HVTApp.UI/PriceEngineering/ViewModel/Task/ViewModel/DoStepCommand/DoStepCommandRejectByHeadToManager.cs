@@ -10,11 +10,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     {
         protected override ScriptStep Step => ScriptStep.RejectByHead;
 
-        protected override string ConfirmationMessage => "¬ы уверены, что хотите отклонить проработку задачи?";
-
-        public DoStepCommandRejectByHeadToManager(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)
-        {
-        }
+        protected override string ConfirmationMessage => "¬ы уверены, что хотите отклонить проработку задачи менеджеру?";
 
         protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
@@ -25,6 +21,10 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 RecipientUser = Manager,
                 TargetEntityId = ViewModel.Model.Id
             };
+        }
+
+        public DoStepCommandRejectByHeadToManager(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)
+        {
         }
 
         protected override bool CanExecuteMethod()

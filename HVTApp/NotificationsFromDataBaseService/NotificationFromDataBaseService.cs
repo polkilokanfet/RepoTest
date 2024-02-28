@@ -35,22 +35,29 @@ namespace NotificationsFromDataBaseService
 
         public void ShowNotification(NotificationUnit notificationUnit)
         {
+            var title = _notificationGeneratorService.GetActionInfo(notificationUnit);
             var message = _notificationGeneratorService.GetCommonInfo(notificationUnit);
             var action = _notificationGeneratorService.GetOpenTargetEntityViewAction(notificationUnit);
-            _popupNotificationsService.ShowNotification(message, "test", action);
+            _popupNotificationsService.ShowNotification(message, title, action);
         }
 
         public void CheckMessagesInDbAndShowNotifications()
         {
             //Есть ли в базе данных сообщения для текущего пользователя в текущей роли?
-            var units = _unitOfWork.Repository<NotificationUnit>()
+            var notificationUnits = _unitOfWork.Repository<NotificationUnit>()
                 .Find(unit => unit.RecipientUser.Id == GlobalAppProperties.User.Id &&
                               unit.RecipientRole == GlobalAppProperties.User.RoleCurrent);
 
-            foreach (var unit in units)
+            foreach (var notificationUnit in notificationUnits)
             {
-                this.ShowNotification(unit);
-                _unitOfWork.Repository<NotificationUnit>().Delete(unit);
+                //показ уведомления
+                this.ShowNotification(notificationUnit);
+
+                //обновление измененной сущности
+                _notificationGeneratorService.RefreshTargetEntityAction(notificationUnit);
+
+                //удаление уведомления
+                _unitOfWork.Repository<NotificationUnit>().Delete(notificationUnit);
             }
 
             _unitOfWork.SaveChanges();

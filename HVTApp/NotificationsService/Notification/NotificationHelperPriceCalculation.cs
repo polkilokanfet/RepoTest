@@ -2,15 +2,18 @@
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceCalculations.View;
+using Prism.Events;
 using Prism.Regions;
 
 namespace NotificationsService
 {
-    internal class NotificationPriceCalculation : Notification<PriceCalculation>
+    internal class NotificationHelperPriceCalculation : NotificationHelper<PriceCalculation, AfterSavePriceCalculationEvent>
     {
-        public NotificationPriceCalculation(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager) : base(unitOfWork, unit, regionManager)
+        public NotificationHelperPriceCalculation(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager, IEventAggregator eventAggregator) : 
+            base(unitOfWork, unit, regionManager, eventAggregator)
         {
         }
 

@@ -5,15 +5,18 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.View;
+using Prism.Events;
 using Prism.Regions;
 
 namespace NotificationsService
 {
-    internal class NotificationPriceEngineeringTask : Notification<PriceEngineeringTask>
+    internal class NotificationHelperPriceEngineeringTask : NotificationHelper<PriceEngineeringTask, AfterSavePriceEngineeringTaskEvent>
     {
-        public NotificationPriceEngineeringTask(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager) : base(unitOfWork, unit, regionManager)
+        public NotificationHelperPriceEngineeringTask(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager, IEventAggregator eventAggregator) : 
+            base(unitOfWork, unit, regionManager,eventAggregator)
         {
         }
 
@@ -56,13 +59,18 @@ namespace NotificationsService
                     return "Менеджер остановил проработку блока ТСП";
 
                 case NotificationActionType.PriceEngineeringTaskInstructToConstructor:
-                    break;
+                    return Unit.RecipientRole == Role.Constructor
+                        ? "Проработайте блок"
+                        : "Назначен исполнитель";
+
                 case NotificationActionType.PriceEngineeringTaskFinish:
-                    break;
+                    return "Блок ТСП проработан";
+
                 case NotificationActionType.PriceEngineeringTaskAccept:
-                    break;
+                    return "Проработка блока ТСП принята менеджером";
+
                 case NotificationActionType.PriceEngineeringTaskRejectByManager:
-                    break;
+                    return "Проработка блока ТСП отклонена менеджером (необходима доработка)";
 
                 case NotificationActionType.PriceEngineeringTaskRejectByHeadToManager:
                     return "Проработка блока ТСП отклонена руководителем КБ";
@@ -71,18 +79,54 @@ namespace NotificationsService
                     return "Проработка блока ТСП отклонена исполнителем";
 
                 case NotificationActionType.PriceEngineeringTaskSendMessage:
-                    break;
+                    return "Новое сообщение в проработке ТСП";
+
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
-                    break;
+                    return Unit.RecipientRole == Role.DesignDepartmentHead
+                        ? "Проверьте проработку"
+                        : "Блок ТСП отправлен на проверку руководителю КБ";
+
                 case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
-                    break;
+                    return Unit.RecipientRole == Role.Constructor
+                        ? "Проработка не согласована руководителем КБ (перепроработайте)"
+                        : "Проработка не согласована руководителем КБ";
+
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                    break;
+                    return "Проработка согласована руководителем КБ";
+
+                case NotificationActionType.PriceEngineeringTaskInstructToPlanMaker:
+                    return Unit.RecipientRole == Role.PlanMaker
+                        ? "Откройте производство"
+                        : "Назначен плановик";
+
+                case NotificationActionType.PriceEngineeringTaskLoadToTceStart:
+                    return Unit.RecipientRole == Role.BackManager
+                        ? "Загрузите результаты проработки ТСП в Team Center"
+                        : "Назначьте Бэкменеджера";
+
+                case NotificationActionType.PriceEngineeringTaskLoadToTceFinish:
+                    return "Проработка загружена в Team Center";
+
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStart:
+                    return Unit.RecipientRole == Role.BackManagerBoss
+                        ? "Назначте плановика (для открытия производства)"
+                        : "Отправлен запрос на открытие производства";
+
+                case NotificationActionType.PriceEngineeringTaskProductionRequestFinish:
+                    return "Производство открыто";
+
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
+                    return "Заявка на остановку производства";
+
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:
+                    return "Заявка на остановку производства согласована";
+
+                case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
+                    return "Заявка на остановку производства отклонена";
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            throw new NotImplementedException();
         }
 
         public override Action GetOpenTargetEntityViewAction()

@@ -2,15 +2,18 @@
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
+using Prism.Events;
 using Prism.Regions;
 
 namespace NotificationsService
 {
-    internal class NotificationTechnicalRequrementsTask : Notification<TechnicalRequrementsTask>
+    internal class NotificationHelperTechnicalRequrementsTask : NotificationHelper<TechnicalRequrementsTask, AfterSaveTechnicalRequrementsTaskEvent>
     {
-        public NotificationTechnicalRequrementsTask(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager) : base(unitOfWork, unit, regionManager)
+        public NotificationHelperTechnicalRequrementsTask(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager, IEventAggregator eventAggregator) : 
+            base(unitOfWork, unit, regionManager, eventAggregator)
         {
         }
 
