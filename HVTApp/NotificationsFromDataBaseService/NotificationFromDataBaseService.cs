@@ -46,7 +46,7 @@ namespace NotificationsFromDataBaseService
             var message = _notificationGeneratorService.GetCommonInfo(notificationUnit);
             var action = _notificationGeneratorService.GetOpenTargetEntityViewAction(notificationUnit);
             _popupNotificationsService.ShowNotification(message, title, action);
-
+            
             //обновление измененной сущности
             _notificationGeneratorService.RefreshTargetEntityAction(notificationUnit);
         }

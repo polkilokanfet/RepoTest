@@ -56,8 +56,8 @@ namespace NotificationsReportsService
             Task.Run(
                     () =>
                     {
-                        if (settings != null && settings.ChiefEngineerReportDistributionList.Any())
-                            this.GetAndSendChiefEngineerReport(settings, now);
+                        //if (settings != null && settings.ChiefEngineerReportDistributionList.Any())
+                        //    this.GetAndSendChiefEngineerReport(settings, now);
 
                         this.GetAndSendDeadlineReports(now);
                     })

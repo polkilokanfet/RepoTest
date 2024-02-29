@@ -89,7 +89,11 @@ namespace NotificationsService
 
         public void RefreshTargetEntityAction(NotificationUnit unit)
         {
-            this.GetNotification(unit).RefreshTargetEntityAction();
+            System.Windows.Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    this.GetNotification(unit).RefreshTargetEntityAction();
+                });
         }
     }
 }
