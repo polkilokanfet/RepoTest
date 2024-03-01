@@ -12,8 +12,10 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
 {
     public class CommonInfoViewModel : LoadableExportableExpandCollapseViewModel
     {
-        private IEnumerable<CommonInfoUnitGroup> _salesReportUnits;
-        public ObservableCollection<CommonInfoUnitGroup> Units { get; } = new ObservableCollection<CommonInfoUnitGroup>();
+        private IEnumerable<CommonInfoUnitGroup> _salesReportUnitsTemp;
+
+        private readonly ObservableCollection<CommonInfoUnitGroup> _salesReportUnits = new ObservableCollection<CommonInfoUnitGroup>();
+        public IEnumerable<CommonInfoUnitGroup> Units => _salesReportUnits;
 
         public string FacilityNameCondition { get; set; } = null;
 
@@ -24,6 +26,8 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
 
         protected override void GetData()
         {
+            _salesReportUnitsTemp = null;
+
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             List<SalesUnit> salesUnits;
@@ -57,15 +61,17 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
             var tenders = UnitOfWork.Repository<Tender>().GetAll();
 
             var groups = salesUnits.GroupBy(salesUnit => salesUnit, new SalesUnitsCommonInfoComparer());
-            _salesReportUnits = groups.Select(x => new CommonInfoUnitGroup(x, tenders.Where(tender => Equals(x.Key.Project, tender.Project)), UnitOfWork))
-                .OrderBy(x => x.OrderInTakeDate).ToList();
+            _salesReportUnitsTemp = groups
+                .Select(x => new CommonInfoUnitGroup(x, tenders.Where(tender => Equals(x.Key.Project, tender.Project)), UnitOfWork))
+                .OrderBy(x => x.OrderInTakeDate)
+                .ToList();
         }
 
         protected override void AfterGetData()
         {
-            Units.Clear();
-            if (_salesReportUnits != null && _salesReportUnits.Any())
-                Units.AddRange(_salesReportUnits);
+            _salesReportUnits.Clear();
+            if (_salesReportUnitsTemp != null && _salesReportUnitsTemp.Any())
+                _salesReportUnits.AddRange(_salesReportUnitsTemp);
         }
     }
 }

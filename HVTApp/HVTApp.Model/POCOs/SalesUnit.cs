@@ -286,21 +286,22 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
+                //суммируе нестандартные ФЗ
                 var result = this.ProductsIncluded
-                    .Where(x => x.CustomFixedPrice.HasValue)
-                    .Sum(x => x.CustomFixedPrice.Value);
+                    .Where(productIncluded => productIncluded.CustomFixedPrice.HasValue)
+                    .Sum(productIncluded => productIncluded.CustomFixedPrice.Value * productIncluded.AmountOnUnit);
 
-                result = result + this.ProductsIncluded
-                    .Where(x => x.CustomFixedPrice.HasValue == false)
-                    .Select(x => x.Product.ProductBlock)
-                    .Where(x => x.GetFixedCost(OrderInTakeDate).HasValue)
-                    .Sum(x => x.GetFixedCost(OrderInTakeDate).Value);
+                //Суммируем стандартные ФЗ
+                foreach (var pi in this.ProductsIncluded.Where(productIncluded => productIncluded.CustomFixedPrice.HasValue == false))
+                {
+                    var fc = pi.Product.ProductBlock.GetFixedCost(OrderInTakeDate);
+                    if (fc.HasValue == false) continue;
+                    result += fc.Value * pi.AmountOnUnit;
+                }
 
                 return result;
             }
         }
-
-
 
         #endregion
 
