@@ -16,7 +16,6 @@ namespace EventServiceClient2
     {
         private readonly IUnityContainer _container;
         private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
-        private readonly INotificationGeneratorService _notificationGeneratorService;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
         private readonly Role _userRole = GlobalAppProperties.User.RoleCurrent;
 
@@ -37,7 +36,6 @@ namespace EventServiceClient2
         public EventServiceClient(IUnityContainer container)
         {
             _container = container;
-            _notificationGeneratorService = container.Resolve<INotificationGeneratorService>();
             _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
 
             //увеличиваем таймаут бездействия

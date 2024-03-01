@@ -92,7 +92,7 @@ namespace NotificationsMainService
                     //отправляем уведомление по email
                     var emailAddress = notification.RecipientUser?.Employee.Email;
                     if (string.IsNullOrEmpty(emailAddress)) return;
-                    var subject = _notificationGeneratorService.GetActionInfo(notification);
+                    var subject = $"[УП ВВА] {_notificationGeneratorService.GetActionInfo(notification)}";
                     var body = _notificationGeneratorService.GetCommonInfo(notification);
                     _emailService.SendMail(emailAddress, subject, body);
                 });
@@ -113,7 +113,7 @@ namespace NotificationsMainService
 
             var manager = salesUnits.First().Project.Manager;
             var email = manager.Employee.Email;
-            var subject = "[Уведомление из УП ВВА] Пришла денюжка!";
+            var subject = "[УП ВВА] Пришла денюжка!";
             var message = GetEmailMessageOnAfterSavePaymentDocumentEvent(paymentDocument, salesUnits);
 
             var emails = _unitOfWork.Repository<NotificationsReportsSettings>().GetAll().First().SavePaymentDocumentDistributionList
