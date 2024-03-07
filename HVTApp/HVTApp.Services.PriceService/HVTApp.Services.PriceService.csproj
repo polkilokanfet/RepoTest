@@ -46,6 +46,7 @@
     <Compile Include="PriceService_Profitability.cs" />
     <Compile Include="ProductBlocksContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesUnitsCalculationsContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">

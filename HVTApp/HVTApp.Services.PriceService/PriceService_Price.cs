@@ -1,47 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
-using HVTApp.Model;
 using HVTApp.Model.Comparers;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
 using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.Services.PriceService1
 {
     public partial class PriceService : IPriceService
     {
-        /// <summary>
-        /// Сервис загружен хотя бы раз
-        /// </summary>
-        bool _isLoaded = false;
-
         private readonly IUnityContainer _container;
-        private Dictionary<Guid, PriceItems> _salesUnitsCalculationsDictionary = null;
 
         /// <summary>
-        /// Контейнер блоков блоки
+        /// Контейнер блоков
         /// </summary>
         private ProductBlocksContainer ProductBlocksContainer { get; }
 
         /// <summary>
         /// Словарь калькуляций ПЗ
         /// </summary>
-        private Dictionary<Guid, PriceItems> SalesUnitsCalculationsDictionary
-        {
-            get
-            {
-                if (_salesUnitsCalculationsDictionary == null) Reload();
-                return _salesUnitsCalculationsDictionary;
-            }
-            set => _salesUnitsCalculationsDictionary = value;
-        }
+        private SalesUnitsCalculationsContainer SalesUnitsCalculationsContainer { get; }
 
         /// <summary>
         /// Словарь блоков-аналогов с прайсами
@@ -51,7 +33,10 @@ namespace HVTApp.Services.PriceService1
         public PriceService(IUnityContainer container)
         {
             _container = container;
+
             ProductBlocksContainer = new ProductBlocksContainer(container);
+            SalesUnitsCalculationsContainer = new SalesUnitsCalculationsContainer(container);
+
             _container.Resolve<IModelsStore>().IsRefreshed += Reload;
 
 #if DEBUG
@@ -61,101 +46,18 @@ namespace HVTApp.Services.PriceService1
 #endif
         }
 
-        private void AddPriceItemInSalesUnitsCalculationsDictionary(
-            PriceCalculationItem priceCalculationItem, 
-            SalesUnit salesUnit)
-        {
-            if (SalesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id))
-            {
-                SalesUnitsCalculationsDictionary[salesUnit.Id].Add(priceCalculationItem);
-            }
-            else
-            {
-                SalesUnitsCalculationsDictionary.Add(salesUnit.Id, new PriceItems(new[] {priceCalculationItem}));
-            }
-        }
-
         private void Reload()
         {
-            var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
-
             this.ProductBlocksContainer.Reload();
+            this.SalesUnitsCalculationsContainer.Reload();
 
+            var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
             LaborHoursList = unitOfWork.Repository<LaborHours>().GetAll();
             LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
-
-            SalesUnitsCalculationsDictionary = new Dictionary<Guid, PriceItems>();
-
-            //завершенные айтемы расчетов ПЗ
-            var user = GlobalAppProperties.UserIsManager ? GlobalAppProperties.User : null;
-            var priceCalculationItemsFinished = ((PriceCalculationRepository)unitOfWork.Repository<PriceCalculation>()).GetCalculationsForPriceService(user).ToList();
-
-            foreach (var priceCalculationItem in priceCalculationItemsFinished)
-            {
-                foreach (var salesUnit in priceCalculationItem.SalesUnits)
-                {
-                    if (SalesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id))
-                    {
-                        SalesUnitsCalculationsDictionary[salesUnit.Id].Add(priceCalculationItem);
-                    }
-                    else
-                    {
-                        SalesUnitsCalculationsDictionary.Add(salesUnit.Id, new PriceItems(new []{priceCalculationItem}));
-                    }
-                }
-            }
-
-            //если сервис грузится в первый раз, подписываемся на изменения в расчётах
-            if (_isLoaded == false)
-            {
-                //синхронизация завершения расчетов
-                _container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Subscribe(
-                    priceCalculation =>
-                    {
-                        //добавляем только данные из завершенных расчетов
-                        if (priceCalculation.IsFinished == false) return;
-
-                        foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems)
-                        {
-                            foreach (var salesUnit in priceCalculationItem.SalesUnits)
-                            {
-                                AddPriceItemInSalesUnitsCalculationsDictionary(priceCalculationItem, salesUnit);
-                            }
-                        }
-                    });
-
-                //синхронизация остановки расчетов
-                _container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Subscribe(
-                    calculation =>
-                    {
-                        if (calculation.IsFinished) return;
-
-                        foreach (var priceCalculationItem in calculation.PriceCalculationItems)
-                        {
-                            foreach (var salesUnit in priceCalculationItem.SalesUnits)
-                            {
-                                if (SalesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id) == false) continue;
-
-                                var priceItems = SalesUnitsCalculationsDictionary[salesUnit.Id];
-                                priceItems.Remove(priceCalculationItem);
-                                if (priceItems.IsEmpty) SalesUnitsCalculationsDictionary.Remove(salesUnit.Id);
-                            }
-                        }
-                    });
-            }
-
-            this._isLoaded = true;
         }
 
-        public PriceCalculationItem GetPriceCalculationItem(IUnit unit)
-        {
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
-
-            return this.SalesUnitsCalculationsDictionary.ContainsKey(unit.Id)
-                ? SalesUnitsCalculationsDictionary[unit.Id].ActualPriceCalculationItem
-                : null;
-        }
+        public PriceCalculationItem GetPriceCalculationItem(IUnit unit) =>
+            this.SalesUnitsCalculationsContainer.GetPriceCalculationItem(unit);
 
         public Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations)
         {
