@@ -59,11 +59,11 @@ namespace NotificationsMainService
             //_eventAggregator.GetEvent<AfterStopTechnicalRequrementsTaskEvent>()
             //    .Subscribe(technicalRequrementsTask => M(technicalRequrementsTask, NotificationActionType.StartTechnicalRequirementsTask));
 
-            _eventAggregator.GetEvent<AfterFinishPriceCalculationEvent>()
-                .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
+            //_eventAggregator.GetEvent<AfterFinishPriceCalculationEvent>()
+            //    .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
 
-            _eventAggregator.GetEvent<AfterStopPriceCalculationEvent>()
-                .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
+            //_eventAggregator.GetEvent<AfterStopPriceCalculationEvent>()
+            //    .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));
 
             //_eventAggregator.GetEvent<AfterRejectPriceCalculationEvent>()
             //    .Subscribe(priceCalculation => M(priceCalculation, NotificationActionType.StartPriceCalculation));

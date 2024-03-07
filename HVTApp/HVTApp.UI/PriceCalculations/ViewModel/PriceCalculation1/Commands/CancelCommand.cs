@@ -38,16 +38,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             }
         }
 
-        protected override void ExecuteMethod()
-        {
-            base.ExecuteMethod();
-            if (this.DialogResult)
-            {
-                Container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Publish(this.ViewModel.PriceCalculationWrapper.Model);
-            }
-
-        }
-
         protected override bool CanExecuteMethod()
         {
             return ViewModel.IsStarted &&

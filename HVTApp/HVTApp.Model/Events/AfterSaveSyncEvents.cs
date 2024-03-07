@@ -4,10 +4,6 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 
-    public class AfterFinishPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
-
-    public class AfterStopPriceCalculationEvent : PubSubEvent<PriceCalculation> { }
-
     #region Directum
 
     public class AfterStartDirectumTaskEvent : PubSubEvent<DirectumTask> { }
@@ -25,12 +21,5 @@ namespace HVTApp.Model.Events
 
     #endregion
 
-    //#region ActualPayment
-
     public class AfterSaveActualPaymentDocumentEvent : PubSubEvent<PaymentDocument> { }
-
-    //public class AfterSaveActualPaymentDocumentEvent : PubSubEvent<ActualPaymentEventEntity> { }
-    //public class AfterSaveActualPaymentEvent : PubSubEvent<SalesUnit> { }
-
-    //#endregion
 }

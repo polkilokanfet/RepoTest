@@ -45,7 +45,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             //добавление новых ПЗ в блоки
             if (this.DialogResult)
             {
-                Container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Publish(this.ViewModel.PriceCalculationWrapper.Model);
                 AddPricesInProductBlocks();
             }
         }
@@ -63,36 +62,36 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
 
             if (structureCosts.Any())
             {
-                var unitOfWork = Container.Resolve<IUnitOfWork>();
-                foreach (var structureCost in structureCosts)
+                using (var unitOfWork = Container.Resolve<IUnitOfWork>())
                 {
-                    if (structureCost.OriginalStructureCostProductBlock.StructureCostNumber ==
-                        structureCost.OriginalStructureCostNumber)
+                    foreach (var structureCost in structureCosts)
                     {
-                        var productBlock = unitOfWork.Repository<ProductBlock>()
-                            .GetById(structureCost.OriginalStructureCostProductBlock.Id);
-                        var calculationItem = unitOfWork.Repository<PriceCalculationItem>()
-                            .GetById(structureCost.PriceCalculationItemId);
-                        if (calculationItem.RealizationDate.Value > DateTime.Today.AddDays(180) &&
-                            productBlock.Prices.Any())
-                            continue;
-
-                        var sumOnDate = new SumOnDate
+                        if (structureCost.OriginalStructureCostProductBlock.StructureCostNumber ==
+                            structureCost.OriginalStructureCostNumber)
                         {
-                            Sum = structureCost.UnitPrice.Value,
-                            Date = calculationItem.RealizationDate.Value
-                        };
+                            var productBlock = unitOfWork.Repository<ProductBlock>()
+                                .GetById(structureCost.OriginalStructureCostProductBlock.Id);
+                            var calculationItem = unitOfWork.Repository<PriceCalculationItem>()
+                                .GetById(structureCost.PriceCalculationItemId);
+                            if (calculationItem.RealizationDate.Value > DateTime.Today.AddDays(180) &&
+                                productBlock.Prices.Any())
+                                continue;
 
-                        if (productBlock.Prices.Any(x =>
-                            Math.Abs(x.Sum - sumOnDate.Sum) < 0.0001 && x.Date == sumOnDate.Date) == false)
-                        {
-                            productBlock.Prices.Add(sumOnDate);
-                            unitOfWork.SaveChanges();
+                            var sumOnDate = new SumOnDate
+                            {
+                                Sum = structureCost.UnitPrice.Value,
+                                Date = calculationItem.RealizationDate.Value
+                            };
+
+                            if (productBlock.Prices.Any(x =>
+                                Math.Abs(x.Sum - sumOnDate.Sum) < 0.0001 && x.Date == sumOnDate.Date) == false)
+                            {
+                                productBlock.Prices.Add(sumOnDate);
+                                unitOfWork.SaveChanges();
+                            }
                         }
                     }
                 }
-
-                unitOfWork.Dispose();
             }
         }
 

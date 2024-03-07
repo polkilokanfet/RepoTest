@@ -20,7 +20,8 @@ namespace HVTApp.DataAccess
             var queryable = Context.Set<PriceCalculation>().AsQueryable()
                 .Include(priceCalculation => priceCalculation.PriceCalculationItems)
                 .Where(priceCalculation => priceCalculation.PriceCalculationItems.Any())
-                .Include(priceCalculation => priceCalculation.PriceCalculationItems.Select(item => item.StructureCosts));
+                .Include(priceCalculation => priceCalculation.PriceCalculationItems.Select(item => item.StructureCosts))
+                .Include(priceCalculation => priceCalculation.History);
 
             if (user == null)
             {

@@ -21,7 +21,7 @@ namespace HVTApp.Services.PriceService1
         private ProductBlocksContainer ProductBlocksContainer { get; }
 
         /// <summary>
-        /// Словарь калькуляций ПЗ
+        /// Контейнер калькуляций ПЗ
         /// </summary>
         private SalesUnitsCalculationsContainer SalesUnitsCalculationsContainer { get; }
 
@@ -59,10 +59,8 @@ namespace HVTApp.Services.PriceService1
         public PriceCalculationItem GetPriceCalculationItem(IUnit unit) =>
             this.SalesUnitsCalculationsContainer.GetPriceCalculationItem(unit);
 
-        public Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations)
-        {
-            return new Price(unit, targetDate, this, checkCalculations);
-        }
+        public Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations) => 
+            new Price(unit, targetDate, this, checkCalculations);
 
         /// <summary>
         /// Поиск аналога для блока.

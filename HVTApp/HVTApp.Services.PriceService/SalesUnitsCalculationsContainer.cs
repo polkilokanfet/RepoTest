@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -19,43 +22,35 @@ namespace HVTApp.Services.PriceService1
         {
             _container = container;
 
-            //синхронизаци€ завершени€ расчетов
-            _container.Resolve<IEventAggregator>().GetEvent<AfterFinishPriceCalculationEvent>().Subscribe(
+            //синхронизаци€ завершени€ и остановки расчетов
+            _container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceCalculationEvent>().Subscribe(
                 priceCalculation =>
                 {
                     if (_salesUnitsCalculationsDictionary == null)
                         return;
 
-                    //добавл€ем только данные из завершенных расчетов
-                    if (priceCalculation.IsFinished == false) return;
-
-                    foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems)
+                    if (priceCalculation.IsFinished)
                     {
-                        foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                        foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems)
                         {
-                            this.Add(priceCalculationItem, salesUnit);
+                            foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                            {
+                                this.Add(priceCalculationItem, salesUnit);
+                            }
                         }
                     }
-                });
-
-            //синхронизаци€ остановки расчетов
-            _container.Resolve<IEventAggregator>().GetEvent<AfterStopPriceCalculationEvent>().Subscribe(
-                calculation =>
-                {
-                    if (_salesUnitsCalculationsDictionary == null)
-                        return;
-
-                    if (calculation.IsFinished) return;
-
-                    foreach (var priceCalculationItem in calculation.PriceCalculationItems)
+                    else
                     {
-                        foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                        foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems)
                         {
-                            if (_salesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id) == false) continue;
+                            foreach (var salesUnit in priceCalculationItem.SalesUnits)
+                            {
+                                if (_salesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id) == false) continue;
 
-                            var priceItems = _salesUnitsCalculationsDictionary[salesUnit.Id];
-                            priceItems.Remove(priceCalculationItem);
-                            if (priceItems.IsEmpty) _salesUnitsCalculationsDictionary.Remove(salesUnit.Id);
+                                var priceItems = _salesUnitsCalculationsDictionary[salesUnit.Id];
+                                priceItems.Remove(priceCalculationItem);
+                                if (priceItems.IsEmpty) _salesUnitsCalculationsDictionary.Remove(salesUnit.Id);
+                            }
                         }
                     }
                 });
@@ -68,7 +63,9 @@ namespace HVTApp.Services.PriceService1
 
             //завершенные айтемы расчетов ѕ«
             var user = GlobalAppProperties.UserIsManager ? GlobalAppProperties.User : null;
-            var priceCalculationItemsFinished = ((PriceCalculationRepository)unitOfWork.Repository<PriceCalculation>()).GetCalculationsForPriceService(user);
+            var priceCalculationItemsFinished = ((PriceCalculationRepository)unitOfWork.Repository<PriceCalculation>())
+                .GetCalculationsForPriceService(user)
+                .Where(x => x.PriceCalculation.IsFinished);
 
             foreach (var priceCalculationItem in priceCalculationItemsFinished)
             {

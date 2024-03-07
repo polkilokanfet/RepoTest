@@ -3,18 +3,19 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using Microsoft.Practices.Unity;
 
 namespace NotificationsFromDataBaseService
 {
     public class NotificationFromDataBaseService : INotificationFromDataBaseService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnityContainer _container;
         private readonly INotificationGeneratorService _notificationGeneratorService;
         private readonly IPopupNotificationsService _popupNotificationsService;
 
-        public NotificationFromDataBaseService(IUnitOfWork unitOfWork, IPopupNotificationsService popupNotificationsService, INotificationGeneratorService notificationGeneratorService)
+        public NotificationFromDataBaseService(IUnityContainer container, IPopupNotificationsService popupNotificationsService, INotificationGeneratorService notificationGeneratorService)
         {
-            _unitOfWork = unitOfWork;
+            _container = container;
             _popupNotificationsService = popupNotificationsService;
             _notificationGeneratorService = notificationGeneratorService;
         }
@@ -24,20 +25,26 @@ namespace NotificationsFromDataBaseService
         /// </summary>
         public void SaveNotificationInDataBase(NotificationUnit unit)
         {
-            var senderUserId = unit.SenderUser?.Id ?? unit.SenderUserId;
-            unit.SenderUser = _unitOfWork.Repository<User>().GetById(senderUserId);
+            using (var unitOfWork = _container.Resolve<IUnitOfWork>())
+            {
+                var senderUserId = unit.SenderUser?.Id ?? unit.SenderUserId;
+                unit.SenderUser = unitOfWork.Repository<User>().GetById(senderUserId);
 
-            var recipientUserId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
-            unit.RecipientUser = _unitOfWork.Repository<User>().GetById(recipientUserId);
+                var recipientUserId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
+                unit.RecipientUser = unitOfWork.Repository<User>().GetById(recipientUserId);
 
-            _unitOfWork.SaveEntity(unit);
+                unitOfWork.SaveEntity(unit);
+            }
         }
 
         public void RemoveNotificationFromDataBase(NotificationUnit unit)
         {
-            var notificationUnit = _unitOfWork.Repository<NotificationUnit>().GetById(unit.Id);
-            if (notificationUnit == null) return;
-            _unitOfWork.RemoveEntity(notificationUnit);
+            using (var unitOfWork = _container.Resolve<IUnitOfWork>())
+            {
+                var notificationUnit = unitOfWork.Repository<NotificationUnit>().GetById(unit.Id);
+                if (notificationUnit == null) return;
+                unitOfWork.RemoveEntity(notificationUnit);
+            }
         }
 
         public void ShowNotification(NotificationUnit notificationUnit)
@@ -53,21 +60,24 @@ namespace NotificationsFromDataBaseService
 
         public void CheckMessagesInDbAndShowNotifications()
         {
-            //Есть ли в базе данных сообщения для текущего пользователя в текущей роли?
-            var notificationUnits = _unitOfWork.Repository<NotificationUnit>()
-                .Find(unit => unit.RecipientUser.Id == GlobalAppProperties.User.Id &&
-                              unit.RecipientRole == GlobalAppProperties.User.RoleCurrent);
-
-            foreach (var notificationUnit in notificationUnits)
+            using (var unitOfWork = _container.Resolve<IUnitOfWork>())
             {
-                //показ уведомления
-                this.ShowNotification(notificationUnit);
+                //Есть ли в базе данных сообщения для текущего пользователя в текущей роли?
+                var notificationUnits = unitOfWork.Repository<NotificationUnit>()
+                    .Find(unit => unit.RecipientUser.Id == GlobalAppProperties.User.Id &&
+                                  unit.RecipientRole == GlobalAppProperties.User.RoleCurrent);
 
-                //удаление уведомления
-                _unitOfWork.Repository<NotificationUnit>().Delete(notificationUnit);
+                foreach (var notificationUnit in notificationUnits)
+                {
+                    //показ уведомления
+                    this.ShowNotification(notificationUnit);
+
+                    //удаление уведомления
+                    unitOfWork.Repository<NotificationUnit>().Delete(notificationUnit);
+                }
+
+                unitOfWork.SaveChanges();
             }
-
-            _unitOfWork.SaveChanges();
         }
     }
 }
