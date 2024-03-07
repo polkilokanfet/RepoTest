@@ -4,7 +4,7 @@ using System.Linq;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace HVTApp.Services.PriceService.PriceServ
+namespace HVTApp.Services.PriceService1
 {
     /// <summary>
     /// Контейнер расчетов ПЗ
@@ -48,7 +48,7 @@ namespace HVTApp.Services.PriceService.PriceServ
         }
 
         /// <summary>
-        /// Добавить расчет ПЗ
+        /// Добавить расчет ПЗ (предварительно удалив предшественника, если он есть)
         /// </summary>
         /// <param name="priceCalculationItem">расчет ПЗ</param>
         public void Add(PriceCalculationItem priceCalculationItem)
@@ -64,10 +64,8 @@ namespace HVTApp.Services.PriceService.PriceServ
         /// <returns></returns>
         public bool Remove(PriceCalculationItem item)
         {
-            if (_items.ContainsKey(item.Id) == false) return false;
-
-            _items.Remove(item.Id);
-            return true;
+            return _items.ContainsKey(item.Id) && 
+                   _items.Remove(item.Id);
         }
     }
 }

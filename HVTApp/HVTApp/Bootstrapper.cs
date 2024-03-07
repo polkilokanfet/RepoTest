@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using HVTApp.Views;
 using System.Windows;
 using EventServiceClient2;
@@ -46,7 +45,6 @@ using HVTApp.Services.JsonService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.MessagesOutlookService;
 using HVTApp.Services.NewProductService;
-using HVTApp.Services.PriceService;
 using HVTApp.Services.PrintService;
 using HVTApp.Services.ProductDesignationService;
 using HVTApp.Services.SelectService;
@@ -64,7 +62,7 @@ using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
-using PriceService = HVTApp.Services.PriceService.PriceServ.PriceService;
+using PriceService = HVTApp.Services.PriceService1.PriceService;
 
 namespace HVTApp
 {

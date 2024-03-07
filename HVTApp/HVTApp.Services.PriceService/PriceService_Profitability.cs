@@ -6,7 +6,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 
-namespace HVTApp.Services.PriceService.PriceServ
+namespace HVTApp.Services.PriceService1
 {
     public partial class PriceService : IPriceService
     {

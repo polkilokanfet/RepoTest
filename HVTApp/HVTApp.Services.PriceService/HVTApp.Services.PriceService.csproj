@@ -7,7 +7,7 @@
     <ProjectGuid>{A241858E-B7B3-42A1-A04F-FE39E55145E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HVTApp.Services.PriceService</RootNamespace>
+    <RootNamespace>HVTApp.Services.PriceService1</RootNamespace>
     <AssemblyName>HVTApp.Services.PriceService</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,9 +41,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PriceServ\PriceItems.cs" />
-    <Compile Include="PriceServ\PriceService_Price.cs" />
-    <Compile Include="PriceServ\PriceService_Profitability.cs" />
+    <Compile Include="PriceItems.cs" />
+    <Compile Include="PriceService_Price.cs" />
+    <Compile Include="PriceService_Profitability.cs" />
+    <Compile Include="ProductBlocksContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

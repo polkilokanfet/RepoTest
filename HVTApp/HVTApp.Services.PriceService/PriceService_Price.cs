@@ -13,7 +13,7 @@ using HVTApp.Model.Services;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
-namespace HVTApp.Services.PriceService.PriceServ
+namespace HVTApp.Services.PriceService1
 {
     public partial class PriceService : IPriceService
     {
@@ -23,26 +23,12 @@ namespace HVTApp.Services.PriceService.PriceServ
         bool _isLoaded = false;
 
         private readonly IUnityContainer _container;
-        private Dictionary<Guid, ProductBlock> _blocks = null;
         private Dictionary<Guid, PriceItems> _salesUnitsCalculationsDictionary = null;
 
         /// <summary>
-        /// Все блоки
+        /// Контейнер блоков блоки
         /// </summary>
-        private Dictionary<Guid, ProductBlock> AllProductBlocksDictionary
-        {
-            get
-            {
-                if (_blocks == null) Reload();
-                return _blocks;
-            }
-            set => _blocks = value;
-        }
-
-        /// <summary>
-        /// Все блоки с ПЗ
-        /// </summary>
-        private Dictionary<Guid, ProductBlock> ProductBlocksWithPriceDictionary { get; set; }
+        private ProductBlocksContainer ProductBlocksContainer { get; }
 
         /// <summary>
         /// Словарь калькуляций ПЗ
@@ -65,6 +51,7 @@ namespace HVTApp.Services.PriceService.PriceServ
         public PriceService(IUnityContainer container)
         {
             _container = container;
+            ProductBlocksContainer = new ProductBlocksContainer(container);
             _container.Resolve<IModelsStore>().IsRefreshed += Reload;
 
 #if DEBUG
@@ -88,15 +75,14 @@ namespace HVTApp.Services.PriceService.PriceServ
             }
         }
 
-        public void Reload()
+        private void Reload()
         {
             var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
+
+            this.ProductBlocksContainer.Reload();
+
             LaborHoursList = unitOfWork.Repository<LaborHours>().GetAll();
             LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
-
-            var blocksAll = unitOfWork.Repository<ProductBlock>().GetAll();
-            AllProductBlocksDictionary = blocksAll.ToDictionary(block => block.Id);
-            ProductBlocksWithPriceDictionary = blocksAll.Where(block => block.HasPrice).ToDictionary(block => block.Id);
 
             SalesUnitsCalculationsDictionary = new Dictionary<Guid, PriceItems>();
 
@@ -186,16 +172,14 @@ namespace HVTApp.Services.PriceService.PriceServ
             if (ProductBlocksAnalogsDictionary.ContainsKey(blockTarget.Id))
                 return ProductBlocksAnalogsDictionary[blockTarget.Id];
 
-            var targetBlock = AllProductBlocksDictionary.ContainsKey(blockTarget.Id)
-                ? AllProductBlocksDictionary[blockTarget.Id]
-                : blockTarget;
+            var targetBlock = ProductBlocksContainer.GetProductBlock(blockTarget.Id) ?? blockTarget;
 
             //все блоки с прайсом
-            var blocksWithPrices = new Dictionary<Guid, ProductBlock>(ProductBlocksWithPriceDictionary);
-            blocksWithPrices.RemoveIfContainsById(targetBlock.Id);
+            var blocksWithPrices = new List<ProductBlock>(this.ProductBlocksContainer.ProductBlocksWithPrice);
+            blocksWithPrices.RemoveIfContainsById(targetBlock);
 
             var dic = new Dictionary<ProductBlock, double>();
-            foreach (var blockWithPrice in blocksWithPrices.Select(x => x.Value))
+            foreach (var blockWithPrice in blocksWithPrices)
             {
                 double dif = 0;
 

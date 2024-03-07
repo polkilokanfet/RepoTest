@@ -25,8 +25,6 @@ namespace HVTApp.Model.Services
         /// <param name="blockTarget">Id целевого блока.</param>
         /// <returns></returns>
         ProductBlock GetAnalogWithPrice(ProductBlock blockTarget);
-
-        void Reload();
     }
 
     /// <summary>
