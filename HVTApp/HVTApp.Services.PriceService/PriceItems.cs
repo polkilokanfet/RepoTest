@@ -42,10 +42,8 @@ namespace HVTApp.Services.PriceService1
                 .Last()
             : null;
 
-        public PriceItems(IEnumerable<PriceCalculationItem> priceCalculationItems)
-        {
+        public PriceItems(IEnumerable<PriceCalculationItem> priceCalculationItems) =>
             priceCalculationItems.ForEach(this.Add);
-        }
 
         /// <summary>
         /// Добавить расчет ПЗ (предварительно удалив предшественника, если он есть)
@@ -60,12 +58,12 @@ namespace HVTApp.Services.PriceService1
         /// <summary>
         /// Удалить расчет ПЗ
         /// </summary>
-        /// <param name="item">расчет ПЗ</param>
+        /// <param name="priceCalculationItem">расчет ПЗ</param>
         /// <returns></returns>
-        public bool Remove(PriceCalculationItem item)
+        public bool Remove(PriceCalculationItem priceCalculationItem)
         {
-            return _items.ContainsKey(item.Id) && 
-                   _items.Remove(item.Id);
+            return _items.ContainsKey(priceCalculationItem.Id) && 
+                   _items.Remove(priceCalculationItem.Id);
         }
     }
 }

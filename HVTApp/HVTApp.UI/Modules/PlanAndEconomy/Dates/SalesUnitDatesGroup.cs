@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
@@ -75,8 +76,20 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         public string SerialNumber
         {
-            get => "...";
-            set => this.Units.ForEach(x => x.SerialNumber = value);
+            get
+            {
+                var serialNumbers = this.Units
+                    .Where(x => string.IsNullOrEmpty(x.SerialNumber) == false)
+                    .Select(x => x.SerialNumber)
+                    .Distinct()
+                    .OrderBy(x => x)
+                    .ToList();
+
+                return serialNumbers.Any() 
+                    ? serialNumbers.ToStringEnum() 
+                    : string.Empty;
+            }
+            set => this.Units.ForEach(unit => unit.SerialNumber = value);
         }
 
         public bool HasFullInformation => Units.All(x => x.HasFullInformation);
@@ -86,10 +99,16 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
         /// </summary>
         public bool IsCompleted => Units.All(x => x.IsCompleted);
 
+        private int? GetOrderPosition(SalesUnit salesUnit)
+        {
+            if(int.TryParse(salesUnit.OrderPosition, out var result))
+                return result;
+            return null;
+        }
 
         public SalesUnitDatesGroup(IEnumerable<SalesUnitDates> salesUnits)
         {
-            Units = salesUnits.ToList();
+            Units = salesUnits.OrderBy(x => this.GetOrderPosition(x.Model)).ToList();
             Units.ForEach(unit =>
             {
                 unit.ValueSetToPropertyEvent += () =>
