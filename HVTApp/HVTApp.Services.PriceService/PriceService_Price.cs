@@ -36,6 +36,7 @@ namespace HVTApp.Services.PriceService1
 
             ProductBlocksContainer = new ProductBlocksContainer(container);
             SalesUnitsCalculationsContainer = new SalesUnitsCalculationsContainer(container);
+            LaborHoursContainer = new LaborHoursContainer(container);
 
             _container.Resolve<IModelsStore>().IsRefreshed += Reload;
 
@@ -50,9 +51,9 @@ namespace HVTApp.Services.PriceService1
         {
             this.ProductBlocksContainer.Reload();
             this.SalesUnitsCalculationsContainer.Reload();
+            this.LaborHoursContainer.Reload();
 
             var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
-            LaborHoursList = unitOfWork.Repository<LaborHours>().GetAll();
             LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
         }
 

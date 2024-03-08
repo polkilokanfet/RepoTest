@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -10,21 +8,9 @@ namespace HVTApp.Services.PriceService1
 {
     public partial class PriceService : IPriceService
     {
-        private List<LaborHours> _laborHoursList = null;
-        private List<LaborHourCost> _laborHourCosts = null;
+        private LaborHoursContainer LaborHoursContainer { get; }
 
-        /// <summary>
-        /// Список всех известных нормо-часов на производство блоков оборудования
-        /// </summary>
-        private List<LaborHours> LaborHoursList
-        {
-            get
-            {
-                if (_laborHoursList == null) Reload();
-                return _laborHoursList;
-            }
-            set => _laborHoursList = value;
-        }
+        private List<LaborHourCost> _laborHourCosts = null;
 
         /// <summary>
         /// Список стоимостей нормо-часов на дату
@@ -95,19 +81,8 @@ namespace HVTApp.Services.PriceService1
         /// </summary>
         /// <param name="block"></param>
         /// <returns></returns>
-        public double? GetLaborHoursAmount(ProductBlock block)
-        {
-            var laborHours = LaborHoursList
-                .Where(hours => hours.Parameters.AllContainsIn(block.Parameters))
-                .ToList();
-
-            if (laborHours.Any())
-            {
-                return laborHours.OrderBy(hours => hours.Parameters.Count).Last().Amount;
-            }
-
-            return null;
-        }
+        public double? GetLaborHoursAmount(ProductBlock block) =>
+            this.LaborHoursContainer.GetLaborHoursAmount(block);
 
         /// <summary>
         /// Получение нормо-часов на изготовление единицы продукта
@@ -160,7 +135,6 @@ namespace HVTApp.Services.PriceService1
 
             return result;
         }
-
 
         #endregion
 

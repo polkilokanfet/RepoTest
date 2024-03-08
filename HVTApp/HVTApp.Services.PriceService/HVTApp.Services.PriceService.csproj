@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LaborHoursContainer.cs" />
     <Compile Include="PriceItems.cs" />
     <Compile Include="PriceService_Price.cs" />
     <Compile Include="PriceService_Profitability.cs" />
