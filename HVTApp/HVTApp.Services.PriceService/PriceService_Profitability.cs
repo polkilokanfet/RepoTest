@@ -10,28 +10,28 @@ namespace HVTApp.Services.PriceService1
         private LaborHoursContainer LaborHoursContainer { get; }
         private LaborHourCostsContainer LaborHourCostsContainer { get; }
 
+        private double? GetWageFund(double? laborHoursAmount, DateTime targetDate)
+        {
+            if (laborHoursAmount == null) 
+                return null;
+
+            //фонд оплаты труда
+            return laborHoursAmount.Value * this.GetLaborHoursCost(targetDate);
+        }
 
         public double? GetWageFund(Product product, DateTime targetDate)
         {
             //получение количества нормо-часов на всё изделие
             //(с учетом включенных блоков и дополнительного оборудования, включенного в стоимость)
-            double? laborHoursAmount = GetLaborHoursAmount(product);
-            if (laborHoursAmount == null) return null;
-
-            //фонд оплаты труда
-            double wageFund = laborHoursAmount.Value * this.GetLaborHoursCost(targetDate);
-            return wageFund;
+            var laborHoursAmount = GetLaborHoursAmount(product);
+            return this.GetWageFund(laborHoursAmount, targetDate);
         }
 
         public double? GetWageFund(ProductBlock productBlock, DateTime targetDate)
         {
             //получение количества нормо-часов на блок
-            double? laborHoursAmount = GetLaborHoursAmount(productBlock);
-            if (laborHoursAmount == null) return null;
-
-            //фонд оплаты труда
-            double wageFund = laborHoursAmount.Value * this.GetLaborHoursCost(targetDate);
-            return wageFund;
+            var laborHoursAmount = GetLaborHoursAmount(productBlock);
+            return this.GetWageFund(laborHoursAmount, targetDate);
         }
 
         private double? GetWageFund(IUnit unit, DateTime targetDate)
@@ -39,11 +39,7 @@ namespace HVTApp.Services.PriceService1
             //получение количества нормо-часов на всё изделие
             //(с учетом включенных блоков и дополнительного оборудования, включенного в стоимость)
             double? laborHoursAmount = GetLaborHoursAmount(unit);
-            if (laborHoursAmount == null) return null;
-
-            //фонд оплаты труда
-            double wageFund = laborHoursAmount.Value * this.GetLaborHoursCost(targetDate);
-            return wageFund;
+            return this.GetWageFund(laborHoursAmount, targetDate);
         }
 
         #region LaborHours
