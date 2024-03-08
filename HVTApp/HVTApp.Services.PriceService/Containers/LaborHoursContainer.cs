@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.Services.PriceService1
+namespace HVTApp.Services.PriceService1.Containers
 {
     /// <summary>
     /// Список всех известных нормо-часов на производство блоков оборудования
@@ -37,7 +37,7 @@ namespace HVTApp.Services.PriceService1
                 Reload();
 
             var laborHours = _laborHoursList
-                .Where(hours => EnumerableExtansions.AllContainsIn(hours.Parameters, block.Parameters))
+                .Where(hours => hours.Parameters.AllContainsIn(block.Parameters))
                 .ToList();
 
             if (laborHours.Any())
@@ -47,6 +47,5 @@ namespace HVTApp.Services.PriceService1
 
             return null;
         }
-
     }
 }

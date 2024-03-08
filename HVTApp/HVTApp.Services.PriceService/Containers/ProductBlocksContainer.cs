@@ -5,7 +5,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.Services.PriceService1
+namespace HVTApp.Services.PriceService1.Containers
 {
     internal class ProductBlocksContainer
     {

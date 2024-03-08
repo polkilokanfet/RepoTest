@@ -1,29 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.Services.PriceService1.Containers;
 
 namespace HVTApp.Services.PriceService1
 {
     public partial class PriceService : IPriceService
     {
         private LaborHoursContainer LaborHoursContainer { get; }
+        private LaborHourCostsContainer LaborHourCostsContainer { get; }
 
-        private List<LaborHourCost> _laborHourCosts = null;
-
-        /// <summary>
-        /// Список стоимостей нормо-часов на дату
-        /// </summary>
-        private List<LaborHourCost> LaborHourCosts
-        {
-            get
-            {
-                if (_laborHourCosts == null) Reload();
-                return _laborHourCosts;
-            }
-            set => _laborHourCosts = value;
-        }
 
         public double? GetWageFund(Product product, DateTime targetDate)
         {
@@ -32,11 +18,8 @@ namespace HVTApp.Services.PriceService1
             double? laborHoursAmount = GetLaborHoursAmount(product);
             if (laborHoursAmount == null) return null;
 
-            //стоимость нормо-часа
-            double laborHoursCost = LaborHourCosts.GetClosedSumOnDate(targetDate).Sum;
-
             //фонд оплаты труда
-            double wageFund = laborHoursAmount.Value * laborHoursCost;
+            double wageFund = laborHoursAmount.Value * this.GetLaborHoursCost(targetDate);
             return wageFund;
         }
 
@@ -46,11 +29,8 @@ namespace HVTApp.Services.PriceService1
             double? laborHoursAmount = GetLaborHoursAmount(productBlock);
             if (laborHoursAmount == null) return null;
 
-            //стоимость нормо-часа
-            double laborHoursCost = LaborHourCosts.GetClosedSumOnDate(targetDate).Sum;
-
             //фонд оплаты труда
-            double wageFund = laborHoursAmount.Value * laborHoursCost;
+            double wageFund = laborHoursAmount.Value * this.GetLaborHoursCost(targetDate);
             return wageFund;
         }
 
@@ -61,20 +41,15 @@ namespace HVTApp.Services.PriceService1
             double? laborHoursAmount = GetLaborHoursAmount(unit);
             if (laborHoursAmount == null) return null;
 
-            //стоимость нормо-часа
-            double laborHoursCost = LaborHourCosts.GetClosedSumOnDate(targetDate).Sum;
-
             //фонд оплаты труда
-            double wageFund = laborHoursAmount.Value * laborHoursCost;
+            double wageFund = laborHoursAmount.Value * this.GetLaborHoursCost(targetDate);
             return wageFund;
         }
 
         #region LaborHours
 
-        public double GetLaborHoursCost(DateTime targetDate)
-        {
-            return LaborHourCosts.GetClosedSumOnDate(targetDate).Sum;
-        }
+        public double GetLaborHoursCost(DateTime targetDate) =>
+            this.LaborHourCostsContainer.GetLaborHoursCost(targetDate);
 
         /// <summary>
         /// Получение нормо-часов на изготовление блока оборудования

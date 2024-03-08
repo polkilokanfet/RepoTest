@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Enums;
 using HVTApp.Model;
 using HVTApp.Model.Events;
-using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
-namespace HVTApp.Services.PriceService1
+namespace HVTApp.Services.PriceService1.Containers
 {
     internal class SalesUnitsCalculationsContainer
     {

@@ -7,14 +7,13 @@ using HVTApp.Model.Comparers;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
 using HVTApp.Model.Services;
+using HVTApp.Services.PriceService1.Containers;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.PriceService1
 {
     public partial class PriceService : IPriceService
     {
-        private readonly IUnityContainer _container;
-
         /// <summary>
         /// Контейнер блоков
         /// </summary>
@@ -32,13 +31,12 @@ namespace HVTApp.Services.PriceService1
 
         public PriceService(IUnityContainer container)
         {
-            _container = container;
-
             ProductBlocksContainer = new ProductBlocksContainer(container);
             SalesUnitsCalculationsContainer = new SalesUnitsCalculationsContainer(container);
             LaborHoursContainer = new LaborHoursContainer(container);
+            LaborHourCostsContainer = new LaborHourCostsContainer(container);
 
-            _container.Resolve<IModelsStore>().IsRefreshed += Reload;
+            container.Resolve<IModelsStore>().IsRefreshed += Reload;
 
 #if DEBUG
 #else
@@ -52,9 +50,7 @@ namespace HVTApp.Services.PriceService1
             this.ProductBlocksContainer.Reload();
             this.SalesUnitsCalculationsContainer.Reload();
             this.LaborHoursContainer.Reload();
-
-            var unitOfWork = _container.Resolve<IModelsStore>().UnitOfWork;
-            LaborHourCosts = unitOfWork.Repository<LaborHourCost>().GetAll();
+            this.LaborHourCostsContainer.Reload();
         }
 
         public PriceCalculationItem GetPriceCalculationItem(IUnit unit) =>
