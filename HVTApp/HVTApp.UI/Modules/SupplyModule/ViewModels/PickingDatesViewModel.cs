@@ -16,9 +16,9 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
 {
     public class PickingDatesViewModel : ViewModelBaseCanExportToExcel
     {
-        private IValidatableChangeTrackingCollection<SalesUnitDates> _salesUnits;
+        private IValidatableChangeTrackingCollection<DatesUnitViewModel> _salesUnits;
 
-        public ObservableCollection<SalesUnitDatesGroup> Groups { get; } = new ObservableCollection<SalesUnitDatesGroup>();
+        public ObservableCollection<DatesGroupViewModel> Groups { get; } = new ObservableCollection<DatesGroupViewModel>();
 
         public DelegateLogCommand SaveCommand { get; }
         public DelegateLogCommand ReloadCommand { get; }
@@ -55,9 +55,9 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
             var salesUnits = UnitOfWork.Repository<SalesUnit>()
                 .Find(x => !x.IsRemoved && !x.IsLoosen && !x.Product.ProductBlock.IsService && x.OrderInTakeDate <= DateTime.Today)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
-                .Select(salesUnit => new SalesUnitDates(salesUnit))
+                .Select(salesUnit => new DatesUnitViewModel(salesUnit))
                 .ToList();
-            _salesUnits = new ValidatableChangeTrackingCollection<SalesUnitDates>(salesUnits);
+            _salesUnits = new ValidatableChangeTrackingCollection<DatesUnitViewModel>(salesUnits);
 
             //подписываемся на изменение каждой сущности
             _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.SupplyModule.ViewModels
                     Specification = x.Model.Specification?.Id,
                     x.PickingDate
                 })
-                .Select(x => new SalesUnitDatesGroup(x))
+                .Select(x => new DatesGroupViewModel(x))
                 .OrderBy(x => x.Units.First().Model.EndProductionDateCalculated);
 
             Groups.AddRange(groups);

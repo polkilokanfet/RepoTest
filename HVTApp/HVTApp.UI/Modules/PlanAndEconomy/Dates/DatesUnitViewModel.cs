@@ -1,12 +1,11 @@
 using System;
-using System.Globalization;
 using System.Runtime.CompilerServices;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 {
-    public class SalesUnitDates : WrapperBase<SalesUnit>
+    public class DatesUnitViewModel : WrapperBase<SalesUnit>
     {
         public string SerialNumber
         {
@@ -16,10 +15,12 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                 if (SerialNumber == value) return;
                 SetValueNew(value);
 
+                var orderPosition = this.Model.GetOrderPosition();
+
                 if (int.TryParse(value, out var serialNumber) &&
-                    int.TryParse(Model.OrderPosition, out var orderPosition))
+                    orderPosition.HasValue)
                 {
-                    SerialNumberSetIntEvent?.Invoke(serialNumber - orderPosition);
+                    SerialNumberSetIntEvent?.Invoke(serialNumber - orderPosition.Value);
                 }
                 else
                 {
@@ -28,20 +29,21 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             }
         }
 
-        public void SetSerialNumber(int sn)
+        public void SetSerialNumber(int serialNumberBase)
         {
-            if (string.IsNullOrWhiteSpace(SerialNumber) &&
-                int.TryParse(Model.OrderPosition, out var orderPosition))
+            if (string.IsNullOrWhiteSpace(SerialNumber) == false) return;
+            var orderPosition = this.Model.GetOrderPosition();
+            if (orderPosition.HasValue)
             {
-                this.SerialNumber = (sn + orderPosition).ToString();
+                this.SerialNumber = (serialNumberBase + orderPosition).ToString();
             }
         }
 
-        public void SetSerialNumber(string sn)
+        public void SetSerialNumber(string serialNumberBase)
         {
             if (string.IsNullOrWhiteSpace(SerialNumber))
             {
-                this.SerialNumber = sn;
+                this.SerialNumber = serialNumberBase;
             }
         }
 
@@ -139,7 +141,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
         /// </summary>
         public bool IsCompleted => PickingDate.HasValue && PickingDate < DateTime.Today;
 
-        public SalesUnitDates(SalesUnit model) : base(model)
+        public DatesUnitViewModel(SalesUnit model) : base(model)
         {
         }
 

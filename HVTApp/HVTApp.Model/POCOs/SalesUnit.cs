@@ -754,5 +754,13 @@ namespace HVTApp.Model.POCOs
 
 
         #endregion
+
+        public int? GetOrderPosition()
+        {
+            if (int.TryParse(this.OrderPosition, out var result))
+                return result;
+            return null;
+        }
+
     }
 }

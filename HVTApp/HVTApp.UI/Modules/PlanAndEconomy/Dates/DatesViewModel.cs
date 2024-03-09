@@ -19,9 +19,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
     public class DatesViewModel : LoadableExportableViewModel
     {
         private IUnitOfWork _unitOfWork;
-        private IValidatableChangeTrackingCollection<SalesUnitDates> _salesUnits;
+        private IValidatableChangeTrackingCollection<DatesUnitViewModel> _salesUnits;
 
-        public ObservableCollection<SalesUnitDatesGroup> Groups { get; } = new ObservableCollection<SalesUnitDatesGroup>();
+        public ObservableCollection<DatesGroupViewModel> Groups { get; } = new ObservableCollection<DatesGroupViewModel>();
 
         public DelegateLogCommand SaveCommand { get; }
         public DelegateLogCommand LoadPickingDatesCommand { get; }
@@ -99,7 +99,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                 });
         }
 
-        private IOrderedEnumerable<SalesUnitDatesGroup> _groups;
+        private IOrderedEnumerable<DatesGroupViewModel> _groups;
 
         protected override void GetData()
         {
@@ -108,9 +108,9 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
             var salesUnits = ((ISalesUnitRepository)_unitOfWork.Repository<SalesUnit>()).GetForDatesView()
                 .Where(salesUnit => salesUnit.Order != null || salesUnit.OrderInTakeDate <= DateTime.Today)
                 .OrderBy(salesUnit => salesUnit.EndProductionDateCalculated)
-                .Select(salesUnit => new SalesUnitDates(salesUnit))
+                .Select(salesUnit => new DatesUnitViewModel(salesUnit))
                 .ToList();
-            _salesUnits = new ValidatableChangeTrackingCollection<SalesUnitDates>(salesUnits);
+            _salesUnits = new ValidatableChangeTrackingCollection<DatesUnitViewModel>(salesUnits);
 
             //подписываемся на изменение каждой сущности
             _salesUnits.PropertyChanged += SalesUnitsOnPropertyChanged;
@@ -130,7 +130,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                     salesUnitDates.RealizationDate,
                     salesUnitDates.ShipmentDate
                 })
-                .Select(x => new SalesUnitDatesGroup(x))
+                .Select(x => new DatesGroupViewModel(x))
                 .OrderBy(x => x.Units.First().Model.OrderInTakeDate);
         }
 
@@ -144,8 +144,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
 
         private void UnitOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (AutoFillingDates && args.PropertyName == nameof(SalesUnitDates.ShipmentDate))
-                ((SalesUnitDates)sender).SetCalculatedDates();
+            if (AutoFillingDates && args.PropertyName == nameof(DatesUnitViewModel.ShipmentDate))
+                ((DatesUnitViewModel)sender).SetCalculatedDates();
         }
 
         private void SalesUnitsOnPropertyChanged(object sender, PropertyChangedEventArgs args)

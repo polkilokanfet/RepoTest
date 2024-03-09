@@ -869,8 +869,8 @@
     </Compile>
     <Compile Include="Modules\PlanAndEconomy\Dates\DatesViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\ISalesUnitOrder.cs" />
-    <Compile Include="Modules\PlanAndEconomy\Dates\SalesUnitDates.cs" />
-    <Compile Include="Modules\PlanAndEconomy\Dates\SalesUnitDatesGroup.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\DatesUnitViewModel.cs" />
+    <Compile Include="Modules\PlanAndEconomy\Dates\DatesGroupViewModel.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderItem.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroup.cs" />
     <Compile Include="Modules\PlanAndEconomy\ViewModels\Groups\SalesUnitOrderGroupsCollection.cs" />
