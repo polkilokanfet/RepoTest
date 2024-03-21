@@ -5,8 +5,6 @@ namespace HVTApp.DataAccess
 {
     public partial interface INotificationUnitRepository : IRepository<NotificationUnit> { }
     public partial interface ICountryUnionRepository : IRepository<CountryUnion> { }
-    public partial interface IBankGuaranteeRepository : IRepository<BankGuarantee> { }
-    public partial interface IBankGuaranteeTypeRepository : IRepository<BankGuaranteeType> { }
     public partial interface IBudgetRepository : IRepository<Budget> { }
     public partial interface IBudgetUnitRepository : IRepository<BudgetUnit> { }
     public partial interface IConstructorParametersListRepository : IRepository<ConstructorParametersList> { }

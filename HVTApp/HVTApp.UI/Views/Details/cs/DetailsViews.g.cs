@@ -178,100 +178,6 @@ namespace HVTApp.UI.Views
 
 	}
 
-    public partial class BankGuaranteeDetailsView : ViewBase
-    {
-        public BankGuaranteeDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public BankGuaranteeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, BankGuaranteeDetailsViewModel BankGuaranteeDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = BankGuaranteeDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-            //attr = typeof(HVTApp.Model.POCOs.BankGuarantee).GetProperty(nameof(HVTApp.Model.POCOs.BankGuarantee.BankGuaranteeType)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityBankGuaranteeTypeBankGuarantee = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.BankGuarantee).GetProperty(nameof(HVTApp.Model.POCOs.BankGuarantee.Percent)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityPercentBankGuarantee = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.BankGuarantee).GetProperty(nameof(HVTApp.Model.POCOs.BankGuarantee.Days)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityDaysBankGuarantee = Visibility.Collapsed;
-
-
-        }
-
-
-        public static readonly DependencyProperty VisibilityBankGuaranteeTypeBankGuaranteeProperty = DependencyProperty.Register("VisibilityBankGuaranteeTypeBankGuarantee", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityBankGuaranteeTypeBankGuarantee
-        {
-            get { return (Visibility) GetValue(VisibilityBankGuaranteeTypeBankGuaranteeProperty); }
-            set { SetValue(VisibilityBankGuaranteeTypeBankGuaranteeProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityPercentBankGuaranteeProperty = DependencyProperty.Register("VisibilityPercentBankGuarantee", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityPercentBankGuarantee
-        {
-            get { return (Visibility) GetValue(VisibilityPercentBankGuaranteeProperty); }
-            set { SetValue(VisibilityPercentBankGuaranteeProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityDaysBankGuaranteeProperty = DependencyProperty.Register("VisibilityDaysBankGuarantee", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityDaysBankGuarantee
-        {
-            get { return (Visibility) GetValue(VisibilityDaysBankGuaranteeProperty); }
-            set { SetValue(VisibilityDaysBankGuaranteeProperty, value); OnPropertyChanged(); }
-        }
-
-	}
-
-    public partial class BankGuaranteeTypeDetailsView : ViewBase
-    {
-        public BankGuaranteeTypeDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public BankGuaranteeTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, BankGuaranteeTypeDetailsViewModel BankGuaranteeTypeDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = BankGuaranteeTypeDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-            //attr = typeof(HVTApp.Model.POCOs.BankGuaranteeType).GetProperty(nameof(HVTApp.Model.POCOs.BankGuaranteeType.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNameBankGuaranteeType = Visibility.Collapsed;
-
-
-        }
-
-
-        public static readonly DependencyProperty VisibilityNameBankGuaranteeTypeProperty = DependencyProperty.Register("VisibilityNameBankGuaranteeType", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNameBankGuaranteeType
-        {
-            get { return (Visibility) GetValue(VisibilityNameBankGuaranteeTypeProperty); }
-            set { SetValue(VisibilityNameBankGuaranteeTypeProperty, value); OnPropertyChanged(); }
-        }
-
-	}
-
     public partial class BudgetDetailsView : ViewBase
     {
         public BudgetDetailsView()
@@ -7996,10 +7902,6 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityIsRemovedSalesUnit = Visibility.Collapsed;
 
-            //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.BankGuarantees)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityBankGuaranteesSalesUnit = Visibility.Collapsed;
-
             //attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.PriceCalculationItems)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityPriceCalculationItemsSalesUnit = Visibility.Collapsed;
@@ -8445,14 +8347,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityIsRemovedSalesUnitProperty); }
             set { SetValue(VisibilityIsRemovedSalesUnitProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityBankGuaranteesSalesUnitProperty = DependencyProperty.Register("VisibilityBankGuaranteesSalesUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityBankGuaranteesSalesUnit
-        {
-            get { return (Visibility) GetValue(VisibilityBankGuaranteesSalesUnitProperty); }
-            set { SetValue(VisibilityBankGuaranteesSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 

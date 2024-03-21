@@ -143,9 +143,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Удален")]
         public bool IsRemoved { get; set; } = false;
 
-        [Designation("Банковские гарантии")]
-        public virtual List<BankGuarantee> BankGuarantees { get; set; } = new List<BankGuarantee>();
-
         [NotForWrapper, NotForDetailsView]
         public virtual List<PriceCalculationItem> PriceCalculationItems { get; set; } = new List<PriceCalculationItem>();
 

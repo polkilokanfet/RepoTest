@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -17,12 +16,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// ActionType
         /// </summary>
-        public NotificationActionType ActionType
+        public HVTApp.Infrastructure.Enums.NotificationActionType ActionType
         {
           get { return Model.ActionType; }
           set { SetValue(value); }
         }
-        public NotificationActionType ActionTypeOriginalValue => GetOriginalValue<NotificationActionType>(nameof(ActionType));
+        public HVTApp.Infrastructure.Enums.NotificationActionType ActionTypeOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Enums.NotificationActionType>(nameof(ActionType));
         public bool ActionTypeIsChanged => GetIsChanged(nameof(ActionType));
 
         /// <summary>
@@ -174,106 +173,6 @@ namespace HVTApp.Model.Wrapper
     public class CountryUnionEmptyWrapper : WrapperBase<CountryUnion>
 	{
 	    public CountryUnionEmptyWrapper(CountryUnion model) : base(model) { }
-    }
-
-		
-    public partial class BankGuaranteeWrapper : WrapperBase<BankGuarantee>
-	{
-	    public BankGuaranteeWrapper(BankGuarantee model) : base(model) { }
-
-        #region SimpleProperties
-
-        /// <summary>
-        /// Процент
-        /// </summary>
-        public System.Double Percent
-        {
-          get { return Model.Percent; }
-          set { SetValue(value); }
-        }
-        public System.Double PercentOriginalValue => GetOriginalValue<System.Double>(nameof(Percent));
-        public bool PercentIsChanged => GetIsChanged(nameof(Percent));
-
-        /// <summary>
-        /// Срок (дней)
-        /// </summary>
-        public System.Int32 Days
-        {
-          get { return Model.Days; }
-          set { SetValue(value); }
-        }
-        public System.Int32 DaysOriginalValue => GetOriginalValue<System.Int32>(nameof(Days));
-        public bool DaysIsChanged => GetIsChanged(nameof(Days));
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return Model.Id; }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Тип гарантии
-        /// </summary>
-	    public BankGuaranteeTypeWrapper BankGuaranteeType 
-        {
-            get { return GetWrapper<BankGuaranteeTypeWrapper>(); }
-            set { SetComplexValue<BankGuaranteeType, BankGuaranteeTypeWrapper>(BankGuaranteeType, value); }
-        }
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<BankGuaranteeTypeWrapper>(nameof(BankGuaranteeType), Model.BankGuaranteeType == null ? null : new BankGuaranteeTypeWrapper(Model.BankGuaranteeType));
-        }
-	}
-
-    public class BankGuaranteeEmptyWrapper : WrapperBase<BankGuarantee>
-	{
-	    public BankGuaranteeEmptyWrapper(BankGuarantee model) : base(model) { }
-    }
-
-		
-    public partial class BankGuaranteeTypeWrapper : WrapperBase<BankGuaranteeType>
-	{
-	    public BankGuaranteeTypeWrapper(BankGuaranteeType model) : base(model) { }
-
-        #region SimpleProperties
-
-        /// <summary>
-        /// Название
-        /// </summary>
-        public System.String Name
-        {
-          get { return Model.Name; }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return Model.Id; }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-	}
-
-    public class BankGuaranteeTypeEmptyWrapper : WrapperBase<BankGuaranteeType>
-	{
-	    public BankGuaranteeTypeEmptyWrapper(BankGuaranteeType model) : base(model) { }
     }
 
 		
@@ -7839,11 +7738,6 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
 
         /// <summary>
-        /// Банковские гарантии
-        /// </summary>
-        public IValidatableChangeTrackingCollection<BankGuaranteeWrapper> BankGuarantees { get; private set; }
-
-        /// <summary>
         /// PaymentsPlannedActual
         /// </summary>
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedActual { get; private set; }
@@ -8049,9 +7943,6 @@ namespace HVTApp.Model.Wrapper
           if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
           PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
-          if (Model.BankGuarantees == null) throw new ArgumentException("BankGuarantees cannot be null");
-          BankGuarantees = new ValidatableChangeTrackingCollection<BankGuaranteeWrapper>(Model.BankGuarantees.Select(e => new BankGuaranteeWrapper(e)));
-          RegisterCollection(BankGuarantees, Model.BankGuarantees);
           if (Model.PaymentsPlannedActual == null) throw new ArgumentException("PaymentsPlannedActual cannot be null");
           PaymentsPlannedActual = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedActual.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlannedActual, Model.PaymentsPlannedActual);

@@ -17,16 +17,6 @@ namespace HVTApp.UI.ViewModels
         public CountryUnionLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
-	public partial class BankGuaranteeLookupListViewModel : BaseListViewModel<BankGuarantee, BankGuaranteeLookup, AfterSaveBankGuaranteeEvent, AfterSelectBankGuaranteeEvent, AfterRemoveBankGuaranteeEvent>
-    {
-        public BankGuaranteeLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-	public partial class BankGuaranteeTypeLookupListViewModel : BaseListViewModel<BankGuaranteeType, BankGuaranteeTypeLookup, AfterSaveBankGuaranteeTypeEvent, AfterSelectBankGuaranteeTypeEvent, AfterRemoveBankGuaranteeTypeEvent>
-    {
-        public BankGuaranteeTypeLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
 	public partial class BudgetLookupListViewModel : BaseListViewModel<Budget, BudgetLookup, AfterSaveBudgetEvent, AfterSelectBudgetEvent, AfterRemoveBudgetEvent>
     {
         public BudgetLookupListViewModel(IUnityContainer container) : base(container) { }

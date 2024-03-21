@@ -10,12 +10,6 @@ namespace HVTApp.DataAccess
             CountryUnionRepository = new CountryUnionRepository(_context);
             CountryUnionRepository.OperationFailedEvent += OnOperationFailedEvent;
 
-            BankGuaranteeRepository = new BankGuaranteeRepository(_context);
-            BankGuaranteeRepository.OperationFailedEvent += OnOperationFailedEvent;
-
-            BankGuaranteeTypeRepository = new BankGuaranteeTypeRepository(_context);
-            BankGuaranteeTypeRepository.OperationFailedEvent += OnOperationFailedEvent;
-
             BudgetRepository = new BudgetRepository(_context);
             BudgetRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -328,8 +322,6 @@ namespace HVTApp.DataAccess
         {
             NotificationUnitRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CountryUnionRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            BankGuaranteeRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            BankGuaranteeTypeRepository.OperationFailedEvent -= OnOperationFailedEvent;
             BudgetRepository.OperationFailedEvent -= OnOperationFailedEvent;
             BudgetUnitRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ConstructorParametersListRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -437,8 +429,6 @@ namespace HVTApp.DataAccess
         #region Repositories
         protected INotificationUnitRepository NotificationUnitRepository;
         protected ICountryUnionRepository CountryUnionRepository;
-        protected IBankGuaranteeRepository BankGuaranteeRepository;
-        protected IBankGuaranteeTypeRepository BankGuaranteeTypeRepository;
         protected IBudgetRepository BudgetRepository;
         protected IBudgetUnitRepository BudgetUnitRepository;
         protected IConstructorParametersListRepository ConstructorParametersListRepository;

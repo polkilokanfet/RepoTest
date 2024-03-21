@@ -13,16 +13,6 @@ namespace HVTApp.DataAccess
         public CountryUnionRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class BankGuaranteeRepositoryTest : TestBaseRepository<BankGuarantee>, IBankGuaranteeRepository
-    {
-        public BankGuaranteeRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class BankGuaranteeTypeRepositoryTest : TestBaseRepository<BankGuaranteeType>, IBankGuaranteeTypeRepository
-    {
-        public BankGuaranteeTypeRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class BudgetRepositoryTest : TestBaseRepository<Budget>, IBudgetRepository
     {
         public BudgetRepositoryTest(TestData testData) : base(testData) {}

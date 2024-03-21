@@ -3,7 +3,6 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure.Enums;
 
 namespace HVTApp.UI.Lookup
 {
@@ -17,7 +16,7 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(1)]
-        public NotificationActionType ActionType => Entity.ActionType;
+        public HVTApp.Infrastructure.Enums.NotificationActionType ActionType => Entity.ActionType;
 
 		[OrderStatus(1)]
         public System.Guid TargetEntityId => Entity.TargetEntityId;
@@ -60,43 +59,6 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(1)]
 	    public List<CountryLookup> Countries { get { return GetLookupEnum<CountryLookup>().ToList(); } }
-	}
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
-	[Designation("Банковская гарантия")]
-	public partial class BankGuaranteeLookup : LookupItem<BankGuarantee>
-	{
-		public BankGuaranteeLookup(BankGuarantee entity) : base(entity) 
-		{
-		}
-		
-        #region SimpleProperties
-		[OrderStatus(1)]
-        public System.Double Percent => Entity.Percent;
-
-		[OrderStatus(1)]
-        public System.Int32 Days => Entity.Days;
-
-        #endregion
-
-        #region ComplexProperties
-		[OrderStatus(1)]
-	    public BankGuaranteeTypeLookup BankGuaranteeType { get { return GetLookup<BankGuaranteeTypeLookup>(); } }
-
-        #endregion
-	}
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
-	[Designation("Банковская гарантия (тип)")]
-	public partial class BankGuaranteeTypeLookup : LookupItem<BankGuaranteeType>
-	{
-		public BankGuaranteeTypeLookup(BankGuaranteeType entity) : base(entity) 
-		{
-		}
-		
-        #region SimpleProperties
-		[OrderStatus(1)]
-        public System.String Name => Entity.Name;
-
-        #endregion
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Бюджет")]
@@ -2670,8 +2632,6 @@ namespace HVTApp.UI.Lookup
 	    public List<PaymentActualLookup> PaymentsActual { get { return GetLookupEnum<PaymentActualLookup>().ToList(); } }
 		[OrderStatus(1)]
 	    public List<PaymentPlannedLookup> PaymentsPlanned { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }
-		[OrderStatus(1)]
-	    public List<BankGuaranteeLookup> BankGuarantees { get { return GetLookupEnum<BankGuaranteeLookup>().ToList(); } }
 		[OrderStatus(1)]
 	    public List<PriceCalculationItemLookup> PriceCalculationItems { get { return GetLookupEnum<PriceCalculationItemLookup>().ToList(); } }
 		[OrderStatus(1)]

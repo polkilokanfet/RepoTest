@@ -104,44 +104,6 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class BankGuaranteeDetailsViewModel : BaseDetailsViewModel<BankGuaranteeWrapper, BankGuarantee, AfterSaveBankGuaranteeEvent>
-    {
-		//private Func<Task<List<BankGuaranteeType>>> _getEntitiesForSelectBankGuaranteeTypeCommand;
-		private Func<List<BankGuaranteeType>> _getEntitiesForSelectBankGuaranteeTypeCommand;
-		public DelegateLogCommand SelectBankGuaranteeTypeCommand { get; private set; }
-		public DelegateLogCommand ClearBankGuaranteeTypeCommand { get; private set; }
-
-        public BankGuaranteeDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectBankGuaranteeTypeCommand == null) _getEntitiesForSelectBankGuaranteeTypeCommand = () => { return UnitOfWork.Repository<BankGuaranteeType>().GetAll(); };
-			if (SelectBankGuaranteeTypeCommand == null) SelectBankGuaranteeTypeCommand = new DelegateLogCommand(SelectBankGuaranteeTypeCommand_Execute_Default);
-			if (ClearBankGuaranteeTypeCommand == null) ClearBankGuaranteeTypeCommand = new DelegateLogCommand(ClearBankGuaranteeTypeCommand_Execute_Default);
-
-		}
-
-		private void SelectBankGuaranteeTypeCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<BankGuaranteeType, BankGuaranteeTypeWrapper>(_getEntitiesForSelectBankGuaranteeTypeCommand(), nameof(Item.BankGuaranteeType), Item.BankGuaranteeType?.Id);
-		}
-
-		private void ClearBankGuaranteeTypeCommand_Execute_Default() 
-		{
-						Item.BankGuaranteeType = null;		    
-		}
-
-
-    }
-
-    public partial class BankGuaranteeTypeDetailsViewModel : BaseDetailsViewModel<BankGuaranteeTypeWrapper, BankGuaranteeType, AfterSaveBankGuaranteeTypeEvent>
-    {
-        public BankGuaranteeTypeDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-    }
-
     public partial class BudgetDetailsViewModel : BaseDetailsViewModel<BudgetWrapper, Budget, AfterSaveBudgetEvent>
     {
 		private Func<List<BudgetUnit>> _getEntitiesForAddInUnitsCommand;
@@ -4940,22 +4902,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<List<BankGuarantee>> _getEntitiesForAddInBankGuaranteesCommand;
-		public DelegateLogCommand AddInBankGuaranteesCommand { get; }
-		public DelegateLogCommand RemoveFromBankGuaranteesCommand { get; private set; }
-		private BankGuaranteeWrapper _selectedBankGuaranteesItem;
-		public BankGuaranteeWrapper SelectedBankGuaranteesItem 
-		{ 
-			get { return _selectedBankGuaranteesItem; }
-			set 
-			{ 
-				if (Equals(_selectedBankGuaranteesItem, value)) return;
-				_selectedBankGuaranteesItem = value;
-				RaisePropertyChanged();
-				RemoveFromBankGuaranteesCommand.RaiseCanExecuteChanged();
-			}
-		}
-
 		private Func<List<PaymentPlanned>> _getEntitiesForAddInPaymentsPlannedActualCommand;
 		public DelegateLogCommand AddInPaymentsPlannedActualCommand { get; }
 		public DelegateLogCommand RemoveFromPaymentsPlannedActualCommand { get; private set; }
@@ -5075,11 +5021,6 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInPaymentsPlannedCommand == null) _getEntitiesForAddInPaymentsPlannedCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
 			if (AddInPaymentsPlannedCommand == null) AddInPaymentsPlannedCommand = new DelegateLogCommand(AddInPaymentsPlannedCommand_Execute_Default);
 			if (RemoveFromPaymentsPlannedCommand == null) RemoveFromPaymentsPlannedCommand = new DelegateLogCommand(RemoveFromPaymentsPlannedCommand_Execute_Default, RemoveFromPaymentsPlannedCommand_CanExecute_Default);
-
-			
-			if (_getEntitiesForAddInBankGuaranteesCommand == null) _getEntitiesForAddInBankGuaranteesCommand = () => { return UnitOfWork.Repository<BankGuarantee>().GetAll(); };;
-			if (AddInBankGuaranteesCommand == null) AddInBankGuaranteesCommand = new DelegateLogCommand(AddInBankGuaranteesCommand_Execute_Default);
-			if (RemoveFromBankGuaranteesCommand == null) RemoveFromBankGuaranteesCommand = new DelegateLogCommand(RemoveFromBankGuaranteesCommand_Execute_Default, RemoveFromBankGuaranteesCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInPaymentsPlannedActualCommand == null) _getEntitiesForAddInPaymentsPlannedActualCommand = () => { return UnitOfWork.Repository<PaymentPlanned>().GetAll(); };;
@@ -5256,21 +5197,6 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromPaymentsPlannedCommand_CanExecute_Default()
 			{
 				return SelectedPaymentsPlannedItem != null;
-			}
-
-			private void AddInBankGuaranteesCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<BankGuarantee, BankGuaranteeWrapper>(_getEntitiesForAddInBankGuaranteesCommand(), Item.BankGuarantees);
-			}
-
-			private void RemoveFromBankGuaranteesCommand_Execute_Default()
-			{
-				Item.BankGuarantees.Remove(SelectedBankGuaranteesItem);
-			}
-
-			private bool RemoveFromBankGuaranteesCommand_CanExecute_Default()
-			{
-				return SelectedBankGuaranteesItem != null;
 			}
 
 			private void AddInPaymentsPlannedActualCommand_Execute_Default()

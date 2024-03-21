@@ -9,8 +9,6 @@ namespace HVTApp.DataAccess
 			#region RepositoriesInit
             NotificationUnitRepository = new NotificationUnitRepositoryTest(testData);
             CountryUnionRepository = new CountryUnionRepositoryTest(testData);
-            BankGuaranteeRepository = new BankGuaranteeRepositoryTest(testData);
-            BankGuaranteeTypeRepository = new BankGuaranteeTypeRepositoryTest(testData);
             BudgetRepository = new BudgetRepositoryTest(testData);
             BudgetUnitRepository = new BudgetUnitRepositoryTest(testData);
             ConstructorParametersListRepository = new ConstructorParametersListRepositoryTest(testData);
@@ -120,8 +118,6 @@ namespace HVTApp.DataAccess
         #region Repositories
         public INotificationUnitRepository NotificationUnitRepository { get; }
         public ICountryUnionRepository CountryUnionRepository { get; }
-        public IBankGuaranteeRepository BankGuaranteeRepository { get; }
-        public IBankGuaranteeTypeRepository BankGuaranteeTypeRepository { get; }
         public IBudgetRepository BudgetRepository { get; }
         public IBudgetUnitRepository BudgetUnitRepository { get; }
         public IConstructorParametersListRepository ConstructorParametersListRepository { get; }

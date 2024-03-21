@@ -18,20 +18,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class BankGuaranteeRepository : BaseRepository<BankGuarantee>, IBankGuaranteeRepository
-    {
-		public BankGuaranteeRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
-    public partial class BankGuaranteeTypeRepository : BaseRepository<BankGuaranteeType>, IBankGuaranteeTypeRepository
-    {
-		public BankGuaranteeTypeRepository(DbContext context) : base(context) 
-		{
-		}
-    }
-
     public partial class BudgetRepository : BaseRepository<Budget>, IBudgetRepository
     {
 		public BudgetRepository(DbContext context) : base(context) 

@@ -275,114 +275,6 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Банковская гарантия")]
-	[DesignationPlural("BankGuaranteeLookup")]
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
-    public partial class BankGuaranteeLookupListView : ViewBase
-    {
-        public BankGuaranteeLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public BankGuaranteeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankGuaranteeLookupListViewModel BankGuaranteeLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = BankGuaranteeLookupListViewModel;
-			BankGuaranteeLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			((BankGuaranteeLookupListViewModel)DataContext).Load();
-        }
-
-		#region VisibilityProps
-
-        public System.Windows.Visibility PercentVisibility
-        {
-            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Percent)].Visibility; }
-            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Percent)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility DaysVisibility
-        {
-            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Days)].Visibility; }
-            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Days)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.DisplayMember)].Visibility; }
-            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.DisplayMember)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility BankGuaranteeTypeVisibility
-        {
-            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.BankGuaranteeType)].Visibility; }
-            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.BankGuaranteeType)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Entity)].Visibility; }
-            set { BankGuaranteeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeLookup.Entity)].Visibility = value; }
-        }
-
-
-		#endregion
-    }
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Банковская гарантия (тип)")]
-	[DesignationPlural("BankGuaranteeTypeLookup")]
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
-    public partial class BankGuaranteeTypeLookupListView : ViewBase
-    {
-        public BankGuaranteeTypeLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public BankGuaranteeTypeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankGuaranteeTypeLookupListViewModel BankGuaranteeTypeLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = BankGuaranteeTypeLookupListViewModel;
-			BankGuaranteeTypeLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			((BankGuaranteeTypeLookupListViewModel)DataContext).Load();
-        }
-
-		#region VisibilityProps
-
-        public System.Windows.Visibility NameVisibility
-        {
-            get { return BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Name)].Visibility; }
-            set { BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Name)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.DisplayMember)].Visibility; }
-            set { BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.DisplayMember)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Entity)].Visibility; }
-            set { BankGuaranteeTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.BankGuaranteeTypeLookup.Entity)].Visibility = value; }
-        }
-
-
-		#endregion
-    }
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Бюджет")]
 	[DesignationPlural("BudgetLookup")]
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
@@ -7204,12 +7096,6 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentsPlanned)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentsPlanned)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility BankGuaranteesVisibility
-        {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.BankGuarantees)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.BankGuarantees)].Visibility = value; }
         }
 
         public System.Windows.Visibility PriceCalculationItemsVisibility

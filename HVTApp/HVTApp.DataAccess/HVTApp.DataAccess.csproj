@@ -74,7 +74,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityTypeConfigurations\Custom\BankGuaranteeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\BudgetConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\BudgetUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ConstructorParametersListConfiguration.cs" />
@@ -487,6 +486,10 @@
     <Compile Include="Migrations\202402200604175_RemoveEventServiceUnit.designer.cs">
       <DependentUpon>202402200604175_RemoveEventServiceUnit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202403210623414_RemoveBankGuarantee.cs" />
+    <Compile Include="Migrations\202403210623414_RemoveBankGuarantee.designer.cs">
+      <DependentUpon>202403210623414_RemoveBankGuarantee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -801,6 +804,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402200604175_RemoveEventServiceUnit.resx">
       <DependentUpon>202402200604175_RemoveEventServiceUnit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403210623414_RemoveBankGuarantee.resx">
+      <DependentUpon>202403210623414_RemoveBankGuarantee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

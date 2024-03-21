@@ -5,8 +5,6 @@ namespace HVTApp.Model.Events
 {
 	public partial class AfterSaveNotificationUnitEvent : PubSubEvent<NotificationUnit> { }
 	public partial class AfterSaveCountryUnionEvent : PubSubEvent<CountryUnion> { }
-	public partial class AfterSaveBankGuaranteeEvent : PubSubEvent<BankGuarantee> { }
-	public partial class AfterSaveBankGuaranteeTypeEvent : PubSubEvent<BankGuaranteeType> { }
 	public partial class AfterSaveBudgetEvent : PubSubEvent<Budget> { }
 	public partial class AfterSaveBudgetUnitEvent : PubSubEvent<BudgetUnit> { }
 	public partial class AfterSaveConstructorParametersListEvent : PubSubEvent<ConstructorParametersList> { }

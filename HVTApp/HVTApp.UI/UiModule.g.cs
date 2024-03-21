@@ -19,14 +19,6 @@ namespace HVTApp.UI
             //_dialogService.Register<CountryUnionDetailsViewModel, CountryUnionDetailsView>();
 			_selectService.Register<CountryUnionLookupListView, CountryUnion>();
             _updateDetailsService.Register<CountryUnion, CountryUnionDetailsView>();
-            Container.RegisterViewForNavigation<BankGuaranteeLookupListView>();
-            //_dialogService.Register<BankGuaranteeDetailsViewModel, BankGuaranteeDetailsView>();
-			_selectService.Register<BankGuaranteeLookupListView, BankGuarantee>();
-            _updateDetailsService.Register<BankGuarantee, BankGuaranteeDetailsView>();
-            Container.RegisterViewForNavigation<BankGuaranteeTypeLookupListView>();
-            //_dialogService.Register<BankGuaranteeTypeDetailsViewModel, BankGuaranteeTypeDetailsView>();
-			_selectService.Register<BankGuaranteeTypeLookupListView, BankGuaranteeType>();
-            _updateDetailsService.Register<BankGuaranteeType, BankGuaranteeTypeDetailsView>();
             Container.RegisterViewForNavigation<BudgetLookupListView>();
             //_dialogService.Register<BudgetDetailsViewModel, BudgetDetailsView>();
 			_selectService.Register<BudgetLookupListView, Budget>();

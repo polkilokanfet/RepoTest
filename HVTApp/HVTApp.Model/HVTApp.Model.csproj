@@ -89,7 +89,6 @@
     <Compile Include="ParametersExtensions.cs" />
     <Compile Include="POCOs\ActivityFieldEnum.cs" />
     <Compile Include="POCOs\Address\CountryUnion.cs" />
-    <Compile Include="POCOs\BankGuarantee.cs" />
     <Compile Include="POCOs\Budget.cs" />
     <Compile Include="POCOs\BudgetUnit.cs" />
     <Compile Include="POCOs\ConstructorParametersList.cs" />

@@ -43,7 +43,6 @@ namespace HVTApp.DataAccess
             Property(x => x.DeliveryDate).IsOptional();
 
             HasOptional(x => x.Penalty).WithRequired().WillCascadeOnDelete(true);
-            HasMany(x => x.BankGuarantees).WithRequired().WillCascadeOnDelete(true);
         }
     }
 }
