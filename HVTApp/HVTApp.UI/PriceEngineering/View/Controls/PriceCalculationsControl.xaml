@@ -18,9 +18,9 @@
 
                 <ribbon:FieldLayout Key="Calculation">
                     <ribbon:FieldLayout.Fields>
-                        <ribbon:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskOpenMoment}" Label="Старт расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                        <ribbon:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding TaskCloseMoment}" Label="Финиш расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
-                        <ribbon:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Initiator}" Label="Инициатор" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <ribbon:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Model.TaskOpenMoment}" Label="Старт расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <ribbon:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Model.TaskCloseMoment}" Label="Финиш расчета" Width="Auto" AllowResize="False" Format="dd/MM/yy HH:mm"/>
+                        <ribbon:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Model.Initiator}" Label="Инициатор расчёта" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                     </ribbon:FieldLayout.Fields>
                 </ribbon:FieldLayout>
 

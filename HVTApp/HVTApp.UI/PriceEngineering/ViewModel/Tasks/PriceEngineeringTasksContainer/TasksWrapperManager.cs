@@ -65,7 +65,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         /// <summary>
         /// Расчеты переменных затрат
         /// </summary>
-        public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
+        public IValidatableChangeTrackingCollection<PriceCalculationEmptyWrapper> PriceCalculations { get; private set; }
 
         #endregion
 
@@ -125,7 +125,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
             base.InitializeCollectionProperties();
 
             if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
-            PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
+            PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationEmptyWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationEmptyWrapper(e)));
             RegisterCollection(PriceCalculations, Model.PriceCalculations);
         }
 

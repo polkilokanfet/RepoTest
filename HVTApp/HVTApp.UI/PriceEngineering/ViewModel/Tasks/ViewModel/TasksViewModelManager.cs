@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
@@ -26,7 +25,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public class TasksViewModelManager : TasksViewModelVisible<TasksWrapperManager, TaskViewModelManager>
     {
-        public PriceCalculationWrapper SelectedCalculation { get; set; }
+        public PriceCalculationEmptyWrapper SelectedCalculation { get; set; }
 
         #region Commands
 

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
@@ -127,7 +128,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         public virtual void Load(PriceEngineeringTasks priceEngineeringTasks)
         {
-            var tasks = UnitOfWork.Repository<PriceEngineeringTasks>().GetById(priceEngineeringTasks.Id);
+            var tasks = ((PriceEngineeringTasksRepository)UnitOfWork.Repository<PriceEngineeringTasks>()).GetForPriceEngineering(priceEngineeringTasks.Id);
             this.TasksWrapper = GetPriceEngineeringTasksWrapper(tasks, Container);
         }
 
