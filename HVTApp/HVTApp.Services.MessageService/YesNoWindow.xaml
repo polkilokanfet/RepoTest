@@ -16,7 +16,7 @@
             Grid.Row="0" 
             VerticalScrollBarVisibility="Auto" 
             HorizontalScrollBarVisibility="Auto">
-            <TextBlock Name="Message" Margin="10,5">Message</TextBlock>
+            <TextBox Name="Message" IsReadOnly="True" Margin="10,5" Background="Transparent" BorderThickness="0">Message</TextBox>
         </ScrollViewer>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

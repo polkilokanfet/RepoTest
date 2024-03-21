@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
@@ -42,7 +43,13 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             //проверка на наличие з/з
             if (priceEngineeringTask.SalesUnits.Any(salesUnit => salesUnit.SignalToStartProduction.HasValue))
             {
-                MessageService.Message("Отказ", "В перечне оборудования уже есть позиции с запросом на открытие з/з");
+                var sb = new StringBuilder();
+                sb.AppendLine("В перечне оборудования уже есть позиции с запросом на открытие з/з");
+                foreach (var salesUnit in priceEngineeringTask.SalesUnits.Where(x => x.SignalToStartProduction.HasValue))
+                {
+                    sb.AppendLine($" - зав.зак. {salesUnit.Order?.Number}; сигнал на открытие производства: {salesUnit.SignalToStartProduction.Value.ToShortDateString()}");
+                }
+                MessageService.Message("Отказ", sb.ToString());
                 return false;
             }
 
