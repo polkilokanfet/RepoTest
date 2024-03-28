@@ -6,7 +6,7 @@ using HVTApp.Model.Services;
 
 namespace EmailNotificationsService
 {
-    public class EmailNotificationsService1
+    public class EmailNotificationsService1 : IEmailNotificationsService
     {
         private readonly IEmailService _emailService;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
@@ -22,7 +22,7 @@ namespace EmailNotificationsService
             _notificationGeneratorService = notificationGeneratorService;
         }
 
-        private void SendNotifications()
+        public void SendNotifications()
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
@@ -38,14 +38,19 @@ namespace EmailNotificationsService
                     {
                         _emailService.SendMail(emailAddress, subject, body);
                         notificationUnit.IsSentByEmail = true;
+                        SuccessSendNotificationEvent?.Invoke(notificationUnit);
                     }
                     catch (Exception e)
                     {
+                        NotSuccessSendNotificationEvent?.Invoke(notificationUnit, e);
                     }
                 }
 
                 unitOfWork.SaveChanges();
             }
         }
+
+        public event Action<NotificationUnit> SuccessSendNotificationEvent;
+        public event Action<NotificationUnit, Exception> NotSuccessSendNotificationEvent;
     }
 }

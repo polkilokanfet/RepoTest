@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="EmailNotification.cs" />
     <Compile Include="EmailNotificationsService1.cs" />
+    <Compile Include="IEmailNotificationsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
