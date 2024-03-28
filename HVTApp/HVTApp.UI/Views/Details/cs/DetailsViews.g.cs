@@ -30,6 +30,10 @@ namespace HVTApp.UI.Views
         {
             //NotUpdateAttribute attr;
 
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.Moment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMomentNotificationUnit = Visibility.Collapsed;
+
             //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.ActionType)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityActionTypeNotificationUnit = Visibility.Collapsed;
@@ -62,7 +66,19 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityRecipientRoleNotificationUnit = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.NotificationUnit).GetProperty(nameof(HVTApp.Model.POCOs.NotificationUnit.IsSentByEmail)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsSentByEmailNotificationUnit = Visibility.Collapsed;
 
+
+        }
+
+
+        public static readonly DependencyProperty VisibilityMomentNotificationUnitProperty = DependencyProperty.Register("VisibilityMomentNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMomentNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilityMomentNotificationUnitProperty); }
+            set { SetValue(VisibilityMomentNotificationUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -127,6 +143,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityRecipientRoleNotificationUnitProperty); }
             set { SetValue(VisibilityRecipientRoleNotificationUnitProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityIsSentByEmailNotificationUnitProperty = DependencyProperty.Register("VisibilityIsSentByEmailNotificationUnit", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsSentByEmailNotificationUnit
+        {
+            get { return (Visibility) GetValue(VisibilityIsSentByEmailNotificationUnitProperty); }
+            set { SetValue(VisibilityIsSentByEmailNotificationUnitProperty, value); OnPropertyChanged(); }
         }
 
 	}

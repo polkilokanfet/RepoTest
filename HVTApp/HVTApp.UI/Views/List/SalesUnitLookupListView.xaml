@@ -108,7 +108,6 @@
                         <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="CostDeliveryIncluded" Label="Стоимость доставки включена в основную стоимость" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="BankGuarantees" Label="Банковские гарантии" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="AllowTotalRemove" Label="Разрешено тотальное удаление" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="AllowEditProduct" Label="Разрешение на редактирование техники" Width="Auto" AllowResize="True" />

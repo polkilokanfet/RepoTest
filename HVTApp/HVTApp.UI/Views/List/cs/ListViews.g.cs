@@ -3282,6 +3282,12 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
+        public System.Windows.Visibility MomentVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.Moment)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.Moment)].Visibility = value; }
+        }
+
         public System.Windows.Visibility ActionTypeVisibility
         {
             get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.ActionType)].Visibility; }
@@ -3316,6 +3322,12 @@ namespace HVTApp.UI.Views
         {
             get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientRole)].Visibility; }
             set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.RecipientRole)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility IsSentByEmailVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.IsSentByEmail)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.IsSentByEmail)].Visibility = value; }
         }
 
         public System.Windows.Visibility DisplayMemberVisibility

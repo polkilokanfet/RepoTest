@@ -14,6 +14,17 @@ namespace HVTApp.Model.Wrapper
         #region SimpleProperties
 
         /// <summary>
+        /// Moment
+        /// </summary>
+        public System.DateTime Moment
+        {
+          get { return Model.Moment; }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
+        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
+
+        /// <summary>
         /// ActionType
         /// </summary>
         public HVTApp.Infrastructure.Enums.NotificationActionType ActionType
@@ -78,6 +89,17 @@ namespace HVTApp.Model.Wrapper
         }
         public HVTApp.Infrastructure.Role RecipientRoleOriginalValue => GetOriginalValue<HVTApp.Infrastructure.Role>(nameof(RecipientRole));
         public bool RecipientRoleIsChanged => GetIsChanged(nameof(RecipientRole));
+
+        /// <summary>
+        /// Отправлено по почте
+        /// </summary>
+        public System.Boolean IsSentByEmail
+        {
+          get { return Model.IsSentByEmail; }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsSentByEmailOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsSentByEmail));
+        public bool IsSentByEmailIsChanged => GetIsChanged(nameof(IsSentByEmail));
 
         /// <summary>
         /// Id

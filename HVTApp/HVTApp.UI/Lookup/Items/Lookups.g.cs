@@ -16,6 +16,9 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(1)]
+        public System.DateTime Moment => Entity.Moment;
+
+		[OrderStatus(1)]
         public HVTApp.Infrastructure.Enums.NotificationActionType ActionType => Entity.ActionType;
 
 		[OrderStatus(1)]
@@ -32,6 +35,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public HVTApp.Infrastructure.Role RecipientRole => Entity.RecipientRole;
+
+		[OrderStatus(1)]
+        public System.Boolean IsSentByEmail => Entity.IsSentByEmail;
 
         #endregion
 

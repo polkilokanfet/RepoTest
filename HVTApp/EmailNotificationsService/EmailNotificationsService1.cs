@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
@@ -14,8 +12,6 @@ namespace EmailNotificationsService
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly INotificationGeneratorService _notificationGeneratorService;
 
-        private readonly Queue<EmailNotification> _notifications = new Queue<EmailNotification>();
-
         public EmailNotificationsService1(
             IEmailService emailService, 
             IUnitOfWorkFactory unitOfWorkFactory, 
@@ -26,7 +22,7 @@ namespace EmailNotificationsService
             _notificationGeneratorService = notificationGeneratorService;
         }
 
-        private void Proc()
+        private void SendNotifications()
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
@@ -50,10 +46,6 @@ namespace EmailNotificationsService
 
                 unitOfWork.SaveChanges();
             }
-        }
-
-        private void SendNotificationsProc()
-        {
         }
     }
 }

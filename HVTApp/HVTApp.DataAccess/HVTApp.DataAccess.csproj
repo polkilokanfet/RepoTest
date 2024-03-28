@@ -490,6 +490,10 @@
     <Compile Include="Migrations\202403210623414_RemoveBankGuarantee.designer.cs">
       <DependentUpon>202403210623414_RemoveBankGuarantee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202403280642355_NotificationUnitUpdate.cs" />
+    <Compile Include="Migrations\202403280642355_NotificationUnitUpdate.designer.cs">
+      <DependentUpon>202403280642355_NotificationUnitUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -807,6 +811,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403210623414_RemoveBankGuarantee.resx">
       <DependentUpon>202403210623414_RemoveBankGuarantee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403280642355_NotificationUnitUpdate.resx">
+      <DependentUpon>202403280642355_NotificationUnitUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
