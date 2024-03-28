@@ -20,35 +20,7 @@ namespace NotificationsService
 
         public override string GetCommonInfo()
         {
-            var tasks = TargetUnit;
-
-            var sb = new StringBuilder();
-            sb.AppendLine($"Номер сборки в УП ВВА: {tasks.NumberFull}");
-            sb.AppendLine($"Номер задачи в УП ВВА: {TargetUnit.Number}");
-            sb.AppendLine($"Номер задачи в Team Center: {tasks.TceNumber}");
-            sb.AppendLine(string.Empty);
-
-            sb.AppendLine($"Менеджер: {tasks.UserManager}");
-            sb.AppendLine($"Back-менеджер: {tasks.BackManager}");
-
-            return sb.ToString();
-        }
-
-        public override string GetActionInfo()
-        {
-            switch (Unit.ActionType)
-            {
-                case NotificationActionType.PriceEngineeringTasksStart:
-                    return "Запущена задача ТСП";
-
-                case NotificationActionType.PriceEngineeringTasksInstructToBackManager:
-                    return Unit.RecipientRole == Role.BackManager
-                        ? "Загрузите результаты проработки ТСП в Team Center"
-                        : "Назначен Бэкменеджер";
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return this.Unit.GetCommonInfo(TargetUnit);
         }
 
         public override Action GetOpenTargetEntityViewAction()

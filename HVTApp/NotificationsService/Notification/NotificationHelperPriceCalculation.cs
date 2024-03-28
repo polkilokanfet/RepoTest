@@ -21,33 +21,7 @@ namespace NotificationsService
 
         public override string GetCommonInfo()
         {
-            var priceCalculation = this.TargetUnit;
-            var sb = new StringBuilder();
-            sb.AppendLine("Расчёт переменных затрат");
-            sb.AppendLine("Оборудование:");
-            foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems.Where(x => x.SalesUnits.Any()))
-            {
-                var salesUnit = priceCalculationItem.SalesUnits.First();
-                sb.AppendLine($" - Объект: {salesUnit.Facility}; Оборудование: {salesUnit.Product}; Количество: {priceCalculationItem.SalesUnits.Count}");
-            }
-            return sb.ToString();
-        }
-
-        public override string GetActionInfo()
-        {
-            switch (Unit.ActionType)
-            {
-                case NotificationActionType.StartPriceCalculation:
-                    return "Запущен расчёт переменных затрат";
-                case NotificationActionType.CancelPriceCalculation:
-                    return "Остановлен расчёт переменных затрат";
-                case NotificationActionType.RejectPriceCalculation:
-                    return "Отклонен расчёт переменных затрат";
-                case NotificationActionType.FinishPriceCalculation:
-                    return "Завершен расчёт переменных затрат";
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return this.Unit.GetCommonInfo(this.TargetUnit);
         }
 
         public override Action GetOpenTargetEntityViewAction()

@@ -21,48 +21,7 @@ namespace NotificationsService
 
         public override string GetCommonInfo()
         {
-            var task = this.TargetUnit;
-
-            var sb = new StringBuilder();
-            sb.AppendLine("Задача ТСЕ");
-            sb.AppendLine("Оборудование:");
-            foreach (var requrements in task.Requrements.Where(x => x.SalesUnits.Any()))
-            {
-                var salesUnit = requrements.SalesUnits.First();
-                sb.AppendLine($" - Объект: {salesUnit.Facility}; Оборудование: {salesUnit.Product}; Количество: {requrements.SalesUnits.Count}");
-            }
-            return sb.ToString();
-        }
-
-        public override string GetActionInfo()
-        {
-            switch (Unit.ActionType)
-            {
-                case NotificationActionType.StartTechnicalRequirementsTask:
-                    return "Запущена задача ТСЕ";
-
-                case NotificationActionType.InstructTechnicalRequirementsTask:
-                    return "Поручена задача ТСЕ";
-
-                case NotificationActionType.RejectTechnicalRequirementsTask:
-                    return "Отклонена задача ТСЕ";
-
-                case NotificationActionType.RejectByFrontManagerTechnicalRequirementsTask:
-                    return "Отклонена задача ТСЕ";
-
-                case NotificationActionType.FinishTechnicalRequirementsTask:
-                    return "Завершена задача ТСЕ";
-
-                case NotificationActionType.AcceptTechnicalRequirementsTask:
-                    return "Принята задача ТСЕ";
-
-                case NotificationActionType.StopTechnicalRequirementsTask:
-                    return "Остановлена задача ТСЕ";
-
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return this.Unit.GetCommonInfo(this.TargetUnit);
         }
 
         public override Action GetOpenTargetEntityViewAction()

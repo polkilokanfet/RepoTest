@@ -28,7 +28,12 @@ namespace NotificationsService
         }
 
         public abstract string GetCommonInfo();
-        public abstract string GetActionInfo();
+
+        public string GetActionInfo()
+        {
+            return this.Unit.GetActionString();
+        }
+
         public abstract Action GetOpenTargetEntityViewAction();
 
         public void RefreshTargetEntityAction()
