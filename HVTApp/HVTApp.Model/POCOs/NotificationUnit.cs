@@ -1,12 +1,15 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Enums;
 
 namespace HVTApp.Model.POCOs
 {
     public class NotificationUnit : BaseEntity
     {
+        public DateTime Moment { get; set; } = DateTime.Now;
+
         public NotificationActionType ActionType { get; set; }
 
         public Guid TargetEntityId { get; set; }
@@ -44,5 +47,8 @@ namespace HVTApp.Model.POCOs
         public Role RecipientRole { get; set; }
 
         #endregion
+
+        [Designation("Отправлено по почте")]
+        public bool IsSentByEmail { get; set; } = false;
     }
 }

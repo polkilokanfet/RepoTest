@@ -113,6 +113,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationsMainService", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationsService", "NotificationsService\NotificationsService.csproj", "{E78EDB8E-FBA5-4D01-BB7B-F132B054E493}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailNotificationsServices", "EmailNotificationsServices", "{3CBBD071-E72F-4D74-8CCF-5F97514D53E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailNotificationsService", "EmailNotificationsService\EmailNotificationsService.csproj", "{939714ED-AECF-4AEA-9353-F8151AD1A1C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -319,6 +323,10 @@ Global
 		{E78EDB8E-FBA5-4D01-BB7B-F132B054E493}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E78EDB8E-FBA5-4D01-BB7B-F132B054E493}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E78EDB8E-FBA5-4D01-BB7B-F132B054E493}.Release|Any CPU.Build.0 = Release|Any CPU
+		{939714ED-AECF-4AEA-9353-F8151AD1A1C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{939714ED-AECF-4AEA-9353-F8151AD1A1C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{939714ED-AECF-4AEA-9353-F8151AD1A1C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{939714ED-AECF-4AEA-9353-F8151AD1A1C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -370,6 +378,8 @@ Global
 		{68EB380E-4F94-43FF-B0A2-63FB550F59DC} = {DDFC2831-D560-4264-962A-048B11AD8759}
 		{1D5BF2FA-3978-4223-97DA-711E65531D83} = {DDFC2831-D560-4264-962A-048B11AD8759}
 		{E78EDB8E-FBA5-4D01-BB7B-F132B054E493} = {DDFC2831-D560-4264-962A-048B11AD8759}
+		{3CBBD071-E72F-4D74-8CCF-5F97514D53E2} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
+		{939714ED-AECF-4AEA-9353-F8151AD1A1C6} = {3CBBD071-E72F-4D74-8CCF-5F97514D53E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEAEF50D-E850-44E2-B506-9E4743D3D04B}

@@ -181,6 +181,7 @@
     <Compile Include="Services\IPrintOfferService.cs" />
     <Compile Include="StringToGuid.cs" />
     <Compile Include="TimeMeasure.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWorkFactory.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkOperationResult.cs" />
     <Compile Include="UnityExtensions.cs" />
     <Compile Include="ViewBase.cs" />
