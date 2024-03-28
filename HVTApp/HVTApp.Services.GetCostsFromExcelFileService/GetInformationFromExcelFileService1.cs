@@ -83,8 +83,8 @@ namespace HVTApp.Services.GetCostsFromExcelFileService
                     if (int.TryParse(dataRow[3].ToString(), out var year) == false) continue;
 
                     if (dataRow[5] is DBNull) continue;
-                    if (int.TryParse(dataRow[16].ToString(), out var positionStart) == false) continue;
-                    if (int.TryParse(dataRow[17].ToString(), out var positionFinish) == false) continue;
+                    if (int.TryParse(dataRow[17].ToString(), out var positionStart) == false) continue;
+                    if (int.TryParse(dataRow[18].ToString(), out var positionFinish) == false) continue;
 
                     var order = dataRow.ItemArray[5].ToString().Trim();
                     var friday = FridayOfWeekISO8601(year, week);
