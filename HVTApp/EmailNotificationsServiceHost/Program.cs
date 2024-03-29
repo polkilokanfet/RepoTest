@@ -21,7 +21,8 @@ namespace EmailNotificationsServiceHost
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IEmailService, MailKitService>();
             container.RegisterType<INotificationGeneratorService, NotificationGeneratorService>();
-            container.RegisterType<IUnitOfWorkFactory, UnitOfWorkFactory>();
+            container.RegisterType<IUnitOfWorkFactory, UnitOfWorkFactory>(new ContainerControlledLifetimeManager());
+            container.RegisterType<INotificationTextService, NotificationTextService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IEmailNotificationsService, EmailNotificationsService1>();
 
             var emailNotificationsService = container.Resolve<IEmailNotificationsService>();

@@ -128,6 +128,8 @@ namespace HVTApp
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DbContext, HvtAppContext>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>();
+            Container.RegisterType<IUnitOfWorkFactory, UnitOfWorkFactory>(new ContainerControlledLifetimeManager());
+
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();
@@ -161,6 +163,7 @@ namespace HVTApp
             Container.RegisterType<INotificationMainService, NotificationMainService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationFromDataBaseService, NotificationFromDataBaseService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationGeneratorService, NotificationGeneratorService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationTextService, NotificationTextService>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<INotificationUnitWatcher, NotificationUnitWatcher>(new ContainerControlledLifetimeManager());
 

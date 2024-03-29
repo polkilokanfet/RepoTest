@@ -1,9 +1,9 @@
 ﻿using HVTApp.Infrastructure;
 using Microsoft.Practices.Unity;
 
-namespace EmailNotificationsServiceHost
+namespace HVTApp.DataAccess
 {
-    internal class UnitOfWorkFactory : IUnitOfWorkFactory
+    public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
         private readonly IUnityContainer _container;
 

@@ -14,12 +14,14 @@ namespace NotificationsService
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRegionManager _regionManager;
         private readonly IEventAggregator _eventAggregator;
+        private readonly INotificationTextService _notificationTextService;
 
-        public NotificationGeneratorService(IUnitOfWork unitOfWork, IRegionManager regionManager, IEventAggregator eventAggregator)
+        public NotificationGeneratorService(IUnitOfWork unitOfWork, IRegionManager regionManager, IEventAggregator eventAggregator, INotificationTextService notificationTextService)
         {
             _unitOfWork = unitOfWork;
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
+            _notificationTextService = notificationTextService;
         }
 
         private INotificationHelper GetNotification(NotificationUnit unit)
@@ -30,7 +32,7 @@ namespace NotificationsService
                 case NotificationActionType.CancelPriceCalculation:
                 case NotificationActionType.RejectPriceCalculation:
                 case NotificationActionType.FinishPriceCalculation:
-                    return new NotificationHelperPriceCalculation(_unitOfWork, unit, _regionManager, _eventAggregator);
+                    return new NotificationHelperPriceCalculation(_unitOfWork, unit, _regionManager, _eventAggregator, _notificationTextService);
 
                 case NotificationActionType.StartTechnicalRequirementsTask:
                 case NotificationActionType.InstructTechnicalRequirementsTask:
@@ -39,7 +41,7 @@ namespace NotificationsService
                 case NotificationActionType.FinishTechnicalRequirementsTask:
                 case NotificationActionType.AcceptTechnicalRequirementsTask:
                 case NotificationActionType.StopTechnicalRequirementsTask:
-                    return new NotificationHelperTechnicalRequrementsTask(_unitOfWork, unit, _regionManager, _eventAggregator);
+                    return new NotificationHelperTechnicalRequrementsTask(_unitOfWork, unit, _regionManager, _eventAggregator, _notificationTextService);
 
                 case NotificationActionType.PriceEngineeringTaskStart:
                 case NotificationActionType.PriceEngineeringTaskStop:
@@ -61,11 +63,11 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
-                    return new NotificationHelperPriceEngineeringTask(_unitOfWork, unit, _regionManager, _eventAggregator);
+                    return new NotificationHelperPriceEngineeringTask(_unitOfWork, unit, _regionManager, _eventAggregator, _notificationTextService);
 
                 case NotificationActionType.PriceEngineeringTasksStart:
                 case NotificationActionType.PriceEngineeringTasksInstructToBackManager:
-                    return new NotificationHelperPriceEngineeringTasks(_unitOfWork, unit, _regionManager, _eventAggregator);
+                    return new NotificationHelperPriceEngineeringTasks(_unitOfWork, unit, _regionManager, _eventAggregator, _notificationTextService);
 
                 default:
                     throw new ArgumentOutOfRangeException();

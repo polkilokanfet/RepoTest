@@ -193,46 +193,6 @@ namespace HVTApp.Model.POCOs
 
         #region MyRegion
 
-        public string GetCommonInfo(PriceEngineeringTasks tasks)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"Номер сборки в УП ВВА: {tasks.NumberFull}");
-            sb.AppendLine($"Номер задачи в УП ВВА: {tasks.Number}");
-            sb.AppendLine($"Номер задачи в Team Center: {tasks.TceNumber}");
-            sb.AppendLine(string.Empty);
-
-            sb.AppendLine($"Менеджер: {tasks.UserManager}");
-            sb.AppendLine($"Back-менеджер: {tasks.BackManager}");
-
-            return sb.ToString();
-        }
-
-        public string GetCommonInfo(TechnicalRequrementsTask task)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine("Задача ТСЕ");
-            sb.AppendLine("Оборудование:");
-            foreach (var requirements in task.Requrements.Where(technicalRequirements => technicalRequirements.SalesUnits.Any()))
-            {
-                var salesUnit = requirements.SalesUnits.First();
-                sb.AppendLine($" - Объект: {salesUnit.Facility}; Оборудование: {salesUnit.Product}; Количество: {requirements.SalesUnits.Count}");
-            }
-            return sb.ToString();
-        }
-
-        public string GetCommonInfo(PriceCalculation priceCalculation)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine("Расчёт переменных затрат");
-            sb.AppendLine("Оборудование:");
-            foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems.Where(item => item.SalesUnits.Any()))
-            {
-                var salesUnit = priceCalculationItem.SalesUnits.First();
-                sb.AppendLine($" - Объект: {salesUnit.Facility}; Оборудование: {salesUnit.Product}; Количество: {priceCalculationItem.SalesUnits.Count}");
-            }
-            return sb.ToString();
-        }
-
         public string GetCommonInfo(PriceEngineeringTasks tasks, PriceEngineeringTask taskTarget, PriceEngineeringTask taskTop)
         {
             SalesUnit salesUnit = taskTop.SalesUnits.FirstOrDefault();

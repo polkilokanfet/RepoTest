@@ -1,9 +1,9 @@
 ﻿using System;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.PriceEngineering.View;
 using Prism.Events;
 using Prism.Regions;
@@ -12,19 +12,10 @@ namespace NotificationsService
 {
     internal class NotificationHelperPriceEngineeringTask : NotificationHelper<PriceEngineeringTask, AfterSavePriceEngineeringTaskEvent>
     {
-        public NotificationHelperPriceEngineeringTask(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager, IEventAggregator eventAggregator) : 
-            base(unitOfWork, unit, regionManager,eventAggregator)
+        public NotificationHelperPriceEngineeringTask(IUnitOfWork unitOfWork, NotificationUnit unit, IRegionManager regionManager, IEventAggregator eventAggregator, INotificationTextService notificationTextService) : 
+            base(unitOfWork, unit, regionManager, eventAggregator, notificationTextService)
         {
         }
-
-        public override string GetCommonInfo()
-        {
-            PriceEngineeringTasks tasks = TargetUnit.GetPriceEngineeringTasks(UnitOfWork);
-            PriceEngineeringTask taskTop = TargetUnit.GetTopPriceEngineeringTask(UnitOfWork);
-
-            return this.Unit.GetCommonInfo(tasks, TargetUnit, taskTop);
-        }
-
 
         public override Action GetOpenTargetEntityViewAction()
         {
@@ -53,7 +44,6 @@ namespace NotificationsService
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
         }
     }
 }
