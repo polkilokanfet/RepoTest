@@ -93,6 +93,10 @@
       <Project>{6C089CFB-65A3-40F8-8A2D-C1E8092D7F46}</Project>
       <Name>HVTApp.Services.EmailService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.ProductDesignationService\HVTApp.Services.ProductDesignationService.csproj">
+      <Project>{0C7AD837-18EE-435F-BD72-5FC8C03FF9A7}</Project>
+      <Name>HVTApp.Services.ProductDesignationService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NotificationsService\NotificationsService.csproj">
       <Project>{E78EDB8E-FBA5-4D01-BB7B-F132B054E493}</Project>
       <Name>NotificationsService</Name>

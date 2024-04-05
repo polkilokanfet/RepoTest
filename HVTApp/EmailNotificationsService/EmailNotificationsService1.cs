@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
@@ -10,16 +11,16 @@ namespace EmailNotificationsService
     {
         private readonly IEmailService _emailService;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly INotificationGeneratorService _notificationGeneratorService;
+        private readonly INotificationTextService _notificationTextService;
 
         public EmailNotificationsService1(
             IEmailService emailService, 
             IUnitOfWorkFactory unitOfWorkFactory, 
-            INotificationGeneratorService notificationGeneratorService)
+            INotificationTextService notificationTextService)
         {
             _emailService = emailService;
             _unitOfWorkFactory = unitOfWorkFactory;
-            _notificationGeneratorService = notificationGeneratorService;
+            _notificationTextService = notificationTextService;
         }
 
         public void SendNotifications()
@@ -32,8 +33,8 @@ namespace EmailNotificationsService
                     //отправляем уведомление по email
                     var emailAddress = notificationUnit.RecipientUser?.Employee.Email;
                     //if (string.IsNullOrEmpty(emailAddress)) continue;
-                    var subject = $"[УП ВВА] {_notificationGeneratorService.GetActionInfo(notificationUnit)}";
-                    var body = _notificationGeneratorService.GetCommonInfo(notificationUnit);
+                    var subject = $"[УП ВВА] {_notificationTextService.GetActionInfo(notificationUnit)}";
+                    var body = _notificationTextService.GetCommonInfo(notificationUnit);
                     try
                     {
                         _emailService.SendMail(emailAddress, subject, body);
@@ -44,6 +45,8 @@ namespace EmailNotificationsService
                     {
                         NotSuccessSendNotificationEvent?.Invoke(notificationUnit, e);
                     }
+
+                    Thread.Sleep(new TimeSpan(0, 0, 0, 1));
                 }
 
                 unitOfWork.SaveChanges();

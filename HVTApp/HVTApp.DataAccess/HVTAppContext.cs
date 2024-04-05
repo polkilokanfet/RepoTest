@@ -8,10 +8,10 @@ namespace HVTApp.DataAccess
     public partial class HvtAppContext : DbContext
     {
 #if DEBUG
-        public HvtAppContext() : base("name=HvtAppContext")
+        public HvtAppContext() : base("name=DebugConnectionString")
         {
 #else
-        public HvtAppContext() : base("name=OPvva")
+        public HvtAppContext() : base("name=ReleaseConnectionString")
         {
 #endif
             Database.SetInitializer(new HvtAppDataBaseInitializer());
