@@ -27,12 +27,14 @@ namespace EmailNotificationsService
         {
             using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
             {
-                var notificationUnits = unitOfWork.Repository<NotificationUnit>().Find(notificationUnit => notificationUnit.IsSentByEmail == false);
+                var notificationUnits = unitOfWork.Repository<NotificationUnit>().Find(
+                    notificationUnit => 
+                        notificationUnit.IsSentByEmail == false &&
+                        string.IsNullOrWhiteSpace(notificationUnit.RecipientUser.Employee.Email) == false);
                 foreach (var notificationUnit in notificationUnits)
                 {
                     //отправляем уведомление по email
                     var emailAddress = notificationUnit.RecipientUser?.Employee.Email;
-                    if (string.IsNullOrWhiteSpace(emailAddress)) continue;
                     var subject = $"[УП ВВА] {_notificationTextService.GetActionInfo(notificationUnit)}";
                     var body = _notificationTextService.GetCommonInfo(notificationUnit);
                     try

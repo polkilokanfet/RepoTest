@@ -88,13 +88,13 @@ namespace NotificationsMainService
                         return;
                     }
 
-                    //Если уведомление не дошло внутри приложения,
-                    //отправляем уведомление по email
-                    var emailAddress = notification.RecipientUser?.Employee.Email;
-                    if (string.IsNullOrEmpty(emailAddress)) return;
-                    var subject = $"[УП ВВА] {_notificationGeneratorService.GetActionInfo(notification)}";
-                    var body = _notificationGeneratorService.GetCommonInfo(notification);
-                    _emailService.SendMail(emailAddress, subject, body);
+                    ////Если уведомление не дошло внутри приложения,
+                    ////отправляем уведомление по email
+                    //var emailAddress = notification.RecipientUser?.Employee.Email;
+                    //if (string.IsNullOrEmpty(emailAddress)) return;
+                    //var subject = $"[УП ВВА] {_notificationGeneratorService.GetActionInfo(notification)}";
+                    //var body = _notificationGeneratorService.GetCommonInfo(notification);
+                    //_emailService.SendMail(emailAddress, subject, body);
                 });
         }
 

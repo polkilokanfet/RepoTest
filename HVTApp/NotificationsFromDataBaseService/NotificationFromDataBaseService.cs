@@ -58,8 +58,12 @@ namespace NotificationsFromDataBaseService
             _notificationGeneratorService.RefreshTargetEntityAction(notificationUnit);
         }
 
+        private bool _checkingProcessInProgress = false;
         public void CheckMessagesInDbAndShowNotifications()
         {
+            if (_checkingProcessInProgress == true) return;
+
+            _checkingProcessInProgress = true;
             using (var unitOfWork = _container.Resolve<IUnitOfWork>())
             {
                 //Есть ли в базе данных сообщения для текущего пользователя в текущей роли?
@@ -71,13 +75,12 @@ namespace NotificationsFromDataBaseService
                 {
                     //показ уведомления
                     this.ShowNotification(notificationUnit);
-
                     //удаление уведомления
-                    unitOfWork.Repository<NotificationUnit>().Delete(notificationUnit);
+                    unitOfWork.RemoveEntity(notificationUnit);
                 }
-
-                unitOfWork.SaveChanges();
             }
+
+            _checkingProcessInProgress = false;
         }
     }
 }
