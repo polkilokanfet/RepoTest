@@ -248,21 +248,30 @@ namespace HVTApp.UI.PriceEngineering
                     var block = getProductService.GetProductBlock(Model.DesignDepartment.ParameterSetsSubTask);
                     if (block == null) return;
 
-                    var unitOfWork = this.Container.Resolve<IUnitOfWork>();
-                    block = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
-                    var product = getProductService.GetProduct(unitOfWork, new Product { ProductBlock = block });
-
-                    var taskViewModel = new TaskViewModelManagerNew(Container, unitOfWork, product)
+                    using (var unitOfWork = Container.Resolve<IUnitOfWorkFactory>().GetUnitOfWork())
                     {
-                        ParentPriceEngineeringTaskId = this.Model.Id,
-                        Amount = 1
-                    };
-                    taskViewModel.Model.Statuses.Where(x => x.StatusEnum == ScriptStep.Create.Value).ForEach(x => x.Moment = DateTime.Now.AddSeconds(-3));
-                    taskViewModel.Model.UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
-                    taskViewModel.FilesTechnicalRequirements.AddRange(this.FilesTechnicalRequirements.Where(file => file.IsActual).Select(fileWrapper => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(fileWrapper.Id))));
+                        block = unitOfWork.Repository<ProductBlock>().GetById(block.Id);
+                        var product = getProductService.GetProduct(unitOfWork, new Product { ProductBlock = block });
 
-                    taskViewModel.StartCommand.ExecuteWithoutConfirmation();
-                    this.ChildPriceEngineeringTasks.Add(new TaskViewModelConstructor(this.Container, taskViewModel.Model.Id, this));
+                        var taskViewModel = new TaskViewModelManagerNew(Container, unitOfWork, product)
+                        {
+                            ParentPriceEngineeringTaskId = this.Model.Id,
+                            Amount = 1
+                        };
+
+                        if (taskViewModel.DesignDepartment == null)
+                        {
+                            messageService.Message("Ошибка", $"Данному продукту не назначено КБ. Обратитесь для назначения к администратору:\n{product.ProductBlock.ParametersOrdered.ToStringEnum("\n")}");
+                            return;
+                        }
+
+                        taskViewModel.Model.Statuses.Where(status => status.StatusEnum == ScriptStep.Create.Value).ForEach(status => status.Moment = DateTime.Now.AddSeconds(-3));
+                        taskViewModel.Model.UserConstructorInitiator = unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id);
+                        taskViewModel.FilesTechnicalRequirements.AddRange(this.FilesTechnicalRequirements.Where(file => file.IsActual).Select(fileWrapper => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(unitOfWork.Repository<PriceEngineeringTaskFileTechnicalRequirements>().GetById(fileWrapper.Id))));
+
+                        taskViewModel.StartCommand.ExecuteWithoutConfirmation();
+                        this.ChildPriceEngineeringTasks.Add(new TaskViewModelConstructor(this.Container, taskViewModel.Model.Id, this));
+                    }
                 },
                 () => IsTarget && IsEditMode);
 
