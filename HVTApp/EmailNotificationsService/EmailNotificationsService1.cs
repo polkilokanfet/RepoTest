@@ -32,7 +32,7 @@ namespace EmailNotificationsService
                 {
                     //отправляем уведомление по email
                     var emailAddress = notificationUnit.RecipientUser?.Employee.Email;
-                    //if (string.IsNullOrEmpty(emailAddress)) continue;
+                    if (string.IsNullOrWhiteSpace(emailAddress)) continue;
                     var subject = $"[УП ВВА] {_notificationTextService.GetActionInfo(notificationUnit)}";
                     var body = _notificationTextService.GetCommonInfo(notificationUnit);
                     try
@@ -40,16 +40,15 @@ namespace EmailNotificationsService
                         _emailService.SendMail(emailAddress, subject, body);
                         notificationUnit.IsSentByEmail = true;
                         SuccessSendNotificationEvent?.Invoke(notificationUnit);
+                        unitOfWork.SaveChanges();
                     }
                     catch (Exception e)
                     {
                         NotSuccessSendNotificationEvent?.Invoke(notificationUnit, e);
                     }
 
-                    Thread.Sleep(new TimeSpan(0, 0, 0, 1));
+                    Thread.Sleep(new TimeSpan(0, 0, 0, 5));
                 }
-
-                unitOfWork.SaveChanges();
             }
         }
 

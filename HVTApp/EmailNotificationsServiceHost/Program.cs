@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Data.Entity;
 using System.Threading;
 using EmailNotificationsService;
@@ -18,6 +17,8 @@ namespace EmailNotificationsServiceHost
 {
     class Program
     {
+        private static readonly int SleepTime = 5;
+
         static void Main(string[] args)
         {
             IUnityContainer container = new UnityContainer();
@@ -36,22 +37,29 @@ namespace EmailNotificationsServiceHost
             var emailNotificationsService = container.Resolve<IEmailNotificationsService>();
             emailNotificationsService.SuccessSendNotificationEvent += unit =>
             {
-                Console.WriteLine($"[{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}] + success: {unit.RecipientUser?.Employee.Email}; {unit.ActionType}");
+                Console.WriteLine("+++++");
+                PrintMsg($"success: {unit.RecipientUser?.Employee.Email}; {unit.ActionType}");
             };
 
             emailNotificationsService.NotSuccessSendNotificationEvent += (unit, exception) =>
             {
-                Console.WriteLine($"[{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}] - exception: {unit.RecipientUser?.Employee.Email}; {unit.ActionType}");
+                Console.WriteLine("-----");
+                PrintMsg($"exception: {unit.RecipientUser?.Employee.Email}; {unit.ActionType}");
                 Console.WriteLine(exception.ToString());
             };
 
             while (true)
             {
+                PrintMsg("Start");
                 emailNotificationsService.SendNotifications();
-                Console.WriteLine($"[{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}] sleep 5 min zZzZ");
-                Thread.Sleep(new TimeSpan(0, 0, 5, 0));
+                PrintMsg($"Finish. Sleep time: {SleepTime} min zZzZ");
+                Thread.Sleep(new TimeSpan(0, 0, SleepTime, 0));
             }
         }
 
+        static void PrintMsg(string msg)
+        {
+            Console.WriteLine($"[{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}] {msg}");
+        }
     }
 }
