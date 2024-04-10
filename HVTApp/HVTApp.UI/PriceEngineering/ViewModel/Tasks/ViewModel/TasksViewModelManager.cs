@@ -39,6 +39,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         public DelegateLogCommand OpenTceCommand { get; }
         public DelegateLogCommand ReplaceProductsCommand { get; }
         public DelegateLogCommand PrintCommand { get; }
+        public DelegateLogCommand LoadAllDesignDepartmentAnswersCommand { get; }
 
         #endregion
 
@@ -275,6 +276,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 {
                     Container.Resolve<IPrintPriceEngineering>().PrintPriceEngineeringTasks(this.TasksWrapper.Model.Id);
                 });
+
+            LoadAllDesignDepartmentAnswersCommand = new DelegateLogCommand();
 
             #endregion
 

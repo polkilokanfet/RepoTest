@@ -152,6 +152,9 @@
     <Compile Include="Services\INotificationMainService.cs" />
     <Compile Include="Services\INotificationsReportService.cs" />
     <Compile Include="Services\IPrintPriceEngineering.cs" />
+    <Compile Include="Services\Storage\FileCopyInfo.cs" />
+    <Compile Include="Services\Storage\IFileCopyInfo.cs" />
+    <Compile Include="Services\Storage\IFileStorage.cs" />
     <Compile Include="SmartEnumeration.cs" />
     <Compile Include="UnitOfWork\IRepository.cs" />
     <Compile Include="IRibbonTabItem.cs" />

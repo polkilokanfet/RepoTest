@@ -7,6 +7,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.Services.Storage;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -45,19 +46,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
 
         private void LoadZipInfo(PriceEngineeringTask priceEngineeringTask)
         {
-            IList<IFileCopyStorage> files = new List<IFileCopyStorage>();
-            foreach (var pet in priceEngineeringTask.GetAllPriceEngineeringTasks().ToList())
-            {
-                foreach (var fileTechnicalRequirement in pet.FilesTechnicalRequirements)
-                {
-                    files.Add(new FileCopyStorage(fileTechnicalRequirement, $"{pet.GetDirectoryName()}-TechReq", GlobalAppProperties.Actual.TechnicalRequrementsFilesPath));
-                }
-
-                foreach (var answer in pet.FilesAnswers)
-                {
-                    files.Add(new FileCopyStorage(answer, $"{pet.GetDirectoryName()}-Answer", GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath));
-                }
-            }
+            var files = priceEngineeringTask.GetFileCopyInfoEntities();
 
             var filesStorageService = Container.Resolve<IFilesStorageService>();
             try
@@ -65,10 +54,10 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 var zipFilePath = filesStorageService.GetZipFolder(files, $"{priceEngineeringTask.Number}_{DateTime.Now.ToShortDateString().ReplaceUncorrectSimbols()}");
                 if (string.IsNullOrEmpty(zipFilePath) == false)
                 {
-                    var rr = Container.Resolve<IPrintPriceEngineering>().PrintPriceEngineeringTask(priceEngineeringTask.Id);
-                    if (string.IsNullOrEmpty(rr) == false)
+                    var historyFilePath = Container.Resolve<IPrintPriceEngineering>().PrintHistoryPriceEngineeringTask(priceEngineeringTask.Id);
+                    if (string.IsNullOrEmpty(historyFilePath) == false)
                     {
-                        filesStorageService.AddFilesToZip(zipFilePath, new []{rr});
+                        filesStorageService.AddFilesToZip(zipFilePath, new []{historyFilePath});
                         System.Diagnostics.Process.Start(Path.GetDirectoryName(zipFilePath));
                     }
                 }
@@ -76,20 +65,6 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             catch (IOException e)
             {
                 Container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.Message);
-            }
-        }
-
-        private class FileCopyStorage : IFileCopyStorage
-        {
-            public IFileStorage File { get; }
-            public string DestinationDirectoryName { get; }
-            public string SourcePath { get; }
-
-            public FileCopyStorage(IFileStorage file, string destinationDirectoryNameName, string sourcePath)
-            {
-                File = file;
-                DestinationDirectoryName = destinationDirectoryNameName;
-                SourcePath = sourcePath;
             }
         }
 

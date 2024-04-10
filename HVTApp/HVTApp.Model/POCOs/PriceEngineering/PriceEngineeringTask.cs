@@ -9,6 +9,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Annotations;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Services.Storage;
 using HVTApp.Model.Services;
 
 namespace HVTApp.Model.POCOs
@@ -582,6 +583,26 @@ namespace HVTApp.Model.POCOs
             return StartMoment.Value < deadline 
                 ? deadline 
                 : StartMoment.Value.AddDays(2);
+        }
+
+        /// <summary>
+        /// Возвращает сущности для копирования файлов
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IFileCopyInfo> GetFileCopyInfoEntities()
+        {
+            foreach (var task in this.GetAllPriceEngineeringTasks().ToList())
+            {
+                foreach (var fileTechnicalRequirement in task.FilesTechnicalRequirements)
+                {
+                    yield return new FileCopyInfoTechnicalSpecification(fileTechnicalRequirement, task.GetDirectoryName(), GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                }
+
+                foreach (var answer in task.FilesAnswers)
+                {
+                    yield return new FileCopyInfoDesignDepartmentAnswer(answer, task.GetDirectoryName(), GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
+                }
+            }
         }
     }
 }

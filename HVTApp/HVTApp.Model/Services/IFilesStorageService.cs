@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using HVTApp.Infrastructure.Services.Storage;
 
 namespace HVTApp.Model.Services
 {
@@ -63,7 +64,13 @@ namespace HVTApp.Model.Services
         /// <returns>Успешно ли прошло копирование</returns>
         bool CopyDirectory(string sourcePath, string destinationPath);
 
-        string GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName);
+        /// <summary>
+        /// Получить архив
+        /// </summary>
+        /// <param name="files">Файлы в архиве</param>
+        /// <param name="zipFileName">Имя архива</param>
+        /// <returns>Полный путь к полученному архиву</returns>
+        string GetZipFolder(IEnumerable<IFileCopyInfo> files, string zipFileName);
 
         void AddFilesToZip(string zipPath, string[] files);
     }

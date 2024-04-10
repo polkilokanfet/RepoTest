@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HVTApp.Model.Services
+namespace HVTApp.Infrastructure.Services.Storage
 {
     public interface IFileStorage
     {

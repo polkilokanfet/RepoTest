@@ -22,7 +22,7 @@ namespace HVTApp.Services.PrintService
             this.PrintPriceEngineeringTasksInformation(Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(id));
         }
 
-        public string PrintPriceEngineeringTask(Guid id, string destDirectory = null, string fileName = null)
+        public string PrintHistoryPriceEngineeringTask(Guid id, string destDirectory = null, string fileName = null)
         {
             destDirectory = destDirectory ?? Path.GetTempPath();
             fileName = fileName ?? Guid.NewGuid().ToString();

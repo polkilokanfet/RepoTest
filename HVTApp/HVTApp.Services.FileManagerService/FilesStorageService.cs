@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.Services.Storage;
 using HVTApp.Model.Services;
 
 namespace HVTApp.Services.FileManagerService
@@ -166,25 +167,34 @@ namespace HVTApp.Services.FileManagerService
             return true;
         }
 
-        public string GetZipFolder(IEnumerable<IFileCopyStorage> files, string zipFileName)
+        /// <summary>
+        /// Получить архив
+        /// </summary>
+        /// <param name="files">Файлы в архиве</param>
+        /// <param name="zipFileName">Имя архива</param>
+        /// <returns>Полный путь к полученному архиву</returns>
+        public string GetZipFolder(IEnumerable<IFileCopyInfo> files, string zipFileName)
         {
+            //выбор пути для сохранения
             var destinationDirectory = this.GetFolderPath();
-            if (string.IsNullOrEmpty(destinationDirectory))
-                return null;
+            if (string.IsNullOrEmpty(destinationDirectory)) return null;
 
-            string tempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            //путь ко временной директории
+            var tempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
 
+            //копирование файлов во временные папки
             foreach (var file in files)
             {
-                var ttp = Path.Combine(tempDirectory, file.DestinationDirectoryName);
-                Directory.CreateDirectory(ttp);
-                this.CopyFileFromStorage(file.File.Id, file.SourcePath, ttp, null, false);
+                var tempFilePath = Path.Combine(tempDirectory, file.DestinationDirectoryPath);
+                Directory.CreateDirectory(tempFilePath);
+                this.CopyFileFromStorage(file.File.Id, file.SourcePath, tempFilePath, null, false);
             }
 
-            var destinationFilePath = Path.Combine(destinationDirectory, $"{zipFileName}.zip");
-            ZipFile.CreateFromDirectory(tempDirectory, destinationFilePath);
+            //получение архива
+            var zipFilePath = Path.Combine(destinationDirectory, $"{zipFileName}.zip");
+            ZipFile.CreateFromDirectory(tempDirectory, zipFilePath);
             Directory.Delete(tempDirectory, true);
-            return destinationFilePath;
+            return zipFilePath;
         }
 
         public void AddFilesToZip(string zipPath, string[] files)
