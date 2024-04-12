@@ -46,7 +46,7 @@ namespace HVTApp.Model.Services
         /// <returns>Путь к скопированному файлу</returns>
         void CopyFilesFromStorage(IEnumerable<IFileStorage> files, string storageDirectoryPath, bool addName = true, bool showTargetDirectory = true);
 
-        string GetFolderPath();
+        string GetDirectoryPath();
 
         /// <summary>
         /// Открыть файл из хранилища.
@@ -69,8 +69,9 @@ namespace HVTApp.Model.Services
         /// </summary>
         /// <param name="files">Файлы в архиве</param>
         /// <param name="zipFileName">Имя архива</param>
+        /// <param name="destinationDirectoryPath">Путь к директории для архива</param>
         /// <returns>Полный путь к полученному архиву</returns>
-        string GetZipFolder(IEnumerable<IFileCopyInfo> files, string zipFileName);
+        string GetZip(IEnumerable<IFileCopyInfo> files, string zipFileName, string destinationDirectoryPath);
 
         void AddFilesToZip(string zipPath, string[] files);
     }

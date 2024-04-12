@@ -6,5 +6,7 @@ namespace HVTApp.Infrastructure.Services.Storage
     {
         Guid Id { get; }
         string Name { get; }
+        DateTime CreationMoment { get; }
+        bool IsActual { get; }
     }
 }

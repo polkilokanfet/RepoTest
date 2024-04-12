@@ -14,20 +14,19 @@ namespace HVTApp.Infrastructure.Services.Storage
         /// <summary>
         /// Путь к файловому хранилищу
         /// </summary>
-        public string SourcePath { get; }
+        public abstract string SourcePath { get; }
 
         /// <summary>
         /// Имя директории назначения
         /// </summary>
-        public string DestinationDirectoryPath => Path.Combine(_destinationDirectory, SubDirectoryName);
+        public string DestinationDirectoryPath => Path.Combine(_destinationDirectory, this.FileCopyInfoType.ToString());
 
-        public abstract string SubDirectoryName { get; }
+        public abstract FileCopyInfoType FileCopyInfoType { get; }
 
-        protected FileCopyInfo(IFileStorage file, string destinationDirectory, string sourcePath)
+        protected FileCopyInfo(IFileStorage file, string destinationDirectory)
         {
             _destinationDirectory = destinationDirectory;
             File = file;
-            SourcePath = sourcePath;
         }
 
         public override bool Equals(object obj)
@@ -51,21 +50,9 @@ namespace HVTApp.Infrastructure.Services.Storage
         }
     }
 
-    public class FileCopyInfoTechnicalSpecification : FileCopyInfo
+    public enum FileCopyInfoType
     {
-        public override string SubDirectoryName => "TechnicalSpecification";
-
-        public FileCopyInfoTechnicalSpecification(IFileStorage file, string destinationDirectory, string sourcePath) : base(file, destinationDirectory, sourcePath)
-        {
-        }
-    }
-
-    public class FileCopyInfoDesignDepartmentAnswer : FileCopyInfo
-    {
-        public override string SubDirectoryName => "DesignDepartmentAnswer";
-
-        public FileCopyInfoDesignDepartmentAnswer(IFileStorage file, string destinationDirectory, string sourcePath) : base(file, destinationDirectory, sourcePath)
-        {
-        }
+        TechnicalSpecification,
+        DesignDepartmentAnswer
     }
 }

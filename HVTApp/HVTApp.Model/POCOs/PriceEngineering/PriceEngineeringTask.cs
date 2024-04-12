@@ -11,6 +11,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services.Storage;
 using HVTApp.Model.Services;
+using HVTApp.Model.Services.Storage;
 
 namespace HVTApp.Model.POCOs
 {
@@ -485,11 +486,6 @@ namespace HVTApp.Model.POCOs
             };
         }
 
-        public string GetDirectoryName()
-        {
-            return $"{this.Number:D4}";
-        }
-
         /// <summary>
         /// Сообщения + "сообщения-статусы"
         /// </summary>
@@ -595,14 +591,19 @@ namespace HVTApp.Model.POCOs
             {
                 foreach (var fileTechnicalRequirement in task.FilesTechnicalRequirements)
                 {
-                    yield return new FileCopyInfoTechnicalSpecification(fileTechnicalRequirement, task.GetDirectoryName(), GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                    yield return new FileCopyInfoTechnicalSpecification(fileTechnicalRequirement, task.GetDirectoryName());
                 }
 
                 foreach (var answer in task.FilesAnswers)
                 {
-                    yield return new FileCopyInfoDesignDepartmentAnswer(answer, task.GetDirectoryName(), GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath);
+                    yield return new FileCopyInfoDesignDepartmentAnswer(answer, task.GetDirectoryName());
                 }
             }
+        }
+
+        private string GetDirectoryName()
+        {
+            return $"[{this.Number:D4}] {this.ProductBlock.Designation.ReplaceUncorrectSimbols().LimitLength(15)}";
         }
     }
 }

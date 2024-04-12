@@ -287,7 +287,7 @@ namespace HVTApp.UI.PriceEngineering
             LoadJsonFileCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var fPath = Container.Resolve<IFilesStorageService>().GetFolderPath();
+                    var fPath = Container.Resolve<IFilesStorageService>().GetDirectoryPath();
                     var blocks = Container.Resolve<IJsonService>().ReadJsonFile<List<PriceEngineeringTaskProductBlockAdded>>($"{fPath}\\test.json");
                     this.ProductBlocksAdded.AddRange(blocks.Select(x => new TaskProductBlockAddedWrapperConstructor(x)));
                 });

@@ -467,9 +467,10 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopProductionRequest.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopProductionRequestConfirm.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopProductionRequestReject.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\LoadHistoryTaskCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelBackManagerBoss.cs" />
-    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelLoadFilesCommand.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelWithLoadHistoryCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerNew.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelManagerOld.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBaseStartable.cs" />

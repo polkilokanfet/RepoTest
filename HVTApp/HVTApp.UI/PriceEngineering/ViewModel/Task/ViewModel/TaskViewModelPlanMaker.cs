@@ -13,7 +13,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class TaskViewModelPlanMaker : TaskViewModelLoadFilesCommand
+    public class TaskViewModelPlanMaker : TaskViewModelWithLoadHistoryCommand
     {
         private bool _isNotUniqueOrderData = true;
         private bool _isFillingRest;

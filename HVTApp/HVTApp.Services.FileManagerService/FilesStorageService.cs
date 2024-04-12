@@ -50,7 +50,7 @@ namespace HVTApp.Services.FileManagerService
 
         public string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null, bool showTargetDirectory = true)
         {
-            string targetDirectoryPath = this.GetFolderPath();
+            string targetDirectoryPath = this.GetDirectoryPath();
             return string.IsNullOrEmpty(targetDirectoryPath) 
                 ? string.Empty 
                 : this.CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName, showTargetDirectory);
@@ -104,7 +104,7 @@ namespace HVTApp.Services.FileManagerService
 
         public void CopyFilesFromStorage(IEnumerable<IFileStorage> files, string storageDirectoryPath, bool addName = true, bool showTargetDirectory = true)
         {
-            var targetDirectory = this.GetFolderPath();
+            var targetDirectory = this.GetDirectoryPath();
             if (string.IsNullOrEmpty(targetDirectory))
                 return;
 
@@ -123,7 +123,7 @@ namespace HVTApp.Services.FileManagerService
             }
         }
 
-        public string GetFolderPath()
+        public string GetDirectoryPath()
         {
             using (var fdb = new FolderBrowserDialog())
             {
@@ -172,12 +172,12 @@ namespace HVTApp.Services.FileManagerService
         /// </summary>
         /// <param name="files">Файлы в архиве</param>
         /// <param name="zipFileName">Имя архива</param>
+        /// <param name="destinationDirectoryPath">Путь к директории для архива</param>
         /// <returns>Полный путь к полученному архиву</returns>
-        public string GetZipFolder(IEnumerable<IFileCopyInfo> files, string zipFileName)
+        public string GetZip(IEnumerable<IFileCopyInfo> files, string zipFileName, string destinationDirectoryPath)
         {
-            //выбор пути для сохранения
-            var destinationDirectory = this.GetFolderPath();
-            if (string.IsNullOrEmpty(destinationDirectory)) return null;
+            if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+                throw new ArgumentException(nameof(destinationDirectoryPath));
 
             //путь ко временной директории
             var tempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
@@ -191,7 +191,7 @@ namespace HVTApp.Services.FileManagerService
             }
 
             //получение архива
-            var zipFilePath = Path.Combine(destinationDirectory, $"{zipFileName}.zip");
+            var zipFilePath = Path.Combine(destinationDirectoryPath, $"{zipFileName}.zip");
             ZipFile.CreateFromDirectory(tempDirectory, zipFilePath);
             Directory.Delete(tempDirectory, true);
             return zipFilePath;

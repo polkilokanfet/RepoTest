@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Media;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.Services.Storage;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.PrintService.Extensions;
 using Infragistics.Documents.Word;
@@ -79,11 +80,7 @@ namespace HVTApp.Services.PrintService
             docWriter.PrintParagraph($"Блок: {priceEngineeringTask.ProductBlock}", null, fontBold);
             docWriter.PrintParagraph($"Исполнитель от ОГК: {priceEngineeringTask.UserConstructor?.Employee.Person}");
 
-
-            #region Таблица файлов ТЗ
-
-            docWriter.PrintParagraph("Файлы технического задания от ОП ВВА:");
-
+            var files = priceEngineeringTask.GetFileCopyInfoEntities().ToList();
             var colorTableHeader = Colors.AliceBlue;
 
             var tableBorderProperties = GetTableBorderProperties(docWriter);
@@ -94,35 +91,54 @@ namespace HVTApp.Services.PrintService
 
             var tableProperties = GetTableProperties(docWriter, tableBorderProperties);
             tableProperties.Alignment = ParagraphAlignment.Left;
-            docWriter.StartTable(3, tableProperties);
 
-            tableRowProperties.IsHeaderRow = true;
-            tableCellProperties.BackColor = colorTableHeader;
             var paragraphProps = docWriter.CreateParagraphProperties();
             paragraphProps.Alignment = ParagraphAlignment.Left;
 
-            docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
-                "Дата", "Название файла", $"Id файла (в папке \"{priceEngineeringTask.GetDirectoryName()}-TechReq\")");
+            #region Таблица файлов ТЗ
 
-            // Reset the cell properties, so that the cell properties are different from the header cells.
-            tableCellProperties.Reset();
-            tableCellProperties.VerticalAlignment = TableCellVerticalAlignment.Top;
-            // Reset the row properties
-            tableRowProperties.Reset();
+            var filesTechnicalSpecification = files
+                .Where(fileCopyInfo => fileCopyInfo.FileCopyInfoType == FileCopyInfoType.TechnicalSpecification)
+                .Where(fileCopyInfo => fileCopyInfo.File.IsActual)
+                .ToList();
 
-            foreach (var file in priceEngineeringTask.FilesTechnicalRequirements.Where(x => x.IsActual).OrderBy(x => x.CreationMoment))
+            if (filesTechnicalSpecification.Any())
             {
-                docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, null,
-                    $"{file.CreationMoment.ToShortDateString()}", $"{file.Name}", $"{file.Id}");
-            }
+                docWriter.PrintParagraph("Файлы технического задания от ОП ВВА:");
 
-            docWriter.EndTable();
+                docWriter.StartTable(3, tableProperties);
+
+                tableRowProperties.IsHeaderRow = true;
+                tableCellProperties.BackColor = colorTableHeader;
+
+                docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
+                    "Дата", "Название файла", $"Id файла (путь в архиве: [{filesTechnicalSpecification.First().DestinationDirectoryPath}])");
+
+                // Reset the cell properties, so that the cell properties are different from the header cells.
+                tableCellProperties.Reset();
+                tableCellProperties.VerticalAlignment = TableCellVerticalAlignment.Top;
+                // Reset the row properties
+                tableRowProperties.Reset();
+
+                foreach (var file in filesTechnicalSpecification.Select(x => x.File).OrderBy(x => x.CreationMoment))
+                {
+                    docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, null,
+                        $"{file.CreationMoment.ToShortDateString()}", $"{file.Name}", $"{file.Id}");
+                }
+
+                docWriter.EndTable();
+            }
 
             #endregion
 
             #region Таблица файлов ОГК
 
-            if (priceEngineeringTask.FilesAnswers.Any(x => x.IsActual))
+            var filesDesignDepartmentAnswer = files
+                .Where(fileCopyInfo => fileCopyInfo.FileCopyInfoType == FileCopyInfoType.DesignDepartmentAnswer)
+                .Where(fileCopyInfo => fileCopyInfo.File.IsActual)
+                .ToList();
+
+            if (filesDesignDepartmentAnswer.Any())
             {
                 docWriter.PrintParagraph("Файлы-ответы ОГК НВВА:");
 
@@ -135,7 +151,7 @@ namespace HVTApp.Services.PrintService
                 paragraphProps.Alignment = ParagraphAlignment.Left;
 
                 docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
-                    "Дата", "Название файла", $"Id файла (в папке \"{priceEngineeringTask.GetDirectoryName()}-Answer\")");
+                    "Дата", "Название файла", $"Id файла (в папке \"{filesDesignDepartmentAnswer.First().DestinationDirectoryPath}\")");
 
                 // Reset the cell properties, so that the cell properties are different from the header cells.
                 tableCellProperties.Reset();
@@ -143,7 +159,7 @@ namespace HVTApp.Services.PrintService
                 // Reset the row properties
                 tableRowProperties.Reset();
 
-                foreach (var file in priceEngineeringTask.FilesAnswers.Where(x => x.IsActual).OrderBy(x => x.CreationMoment))
+                foreach (var file in filesDesignDepartmentAnswer.Select(x => x.File).OrderBy(x => x.CreationMoment))
                 {
                     docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, null,
                         $"{file.CreationMoment.ToShortDateString()}", $"{file.Name}", $"{file.Id}");
@@ -151,7 +167,6 @@ namespace HVTApp.Services.PrintService
 
                 docWriter.EndTable();
             }
-
 
             #endregion
 

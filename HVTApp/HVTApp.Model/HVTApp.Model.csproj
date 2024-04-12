@@ -166,6 +166,8 @@
     <Compile Include="Price\PriceOfUnit.cs" />
     <Compile Include="Price\PriceStub.cs" />
     <Compile Include="Price\IProfitability.cs" />
+    <Compile Include="Services\Storage\FileCopyInfoDesignDepartmentAnswer.cs" />
+    <Compile Include="Services\Storage\FileCopyInfoTechnicalSpecification.cs" />
     <Compile Include="Services\FileNotSingleFoundException.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IFilesStorageService.cs" />

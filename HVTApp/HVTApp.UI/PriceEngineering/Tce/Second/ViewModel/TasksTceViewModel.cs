@@ -51,7 +51,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             var filesStorageService = Container.Resolve<IFilesStorageService>();
             try
             {
-                var zipFilePath = filesStorageService.GetZipFolder(files, $"{priceEngineeringTask.Number}_{DateTime.Now.ToShortDateString().ReplaceUncorrectSimbols()}");
+                var zipFilePath = filesStorageService.GetZip(files, $"{priceEngineeringTask.Number}_{DateTime.Now.ToShortDateString().ReplaceUncorrectSimbols()}");
                 if (string.IsNullOrEmpty(zipFilePath) == false)
                 {
                     var historyFilePath = Container.Resolve<IPrintPriceEngineering>().PrintHistoryPriceEngineeringTask(priceEngineeringTask.Id);

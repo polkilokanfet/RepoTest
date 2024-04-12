@@ -8,7 +8,7 @@
         IFileStorage File { get; }
 
         /// <summary>
-        /// Имя дериктории назначения
+        /// Имя директории назначения
         /// </summary>
         string DestinationDirectoryPath { get; }
 
@@ -16,5 +16,7 @@
         /// Путь к файловому хранилищу
         /// </summary>
         string SourcePath { get; }
+
+        FileCopyInfoType FileCopyInfoType { get; }
     }
 }
