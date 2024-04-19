@@ -56,7 +56,7 @@ namespace HVTApp.Services.FileManagerService
                 : this.CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName, showTargetDirectory);
         }
 
-        public string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string targetDirectoryPath, string addToFileName = null, bool showTargetDirectory = true)
+        public string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string targetDirectoryPath, string addToFileName = null, bool showTargetDirectory = true, bool createDirectoryIfNotExists = false)
         {
             //проверка наличия файла
             FileInfo fileInfo;
@@ -85,6 +85,11 @@ namespace HVTApp.Services.FileManagerService
                 return string.Empty;
             }
 
+            if (createDirectoryIfNotExists &&
+                Directory.Exists(targetDirectoryPath) == false)
+            {
+                Directory.CreateDirectory(targetDirectoryPath);
+            }
 
             var fileName = $"{fileId}";
             if (!string.IsNullOrWhiteSpace(addToFileName))

@@ -582,10 +582,26 @@ namespace HVTApp.Model.POCOs
         }
 
         /// <summary>
-        /// Возвращает сущности для копирования файлов
+        /// Возвращает сущности для копирования файлов (этой задачи)
         /// </summary>
         /// <returns></returns>
         public IEnumerable<IFileCopyInfo> GetFileCopyInfoEntities()
+        {
+            foreach (var fileTechnicalRequirement in this.FilesTechnicalRequirements)
+            {
+                yield return new FileCopyInfoTechnicalSpecification(fileTechnicalRequirement, this.GetDirectoryName());
+            }
+
+            foreach (var answer in this.FilesAnswers)
+            {
+                yield return new FileCopyInfoDesignDepartmentAnswer(answer, this.GetDirectoryName());
+            }
+        }
+        /// <summary>
+        /// Возвращает сущности для копирования файлов (этой задачи и вложенных)
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IFileCopyInfo> GetFileCopyInfoEntitiesAll()
         {
             foreach (var task in this.GetAllPriceEngineeringTasks().ToList())
             {

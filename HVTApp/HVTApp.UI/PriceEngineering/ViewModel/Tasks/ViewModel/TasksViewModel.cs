@@ -86,6 +86,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         public DelegateLogCommand OpenFileTechnicalRequirementsCommand { get; protected set; }
 
+        /// <summary>
+        /// Загрузка истории проработки всего оборудования из сборки задач
+        /// </summary>
+        public LoadHistoryTasksCommand LoadHistoryTasksCommand { get; }
+
         #endregion
 
         #region Events
@@ -122,6 +127,12 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         container.Resolve<IMessageService>().Message("Ошибка при открытии файла ТЗ", e.PrintAllExceptions());
                     }
                 });
+
+            LoadHistoryTasksCommand = new LoadHistoryTasksCommand(
+                () => this.TasksWrapper.Model,
+                container.Resolve<IFilesStorageService>(),
+                container.Resolve<IPrintPriceEngineering>(),
+                container.Resolve<IMessageService>());
         }
 
         #region Load

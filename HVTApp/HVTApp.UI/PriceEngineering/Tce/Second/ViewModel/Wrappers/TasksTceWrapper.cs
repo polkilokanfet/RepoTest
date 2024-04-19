@@ -91,7 +91,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             if (GlobalAppProperties.UserIsBackManager)
             {
                 if (TceNumber == null)
-                    yield return new ValidationResult("TceNumber is required", new[] { nameof(TceNumber) });
+                    yield return new ValidationResult($"{nameof(TceNumber)} is required", new[] { nameof(TceNumber) });
             }
         }
     }

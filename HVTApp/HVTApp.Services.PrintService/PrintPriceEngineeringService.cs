@@ -33,6 +33,8 @@ namespace HVTApp.Services.PrintService
             docWriter.StartDocument();
 
             docWriter.PrintParagraph("Информация о технической проработке задачи в УП ВВА.");
+            docWriter.PrintParagraph($"Момент выгрузки справки: {DateTime.Today.ToShortDateString()} {DateTime.Now.ToShortTimeString()}.");
+
             this.PrintPriceEngineeringTaskInformation(Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(id), docWriter);
 
             docWriter.EndDocument();
@@ -76,6 +78,8 @@ namespace HVTApp.Services.PrintService
                 docWriter.PrintParagraph($"Количество: {tsks.ChildPriceEngineeringTasks.First().SalesUnits.Count}");
                 docWriter.PrintParagraph($"Номер задачи в ТСЕ: {tsks.TceNumber}");
             }
+
+            docWriter.PrintParagraph("----------");
             docWriter.PrintParagraph($"Id задачи в УП ВВА: {priceEngineeringTask.Number:D4}");
             docWriter.PrintParagraph($"Блок: {priceEngineeringTask.ProductBlock}", null, fontBold);
             docWriter.PrintParagraph($"Исполнитель от ОГК: {priceEngineeringTask.UserConstructor?.Employee.Person}");
@@ -120,10 +124,10 @@ namespace HVTApp.Services.PrintService
                 // Reset the row properties
                 tableRowProperties.Reset();
 
-                foreach (var file in filesTechnicalSpecification.Select(x => x.File).OrderBy(x => x.CreationMoment))
+                foreach (var fileCopyInfo in filesTechnicalSpecification.OrderBy(x => x.File.CreationMoment))
                 {
                     docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, null,
-                        $"{file.CreationMoment.ToShortDateString()}", $"{file.Name}", $"{file.Id}");
+                        $"{fileCopyInfo.File.CreationMoment.ToShortDateString()} {fileCopyInfo.File.CreationMoment.ToShortTimeString()}", $"{fileCopyInfo.File.Name}", $"{fileCopyInfo.File.Id}");
                 }
 
                 docWriter.EndTable();
@@ -252,7 +256,7 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-
+            docWriter.PrintParagraph("");
             if (priceEngineeringTask.ChildPriceEngineeringTasks.Any())
             {
                 docWriter.PrintParagraph("Вложенные блоки:");

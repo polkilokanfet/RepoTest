@@ -35,23 +35,22 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             this.Item.LoadFilesRequest +=
                 task =>
                 {
-                    this.LoadZipInfo(task);
-                    //var files = task.FilesTechnicalRequirements.Where(x => x.IsActual).ToList();
-                    //if (files.Any())
-                    //    Container.Resolve<IFilesStorageService>().CopyFilesFromStorage(files, GlobalAppProperties.Actual.TechnicalRequrementsFilesPath);
+                    var directoryPath = this.Container.Resolve<IFilesStorageService>().GetDirectoryPath();
+                    if (directoryPath == null) return;
+                    this.LoadZipInfo(task, directoryPath);
                 };
 
             base.AfterLoading();
         }
 
-        private void LoadZipInfo(PriceEngineeringTask priceEngineeringTask)
+        private void LoadZipInfo(PriceEngineeringTask priceEngineeringTask, string destinationDirectoryPath)
         {
-            var files = priceEngineeringTask.GetFileCopyInfoEntities();
+            var files = priceEngineeringTask.GetFileCopyInfoEntitiesAll();
 
             var filesStorageService = Container.Resolve<IFilesStorageService>();
             try
             {
-                var zipFilePath = filesStorageService.GetZip(files, $"{priceEngineeringTask.Number}_{DateTime.Now.ToShortDateString().ReplaceUncorrectSimbols()}");
+                var zipFilePath = filesStorageService.GetZip(files, $"{priceEngineeringTask.Number}_{DateTime.Now.ToShortDateString().ReplaceUncorrectSimbols()}", destinationDirectoryPath);
                 if (string.IsNullOrEmpty(zipFilePath) == false)
                 {
                     var historyFilePath = Container.Resolve<IPrintPriceEngineering>().PrintHistoryPriceEngineeringTask(priceEngineeringTask.Id);

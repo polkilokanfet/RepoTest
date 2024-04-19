@@ -12,7 +12,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering
 {
-    public class TaskViewModelBackManager : TaskViewModelWithLoadHistoryCommand
+    public class TaskViewModelBackManager : TaskViewModel
     {
         public TasksWrapperBackManager TasksWrapperBackManager { get; }
 

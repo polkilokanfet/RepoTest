@@ -13,7 +13,6 @@
         <converters:PriceEngineeringTaskViewModelIsExpendedConverter x:Key="IsExpendedConverter" />
         <converters:ToFacilityOwnerConverter x:Key="ToFacilityOwnerConverter" />
     </UserControl.Resources>
-
     
     <Border 
         DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
@@ -108,7 +107,10 @@
                             </Grid>
 
                             <!--Team Center-->
-                            <GroupBox Grid.Column="1" Background="Transparent" Margin="5 0" MaxHeight="90">
+                            <GroupBox Grid.Column="1" 
+                                      Background="Transparent" 
+                                      Margin="5 0" MaxHeight="90"
+                                      VerticalAlignment="Top">
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>
                                         <Label Content="Team Center"/>
@@ -135,8 +137,19 @@
                                 </Grid>
                             </GroupBox>
 
-                            <!--Область кнопок-->
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Content="{Binding ButtonsArea, ElementName=Root}"/>
+                            <!--Область кнопок справа-->
+                            <Grid Grid.Column="2"
+                                  VerticalAlignment="Top" 
+                                  HorizontalAlignment="Center"
+                                  Margin="5 10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Button Grid.Row="0" Content="История" Command="{Binding LoadFilesCommand}"/>
+                                <ContentPresenter Grid.Row="1" Content="{Binding ButtonsArea, ElementName=Root}"/>
+                            </Grid>
 
                         </Grid>
                     </Border>

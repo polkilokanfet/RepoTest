@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -106,6 +107,11 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand SaveCommand { get; private set; }
 
         public DelegateLogCommand ShowReportCommand { get; private set; }
+
+        /// <summary>
+        /// «агрузка истории проработки задачи
+        /// </summary>
+        public ICommandRaiseCanExecuteChanged LoadFilesCommand { get; private set; }
 
         #endregion
 
@@ -228,6 +234,12 @@ namespace HVTApp.UI.PriceEngineering
                     //    Container.Resolve<IJsonService>().WriteJsonFile(blocks, Path.Combine(@"D:\test.json"));
                     //}
                 });
+
+            LoadFilesCommand = new LoadHistoryTaskCommand(
+                this,
+                Container.Resolve<IFilesStorageService>(),
+                Container.Resolve<IPrintPriceEngineering>(),
+                Container.Resolve<IMessageService>());
 
             #endregion
 
