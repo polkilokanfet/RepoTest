@@ -36,7 +36,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 task =>
                 {
                     var directoryPath = this.Container.Resolve<IFilesStorageService>().GetDirectoryPath();
-                    if (directoryPath == null) return;
+                    if (string.IsNullOrEmpty(directoryPath)) return;
                     this.LoadZipInfo(task, directoryPath);
                 };
 

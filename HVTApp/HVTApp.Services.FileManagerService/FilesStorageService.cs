@@ -135,6 +135,9 @@ namespace HVTApp.Services.FileManagerService
                 var result = fdb.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fdb.SelectedPath))
                 {
+                    if (Directory.Exists(fdb.SelectedPath) == false)
+                        Directory.CreateDirectory(fdb.SelectedPath);
+
                     return fdb.SelectedPath;
                 }
 

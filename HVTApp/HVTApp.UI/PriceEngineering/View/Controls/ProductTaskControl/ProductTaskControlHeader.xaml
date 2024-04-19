@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Converters"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <UserControl.Resources>
@@ -147,7 +148,12 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <Button Grid.Row="0" Content="История" Command="{Binding LoadFilesCommand}"/>
+                                <Button Grid.Row="0" Command="{Binding LoadFilesCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Download"/>
+                                        <TextBlock Text="История"/>
+                                    </StackPanel>
+                                </Button>
                                 <ContentPresenter Grid.Row="1" Content="{Binding ButtonsArea, ElementName=Root}"/>
                             </Grid>
 

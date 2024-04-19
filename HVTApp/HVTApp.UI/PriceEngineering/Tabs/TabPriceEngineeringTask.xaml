@@ -64,4 +64,10 @@
         <infRib:CheckBoxTool Caption="Все задачи" IsChecked="{Binding AllTasksAreVisible}"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="История">
+        <infRib:ButtonTool 
+            Caption="Выгрузить" 
+            Command="{Binding LoadHistoryTasksCommand}"/>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

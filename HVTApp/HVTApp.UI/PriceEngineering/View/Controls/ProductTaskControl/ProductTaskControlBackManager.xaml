@@ -37,12 +37,12 @@
                         </StackPanel>
                     </Button>
 
-                    <controls:ButtonIsVisibleWhenCanExecute Command="{Binding LoadFilesCommand}">
+                    <!--<controls:ButtonIsVisibleWhenCanExecute Command="{Binding LoadFilesCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="Download"/>
                             <TextBlock Text="Файлы"/>
                         </StackPanel>
-                    </controls:ButtonIsVisibleWhenCanExecute>
+                    </controls:ButtonIsVisibleWhenCanExecute>-->
                 </StackPanel>
             </Grid>
         </view:ProductTaskControlHeader.ButtonsArea>
