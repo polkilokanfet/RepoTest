@@ -337,10 +337,31 @@ namespace HVTApp.Model.POCOs
             {
                 yield return this;
             }
-            
+
             foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
             {
                 foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForWork(user))
+                {
+                    yield return priceEngineeringTask;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Вернуть все задачи, которые проверяет данный User
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForInspect(User user)
+        {
+            if (Equals(user.Id, this.UserConstructorInspector?.Id))
+            {
+                yield return this;
+            }
+
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForInspect(user))
                 {
                     yield return priceEngineeringTask;
                 }

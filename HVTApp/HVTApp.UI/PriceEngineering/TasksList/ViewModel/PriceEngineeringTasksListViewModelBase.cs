@@ -74,6 +74,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     if (parameter != null)
                     {
                         var parameters = new NavigationParameters {{nameof(PriceEngineeringTasks), parameter}};
+
                         switch (GlobalAppProperties.User.RoleCurrent)
                         {
                             case Role.SalesManager:
@@ -81,8 +82,26 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                 break;
 
                             case Role.Constructor:
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
+                            {
+                                if (SelectedItem is TTasks tt)
+                                {
+                                    if (tt.Entity.GetSuitableTasksForInspect(GlobalAppProperties.User).Any())
+                                    {
+                                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewInspector>(parameters);
+                                    }
+                                }
+                                else if (SelectedItem is TTask t)
+                                {
+                                    if (t.Entity.UserConstructor?.Id != GlobalAppProperties.User.Id &&
+                                        t.Entity.UserConstructorInspector?.Id == GlobalAppProperties.User.Id)
+                                    {
+                                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewInspector>(parameters);
+                                    }
+                                }
+                                else
+                                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
                                 break;
+                            }
 
                             case Role.BackManager:
                                 RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManager>(parameters);
