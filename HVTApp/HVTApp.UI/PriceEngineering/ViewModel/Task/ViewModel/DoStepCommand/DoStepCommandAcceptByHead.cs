@@ -8,7 +8,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
     public class DoStepCommandAcceptByHead: DoStepCommand<TaskViewModelDesignDepartmentHead>
     {
-        protected override ScriptStep Step => ScriptStep.VerificationAcceptByHead;
+        protected override ScriptStep Step => ScriptStep.VerificationAcceptByDesignDepartment;
         protected override string ConfirmationMessage => "Вы уверены, что хотите принять результаты проработки?";
 
         public DoStepCommandAcceptByHead(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)
@@ -36,7 +36,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
-            ViewModel.Statuses.Add(ScriptStep.VerificationAcceptByHead);
+            ViewModel.Statuses.Add(ScriptStep.VerificationAcceptByDesignDepartment);
             ViewModel.Statuses.Add(ScriptStep.FinishByConstructor);
             ViewModel.SaveCommand.Execute();
             this.RaiseCanExecuteChanged();

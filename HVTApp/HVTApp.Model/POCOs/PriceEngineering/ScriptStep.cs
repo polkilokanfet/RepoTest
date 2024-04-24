@@ -83,9 +83,9 @@ namespace HVTApp.Model.POCOs
         public static readonly ScriptStep VerificationRequestByConstructor = new VerificationRequestByConstructorStep();
 
         /// <summary>
-        /// Руководитель согласовал проработку конструктору
+        /// Проработка проверена и согласована КБ (руководителем или проверяющим)
         /// </summary>
-        public static readonly ScriptStep VerificationAcceptByHead = new VerificationAcceptByHeadStep();
+        public static readonly ScriptStep VerificationAcceptByDesignDepartment = new VerificationAcceptByHeadStep();
 
         /// <summary>
         /// Руководитель отклонил проработку конструктору
@@ -194,7 +194,7 @@ namespace HVTApp.Model.POCOs
                 RejectByConstructor,
                 FinishByConstructor,
                 VerificationRequestByConstructor,
-                VerificationAcceptByHead,
+                VerificationAcceptByDesignDepartment,
                 VerificationRejectByHead,
                 Accept, 
                 LoadToTceStart,
@@ -216,7 +216,7 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 FinishByConstructor,
-                VerificationAcceptByHead
+                VerificationAcceptByDesignDepartment
             };
 
             protected override IEnumerable<Role> RolesForShow => new[]
@@ -258,7 +258,7 @@ namespace HVTApp.Model.POCOs
                 Start,
                 RejectByManager,
                 VerificationRejectByHead,
-                VerificationAcceptByHead
+                VerificationAcceptByDesignDepartment
             };
 
             protected override IEnumerable<Role> RolesForShow => new[]
@@ -278,7 +278,7 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 FinishByConstructor,
-                VerificationAcceptByHead
+                VerificationAcceptByDesignDepartment
             };
 
             protected override IEnumerable<Role> RolesForShow => new List<Role>();

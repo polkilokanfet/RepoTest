@@ -172,7 +172,7 @@ namespace HVTApp.Model.POCOs
                     ScriptStep.RejectByConstructor,
                     ScriptStep.FinishByConstructor,
                     ScriptStep.VerificationRequestByConstructor,
-                    ScriptStep.VerificationAcceptByHead,
+                    ScriptStep.VerificationAcceptByDesignDepartment,
                     ScriptStep.Accept,
                     ScriptStep.LoadToTceStart,
                     ScriptStep.LoadToTceFinish,
@@ -533,7 +533,7 @@ namespace HVTApp.Model.POCOs
         private static readonly List<ScriptStep> StatusesFinishedByDesignDepartment = new List<ScriptStep>
         {
             ScriptStep.FinishByConstructor,
-            ScriptStep.VerificationAcceptByHead,
+            ScriptStep.VerificationAcceptByDesignDepartment,
             ScriptStep.Accept,
             ScriptStep.LoadToTceStart,
             ScriptStep.LoadToTceFinish,
@@ -569,7 +569,7 @@ namespace HVTApp.Model.POCOs
                 return this.Statuses
                     .Where(status => 
                         status.StatusEnum == ScriptStep.FinishByConstructor.Value ||
-                        status.StatusEnum == ScriptStep.VerificationAcceptByHead.Value ||
+                        status.StatusEnum == ScriptStep.VerificationAcceptByDesignDepartment.Value ||
                         status.StatusEnum == ScriptStep.RejectByHead.Value ||
                         status.StatusEnum == ScriptStep.RejectByConstructor.Value)
                     .OrderBy(status => status.Moment)

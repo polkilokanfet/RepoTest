@@ -55,7 +55,7 @@ namespace HVTApp.UI.PriceEngineering
             IsTarget &&
             !Status.Equals(ScriptStep.RejectByHead) &&
             !Status.Equals(ScriptStep.FinishByConstructor) &&
-            !Status.Equals(ScriptStep.VerificationAcceptByHead) &&
+            !Status.Equals(ScriptStep.VerificationAcceptByDesignDepartment) &&
             !Status.Equals(ScriptStep.VerificationRequestByConstructor) &&
             !Status.Equals(ScriptStep.Create) &&
             !Status.Equals(ScriptStep.Stop) &&
