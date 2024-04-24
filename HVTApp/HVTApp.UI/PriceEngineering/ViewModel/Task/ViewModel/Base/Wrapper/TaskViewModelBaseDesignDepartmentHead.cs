@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
-    public abstract class TaskViewModelBaseDesignDepartmentHead : TaskViewModel
+    public abstract class TaskViewModelBaseDesignDepartmentHead : TaskViewModelBaseInspector
     {
         #region SimpleProperties
 
