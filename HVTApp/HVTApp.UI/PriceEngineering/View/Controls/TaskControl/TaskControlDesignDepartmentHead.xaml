@@ -14,7 +14,7 @@
             <Button Command="{Binding InstructInspectorCommand}">
                 <StackPanel Orientation="Horizontal">
                     <fa:FontAwesome Icon="UserOutline"  Foreground="Black"/>
-                    <TextBlock Text="Отклонить менеджеру"/>
+                    <TextBlock Text="Поручить проверку"/>
                 </StackPanel>
             </Button>
         </view:TaskControl.AreaActionButtonsTop>

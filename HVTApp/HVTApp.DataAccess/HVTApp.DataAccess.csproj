@@ -494,6 +494,10 @@
     <Compile Include="Migrations\202403280642355_NotificationUnitUpdate.designer.cs">
       <DependentUpon>202403280642355_NotificationUnitUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404240709370_InspectorInPriceEngineeringTask.cs" />
+    <Compile Include="Migrations\202404240709370_InspectorInPriceEngineeringTask.designer.cs">
+      <DependentUpon>202404240709370_InspectorInPriceEngineeringTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -815,6 +819,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403280642355_NotificationUnitUpdate.resx">
       <DependentUpon>202403280642355_NotificationUnitUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404240709370_InspectorInPriceEngineeringTask.resx">
+      <DependentUpon>202404240709370_InspectorInPriceEngineeringTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
