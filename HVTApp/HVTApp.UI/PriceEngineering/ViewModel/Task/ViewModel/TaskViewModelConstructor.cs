@@ -39,7 +39,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     ScriptStep.Start,
                     ScriptStep.RejectByManager,
-                    ScriptStep.VerificationRejectByHead
+                    ScriptStep.VerificationReject
                 };
 
                 return steps.Contains(Status);

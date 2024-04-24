@@ -10,7 +10,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
     public abstract class DoStepCommandAcceptByDesignDepartmentBase<TViewModel> : DoStepCommand<TViewModel> 
         where TViewModel : TaskViewModelBaseInspector
     {
-        protected override ScriptStep Step => ScriptStep.VerificationAcceptByDesignDepartment;
+        protected override ScriptStep Step => ScriptStep.VerificationAccept;
         protected override string ConfirmationMessage => "Вы уверены, что хотите принять результаты проработки?";
 
         protected abstract User Inspector { get; }
@@ -40,7 +40,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void DoStepAction()
         {
-            ViewModel.Statuses.Add(ScriptStep.VerificationAcceptByDesignDepartment, $"Проверяющий: {this.Inspector}");
+            ViewModel.Statuses.Add(ScriptStep.VerificationAccept, $"Проверяющий: {this.Inspector}");
             ViewModel.Statuses.Add(ScriptStep.FinishByConstructor);
             ViewModel.SaveCommand.Execute();
             this.RaiseCanExecuteChanged();

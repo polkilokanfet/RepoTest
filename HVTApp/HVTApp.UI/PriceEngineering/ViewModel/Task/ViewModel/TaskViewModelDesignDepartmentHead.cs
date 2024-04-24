@@ -55,7 +55,7 @@ namespace HVTApp.UI.PriceEngineering
             IsTarget &&
             !Status.Equals(ScriptStep.RejectByHead) &&
             !Status.Equals(ScriptStep.FinishByConstructor) &&
-            !Status.Equals(ScriptStep.VerificationAcceptByDesignDepartment) &&
+            !Status.Equals(ScriptStep.VerificationAccept) &&
             !Status.Equals(ScriptStep.VerificationRequestByConstructor) &&
             !Status.Equals(ScriptStep.Create) &&
             !Status.Equals(ScriptStep.Stop) &&
@@ -89,7 +89,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => AllowInstruction);
 
             AcceptPriceEngineeringTaskCommand = new DoStepCommandAcceptByHead(this, container);
-            RejectPriceEngineeringTaskCommand = new DoStepCommandRejectByHeadToConstructor(this, container);
+            RejectPriceEngineeringTaskCommand = new DoStepCommandRejectByInspectorToConstructor(this, container);
             RejectPriceEngineeringTaskCommandToManager = new DoStepCommandRejectByHeadToManager(this, container);
 
             #endregion

@@ -29,9 +29,9 @@ namespace HVTApp.UI.PriceEngineering.Converters
                     return Colors.LightGreen;
                 if(step.Equals(ScriptStep.VerificationRequestByConstructor))
                     return Colors.DarkSeaGreen;
-                if(step.Equals(ScriptStep.VerificationAcceptByDesignDepartment))
+                if(step.Equals(ScriptStep.VerificationAccept))
                     return Colors.GreenYellow;
-                if(step.Equals(ScriptStep.VerificationRejectByHead))
+                if(step.Equals(ScriptStep.VerificationReject))
                     return Colors.OrangeRed;
             }
 

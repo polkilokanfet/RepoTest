@@ -85,12 +85,12 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Проработка проверена и согласована КБ (руководителем или проверяющим)
         /// </summary>
-        public static readonly ScriptStep VerificationAcceptByDesignDepartment = new VerificationAcceptByHeadStep();
+        public static readonly ScriptStep VerificationAccept = new VerificationAcceptByHeadStep();
 
         /// <summary>
         /// Руководитель отклонил проработку конструктору
         /// </summary>
-        public static readonly ScriptStep VerificationRejectByHead = new VerificationRejectByHeadStep();
+        public static readonly ScriptStep VerificationReject = new VerificationRejectByHeadStep();
 
         /// <summary>
         /// Загрузить проработку в ТСЕ (старт от менеджера)
@@ -194,8 +194,8 @@ namespace HVTApp.Model.POCOs
                 RejectByConstructor,
                 FinishByConstructor,
                 VerificationRequestByConstructor,
-                VerificationAcceptByDesignDepartment,
-                VerificationRejectByHead,
+                VerificationAccept,
+                VerificationReject,
                 Accept, 
                 LoadToTceStart,
                 LoadToTceFinish,
@@ -216,7 +216,7 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 FinishByConstructor,
-                VerificationAcceptByDesignDepartment
+                VerificationAccept
             };
 
             protected override IEnumerable<Role> RolesForShow => new[]
@@ -257,8 +257,8 @@ namespace HVTApp.Model.POCOs
             {
                 Start,
                 RejectByManager,
-                VerificationRejectByHead,
-                VerificationAcceptByDesignDepartment
+                VerificationReject,
+                VerificationAccept
             };
 
             protected override IEnumerable<Role> RolesForShow => new[]
@@ -278,7 +278,7 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 FinishByConstructor,
-                VerificationAcceptByDesignDepartment
+                VerificationAccept
             };
 
             protected override IEnumerable<Role> RolesForShow => new List<Role>();
@@ -295,7 +295,7 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Start,
-                VerificationRejectByHead,
+                VerificationReject,
                 RejectByManager
             };
 

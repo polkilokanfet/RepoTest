@@ -6,9 +6,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
 {
-    public class DoStepCommandRejectByHeadToConstructor: DoStepCommand<TaskViewModelDesignDepartmentHead>
+    public class DoStepCommandRejectByInspectorToConstructor: DoStepCommand<TaskViewModelDesignDepartmentHead>
     {
-        protected override ScriptStep Step => ScriptStep.VerificationRejectByHead;
+        protected override ScriptStep Step => ScriptStep.VerificationReject;
 
         protected override string ConfirmationMessage => "Вы уверены, что хотите отправить задачу на доработку исполнителю?";
 
@@ -16,14 +16,14 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             yield return new NotificationUnit
             {
-                ActionType = NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead,
+                ActionType = NotificationActionType.PriceEngineeringTaskVerificationRejected,
                 RecipientRole = Role.Constructor,
                 RecipientUser = ViewModel.Model.UserConstructor,
                 TargetEntityId = ViewModel.Model.Id
             };
         }
 
-        public DoStepCommandRejectByHeadToConstructor(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)
+        public DoStepCommandRejectByInspectorToConstructor(TaskViewModelDesignDepartmentHead viewModel, IUnityContainer container) : base(viewModel, container)
         {
         }
     }

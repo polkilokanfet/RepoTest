@@ -72,10 +72,10 @@ namespace NotificationsService
                         ? "Проверьте проработку"
                         : "Блок ТСП отправлен на проверку руководителю КБ";
 
-                case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationRejected:
                     return notificationUnit.RecipientRole == Role.Constructor
-                        ? "Проработка не согласована руководителем КБ (перепроработайте)"
-                        : "Проработка не согласована руководителем КБ";
+                        ? "Проработка не согласована руководителем КБ или проверяющим (перепроработайте)"
+                        : "Проработка не согласована руководителем КБ или проверяющим";
 
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment:
                     return "Проработка согласована руководителем или проверяющим КБ";
@@ -185,7 +185,7 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskRejectByConstructorToManager:
                 case NotificationActionType.PriceEngineeringTaskSendMessage:
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
-                case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationRejected:
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment:
                 case NotificationActionType.PriceEngineeringTaskInstructToPlanMaker:
                 case NotificationActionType.PriceEngineeringTaskLoadToTceStart:

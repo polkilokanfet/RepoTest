@@ -41,7 +41,7 @@
         PriceEngineeringTaskRejectByConstructorToManager,
         PriceEngineeringTaskSendMessage,
         PriceEngineeringTaskFinishGoToVerification, 
-        PriceEngineeringTaskVerificationRejectedByHead,
+        PriceEngineeringTaskVerificationRejected,
         PriceEngineeringTaskVerificationAcceptedByDesignDepartment,
 
         PriceEngineeringTaskInstructToPlanMaker,

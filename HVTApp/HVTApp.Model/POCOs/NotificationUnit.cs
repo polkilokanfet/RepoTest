@@ -108,7 +108,7 @@ namespace HVTApp.Model.POCOs
                         ? "Проверьте проработку"
                         : "Блок ТСП отправлен на проверку руководителю КБ";
 
-                case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationRejected:
                     return this.RecipientRole == Role.Constructor
                         ? "Проработка не согласована руководителем КБ (перепроработайте)"
                         : "Проработка не согласована руководителем КБ";
