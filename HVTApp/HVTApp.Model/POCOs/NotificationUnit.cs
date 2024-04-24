@@ -113,8 +113,8 @@ namespace HVTApp.Model.POCOs
                         ? "Проработка не согласована руководителем КБ (перепроработайте)"
                         : "Проработка не согласована руководителем КБ";
 
-                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                    return "Проработка согласована руководителем КБ";
+                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment:
+                    return "Проработка согласована руководителем или проверяющим КБ";
 
                 case NotificationActionType.PriceEngineeringTaskInstructToPlanMaker:
                     return this.RecipientRole == Role.PlanMaker

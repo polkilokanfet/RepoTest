@@ -19,7 +19,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             yield return new NotificationUnit
             {
-                ActionType = NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead,
+                ActionType = NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment,
                 RecipientRole = Role.SalesManager,
                 RecipientUser = Manager,
                 TargetEntityId = ViewModel.Model.Id
@@ -27,7 +27,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
             yield return new NotificationUnit
             {
-                ActionType = NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead,
+                ActionType = NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment,
                 RecipientRole = Role.Constructor,
                 RecipientUser = ViewModel.Model.UserConstructor,
                 TargetEntityId = ViewModel.Model.Id

@@ -42,7 +42,7 @@
         PriceEngineeringTaskSendMessage,
         PriceEngineeringTaskFinishGoToVerification, 
         PriceEngineeringTaskVerificationRejectedByHead,
-        PriceEngineeringTaskVerificationAcceptedByHead,
+        PriceEngineeringTaskVerificationAcceptedByDesignDepartment,
 
         PriceEngineeringTaskInstructToPlanMaker,
         PriceEngineeringTaskLoadToTceStart,

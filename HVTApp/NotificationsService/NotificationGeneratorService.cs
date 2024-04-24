@@ -54,7 +54,7 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskSendMessage:
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
                 case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
-                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment:
                 case NotificationActionType.PriceEngineeringTaskInstructToPlanMaker:
                 case NotificationActionType.PriceEngineeringTaskLoadToTceStart:
                 case NotificationActionType.PriceEngineeringTaskLoadToTceFinish:

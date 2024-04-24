@@ -77,8 +77,8 @@ namespace NotificationsService
                         ? "Проработка не согласована руководителем КБ (перепроработайте)"
                         : "Проработка не согласована руководителем КБ";
 
-                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
-                    return "Проработка согласована руководителем КБ";
+                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment:
+                    return "Проработка согласована руководителем или проверяющим КБ";
 
                 case NotificationActionType.PriceEngineeringTaskInstructToPlanMaker:
                     return notificationUnit.RecipientRole == Role.PlanMaker
@@ -186,7 +186,7 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskSendMessage:
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
                 case NotificationActionType.PriceEngineeringTaskVerificationRejectedByHead:
-                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByHead:
+                case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment:
                 case NotificationActionType.PriceEngineeringTaskInstructToPlanMaker:
                 case NotificationActionType.PriceEngineeringTaskLoadToTceStart:
                 case NotificationActionType.PriceEngineeringTaskLoadToTceFinish:
