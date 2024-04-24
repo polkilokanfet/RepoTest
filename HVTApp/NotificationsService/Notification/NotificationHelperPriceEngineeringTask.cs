@@ -1,6 +1,7 @@
 ﻿using System;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -27,7 +28,11 @@ namespace NotificationsService
                     return () => RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(parameters);
 
                 case Role.Constructor:
+                {
+                    if(this.TargetUnit.UserConstructorInspector?.Id == GlobalAppProperties.User.Id)
+                        return () => RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewInspector>(parameters);
                     return () => RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
+                }
 
                 case Role.BackManager:
                     return () => RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManager>(parameters);

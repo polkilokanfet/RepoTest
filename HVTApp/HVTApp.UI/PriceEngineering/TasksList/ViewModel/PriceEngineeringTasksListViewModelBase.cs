@@ -88,6 +88,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                     if (tt.Entity.GetSuitableTasksForInspect(GlobalAppProperties.User).Any())
                                     {
                                         RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewInspector>(parameters);
+                                        break;
                                     }
                                 }
                                 else if (SelectedItem is TTask t)
@@ -96,10 +97,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                                         t.Entity.UserConstructorInspector?.Id == GlobalAppProperties.User.Id)
                                     {
                                         RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewInspector>(parameters);
+                                        break;
                                     }
                                 }
-                                else
-                                    RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
+
+                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
                                 break;
                             }
 

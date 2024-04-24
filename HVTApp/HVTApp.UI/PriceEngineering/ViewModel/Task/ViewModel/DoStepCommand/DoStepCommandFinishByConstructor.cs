@@ -23,13 +23,26 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         {
             if (this.ViewModel.Model.VerificationIsRequested)
             {
-                yield return new NotificationUnit
+                if (this.ViewModel.Model.UserConstructorInspector == null)
                 {
-                    ActionType = NotificationActionType.PriceEngineeringTaskFinishGoToVerification,
-                    RecipientRole = Role.DesignDepartmentHead,
-                    RecipientUser = ViewModel.Model.DesignDepartment.Head,
-                    TargetEntityId = ViewModel.Model.Id
-                };
+                    yield return new NotificationUnit
+                    {
+                        ActionType = NotificationActionType.PriceEngineeringTaskFinishGoToVerification,
+                        RecipientRole = Role.DesignDepartmentHead,
+                        RecipientUser = ViewModel.Model.DesignDepartment.Head,
+                        TargetEntityId = ViewModel.Model.Id
+                    };
+                }
+                else
+                {
+                    yield return new NotificationUnit
+                    {
+                        ActionType = NotificationActionType.PriceEngineeringTaskFinishGoToVerification,
+                        RecipientRole = Role.Constructor,
+                        RecipientUser = ViewModel.Model.UserConstructorInspector,
+                        TargetEntityId = ViewModel.Model.Id
+                    };
+                }
             }
             else
             {

@@ -6,7 +6,10 @@ namespace HVTApp.Model.POCOs
 {
     public abstract class ScriptStep : SmartEnumeration<ScriptStep>
     {
-        protected readonly Role Role;
+        /// <summary>
+        /// –оли, в которых можно перейти на данный этап
+        /// </summary>
+        protected readonly Role[] Roles;
 
         public abstract string Description { get; }
 
@@ -125,10 +128,10 @@ namespace HVTApp.Model.POCOs
         /// 
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="role">–оль, в которой пожно перейти на данный этап</param>
-        private ScriptStep(int value, Role role) : base(value)
+        /// <param name="roles">–оль, в которой можно перейти на данный этап</param>
+        private ScriptStep(int value, params Role[] roles) : base(value)
         {
-            Role = role;
+            Roles = roles;
         }
 
         #endregion
@@ -140,7 +143,7 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public virtual bool AllowDoStep(ScriptStep currentStep)
         {
-            return this.Role == GlobalAppProperties.User.RoleCurrent &&
+            return this.Roles.Contains(GlobalAppProperties.User.RoleCurrent) &&
                    PossiblePreviousSteps.Contains(currentStep);
         }
 
@@ -290,7 +293,7 @@ namespace HVTApp.Model.POCOs
 
         private sealed class VerificationRequestByConstructorStep : ScriptStep
         {
-            public override string Description => "»сполнитель направил проработку руководителю на проверку";
+            public override string Description => "»сполнитель направил проработку проверку";
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
@@ -313,7 +316,7 @@ namespace HVTApp.Model.POCOs
 
         private sealed class VerificationAcceptStep : ScriptStep
         {
-            public override string Description => "–уководитель согласовал проработку исполнителю";
+            public override string Description => "ѕровер€ющий согласовал проработку исполнителю";
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
@@ -325,14 +328,14 @@ namespace HVTApp.Model.POCOs
                 Role.SalesManager
             };
 
-            public VerificationAcceptStep() : base(8, Role.DesignDepartmentHead)
+            public VerificationAcceptStep() : base(8, Role.DesignDepartmentHead, Role.Constructor)
             {
             }
         }
 
         private sealed class VerificationRejectStep : ScriptStep
         {
-            public override string Description => "–уководитель отклонил проработку исполнителю";
+            public override string Description => "ѕровер€ющий отклонил проработку исполнителю";
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
@@ -344,7 +347,7 @@ namespace HVTApp.Model.POCOs
                 Role.Constructor
             };
 
-            public VerificationRejectStep() : base(9, Role.DesignDepartmentHead)
+            public VerificationRejectStep() : base(9, Role.DesignDepartmentHead, Role.Constructor)
             {
             }
         }
