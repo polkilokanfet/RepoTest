@@ -19,7 +19,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
         protected override bool IsSuitable(PriceEngineeringTasks engineeringTasks)
         {
-            return engineeringTasks.GetSuitableTasksForWork(GlobalAppProperties.User).Any();
+            return engineeringTasks.GetSuitableTasksForWork(GlobalAppProperties.User).Any() ||
+                   engineeringTasks.GetSuitableTasksForInspect(GlobalAppProperties.User).Any();
         }
     }
 }

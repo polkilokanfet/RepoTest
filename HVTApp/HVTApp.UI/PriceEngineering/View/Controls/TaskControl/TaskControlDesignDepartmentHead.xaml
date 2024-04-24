@@ -10,6 +10,15 @@
         DataContext="{Binding TaskViewModelHead, ElementName=Root}"
         TaskViewModel="{Binding}">
 
+        <view:TaskControl.AreaActionButtonsTop>
+            <Button Command="{Binding InstructInspectorCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:FontAwesome Icon="UserOutline"  Foreground="Black"/>
+                    <TextBlock Text="Отклонить менеджеру"/>
+                </StackPanel>
+            </Button>
+        </view:TaskControl.AreaActionButtonsTop>
+
         <view:TaskControl.AreaInstruct>
             <Button Grid.Column="0" 
                     Content="..." 

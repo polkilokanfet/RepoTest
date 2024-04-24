@@ -31,6 +31,11 @@ namespace HVTApp.UI.PriceEngineering
         public DelegateLogCommand InstructPriceEngineeringTaskCommand { get; }
 
         /// <summary>
+        /// Поручить проверку задачи
+        /// </summary>
+        public DelegateLogCommand InstructInspectorCommand { get; }
+
+        /// <summary>
         /// Принять проработку
         /// </summary>
         public ICommandRaiseCanExecuteChanged AcceptPriceEngineeringTaskCommand { get; }
@@ -87,6 +92,19 @@ namespace HVTApp.UI.PriceEngineering
                     this.Instruct(user, needVerification);
                 },
                 () => AllowInstruction);
+
+            InstructInspectorCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var users = DesignDepartment.Staff.Except(new[] {this.Model.UserConstructor});
+                    var user = Container.Resolve<ISelectService>().SelectItem(users);
+                    if (user == null) return;
+                    this.UserConstructorInspector = new UserEmptyWrapper(user);
+                    this.SaveCommand.Execute();
+
+                    Messenger.SendMessage($"Назначен проверяющий: {user}");
+                }, 
+                () => this.Status.Equals(ScriptStep.VerificationRequestByConstructor) && this.Model.VerificationIsRequested);
 
             AcceptPriceEngineeringTaskCommand = new DoStepCommandAcceptByHead(this, container);
             RejectPriceEngineeringTaskCommand = new DoStepCommandRejectVerificationByDesignDepartmentHead(this, container);
