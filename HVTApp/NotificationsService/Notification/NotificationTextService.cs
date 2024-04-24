@@ -110,6 +110,9 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
                     return "Заявка на остановку производства отклонена";
 
+                case NotificationActionType.PriceEngineeringTaskInstructInspector:
+                    return "Поручена проверка задачи";
+
                 #endregion
 
                 #region PriceCalculation
@@ -195,8 +198,9 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
+                case NotificationActionType.PriceEngineeringTaskInstructInspector:
                 {
-                    using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+                        using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
                     {
                         var targetEntity = unitOfWork.Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId);
                         return this.GetCommonInfo(

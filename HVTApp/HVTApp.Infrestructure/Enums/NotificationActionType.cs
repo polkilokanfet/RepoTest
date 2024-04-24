@@ -56,5 +56,7 @@
         
 
         PriceEngineeringTasksInstructToBackManager,
+
+        PriceEngineeringTaskInstructInspector
     }
 }

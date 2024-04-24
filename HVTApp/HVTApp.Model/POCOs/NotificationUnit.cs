@@ -146,6 +146,9 @@ namespace HVTApp.Model.POCOs
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
                     return "Заявка на остановку производства отклонена";
 
+                case NotificationActionType.PriceEngineeringTaskInstructInspector:
+                    return "Поручена проверка задачи";
+
                 #endregion
 
                 #region PriceCalculation

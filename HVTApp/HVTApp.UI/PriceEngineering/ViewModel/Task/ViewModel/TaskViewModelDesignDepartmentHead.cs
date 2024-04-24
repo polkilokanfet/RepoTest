@@ -102,6 +102,14 @@ namespace HVTApp.UI.PriceEngineering
                     this.UserConstructorInspector = new UserEmptyWrapper(user);
                     this.SaveCommand.Execute();
 
+                    Container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(new NotificationUnit
+                    {
+                        ActionType = NotificationActionType.PriceEngineeringTaskInstructInspector,
+                        RecipientRole = Role.Constructor,
+                        RecipientUser = Model.UserConstructorInspector,
+                        TargetEntityId = Model.Id
+                    });
+
                     Messenger.SendMessage($"Назначен проверяющий: {user}");
                 }, 
                 () => this.Status.Equals(ScriptStep.VerificationRequestByConstructor) && this.Model.VerificationIsRequested);

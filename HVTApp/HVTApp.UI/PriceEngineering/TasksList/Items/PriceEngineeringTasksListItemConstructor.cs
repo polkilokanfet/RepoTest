@@ -12,8 +12,9 @@ namespace HVTApp.UI.PriceEngineering.Items
         protected override IEnumerable<SalesUnit> GetSalesUnits()
         {
             return Entity.ChildPriceEngineeringTasks
-                .Where(x => x.GetSuitableTasksForWork(GlobalAppProperties.User).Any())
-                .SelectMany(x => x.SalesUnits);
+                .Where(task => task.GetSuitableTasksForWork(GlobalAppProperties.User).Any() ||
+                               task.GetSuitableTasksForInspect(GlobalAppProperties.User).Any())
+                .SelectMany(task => task.SalesUnits);
         }
 
         public PriceEngineeringTasksListItemConstructor(PriceEngineeringTasks entity) : base(entity)
@@ -24,7 +25,8 @@ namespace HVTApp.UI.PriceEngineering.Items
         {
             return Entity
                 .GetSuitableTasksForWork(GlobalAppProperties.User)
-                .Select(x => new PriceEngineeringTaskListItemConstructor(x));
+                .Union(Entity.GetSuitableTasksForInspect(GlobalAppProperties.User))
+                .Select(task => new PriceEngineeringTaskListItemConstructor(task));
         }
     }
 }

@@ -63,6 +63,7 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
+                case NotificationActionType.PriceEngineeringTaskInstructInspector:
                     return new NotificationHelperPriceEngineeringTask(_unitOfWork, unit, _regionManager, _eventAggregator, _notificationTextService);
 
                 case NotificationActionType.PriceEngineeringTasksStart:

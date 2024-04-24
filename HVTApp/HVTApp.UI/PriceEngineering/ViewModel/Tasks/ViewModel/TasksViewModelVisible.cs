@@ -67,7 +67,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 case Role.SalesManager:
                     return true;
                 case Role.Constructor:
-                    return priceEngineeringTask.GetSuitableTasksForWork(user).Any();
+                    return priceEngineeringTask.GetSuitableTasksForWork(user).Any() ||
+                           priceEngineeringTask.GetSuitableTasksForInspect(user).Any();
                 case Role.DesignDepartmentHead:
                     return priceEngineeringTask.GetSuitableTasksForInstruct(user).Any();
                 case Role.BackManagerBoss:
