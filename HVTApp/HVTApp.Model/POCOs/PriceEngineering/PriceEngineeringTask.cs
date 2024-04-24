@@ -38,6 +38,12 @@ namespace HVTApp.Model.POCOs
         public virtual User UserPlanMaker { get; set; }
 
         /// <summary>
+        /// Конструктор, которого назначили проверять проработку
+        /// </summary>
+        [Designation("Проверяющий конструктор"), OrderStatus(1750)]
+        public virtual User UserConstructorInspector { get; set; }
+
+        /// <summary>
         /// Если задача инициирована конструктором (например, для добавления площадки обслуживания выключателя)
         /// </summary>
         [Designation("Инициатор подзадачи")]

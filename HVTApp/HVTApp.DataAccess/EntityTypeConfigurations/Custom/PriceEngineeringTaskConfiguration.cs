@@ -7,6 +7,7 @@ namespace HVTApp.DataAccess
             HasOptional(task => task.UserPlanMaker).WithMany().WillCascadeOnDelete(false);
             HasOptional(task => task.UserConstructor).WithMany().WillCascadeOnDelete(false);
             HasOptional(task => task.UserConstructorInitiator).WithMany().WillCascadeOnDelete(false);
+            HasOptional(task => task.UserConstructorInspector).WithMany().WillCascadeOnDelete(false);
 
             HasRequired(task => task.ProductBlockManager).WithMany().WillCascadeOnDelete(false);
             HasRequired(task => task.ProductBlockEngineer).WithMany().WillCascadeOnDelete(false);

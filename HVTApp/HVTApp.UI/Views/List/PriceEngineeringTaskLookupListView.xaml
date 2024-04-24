@@ -42,6 +42,7 @@
                         <infg:NumericField Name="Number" Label="№" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="DesignDepartment" Label="Бюро конструкторов" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="UserConstructor" Label="Конструктор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="UserConstructorInspector" Label="Проверяющий конструктор" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="UserPlanMaker" Label="Плановик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:NumericField Name="Amount" Label="Количество блоков продукта" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="ProductBlockManager" Label="Блок продукта от менеджера" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>

@@ -948,6 +948,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1700)]
 	    public UserLookup UserPlanMaker { get { return GetLookup<UserLookup>(); } }
 
+		[OrderStatus(1750)]
+	    public UserLookup UserConstructorInspector { get { return GetLookup<UserLookup>(); } }
+
 		[OrderStatus(1)]
 	    public UserLookup UserConstructorInitiator { get { return GetLookup<UserLookup>(); } }
 

@@ -1704,6 +1704,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectUserPlanMakerCommand { get; private set; }
 		public DelegateLogCommand ClearUserPlanMakerCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectUserConstructorInspectorCommand;
+		private Func<List<User>> _getEntitiesForSelectUserConstructorInspectorCommand;
+		public DelegateLogCommand SelectUserConstructorInspectorCommand { get; private set; }
+		public DelegateLogCommand ClearUserConstructorInspectorCommand { get; private set; }
+
 		//private Func<Task<List<User>>> _getEntitiesForSelectUserConstructorInitiatorCommand;
 		private Func<List<User>> _getEntitiesForSelectUserConstructorInitiatorCommand;
 		public DelegateLogCommand SelectUserConstructorInitiatorCommand { get; private set; }
@@ -1881,6 +1886,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearUserPlanMakerCommand == null) ClearUserPlanMakerCommand = new DelegateLogCommand(ClearUserPlanMakerCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectUserConstructorInspectorCommand == null) _getEntitiesForSelectUserConstructorInspectorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectUserConstructorInspectorCommand == null) SelectUserConstructorInspectorCommand = new DelegateLogCommand(SelectUserConstructorInspectorCommand_Execute_Default);
+			if (ClearUserConstructorInspectorCommand == null) ClearUserConstructorInspectorCommand = new DelegateLogCommand(ClearUserConstructorInspectorCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectUserConstructorInitiatorCommand == null) _getEntitiesForSelectUserConstructorInitiatorCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
 			if (SelectUserConstructorInitiatorCommand == null) SelectUserConstructorInitiatorCommand = new DelegateLogCommand(SelectUserConstructorInitiatorCommand_Execute_Default);
 			if (ClearUserConstructorInitiatorCommand == null) ClearUserConstructorInitiatorCommand = new DelegateLogCommand(ClearUserConstructorInitiatorCommand_Execute_Default);
@@ -1970,6 +1980,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearUserPlanMakerCommand_Execute_Default() 
 		{
 						Item.UserPlanMaker = null;		    
+		}
+
+		private void SelectUserConstructorInspectorCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectUserConstructorInspectorCommand(), nameof(Item.UserConstructorInspector), Item.UserConstructorInspector?.Id);
+		}
+
+		private void ClearUserConstructorInspectorCommand_Execute_Default() 
+		{
+						Item.UserConstructorInspector = null;		    
 		}
 
 		private void SelectUserConstructorInitiatorCommand_Execute_Default() 

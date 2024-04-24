@@ -2789,6 +2789,15 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
+        /// Проверяющий конструктор
+        /// </summary>
+	    public UserWrapper UserConstructorInspector 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(UserConstructorInspector, value); }
+        }
+
+        /// <summary>
         /// Инициатор подзадачи
         /// </summary>
 	    public UserWrapper UserConstructorInitiator 
@@ -2947,6 +2956,7 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<DesignDepartmentWrapper>(nameof(DesignDepartment), Model.DesignDepartment == null ? null : new DesignDepartmentWrapper(Model.DesignDepartment));
             InitializeComplexProperty<UserWrapper>(nameof(UserConstructor), Model.UserConstructor == null ? null : new UserWrapper(Model.UserConstructor));
             InitializeComplexProperty<UserWrapper>(nameof(UserPlanMaker), Model.UserPlanMaker == null ? null : new UserWrapper(Model.UserPlanMaker));
+            InitializeComplexProperty<UserWrapper>(nameof(UserConstructorInspector), Model.UserConstructorInspector == null ? null : new UserWrapper(Model.UserConstructorInspector));
             InitializeComplexProperty<UserWrapper>(nameof(UserConstructorInitiator), Model.UserConstructorInitiator == null ? null : new UserWrapper(Model.UserConstructorInitiator));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockWrapper(Model.ProductBlockManager));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockWrapper(Model.ProductBlockEngineer));
