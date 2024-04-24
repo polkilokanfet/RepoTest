@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.CommonInformationControlInspector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             xmlns:editors="http://infragistics.com/Editors"
+             x:Name="Root">
+
+    <!--Общая информация для всего оборудования в заданиях-->
+    <GroupBox 
+        Header="Общая информация для всего оборудования в заданиях"
+        DataContext="{Binding ElementName=Root, Path=TasksViewModel}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MaxHeight="250"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Проработать до:"/>
+                <editors:XamDateTimeEditor Grid.Column="1"
+                                            Width="120"
+                                            IsReadOnly="True"
+                                            Value="{Binding TasksWrapper.Model.WorkUpTo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Column="2" Content=" Комментарий:"/>
+                <TextBox Grid.Column="3" 
+                            Text="{Binding TasksWrapper.Model.Comment, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True"/>
+
+            </Grid>
+
+            <!--Общие файлы технического задания-->
+            <!--<GroupBox Grid.Row="1" Header="Общие файлы технического задания" >
+                <dataPresenter:XamDataGrid
+                                    DataSource="{Binding TasksWrapper.FilesTechnicalRequirements}"
+                                    ActiveDataItem="{Binding SelectedFileTechnicalRequirements, Mode=TwoWay}"
+                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
+
+                    <dataPresenter:XamDataGrid.InputBindings>
+                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=OpenFileTechnicalRequirementsCommand, Mode=OneWay}" />
+                    </dataPresenter:XamDataGrid.InputBindings>
+
+                    <dataPresenter:XamDataGrid.FieldLayouts>
+                        <dataPresenter:FieldLayout>
+                            <dataPresenter:FieldLayout.Fields>
+                                <dataPresenter:CheckBoxField AlternateBinding="{Binding IsActual, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Актуально?" AllowEdit="False" Width="Auto"/>
+                                <dataPresenter:DateTimeField AlternateBinding="{Binding CreationMoment}" BindingType="UseAlternateBinding" Label="Дата" AllowEdit="False" AllowResize="False" Width="Auto"/>
+                                <dataPresenter:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Название" Width="*" AllowEdit="False"/>
+                            </dataPresenter:FieldLayout.Fields>
+                        </dataPresenter:FieldLayout>
+                    </dataPresenter:XamDataGrid.FieldLayouts>
+                </dataPresenter:XamDataGrid>
+
+            </GroupBox>-->
+
+        </Grid>
+    </GroupBox>
+
+</UserControl>

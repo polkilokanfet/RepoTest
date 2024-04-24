@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.ProductTaskControlInspector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             x:Name="Root">
+
+    <view:ProductTaskControlHeader 
+        TaskViewModel="{Binding ElementName=Root, Path=TaskViewModel}"
+        DataContext="{Binding ElementName=Root, Path=TaskViewModel}">
+
+        <view:ProductTaskControlHeader.TasksArea>
+            <!--Проработка блоков-->
+            <view:TaskControlInspector TaskViewModel="{Binding}"/>
+        </view:ProductTaskControlHeader.TasksArea>
+
+    </view:ProductTaskControlHeader>
+</UserControl>

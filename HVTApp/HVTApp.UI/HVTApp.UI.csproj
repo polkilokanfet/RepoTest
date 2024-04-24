@@ -407,7 +407,9 @@
     </Compile>
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapper0.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperBackManagerBoss.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperInspector.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperPlanMaker.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelInspector.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelPlanMaker.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModelBase.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemBase.cs" />
@@ -567,6 +569,9 @@
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelPlanMaker.cs" />
+    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlInspector.xaml.cs">
+      <DependentUpon>CommonInformationControlInspector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\CommonInformationControlDesignDepartmentHead.xaml.cs">
       <DependentUpon>CommonInformationControlDesignDepartmentHead.xaml</DependentUpon>
     </Compile>
@@ -593,6 +598,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml.cs">
       <DependentUpon>BlockAddedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlInspector.xaml.cs">
+      <DependentUpon>ProductTaskControlInspector.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlPlanMaker.xaml.cs">
       <DependentUpon>ProductTaskControlPlanMaker.xaml</DependentUpon>
@@ -633,6 +641,9 @@
     <Compile Include="PriceEngineering\View\Controls\TaskControl\IncludedBlocksControl.xaml.cs">
       <DependentUpon>IncludedBlocksControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlInspector.xaml.cs">
+      <DependentUpon>TaskControlInspector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlPlanMaker.xaml.cs">
       <DependentUpon>TaskControlPlanMaker.xaml</DependentUpon>
     </Compile>
@@ -653,6 +664,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml.cs">
       <DependentUpon>TaskControlManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlInspector.xaml.cs">
+      <DependentUpon>TasksControlInspector.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\TasksControl\TasksControlPlanMaker.xaml.cs">
       <DependentUpon>TasksControlPlanMaker.xaml</DependentUpon>
@@ -680,6 +694,9 @@
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\PriceEngineeringTaskStatusControl.xaml.cs">
       <DependentUpon>PriceEngineeringTaskStatusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewInspector.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksViewInspector.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\PriceEngineeringTasksViewPlanMaker.xaml.cs">
       <DependentUpon>PriceEngineeringTasksViewPlanMaker.xaml</DependentUpon>
@@ -2178,6 +2195,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\CommonInformationControlInspector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\CommonInformationControlDesignDepartmentHead.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2211,6 +2232,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\BlocksAddedControl\BlockAddedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\ProductTaskControl\ProductTaskControlInspector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2266,6 +2291,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlInspector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlPlanMaker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2291,6 +2320,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControlManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\TasksControl\TasksControlInspector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2327,6 +2360,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\PriceEngineeringTaskStatusControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\PriceEngineeringTasksViewInspector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

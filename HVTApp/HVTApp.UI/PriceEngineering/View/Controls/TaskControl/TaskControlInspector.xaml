@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TaskControlInspector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             x:Name="Root">
+
+    <!--Задача на блок продукта-->
+    <view:TaskControl 
+        DataContext="{Binding TaskViewModel, ElementName=Root}"
+        TaskViewModel="{Binding}">
+
+        <view:TaskControl.AreaFiles>
+            <view:FilesControl Grid.Row="1" TaskViewModel="{Binding}"/>
+        </view:TaskControl.AreaFiles>
+
+        <view:TaskControl.AreaActionButtons>
+            <UniformGrid Rows="1">
+                <Button Command="{Binding AcceptPriceEngineeringTaskCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="CheckCircle" Foreground="Green"/>
+                        <TextBlock Text="Согласовать"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding RejectPriceEngineeringTaskCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Remove" Foreground="OrangeRed"/>
+                        <TextBlock Text="На доработку исполнителю"/>
+                    </StackPanel>
+                </Button>
+            </UniformGrid>
+        </view:TaskControl.AreaActionButtons>
+
+        <view:TaskControl.AreaIncludedBlocks>
+            <ItemsControl 
+                Background="Transparent" 
+                HorizontalAlignment="Stretch" 
+                ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border 
+                            Background="Transparent" 
+                            Margin="10 0 0 0" 
+                            Padding="5 2">
+                            <StackPanel>
+                                <view:TaskControlInspector TaskViewModel="{Binding }" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </view:TaskControl.AreaIncludedBlocks>
+
+    </view:TaskControl>
+
+</UserControl>
