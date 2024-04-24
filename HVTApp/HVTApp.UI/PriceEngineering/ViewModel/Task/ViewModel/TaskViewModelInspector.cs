@@ -39,7 +39,7 @@ namespace HVTApp.UI.PriceEngineering
             #region Commands
 
             AcceptPriceEngineeringTaskCommand = new DoStepCommandAcceptByInspector(this, container);
-            RejectPriceEngineeringTaskCommand = new DoStepCommandRejectByInspectorToConstructor(this, container);
+            RejectPriceEngineeringTaskCommand = new DoStepCommandRejectVerificationByInspector(this, container);
 
             #endregion
         }

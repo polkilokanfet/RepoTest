@@ -85,12 +85,12 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Проработка проверена и согласована КБ (руководителем или проверяющим)
         /// </summary>
-        public static readonly ScriptStep VerificationAccept = new VerificationAcceptByHeadStep();
+        public static readonly ScriptStep VerificationAccept = new VerificationAcceptStep();
 
         /// <summary>
-        /// Руководитель отклонил проработку конструктору
+        /// Проработка проверена и отклонена КБ (руководителем или проверяющим)
         /// </summary>
-        public static readonly ScriptStep VerificationReject = new VerificationRejectByHeadStep();
+        public static readonly ScriptStep VerificationReject = new VerificationRejectStep();
 
         /// <summary>
         /// Загрузить проработку в ТСЕ (старт от менеджера)
@@ -310,7 +310,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        private sealed class VerificationAcceptByHeadStep : ScriptStep
+        private sealed class VerificationAcceptStep : ScriptStep
         {
             public override string Description => "Руководитель согласовал проработку исполнителю";
 
@@ -324,12 +324,12 @@ namespace HVTApp.Model.POCOs
                 Role.SalesManager
             };
 
-            public VerificationAcceptByHeadStep() : base(8, Role.DesignDepartmentHead)
+            public VerificationAcceptStep() : base(8, Role.DesignDepartmentHead)
             {
             }
         }
 
-        private sealed class VerificationRejectByHeadStep : ScriptStep
+        private sealed class VerificationRejectStep : ScriptStep
         {
             public override string Description => "Руководитель отклонил проработку исполнителю";
 
@@ -343,7 +343,7 @@ namespace HVTApp.Model.POCOs
                 Role.Constructor
             };
 
-            public VerificationRejectByHeadStep() : base(9, Role.DesignDepartmentHead)
+            public VerificationRejectStep() : base(9, Role.DesignDepartmentHead)
             {
             }
         }
