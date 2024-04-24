@@ -451,7 +451,9 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperConstructor.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ProductBlockStructureCost\ProductBlockStructureCostWrapperManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\TaskViewModelBaseInspector.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandAcceptByDesignDepartmentBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandAcceptByHead.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandAcceptByInspector.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandAcceptedByManager.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandFinishByConstructor.cs" />
