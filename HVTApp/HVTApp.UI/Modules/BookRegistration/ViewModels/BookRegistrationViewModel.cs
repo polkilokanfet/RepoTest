@@ -46,6 +46,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public event Action<Document> SelectedDocumentChanged;
 
+        #region Commands
+
         /// <summary>
         /// Создание исходящего документа
         /// </summary>
@@ -67,6 +69,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         /// Печать бланка письма
         /// </summary>
         public DelegateLogCommand PrintBlankLetterCommand { get; }
+        
+        #endregion
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
@@ -138,24 +142,26 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         public void Load2()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-
+            
             var requests = UnitOfWork.Repository<IncomingRequest>().GetAll();
             List<Document> documents;
             if (GlobalAppProperties.UserIsManager)
             {
-                documents = UnitOfWork.Repository<Document>().Find(x => x.Author.Id == GlobalAppProperties.User.Employee.Id);
-                var requests2 = requests.Where(x => x.Performers.ContainsById(GlobalAppProperties.User.Employee));
-                documents = documents.Union(requests2.Select(x => x.Document)).ToList();
+                documents = UnitOfWork.Repository<Document>().Find(document => document.Author.Id == GlobalAppProperties.User.Employee.Id);
+                var requests2 = requests.Where(incomingRequest => incomingRequest.Performers.ContainsById(GlobalAppProperties.User.Employee));
+                documents = documents.Union(requests2.Select(incomingRequest => incomingRequest.Document)).ToList();
             }
             else
             {
-                documents = UnitOfWork.Repository<Document>().GetAll();
+                documents = UnitOfWork.Repository<Document>().Find(document => 
+                    document.Author.Id == GlobalAppProperties.User.Employee.Id ||
+                    document.Direction == DocumentDirection.Incoming);
             }
 
             _documentLookups = documents
-                .OrderByDescending(x => x.Date)
-                .ThenByDescending(x => x.Number)
-                .Select(x => new DocumentLookup(x, requests.SingleOrDefault(r => r.Document.Id == x.Id)?.Performers))
+                .OrderByDescending(document => document.Date)
+                .ThenByDescending(document => document.Number)
+                .Select(document => new DocumentLookup(document, requests.SingleOrDefault(incomingRequest => incomingRequest.Document.Id == document.Id)?.Performers))
                 .ToList();
 
             UpdateLookups();
@@ -163,7 +169,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public bool ShowIncoming
         {
-            get { return _showIncoming; }
+            get => _showIncoming;
             set
             {
                 if (Equals(_showIncoming, value)) return;
@@ -174,7 +180,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public bool ShowOutgoing
         {
-            get { return _showOutgoing; }
+            get => _showOutgoing;
             set
             {
                 if(_showOutgoing == value) return;
@@ -186,6 +192,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         private void UpdateLookups()
         {
             var lookups = Lookups as ObservableCollection<DocumentLookup>;
+            if (lookups == null) return;
+
             lookups.Clear();
 
             if (ShowIncoming && ShowOutgoing)
@@ -194,17 +202,17 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 return;
             }
 
-
             if (ShowIncoming)
             {
-                lookups.AddRange(_documentLookups.Where(x => x.Direction == DocumentDirection.Incoming));
+                lookups.AddRange(
+                    _documentLookups.Where(document => document.Direction == DocumentDirection.Incoming));
                 return;
             }
 
-
             if (ShowOutgoing)
             {
-                lookups.AddRange(_documentLookups.Where(x => x.Direction == DocumentDirection.Outgoing));
+                lookups.AddRange(
+                    _documentLookups.Where(document => document.Direction == DocumentDirection.Outgoing));
             }
         }
     }
