@@ -4,9 +4,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -106,7 +108,53 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
             this.Items.Insert(0, message);
 
+            this.SendNotifications(message);
+
             return message;
+        }
+
+        /// <summary>
+        /// Отправка уведомлений
+        /// </summary>
+        private void SendNotifications(PriceEngineeringTaskMessage message)
+        {
+            var manager = _viewModel.Model.GetPriceEngineeringTasks(this.UnitOfWork).UserManager;
+            this.SendNotification(manager, Role.SalesManager);
+
+            //менеджеру
+            if (this._viewModel.Model.UserConstructor != null)
+                this.SendNotification(this._viewModel.Model.UserConstructor, Role.Constructor);
+
+            if (this._viewModel.Model.UserConstructorInspector != null)
+            {
+                //исполнителю
+                this.SendNotification(this._viewModel.Model.UserConstructorInspector, Role.Constructor);
+            }
+            else
+            {
+                //руководителю
+                if(this._viewModel.Model.DesignDepartment?.Head != null)
+                    this.SendNotification(this._viewModel.Model.DesignDepartment.Head, Role.DesignDepartmentHead);
+            }
+        }
+
+        private void SendNotification(User recipientUser, Role recipientRole)
+        {
+            if (recipientUser.Id == GlobalAppProperties.User.Id &&
+                recipientRole == GlobalAppProperties.User.RoleCurrent)
+                return;
+
+            var notification = new NotificationUnit
+            {
+                TargetEntityId = this._viewModel.Model.Id,
+                ActionType = NotificationActionType.PriceEngineeringTaskSendMessage,
+                SenderUser = GlobalAppProperties.User,
+                SenderRole = GlobalAppProperties.User.RoleCurrent,
+                RecipientUser = recipientUser,
+                RecipientRole = recipientRole
+            };
+
+            this._container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(notification);
         }
 
         private void OnReciveMessageEvent(PriceEngineeringTaskMessage message)
