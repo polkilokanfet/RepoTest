@@ -40,7 +40,13 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void BeforeDoStepAction()
         {
-            ViewModel.Model.SalesUnits.ForEach(salesUnit => salesUnit.Order = null);
+            foreach (var salesUnit in ViewModel.Model.SalesUnits)
+            {
+                salesUnit.SignalToStartProduction = null;
+                salesUnit.SignalToStartProductionDone = null;
+                if (salesUnit.Order != null)
+                    salesUnit.Order = null;
+            }
         }
 
         protected override bool CanExecuteMethod()
