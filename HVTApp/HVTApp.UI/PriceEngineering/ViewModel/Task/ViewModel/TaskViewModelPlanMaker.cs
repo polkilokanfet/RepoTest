@@ -151,6 +151,15 @@ namespace HVTApp.UI.PriceEngineering
             }
         }
 
+        /// <summary>
+        /// Плановые даты поставки (от менеджера)
+        /// </summary>
+        public string DeliveryDatesExpected => SalesUnits
+            .Select(x => x.DeliveryDateExpected)
+            .Distinct()
+            .OrderBy(x => x)
+            .Select(x => x.ToShortDateString())
+            .ToStringEnum();
 
         public new SalesUnitsCollection SalesUnits { get; private set; }
 
@@ -313,6 +322,16 @@ namespace HVTApp.UI.PriceEngineering
             public bool EndProductionPlanDateIsChanged => GetIsChanged(nameof(EndProductionPlanDate));
 
             #endregion
+
+            #region EndProductionPlanDate;
+
+            /// <summary>
+            /// Плановая дата поставки
+            /// </summary>
+            public DateTime DeliveryDateExpected => Model.DeliveryDateExpected;
+
+            #endregion
+
 
             #endregion
 
