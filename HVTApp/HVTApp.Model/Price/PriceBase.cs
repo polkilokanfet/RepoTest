@@ -9,7 +9,7 @@ namespace HVTApp.Model.Price
         /// Коэффициент упаковки
         /// "гениальное изобретение фин.отдела"
         /// </summary>
-        protected const double KUp = 1.03;
+        protected const double KUp = 1.025;
 
         public abstract bool ContainsAnyAnalog { get; }
         public abstract bool ContainsAnyBlockWithNoLaborHours { get; }
