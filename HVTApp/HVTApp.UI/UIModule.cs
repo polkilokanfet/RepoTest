@@ -147,6 +147,7 @@ namespace HVTApp.UI
             _updateDetailsService.ReRegister<PaymentConditionSet, PaymentConditionsSetView>();
 
             _selectService.ReRegister<PaymentConditionSetLookupListView1, PaymentConditionSet>();
+            _selectService.ReRegister<UserListView, User>();
         }
 
         protected override void ResolveOutlookGroup()
