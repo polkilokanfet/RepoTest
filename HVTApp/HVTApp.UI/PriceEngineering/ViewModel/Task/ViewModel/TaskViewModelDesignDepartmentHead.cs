@@ -84,7 +84,7 @@ namespace HVTApp.UI.PriceEngineering
             InstructPriceEngineeringTaskCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Staff);
+                    var user = Container.Resolve<ISelectService>().SelectItem(DesignDepartment.Staff.Where(x => x.IsActual));
                     if (user == null) return;
 
                     var needVerification = Container.Resolve<IMessageService>().ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
@@ -96,7 +96,9 @@ namespace HVTApp.UI.PriceEngineering
             InstructInspectorCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var users = DesignDepartment.Staff.Except(new[] {this.Model.UserConstructor});
+                    var users = DesignDepartment.Staff
+                        .Where(user1 => user1.IsActual)
+                        .Except(new[] {this.Model.UserConstructor});
                     var user = Container.Resolve<ISelectService>().SelectItem(users);
                     if (user == null) return;
                     this.UserConstructorInspector = new UserEmptyWrapper(user);
@@ -112,7 +114,9 @@ namespace HVTApp.UI.PriceEngineering
 
                     Messenger.SendMessage($"Назначен проверяющий: {user}");
                 }, 
-                () => this.Status.Equals(ScriptStep.VerificationRequestByConstructor) && this.Model.VerificationIsRequested);
+                () => 
+                    this.IsTarget && 
+                    this.Status.Equals(ScriptStep.VerificationRequestByConstructor) && this.Model.VerificationIsRequested);
 
             AcceptPriceEngineeringTaskCommand = new DoStepCommandAcceptByHead(this, container);
             RejectPriceEngineeringTaskCommand = new DoStepCommandRejectVerificationByDesignDepartmentHead(this, container);
