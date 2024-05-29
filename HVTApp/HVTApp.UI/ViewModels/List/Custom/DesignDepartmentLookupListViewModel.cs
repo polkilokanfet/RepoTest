@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Views;
@@ -12,6 +15,7 @@ namespace HVTApp.UI.ViewModels
     public partial class DesignDepartmentLookupListViewModel
     {
         public DelegateLogCommand CopyDesignDepartmentCommand { get; private set; }
+        public DelegateLogCommand CopyStaffCommand { get; private set; }
 
         protected override void InitSpecialCommands()
         {
@@ -45,7 +49,30 @@ namespace HVTApp.UI.ViewModels
                 },
                 () => this.SelectedLookup != null);
 
-            this.SelectedLookupChanged += lookup => CopyDesignDepartmentCommand.RaiseCanExecuteChanged();
+            CopyStaffCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var dep = Container.Resolve<ISelectService>().SelectItem(this.SelectedItems);
+                    if (dep == null) return;
+                    using (var unitOfWork = Container.Resolve<IUnitOfWork>())
+                    {
+                        var staff = dep.Staff.Select(user => unitOfWork.Repository<User>().GetById(user.Id)).ToList();
+                        foreach (var department in SelectedItems.Select(x => unitOfWork.Repository<DesignDepartment>().GetById(x.Id)))
+                        {
+                            department.Staff.Clear();
+                            department.Staff.AddRange(staff);
+                        }
+
+                        unitOfWork.SaveChanges();
+                    }
+                },
+                () => SelectedItems != null && SelectedItems.Any());
+
+            this.SelectedLookupChanged += lookup =>
+            {
+                CopyDesignDepartmentCommand.RaiseCanExecuteChanged();
+                CopyStaffCommand.RaiseCanExecuteChanged();
+            };
         }
     }
 }

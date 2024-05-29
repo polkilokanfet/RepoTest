@@ -6,7 +6,8 @@
                                  Header="Департамент ОГК">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Copy" Command="{Binding CopyDesignDepartmentCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Дубль департамента" Command="{Binding CopyDesignDepartmentCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Копировать персонал" Command="{Binding CopyStaffCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>
