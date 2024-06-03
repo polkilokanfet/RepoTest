@@ -114,11 +114,19 @@ namespace HVTApp.Services.PrintService
             paraFormat1.Alignment = ParagraphAlignment.Both;
             docWriter.PrintParagraph($"В ответ на Ваш запрос, предоставляем технико-коммерческое предложение на поставку оборудования по проекту \"{offer.Project.Name}\".", paraFormat1);
 
-            docWriter.PrintParagraph("Стоимость оборудования/услуг (в рублях) приведена в таблице:", paraFormat1, font: fontBold);         
+            docWriter.PrintParagraph("Стоимость оборудования/услуг (в рублях) приведена в таблице:", paraFormat1, font: fontBold);
 
             #endregion
 
             #region Print Main Table
+
+            var printComments = false;
+            if (offerUnitsGroups.Any(x => string.IsNullOrWhiteSpace(x.Comment) == false))
+            {
+                printComments = MessageService.ConfirmationDialog("Печать комментариев", "Вы хотите включить в таблицу комментарии?", defaultNo: true);
+            }
+            int columnsCount = printComments ? 7 : 6;
+
 
             var colorTableHeader = Colors.AliceBlue;
 
@@ -130,15 +138,19 @@ namespace HVTApp.Services.PrintService
 
             var tableProperties = GetTableProperties(docWriter, tableBorderProperties);
             tableProperties.Alignment = ParagraphAlignment.Left;
-            docWriter.StartTable(6, tableProperties);
+            docWriter.StartTable(columnsCount, tableProperties);
 
             tableRowProperties.IsHeaderRow = true;
             tableCellProperties.BackColor = colorTableHeader;
             var paragraphProps = docWriter.CreateParagraphProperties();
             paragraphProps.Alignment = ParagraphAlignment.Left;
 
-            docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, 
-                "№", "Тип оборудования", "Обозначение оборудования", "Кол.", "Стоимость", "Сумма");
+            if (printComments)
+                docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold, 
+                    "№", "Тип оборудования", "Обозначение", "Комментарий", "Кол.", "Стоимость", "Сумма");
+            else
+                docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
+                    "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость", "Сумма");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             tableCellProperties.Reset();
@@ -157,7 +169,7 @@ namespace HVTApp.Services.PrintService
                 //Название объекта
                 docWriter.StartTableRow();
 
-                tableCellProperties.ColumnSpan = 6;
+                tableCellProperties.ColumnSpan = columnsCount;
                 docWriter.PrintTableCell($"{offerUnitsGroupsByFacility.Key}", tableCellProperties, font: fontBold); //объект
 
                 docWriter.EndTableRow();
@@ -171,6 +183,7 @@ namespace HVTApp.Services.PrintService
                     docWriter.PrintTableCell(offerUnitsGroup.Model.Product.ProductType?.Name, tableCellProperties); //тип оборудования
                     var des = printFullDesignation ? offerUnitsGroup.Model.Product.Designation : offerUnitsGroup.Model.Product.Category.NameShort;
                     docWriter.PrintTableCell(des, tableCellProperties); //обозначение
+                    if(printComments) docWriter.PrintTableCell($"{offerUnitsGroup.Comment}", tableCellProperties); //комментарий
                     docWriter.PrintTableCell($"{offerUnitsGroup.Amount:D}", tableCellProperties, parPropRight); //колличество
                     docWriter.PrintTableCell($"{offerUnitsGroup.Cost:N}", tableCellProperties, parPropRight); //стоимость
                     docWriter.PrintTableCell($"{offerUnitsGroup.Total:N}", tableCellProperties, parPropRight); //сумма
@@ -184,9 +197,9 @@ namespace HVTApp.Services.PrintService
 
             tableCellProperties.BackColor = colorTableHeader;
 
-            PrintSumTableString("Итого без НДС:", sum, docWriter, tableCellProperties, fontBold, parPropRight);
-            PrintSumTableString($"НДС ({offer.Vat} %):", sum * offer.Vat / 100, docWriter, tableCellProperties, fontBold, parPropRight);
-            PrintSumTableString("Итого с НДС:", sum * (1 + offer.Vat / 100), docWriter, tableCellProperties, fontBold, parPropRight);
+            PrintSumTableString("Итого без НДС:", sum, docWriter, tableCellProperties, fontBold, parPropRight, columnsCount);
+            PrintSumTableString($"НДС ({offer.Vat} %):", sum * offer.Vat / 100, docWriter, tableCellProperties, fontBold, parPropRight, columnsCount);
+            PrintSumTableString("Итого с НДС:", sum * (1 + offer.Vat / 100), docWriter, tableCellProperties, fontBold, parPropRight, columnsCount);
 
             docWriter.EndTable();
 
@@ -435,10 +448,10 @@ namespace HVTApp.Services.PrintService
         }
 
         private static void PrintSumTableString(string text, double sum, WordDocumentWriter docWriter, TableCellProperties tableCellProperties,
-            Font font, ParagraphProperties parProp)
+            Font font, ParagraphProperties parProp, int columnsCount)
         {
             docWriter.StartTableRow();
-            tableCellProperties.ColumnSpan = 5;
+            tableCellProperties.ColumnSpan = columnsCount - 1;
             docWriter.PrintTableCell(text, tableCellProperties, null, font);
             tableCellProperties.ColumnSpan = 1;
             docWriter.PrintTableCell($"{sum:N}", tableCellProperties, parProp, font);
