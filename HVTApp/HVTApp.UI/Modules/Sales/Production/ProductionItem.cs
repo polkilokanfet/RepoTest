@@ -1,44 +1,18 @@
 using System;
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper.Base;
 
 namespace HVTApp.UI.Modules.Sales.Production
 {
-    public class ProductionItem : WrapperBase<SalesUnit>
+    public class ProductionItem
     {
-        private readonly IUnitOfWork _unitOfWork;
+        public SalesUnit Model { get; }
 
-        public DateTime? SignalToStartProduction
-        {
-            get => Model.SignalToStartProduction;
-            set => SetValue(value);
-        }
+        public DateTime? SignalToStartProduction => Model.SignalToStartProduction;
 
-        public DateTime? SignalToStartProductionDone
-        {
-            get => Model.SignalToStartProductionDone;
-            set => SetValue(value);
-        }
-
-        public DateTime DeliveryDateExpected
-        {
-            get => Model.DeliveryDateExpected;
-            set => SetValue(value);
-        }
-
-
-        public DateTime EndProductionDateExpected
-        {
-            get => Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated);
-            set
-            {
-                this.DeliveryDateExpected = value.AddDays(Model.DeliveryPeriodCalculated);
-                RaisePropertyChanged();
-            }
-        }
-
-        public string TceInfo => Model.ActualPriceCalculationItem(_unitOfWork)?.ToString() ?? "no information";
+        /// <summary>
+        /// Ожидаемая дата производства
+        /// </summary>
+        public DateTime EndProductionDateExpected => Model.DeliveryDateExpected.AddDays(-Model.DeliveryPeriodCalculated);
 
         public bool IsProduced
         {
@@ -55,26 +29,9 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public int DifContract => (Model.EndProductionDateCalculated - Model.EndProductionDateByContractCalculated).Days;
 
-        public ProductionItem(SalesUnit model, IUnitOfWork unitOfWork) : base(model)
+        public ProductionItem(SalesUnit salesUnit)
         {
-            _unitOfWork = unitOfWork;
-        }
-
-        /// <summary>
-        /// Очистка дат при удалении юнита из производства
-        /// </summary>
-        public void CleanDatesOnRemoveFromProduction()
-        {
-            this.SignalToStartProduction = null;
-            this.SignalToStartProductionDone = null;
-
-            Model.StartProductionDate = null;
-            Model.PickingDate = null;
-            Model.EndProductionPlanDate = null;
-            Model.EndProductionDate = null;
-            Model.RealizationDate = null;
-            Model.ShipmentDate = null;
-            Model.DeliveryDate = null;
+            this.Model = salesUnit;
         }
     }
 }

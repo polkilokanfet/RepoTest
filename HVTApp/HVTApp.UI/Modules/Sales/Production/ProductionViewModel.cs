@@ -22,6 +22,9 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public ObservableCollection<ProductionGroup> GroupsInProduction { get; } = new ObservableCollection<ProductionGroup>();
 
+        /// <summary>
+        /// Открыть задачу ТСП, связанную с открытием производства
+        /// </summary>
         public ICommandRaiseCanExecuteChanged OpenOrderTaskCommand { get; }
 
         public ProductionGroup SelectedInProduction
@@ -61,13 +64,15 @@ namespace HVTApp.UI.Modules.Sales.Production
             //оборудование, которое уже размещено в производстве
             _groupsInProduction = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllOfCurrentUser()
                 .Where(salesUnit => salesUnit.SignalToStartProduction.HasValue)
-                .Select(salesUnit => new ProductionItem(salesUnit, UnitOfWork))
+                .Select(salesUnit => new ProductionItem(salesUnit))
                 .GroupBy(productionItem => new
                 {
                     ProductId = productionItem.Model.Product.Id,
                     FacilityId = productionItem.Model.Facility.Id,
                     OrderId = productionItem.Model.Order?.Id,
+                    productionItem.IsProduced,
                     productionItem.Model.Comment,
+                    productionItem.EndProductionDateExpected,
                     productionItem.Model.EndProductionDateCalculated
                 })
                 .OrderBy(x => x.Key.EndProductionDateCalculated)

@@ -46,6 +46,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Проект"), OrderStatus(1005), Required]
         public virtual Project Project { get; set; }
 
+        /// <summary>
+        /// Требуемая дата поставки
+        /// </summary>
         [Designation("Требуемая дата поставки"), Required]
         public virtual DateTime DeliveryDateExpected { get; set; } =
             DateTime.Today.AddDays(GlobalAppProperties.Actual.StandartTermFromStartToEndProduction + 120).SkipWeekend();

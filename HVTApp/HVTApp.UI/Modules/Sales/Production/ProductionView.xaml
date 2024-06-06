@@ -74,7 +74,7 @@
                             <infg:NumericField AlternateBinding="{Binding DifExpected}" BindingType="UseAlternateBinding" Label="DE" Width="Auto" AllowResize="False"/>
                             <infg:DateTimeField AlternateBinding="{Binding Model.EndProductionDateByContractCalculated}" BindingType="UseAlternateBinding" Label="По договору" Width="Auto" AllowResize="False"/>
                             <infg:NumericField AlternateBinding="{Binding DifContract}" BindingType="UseAlternateBinding" Label="DC" Width="Auto" AllowResize="False"/>
-                            <!--<infg:TextField AlternateBinding="{Binding TceInfo}" BindingType="UseAlternateBinding" Label="TCE" Width="Auto"/>-->
+                            <infg:TextField AlternateBinding="{Binding Model.Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowResize="True" AllowEdit="False"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
 
