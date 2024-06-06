@@ -70,6 +70,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates
                             {
                                 var targetUnits = datesGroup.Units.Where(x =>
                                     x.Model.RealizationDate == null &&
+                                    x.Model.EndProductionDate == null &&
                                     string.IsNullOrWhiteSpace(x.Model.OrderPosition) == false &&
                                     int.TryParse(x.Model.OrderPosition.Trim(), out _)).ToList();
 
