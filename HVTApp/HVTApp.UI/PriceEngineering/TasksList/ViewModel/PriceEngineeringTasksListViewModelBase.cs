@@ -153,7 +153,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 case NotificationActionType.PriceEngineeringTaskFinishGoToVerification:
                 case NotificationActionType.PriceEngineeringTaskVerificationRejected:
                 case NotificationActionType.PriceEngineeringTaskVerificationAcceptedByDesignDepartment:
-                    this.OnItemChild(this.UnitOfWork.Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId));
+                    OnItemChild(this.Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId));
                     break;
             }
         }

@@ -24,7 +24,7 @@ namespace HVTApp.UI.PriceEngineering.Items
         {
             return Entity
                 .GetSuitableTasksForInstruct(GlobalAppProperties.User)
-                .Select(x => new PriceEngineeringTaskListItemDesignDepartmentHead(x));
+                .Select(task => new PriceEngineeringTaskListItemDesignDepartmentHead(task));
         }
     }
 }

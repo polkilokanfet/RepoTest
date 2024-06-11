@@ -155,7 +155,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         public virtual void Dispose()
         {
             UnitOfWork?.Dispose();
-            this.TasksWrapper.ChildTasks.ForEach(viewModel => viewModel.Dispose());
+            this.TasksWrapper?.ChildTasks.ForEach(viewModel => viewModel.Dispose());
             this.TasksWrapper = null;
         }
     }

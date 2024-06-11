@@ -18,7 +18,8 @@ namespace HVTApp.UI.PriceEngineering.Items
                     return false;
 
                 if (this.Entity.Status.Equals(ScriptStep.ProductionRequestStart) &&
-                    this.Entity.UserPlanMaker == null) return true;
+                    this.Entity.UserPlanMaker == null)
+                    return true;
 
                 return false;
             }

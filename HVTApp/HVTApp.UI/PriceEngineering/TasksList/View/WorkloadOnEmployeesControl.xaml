@@ -13,10 +13,19 @@
         <dp:XamDataGrid 
             x:Name="PriceEngineeringTasksLookupListGrid" 
             Style="{StaticResource ListViewGrid}"
+            SelectedDataItem="{Binding SelectedWorkLoadTask}"
             DataSource="{Binding WorkloadItems}">
 
+            <dp:XamDataGrid.InputBindings>
+                <MouseBinding 
+                    MouseAction="LeftDoubleClick" 
+                    Command="{Binding Path=OpenWorkLoadTaskCommand, Mode=OneWay}"/>
+            </dp:XamDataGrid.InputBindings>
+
+
             <dp:XamDataGrid.FieldLayouts>
-                <dp:FieldLayout>
+
+                <dp:FieldLayout Key="UsersTable">
                     <dp:FieldLayout.Fields>
                         <dp:TextField Name="User" Label="Сотрудник" Width="Auto" AllowResize="True" />
                         <dp:NumericField Name="Workload" Label="Блоков в работе" Width="Auto" AllowResize="True" />
@@ -25,8 +34,35 @@
                                 <dp:FieldSettings DataItemUpdateTrigger="OnCellValueChange"/>
                             </dp:Field.Settings>
                         </dp:CheckBoxField>
+                        <dp:Field Name="TasksInWork" IsExpandable="True"/>
                     </dp:FieldLayout.Fields>
                 </dp:FieldLayout>
+
+                <dp:FieldLayout Key="TasksTable" ParentFieldLayoutKey="UsersTable" ParentFieldName="TasksInWork">
+                    <dp:FieldLayout.Fields>
+                        <dp:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="False"/>
+                        <dp:DateTimeField Name="WorkUpTo" Label="Срок" Width="Auto" AllowResize="False"/>
+                        <dp:TextField Name="Facilities" Label="Объекты" Width="250" AllowResize="True" />
+                        <dp:TextField Name="ProductBlocks" Label="Блоки" Width="250" AllowResize="True" />
+                        <dp:TextField Name="Comment" Label="Комментарий" Width="250" AllowResize="True" />
+                        <dp:TextField Name="StatusString" Label="Статусы задач" Width="250" AllowResize="True" />
+                        <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.UserManager.Employee.Person}" Label="Менеджер" Width="200" AllowResize="True" />
+                        <dp:TextField Name="Users" Label="Исполнители" Width="200" AllowResize="True" />
+                        <dp:TextField Name="BackManagerString" Label="Бэк-менеджер" Width="200" AllowResize="True" />
+                        <dp:TextField Label="№ сборки (№№ задач)" BindingType="UseAlternateBinding" AlternateBinding="{Binding Numbers}" Width="175" AllowResize="True" />
+                        <dp:TextField Name="TceNumber" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.TceNumber}" Label="№ в ТСЕ" Width="Auto" AllowResize="True" />
+                        <dp:TextField Name="Orders" Label="Заказы" Width="200" AllowResize="True" />
+                        <!--<dp:Field Name="ChildPriceEngineeringTasks" IsExpandable="True"/>-->
+                    </dp:FieldLayout.Fields>
+                </dp:FieldLayout>
+
+                <!--<dp:FieldLayout ParentFieldLayoutKey="TasksTable" ParentFieldName="ChildPriceEngineeringTasks">
+                    <dp:TextField Label="Блок" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.ProductBlock}" Width="300"/>
+                    <dp:TextField Label="Исполнитель" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.UserConstructor}" Width="300" 
+                                             Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToConstructorConverter}}"/>
+                    <dp:TextField Label="Статус" BindingType="UseAlternateBinding" AlternateBinding="{Binding StatusString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                    <dp:TextField Label="№ задачи" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.Number}" Width="Auto"/>
+                </dp:FieldLayout>-->
 
             </dp:XamDataGrid.FieldLayouts>
         </dp:XamDataGrid>

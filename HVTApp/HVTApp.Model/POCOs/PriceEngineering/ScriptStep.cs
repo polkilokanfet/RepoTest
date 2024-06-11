@@ -293,7 +293,7 @@ namespace HVTApp.Model.POCOs
 
         private sealed class VerificationRequestByConstructorStep : ScriptStep
         {
-            public override string Description => "Исполнитель направил проработку проверку";
+            public override string Description => "Проработка задачи на проверке";
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
@@ -373,7 +373,7 @@ namespace HVTApp.Model.POCOs
 
         private sealed class LoadToTceStartStep : ScriptStep
         {
-            public override string Description => "Менеджер поставил задачу загрузить проработку в ТС";
+            public override string Description => "Менеджер поставил задачу загрузить проработку в Team Center";
 
             protected override IEnumerable<Role> RolesForShow => new[]
             {

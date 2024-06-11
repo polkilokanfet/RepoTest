@@ -1,28 +1,53 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.Items;
+using HVTApp.UI.PriceEngineering.View;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
     public class PriceEngineeringTasksListViewModelDesignDepartmentHead : PriceEngineeringTasksListViewModelBase<PriceEngineeringTasksListItemDesignDepartmentHead, PriceEngineeringTaskListItemDesignDepartmentHead>, IDisposable
     {
-        public IEnumerable<WorkloadItem> WorkloadItems { get; }
+        public ObservableCollection<WorkloadItem> WorkloadItems { get; } = new ObservableCollection<WorkloadItem>();
+        public ICommand OpenWorkLoadTaskCommand { get; }
+        public object SelectedWorkLoadTask { get; set; }
         public PriceEngineeringTasksListViewModelDesignDepartmentHead(IUnityContainer container) : base(container)
         {
+            OpenWorkLoadTaskCommand = new DelegateCommand(
+                () =>
+                {
+                    if (SelectedWorkLoadTask is PriceEngineeringTasksListItemDesignDepartmentHead task)
+                    {
+                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(new NavigationParameters(){{nameof(task), task.Entity}});
+                    }
+                });
+        }
+
+        protected override IEnumerable<PriceEngineeringTasks> GetSuitableTasks()
+        {
+            var result = base.GetSuitableTasks();
+
             //КБ, которыми руководит пользователь
             var departments = UnitOfWork.Repository<DesignDepartment>().Find(department => department.Head.Id == GlobalAppProperties.User.Id);
 
             //сотрудники из этих КБ
             var employees = departments.SelectMany(department => department.Staff).Distinct();
 
-            WorkloadItems = new List<WorkloadItem>(employees.OrderBy(x => x.ToString()).Select(x => new WorkloadItem(x, this, container.Resolve<IEventAggregator>())));
-            WorkloadItems.ForEach(x => x.ShowUsersTasksIsChanged += WorkloadItemOnShowUsersTasksIsChanged);
+            WorkloadItems.ForEach(workloadItem => workloadItem.ShowUsersTasksIsChanged -= WorkloadItemOnShowUsersTasksIsChanged);
+            WorkloadItems.Clear();
+            WorkloadItems.AddRange(employees.OrderBy(user => user.ToString()).Select(user => new WorkloadItem(user, this, Container.Resolve<IEventAggregator>())));
+            WorkloadItems.ForEach(workloadItem => workloadItem.ShowUsersTasksIsChanged += WorkloadItemOnShowUsersTasksIsChanged);
+
+            return result;
         }
 
         private void WorkloadItemOnShowUsersTasksIsChanged()

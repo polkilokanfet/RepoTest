@@ -96,26 +96,26 @@ namespace HVTApp.UI.PriceEngineering.Items
         #region SimpleProperties
 
         [OrderStatus(2000)]
-        public System.String TceNumber => Entity.TceNumber;
+        public string TceNumber => Entity.TceNumber;
 
         [OrderStatus(1500)]
-        public System.DateTime WorkUpTo => Entity.WorkUpTo;
+        public DateTime WorkUpTo => Entity.WorkUpTo;
 
         [OrderStatus(1400)]
-        public System.String Comment => Entity.Comment;
+        public string Comment => Entity.Comment;
 
         [OrderStatus(1)]
-        public System.Boolean IsAccepted => Entity.IsAccepted;
+        public bool IsAccepted => Entity.IsAccepted;
 
         [OrderStatus(2000)]
-        public System.DateTime? StartMoment => Entity.StartMoment;
+        public DateTime? StartMoment => Entity.StartMoment;
 
         #endregion
 
         #region ComplexProperties
 
         [OrderStatus(1800)]
-        public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
+        public UserLookup BackManager => GetLookup<UserLookup>();
 
         public string BackManagerString => Entity.BackManager?.Employee.Person.ToString();
 
@@ -132,6 +132,5 @@ namespace HVTApp.UI.PriceEngineering.Items
         }
 
         protected abstract IEnumerable<TChildTask> GetChildTasks();
-
     }
 }
