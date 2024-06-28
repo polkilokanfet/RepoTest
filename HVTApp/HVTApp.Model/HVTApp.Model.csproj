@@ -150,6 +150,8 @@
     <Compile Include="POCOs\StandartProductionTerm.cs" />
     <Compile Include="POCOs\PriceCalculation\StructureCost.cs" />
     <Compile Include="POCOs\Supervision.cs" />
+    <Compile Include="POCOs\TaskInvoiceForPayment.cs" />
+    <Compile Include="POCOs\TaskInvoiceForPaymentItem.cs" />
     <Compile Include="POCOs\TCE\AnswerFileTce.cs" />
     <Compile Include="POCOs\TCE\ShippingCostFile.cs" />
     <Compile Include="POCOs\TCE\TechnicalRequrements.cs" />

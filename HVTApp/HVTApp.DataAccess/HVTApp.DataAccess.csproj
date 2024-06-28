@@ -130,6 +130,8 @@
     <Compile Include="EntityTypeConfigurations\Custom\ProjectTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\StructureCostConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SupervisionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\TaskInvoiceForPaymentConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\TaskInvoiceForPaymentItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsTaskHistoryElementConfiguration.cs" />

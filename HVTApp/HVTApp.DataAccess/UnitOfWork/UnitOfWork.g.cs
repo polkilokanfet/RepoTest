@@ -31,6 +31,12 @@ namespace HVTApp.DataAccess
             InvoiceForPaymentTaskRepository = new InvoiceForPaymentTaskRepository(_context);
             InvoiceForPaymentTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            TaskInvoiceForPaymentRepository = new TaskInvoiceForPaymentRepository(_context);
+            TaskInvoiceForPaymentRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            TaskInvoiceForPaymentItemRepository = new TaskInvoiceForPaymentItemRepository(_context);
+            TaskInvoiceForPaymentItemRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             DesignDepartmentRepository = new DesignDepartmentRepository(_context);
             DesignDepartmentRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -329,6 +335,8 @@ namespace HVTApp.DataAccess
             CostsPercentsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CreateNewProductTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             InvoiceForPaymentTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            TaskInvoiceForPaymentRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            TaskInvoiceForPaymentItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskGroupRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -436,6 +444,8 @@ namespace HVTApp.DataAccess
         protected ICostsPercentsRepository CostsPercentsRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IInvoiceForPaymentTaskRepository InvoiceForPaymentTaskRepository;
+        protected ITaskInvoiceForPaymentRepository TaskInvoiceForPaymentRepository;
+        protected ITaskInvoiceForPaymentItemRepository TaskInvoiceForPaymentItemRepository;
         protected IDesignDepartmentRepository DesignDepartmentRepository;
         protected IDirectumTaskRepository DirectumTaskRepository;
         protected IDirectumTaskGroupRepository DirectumTaskGroupRepository;

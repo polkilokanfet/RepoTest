@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="HVTApp.UI.TaskInvoiceForPayment1.Base.TaskInvoiceForPaymentItemViewModelBaseControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             x:Name="Root">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <dataPresenter:XamDataGrid
+            Grid.Row="0" 
+            DataSource="{Binding Items}">
+
+            <dataPresenter:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel"
+                              Command="{Binding ExportToExcel}"
+                              CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                </ContextMenu>
+            </dataPresenter:XamDataGrid.ContextMenu>
+
+            <dataPresenter:XamDataGrid.FieldLayouts>
+                <dataPresenter:FieldLayout Key="Main">
+
+                    <dataPresenter:FieldLayout.Fields>
+
+                        <dataPresenter:TextField AlternateBinding="{Binding TceNumber}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Заявка в Team Center"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding FacilityOwners}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Владелец объекта"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding Facility}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Объект"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding ProductType}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Тип продукта"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding Designation}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Обозначение"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding Amount}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Кол."
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding Cost}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Цена"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding Sum}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Стоимость"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding Vat}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="НДС, %"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding SumWithVat}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Стоимость с НДС"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding CostDelivery}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Логистика"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding FixedCost}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Шеф-монтаж"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding Order}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Заказ"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding OrderPositions}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Позиции"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding Contragent}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Контрагент"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding ContragentType}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Тип контрагента"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding Country}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Страна поставки"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding District}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Федеральный округ"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding Segment}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Сегмент"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding Manager}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Менеджер"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding ContractNumber}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Договор"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:DateTimeField AlternateBinding="{Binding ContractDate}"
+                                            BindingType="UseAlternateBinding"
+                                            Label="Дата договора"
+                                            Width="Auto"
+                                            AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding SpecificationNumber}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Спецификация"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:DateTimeField AlternateBinding="{Binding SpecificationDate}"
+                                            BindingType="UseAlternateBinding"
+                                            Label="Дата спецификации"
+                                            Width="Auto"
+                                            AllowResize="True" />
+
+                        <dataPresenter:DateTimeField AlternateBinding="{Binding OrderInTakeDate}"
+                                            BindingType="UseAlternateBinding"
+                                            Label="ОИТ"
+                                            Width="Auto"
+                                            AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding PaymentConditionSet}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Условия оплаты"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding DeliveryType}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Тип доставки"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:TextField AlternateBinding="{Binding DeliveryAddress}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Адрес доставки"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                        <dataPresenter:NumericField AlternateBinding="{Binding ProductionTerm}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Срок производства"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                    </dataPresenter:FieldLayout.Fields>
+
+                </dataPresenter:FieldLayout>
+
+            </dataPresenter:XamDataGrid.FieldLayouts>
+        </dataPresenter:XamDataGrid>
+
+        <ContentControl 
+            Grid.Row="1" 
+            Content="{Binding ElementName=Root, Path=SpecificContent}"/>
+
+    </Grid>
+
+</UserControl>

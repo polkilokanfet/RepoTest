@@ -735,6 +735,19 @@
     <Compile Include="Tabs\TabProductBlocks.xaml.cs">
       <DependentUpon>TabProductBlocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBaseControl.xaml.cs">
+      <DependentUpon>TaskInvoiceForPaymentItemViewModelBaseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBase.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentManagerView.xaml.cs">
+      <DependentUpon>TaskInvoiceForPaymentManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManagerControl.xaml.cs">
+      <DependentUpon>TaskInvoiceForPaymentItemViewModelManagerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentViewModelManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentWrapperManager.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseNotifyTechnicalRequrementsTaskViewModelCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
     <Compile Include="Modules\Sales\Market\Converters\ProductionGroupToColorConverter.cs" />
@@ -2437,6 +2450,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\TabCRUD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBaseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManagerControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
