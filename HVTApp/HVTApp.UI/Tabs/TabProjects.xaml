@@ -6,6 +6,7 @@
                                  Header="Проекты">
     
     <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Сменить менеджера" Command="{Binding ChangeManagerCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
         <infRib:ButtonTool Caption="Копировать вложения" Command="{Binding CopyAttachmentsCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
     </infRib:RibbonGroup>
     

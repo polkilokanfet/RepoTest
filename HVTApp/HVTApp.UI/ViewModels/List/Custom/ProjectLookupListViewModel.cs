@@ -5,7 +5,9 @@ using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.EventService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
@@ -15,9 +17,37 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectLookupListViewModel
     {
+        public DelegateLogCommand ChangeManagerCommand { get; private set; }
         public DelegateLogCommand CopyAttachmentsCommand { get; private set; }
+        
         protected override void InitSpecialCommands()
         {
+            ChangeManagerCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var managers = UnitOfWork.Repository<User>().Find(user => user.Roles.Select(role => role.Role).Contains(Role.SalesManager));
+                    var manager = Container.Resolve<ISelectService>().SelectItem(managers);
+                    if (manager == null) return;
+
+                    using (var unitOfWork = Container.Resolve<IUnitOfWork>())
+                    {
+                        manager = unitOfWork.Repository<User>().GetById(manager.Id);
+                        var project = unitOfWork.Repository<Project>().GetById(SelectedItem.Id);
+                        project.Manager = manager;
+
+                        var salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Project.Id == project.Id);
+                        var tasks = unitOfWork.Repository<PriceEngineeringTask>().Find(task => task.SalesUnits.Intersect(salesUnits).Any()).Distinct().ToList();
+                        var tt = tasks.Select(task => task.GetPriceEngineeringTasks(unitOfWork)).Distinct();
+                        foreach (var t in tt)
+                        {
+                            t.UserManager = manager;
+                        }
+
+                        unitOfWork.SaveChanges();
+                    }
+                },
+                () => SelectedItem != null);
+
             CopyAttachmentsCommand = new DelegateLogCommand(
                 () =>
                 {
@@ -68,7 +98,11 @@ namespace HVTApp.UI.ViewModels
                 },
                 () => SelectedItem != null);
 
-            this.SelectedLookupChanged += lookup => CopyAttachmentsCommand.RaiseCanExecuteChanged();
+            this.SelectedLookupChanged += lookup =>
+            {
+                ChangeManagerCommand.RaiseCanExecuteChanged();
+                CopyAttachmentsCommand.RaiseCanExecuteChanged();
+            };
 
         }
     }
