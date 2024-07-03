@@ -45,60 +45,19 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                         _viewModel.Load(task);
                     }
 
-                    //загрузка калькуляции по задаче из ТСЕ
-                    else if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask technicalRequrementsTask)
-                    {
-                        _viewModel.Load(technicalRequrementsTask);
-                    }
+                    ////загрузка калькуляции по задаче из ТСЕ
+                    //else if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask technicalRequrementsTask)
+                    //{
+                    //    _viewModel.Load(technicalRequrementsTask);
+                    //}
 
-                    //загрузка калькуляции по юнитам
-                    else if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
-                    {
-                        _viewModel.Load(salesUnits);
-                    }
-
-                }
-                else if (navigationContext.Parameters.Count() == 2)
-                {
-                    //создание копии калькуляции
-                    if (navigationContext.Parameters.First().Value is PriceCalculation priceCalculation)
-                    {
-                        if (navigationContext.Parameters.Last().Value == null)
-                        {
-                            _viewModel.CreateCopy(priceCalculation);
-                        }
-                        else if (navigationContext.Parameters.Last().Value is TechnicalRequrementsTask technicalRequrementsTask)
-                        {
-                            _viewModel.CreateCopy(priceCalculation, technicalRequrementsTask);
-                        }
-                    }
-
-                    //создание расчёта ПЗ по PriceEngineeringTasks
-                    else if (navigationContext.Parameters.First().Value is PriceEngineeringTasks priceEngineeringTasks)
-                    {
-                        if (navigationContext.Parameters.Last().Value is bool isTceConnected)
-                            _viewModel.Load(priceEngineeringTasks, isTceConnected);
-                    }
+                    ////загрузка калькуляции по юнитам
+                    //else if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
+                    //{
+                    //    _viewModel.Load(salesUnits);
+                    //}
                 }
             }
-            
-            //var dg = this.Groups; //(XamDataGrid)sender;
-            //foreach (var o in dg.DataSource)
-            //{
-            //    dg.GetRecordFromDataItem(o, recursive: false).IsExpanded = true;
-            //}
         }
-
-        void IsCheckedValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (Equals(e.OldValue, e.NewValue))
-                return;
-
-            var editor = sender as XamCheckEditor;
-            ((PriceCalculationItem2Wrapper)(((DataRecord)editor.DataContext).DataItem)).IsChecked = editor.IsChecked.Value;
-
-            _viewModel.MergeCommand.RaiseCanExecuteChanged();
-        }
-
     }
 }

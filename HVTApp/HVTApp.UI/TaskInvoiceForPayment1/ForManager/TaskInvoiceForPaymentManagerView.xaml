@@ -93,17 +93,6 @@
 
                             <infgDp:FieldLayout.Fields>
                                 
-                                <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label=" " Width="Auto" AllowEdit="True" AllowResize="False">
-                                    <infgDp:Field.Settings>
-                                        <infgDp:FieldSettings>
-                                            <infgDp:FieldSettings.EditorStyle>
-                                                <Style TargetType="{x:Type igEditors:XamCheckEditor}">
-                                                    <EventSetter Event="ValueChanged" Handler="IsCheckedValueChanged"/>
-                                                </Style>
-                                            </infgDp:FieldSettings.EditorStyle>
-                                        </infgDp:FieldSettings>
-                                    </infgDp:Field.Settings>
-                                </infgDp:CheckBoxField>
                                 <infgDp:TextField AlternateBinding="{Binding PositionInTeamCenter}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
                                 <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                 <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
