@@ -1,12 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1;
-using HVTApp.UI.PriceCalculations.ViewModel.Wrapper;
-using Infragistics.Windows.DataPresenter;
-using Infragistics.Windows.Editors;
 using Prism.Events;
 using Prism.Regions;
 
@@ -39,23 +33,17 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
             {
                 if (navigationContext.Parameters.Count() == 1)
                 {
-                    //загрузка калькуляции 
+                    //загрузка по задаче
                     if (navigationContext.Parameters.First().Value is TaskInvoiceForPayment task)
                     {
                         _viewModel.Load(task);
                     }
 
-                    ////загрузка калькуляции по задаче из ТСЕ
-                    //else if (navigationContext.Parameters.First().Value is TechnicalRequrementsTask technicalRequrementsTask)
-                    //{
-                    //    _viewModel.Load(technicalRequrementsTask);
-                    //}
-
-                    ////загрузка калькуляции по юнитам
-                    //else if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
-                    //{
-                    //    _viewModel.Load(salesUnits);
-                    //}
+                    //загрузка по спецификации
+                    if (navigationContext.Parameters.First().Value is Specification specification)
+                    {
+                        _viewModel.Load(specification);
+                    }
                 }
             }
         }

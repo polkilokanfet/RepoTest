@@ -4,9 +4,11 @@ namespace HVTApp.DataAccess
     {
         public SpecificationConfiguration()
         {
-            Property(x => x.Date).IsRequired();
-            Property(x => x.Vat).IsRequired();
-            HasRequired(x => x.Contract).WithMany().WillCascadeOnDelete(false);
+            Property(specification => specification.Date).IsRequired();
+            Property(specification => specification.Vat).IsRequired();
+            HasRequired(specification => specification.Contract).WithMany().WillCascadeOnDelete(false);
+            HasMany(specification => specification.PriceEngineeringTasks).WithOptional().HasForeignKey(x => x.SpecificationId).WillCascadeOnDelete(false);
+            HasMany(specification => specification.TechnicalRequrements).WithOptional().HasForeignKey(x => x.SpecificationId).WillCascadeOnDelete(false);
         }
     }
 }

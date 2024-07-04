@@ -50,10 +50,10 @@
                 </controls:ButtonIsVisibleWhenCanExecute>
 
                 <controls:ButtonIsVisibleWhenCanExecute
-                    Command="{Binding MakeInvoiceForPaymentTaskCommand}">
+                    Command="{Binding IncludeInSpecificationCommand}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Money"/>
-                        <TextBlock Text="Счёт"/>
+                        <TextBlock Text="Включить в спецификацию"/>
                     </StackPanel>
 
                 </controls:ButtonIsVisibleWhenCanExecute>

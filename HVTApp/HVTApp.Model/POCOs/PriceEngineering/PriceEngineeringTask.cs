@@ -125,6 +125,8 @@ namespace HVTApp.Model.POCOs
         public bool NeedEquipment { get; set; } = false;
 
         #endregion
+
+        public virtual Guid SpecificationId { get; set; }
     }
 
     public partial class PriceEngineeringTask

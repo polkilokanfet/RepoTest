@@ -1,16 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using Microsoft.Practices.Unity;
+using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -54,11 +58,9 @@ namespace HVTApp.UI.PriceEngineering
         public override DelegateLogConfirmationCommand ReplaceProductCommand { get; }
 
         /// <summary>
-        /// Задача на формирование счёта
+        /// Включить в спецификацию
         /// </summary>
-        public virtual DelegateLogConfirmationCommand MakeInvoiceForPaymentTaskCommand { get; }
-
-        
+        public virtual DelegateLogConfirmationCommand IncludeInSpecificationCommand { get; }
 
         #endregion
 
@@ -116,30 +118,31 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",
                 () => { this.ReplaceProduct(this.Model); });
 
-            MakeInvoiceForPaymentTaskCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите запросить создание счёта?",
+            IncludeInSpecificationCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите включить данное оборудование в спецификацию?",
                 () =>
                 {
-                    if (string.IsNullOrEmpty(this.Model.GetPriceEngineeringTasks(UnitOfWork).TceNumber))
+                    if (this.Model.SalesUnits.Any(salesUnit => salesUnit.Specification != null))
                     {
-                        container.Resolve<IMessageService>().Message("Отказ", "Вашей проработки нет в Team Center");
-                        return;
-                    }
-
-                    if (this.Model.SalesUnits.Any(x => x.Specification == null))
-                    {
-                        container.Resolve<IMessageService>().Message("Отказ", "Создайте перед этим спецификацию");
+                        container.Resolve<IMessageService>().Message("Отказ", "В задаче есть оборудование, которое уже включено в спецификацию.");
                         return;
                     }
 
                     var unitOfWork = container.Resolve<IUnitOfWork>();
-
-                    unitOfWork.SaveEntity(new InvoiceForPaymentTask
-                    {
-                        PriceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id)
-                    });
-
-                    container.Resolve<IMessageService>().Message("Успех!", "Запрос на создание счёта успешно создан!");
+                    //спецификации менеджера
+                    var specifications = unitOfWork.Repository<Specification>()
+                        .Find(specification1 =>
+                            specification1.PriceEngineeringTasks.SelectMany(x => x.SalesUnits)
+                                .Any(xx => xx.Project.Manager.Id == GlobalAppProperties.User.Id) ||
+                            specification1.TechnicalRequrements.SelectMany(x => x.SalesUnits)
+                                .Any(xx => xx.Project.Manager.Id == GlobalAppProperties.User.Id));
+                    var specification = container.Resolve<ISelectService>().SelectItem(specifications);
+                    if (specification == null) return;
+                    specification = unitOfWork.Repository<Specification>().GetById(specification.Id);
+                    var task = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
+                    specification.PriceEngineeringTasks.Add(task);
+                    unitOfWork.SaveChanges();
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), specification } });
                 });
 
             #endregion

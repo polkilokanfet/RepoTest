@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -22,6 +23,14 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Договор"), Required, OrderStatus(8)]
         public virtual Contract Contract { get; set; }
+
+
+        [Designation("Задачи ТСП")]
+        public virtual List<PriceEngineeringTask> PriceEngineeringTasks { get; set; } = new List<PriceEngineeringTask>();
+
+        [Designation("Задачи ТСЕ")]
+        public virtual List<TechnicalRequrements> TechnicalRequrements { get; set; } = new List<TechnicalRequrements>();
+
 
         public override string ToString()
         {

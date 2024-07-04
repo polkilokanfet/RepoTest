@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -12,13 +11,29 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using HVTApp.DataAccess;
 using System.Linq;
+using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Services;
+using HVTApp.UI.Commands;
+using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
+using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class SpecificationViewModel : UnitsContainer<Specification, SpecificationWrapper, SpecificationDetailsViewModel, SpecificationUnitsGroupsViewModel, SalesUnit, AfterSaveSpecificationEvent>
     {
+        /// <summary>
+        /// Задача на формирование счёта
+        /// </summary>
+        public DelegateLogConfirmationCommand MakeInvoiceForPaymentTaskCommand { get; }
+
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
+            MakeInvoiceForPaymentTaskCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите создать счёт на оплату?",
+                () =>
+                {
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), this.DetailsViewModel.Entity}});
+                });
         }
 
         public override void Load(Specification model, bool isNew, object parameter = null)
@@ -30,7 +45,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             {
                 DetailsViewModel.Item.Date = DateTime.Today;
                 var specificationSimpleWrapper = new SpecificationSimpleWrapper(DetailsViewModel.Item.Model);
-                GroupsViewModel.Groups.ForEach(x => x.Specification = specificationSimpleWrapper);
+                EnumerableExtensions.ForEach(GroupsViewModel.Groups, x => x.Specification = specificationSimpleWrapper);
             }
         }
 
@@ -53,7 +68,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         {
             var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
             var uetmWrapper = new CompanySimpleWrapper(uetm);
-            GroupsViewModel.Groups.ForEach(x => x.Producer = uetmWrapper);
+            EnumerableExtensions.ForEach(GroupsViewModel.Groups, x => x.Producer = uetmWrapper);
         }
     }
 }

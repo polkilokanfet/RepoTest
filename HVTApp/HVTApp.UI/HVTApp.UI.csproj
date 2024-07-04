@@ -347,6 +347,9 @@
     </Compile>
     <Compile Include="Modules\Sales\Market\ISelectedProjectItemChanged.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
+    <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInSpecification.xaml.cs">
+      <DependentUpon>TabCrudUnitsInSpecification.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilterByProject.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
@@ -1986,6 +1989,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Shippings\ShippingTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Tabs\TabCrudUnitsInSpecification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

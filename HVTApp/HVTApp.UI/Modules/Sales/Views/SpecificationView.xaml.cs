@@ -9,7 +9,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Views
 {
-    [RibbonTab(typeof(TabCrudUnits))]
+    [RibbonTab(typeof(TabCrudUnitsInSpecification))]
     public partial class SpecificationView : ViewBaseConfirmNavigationRequest
     {
         private readonly SpecificationViewModel _viewModel;

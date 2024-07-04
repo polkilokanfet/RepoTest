@@ -35,5 +35,7 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Позиция в TeamCenter"), OrderStatus(3)]
         public int? PositionInTeamCenter { get; set; }
+
+        public virtual Guid SpecificationId { get; set; }
     }
 }

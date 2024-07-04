@@ -7,8 +7,17 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
     public class TaskInvoiceForPaymentViewModelManager : BindableBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private TaskInvoiceForPaymentWrapperManager _task;
 
-        public TaskInvoiceForPaymentWrapperManager Task { get; private set; }
+        public TaskInvoiceForPaymentWrapperManager Task
+        {
+            get => _task;
+            private set
+            {
+                _task = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public TaskInvoiceForPaymentViewModelManager(IUnitOfWork unitOfWork)
         {
@@ -23,7 +32,17 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         {
             var targetTask = _unitOfWork.Repository<TaskInvoiceForPayment>().GetById(task.Id);
             Task = new TaskInvoiceForPaymentWrapperManager(targetTask, _unitOfWork);
-            RaisePropertyChanged(nameof(Task));
+        }
+
+        public void Load(Specification specification)
+        {
+            Task = new TaskInvoiceForPaymentWrapperManager(new TaskInvoiceForPayment(), _unitOfWork);
+            foreach (var priceEngineeringTask in specification.PriceEngineeringTasks)
+            {
+                var item = new TaskInvoiceForPaymentItemViewModelManager(new TaskInvoiceForPaymentItem(), _unitOfWork);
+                item.Model.PriceEngineeringTask = _unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
+                Task.Items.Add(new TaskInvoiceForPaymentItemViewModelManager(new TaskInvoiceForPaymentItem(), _unitOfWork));
+            }
         }
     }
 }
