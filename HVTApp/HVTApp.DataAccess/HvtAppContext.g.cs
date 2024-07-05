@@ -18,8 +18,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new CostsPercentsConfiguration());
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new InvoiceForPaymentTaskConfiguration());
-            modelBuilder.Configurations.Add(new TaskInvoiceForPaymentConfiguration());
-            modelBuilder.Configurations.Add(new TaskInvoiceForPaymentItemConfiguration());
             modelBuilder.Configurations.Add(new DesignDepartmentConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskConfiguration());
             modelBuilder.Configurations.Add(new DirectumTaskGroupConfiguration());
@@ -64,6 +62,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new StandartProductionTermConfiguration());
             modelBuilder.Configurations.Add(new StructureCostConfiguration());
             modelBuilder.Configurations.Add(new SupervisionConfiguration());
+            modelBuilder.Configurations.Add(new TaskInvoiceForPaymentConfiguration());
+            modelBuilder.Configurations.Add(new TaskInvoiceForPaymentItemConfiguration());
             modelBuilder.Configurations.Add(new AnswerFileTceConfiguration());
             modelBuilder.Configurations.Add(new ShippingCostFileConfiguration());
             modelBuilder.Configurations.Add(new TechnicalRequrementsConfiguration());
@@ -128,8 +128,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<CostsPercents> CostsPercentsDbSet { get; set; }
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<InvoiceForPaymentTask> InvoiceForPaymentTaskDbSet { get; set; }
-        public virtual DbSet<TaskInvoiceForPayment> TaskInvoiceForPaymentDbSet { get; set; }
-        public virtual DbSet<TaskInvoiceForPaymentItem> TaskInvoiceForPaymentItemDbSet { get; set; }
         public virtual DbSet<DesignDepartment> DesignDepartmentDbSet { get; set; }
         public virtual DbSet<DirectumTask> DirectumTaskDbSet { get; set; }
         public virtual DbSet<DirectumTaskGroup> DirectumTaskGroupDbSet { get; set; }
@@ -174,6 +172,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<StandartProductionTerm> StandartProductionTermDbSet { get; set; }
         public virtual DbSet<StructureCost> StructureCostDbSet { get; set; }
         public virtual DbSet<Supervision> SupervisionDbSet { get; set; }
+        public virtual DbSet<TaskInvoiceForPayment> TaskInvoiceForPaymentDbSet { get; set; }
+        public virtual DbSet<TaskInvoiceForPaymentItem> TaskInvoiceForPaymentItemDbSet { get; set; }
         public virtual DbSet<AnswerFileTce> AnswerFileTceDbSet { get; set; }
         public virtual DbSet<ShippingCostFile> ShippingCostFileDbSet { get; set; }
         public virtual DbSet<TechnicalRequrements> TechnicalRequrementsDbSet { get; set; }

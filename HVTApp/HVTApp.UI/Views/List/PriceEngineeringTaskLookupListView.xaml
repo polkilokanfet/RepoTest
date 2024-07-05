@@ -60,6 +60,7 @@
                         <infg:CheckBoxField Name="IsValidForProduction" Label="ТЗ валидно для производства" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="RequestForVerificationFromConstructor" Label="Запрос на проверку от исполнителя" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="UserConstructorInitiator" Label="Инициатор подзадачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:CheckBoxField Name="VerificationIsRequested" Label="VerificationIsRequested" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="TcePosition" Label="Позиция в ТСЕ" Width="Auto" AllowResize="True" />

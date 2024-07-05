@@ -31,12 +31,6 @@ namespace HVTApp.DataAccess
             InvoiceForPaymentTaskRepository = new InvoiceForPaymentTaskRepository(_context);
             InvoiceForPaymentTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
 
-            TaskInvoiceForPaymentRepository = new TaskInvoiceForPaymentRepository(_context);
-            TaskInvoiceForPaymentRepository.OperationFailedEvent += OnOperationFailedEvent;
-
-            TaskInvoiceForPaymentItemRepository = new TaskInvoiceForPaymentItemRepository(_context);
-            TaskInvoiceForPaymentItemRepository.OperationFailedEvent += OnOperationFailedEvent;
-
             DesignDepartmentRepository = new DesignDepartmentRepository(_context);
             DesignDepartmentRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -168,6 +162,12 @@ namespace HVTApp.DataAccess
 
             SupervisionRepository = new SupervisionRepository(_context);
             SupervisionRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            TaskInvoiceForPaymentRepository = new TaskInvoiceForPaymentRepository(_context);
+            TaskInvoiceForPaymentRepository.OperationFailedEvent += OnOperationFailedEvent;
+
+            TaskInvoiceForPaymentItemRepository = new TaskInvoiceForPaymentItemRepository(_context);
+            TaskInvoiceForPaymentItemRepository.OperationFailedEvent += OnOperationFailedEvent;
 
             AnswerFileTceRepository = new AnswerFileTceRepository(_context);
             AnswerFileTceRepository.OperationFailedEvent += OnOperationFailedEvent;
@@ -335,8 +335,6 @@ namespace HVTApp.DataAccess
             CostsPercentsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             CreateNewProductTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             InvoiceForPaymentTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            TaskInvoiceForPaymentRepository.OperationFailedEvent -= OnOperationFailedEvent;
-            TaskInvoiceForPaymentItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DesignDepartmentRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             DirectumTaskGroupRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -381,6 +379,8 @@ namespace HVTApp.DataAccess
             StandartProductionTermRepository.OperationFailedEvent -= OnOperationFailedEvent;
             StructureCostRepository.OperationFailedEvent -= OnOperationFailedEvent;
             SupervisionRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            TaskInvoiceForPaymentRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            TaskInvoiceForPaymentItemRepository.OperationFailedEvent -= OnOperationFailedEvent;
             AnswerFileTceRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ShippingCostFileRepository.OperationFailedEvent -= OnOperationFailedEvent;
             TechnicalRequrementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -444,8 +444,6 @@ namespace HVTApp.DataAccess
         protected ICostsPercentsRepository CostsPercentsRepository;
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IInvoiceForPaymentTaskRepository InvoiceForPaymentTaskRepository;
-        protected ITaskInvoiceForPaymentRepository TaskInvoiceForPaymentRepository;
-        protected ITaskInvoiceForPaymentItemRepository TaskInvoiceForPaymentItemRepository;
         protected IDesignDepartmentRepository DesignDepartmentRepository;
         protected IDirectumTaskRepository DirectumTaskRepository;
         protected IDirectumTaskGroupRepository DirectumTaskGroupRepository;
@@ -490,6 +488,8 @@ namespace HVTApp.DataAccess
         protected IStandartProductionTermRepository StandartProductionTermRepository;
         protected IStructureCostRepository StructureCostRepository;
         protected ISupervisionRepository SupervisionRepository;
+        protected ITaskInvoiceForPaymentRepository TaskInvoiceForPaymentRepository;
+        protected ITaskInvoiceForPaymentItemRepository TaskInvoiceForPaymentItemRepository;
         protected IAnswerFileTceRepository AnswerFileTceRepository;
         protected IShippingCostFileRepository ShippingCostFileRepository;
         protected ITechnicalRequrementsRepository TechnicalRequrementsRepository;

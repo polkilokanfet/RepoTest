@@ -39,9 +39,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
             Task = new TaskInvoiceForPaymentWrapperManager(new TaskInvoiceForPayment(), _unitOfWork);
             foreach (var priceEngineeringTask in specification.PriceEngineeringTasks)
             {
-                var item = new TaskInvoiceForPaymentItemViewModelManager(new TaskInvoiceForPaymentItem(), _unitOfWork);
-                item.Model.PriceEngineeringTask = _unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
-                Task.Items.Add(new TaskInvoiceForPaymentItemViewModelManager(new TaskInvoiceForPaymentItem(), _unitOfWork));
+                var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem
+                {
+                    PriceEngineeringTask = _unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id)
+                };
+                var item = new TaskInvoiceForPaymentItemViewModelManager(taskInvoiceForPaymentItem, _unitOfWork);
+                Task.Items.Add(item);
             }
         }
     }

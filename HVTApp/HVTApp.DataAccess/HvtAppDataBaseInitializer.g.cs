@@ -21,8 +21,6 @@ namespace HVTApp.DataAccess
             context.CostsPercentsDbSet.AddRange(testData.GetAll<CostsPercents>());
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
             context.InvoiceForPaymentTaskDbSet.AddRange(testData.GetAll<InvoiceForPaymentTask>());
-            context.TaskInvoiceForPaymentDbSet.AddRange(testData.GetAll<TaskInvoiceForPayment>());
-            context.TaskInvoiceForPaymentItemDbSet.AddRange(testData.GetAll<TaskInvoiceForPaymentItem>());
             context.DesignDepartmentDbSet.AddRange(testData.GetAll<DesignDepartment>());
             context.DirectumTaskDbSet.AddRange(testData.GetAll<DirectumTask>());
             context.DirectumTaskGroupDbSet.AddRange(testData.GetAll<DirectumTaskGroup>());
@@ -67,6 +65,8 @@ namespace HVTApp.DataAccess
             context.StandartProductionTermDbSet.AddRange(testData.GetAll<StandartProductionTerm>());
             context.StructureCostDbSet.AddRange(testData.GetAll<StructureCost>());
             context.SupervisionDbSet.AddRange(testData.GetAll<Supervision>());
+            context.TaskInvoiceForPaymentDbSet.AddRange(testData.GetAll<TaskInvoiceForPayment>());
+            context.TaskInvoiceForPaymentItemDbSet.AddRange(testData.GetAll<TaskInvoiceForPaymentItem>());
             context.AnswerFileTceDbSet.AddRange(testData.GetAll<AnswerFileTce>());
             context.ShippingCostFileDbSet.AddRange(testData.GetAll<ShippingCostFile>());
             context.TechnicalRequrementsDbSet.AddRange(testData.GetAll<TechnicalRequrements>());

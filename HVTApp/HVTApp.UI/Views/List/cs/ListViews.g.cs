@@ -5166,6 +5166,12 @@ namespace HVTApp.UI.Views
             set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.ProductBlockEngineer)].Visibility = value; }
         }
 
+        public System.Windows.Visibility SpecificationVisibility
+        {
+            get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Specification)].Visibility; }
+            set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Specification)].Visibility = value; }
+        }
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.Entity)].Visibility; }
@@ -7201,7 +7207,7 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Спецификация")]
 	[DesignationPlural("SpecificationLookup")]
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
     public partial class SpecificationLookupListView : ViewBase
     {
         public SpecificationLookupListView()
@@ -7751,6 +7757,150 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Счёт на оплату (строка задания)")]
+	[DesignationPlural("TaskInvoiceForPaymentItemLookup")]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
+    public partial class TaskInvoiceForPaymentItemLookupListView : ViewBase
+    {
+        public TaskInvoiceForPaymentItemLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public TaskInvoiceForPaymentItemLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TaskInvoiceForPaymentItemLookupListViewModel TaskInvoiceForPaymentItemLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TaskInvoiceForPaymentItemLookupListViewModel;
+			TaskInvoiceForPaymentItemLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((TaskInvoiceForPaymentItemLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility TaskIdVisibility
+        {
+            get { return TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.TaskId)].Visibility; }
+            set { TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.TaskId)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.DisplayMember)].Visibility; }
+            set { TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility PriceEngineeringTaskVisibility
+        {
+            get { return TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.PriceEngineeringTask)].Visibility; }
+            set { TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.PriceEngineeringTask)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility TechnicalRequrementsVisibility
+        {
+            get { return TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.TechnicalRequrements)].Visibility; }
+            set { TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.TechnicalRequrements)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility PaymentConditionVisibility
+        {
+            get { return TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.PaymentCondition)].Visibility; }
+            set { TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.PaymentCondition)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.Entity)].Visibility; }
+            set { TaskInvoiceForPaymentItemLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentItemLookup.Entity)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Счёт на оплату (задание)")]
+	[DesignationPlural("TaskInvoiceForPaymentLookup")]
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
+    public partial class TaskInvoiceForPaymentLookupListView : ViewBase
+    {
+        public TaskInvoiceForPaymentLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public TaskInvoiceForPaymentLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TaskInvoiceForPaymentLookupListViewModel TaskInvoiceForPaymentLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TaskInvoiceForPaymentLookupListViewModel;
+			TaskInvoiceForPaymentLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			((TaskInvoiceForPaymentLookupListViewModel)DataContext).Load();
+        }
+
+		#region VisibilityProps
+
+        public System.Windows.Visibility MomentStartVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.MomentStart)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.MomentStart)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility MomentFinishVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.MomentFinish)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.MomentFinish)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility OriginalIsRequiredVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.OriginalIsRequired)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.OriginalIsRequired)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Comment)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Comment)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.DisplayMember)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility BackManagerVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.BackManager)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.BackManager)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Entity)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Entity)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility ItemsVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Items)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Items)].Visibility = value; }
+        }
+
+
+		#endregion
+    }
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тех.задание (файл)")]
 	[DesignationPlural("TechnicalRequrementsFileLookup")]
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
@@ -7882,6 +8032,12 @@ namespace HVTApp.UI.Views
         {
             get { return TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.DisplayMember)].Visibility; }
             set { TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.DisplayMember)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility SpecificationVisibility
+        {
+            get { return TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Specification)].Visibility; }
+            set { TechnicalRequrementsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TechnicalRequrementsLookup.Specification)].Visibility = value; }
         }
 
         public System.Windows.Visibility EntityVisibility

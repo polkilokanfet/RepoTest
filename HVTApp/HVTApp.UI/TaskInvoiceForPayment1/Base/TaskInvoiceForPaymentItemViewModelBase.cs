@@ -240,9 +240,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            foreach (var salesUnit in this.SalesUnits.Where(salesUnit => salesUnit.Specification == null))
+            if (this.SalesUnits != null)
             {
-                yield return new ValidationResult($"не имеет спецификации: {salesUnit}");
+                foreach (var salesUnit in this.SalesUnits.Where(salesUnit => salesUnit.Specification == null))
+                {
+                    yield return new ValidationResult($"не имеет спецификации: {salesUnit}");
+                }
             }
         }
     }

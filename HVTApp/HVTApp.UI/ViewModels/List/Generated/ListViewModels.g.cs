@@ -272,6 +272,16 @@ namespace HVTApp.UI.ViewModels
         public SupervisionLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
+	public partial class TaskInvoiceForPaymentLookupListViewModel : BaseListViewModel<TaskInvoiceForPayment, TaskInvoiceForPaymentLookup, AfterSaveTaskInvoiceForPaymentEvent, AfterSelectTaskInvoiceForPaymentEvent, AfterRemoveTaskInvoiceForPaymentEvent>
+    {
+        public TaskInvoiceForPaymentLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+	public partial class TaskInvoiceForPaymentItemLookupListViewModel : BaseListViewModel<TaskInvoiceForPaymentItem, TaskInvoiceForPaymentItemLookup, AfterSaveTaskInvoiceForPaymentItemEvent, AfterSelectTaskInvoiceForPaymentItemEvent, AfterRemoveTaskInvoiceForPaymentItemEvent>
+    {
+        public TaskInvoiceForPaymentItemLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 	public partial class AnswerFileTceLookupListViewModel : BaseListViewModel<AnswerFileTce, AnswerFileTceLookup, AfterSaveAnswerFileTceEvent, AfterSelectAnswerFileTceEvent, AfterRemoveAnswerFileTceEvent>
     {
         public AnswerFileTceLookupListViewModel(IUnityContainer container) : base(container) { }

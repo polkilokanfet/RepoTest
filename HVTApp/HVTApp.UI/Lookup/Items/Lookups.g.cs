@@ -960,6 +960,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(850)]
 	    public ProductBlockLookup ProductBlockEngineer { get { return GetLookup<ProductBlockLookup>(); } }
 
+		[OrderStatus(1)]
+	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
+
         #endregion
 		[OrderStatus(800)]
 	    public List<PriceEngineeringTaskProductBlockAddedLookup> ProductBlocksAdded { get { return GetLookupEnum<PriceEngineeringTaskProductBlockAddedLookup>().ToList(); } }
@@ -1456,6 +1459,63 @@ namespace HVTApp.UI.Lookup
         #endregion
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
+	[Designation("Счёт на оплату (задание)")]
+	public partial class TaskInvoiceForPaymentLookup : LookupItem<TaskInvoiceForPayment>
+	{
+		public TaskInvoiceForPaymentLookup(TaskInvoiceForPayment entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.DateTime MomentStart => Entity.MomentStart;
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> MomentFinish => Entity.MomentFinish;
+
+		[OrderStatus(1)]
+        public System.Boolean OriginalIsRequired => Entity.OriginalIsRequired;
+
+		[OrderStatus(1)]
+        public System.String Comment => Entity.Comment;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
+
+        #endregion
+		[OrderStatus(1)]
+	    public List<TaskInvoiceForPaymentItemLookup> Items { get { return GetLookupEnum<TaskInvoiceForPaymentItemLookup>().ToList(); } }
+	}
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
+	[Designation("Счёт на оплату (строка задания)")]
+	public partial class TaskInvoiceForPaymentItemLookup : LookupItem<TaskInvoiceForPaymentItem>
+	{
+		public TaskInvoiceForPaymentItemLookup(TaskInvoiceForPaymentItem entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.Guid TaskId => Entity.TaskId;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public PriceEngineeringTaskLookup PriceEngineeringTask { get { return GetLookup<PriceEngineeringTaskLookup>(); } }
+
+		[OrderStatus(1)]
+	    public TechnicalRequrementsLookup TechnicalRequrements { get { return GetLookup<TechnicalRequrementsLookup>(); } }
+
+		[OrderStatus(1)]
+	    public PaymentConditionLookup PaymentCondition { get { return GetLookup<PaymentConditionLookup>(); } }
+
+        #endregion
+	}
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Файл-ответ ОГК")]
 	public partial class AnswerFileTceLookup : LookupItem<AnswerFileTce>
 	{
@@ -1524,6 +1584,12 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(3)]
         public System.Nullable<System.Int32> PositionInTeamCenter => Entity.PositionInTeamCenter;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
 
         #endregion
 		[OrderStatus(20)]
@@ -2994,7 +3060,7 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
+	[AllowEditAttribute(Infrastructure.Role.SalesManager)] [AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Спецификация")]
 	public partial class SpecificationLookup : LookupItem<Specification>
 	{

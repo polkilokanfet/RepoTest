@@ -26,10 +26,10 @@ namespace HVTApp.Model.POCOs
         public virtual Contract Contract { get; set; }
 
 
-        [Designation("Задачи ТСП"), NotForListView, NotForDetailsView]
+        [Designation("Задачи ТСП"), NotForListView, NotForDetailsView, NotForWrapper]
         public virtual List<PriceEngineeringTask> PriceEngineeringTasks { get; set; } = new List<PriceEngineeringTask>();
 
-        [Designation("Задачи ТСЕ"), NotForListView, NotForDetailsView]
+        [Designation("Задачи ТСЕ"), NotForListView, NotForDetailsView, NotForWrapper]
         public virtual List<TechnicalRequrements> TechnicalRequrements { get; set; } = new List<TechnicalRequrements>();
 
 

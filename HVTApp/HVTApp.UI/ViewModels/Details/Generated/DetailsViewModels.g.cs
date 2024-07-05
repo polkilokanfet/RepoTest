@@ -1724,6 +1724,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectProductBlockEngineerCommand { get; private set; }
 		public DelegateLogCommand ClearProductBlockEngineerCommand { get; private set; }
 
+		//private Func<Task<List<Specification>>> _getEntitiesForSelectSpecificationCommand;
+		private Func<List<Specification>> _getEntitiesForSelectSpecificationCommand;
+		public DelegateLogCommand SelectSpecificationCommand { get; private set; }
+		public DelegateLogCommand ClearSpecificationCommand { get; private set; }
+
 		private Func<List<PriceEngineeringTaskProductBlockAdded>> _getEntitiesForAddInProductBlocksAddedCommand;
 		public DelegateLogCommand AddInProductBlocksAddedCommand { get; }
 		public DelegateLogCommand RemoveFromProductBlocksAddedCommand { get; private set; }
@@ -1906,6 +1911,11 @@ namespace HVTApp.UI.ViewModels
 			if (ClearProductBlockEngineerCommand == null) ClearProductBlockEngineerCommand = new DelegateLogCommand(ClearProductBlockEngineerCommand_Execute_Default);
 
 			
+			if (_getEntitiesForSelectSpecificationCommand == null) _getEntitiesForSelectSpecificationCommand = () => { return UnitOfWork.Repository<Specification>().GetAll(); };
+			if (SelectSpecificationCommand == null) SelectSpecificationCommand = new DelegateLogCommand(SelectSpecificationCommand_Execute_Default);
+			if (ClearSpecificationCommand == null) ClearSpecificationCommand = new DelegateLogCommand(ClearSpecificationCommand_Execute_Default);
+
+			
 			if (_getEntitiesForAddInProductBlocksAddedCommand == null) _getEntitiesForAddInProductBlocksAddedCommand = () => { return UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetAll(); };;
 			if (AddInProductBlocksAddedCommand == null) AddInProductBlocksAddedCommand = new DelegateLogCommand(AddInProductBlocksAddedCommand_Execute_Default);
 			if (RemoveFromProductBlocksAddedCommand == null) RemoveFromProductBlocksAddedCommand = new DelegateLogCommand(RemoveFromProductBlocksAddedCommand_Execute_Default, RemoveFromProductBlocksAddedCommand_CanExecute_Default);
@@ -2020,6 +2030,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearProductBlockEngineerCommand_Execute_Default() 
 		{
 						Item.ProductBlockEngineer = null;		    
+		}
+
+		private void SelectSpecificationCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Specification, SpecificationWrapper>(_getEntitiesForSelectSpecificationCommand(), nameof(Item.Specification), Item.Specification?.Id);
+		}
+
+		private void ClearSpecificationCommand_Execute_Default() 
+		{
+						Item.Specification = null;		    
 		}
 
 			private void AddInProductBlocksAddedCommand_Execute_Default()
@@ -2891,6 +2911,140 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class TaskInvoiceForPaymentDetailsViewModel : BaseDetailsViewModel<TaskInvoiceForPaymentWrapper, TaskInvoiceForPayment, AfterSaveTaskInvoiceForPaymentEvent>
+    {
+		//private Func<Task<List<User>>> _getEntitiesForSelectBackManagerCommand;
+		private Func<List<User>> _getEntitiesForSelectBackManagerCommand;
+		public DelegateLogCommand SelectBackManagerCommand { get; private set; }
+		public DelegateLogCommand ClearBackManagerCommand { get; private set; }
+
+		private Func<List<TaskInvoiceForPaymentItem>> _getEntitiesForAddInItemsCommand;
+		public DelegateLogCommand AddInItemsCommand { get; }
+		public DelegateLogCommand RemoveFromItemsCommand { get; private set; }
+		private TaskInvoiceForPaymentItemWrapper _selectedItemsItem;
+		public TaskInvoiceForPaymentItemWrapper SelectedItemsItem 
+		{ 
+			get { return _selectedItemsItem; }
+			set 
+			{ 
+				if (Equals(_selectedItemsItem, value)) return;
+				_selectedItemsItem = value;
+				RaisePropertyChanged();
+				RemoveFromItemsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+        public TaskInvoiceForPaymentDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectBackManagerCommand == null) _getEntitiesForSelectBackManagerCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectBackManagerCommand == null) SelectBackManagerCommand = new DelegateLogCommand(SelectBackManagerCommand_Execute_Default);
+			if (ClearBackManagerCommand == null) ClearBackManagerCommand = new DelegateLogCommand(ClearBackManagerCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInItemsCommand == null) _getEntitiesForAddInItemsCommand = () => { return UnitOfWork.Repository<TaskInvoiceForPaymentItem>().GetAll(); };;
+			if (AddInItemsCommand == null) AddInItemsCommand = new DelegateLogCommand(AddInItemsCommand_Execute_Default);
+			if (RemoveFromItemsCommand == null) RemoveFromItemsCommand = new DelegateLogCommand(RemoveFromItemsCommand_Execute_Default, RemoveFromItemsCommand_CanExecute_Default);
+
+		}
+
+		private void SelectBackManagerCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectBackManagerCommand(), nameof(Item.BackManager), Item.BackManager?.Id);
+		}
+
+		private void ClearBackManagerCommand_Execute_Default() 
+		{
+						Item.BackManager = null;		    
+		}
+
+			private void AddInItemsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<TaskInvoiceForPaymentItem, TaskInvoiceForPaymentItemWrapper>(_getEntitiesForAddInItemsCommand(), Item.Items);
+			}
+
+			private void RemoveFromItemsCommand_Execute_Default()
+			{
+				Item.Items.Remove(SelectedItemsItem);
+			}
+
+			private bool RemoveFromItemsCommand_CanExecute_Default()
+			{
+				return SelectedItemsItem != null;
+			}
+
+
+    }
+
+    public partial class TaskInvoiceForPaymentItemDetailsViewModel : BaseDetailsViewModel<TaskInvoiceForPaymentItemWrapper, TaskInvoiceForPaymentItem, AfterSaveTaskInvoiceForPaymentItemEvent>
+    {
+		//private Func<Task<List<PriceEngineeringTask>>> _getEntitiesForSelectPriceEngineeringTaskCommand;
+		private Func<List<PriceEngineeringTask>> _getEntitiesForSelectPriceEngineeringTaskCommand;
+		public DelegateLogCommand SelectPriceEngineeringTaskCommand { get; private set; }
+		public DelegateLogCommand ClearPriceEngineeringTaskCommand { get; private set; }
+
+		//private Func<Task<List<TechnicalRequrements>>> _getEntitiesForSelectTechnicalRequrementsCommand;
+		private Func<List<TechnicalRequrements>> _getEntitiesForSelectTechnicalRequrementsCommand;
+		public DelegateLogCommand SelectTechnicalRequrementsCommand { get; private set; }
+		public DelegateLogCommand ClearTechnicalRequrementsCommand { get; private set; }
+
+		//private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectPaymentConditionCommand;
+		private Func<List<PaymentCondition>> _getEntitiesForSelectPaymentConditionCommand;
+		public DelegateLogCommand SelectPaymentConditionCommand { get; private set; }
+		public DelegateLogCommand ClearPaymentConditionCommand { get; private set; }
+
+        public TaskInvoiceForPaymentItemDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectPriceEngineeringTaskCommand == null) _getEntitiesForSelectPriceEngineeringTaskCommand = () => { return UnitOfWork.Repository<PriceEngineeringTask>().GetAll(); };
+			if (SelectPriceEngineeringTaskCommand == null) SelectPriceEngineeringTaskCommand = new DelegateLogCommand(SelectPriceEngineeringTaskCommand_Execute_Default);
+			if (ClearPriceEngineeringTaskCommand == null) ClearPriceEngineeringTaskCommand = new DelegateLogCommand(ClearPriceEngineeringTaskCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectTechnicalRequrementsCommand == null) _getEntitiesForSelectTechnicalRequrementsCommand = () => { return UnitOfWork.Repository<TechnicalRequrements>().GetAll(); };
+			if (SelectTechnicalRequrementsCommand == null) SelectTechnicalRequrementsCommand = new DelegateLogCommand(SelectTechnicalRequrementsCommand_Execute_Default);
+			if (ClearTechnicalRequrementsCommand == null) ClearTechnicalRequrementsCommand = new DelegateLogCommand(ClearTechnicalRequrementsCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectPaymentConditionCommand == null) _getEntitiesForSelectPaymentConditionCommand = () => { return UnitOfWork.Repository<PaymentCondition>().GetAll(); };
+			if (SelectPaymentConditionCommand == null) SelectPaymentConditionCommand = new DelegateLogCommand(SelectPaymentConditionCommand_Execute_Default);
+			if (ClearPaymentConditionCommand == null) ClearPaymentConditionCommand = new DelegateLogCommand(ClearPaymentConditionCommand_Execute_Default);
+
+		}
+
+		private void SelectPriceEngineeringTaskCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PriceEngineeringTask, PriceEngineeringTaskWrapper>(_getEntitiesForSelectPriceEngineeringTaskCommand(), nameof(Item.PriceEngineeringTask), Item.PriceEngineeringTask?.Id);
+		}
+
+		private void ClearPriceEngineeringTaskCommand_Execute_Default() 
+		{
+						Item.PriceEngineeringTask = null;		    
+		}
+
+		private void SelectTechnicalRequrementsCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<TechnicalRequrements, TechnicalRequrementsWrapper>(_getEntitiesForSelectTechnicalRequrementsCommand(), nameof(Item.TechnicalRequrements), Item.TechnicalRequrements?.Id);
+		}
+
+		private void ClearTechnicalRequrementsCommand_Execute_Default() 
+		{
+						Item.TechnicalRequrements = null;		    
+		}
+
+		private void SelectPaymentConditionCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentCondition, PaymentConditionWrapper>(_getEntitiesForSelectPaymentConditionCommand(), nameof(Item.PaymentCondition), Item.PaymentCondition?.Id);
+		}
+
+		private void ClearPaymentConditionCommand_Execute_Default() 
+		{
+						Item.PaymentCondition = null;		    
+		}
+
+
+    }
+
     public partial class AnswerFileTceDetailsViewModel : BaseDetailsViewModel<AnswerFileTceWrapper, AnswerFileTce, AfterSaveAnswerFileTceEvent>
     {
         public AnswerFileTceDetailsViewModel(IUnityContainer container) : base(container) 
@@ -2911,6 +3065,11 @@ namespace HVTApp.UI.ViewModels
 
     public partial class TechnicalRequrementsDetailsViewModel : BaseDetailsViewModel<TechnicalRequrementsWrapper, TechnicalRequrements, AfterSaveTechnicalRequrementsEvent>
     {
+		//private Func<Task<List<Specification>>> _getEntitiesForSelectSpecificationCommand;
+		private Func<List<Specification>> _getEntitiesForSelectSpecificationCommand;
+		public DelegateLogCommand SelectSpecificationCommand { get; private set; }
+		public DelegateLogCommand ClearSpecificationCommand { get; private set; }
+
 		private Func<List<SalesUnit>> _getEntitiesForAddInSalesUnitsCommand;
 		public DelegateLogCommand AddInSalesUnitsCommand { get; }
 		public DelegateLogCommand RemoveFromSalesUnitsCommand { get; private set; }
@@ -2946,6 +3105,11 @@ namespace HVTApp.UI.ViewModels
         public TechnicalRequrementsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectSpecificationCommand == null) _getEntitiesForSelectSpecificationCommand = () => { return UnitOfWork.Repository<Specification>().GetAll(); };
+			if (SelectSpecificationCommand == null) SelectSpecificationCommand = new DelegateLogCommand(SelectSpecificationCommand_Execute_Default);
+			if (ClearSpecificationCommand == null) ClearSpecificationCommand = new DelegateLogCommand(ClearSpecificationCommand_Execute_Default);
+
+			
 			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = () => { return UnitOfWork.Repository<SalesUnit>().GetAll(); };;
 			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateLogCommand(AddInSalesUnitsCommand_Execute_Default);
 			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateLogCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
@@ -2955,6 +3119,16 @@ namespace HVTApp.UI.ViewModels
 			if (AddInFilesCommand == null) AddInFilesCommand = new DelegateLogCommand(AddInFilesCommand_Execute_Default);
 			if (RemoveFromFilesCommand == null) RemoveFromFilesCommand = new DelegateLogCommand(RemoveFromFilesCommand_Execute_Default, RemoveFromFilesCommand_CanExecute_Default);
 
+		}
+
+		private void SelectSpecificationCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Specification, SpecificationWrapper>(_getEntitiesForSelectSpecificationCommand(), nameof(Item.Specification), Item.Specification?.Id);
+		}
+
+		private void ClearSpecificationCommand_Execute_Default() 
+		{
+						Item.Specification = null;		    
 		}
 
 			private void AddInSalesUnitsCommand_Execute_Default()

@@ -738,169 +738,6 @@ namespace HVTApp.Model.Wrapper
     }
 
 		
-    public partial class TaskInvoiceForPaymentWrapper : WrapperBase<TaskInvoiceForPayment>
-	{
-	    public TaskInvoiceForPaymentWrapper(TaskInvoiceForPayment model) : base(model) { }
-
-        #region SimpleProperties
-
-        /// <summary>
-        /// Старт задачи
-        /// </summary>
-        public System.DateTime MomentStart
-        {
-          get { return Model.MomentStart; }
-          set { SetValue(value); }
-        }
-        public System.DateTime MomentStartOriginalValue => GetOriginalValue<System.DateTime>(nameof(MomentStart));
-        public bool MomentStartIsChanged => GetIsChanged(nameof(MomentStart));
-
-        /// <summary>
-        /// Финиш задачи
-        /// </summary>
-        public System.Nullable<System.DateTime> MomentFinish
-        {
-          get { return Model.MomentFinish; }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> MomentFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(MomentFinish));
-        public bool MomentFinishIsChanged => GetIsChanged(nameof(MomentFinish));
-
-        /// <summary>
-        /// Требуется оригинал счёта
-        /// </summary>
-        public System.Boolean OriginalIsRequired
-        {
-          get { return Model.OriginalIsRequired; }
-          set { SetValue(value); }
-        }
-        public System.Boolean OriginalIsRequiredOriginalValue => GetOriginalValue<System.Boolean>(nameof(OriginalIsRequired));
-        public bool OriginalIsRequiredIsChanged => GetIsChanged(nameof(OriginalIsRequired));
-
-        /// <summary>
-        /// Комментарий менеджера
-        /// </summary>
-        public System.String Comment
-        {
-          get { return Model.Comment; }
-          set { SetValue(value); }
-        }
-        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
-        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return Model.Id; }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Исполнитель
-        /// </summary>
-	    public UserWrapper BackManager 
-        {
-            get { return GetWrapper<UserWrapper>(); }
-            set { SetComplexValue<User, UserWrapper>(BackManager, value); }
-        }
-        #endregion
-
-        #region CollectionProperties
-
-        /// <summary>
-        /// Строки счёта
-        /// </summary>
-        public IValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemWrapper> Items { get; private set; }
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<UserWrapper>(nameof(BackManager), Model.BackManager == null ? null : new UserWrapper(Model.BackManager));
-        }
-
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.Items == null) throw new ArgumentException("Items cannot be null");
-          Items = new ValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemWrapper>(Model.Items.Select(e => new TaskInvoiceForPaymentItemWrapper(e)));
-          RegisterCollection(Items, Model.Items);
-        }
-	}
-
-    public class TaskInvoiceForPaymentEmptyWrapper : WrapperBase<TaskInvoiceForPayment>
-	{
-	    public TaskInvoiceForPaymentEmptyWrapper(TaskInvoiceForPayment model) : base(model) { }
-    }
-
-		
-    public partial class TaskInvoiceForPaymentItemWrapper : WrapperBase<TaskInvoiceForPaymentItem>
-	{
-	    public TaskInvoiceForPaymentItemWrapper(TaskInvoiceForPaymentItem model) : base(model) { }
-
-        #region SimpleProperties
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return Model.Id; }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Задача ТСП
-        /// </summary>
-	    public PriceEngineeringTaskWrapper PriceEngineeringTask 
-        {
-            get { return GetWrapper<PriceEngineeringTaskWrapper>(); }
-            set { SetComplexValue<PriceEngineeringTask, PriceEngineeringTaskWrapper>(PriceEngineeringTask, value); }
-        }
-
-        /// <summary>
-        /// Задача ТСЕ
-        /// </summary>
-	    public TechnicalRequrementsWrapper TechnicalRequrements 
-        {
-            get { return GetWrapper<TechnicalRequrementsWrapper>(); }
-            set { SetComplexValue<TechnicalRequrements, TechnicalRequrementsWrapper>(TechnicalRequrements, value); }
-        }
-
-        /// <summary>
-        /// Связанное условие платежа
-        /// </summary>
-	    public PaymentConditionWrapper PaymentCondition 
-        {
-            get { return GetWrapper<PaymentConditionWrapper>(); }
-            set { SetComplexValue<PaymentCondition, PaymentConditionWrapper>(PaymentCondition, value); }
-        }
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<PriceEngineeringTaskWrapper>(nameof(PriceEngineeringTask), Model.PriceEngineeringTask == null ? null : new PriceEngineeringTaskWrapper(Model.PriceEngineeringTask));
-            InitializeComplexProperty<TechnicalRequrementsWrapper>(nameof(TechnicalRequrements), Model.TechnicalRequrements == null ? null : new TechnicalRequrementsWrapper(Model.TechnicalRequrements));
-            InitializeComplexProperty<PaymentConditionWrapper>(nameof(PaymentCondition), Model.PaymentCondition == null ? null : new PaymentConditionWrapper(Model.PaymentCondition));
-        }
-	}
-
-    public class TaskInvoiceForPaymentItemEmptyWrapper : WrapperBase<TaskInvoiceForPaymentItem>
-	{
-	    public TaskInvoiceForPaymentItemEmptyWrapper(TaskInvoiceForPaymentItem model) : base(model) { }
-    }
-
-		
     public partial class DesignDepartmentWrapper : WrapperBase<DesignDepartment>
 	{
 	    public DesignDepartmentWrapper(DesignDepartment model) : base(model) { }
@@ -2986,6 +2823,15 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductBlockWrapper>(); }
             set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlockEngineer, value); }
         }
+
+        /// <summary>
+        /// Спецификация
+        /// </summary>
+	    public SpecificationWrapper Specification 
+        {
+            get { return GetWrapper<SpecificationWrapper>(); }
+            set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
+        }
         #endregion
 
         #region CollectionProperties
@@ -3123,6 +2969,7 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<UserWrapper>(nameof(UserConstructorInitiator), Model.UserConstructorInitiator == null ? null : new UserWrapper(Model.UserConstructorInitiator));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockManager), Model.ProductBlockManager == null ? null : new ProductBlockWrapper(Model.ProductBlockManager));
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlockEngineer), Model.ProductBlockEngineer == null ? null : new ProductBlockWrapper(Model.ProductBlockEngineer));
+            InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
         }
 
         protected override void InitializeCollectionProperties()
@@ -4613,6 +4460,180 @@ namespace HVTApp.Model.Wrapper
     }
 
 		
+    public partial class TaskInvoiceForPaymentWrapper : WrapperBase<TaskInvoiceForPayment>
+	{
+	    public TaskInvoiceForPaymentWrapper(TaskInvoiceForPayment model) : base(model) { }
+
+        #region SimpleProperties
+
+        /// <summary>
+        /// Старт задачи
+        /// </summary>
+        public System.DateTime MomentStart
+        {
+          get { return Model.MomentStart; }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentStartOriginalValue => GetOriginalValue<System.DateTime>(nameof(MomentStart));
+        public bool MomentStartIsChanged => GetIsChanged(nameof(MomentStart));
+
+        /// <summary>
+        /// Финиш задачи
+        /// </summary>
+        public System.Nullable<System.DateTime> MomentFinish
+        {
+          get { return Model.MomentFinish; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> MomentFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(MomentFinish));
+        public bool MomentFinishIsChanged => GetIsChanged(nameof(MomentFinish));
+
+        /// <summary>
+        /// Требуется оригинал счёта
+        /// </summary>
+        public System.Boolean OriginalIsRequired
+        {
+          get { return Model.OriginalIsRequired; }
+          set { SetValue(value); }
+        }
+        public System.Boolean OriginalIsRequiredOriginalValue => GetOriginalValue<System.Boolean>(nameof(OriginalIsRequired));
+        public bool OriginalIsRequiredIsChanged => GetIsChanged(nameof(OriginalIsRequired));
+
+        /// <summary>
+        /// Комментарий менеджера
+        /// </summary>
+        public System.String Comment
+        {
+          get { return Model.Comment; }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return Model.Id; }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+
+        #region ComplexProperties
+
+        /// <summary>
+        /// Исполнитель
+        /// </summary>
+	    public UserWrapper BackManager 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(BackManager, value); }
+        }
+        #endregion
+
+        #region CollectionProperties
+
+        /// <summary>
+        /// Строки счёта
+        /// </summary>
+        public IValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemWrapper> Items { get; private set; }
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<UserWrapper>(nameof(BackManager), Model.BackManager == null ? null : new UserWrapper(Model.BackManager));
+        }
+
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Items == null) throw new ArgumentException("Items cannot be null");
+          Items = new ValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemWrapper>(Model.Items.Select(e => new TaskInvoiceForPaymentItemWrapper(e)));
+          RegisterCollection(Items, Model.Items);
+        }
+	}
+
+    public class TaskInvoiceForPaymentEmptyWrapper : WrapperBase<TaskInvoiceForPayment>
+	{
+	    public TaskInvoiceForPaymentEmptyWrapper(TaskInvoiceForPayment model) : base(model) { }
+    }
+
+		
+    public partial class TaskInvoiceForPaymentItemWrapper : WrapperBase<TaskInvoiceForPaymentItem>
+	{
+	    public TaskInvoiceForPaymentItemWrapper(TaskInvoiceForPaymentItem model) : base(model) { }
+
+        #region SimpleProperties
+
+        /// <summary>
+        /// TaskId
+        /// </summary>
+        public System.Guid TaskId
+        {
+          get { return Model.TaskId; }
+          set { SetValue(value); }
+        }
+        public System.Guid TaskIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TaskId));
+        public bool TaskIdIsChanged => GetIsChanged(nameof(TaskId));
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return Model.Id; }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        #endregion
+
+        #region ComplexProperties
+
+        /// <summary>
+        /// Задача ТСП
+        /// </summary>
+	    public PriceEngineeringTaskWrapper PriceEngineeringTask 
+        {
+            get { return GetWrapper<PriceEngineeringTaskWrapper>(); }
+            set { SetComplexValue<PriceEngineeringTask, PriceEngineeringTaskWrapper>(PriceEngineeringTask, value); }
+        }
+
+        /// <summary>
+        /// Задача ТСЕ
+        /// </summary>
+	    public TechnicalRequrementsWrapper TechnicalRequrements 
+        {
+            get { return GetWrapper<TechnicalRequrementsWrapper>(); }
+            set { SetComplexValue<TechnicalRequrements, TechnicalRequrementsWrapper>(TechnicalRequrements, value); }
+        }
+
+        /// <summary>
+        /// Связанное условие платежа
+        /// </summary>
+	    public PaymentConditionWrapper PaymentCondition 
+        {
+            get { return GetWrapper<PaymentConditionWrapper>(); }
+            set { SetComplexValue<PaymentCondition, PaymentConditionWrapper>(PaymentCondition, value); }
+        }
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<PriceEngineeringTaskWrapper>(nameof(PriceEngineeringTask), Model.PriceEngineeringTask == null ? null : new PriceEngineeringTaskWrapper(Model.PriceEngineeringTask));
+            InitializeComplexProperty<TechnicalRequrementsWrapper>(nameof(TechnicalRequrements), Model.TechnicalRequrements == null ? null : new TechnicalRequrementsWrapper(Model.TechnicalRequrements));
+            InitializeComplexProperty<PaymentConditionWrapper>(nameof(PaymentCondition), Model.PaymentCondition == null ? null : new PaymentConditionWrapper(Model.PaymentCondition));
+        }
+	}
+
+    public class TaskInvoiceForPaymentItemEmptyWrapper : WrapperBase<TaskInvoiceForPaymentItem>
+	{
+	    public TaskInvoiceForPaymentItemEmptyWrapper(TaskInvoiceForPaymentItem model) : base(model) { }
+    }
+
+		
     public partial class AnswerFileTceWrapper : WrapperBase<AnswerFileTce>
 	{
 	    public AnswerFileTceWrapper(AnswerFileTce model) : base(model) { }
@@ -4824,6 +4845,18 @@ namespace HVTApp.Model.Wrapper
         public bool IdIsChanged => GetIsChanged(nameof(Id));
         #endregion
 
+        #region ComplexProperties
+
+        /// <summary>
+        /// Спецификация
+        /// </summary>
+	    public SpecificationWrapper Specification 
+        {
+            get { return GetWrapper<SpecificationWrapper>(); }
+            set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
+        }
+        #endregion
+
         #region CollectionProperties
 
         /// <summary>
@@ -4836,6 +4869,11 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<TechnicalRequrementsFileWrapper> Files { get; private set; }
         #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
+        }
 
         protected override void InitializeCollectionProperties()
         {

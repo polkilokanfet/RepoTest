@@ -32,6 +32,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Юниты" Visibility="{Binding VisibilitySalesUnitsTechnicalRequrements, ElementName=Root}"/>
@@ -75,6 +76,13 @@
         <CheckBox Grid.Column="1" Grid.Row="6" MinWidth="200" 
                   IsChecked="{Binding Item.IsActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsActualTechnicalRequrements, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="7" Content="Спецификация" Visibility="{Binding VisibilitySpecificationTechnicalRequrements, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
+                                    Item="{Binding Item.Specification}" 
+                                    AddItemCommand="{Binding SelectSpecificationCommand}" 
+                                    RemoveItemCommand="{Binding ClearSpecificationCommand}"
+									Visibility="{Binding VisibilitySpecificationTechnicalRequrements, ElementName=Root}"/>
 
 
     </Grid>

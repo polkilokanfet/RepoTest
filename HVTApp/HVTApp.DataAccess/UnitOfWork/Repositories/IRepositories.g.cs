@@ -12,8 +12,6 @@ namespace HVTApp.DataAccess
     public partial interface ICostsPercentsRepository : IRepository<CostsPercents> { }
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
     public partial interface IInvoiceForPaymentTaskRepository : IRepository<InvoiceForPaymentTask> { }
-    public partial interface ITaskInvoiceForPaymentRepository : IRepository<TaskInvoiceForPayment> { }
-    public partial interface ITaskInvoiceForPaymentItemRepository : IRepository<TaskInvoiceForPaymentItem> { }
     public partial interface IDesignDepartmentRepository : IRepository<DesignDepartment> { }
     public partial interface IDirectumTaskRepository : IRepository<DirectumTask> { }
     public partial interface IDirectumTaskGroupRepository : IRepository<DirectumTaskGroup> { }
@@ -58,6 +56,8 @@ namespace HVTApp.DataAccess
     public partial interface IStandartProductionTermRepository : IRepository<StandartProductionTerm> { }
     public partial interface IStructureCostRepository : IRepository<StructureCost> { }
     public partial interface ISupervisionRepository : IRepository<Supervision> { }
+    public partial interface ITaskInvoiceForPaymentRepository : IRepository<TaskInvoiceForPayment> { }
+    public partial interface ITaskInvoiceForPaymentItemRepository : IRepository<TaskInvoiceForPaymentItem> { }
     public partial interface IAnswerFileTceRepository : IRepository<AnswerFileTce> { }
     public partial interface IShippingCostFileRepository : IRepository<ShippingCostFile> { }
     public partial interface ITechnicalRequrementsRepository : IRepository<TechnicalRequrements> { }

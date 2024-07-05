@@ -16,8 +16,6 @@ namespace HVTApp.DataAccess
             CostsPercentsRepository = new CostsPercentsRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             InvoiceForPaymentTaskRepository = new InvoiceForPaymentTaskRepositoryTest(testData);
-            TaskInvoiceForPaymentRepository = new TaskInvoiceForPaymentRepositoryTest(testData);
-            TaskInvoiceForPaymentItemRepository = new TaskInvoiceForPaymentItemRepositoryTest(testData);
             DesignDepartmentRepository = new DesignDepartmentRepositoryTest(testData);
             DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
             DirectumTaskGroupRepository = new DirectumTaskGroupRepositoryTest(testData);
@@ -62,6 +60,8 @@ namespace HVTApp.DataAccess
             StandartProductionTermRepository = new StandartProductionTermRepositoryTest(testData);
             StructureCostRepository = new StructureCostRepositoryTest(testData);
             SupervisionRepository = new SupervisionRepositoryTest(testData);
+            TaskInvoiceForPaymentRepository = new TaskInvoiceForPaymentRepositoryTest(testData);
+            TaskInvoiceForPaymentItemRepository = new TaskInvoiceForPaymentItemRepositoryTest(testData);
             AnswerFileTceRepository = new AnswerFileTceRepositoryTest(testData);
             ShippingCostFileRepository = new ShippingCostFileRepositoryTest(testData);
             TechnicalRequrementsRepository = new TechnicalRequrementsRepositoryTest(testData);
@@ -127,8 +127,6 @@ namespace HVTApp.DataAccess
         public ICostsPercentsRepository CostsPercentsRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IInvoiceForPaymentTaskRepository InvoiceForPaymentTaskRepository { get; }
-        public ITaskInvoiceForPaymentRepository TaskInvoiceForPaymentRepository { get; }
-        public ITaskInvoiceForPaymentItemRepository TaskInvoiceForPaymentItemRepository { get; }
         public IDesignDepartmentRepository DesignDepartmentRepository { get; }
         public IDirectumTaskRepository DirectumTaskRepository { get; }
         public IDirectumTaskGroupRepository DirectumTaskGroupRepository { get; }
@@ -173,6 +171,8 @@ namespace HVTApp.DataAccess
         public IStandartProductionTermRepository StandartProductionTermRepository { get; }
         public IStructureCostRepository StructureCostRepository { get; }
         public ISupervisionRepository SupervisionRepository { get; }
+        public ITaskInvoiceForPaymentRepository TaskInvoiceForPaymentRepository { get; }
+        public ITaskInvoiceForPaymentItemRepository TaskInvoiceForPaymentItemRepository { get; }
         public IAnswerFileTceRepository AnswerFileTceRepository { get; }
         public IShippingCostFileRepository ShippingCostFileRepository { get; }
         public ITechnicalRequrementsRepository TechnicalRequrementsRepository { get; }

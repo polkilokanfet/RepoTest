@@ -4,7 +4,13 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infgDp="http://infragistics.com/DataPresenter" 
               xmlns:igEditors="http://infragistics.com/Editors"
-              xmlns:history="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Task.History">
+              xmlns:history="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule.Task.History"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:forManager="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.ForManager"
+              mc:Ignorable="d"
+              d:DataContext="{d:DesignInstance forManager:TaskInvoiceForPaymentViewModelManager, IsDesignTimeCreatable=True}"
+              >
     
     <inf:ViewBase.Resources>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
@@ -60,118 +66,249 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" Content="Требуется оригинал счёта: "/>
-                <CheckBox Grid.Column="1" IsChecked="{Binding PriceCalculationWrapper.IsNeedExcelFile, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                <CheckBox Grid.Column="1" IsChecked="{Binding Task.OriginalIsRequired, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
 
             </Grid>
 
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <infgDp:XamDataGrid x:Name="Groups"
-                                    Grid.Column="0"
-                                    DataSource="{Binding PriceCalculationWrapper.PriceCalculationItems}"
-                                    ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}">
-
-                    <infgDp:XamDataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                        </ContextMenu>
-                    </infgDp:XamDataGrid.ContextMenu>
-
-
-                    <infgDp:XamDataGrid.FieldLayouts>
-
-                        <infgDp:FieldLayout>
-                            
-                            <infgDp:FieldLayout.FieldSettings>
-                                <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource BoltFontCellsStyle}"/>
-                            </infgDp:FieldLayout.FieldSettings>
-
-                            <infgDp:FieldLayout.Fields>
-                                
-                                <infgDp:TextField AlternateBinding="{Binding PositionInTeamCenter}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
-                                <infgDp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                                <infgDp:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Оборудование" Width="Auto"/>
-                                <infgDp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
-                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" AllowResize="False"
-                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                                <infgDp:DateTimeField Name="OrderInTakeDate" Label="ОИТ" 
-                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
-                                <infgDp:DateTimeField Name="RealizationDate" Label="Реализация" 
-                                                      AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}" Width="Auto" AllowResize="False" />
-                                <!--<infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="Auto" />-->
-                                <infgDp:Field AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" Converter="{StaticResource ObjectToStringConverter}">
-                                    <infgDp:Field.Settings>
-                                        <infgDp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
-                                    </infgDp:Field.Settings>
-                                </infgDp:Field>
-
-                                <infgDp:Field Name="StructureCosts" IsExpandable="True"/>
-					        </infgDp:FieldLayout.Fields>
-				        </infgDp:FieldLayout>
-
-                        <infgDp:FieldLayout ParentFieldName="StructureCosts"
-                                            x:Name="LayoutStructureCosts">
-                            <infgDp:FieldLayout.Fields>
-                                <infgDp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Название" Width="250" 
-                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding AmountNumerator, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Кол." Width="86" AllowResize="True" 
-                                                     AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
-                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding AmountDenomerator, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="на" Width="86" AllowResize="True" 
-                                                     AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"
-                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding Amount, Mode=OneWay}" BindingType="UseAlternateBinding" Label="Кол. на ед." Width="86" AllowResize="True" AllowEdit="False"/>
-                                <infgDp:TextField AlternateBinding="{Binding Number, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Номер" Width="Auto" 
-                                                  AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.IsStarted, Converter={StaticResource ReverseBoolConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding UnitPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Цена за ед." Width="Auto" 
-                                                     AllowEdit="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CanChangePrice}"
-                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                                <infgDp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"
-                                                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Owner.DataPresenter.DataContext.CurrentUserIsBackManager, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
-                            </infgDp:FieldLayout.Fields>
-                        </infgDp:FieldLayout>
-                            
-			        </infgDp:XamDataGrid.FieldLayouts>
-		        </infgDp:XamDataGrid>
-
-                <GridSplitter Grid.Column="1" HorizontalAlignment="Center"/>
-
-                <GroupBox Grid.Column="2" Header="История проработки">
-
-                    <history:HistoryItemListControl Items="{Binding PriceCalculationWrapper.History}"/>
-
-                    <!--<infgDp:XamDataGrid DataSource="{Binding PriceCalculationWrapper.History}">
-
-                        <infgDp:XamDataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                            </ContextMenu>
-                        </infgDp:XamDataGrid.ContextMenu>
-
-                        <infgDp:XamDataGrid.FieldLayouts>
-                            <infgDp:FieldLayout>
-                                <infgDp:FieldLayout.Fields>
-                                    <infgDp:DateTimeField AlternateBinding="{Binding Moment}" BindingType="UseAlternateBinding" Label="Момент" Width="Auto" AllowResize="False" />
-                                    <infgDp:TextField AlternateBinding="{Binding Model.Type, Converter={StaticResource PriceCalculationHistoryItemTypeToStringConverter}}" BindingType="UseAlternateBinding" Label="Действие" Width="Auto" AllowResize="False"/>
-                                    <infgDp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowResize="True" />
-                                </infgDp:FieldLayout.Fields>
-                            </infgDp:FieldLayout>
-
-                        </infgDp:XamDataGrid.FieldLayouts>
-                    </infgDp:XamDataGrid>-->
-
-                </GroupBox>
-
-            </Grid>
-
-            <GroupBox Grid.Row="2" Header="Комментарий">
-                <TextBox Text="{Binding HistoryItem.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <GroupBox Grid.Row="1" Header="Комментарий менеджера">
+                <TextBox Text="{Binding Task.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </GroupBox>
+
+            <GroupBox Grid.Row="2" Header="Спецификация">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="TextBox">
+                            <Style.Setters>
+                                <Setter Property="IsReadOnly" Value="True"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style.Setters>
+                        </Style>
+
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="№ спецификации:"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Mode=OneWay}"/>
+
+                    <Label Grid.Column="0" Grid.Row="1" Content="Дата спецификации:"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Mode=OneWay}"/>
+
+                    <Label Grid.Column="0" Grid.Row="2" Content=""/>
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Mode=OneWay}"/>
+
+                    <Label Grid.Column="0" Grid.Row="" Content=""/>
+                    <TextBox Grid.Column="1" Grid.Row="" Text="{Binding Mode=OneWay}"/>
+
+                </Grid>
+            </GroupBox>
+
+            <infgDp:XamDataGrid x:Name="Groups"
+                                Grid.Row="1" Grid.Column="0"
+                                DataSource="{Binding Task.Items}"
+                                ActiveDataItem="{Binding SelectedItem, Mode=TwoWay}">
+
+                <infgDp:XamDataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                    </ContextMenu>
+                </infgDp:XamDataGrid.ContextMenu>
+                <infgDp:XamDataGrid.FieldLayouts>
+                    <infgDp:FieldLayout Key="Main">
+
+                        <infgDp:FieldLayout.Fields>
+
+                            <infgDp:TextField AlternateBinding="{Binding TceNumber}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Заявка в Team Center"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding FacilityOwners}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Владелец объекта"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding Facility}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Объект"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding ProductType}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Тип продукта"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding Designation}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Обозначение"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding Amount}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Кол."
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding Cost}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Цена"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding Sum}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Стоимость"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding Vat}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="НДС, %"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding SumWithVat}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Стоимость с НДС"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding CostDelivery}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Логистика"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding FixedCost}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Шеф-монтаж"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding Order}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Заказ"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding OrderPositions}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Позиции"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding Contragent}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Контрагент"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding ContragentType}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Тип контрагента"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding Country}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Страна поставки"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding District}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Федеральный округ"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding Segment}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Сегмент"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding Manager}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Менеджер"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding ContractNumber}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Договор"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:DateTimeField AlternateBinding="{Binding ContractDate}"
+                                            BindingType="UseAlternateBinding"
+                                            Label="Дата договора"
+                                            Width="Auto"
+                                            AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding SpecificationNumber}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Спецификация"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:DateTimeField AlternateBinding="{Binding SpecificationDate}"
+                                            BindingType="UseAlternateBinding"
+                                            Label="Дата спецификации"
+                                            Width="Auto"
+                                            AllowResize="True" />
+
+                            <infgDp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}"
+                                            BindingType="UseAlternateBinding"
+                                            Label="ОИТ"
+                                            Width="Auto"
+                                            AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding PaymentConditionSet}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Условия оплаты"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding DeliveryType}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Тип доставки"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:TextField AlternateBinding="{Binding DeliveryAddress}"
+                                        BindingType="UseAlternateBinding"
+                                        Label="Адрес доставки"
+                                        Width="Auto"
+                                        AllowResize="True" />
+
+                            <infgDp:NumericField AlternateBinding="{Binding ProductionTerm}"
+                                           BindingType="UseAlternateBinding"
+                                           Label="Срок производства"
+                                           Width="Auto"
+                                           AllowResize="True" />
+
+                        </infgDp:FieldLayout.Fields>
+
+
+                    </infgDp:FieldLayout>
+                </infgDp:XamDataGrid.FieldLayouts>
+            </infgDp:XamDataGrid>
+
 
             <Expander Grid.Row="3" IsExpanded="False" Header="Информация о КД" Visibility="{Binding CurrentUserIsManager, Mode=OneTime, Converter={StaticResource VisibilityConverter}}">
                 <TextBox HorizontalScrollBarVisibility="Auto" 

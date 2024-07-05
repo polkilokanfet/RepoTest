@@ -1,0 +1,72 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.TaskInvoiceForPaymentDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Финиш задачи" Visibility="{Binding VisibilityMomentFinishTaskInvoiceForPayment, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" 
+                    SelectedDate="{Binding Item.MomentFinish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityMomentFinishTaskInvoiceForPayment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Требуется оригинал счёта" Visibility="{Binding VisibilityOriginalIsRequiredTaskInvoiceForPayment, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                  IsChecked="{Binding Item.OriginalIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityOriginalIsRequiredTaskInvoiceForPayment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Строки счёта" Visibility="{Binding VisibilityItemsTaskInvoiceForPayment, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										 Items="{Binding Path=Item.Items}"
+										 SelectedItem="{Binding SelectedItemsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInItemsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromItemsCommand}"
+										 Visibility="{Binding VisibilityItemsTaskInvoiceForPayment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Старт задачи" Visibility="{Binding VisibilityMomentStartTaskInvoiceForPayment, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
+                    SelectedDate="{Binding Item.MomentStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityMomentStartTaskInvoiceForPayment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий менеджера" Visibility="{Binding VisibilityCommentTaskInvoiceForPayment, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4"
+                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityCommentTaskInvoiceForPayment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Исполнитель" Visibility="{Binding VisibilityBackManagerTaskInvoiceForPayment, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+                                    Item="{Binding Item.BackManager}" 
+                                    AddItemCommand="{Binding SelectBackManagerCommand}" 
+                                    RemoveItemCommand="{Binding ClearBackManagerCommand}"
+									Visibility="{Binding VisibilityBackManagerTaskInvoiceForPayment, ElementName=Root}"/>
+
+
+    </Grid>
+</inf:ViewBase>

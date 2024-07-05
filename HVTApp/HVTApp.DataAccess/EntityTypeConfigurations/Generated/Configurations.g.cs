@@ -12,8 +12,6 @@ namespace HVTApp.DataAccess
     public partial class CostsPercentsConfiguration : EntityTypeConfiguration<CostsPercents> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class InvoiceForPaymentTaskConfiguration : EntityTypeConfiguration<InvoiceForPaymentTask> { }
-    public partial class TaskInvoiceForPaymentConfiguration : EntityTypeConfiguration<TaskInvoiceForPayment> { }
-    public partial class TaskInvoiceForPaymentItemConfiguration : EntityTypeConfiguration<TaskInvoiceForPaymentItem> { }
     public partial class DesignDepartmentConfiguration : EntityTypeConfiguration<DesignDepartment> { }
     public partial class DirectumTaskConfiguration : EntityTypeConfiguration<DirectumTask> { }
     public partial class DirectumTaskGroupConfiguration : EntityTypeConfiguration<DirectumTaskGroup> { }
@@ -58,6 +56,8 @@ namespace HVTApp.DataAccess
     public partial class StandartProductionTermConfiguration : EntityTypeConfiguration<StandartProductionTerm> { }
     public partial class StructureCostConfiguration : EntityTypeConfiguration<StructureCost> { }
     public partial class SupervisionConfiguration : EntityTypeConfiguration<Supervision> { }
+    public partial class TaskInvoiceForPaymentConfiguration : EntityTypeConfiguration<TaskInvoiceForPayment> { }
+    public partial class TaskInvoiceForPaymentItemConfiguration : EntityTypeConfiguration<TaskInvoiceForPaymentItem> { }
     public partial class AnswerFileTceConfiguration : EntityTypeConfiguration<AnswerFileTce> { }
     public partial class ShippingCostFileConfiguration : EntityTypeConfiguration<ShippingCostFile> { }
     public partial class TechnicalRequrementsConfiguration : EntityTypeConfiguration<TechnicalRequrements> { }
