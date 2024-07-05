@@ -126,7 +126,7 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
-        public virtual Guid SpecificationId { get; set; }
+        public virtual Specification Specification { get; set; }
     }
 
     public partial class PriceEngineeringTask

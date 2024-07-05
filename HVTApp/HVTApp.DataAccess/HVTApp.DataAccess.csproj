@@ -504,6 +504,10 @@
     <Compile Include="Migrations\202407030521520_TaskInvoiceForPayment.designer.cs">
       <DependentUpon>202407030521520_TaskInvoiceForPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407050454190_SpecificationUpdate.cs" />
+    <Compile Include="Migrations\202407050454190_SpecificationUpdate.designer.cs">
+      <DependentUpon>202407050454190_SpecificationUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -831,6 +835,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407030521520_TaskInvoiceForPayment.resx">
       <DependentUpon>202407030521520_TaskInvoiceForPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407050454190_SpecificationUpdate.resx">
+      <DependentUpon>202407050454190_SpecificationUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

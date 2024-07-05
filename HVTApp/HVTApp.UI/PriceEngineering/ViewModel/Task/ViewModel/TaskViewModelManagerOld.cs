@@ -127,6 +127,11 @@ namespace HVTApp.UI.PriceEngineering
                         container.Resolve<IMessageService>().Message("Отказ", "В задаче есть оборудование, которое уже включено в спецификацию.");
                         return;
                     }
+                    if (this.Model.SalesUnits.Any(salesUnit => salesUnit.IsRemoved))
+                    {
+                        container.Resolve<IMessageService>().Message("Отказ", "В задаче есть удалённое Вами оборудование.");
+                        return;
+                    }
 
                     var unitOfWork = container.Resolve<IUnitOfWork>();
                     //спецификации менеджера
@@ -141,6 +146,11 @@ namespace HVTApp.UI.PriceEngineering
                     specification = unitOfWork.Repository<Specification>().GetById(specification.Id);
                     var task = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
                     specification.PriceEngineeringTasks.Add(task);
+                    foreach (var salesUnit in this.Model.SalesUnits)
+                    {
+                        var su = unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id);
+                        su.Specification = specification;
+                    }
                     unitOfWork.SaveChanges();
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), specification } });
                 });
