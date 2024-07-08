@@ -6,7 +6,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
-    [RibbonTab(typeof(PriceCalculations.Tabs.TabPriceCalculation))]
+    [RibbonTab(typeof(TabForManager))]
     public partial class TaskInvoiceForPaymentManagerView
     {
         private readonly TaskInvoiceForPaymentViewModelManager _viewModel;

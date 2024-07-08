@@ -17,7 +17,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         protected readonly List<SalesUnit> SalesUnits;
 
         public List<TaskInvoiceForPaymentItemViewModelBase> Items =>
-            new List<TaskInvoiceForPaymentItemViewModelBase>() {this};
+            new List<TaskInvoiceForPaymentItemViewModelBase> {this};
 
         #region Info
 
@@ -43,9 +43,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         [Designation("Владелец объекта"), OrderStatus(-3)]
         public string FacilityOwners { get; }
-
-        [Designation("Контрагент"), OrderStatus(-4)]
-        public string Contragent { get; }
 
         [Designation("Тип контрагента"), OrderStatus(-5)]
         public string ContragentType { get; }
@@ -89,21 +86,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         [Designation("Стоимость блоков с фиксированной ценой"), OrderStatus(-26)]
         public double FixedCost { get; }
 
-        [Designation("Менеджер"), OrderStatus(-33)]
-        public string Manager { get; }
-
-        [Designation("Договор"), OrderStatus(-34)]
-        public string ContractNumber { get; }
-
-        [Designation("Спецификация"), OrderStatus(-35)]
-        public string SpecificationNumber { get; }
-
-        [Designation("Дата договора"), OrderStatus(-36)]
-        public DateTime? ContractDate { get; }
-
-        [Designation("Дата спецификации"), OrderStatus(-37)]
-        public DateTime? SpecificationDate { get; }
-
         [Designation("ОИТ"), OrderStatus(-43)]
         public DateTime OrderInTakeDate { get; }
 
@@ -138,7 +120,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
             FacilityOwners = owners.ToStringEnum();
             var contragent = salesUnit.Specification?.Contract.Contragent;
-            Contragent = salesUnit.Specification?.Contract.Contragent.ToString();
             ContragentType = GetContragentType(contragent, SalesUnits);
             Facility = salesUnit.Facility.ToString();
             var region = salesUnit.Facility.GetRegion();
@@ -152,20 +133,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             Cost = salesUnit.Cost;
             var costDelivery = SalesUnits.Select(unit => unit.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
             CostDelivery = -1.0 * costDelivery;
-
-            Manager = $"{salesUnit.Project.Manager.Employee.Person}";
-
-            var specifications = SalesUnits.Where(unit => unit.Specification != null).Distinct().ToList();
-            SpecificationNumber = specifications.Select(unit => unit.Specification.Number).ToStringEnum();
-            ContractNumber = specifications.Select(unit => unit.Specification.Contract.Number).Distinct().ToStringEnum();
-
-            if (salesUnit.Specification != null)
-            {
-                var specification = salesUnit.Specification;
-                SpecificationDate = specification.Date;
-                ContractDate = specification.Contract.Date;
-            }
-
 
             OrderInTakeDate = salesUnit.OrderInTakeDate;
 
@@ -182,7 +149,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         private string GetContragentType(Company contragent, IEnumerable<SalesUnit> salesUnits)
         {
-            if (Contragent == null)
+            if (contragent == null)
                 return "Нет данных";
 
             var salesUnit = salesUnits.First();
@@ -238,15 +205,15 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         
         #endregion
 
-        protected override IEnumerable<ValidationResult> ValidateOther()
-        {
-            if (this.SalesUnits != null)
-            {
-                foreach (var salesUnit in this.SalesUnits.Where(salesUnit => salesUnit.Specification == null))
-                {
-                    yield return new ValidationResult($"не имеет спецификации: {salesUnit}");
-                }
-            }
-        }
+        //protected override IEnumerable<ValidationResult> ValidateOther()
+        //{
+        //    if (this.SalesUnits != null)
+        //    {
+        //        foreach (var salesUnit in this.SalesUnits.Where(salesUnit => salesUnit.Specification == null))
+        //        {
+        //            yield return new ValidationResult($"не имеет спецификации: {salesUnit}");
+        //        }
+        //    }
+        //}
     }
 }

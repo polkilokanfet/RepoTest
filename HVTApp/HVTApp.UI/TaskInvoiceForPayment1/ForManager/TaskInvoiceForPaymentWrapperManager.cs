@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper.Base;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
-    public class TaskInvoiceForPaymentWrapperManager : WrapperBase<TaskInvoiceForPayment>
+    public class TaskInvoiceForPaymentWrapperManager : TaskInvoiceForPaymentWrapperBase<TaskInvoiceForPaymentItemViewModelManager>
     {
-        private readonly IUnitOfWork _unitOfWork;
-
         #region SimpleProperties
 
         /// <summary>
@@ -48,25 +44,13 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 
         #endregion
 
-        #region CollectionProperties
-
-        /// <summary>
-        /// Строки счёта
-        /// </summary>
-        public IValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemViewModelManager> Items { get; private set; }
-
-        #endregion
-
-        public TaskInvoiceForPaymentWrapperManager(TaskInvoiceForPayment model, IUnitOfWork unitOfWork) : base(model)
+        public TaskInvoiceForPaymentWrapperManager(TaskInvoiceForPayment model, IUnitOfWork unitOfWork) : base(model, unitOfWork)
         {
-            _unitOfWork = unitOfWork;
         }
 
-        protected override void InitializeCollectionProperties()
+        protected override TaskInvoiceForPaymentItemViewModelManager GetItem(TaskInvoiceForPaymentItem item)
         {
-            if (Model.Items == null) throw new ArgumentException("Items cannot be null");
-            Items = new ValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemViewModelManager>(Model.Items.Select(e => new TaskInvoiceForPaymentItemViewModelManager(e, _unitOfWork)));
-            RegisterCollection(Items, Model.Items);
+            return new TaskInvoiceForPaymentItemViewModelManager(item, UnitOfWork);
         }
     }
 }

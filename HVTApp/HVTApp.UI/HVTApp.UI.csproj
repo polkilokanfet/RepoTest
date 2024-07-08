@@ -742,6 +742,9 @@
       <DependentUpon>TaskInvoiceForPaymentItemViewModelBaseControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBase.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForManager\TabForManager.xaml.cs">
+      <DependentUpon>TabForManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentManagerView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentManagerView.xaml</DependentUpon>
     </Compile>
@@ -749,7 +752,9 @@
       <DependentUpon>TaskInvoiceForPaymentItemViewModelManagerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentViewModelBase.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentViewModelManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentWrapperBase.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentWrapperManager.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseNotifyTechnicalRequrementsTaskViewModelCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
@@ -2461,6 +2466,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBaseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForManager\TabForManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

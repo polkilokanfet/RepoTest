@@ -1,51 +1,50 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.Windows.Input;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
-using Prism.Mvvm;
+using HVTApp.UI.Commands;
+using HVTApp.UI.TaskInvoiceForPayment1.Base;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
-    public class TaskInvoiceForPaymentViewModelManager : BindableBase
+    public class TaskInvoiceForPaymentViewModelManager : 
+        TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperManager, TaskInvoiceForPaymentItemViewModelManager>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private TaskInvoiceForPaymentWrapperManager _task;
 
-        public TaskInvoiceForPaymentWrapperManager Task
+        public ICommand RemoveItemCommand { get; }
+
+        public TaskInvoiceForPaymentViewModelManager(IUnitOfWork unitOfWork, IUnityContainer container) : base(unitOfWork)
         {
-            get => _task;
-            private set
-            {
-                _task = value;
-                RaisePropertyChanged();
-            }
+            RemoveItemCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите удалить выделенную строку из счёта?",
+                () => this.Task.Items.Remove(SelectedItem),
+                () => this.SelectedItem != null);
         }
 
-        public TaskInvoiceForPaymentViewModelManager(IUnitOfWork unitOfWork)
+        protected override TaskInvoiceForPaymentWrapperManager GetTask(TaskInvoiceForPayment taskInvoice, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
-        }
-
-        /// <summary>
-        /// Загрузка ранее созданного задания
-        /// </summary>
-        /// <param name="task"></param>
-        public void Load(TaskInvoiceForPayment task)
-        {
-            var targetTask = _unitOfWork.Repository<TaskInvoiceForPayment>().GetById(task.Id);
-            Task = new TaskInvoiceForPaymentWrapperManager(targetTask, _unitOfWork);
+            return new TaskInvoiceForPaymentWrapperManager(taskInvoice, UnitOfWork);
         }
 
         public void Load(Specification specification)
         {
-            Task = new TaskInvoiceForPaymentWrapperManager(new TaskInvoiceForPayment(), _unitOfWork);
+            Task = new TaskInvoiceForPaymentWrapperManager(new TaskInvoiceForPayment(), UnitOfWork);
             foreach (var priceEngineeringTask in specification.PriceEngineeringTasks)
             {
                 var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem
                 {
-                    PriceEngineeringTask = _unitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id)
+                    PriceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id)
                 };
-                var item = new TaskInvoiceForPaymentItemViewModelManager(taskInvoiceForPaymentItem, _unitOfWork);
+                var item = new TaskInvoiceForPaymentItemViewModelManager(taskInvoiceForPaymentItem, UnitOfWork);
                 Task.Items.Add(item);
             }
+        }
+
+        protected override void AfterSelectionItem()
+        {
+            ((DelegateLogConfirmationCommand)RemoveItemCommand).RaiseCanExecuteChanged();
         }
     }
 }
