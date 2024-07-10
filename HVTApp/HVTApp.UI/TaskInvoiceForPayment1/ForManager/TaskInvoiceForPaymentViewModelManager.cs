@@ -1,26 +1,61 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
     public class TaskInvoiceForPaymentViewModelManager : 
         TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperManager, TaskInvoiceForPaymentItemViewModelManager>
     {
-
         public ICommand RemoveItemCommand { get; }
+        public ICommand StartCommand { get; }
+        public ICommand StopCommand { get; }
 
         public TaskInvoiceForPaymentViewModelManager(IUnitOfWork unitOfWork, IUnityContainer container) : base(unitOfWork)
         {
             RemoveItemCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите удалить выделенную строку из счёта?",
+                "Удалить выделенную строку из счёта?",
                 () => this.Task.Items.Remove(SelectedItem),
                 () => this.SelectedItem != null);
+
+            StartCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Стартовать задание?",
+                () =>
+                {
+                    this.Task.MomentStart = DateTime.Now;
+                    this.Task.AcceptChanges();
+                    this.UnitOfWork.SaveEntity(this.Task.Model);
+                },
+                () => this.Task != null && this.Task.MomentStart == null && this.Task.IsValid);
+
+            StopCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Остановить задание?",
+                () =>
+                {
+                    this.Task.MomentStart = null;
+                    this.Task.AcceptChanges();
+                    this.UnitOfWork.SaveEntity(this.Task.Model);
+                },
+                () => Task?.MomentStart != null && this.Task.IsValid);
+
+            this.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName != nameof(Task)) return;
+                this.Task.PropertyChanged += (o, eventArgs) =>
+                {
+                    ((DelegateLogConfirmationCommand) StartCommand).RaiseCanExecuteChanged();
+                    ((DelegateLogConfirmationCommand) StopCommand).RaiseCanExecuteChanged();
+                };
+            };
         }
 
         protected override TaskInvoiceForPaymentWrapperManager GetTask(TaskInvoiceForPayment taskInvoice, IUnitOfWork unitOfWork)

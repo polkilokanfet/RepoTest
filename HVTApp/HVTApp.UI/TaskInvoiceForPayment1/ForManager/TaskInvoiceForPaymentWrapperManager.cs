@@ -12,12 +12,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         /// <summary>
         /// Старт задачи
         /// </summary>
-        public DateTime MomentStart
+        public DateTime? MomentStart
         {
             get => Model.MomentStart;
             set => SetValue(value);
         }
-        public DateTime MomentStartOriginalValue => GetOriginalValue<DateTime>(nameof(MomentStart));
+        public DateTime? MomentStartOriginalValue => GetOriginalValue<DateTime?>(nameof(MomentStart));
         public bool MomentStartIsChanged => GetIsChanged(nameof(MomentStart));
 
         /// <summary>

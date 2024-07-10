@@ -25,63 +25,15 @@
 
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Задача">
+    <infRib:RibbonGroup Caption="Задание">
         
         <infRib:ButtonTool Caption="Стартовать"
                            Command="{Binding StartCommand}"
-                           Visibility="{Binding StartVisibility, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
         
         <infRib:ButtonTool Caption="Остановить"
-                           Command="{Binding CancelCommand}"
-                           Visibility="{Binding StartVisibility, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Command="{Binding StopCommand}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />
-
-        <infRib:ButtonTool Caption="Отклонить"
-                           Command="{Binding RejectCommand}"
-                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/remove.png" />
-
-        <infRib:ButtonTool Caption="Завершить"
-                           Command="{Binding FinishCommand}"
-                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/done.png" />
-</infRib:RibbonGroup>
-
-    <infRib:RibbonGroup Caption="Действия">
-
-        <infRib:ButtonTool Caption="Загрузить файл в базу"
-                           Command="{Binding LoadFileToDbCommand}"
-                           Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/in.png" />
-
-        <infRib:ButtonTool Caption="Скачать файл из базы"
-                           Command="{Binding LoadFileFromDbCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/out.png" />
-
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
-
     </infRib:RibbonGroup>
-
-    <infRib:RibbonGroup Caption="Импортировать"
-                        Visibility="{Binding CurrentUserIsPricer, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <infRib:ButtonTool Caption="Стоимости из файла" Command="{Binding LoadCostsFromFileCommand}"/>
-    </infRib:RibbonGroup>
-
-    <infRib:RibbonGroup Caption="Строки ПЗ"
-                        Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-        
-        <infRib:ButtonTool Caption="Слить" 
-                           Command="{Binding MergeCommand}" 
-                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/collapse.png"/>
-        
-        <infRib:ButtonTool Caption="Разбить" 
-                           Command="{Binding DivideCommand}" 
-                           Visibility="{Binding StartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           SmallImage="/HVTApp.UI;component/Images/expand.png"/>
-        
-    </infRib:RibbonGroup>
-
 
 </inf:RibbonTabItemWithViewModel>

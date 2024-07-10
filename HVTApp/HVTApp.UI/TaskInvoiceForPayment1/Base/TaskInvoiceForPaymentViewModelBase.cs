@@ -1,15 +1,13 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
-using Prism.Mvvm;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
-    public abstract class TaskInvoiceForPaymentViewModelBase<TTask, TItem> : BindableBase
+    public abstract class TaskInvoiceForPaymentViewModelBase<TTask, TItem> : ViewModelBase
         where TItem : TaskInvoiceForPaymentItemViewModelBase
         where TTask : TaskInvoiceForPaymentWrapperBase<TItem>
     {
-        protected readonly IUnitOfWork UnitOfWork;
         private TTask _task;
         private TItem _selectedItem;
 
@@ -35,9 +33,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         protected virtual void AfterSelectionItem() { }
 
-        protected TaskInvoiceForPaymentViewModelBase(IUnitOfWork unitOfWork)
+        protected TaskInvoiceForPaymentViewModelBase(IUnityContainer container) : base(container)
         {
-            UnitOfWork = unitOfWork;
         }
 
         /// <summary>

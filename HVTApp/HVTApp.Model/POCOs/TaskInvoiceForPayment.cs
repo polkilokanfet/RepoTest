@@ -13,7 +13,7 @@ namespace HVTApp.Model.POCOs
         public virtual List<TaskInvoiceForPaymentItem> Items { get; set; } = new List<TaskInvoiceForPaymentItem>();
 
         [Designation("Старт задачи")]
-        public DateTime MomentStart { get; set; } = DateTime.Now;
+        public DateTime? MomentStart { get; set; }
 
         [Designation("Финиш задачи")]
         public DateTime? MomentFinish { get; set; }
