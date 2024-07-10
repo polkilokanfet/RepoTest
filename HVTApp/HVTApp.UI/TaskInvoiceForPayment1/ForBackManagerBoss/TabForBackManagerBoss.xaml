@@ -1,0 +1,32 @@
+﻿<inf:RibbonTabItemWithViewModel
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:infRib="http://infragistics.com/Ribbon" 
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss.TabForBackManagerBoss"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:forBackManagerBoss="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance forBackManagerBoss:TaskInvoiceForPaymentViewModelBackManagerBoss, IsDesignTimeCreatable=True}"
+             Header="Задание на формирования счёта">
+
+    <infRib:RibbonGroup Caption="Навигация">
+        <infRib:ButtonTool Caption="Назад" 
+                           Command="{Binding GoBackCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Исполнитель">
+        <StackPanel Orientation="Horizontal">
+
+            <infRib:ButtonTool Caption="Поручить"
+                               Command="{Binding InstructCommand}"
+                               SmallImage="/HVTApp.UI;component/Images/add.png" />
+
+            <TextBlock Text="{Binding Task.BackManager.Model.Employee.Person, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+        </StackPanel>
+    </infRib:RibbonGroup>
+
+</inf:RibbonTabItemWithViewModel>

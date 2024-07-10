@@ -33,6 +33,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         protected virtual void AfterSelectionItem() { }
 
+        public bool IsStarted => Task?.Model.MomentStart != null;
+
         protected TaskInvoiceForPaymentViewModelBase(IUnityContainer container) : base(container)
         {
         }

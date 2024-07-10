@@ -6,11 +6,10 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
-    public class TaskInvoiceForPaymentViewModelManager : 
+    public class TaskInvoiceForPaymentViewModelManager :
         TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperManager, TaskInvoiceForPaymentItemViewModelManager>
     {
         public ICommand RemoveItemCommand { get; }
@@ -34,6 +33,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                     this.Task.AcceptChanges();
                     this.UnitOfWork.SaveEntity(this.Task.Model);
                     RaiseCanExecuteChangedCommands();
+                    RaisePropertyChanged(nameof(IsStarted));
                 },
                 () => this.Task != null && this.Task.MomentStart == null && this.Task.IsValid);
 
@@ -46,6 +46,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                     this.Task.AcceptChanges();
                     this.UnitOfWork.SaveEntity(this.Task.Model);
                     RaiseCanExecuteChangedCommands();
+                    RaisePropertyChanged(nameof(IsStarted));
                 },
                 () => Task?.MomentStart != null && Task.Model.MomentFinish == null && this.Task.IsValid);
 

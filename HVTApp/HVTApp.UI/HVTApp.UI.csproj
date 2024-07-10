@@ -738,23 +738,32 @@
     <Compile Include="Tabs\TabProductBlocks.xaml.cs">
       <DependentUpon>TabProductBlocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskInvoiceForPayment1\Base\CommonInformationControl.xaml.cs">
+      <DependentUpon>CommonInformationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBaseControl.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentItemViewModelBaseControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBase.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TabForBackManagerBoss.xaml.cs">
+      <DependentUpon>TabForBackManagerBoss.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentBackManagerBossView.xaml.cs">
+      <DependentUpon>TaskInvoiceForPaymentBackManagerBossView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForManager\TabForManager.xaml.cs">
       <DependentUpon>TabForManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentItemViewModelBackManagerBoss.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentManagerView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManagerControl.xaml.cs">
-      <DependentUpon>TaskInvoiceForPaymentItemViewModelManagerControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentViewModelBase.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentViewModelBackManagerBoss.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentViewModelManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentWrapperBase.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentWrapperBackManagerBoss.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentWrapperManager.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Commands\BaseNotifyTechnicalRequrementsTaskViewModelCommand.cs" />
     <Compile Include="TechnicalRequrementsTasksModule\Task\Converters\HistoryElementToColorConverter.cs" />
@@ -2465,7 +2474,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="TaskInvoiceForPayment1\Base\CommonInformationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBaseControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForBackManagerBoss\TabForBackManagerBoss.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentBackManagerBossView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2474,10 +2495,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentManagerView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManagerControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -3402,6 +3419,7 @@
     <Folder Include="Modules\Products\ProductRelations\" />
     <Folder Include="PriceEngineering\Tce\Unit\ViewModel\" />
     <Folder Include="PriceEngineering\Tce\Unit\View\" />
+    <Folder Include="TaskInvoiceForPayment1\ForBackManager\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,13 +1,13 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.TaskInvoiceForPayment1.ForManager.TaskInvoiceForPaymentManagerView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss.TaskInvoiceForPaymentBackManagerBossView"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-              xmlns:forManager="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.ForManager"
               xmlns:base="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.Base"
+              xmlns:forBackManagerBoss="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss"
               mc:Ignorable="d"
-              d:DataContext="{d:DesignInstance forManager:TaskInvoiceForPaymentViewModelManager, IsDesignTimeCreatable=True}"
+              d:DataContext="{d:DesignInstance forBackManagerBoss:TaskInvoiceForPaymentViewModelBackManagerBoss, IsDesignTimeCreatable=True}"
               >
 
     <Grid>
@@ -18,10 +18,9 @@
 
         <base:CommonInformationControl 
             Grid.Row="0"
-            OriginalIsRequired="{Binding Task.OriginalIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Comment="{Binding Task.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            OriginalIsRequired="{Binding Task.Model.OriginalIsRequired}"
+            Comment="{Binding Task.Model.Comment}">
         </base:CommonInformationControl>
     </Grid>
-
 
 </inf:ViewBase>

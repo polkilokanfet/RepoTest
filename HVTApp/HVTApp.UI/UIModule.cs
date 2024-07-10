@@ -43,6 +43,7 @@ using HVTApp.UI.PriceEngineering.Tce.List.View;
 using HVTApp.UI.PriceEngineering.Tce.Second.View;
 using HVTApp.UI.PriceEngineering.Tce.Unit;
 using HVTApp.UI.PriceEngineering.View;
+using HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss;
 using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 using HVTApp.UI.ViewModels;
@@ -132,6 +133,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<FairnessCheckView>();
 
             Container.RegisterViewForNavigation<TaskInvoiceForPaymentManagerView>();
+            Container.RegisterViewForNavigation<TaskInvoiceForPaymentBackManagerBossView>();
 
             Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
             Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();

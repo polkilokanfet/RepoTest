@@ -55,27 +55,6 @@
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityVatSpecification, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Дата подписания" Visibility="{Binding VisibilitySignDateSpecification, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="4" 
-                    SelectedDate="{Binding Item.SignDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilitySignDateSpecification, ElementName=Root}"/>
-
-        <Label Grid.Column="0" Grid.Row ="5" Content="Задачи ТСП" Visibility="{Binding VisibilityPriceEngineeringTasksSpecification, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
-										 Items="{Binding Path=Item.PriceEngineeringTasks}"
-										 SelectedItem="{Binding SelectedPriceEngineeringTasksItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInPriceEngineeringTasksCommand}"
-										 RemoveItemCommand="{Binding RemoveFromPriceEngineeringTasksCommand}"
-										 Visibility="{Binding VisibilityPriceEngineeringTasksSpecification, ElementName=Root}"/>
-
-        <Label Grid.Column="0" Grid.Row ="6" Content="Задачи ТСЕ" Visibility="{Binding VisibilityTechnicalRequrementsSpecification, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
-										 Items="{Binding Path=Item.TechnicalRequrements}"
-										 SelectedItem="{Binding SelectedTechnicalRequrementsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInTechnicalRequrementsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromTechnicalRequrementsCommand}"
-										 Visibility="{Binding VisibilityTechnicalRequrementsSpecification, ElementName=Root}"/>
-
 
     </Grid>
 </inf:ViewBase>

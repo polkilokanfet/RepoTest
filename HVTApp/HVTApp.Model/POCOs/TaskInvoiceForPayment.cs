@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     [Designation("Счёт на оплату (задание)")]
     public class TaskInvoiceForPayment : BaseEntity
     {
-        [Designation("Строки счёта")]
+        [Designation("Строки счёта"), Required]
         public virtual List<TaskInvoiceForPaymentItem> Items { get; set; } = new List<TaskInvoiceForPaymentItem>();
 
         [Designation("Старт задачи")]
