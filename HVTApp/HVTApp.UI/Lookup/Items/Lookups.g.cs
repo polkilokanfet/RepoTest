@@ -1468,7 +1468,7 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
 		[OrderStatus(1)]
-        public System.DateTime MomentStart => Entity.MomentStart;
+        public System.DateTime? MomentStart => Entity.MomentStart;
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> MomentFinish => Entity.MomentFinish;

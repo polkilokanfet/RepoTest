@@ -13,7 +13,7 @@ namespace HVTApp.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202407050454190_SpecificationUpdate"; }
+            get { return "202407100500194_SpecificationUpdate"; }
         }
         
         string IMigrationMetadata.Source

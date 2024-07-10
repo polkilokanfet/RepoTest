@@ -4469,12 +4469,12 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Старт задачи
         /// </summary>
-        public System.DateTime MomentStart
+        public System.Nullable<System.DateTime> MomentStart
         {
           get { return Model.MomentStart; }
           set { SetValue(value); }
         }
-        public System.DateTime MomentStartOriginalValue => GetOriginalValue<System.DateTime>(nameof(MomentStart));
+        public System.Nullable<System.DateTime> MomentStartOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(MomentStart));
         public bool MomentStartIsChanged => GetIsChanged(nameof(MomentStart));
 
         /// <summary>

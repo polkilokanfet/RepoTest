@@ -17,7 +17,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
 
-        public TaskInvoiceForPaymentViewModelManager(IUnitOfWork unitOfWork, IUnityContainer container) : base(unitOfWork)
+        public TaskInvoiceForPaymentViewModelManager(IUnityContainer container) : base(container)
         {
             RemoveItemCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),
@@ -33,6 +33,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                     this.Task.MomentStart = DateTime.Now;
                     this.Task.AcceptChanges();
                     this.UnitOfWork.SaveEntity(this.Task.Model);
+                    RaiseCanExecuteChangedCommands();
                 },
                 () => this.Task != null && this.Task.MomentStart == null && this.Task.IsValid);
 
@@ -44,17 +45,14 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                     this.Task.MomentStart = null;
                     this.Task.AcceptChanges();
                     this.UnitOfWork.SaveEntity(this.Task.Model);
+                    RaiseCanExecuteChangedCommands();
                 },
-                () => Task?.MomentStart != null && this.Task.IsValid);
+                () => Task?.MomentStart != null && Task.Model.MomentFinish == null && this.Task.IsValid);
 
             this.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName != nameof(Task)) return;
-                this.Task.PropertyChanged += (o, eventArgs) =>
-                {
-                    ((DelegateLogConfirmationCommand) StartCommand).RaiseCanExecuteChanged();
-                    ((DelegateLogConfirmationCommand) StopCommand).RaiseCanExecuteChanged();
-                };
+                this.Task.PropertyChanged += (o, eventArgs) => RaiseCanExecuteChangedCommands();
             };
         }
 
@@ -80,6 +78,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         protected override void AfterSelectionItem()
         {
             ((DelegateLogConfirmationCommand)RemoveItemCommand).RaiseCanExecuteChanged();
+        }
+
+        private void RaiseCanExecuteChangedCommands()
+        {
+            ((DelegateLogConfirmationCommand)StartCommand).RaiseCanExecuteChanged();
+            ((DelegateLogConfirmationCommand)StopCommand).RaiseCanExecuteChanged();
         }
     }
 }
