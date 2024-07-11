@@ -7848,6 +7848,24 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
+        public System.Windows.Visibility FacilitiesVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Facilities)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Facilities)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility OrdersVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Orders)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Orders)].Visibility = value; }
+        }
+
+        public System.Windows.Visibility IsActualVisibility
+        {
+            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.IsActual)].Visibility; }
+            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.IsActual)].Visibility = value; }
+        }
+
         public System.Windows.Visibility MomentStartVisibility
         {
             get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.MomentStart)].Visibility; }

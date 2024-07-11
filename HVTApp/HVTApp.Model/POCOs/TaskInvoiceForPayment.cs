@@ -9,19 +9,19 @@ namespace HVTApp.Model.POCOs
     [Designation("Счёт на оплату (задание)")]
     public class TaskInvoiceForPayment : BaseEntity
     {
-        [Designation("Строки счёта"), Required]
+        [Designation("Строки счёта"), Required, NotForListView]
         public virtual List<TaskInvoiceForPaymentItem> Items { get; set; } = new List<TaskInvoiceForPaymentItem>();
 
-        [Designation("Старт задачи")]
+        [Designation("Старт задачи"), OrderStatus(200)]
         public DateTime? MomentStart { get; set; }
 
-        [Designation("Финиш задачи")]
+        [Designation("Финиш задачи"), OrderStatus(190)]
         public DateTime? MomentFinish { get; set; }
 
-        [Designation("Исполнитель")]
+        [Designation("Исполнитель"), OrderStatus(50)]
         public virtual User BackManager { get; set; }
 
-        [Designation("Требуется оригинал счёта")]
+        [Designation("Требуется оригинал счёта"), NotForListView]
         public bool OriginalIsRequired { get; set; } = false;
 
         [Designation("Комментарий менеджера"), MaxLength(128)]

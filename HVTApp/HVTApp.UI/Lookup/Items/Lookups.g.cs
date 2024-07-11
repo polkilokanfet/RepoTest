@@ -1467,10 +1467,10 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-		[OrderStatus(1)]
+		[OrderStatus(200)]
         public System.Nullable<System.DateTime> MomentStart => Entity.MomentStart;
 
-		[OrderStatus(1)]
+		[OrderStatus(190)]
         public System.Nullable<System.DateTime> MomentFinish => Entity.MomentFinish;
 
 		[OrderStatus(1)]
@@ -1482,12 +1482,10 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
-		[OrderStatus(1)]
+		[OrderStatus(50)]
 	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
 
         #endregion
-		[OrderStatus(1)]
-	    public List<TaskInvoiceForPaymentItemLookup> Items { get { return GetLookupEnum<TaskInvoiceForPaymentItemLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Счёт на оплату (строка задания)")]

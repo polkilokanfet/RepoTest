@@ -12,6 +12,7 @@ using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.InvoiceForPayment;
 using HVTApp.UI.PriceEngineering.Tce.List.View;
 using HVTApp.UI.PriceEngineering.View;
+using HVTApp.UI.TaskInvoiceForPayment1;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
@@ -46,6 +47,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 //Items.Add(new NavigationItem("Задачи в ТСЕ (новое)", typeof(PriceEngineeringTasksTceView2)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
                 Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
+                Items.Add(new NavigationItem("Счета", typeof(TaskInvoiceForPaymentListView)));
                 Items.Add(new NavigationItem("Расчеты ПЗ", typeof(PriceCalculationsView)));
             }
         }

@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
