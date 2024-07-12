@@ -30,14 +30,16 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
                     this.Task.BackManager = new UserEmptyWrapper(backManager);
                     this.Task.AcceptChanges();
                     this.UnitOfWork.SaveEntity(this.Task.Model);
+
+                    RaisePropertyChanged(nameof(Task.BackManager));
                 },
                 () => this.Task != null);
 
         }
 
-        protected override TaskInvoiceForPaymentWrapperBackManagerBoss GetTask(TaskInvoiceForPayment taskInvoice, IUnitOfWork unitOfWork)
+        protected override TaskInvoiceForPaymentWrapperBackManagerBoss GetTask(TaskInvoiceForPayment taskInvoice)
         {
-            return new TaskInvoiceForPaymentWrapperBackManagerBoss(taskInvoice, unitOfWork);
+            return new TaskInvoiceForPaymentWrapperBackManagerBoss(taskInvoice);
         }
     }
 }

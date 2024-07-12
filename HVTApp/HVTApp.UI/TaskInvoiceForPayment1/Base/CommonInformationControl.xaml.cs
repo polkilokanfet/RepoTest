@@ -5,26 +5,16 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
     public partial class CommonInformationControl : UserControl
     {
-        public static readonly DependencyProperty OriginalIsRequiredProperty = DependencyProperty.Register(
-            "OriginalIsRequired", 
-            typeof(bool), 
+        public static readonly DependencyProperty HeadIsVisibleProperty = DependencyProperty.Register(
+            "HeadIsVisible", 
+            typeof(Visibility), 
             typeof(CommonInformationControl), 
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(Visibility.Visible));
 
-        public bool OriginalIsRequired
+        public Visibility HeadIsVisible
         {
-            get => (bool) GetValue(OriginalIsRequiredProperty);
-            set => SetValue(OriginalIsRequiredProperty, value);
-        }
-
-
-        public static readonly DependencyProperty CommentProperty = DependencyProperty.Register(
-            "Comment", typeof(string), typeof(CommonInformationControl), new PropertyMetadata(default(string)));
-
-        public string Comment
-        {
-            get => (string) GetValue(CommentProperty);
-            set => SetValue(CommentProperty, value);
+            get => (Visibility) GetValue(HeadIsVisibleProperty);
+            set => SetValue(HeadIsVisibleProperty, value);
         }
 
         public CommonInformationControl()

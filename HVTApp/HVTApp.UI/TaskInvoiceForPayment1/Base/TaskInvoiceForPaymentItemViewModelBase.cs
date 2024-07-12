@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -13,10 +12,10 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
     public class TaskInvoiceForPaymentItemViewModelBase : WrapperBase<TaskInvoiceForPaymentItem>
     {
-        protected readonly IUnitOfWork UnitOfWork;
+        //protected readonly IUnitOfWork UnitOfWork;
         protected readonly List<SalesUnit> SalesUnits;
 
-        public List<TaskInvoiceForPaymentItemViewModelBase> Items =>
+        public List<TaskInvoiceForPaymentItemViewModelBase> Items => 
             new List<TaskInvoiceForPaymentItemViewModelBase> {this};
 
         #region Info
@@ -28,10 +27,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         {
             get
             {
-                if (Model.PriceEngineeringTask != null)
-                    return Model.PriceEngineeringTask.GetPriceEngineeringTasks(UnitOfWork).TceNumber;
-
-                return UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(Model.TechnicalRequrements.TaskId).TceNumber;
+                return "NotImplemented";
             }
         }
 
@@ -103,10 +99,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         #endregion
 
-        public TaskInvoiceForPaymentItemViewModelBase(TaskInvoiceForPaymentItem model, IUnitOfWork unitOfWork) : base(model)
+        public TaskInvoiceForPaymentItemViewModelBase(TaskInvoiceForPaymentItem model) : base(model)
         {
-            UnitOfWork = unitOfWork;
-
             SalesUnits = model.PriceEngineeringTask?.SalesUnits ?? model.TechnicalRequrements.SalesUnits;
             var salesUnit = SalesUnits.First();
 

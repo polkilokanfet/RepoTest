@@ -34,6 +34,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         protected virtual void AfterSelectionItem() { }
 
         public bool IsStarted => Task?.Model.MomentStart != null;
+        public bool IsFinished => Task?.Model.MomentFinish != null;
 
         protected TaskInvoiceForPaymentViewModelBase(IUnityContainer container) : base(container)
         {
@@ -46,9 +47,9 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         public void Load(TaskInvoiceForPayment task)
         {
             var targetTask = UnitOfWork.Repository<TaskInvoiceForPayment>().GetById(task.Id);
-            Task = this.GetTask(targetTask, UnitOfWork);
+            Task = this.GetTask(targetTask);
         }
 
-        protected abstract TTask GetTask(TaskInvoiceForPayment taskInvoice, IUnitOfWork unitOfWork);
+        protected abstract TTask GetTask(TaskInvoiceForPayment taskInvoice);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
@@ -15,6 +16,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         public ICommand RemoveItemCommand { get; }
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
+        public ICommand ChoosePaymentConditionCommand { get; }
 
         public TaskInvoiceForPaymentViewModelManager(IUnityContainer container) : base(container)
         {
@@ -35,7 +37,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                     RaiseCanExecuteChangedCommands();
                     RaisePropertyChanged(nameof(IsStarted));
                 },
-                () => this.Task != null && this.Task.MomentStart == null && this.Task.IsValid);
+                () => this.Task != null && this.IsStarted == false && this.Task.IsValid);
 
             StopCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),
@@ -48,7 +50,22 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                     RaiseCanExecuteChangedCommands();
                     RaisePropertyChanged(nameof(IsStarted));
                 },
-                () => Task?.MomentStart != null && Task.Model.MomentFinish == null && this.Task.IsValid);
+                () => this.IsStarted && this.IsFinished == false && this.Task.IsValid);
+
+            ChoosePaymentConditionCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var conditions = this.Task.Model.Items
+                        .SelectMany(item => item.SalesUnits)
+                        .SelectMany(salesUnit => salesUnit.PaymentConditionSet.PaymentConditions)
+                        .Distinct()
+                        .OrderBy(paymentCondition => paymentCondition);
+
+                    var condition = container.Resolve<ISelectService>().SelectItem(conditions);
+                    if (condition == null) return;
+                    this.Task.PaymentCondition = condition;
+                },
+                () => this.IsStarted == false);
 
             this.PropertyChanged += (sender, args) =>
             {
@@ -57,23 +74,22 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
             };
         }
 
-        protected override TaskInvoiceForPaymentWrapperManager GetTask(TaskInvoiceForPayment taskInvoice, IUnitOfWork unitOfWork)
+        protected override TaskInvoiceForPaymentWrapperManager GetTask(TaskInvoiceForPayment taskInvoice)
         {
-            return new TaskInvoiceForPaymentWrapperManager(taskInvoice, UnitOfWork);
+            return new TaskInvoiceForPaymentWrapperManager(taskInvoice);
         }
 
         public void Load(Specification specification)
         {
-            Task = new TaskInvoiceForPaymentWrapperManager(new TaskInvoiceForPayment(), UnitOfWork);
+            var invoice = new TaskInvoiceForPayment();
             foreach (var priceEngineeringTask in specification.PriceEngineeringTasks)
             {
-                var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem
-                {
-                    PriceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id)
-                };
-                var item = new TaskInvoiceForPaymentItemViewModelManager(taskInvoiceForPaymentItem, UnitOfWork);
-                Task.Items.Add(item);
+                var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem();
+                taskInvoiceForPaymentItem.PriceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
+                invoice.Items.Add(taskInvoiceForPaymentItem);
             }
+
+            Task = new TaskInvoiceForPaymentWrapperManager(invoice);
         }
 
         protected override void AfterSelectionItem()

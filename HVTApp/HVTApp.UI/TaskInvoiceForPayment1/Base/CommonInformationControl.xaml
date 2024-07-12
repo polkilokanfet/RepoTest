@@ -12,14 +12,27 @@
     <!--Общая информация-->
     <GroupBox Header="Задание на формирование счёта">
         <Grid>
+            <Grid.Resources>
+                <Style TargetType="TextBox">
+                    <Style.Setters>
+                        <Setter Property="IsReadOnly" Value="True"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style.Setters>
+                </Style>
+            </Grid.Resources>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0"
+                  Visibility="{Binding ElementName=Root, Path=HeadIsVisible}">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -30,28 +43,22 @@
                        Content="Требуется оригинал счёта:"/>
                 <CheckBox Grid.Column="1" 
                           HorizontalAlignment="Left" 
-                          IsChecked="{Binding ElementName=Root, Path=OriginalIsRequired}" 
-                          IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+                          IsChecked="{Binding Task.Model.OriginalIsRequired, Mode=OneTime}" 
+                          IsEnabled="False"/>
 
                 <Label Grid.Column="2" 
-                       Content="Комментарий менеджера:"/>
-                <TextBox Grid.Column="3" 
-                         Text="{Binding ElementName=Root, Path=Comment}"/>
+                       Content="Условие:"/>
+                <TextBox Grid.Column="3"
+                         Text="{Binding Task.PaymentConditionString, Mode=OneTime}"/>
 
+                <Label Grid.Column="4" 
+                       Content="Комментарий менеджера:"/>
+                <TextBox Grid.Column="5" 
+                         Text="{Binding Task.Model.Comment, Mode=OneTime}"/>
             </Grid>
 
             <GroupBox Grid.Row="1" Header="Спецификация">
                 <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="TextBox">
-                            <Style.Setters>
-                                <Setter Property="IsReadOnly" Value="True"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style.Setters>
-                        </Style>
-
-                    </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>

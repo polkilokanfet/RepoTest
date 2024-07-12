@@ -1,6 +1,8 @@
 ﻿using System;
-using HVTApp.Infrastructure;
+using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
@@ -44,13 +46,27 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 
         #endregion
 
-        public TaskInvoiceForPaymentWrapperManager(TaskInvoiceForPayment model, IUnitOfWork unitOfWork) : base(model, unitOfWork)
+        public PaymentCondition PaymentCondition
+        {
+            get => Model.Items.FirstOrDefault()?.PaymentCondition;
+            set
+            {
+                foreach (var item in this.Items)
+                {
+                    if (item.PaymentCondition?.Model.Id == value.Id) continue;
+                    item.PaymentCondition = new PaymentConditionEmptyWrapper(value);
+                }
+                RaisePropertyChanged();
+            }
+        }
+
+        public TaskInvoiceForPaymentWrapperManager(TaskInvoiceForPayment model) : base(model)
         {
         }
 
         protected override TaskInvoiceForPaymentItemViewModelManager GetItem(TaskInvoiceForPaymentItem item)
         {
-            return new TaskInvoiceForPaymentItemViewModelManager(item, UnitOfWork);
+            return new TaskInvoiceForPaymentItemViewModelManager(item);
         }
     }
 }

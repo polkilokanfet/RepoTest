@@ -1,14 +1,14 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.TaskInvoiceForPayment1.TaskInvoiceForPaymentListView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.TaskInvoiceForPayment1.List.TaskInvoiceForPaymentListView"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:dataPresenter="http://infragistics.com/DataPresenter"
-              xmlns:taskInvoiceForPayment1="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1"
               xmlns:controls="http://infragistics.com/Windows"
+              xmlns:list="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.List"
               mc:Ignorable="d"
-              d:DataContext="{d:DesignInstance taskInvoiceForPayment1:TaskInvoiceForPaymentListViewModel, IsDesignTimeCreatable=True}"
+              d:DataContext="{d:DesignInstance list:TaskInvoiceForPaymentListViewModel, IsDesignTimeCreatable=True}"
               >
 
     <GroupBox Header="Задачи на формирование счетов на оплату">

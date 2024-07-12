@@ -17,7 +17,7 @@
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Исполнитель">
+    <!--<infRib:RibbonGroup Caption="Исполнитель">
         <StackPanel Orientation="Horizontal">
 
             <infRib:ButtonTool Caption="Поручить"
@@ -27,6 +27,6 @@
             <TextBlock Text="{Binding Task.BackManager.Model.Employee.Person, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
 
         </StackPanel>
-    </infRib:RibbonGroup>
+    </infRib:RibbonGroup>-->
 
 </inf:RibbonTabItemWithViewModel>

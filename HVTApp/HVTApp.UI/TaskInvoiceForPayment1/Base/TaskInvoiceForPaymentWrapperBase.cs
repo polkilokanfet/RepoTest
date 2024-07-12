@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -10,8 +11,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
     public abstract class TaskInvoiceForPaymentWrapperBase<TItem> : WrapperBase<TaskInvoiceForPayment>
         where TItem : TaskInvoiceForPaymentItemViewModelBase
     {
-        protected readonly IUnitOfWork UnitOfWork;
-
         #region Items
 
         /// <summary>
@@ -42,9 +41,10 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
-        protected TaskInvoiceForPaymentWrapperBase(TaskInvoiceForPayment model, IUnitOfWork unitOfWork) : base(model)
+        public string PaymentConditionString => Model.Items.FirstOrDefault()?.PaymentCondition?.ToString();
+
+        protected TaskInvoiceForPaymentWrapperBase(TaskInvoiceForPayment model) : base(model)
         {
-            UnitOfWork = unitOfWork;
         }
     }
 }

@@ -6,8 +6,8 @@ using HVTApp.UI.Modules.Sales.Shippings;
 using HVTApp.UI.Modules.Sales.Supervision;
 using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceCalculations.View;
-using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.PriceEngineering.View;
+using HVTApp.UI.TaskInvoiceForPayment1.List;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 
 namespace HVTApp.Modules.Sales.Menus
@@ -22,6 +22,8 @@ namespace HVTApp.Modules.Sales.Menus
             market.Items.Add(new NavigationItem("Расчеты переменных затрат", typeof(PriceCalculationsView)));
             market.Items.Add(new NavigationItem("Предложения", typeof(OffersView)));
             market.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsView)));
+            market.Items.Add(new NavigationItem("Счета", typeof(TaskInvoiceForPaymentListView)));
+
             market.IsExpended = true;
 
             var payments = new NavigationItem("Поступления", typeof(PaymentsActualView));

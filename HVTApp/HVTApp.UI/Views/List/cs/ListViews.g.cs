@@ -7908,13 +7908,6 @@ namespace HVTApp.UI.Views
             set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Entity)].Visibility = value; }
         }
 
-        public System.Windows.Visibility ItemsVisibility
-        {
-            get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Items)].Visibility; }
-            set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Items)].Visibility = value; }
-        }
-
-
 		#endregion
     }
 

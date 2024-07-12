@@ -10,7 +10,7 @@ namespace HVTApp.UI.Lookup
         [Designation("Объект"), OrderStatus(100)]
         public string Facilities =>
             this.Entity.Items
-                .SelectMany(item => item.PriceEngineeringTask.SalesUnits)
+                .SelectMany(item => item.SalesUnits)
                 .Select(salesUnit => salesUnit.Facility)
                 .Distinct()
                 .ToStringEnum();
@@ -18,7 +18,7 @@ namespace HVTApp.UI.Lookup
         [Designation("Заказ"), OrderStatus(90)]
         public string Orders =>
             this.Entity.Items
-                .SelectMany(item => item.PriceEngineeringTask.SalesUnits)
+                .SelectMany(item => item.SalesUnits)
                 .Select(salesUnit => salesUnit.Order?.Number)
                 .Distinct()
                 .ToStringEnum();
@@ -32,6 +32,9 @@ namespace HVTApp.UI.Lookup
 
                 if (GlobalAppProperties.UserIsBackManager)
                     return this.Entity.MomentStart != null && this.Entity.MomentFinish == null;
+
+                if (GlobalAppProperties.UserIsManager)
+                    return this.Entity.MomentStart != null;
 
                 return true;
             }

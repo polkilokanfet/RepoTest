@@ -6,7 +6,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 {
     public class TaskInvoiceForPaymentItemViewModelBackManagerBoss : TaskInvoiceForPaymentItemViewModelBase
     {
-        public TaskInvoiceForPaymentItemViewModelBackManagerBoss(TaskInvoiceForPaymentItem model, IUnitOfWork unitOfWork) : base(model, unitOfWork)
+        public TaskInvoiceForPaymentItemViewModelBackManagerBoss(TaskInvoiceForPaymentItem model) : base(model)
         {
         }
     }

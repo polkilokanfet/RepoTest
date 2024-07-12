@@ -1,4 +1,4 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
@@ -16,7 +16,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
             set => SetComplexValue<User, UserEmptyWrapper>(BackManager, value);
         }
 
-        public TaskInvoiceForPaymentWrapperBackManagerBoss(TaskInvoiceForPayment model, IUnitOfWork unitOfWork) : base(model, unitOfWork)
+        public TaskInvoiceForPaymentWrapperBackManagerBoss(TaskInvoiceForPayment model) : base(model)
         {
         }
 
@@ -28,7 +28,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
         protected override TaskInvoiceForPaymentItemViewModelBackManagerBoss GetItem(TaskInvoiceForPaymentItem item)
         {
-            return new TaskInvoiceForPaymentItemViewModelBackManagerBoss(item, UnitOfWork);
+            return new TaskInvoiceForPaymentItemViewModelBackManagerBoss(item);
         }
     }
 }

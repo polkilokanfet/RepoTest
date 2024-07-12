@@ -12,15 +12,23 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <base:CommonInformationControl 
-            Grid.Row="0"
-            OriginalIsRequired="{Binding Task.Model.OriginalIsRequired}"
-            Comment="{Binding Task.Model.Comment}">
-        </base:CommonInformationControl>
+        <GroupBox Grid.Row="0" Header="Исполнитель">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Назначить" Command="{Binding InstructCommand}"/>
+                <TextBox 
+                    Text="{Binding Task.BackManager.Model.Employee}" 
+                    IsReadOnly="True"
+                    Background="Transparent"
+                    BorderThickness="0"/>
+            </StackPanel>
+
+        </GroupBox>
+
+        <base:CommonInformationControl Grid.Row="1"/>
     </Grid>
 
 </inf:ViewBase>

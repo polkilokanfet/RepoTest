@@ -20,7 +20,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 
         #endregion
 
-        public TaskInvoiceForPaymentItemViewModelManager(TaskInvoiceForPaymentItem model, IUnitOfWork unitOfWork) : base(model, unitOfWork) { }
+        public TaskInvoiceForPaymentItemViewModelManager(TaskInvoiceForPaymentItem model) : base(model)
+        { }
 
         public override void InitializeComplexProperties()
         {

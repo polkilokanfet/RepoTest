@@ -6,22 +6,47 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:forManager="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.ForManager"
               xmlns:base="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.Base"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               mc:Ignorable="d"
               d:DataContext="{d:DesignInstance forManager:TaskInvoiceForPaymentViewModelManager, IsDesignTimeCreatable=True}"
               >
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <base:CommonInformationControl 
-            Grid.Row="0"
-            OriginalIsRequired="{Binding Task.OriginalIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Comment="{Binding Task.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </base:CommonInformationControl>
-    </Grid>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
+            <Label Grid.Column="0" Content="Требуется оригинал счёта:"/>
+            <CheckBox Grid.Column="1" 
+                      HorizontalAlignment="Left" 
+                      IsChecked="{Binding Task.OriginalIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      IsEnabled="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolConverter}}"/>
+
+            <Label Grid.Column="2" Content="Условие:"/>
+            <controls:ChooseItemControl Grid.Column="3" 
+                                        Item="{Binding Task.PaymentCondition, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        AddItemCommand="{Binding ChoosePaymentConditionCommand}"/>
+
+            <Label Grid.Column="4" Content="Комментарий менеджера:"/>
+            <TextBox Grid.Column="5" 
+                     IsReadOnly="{Binding IsStarted, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Task.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+        <base:CommonInformationControl Grid.Row="1" HeadIsVisible="Collapsed"/>
+
+    </Grid>
 
 </inf:ViewBase>

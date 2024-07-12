@@ -1,7 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.UI.Modules.PlanAndEconomy.Dates;
-using HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates;
 using HVTApp.UI.Modules.PlanAndEconomy.InformationForTeamCenter;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual;
 using HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan;
@@ -9,10 +8,8 @@ using HVTApp.UI.Modules.PlanAndEconomy.SpecificationSignDates;
 using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.PriceCalculations.View;
-using HVTApp.UI.PriceEngineering.InvoiceForPayment;
-using HVTApp.UI.PriceEngineering.Tce.List.View;
 using HVTApp.UI.PriceEngineering.View;
-using HVTApp.UI.TaskInvoiceForPayment1;
+using HVTApp.UI.TaskInvoiceForPayment1.List;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 
 namespace HVTApp.Modules.PlanAndEconomy.Menus
