@@ -9,7 +9,7 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
     public abstract class TaskInvoiceForPaymentWrapperBase<TItem> : WrapperBase<TaskInvoiceForPayment>
-        where TItem : TaskInvoiceForPaymentItemViewModelBase
+        where TItem : TaskInvoiceForPaymentItemWrapperBase
     {
         #region Items
 

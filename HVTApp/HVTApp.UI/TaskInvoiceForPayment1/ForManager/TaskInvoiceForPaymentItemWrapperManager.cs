@@ -5,7 +5,7 @@ using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
-    public class TaskInvoiceForPaymentItemViewModelManager : TaskInvoiceForPaymentItemViewModelBase
+    public class TaskInvoiceForPaymentItemWrapperManager : TaskInvoiceForPaymentItemWrapperBase
     {
         #region ComplexProperties
 
@@ -20,7 +20,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 
         #endregion
 
-        public TaskInvoiceForPaymentItemViewModelManager(TaskInvoiceForPaymentItem model) : base(model)
+        public TaskInvoiceForPaymentItemWrapperManager(TaskInvoiceForPaymentItem model) : base(model)
         { }
 
         public override void InitializeComplexProperties()

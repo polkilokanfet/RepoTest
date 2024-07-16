@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
     public abstract class TaskInvoiceForPaymentViewModelBase<TTask, TItem> : ViewModelBase
-        where TItem : TaskInvoiceForPaymentItemViewModelBase
+        where TItem : TaskInvoiceForPaymentItemWrapperBase
         where TTask : TaskInvoiceForPaymentWrapperBase<TItem>
     {
         private TTask _task;

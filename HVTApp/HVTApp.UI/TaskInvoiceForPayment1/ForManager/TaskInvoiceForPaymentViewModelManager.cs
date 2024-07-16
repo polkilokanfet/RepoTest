@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
     public class TaskInvoiceForPaymentViewModelManager :
-        TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperManager, TaskInvoiceForPaymentItemViewModelManager>
+        TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperManager, TaskInvoiceForPaymentItemWrapperManager>
     {
         public ICommand RemoveItemCommand { get; }
         public ICommand StartCommand { get; }

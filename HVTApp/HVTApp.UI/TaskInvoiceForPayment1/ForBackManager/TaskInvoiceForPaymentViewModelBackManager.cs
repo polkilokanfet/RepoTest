@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 {
     public class TaskInvoiceForPaymentViewModelBackManager :
-        TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperBackManager, TaskInvoiceForPaymentItemViewModelBackManager>
+        TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperBackManager, TaskInvoiceForPaymentItemWrapperBackManager>
     {
         public TaskInvoiceForPaymentViewModelBackManager(IUnityContainer container) : base(container)
         {

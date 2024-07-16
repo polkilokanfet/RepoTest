@@ -10,13 +10,13 @@ using HVTApp.Model.Wrapper.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
-    public class TaskInvoiceForPaymentItemViewModelBase : WrapperBase<TaskInvoiceForPaymentItem>
+    public class TaskInvoiceForPaymentItemWrapperBase : WrapperBase<TaskInvoiceForPaymentItem>
     {
         //protected readonly IUnitOfWork UnitOfWork;
         protected readonly List<SalesUnit> SalesUnits;
 
-        public List<TaskInvoiceForPaymentItemViewModelBase> Items => 
-            new List<TaskInvoiceForPaymentItemViewModelBase> {this};
+        public List<TaskInvoiceForPaymentItemWrapperBase> Items => 
+            new List<TaskInvoiceForPaymentItemWrapperBase> {this};
 
         #region Info
 
@@ -99,7 +99,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         #endregion
 
-        public TaskInvoiceForPaymentItemViewModelBase(TaskInvoiceForPaymentItem model) : base(model)
+        public TaskInvoiceForPaymentItemWrapperBase(TaskInvoiceForPaymentItem model) : base(model)
         {
             SalesUnits = model.PriceEngineeringTask?.SalesUnits ?? model.TechnicalRequrements.SalesUnits;
             var salesUnit = SalesUnits.First();

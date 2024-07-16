@@ -5,7 +5,7 @@ using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 {
-    public class TaskInvoiceForPaymentWrapperBackManagerBoss : TaskInvoiceForPaymentWrapperBase<TaskInvoiceForPaymentItemViewModelBackManagerBoss>
+    public class TaskInvoiceForPaymentWrapperBackManagerBoss : TaskInvoiceForPaymentWrapperBase<TaskInvoiceForPaymentItemWrapperBackManagerBoss>
     {
         /// <summary>
         /// Исполнитель
@@ -26,9 +26,9 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
         }
 
 
-        protected override TaskInvoiceForPaymentItemViewModelBackManagerBoss GetItem(TaskInvoiceForPaymentItem item)
+        protected override TaskInvoiceForPaymentItemWrapperBackManagerBoss GetItem(TaskInvoiceForPaymentItem item)
         {
-            return new TaskInvoiceForPaymentItemViewModelBackManagerBoss(item);
+            return new TaskInvoiceForPaymentItemWrapperBackManagerBoss(item);
         }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 {
     public class TaskInvoiceForPaymentViewModelBackManagerBoss :
-        TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperBackManagerBoss, TaskInvoiceForPaymentItemViewModelBackManagerBoss>
+        TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperBackManagerBoss, TaskInvoiceForPaymentItemWrapperBackManagerBoss>
     {
         public ICommand InstructCommand { get; }
 

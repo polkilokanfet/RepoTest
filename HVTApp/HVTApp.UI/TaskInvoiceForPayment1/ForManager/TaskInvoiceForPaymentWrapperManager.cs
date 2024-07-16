@@ -7,7 +7,7 @@ using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
 {
-    public class TaskInvoiceForPaymentWrapperManager : TaskInvoiceForPaymentWrapperBase<TaskInvoiceForPaymentItemViewModelManager>
+    public class TaskInvoiceForPaymentWrapperManager : TaskInvoiceForPaymentWrapperBase<TaskInvoiceForPaymentItemWrapperManager>
     {
         #region SimpleProperties
 
@@ -64,9 +64,9 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         {
         }
 
-        protected override TaskInvoiceForPaymentItemViewModelManager GetItem(TaskInvoiceForPaymentItem item)
+        protected override TaskInvoiceForPaymentItemWrapperManager GetItem(TaskInvoiceForPaymentItem item)
         {
-            return new TaskInvoiceForPaymentItemViewModelManager(item);
+            return new TaskInvoiceForPaymentItemWrapperManager(item);
         }
     }
 }

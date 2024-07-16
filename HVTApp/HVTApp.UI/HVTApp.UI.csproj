@@ -745,19 +745,20 @@
     <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBaseControl.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentItemViewModelBaseControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemViewModelBase.cs" />
+    <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentItemWrapperBase.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TabForBackManagerBoss.xaml.cs">
       <DependentUpon>TabForBackManagerBoss.xaml</DependentUpon>
     </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentBackManagerBossView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentBackManagerBossView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\PriceEngineeringTaskWrapper.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentBackManagerView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentBackManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentViewModelBackManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentWrapperBackManager.cs" />
-    <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentItemViewModelBackManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentItemWrapperBackManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\List\TabTaskInvoiceForPaymentListView.xaml.cs">
       <DependentUpon>TabTaskInvoiceForPaymentListView.xaml</DependentUpon>
     </Compile>
@@ -765,11 +766,11 @@
     <Compile Include="TaskInvoiceForPayment1\ForManager\TabForManager.xaml.cs">
       <DependentUpon>TabForManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentItemViewModelBackManagerBoss.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentItemWrapperBackManagerBoss.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentManagerView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemViewModelManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentItemWrapperManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\Base\TaskInvoiceForPaymentViewModelBase.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentViewModelBackManagerBoss.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentViewModelManager.cs" />
