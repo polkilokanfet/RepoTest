@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -41,10 +40,16 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
+        public string ErrorsString => this.Errors.SelectMany(x => x.Value).ToStringEnum();
+
         public string PaymentConditionString => Model.Items.FirstOrDefault()?.PaymentCondition?.ToString();
 
         protected TaskInvoiceForPaymentWrapperBase(TaskInvoiceForPayment model) : base(model)
         {
+            this.ErrorsChanged += (sender, args) => 
+            {
+                RaisePropertyChanged(ErrorsString);
+            };
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
@@ -12,9 +11,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
     public class TaskInvoiceForPaymentItemWrapperBase : WrapperBase<TaskInvoiceForPaymentItem>
     {
-        //protected readonly IUnitOfWork UnitOfWork;
-        protected readonly List<SalesUnit> SalesUnits;
-
         public List<TaskInvoiceForPaymentItemWrapperBase> Items => 
             new List<TaskInvoiceForPaymentItemWrapperBase> {this};
 
@@ -101,31 +97,31 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         public TaskInvoiceForPaymentItemWrapperBase(TaskInvoiceForPaymentItem model) : base(model)
         {
-            SalesUnits = model.PriceEngineeringTask?.SalesUnits ?? model.TechnicalRequrements.SalesUnits;
-            var salesUnit = SalesUnits.First();
+            var salesUnits = model.PriceEngineeringTask?.SalesUnits?? model.TechnicalRequrements.SalesUnits;
+            var salesUnit = salesUnits.First();
 
-            FixedCost = -1.0 * SalesUnits.Sum(x => x.FixedCost);
+            FixedCost = -1.0 * salesUnits.Sum(x => x.FixedCost);
 
             Order = salesUnit.Order?.ToString();
-            OrderPositions = SalesUnits.Select(unit => unit.OrderPosition).GetOrderPositions();
+            OrderPositions = salesUnits.Select(unit => unit.OrderPosition).GetOrderPositions();
 
             ProductionTerm = salesUnit.ProductionTerm;
             var owners = new List<Company> { salesUnit.Facility.OwnerCompany };
             owners.AddRange(salesUnit.Facility.OwnerCompany.ParentCompanies().ToList());
             FacilityOwners = owners.ToStringEnum();
             var contragent = salesUnit.Specification?.Contract.Contragent;
-            ContragentType = GetContragentType(contragent, SalesUnits);
+            ContragentType = GetContragentType(contragent, salesUnits);
             Facility = salesUnit.Facility.ToString();
             var region = salesUnit.Facility.GetRegion();
             Country = region?.District.Country;
             District = region?.District.Name;
-            Segment = SegmentConverter(GetSegment(SalesUnits));
+            Segment = SegmentConverter(GetSegment(salesUnits));
             ProductType = salesUnit.Product.ProductType.Name;
             Designation = salesUnit.Product.Designation;
-            Amount = SalesUnits.Count;
+            Amount = salesUnits.Count;
             Vat = salesUnit.Vat / 100.0 + 1.0;
             Cost = salesUnit.Cost;
-            var costDelivery = SalesUnits.Select(unit => unit.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
+            var costDelivery = salesUnits.Select(unit => unit.CostDelivery).Where(x => x.HasValue).Sum(x => x.Value);
             CostDelivery = -1.0 * costDelivery;
 
             OrderInTakeDate = salesUnit.OrderInTakeDate;

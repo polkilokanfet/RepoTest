@@ -19,7 +19,7 @@
 
         <base:CommonInformationControl Grid.Row="0"/>
 
-        <!--Заводской заказ-->
+        <!--Заводской заказ--><!--
         <GroupBox
             Grid.Row="1"
             Background="Transparent"
@@ -43,7 +43,7 @@
                             <Setter Property="Visibility" Value="Collapsed"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsChecked, ElementName=OrdersAreUniqueCheckBox}"
-                                             Value="True">
+                                             Value="False">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -72,7 +72,7 @@
                             <Setter Property="Visibility" Value="Collapsed"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsChecked, ElementName=OrdersAreUniqueCheckBox}" 
-                                             Value="False">
+                                             Value="True">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -96,7 +96,7 @@
                                 <dataPresenter:FieldLayout.Fields>
                                     <dataPresenter:TextField 
                                                 BindingType="UseAlternateBinding" 
-                                                AlternateBinding="{Binding OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                AlternateBinding="{Binding Order.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 Label="Заказ" 
                                                 Width="Auto" 
                                                 AllowEdit="True" />
@@ -112,7 +112,7 @@
                     </dataPresenter:XamDataGrid>
                 </Grid>
             </Grid>
-        </GroupBox>
+        </GroupBox>-->
 
     </Grid>
 

@@ -752,13 +752,20 @@
     <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentBackManagerBossView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentBackManagerBossView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskInvoiceForPayment1\ForBackManager\PriceEngineeringTaskWrapper.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\OrderPositionsCollection.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\OrderWrapperTip.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\PriceEngineeringTaskWrapperTip.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\SalesUnitWrapperTip.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\TabForBackManager.xaml.cs">
+      <DependentUpon>TabForBackManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentBackManagerView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentBackManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentViewModelBackManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentWrapperBackManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentItemWrapperBackManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\TechnicalRequrementsWrapperTip.cs" />
     <Compile Include="TaskInvoiceForPayment1\List\TabTaskInvoiceForPaymentListView.xaml.cs">
       <DependentUpon>TabTaskInvoiceForPaymentListView.xaml</DependentUpon>
     </Compile>
@@ -2502,6 +2509,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentBackManagerBossView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForBackManager\TabForBackManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

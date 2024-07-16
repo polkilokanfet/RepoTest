@@ -44,7 +44,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         /// Загрузка ранее созданного задания
         /// </summary>
         /// <param name="task"></param>
-        public void Load(TaskInvoiceForPayment task)
+        public virtual void Load(TaskInvoiceForPayment task)
         {
             var targetTask = UnitOfWork.Repository<TaskInvoiceForPayment>().GetById(task.Id);
             Task = this.GetTask(targetTask);

@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 {
-    [RibbonTab(typeof(TabForBackManagerBoss))]
+    [RibbonTab(typeof(TabForBackManager))]
     public partial class TaskInvoiceForPaymentBackManagerView
     {
         private readonly TaskInvoiceForPaymentViewModelBackManager _viewModel;

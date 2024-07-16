@@ -1,5 +1,5 @@
 ﻿using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
@@ -10,38 +10,39 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 
         #region ComplexProperties
 
+        public IValidatableChangeTrackingCollection<SalesUnitWrapperTip> SalesUnits =>
+            PriceEngineeringTask != null
+                ? PriceEngineeringTask.SalesUnits
+                : TechnicalRequrements.SalesUnits;
+
         /// <summary>
         /// Задача ТСП
         /// </summary>
-        public PriceEngineeringTaskWrapper PriceEngineeringTask
+        private PriceEngineeringTaskWrapperTip PriceEngineeringTask
         {
-            get => GetWrapper<PriceEngineeringTaskWrapper>();
-            set => SetComplexValue<PriceEngineeringTask, PriceEngineeringTaskWrapper>(PriceEngineeringTask, value);
+            get => GetWrapper<PriceEngineeringTaskWrapperTip>();
+            set => SetComplexValue<PriceEngineeringTask, PriceEngineeringTaskWrapperTip>(PriceEngineeringTask, value);
         }
 
         /// <summary>
         /// Задача ТСЕ
         /// </summary>
-        public TechnicalRequrementsWrapper TechnicalRequrements
+        private TechnicalRequrementsWrapperTip TechnicalRequrements
         {
-            get => GetWrapper<TechnicalRequrementsWrapper>();
-            set => SetComplexValue<TechnicalRequrements, TechnicalRequrementsWrapper>(TechnicalRequrements, value);
+            get => GetWrapper<TechnicalRequrementsWrapperTip>();
+            set => SetComplexValue<TechnicalRequrements, TechnicalRequrementsWrapperTip>(TechnicalRequrements, value);
         }
 
         #endregion
-
-
+        
         public TaskInvoiceForPaymentItemWrapperBackManager(TaskInvoiceForPaymentItem model) : base(model)
         {
         }
 
-
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty(nameof(PriceEngineeringTask), Model.PriceEngineeringTask == null ? null : new PriceEngineeringTaskWrapper(Model.PriceEngineeringTask));
-            InitializeComplexProperty(nameof(TechnicalRequrements), Model.TechnicalRequrements == null ? null : new TechnicalRequrementsWrapper(Model.TechnicalRequrements));
-            InitializeComplexProperty(nameof(PaymentCondition), Model.PaymentCondition == null ? null : new PaymentConditionWrapper(Model.PaymentCondition));
+            InitializeComplexProperty(nameof(PriceEngineeringTask), Model.PriceEngineeringTask == null ? null : new PriceEngineeringTaskWrapperTip(Model.PriceEngineeringTask));
+            InitializeComplexProperty(nameof(TechnicalRequrements), Model.TechnicalRequrements == null ? null : new TechnicalRequrementsWrapperTip(Model.TechnicalRequrements));
         }
-
     }
 }

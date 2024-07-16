@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -67,6 +68,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         protected override TaskInvoiceForPaymentItemWrapperManager GetItem(TaskInvoiceForPaymentItem item)
         {
             return new TaskInvoiceForPaymentItemWrapperManager(item);
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (this.PaymentCondition == null)
+                yield return new ValidationResult("Не выбрано условие платежа.", new[] {nameof(PaymentCondition)});
         }
     }
 }

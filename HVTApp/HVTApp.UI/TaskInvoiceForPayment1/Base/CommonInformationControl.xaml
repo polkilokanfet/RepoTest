@@ -26,6 +26,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" MaxHeight="300"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0"
@@ -99,16 +100,18 @@
                             <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
                         </ContextMenu>
                     </dataPresenter:XamDataGrid.ContextMenu>
+
                     <dataPresenter:XamDataGrid.FieldLayouts>
                         <dataPresenter:FieldLayout Key="Main">
-
                             <dataPresenter:FieldLayout.Fields>
 
+                                <dataPresenter:Field Name="SalesUnits" IsExpandable="True"/>
+
                                 <dataPresenter:TextField AlternateBinding="{Binding Order}"
-                                            BindingType="UseAlternateBinding"
-                                            Label="Заказ"
-                                            Width="80"
-                                            AllowResize="True" />
+                                                         BindingType="UseAlternateBinding"
+                                                         Label="Заказ"
+                                                         Width="80"
+                                                         AllowResize="True" />
 
                                 <dataPresenter:TextField AlternateBinding="{Binding OrderPositions}"
                                             BindingType="UseAlternateBinding"
@@ -244,10 +247,36 @@
                                                AllowResize="True" />
 
                             </dataPresenter:FieldLayout.Fields>
-
                         </dataPresenter:FieldLayout>
+
+                        <dataPresenter:FieldLayout ParentFieldLayoutKey="Main" ParentFieldName="SalesUnits">
+                            <dataPresenter:TextField 
+                                AlternateBinding="{Binding Order.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                BindingType="UseAlternateBinding"
+                                AllowEdit="True"
+                                Label="Заказ"
+                                Width="200"/>
+                            <dataPresenter:TextField 
+                                AlternateBinding="{Binding OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                BindingType="UseAlternateBinding"
+                                AllowEdit="True"
+                                Label="поз."
+                                Width="200"/>
+                        </dataPresenter:FieldLayout>
+
                     </dataPresenter:XamDataGrid.FieldLayouts>
+
                 </dataPresenter:XamDataGrid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="3" Header="Ошибки">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock 
+                        Text="{Binding Task.ErrorsString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        VerticalAlignment="Center"
+                        Foreground="Red"
+                        />
+                </ScrollViewer>
             </GroupBox>
 
         </Grid>
