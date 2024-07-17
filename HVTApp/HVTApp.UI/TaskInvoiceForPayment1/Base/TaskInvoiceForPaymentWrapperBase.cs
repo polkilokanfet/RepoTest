@@ -40,7 +40,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
-        public string ErrorsString => this.Errors.ActualErrors.Select(dataErrorInfo => dataErrorInfo.Message).ToStringEnum();
+        public string ErrorsString => this.Errors.ActualErrors.Select(dataErrorInfo => dataErrorInfo.Message).ToStringEnum($";{Environment.NewLine}");
 
         public string PaymentConditionString => Model.Items.FirstOrDefault()?.PaymentCondition?.ToString();
 
@@ -48,7 +48,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         {
             this.ErrorsChanged += (sender, args) => 
             {
-                RaisePropertyChanged(ErrorsString);
+                RaisePropertyChanged(nameof(ErrorsString));
             };
         }
     }

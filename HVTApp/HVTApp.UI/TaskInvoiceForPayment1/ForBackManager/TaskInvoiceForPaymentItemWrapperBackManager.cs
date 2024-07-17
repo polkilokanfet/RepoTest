@@ -10,7 +10,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 
         #region ComplexProperties
 
-        public IValidatableChangeTrackingCollection<SalesUnitWrapperTip> SalesUnits =>
+        public override IValidatableChangeTrackingCollection<SalesUnitWrapperTip> SalesUnits =>
             PriceEngineeringTask != null
                 ? PriceEngineeringTask.SalesUnits
                 : TechnicalRequrements.SalesUnits;

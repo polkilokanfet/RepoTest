@@ -278,8 +278,7 @@
                     <TextBlock 
                         Text="{Binding Task.ErrorsString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         VerticalAlignment="Center"
-                        Foreground="Red"
-                        />
+                        Foreground="Red"/>
                 </ScrollViewer>
             </GroupBox>
 

@@ -6,6 +6,8 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
@@ -13,6 +15,10 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
     {
         public List<TaskInvoiceForPaymentItemWrapperBase> Items => 
             new List<TaskInvoiceForPaymentItemWrapperBase> {this};
+
+
+        public virtual IValidatableChangeTrackingCollection<SalesUnitWrapperTip> SalesUnits { get; }
+
 
         #region Info
 
