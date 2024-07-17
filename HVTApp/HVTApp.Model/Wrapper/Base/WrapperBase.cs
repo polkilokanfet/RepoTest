@@ -342,29 +342,49 @@ namespace HVTApp.Model.Wrapper.Base
         /// </summary>
         protected void Validate()
         {
-            ClearErrors();
+            Errors.Reboot();
 
             var context = new ValidationContext(this); //контекст поиска ошибок
             var results = new List<ValidationResult>();
             Validator.TryValidateObject(this, context, results, true); //класс ищущий ошибки по специальным атрибутам.
+            
             //если валидатор нашел ошибки.
-            if (results.Any())
+            foreach (var validationResult in results)
             {
-                //список имен свойств, содержащих ошибки
-                List<string> propertyNames = results.SelectMany(x => x.MemberNames).Distinct().ToList();
-
-                foreach (string propertyName in propertyNames)
+                foreach (var propertyName in validationResult.MemberNames)
                 {
-                    var errors =
-                        results.Where(x => x.MemberNames.Contains(propertyName))
-                               .Select(x => x.ErrorMessage)
-                               .Distinct()
-                               .ToList();
-                    Errors.Add(propertyName, errors);
-                    OnErrorsChanged(propertyName); //возбуждаем событие изменения ошибок в свойстве.
+                    Errors.Add(new DataErrorInfo(propertyName, validationResult.ErrorMessage));
                 }
             }
-            OnPropertyChanged(nameof(IsValid));
+
+            if (Errors.IsChanged)
+            {
+                foreach (var propertyName in Errors.ChangedErrors.Select(x => x.PropertyName).Distinct())
+                {
+                    OnErrorsChanged(propertyName);
+                }
+            }
+
+            //if (results.Any())
+            //{
+            //    //список имен свойств, содержащих ошибки
+            //    var propertyNames = results
+            //        .SelectMany(validationResult => validationResult.MemberNames)
+            //        .Distinct()
+            //        .ToList();
+
+            //    foreach (string propertyName in propertyNames)
+            //    {
+            //        var errors =
+            //            results.Where(validationResult => validationResult.MemberNames.Contains(propertyName))
+            //                   .Select(validationResult => validationResult.ErrorMessage)
+            //                   .Distinct()
+            //                   .ToList();
+            //        Errors.Add(propertyName, errors);
+            //        OnErrorsChanged(propertyName); //возбуждаем событие изменения ошибок в свойстве.
+            //    }
+            //}
+            RaisePropertyChanged(nameof(IsValid));
         }
 
         /// <summary>

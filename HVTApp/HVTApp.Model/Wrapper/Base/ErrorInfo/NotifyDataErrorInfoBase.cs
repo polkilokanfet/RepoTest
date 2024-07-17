@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using HVTApp.Model.Wrapper;
 using Prism.Mvvm;
 
 namespace HVTApp.Model.Wrapper.Base
@@ -13,7 +11,7 @@ namespace HVTApp.Model.Wrapper.Base
         /// <summary>
         /// Словарь ошибок, содержащихся в объекте.
         /// </summary>
-        protected Dictionary<string, List<string>> Errors = new Dictionary<string, List<string>>();
+        protected WrapperErrorsContainer Errors { get; } = new WrapperErrorsContainer();
 
         /// <summary>
         /// Возвращает ошибки, содержащиеся в свойстве.
@@ -22,15 +20,15 @@ namespace HVTApp.Model.Wrapper.Base
         /// <returns></returns>
         public IEnumerable GetErrors(string propertyName)
         {
-            return propertyName != null && Errors.ContainsKey(propertyName)
-                ? Errors[propertyName]
+            return propertyName != null && Errors.HasAnyError(propertyName)
+                ? Errors.GetErrors(propertyName)
                 : Enumerable.Empty<string>();
         }
 
         /// <summary>
         /// Есть ли какие-либо ошибки в свойствах.
         /// </summary>
-        public bool HasErrors => Errors.Any();
+        public bool HasErrors => Errors.HasErrors;
 
         /// <summary>
         /// Событие изменения ошибок в свойствах.
@@ -44,18 +42,6 @@ namespace HVTApp.Model.Wrapper.Base
         protected virtual void OnErrorsChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
-        /// Очистка словаря ошибок.
-        /// </summary>
-        protected void ClearErrors()
-        {
-            Errors.Keys.ToList().ForEach(key =>
-            {
-                Errors.Remove(key);
-                OnErrorsChanged(key);
-            });
         }
     }
 }

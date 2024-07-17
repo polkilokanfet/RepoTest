@@ -40,7 +40,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
-        public string ErrorsString => this.Errors.SelectMany(x => x.Value).ToStringEnum();
+        public string ErrorsString => this.Errors.ActualErrors.Select(dataErrorInfo => dataErrorInfo.Message).ToStringEnum();
 
         public string PaymentConditionString => Model.Items.FirstOrDefault()?.PaymentCondition?.ToString();
 

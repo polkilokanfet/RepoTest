@@ -148,7 +148,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
                 if (this.HasErrors)
                 {
                     sb.Append("Ошибки в задаче: ");
-                    sb.AppendLine(this.Errors.Select(x => x.Value.ToString()).Distinct().ToStringEnum());
+                    sb.AppendLine(this.Errors.ActualErrors.Select(x => x.Message).Distinct().ToStringEnum());
                 }
 
                 foreach (var requrement in this.Requrements)

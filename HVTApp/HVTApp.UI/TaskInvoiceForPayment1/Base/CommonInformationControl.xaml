@@ -26,6 +26,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto" MaxHeight="300"/>
             </Grid.RowDefinitions>
 
@@ -269,7 +270,10 @@
                 </dataPresenter:XamDataGrid>
             </GroupBox>
 
-            <GroupBox Grid.Row="3" Header="Ошибки">
+
+            <GridSplitter Grid.Row="3" VerticalAlignment="Center"/>
+
+            <GroupBox Grid.Row="4" Header="Ошибки">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <TextBlock 
                         Text="{Binding Task.ErrorsString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
