@@ -2,11 +2,13 @@
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 {
@@ -29,11 +31,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
                     this.Task.BackManager = new UserEmptyWrapper(backManager);
                     this.Task.AcceptChanges();
-                    this.UnitOfWork.SaveEntity(this.Task.Model);
+                    this.UnitOfWork.SaveChanges();
 
                     RaisePropertyChanged(nameof(Task.BackManager));
+                    container.Resolve<IEventAggregator>().GetEvent<AfterSaveTaskInvoiceForPaymentEvent>().Publish(this.Task.Model);
                 },
-                () => this.Task != null);
+                () => this.Task != null && this.IsStarted && this.IsFinished == false);
 
         }
 

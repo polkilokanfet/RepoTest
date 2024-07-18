@@ -5,6 +5,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
@@ -13,6 +14,7 @@ using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss;
 using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -23,8 +25,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.List
         private readonly IUnityContainer _container;
         private bool _isShownActual = true;
 
-        public ObservableCollection<TaskInvoiceForPaymentLookup> Items { get; } =
-            new ObservableCollection<TaskInvoiceForPaymentLookup>();
+        public ObservableCollection<TaskInvoiceForPaymentLookup> Items { get; } 
+            
 
         public TaskInvoiceForPaymentLookup SelectedItem { get; set; }
 
@@ -41,6 +43,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.List
         public TaskInvoiceForPaymentListViewModel(IUnityContainer container)
         {
             _container = container;
+            Items = new ObservableCollectionSync<TaskInvoiceForPaymentLookup, TaskInvoiceForPayment, AfterSaveTaskInvoiceForPaymentEvent>(container.Resolve<IEventAggregator>());
             Load();
             LoadCommand = new DelegateLogCommand(Load);
             EditCommand = new DelegateLogCommand(

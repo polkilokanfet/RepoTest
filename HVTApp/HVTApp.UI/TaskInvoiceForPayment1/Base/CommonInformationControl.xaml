@@ -17,7 +17,7 @@
                     <Style.Setters>
                         <Setter Property="IsReadOnly" Value="True"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <!--<Setter Property="BorderThickness" Value="0"/>-->
                     </Style.Setters>
                 </Style>
             </Grid.Resources>
@@ -85,9 +85,6 @@
                     <Label Grid.Column="0" Grid.Row="3" Content="Контрагент:"/>
                     <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Task.Specification.Contract.Contragent, Mode=OneWay}"/>
 
-                    <!--<Label Grid.Column="0" Grid.Row="" Content=""/>
-                    <TextBox Grid.Column="1" Grid.Row="" Text="{Binding Mode=OneWay}"/>-->
-
                 </Grid>
             </GroupBox>
 
@@ -108,8 +105,9 @@
 
                                 <dataPresenter:Field Name="SalesUnits" IsExpandable="True"/>
 
-                                <dataPresenter:TextField AlternateBinding="{Binding Order}"
+                                <dataPresenter:TextField AlternateBinding="{Binding Order, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                          BindingType="UseAlternateBinding"
+                                                         AllowEdit="True"
                                                          Label="Заказ"
                                                          Width="80"
                                                          AllowResize="True" />
@@ -254,13 +252,13 @@
                             <dataPresenter:TextField 
                                 AlternateBinding="{Binding Order.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BindingType="UseAlternateBinding"
-                                AllowEdit="True"
+                                AllowEdit="{Binding Order.AllowEdit, Mode=OneTime}"
                                 Label="Заказ"
                                 Width="200"/>
                             <dataPresenter:TextField 
                                 AlternateBinding="{Binding OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BindingType="UseAlternateBinding"
-                                AllowEdit="True"
+                                AllowEdit="{Binding Order.AllowEdit, Mode=OneTime}"
                                 Label="поз."
                                 Width="200"/>
                         </dataPresenter:FieldLayout>
@@ -273,14 +271,13 @@
 
             <GridSplitter Grid.Row="3" VerticalAlignment="Center"/>
 
-            <GroupBox Grid.Row="4" Header="Ошибки">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBlock 
-                        Text="{Binding Task.ErrorsString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        VerticalAlignment="Center"
-                        Foreground="Red"/>
-                </ScrollViewer>
-            </GroupBox>
+            <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Auto">
+                <TextBlock 
+                    Text="{Binding Task.ErrorsString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalAlignment="Center"
+                    Foreground="Red"/>
+            </ScrollViewer>
+
 
         </Grid>
     </GroupBox>

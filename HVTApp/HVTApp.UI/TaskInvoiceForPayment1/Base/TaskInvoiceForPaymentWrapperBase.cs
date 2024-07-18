@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
@@ -40,7 +41,38 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
-        public string ErrorsString => this.Errors.ActualErrors.Select(dataErrorInfo => dataErrorInfo.Message).ToStringEnum($";{Environment.NewLine}");
+        public string ErrorsString
+        {
+            get
+            {
+                var sb = new StringBuilder();
+
+                var taskErrors = this.Errors.ActualErrors.Select(dataErrorInfo => dataErrorInfo.Message).ToList();
+                if (taskErrors.Any())
+                {
+                    sb.AppendLine("Ошибки в задаче:");
+                    foreach (var taskError in taskErrors)
+                    {
+                        sb.AppendLine($" - {taskError};");
+                    }
+                }
+
+                foreach (var item in this.Items)
+                {
+                    var itemErrors = item.GetErrorsAll().Select(dataErrorInfo => dataErrorInfo.Message).ToList();
+                    if (itemErrors.Any())
+                    {
+                        sb.AppendLine("Ошибки в строке счёта:");
+                        foreach (var itemError in itemErrors)
+                        {
+                            sb.AppendLine($" - {itemError};");
+                        }
+                    }
+
+                }
+                return sb.ToString();
+            }
+        }
 
         public string PaymentConditionString => Model.Items.FirstOrDefault()?.PaymentCondition?.ToString();
 

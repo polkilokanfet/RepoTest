@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
@@ -29,6 +30,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
         protected override TaskInvoiceForPaymentItemWrapperBackManagerBoss GetItem(TaskInvoiceForPaymentItem item)
         {
             return new TaskInvoiceForPaymentItemWrapperBackManagerBoss(item);
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (this.BackManager == null)
+                yield return new ValidationResult("Назначьте исполнителя.", new[] {nameof(BackManager)});
         }
     }
 }

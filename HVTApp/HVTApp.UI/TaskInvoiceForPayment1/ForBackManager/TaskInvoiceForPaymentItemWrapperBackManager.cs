@@ -1,4 +1,6 @@
-﻿using HVTApp.Model.POCOs;
+﻿using System.Linq;
+using HVTApp.Infrastructure.Extensions;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
@@ -6,7 +8,17 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 {
     public class TaskInvoiceForPaymentItemWrapperBackManager : TaskInvoiceForPaymentItemWrapperBase
     {
-        public bool OrdersAreUnique { get; set; }
+        public override string Order
+        {
+            get => this.SalesUnits.Select(x => x.Order.Number).Distinct().ToStringEnum();
+            set
+            {
+                foreach (var salesUnit in this.SalesUnits)
+                {
+                    salesUnit.Order.Number = value;
+                }
+            }
+        }
 
         #region ComplexProperties
 

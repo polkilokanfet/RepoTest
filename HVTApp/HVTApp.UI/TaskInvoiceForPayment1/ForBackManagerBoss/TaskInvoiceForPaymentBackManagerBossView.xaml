@@ -20,7 +20,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Content="Назначить" Command="{Binding InstructCommand}"/>
                 <TextBox 
-                    Text="{Binding Task.BackManager.Model.Employee}" 
+                    Text="{Binding Task.BackManager.Model.Employee, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                     IsReadOnly="True"
                     Background="Transparent"
                     BorderThickness="0"/>

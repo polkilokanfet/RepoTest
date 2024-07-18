@@ -25,7 +25,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                     UnitOfWork.SaveChanges();
                     ((DelegateLogConfirmationCommand) FinishCommand).RaiseCanExecuteChanged();
                 },
-                () => this.Task != null && this.IsStarted == true && this.IsFinished == false && this.Task.IsValid);
+                () => 
+                    this.Task != null && this.IsStarted == true && this.IsFinished == false && this.Task.IsValid);
         }
 
         protected override TaskInvoiceForPaymentWrapperBackManager GetTask(TaskInvoiceForPayment taskInvoice)
@@ -45,7 +46,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                 {
                     if (salesUnit.Order == null)
                     {
-                        salesUnit.Order = new OrderWrapperTip(new Order());
+                        salesUnit.Order = new OrderWrapperTip(new Order(), true);
                         salesUnit.OrderPosition = position.ToString();
                         position++;
                     }

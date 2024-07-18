@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Prism.Mvvm;
@@ -23,6 +24,15 @@ namespace HVTApp.Model.Wrapper.Base
             return propertyName != null && Errors.HasAnyError(propertyName)
                 ? Errors.GetErrors(propertyName)
                 : Enumerable.Empty<string>();
+        }
+
+        /// <summary>
+        /// Возвращает все ошибки
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DataErrorInfo> GetErrorsAll()
+        {
+            return this.Errors.ActualErrors;
         }
 
         /// <summary>

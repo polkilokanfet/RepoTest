@@ -13,6 +13,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
     public class TaskInvoiceForPaymentItemWrapperBase : WrapperBase<TaskInvoiceForPaymentItem>
     {
+        private readonly string _order;
+
         public List<TaskInvoiceForPaymentItemWrapperBase> Items => 
             new List<TaskInvoiceForPaymentItemWrapperBase> {this};
 
@@ -34,7 +36,14 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         }
 
         [Designation("Заказ"), OrderStatus(-1)]
-        public string Order { get; }
+        public virtual string Order
+        {
+            get => _order;
+            set
+            {
+
+            }
+        }
 
         [Designation("Позиции"), OrderStatus(-2)]
         public string OrderPositions { get; }
@@ -108,7 +117,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
             FixedCost = -1.0 * salesUnits.Sum(x => x.FixedCost);
 
-            Order = salesUnit.Order?.ToString();
+            _order = salesUnits.Select(unit => unit.Order).Distinct().Where(order => order != null).Select(order => order.Number).ToStringEnum();
             OrderPositions = salesUnits.Select(unit => unit.OrderPosition).GetOrderPositions();
 
             ProductionTerm = salesUnit.ProductionTerm;
@@ -200,16 +209,5 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         }
         
         #endregion
-
-        //protected override IEnumerable<ValidationResult> ValidateOther()
-        //{
-        //    if (this.SalesUnits != null)
-        //    {
-        //        foreach (var salesUnit in this.SalesUnits.Where(salesUnit => salesUnit.Specification == null))
-        //        {
-        //            yield return new ValidationResult($"не имеет спецификации: {salesUnit}");
-        //        }
-        //    }
-        //}
     }
 }
