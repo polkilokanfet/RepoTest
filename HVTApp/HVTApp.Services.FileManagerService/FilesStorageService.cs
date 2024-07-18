@@ -9,16 +9,19 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.Services.Storage;
 using HVTApp.Model.Services;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Services.FileManagerService
 {
     public class FilesStorageService : IFilesStorageService
     {
+        private readonly IUnityContainer _container;
         private readonly IMessageService _messageService;
 
-        public FilesStorageService(IMessageService messageService)
+        public FilesStorageService(IUnityContainer container)
         {
-            _messageService = messageService;
+            _container = container;
+            _messageService = container.Resolve<IMessageService>();
         }
 
         public FileInfo FindFile(Guid fileId, string storageDirectoryPath)
@@ -221,5 +224,27 @@ namespace HVTApp.Services.FileManagerService
                 }
             }
         }
+
+        public bool LoadFileToStorage(string storagePath, string filePath, Guid fileId)
+        {
+            try
+            {
+                File.Copy(filePath, $"{storagePath}\\{fileId}{Path.GetExtension(filePath)}");
+            }
+            catch 
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool LoadFileToStorage(string storagePath, Guid fileId)
+        {
+            var filePath = _container.Resolve<IGetFilePaths>().GetFilePath();
+            if (filePath == null) return false;
+            return this.LoadFileToStorage(storagePath, filePath, fileId);
+        }
+
     }
 }

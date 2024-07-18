@@ -11,8 +11,10 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using HVTApp.DataAccess;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
 using Prism.Regions;
@@ -24,7 +26,10 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         /// <summary>
         /// Задача на формирование счёта
         /// </summary>
-        public DelegateLogConfirmationCommand MakeInvoiceForPaymentTaskCommand { get; }
+        public ICommand MakeInvoiceForPaymentTaskCommand { get; }
+
+        public ICommand LoadScanCommand { get; }
+        public ICommand OpenScanCommand { get; }
 
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
@@ -33,6 +38,22 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 () =>
                 {
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), this.DetailsViewModel.Entity}});
+                });
+
+            LoadScanCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var filesStorageService = container.Resolve<IFilesStorageService>();
+                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+                    filesStorageService.LoadFileToStorage(storageDirectory, this.DetailsViewModel.Entity.Id);
+                });
+
+            OpenScanCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var filesStorageService = container.Resolve<IFilesStorageService>();
+                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+                    filesStorageService.OpenFileFromStorage(this.DetailsViewModel.Entity.Id, storageDirectory);
                 });
         }
 

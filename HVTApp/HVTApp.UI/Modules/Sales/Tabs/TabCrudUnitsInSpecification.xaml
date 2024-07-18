@@ -38,6 +38,11 @@
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Сканированная версия">
+        <infRib:ButtonTool Caption="Загрузить" Command="{Binding LoadScanCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Скачать" Command="{Binding OpenScanCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Счёт на оплату">
         <infRib:ButtonTool Caption="Создать" Command="{Binding MakeInvoiceForPaymentTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>

@@ -75,5 +75,22 @@ namespace HVTApp.Model.Services
         string GetZip(IEnumerable<IFileCopyInfo> files, string zipFileName, string destinationDirectoryPath);
 
         void AddFilesToZip(string zipPath, string[] files);
+
+        /// <summary>
+        /// Загрузка файла в хранилище
+        /// </summary>
+        /// <param name="storagePath">Путь к хранилищу</param>
+        /// <param name="filePath">Путь к файлу</param>
+        /// <param name="fileId">Id файла</param>
+        /// <returns>Загружен ли файл в хранилище</returns>
+        bool LoadFileToStorage(string storagePath, string filePath, Guid fileId);
+
+        /// <summary>
+        /// Загрузка файла в хранилище (выбор файла вынесен в стандартную форму)
+        /// </summary>
+        /// <param name="storagePath">Путь к хранилищу</param>
+        /// <param name="fileId">Id файла</param>
+        /// <returns>Загружен ли файл в хранилище</returns>
+        bool LoadFileToStorage(string storagePath, Guid fileId);
     }
 }
