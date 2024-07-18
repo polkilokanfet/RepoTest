@@ -17,7 +17,12 @@
                     <Style.Setters>
                         <Setter Property="IsReadOnly" Value="True"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
-                        <!--<Setter Property="BorderThickness" Value="0"/>-->
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="Label">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="20 0 0 0"></Setter>
                     </Style.Setters>
                 </Style>
             </Grid.Resources>
@@ -30,62 +35,54 @@
                 <RowDefinition Height="Auto" MaxHeight="300"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
-                  Visibility="{Binding ElementName=Root, Path=HeadIsVisible}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <GroupBox Grid.Row="0" Header="Общая информация">
+                <Grid
+                    Visibility="{Binding ElementName=Root, Path=HeadIsVisible}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" 
-                       Content="Требуется оригинал счёта:"/>
-                <CheckBox Grid.Column="1" 
-                          HorizontalAlignment="Left" 
-                          IsChecked="{Binding Task.Model.OriginalIsRequired, Mode=OneTime}" 
-                          IsEnabled="False"/>
+                    <Label Grid.Column="0" 
+                           Margin="0"
+                           Content="Требуется оригинал счёта:"/>
+                    <CheckBox Grid.Column="1" 
+                              HorizontalAlignment="Left" 
+                              IsChecked="{Binding Task.Model.OriginalIsRequired, Mode=OneTime}" 
+                              IsEnabled="False"/>
 
-                <Label Grid.Column="2" 
-                       Content="Условие:"/>
-                <TextBox Grid.Column="3"
-                         Text="{Binding Task.PaymentConditionString, Mode=OneTime}"/>
+                    <Label Grid.Column="2" 
+                           Content="Условие:"/>
+                    <TextBox Grid.Column="3"
+                             Text="{Binding Task.PaymentConditionString, Mode=OneTime}"/>
 
-                <Label Grid.Column="4" 
-                       Content="Комментарий менеджера:"/>
-                <TextBox Grid.Column="5" 
-                         Text="{Binding Task.Model.Comment, Mode=OneTime}"/>
-            </Grid>
+                    <Label Grid.Column="4" 
+                           Content="Комментарий менеджера:"/>
+                    <TextBox Grid.Column="5" 
+                             Text="{Binding Task.Model.Comment, Mode=OneTime}"/>
+                </Grid>
+            </GroupBox>
 
             <GroupBox Grid.Row="1" Header="Спецификация">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <WrapPanel Orientation="Horizontal">
 
-                    <Label Grid.Column="0" Grid.Row="0" Content="№ спецификации:"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Task.Specification.Number, Mode=OneWay}"/>
+                    <Label Content="№" Margin="0"/>
+                    <TextBox Text="{Binding Task.Specification.Number, Mode=OneWay}"/>
 
-                    <Label Grid.Column="0" Grid.Row="1" Content="Дата спецификации:"/>
-                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Task.Specification.Date, Mode=OneWay, Converter={StaticResource DateToStringConverter}}"/>
+                    <Label Content="от" Margin="0"/>
+                    <TextBox Text="{Binding Task.Specification.Date, Mode=OneWay, Converter={StaticResource DateToStringConverter}}" Margin="0"/>
 
-                    <Label Grid.Column="0" Grid.Row="2" Content="Договор:"/>
-                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Task.Specification.Contract, Mode=OneWay}"/>
+                    <Label Content="Договор №"/>
+                    <TextBox Text="{Binding Task.Specification.Contract, Mode=OneWay}"/>
 
-                    <Label Grid.Column="0" Grid.Row="3" Content="Контрагент:"/>
-                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Task.Specification.Contract.Contragent, Mode=OneWay}"/>
+                    <Label Content="Контрагент:"/>
+                    <TextBox Text="{Binding Task.Specification.Contract.Contragent, Mode=OneWay}"/>
 
-                </Grid>
+                </WrapPanel>
             </GroupBox>
 
             <GroupBox Grid.Row="2" Header="Строки счёта">
@@ -98,6 +95,24 @@
                             <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
                         </ContextMenu>
                     </dataPresenter:XamDataGrid.ContextMenu>
+
+                    <dataPresenter:XamDataGrid.FieldLayoutSettings>
+                        <dataPresenter:FieldLayoutSettings 
+                            AutoGenerateFields="False"
+                            AllowAddNew="False"
+                            AllowDelete="False"
+                            AllowFieldMoving="Yes"
+                            AllowRecordFixing="Top"
+                            HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                            FilterUIType="LabelIcons" 
+                            HeaderPlacement="OnTopOnly"
+                            HeaderPlacementInGroupBy="OnTopOnly"
+
+                            SupportDataErrorInfo="CellsOnly"
+                            DataErrorDisplayMode="ErrorIconAndHighlight">
+
+                        </dataPresenter:FieldLayoutSettings>
+                    </dataPresenter:XamDataGrid.FieldLayoutSettings>
 
                     <dataPresenter:XamDataGrid.FieldLayouts>
                         <dataPresenter:FieldLayout Key="Main">
@@ -112,10 +127,11 @@
                                                          Width="80"
                                                          AllowResize="True" />
 
-                                <dataPresenter:TextField AlternateBinding="{Binding OrderPositions}"
+                                <dataPresenter:TextField AlternateBinding="{Binding OrderPositions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             BindingType="UseAlternateBinding"
+                                            AllowEdit="True"
                                             Label="Позиции"
-                                            Width="Auto"
+                                            Width="80"
                                             AllowResize="True" />
 
                                 <dataPresenter:TextField AlternateBinding="{Binding Facility}"
@@ -252,15 +268,15 @@
                             <dataPresenter:TextField 
                                 AlternateBinding="{Binding Order.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BindingType="UseAlternateBinding"
-                                AllowEdit="{Binding Order.AllowEdit, Mode=OneTime}"
+                                AllowEdit="True"
                                 Label="Заказ"
-                                Width="200"/>
+                                Width="100"/>
                             <dataPresenter:TextField 
                                 AlternateBinding="{Binding OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BindingType="UseAlternateBinding"
-                                AllowEdit="{Binding Order.AllowEdit, Mode=OneTime}"
+                                AllowEdit="True"
                                 Label="поз."
-                                Width="200"/>
+                                Width="75"/>
                         </dataPresenter:FieldLayout>
 
                     </dataPresenter:XamDataGrid.FieldLayouts>

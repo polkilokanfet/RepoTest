@@ -52,13 +52,11 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                     }
                 }
             }
-        }
 
-        protected override void AfterSelectionItem()
-        {
             this.Task.PropertyChanged += (sender, args) =>
             {
-                ((DelegateLogConfirmationCommand) FinishCommand).RaiseCanExecuteChanged();
+                if (args.PropertyName == nameof(this.Task.IsValid))
+                    ((DelegateLogConfirmationCommand) FinishCommand).RaiseCanExecuteChanged();
             };
         }
     }

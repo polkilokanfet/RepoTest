@@ -14,6 +14,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
     public class TaskInvoiceForPaymentItemWrapperBase : WrapperBase<TaskInvoiceForPaymentItem>
     {
         private readonly string _order;
+        private string _orderPositions;
 
         public List<TaskInvoiceForPaymentItemWrapperBase> Items => 
             new List<TaskInvoiceForPaymentItemWrapperBase> {this};
@@ -41,12 +42,15 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             get => _order;
             set
             {
-
             }
         }
 
         [Designation("Позиции"), OrderStatus(-2)]
-        public string OrderPositions { get; }
+        public virtual string OrderPositions
+        {
+            get => _orderPositions;
+            set => _orderPositions = value;
+        }
 
         [Designation("Владелец объекта"), OrderStatus(-3)]
         public string FacilityOwners { get; }
@@ -118,7 +122,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             FixedCost = -1.0 * salesUnits.Sum(x => x.FixedCost);
 
             _order = salesUnits.Select(unit => unit.Order).Distinct().Where(order => order != null).Select(order => order.Number).ToStringEnum();
-            OrderPositions = salesUnits.Select(unit => unit.OrderPosition).GetOrderPositions();
+            _orderPositions = salesUnits.Select(unit => unit.OrderPosition).GetOrderPositions();
 
             ProductionTerm = salesUnit.ProductionTerm;
             var owners = new List<Company> { salesUnit.Facility.OwnerCompany };
@@ -209,5 +213,10 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         }
         
         #endregion
+
+        public override string ToString()
+        {
+            return $"{Facility} {this.Model.SalesUnits.First().Product} {this.Amount} шт.";
+        }
     }
 }

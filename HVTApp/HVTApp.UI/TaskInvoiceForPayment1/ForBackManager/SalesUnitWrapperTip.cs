@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -14,8 +15,13 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
         public string OrderPosition
         {
             get => Model.OrderPosition;
-            set => SetValue(value);
+            set
+            {
+                if (this.Order != null && this.Order.AllowEdit)
+                    SetValue(value);
+            }
         }
+
         public string OrderPositionOriginalValue => GetOriginalValue<string>(nameof(OrderPosition));
         public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
 
@@ -25,8 +31,14 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
         public OrderWrapperTip Order
         {
             get => GetWrapper<OrderWrapperTip>();
-            set => SetComplexValue<Order, OrderWrapperTip>(Order, value);
+            set
+            {
+                SetComplexValue<Order, OrderWrapperTip>(Order, value);
+                OrderChangedEvent?.Invoke(value);
+            }
         }
+
+        public event Action<OrderWrapperTip> OrderChangedEvent;
 
         public SalesUnitWrapperTip(SalesUnit model) : base(model) { }
 
@@ -38,7 +50,10 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
             if (this.Order == null)
-                yield return new ValidationResult("Не назначен заказ", new[] {nameof(Order)});
+                yield return new ValidationResult("Не назначен заказ", new[] { nameof(Order) });
+            //else if (string.IsNullOrWhiteSpace(this.Order.Number))
+            //    yield return new ValidationResult("Не назначен номер заказа", new[] { nameof(Order.Number) });
+
 
             if (string.IsNullOrWhiteSpace(this.OrderPosition))
                 yield return new ValidationResult("Не назначена позиция заказа", new[] {nameof(OrderPosition)});

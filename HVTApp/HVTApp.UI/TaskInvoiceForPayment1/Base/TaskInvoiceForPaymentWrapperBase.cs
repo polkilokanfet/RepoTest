@@ -62,7 +62,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
                     var itemErrors = item.GetErrorsAll().Select(dataErrorInfo => dataErrorInfo.Message).ToList();
                     if (itemErrors.Any())
                     {
-                        sb.AppendLine("Ошибки в строке счёта:");
+                        sb.AppendLine($"Ошибки в строке счёта <{item}>:");
                         foreach (var itemError in itemErrors)
                         {
                             sb.AppendLine($" - {itemError};");
@@ -78,9 +78,14 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         protected TaskInvoiceForPaymentWrapperBase(TaskInvoiceForPayment model) : base(model)
         {
-            this.ErrorsChanged += (sender, args) => 
+            //this.ErrorsChanged += (sender, args) =>
+            //{
+            //    RaisePropertyChanged(nameof(ErrorsString));
+            //};
+            this.PropertyChanged += (sender, args) =>
             {
-                RaisePropertyChanged(nameof(ErrorsString));
+                if (args.PropertyName == nameof(IsValid))
+                    RaisePropertyChanged(nameof(ErrorsString));
             };
         }
     }

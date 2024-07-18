@@ -19,7 +19,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                     SetValue(value);
             }
         }
-
         public string NumberOriginalValue => GetOriginalValue<string>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
