@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
@@ -22,6 +23,13 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         public virtual IValidatableChangeTrackingCollection<SalesUnitWrapperTip> SalesUnits { get; }
 
+        public void SetTceNumber(IUnitOfWork unitOfWork)
+        {
+            TceNumber = this.Model.PriceEngineeringTask != null
+                ? Model.PriceEngineeringTask.GetPriceEngineeringTasks(unitOfWork).TceNumber
+                : unitOfWork.Repository<TechnicalRequrementsTask>().GetById(Model.TechnicalRequrements.TaskId).TceNumber;;
+            RaisePropertyChanged(nameof(TceNumber));
+        }
 
         #region Info
 
@@ -30,10 +38,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         /// </summary>
         public string TceNumber
         {
-            get
-            {
-                return "NotImplemented";
-            }
+            get;
+            private set;
         }
 
         [Designation("Заказ"), OrderStatus(-1)]

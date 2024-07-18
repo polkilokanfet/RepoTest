@@ -1,5 +1,7 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
@@ -17,6 +19,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             protected set
             {
                 _task = value;
+                foreach (var item in _task.Items) item.SetTceNumber(this.UnitOfWork);
                 RaisePropertyChanged();
             }
         }
@@ -31,6 +34,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
+        public ICommand LoadSpecificationCommand { get; }
+
         protected virtual void AfterSelectionItem() { }
 
         public bool IsStarted => Task?.Model.MomentStart != null;
@@ -38,6 +43,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         protected TaskInvoiceForPaymentViewModelBase(IUnityContainer container) : base(container)
         {
+            LoadSpecificationCommand = new DelegateLogCommand();
         }
 
         /// <summary>
