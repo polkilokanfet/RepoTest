@@ -2,27 +2,17 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure.Enums" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HVTApp.Infrastructure.Enums" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:simpleType name="NotificationActionType">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="SavePriceCalculation" />
       <xs:enumeration value="StartPriceCalculation" />
       <xs:enumeration value="CancelPriceCalculation" />
       <xs:enumeration value="RejectPriceCalculation" />
       <xs:enumeration value="FinishPriceCalculation" />
-      <xs:enumeration value="SaveTechnicalRequrementsTask" />
-      <xs:enumeration value="StartTechnicalRequrementsTask" />
-      <xs:enumeration value="InstructTechnicalRequrementsTask" />
-      <xs:enumeration value="RejectTechnicalRequrementsTask" />
-      <xs:enumeration value="RejectByFrontManagerTechnicalRequrementsTask" />
-      <xs:enumeration value="FinishTechnicalRequrementsTask" />
-      <xs:enumeration value="AcceptTechnicalRequrementsTask" />
-      <xs:enumeration value="StopTechnicalRequrementsTask" />
-      <xs:enumeration value="SaveDirectumTask" />
-      <xs:enumeration value="StartDirectumTask" />
-      <xs:enumeration value="StopDirectumTask" />
-      <xs:enumeration value="PerformDirectumTask" />
-      <xs:enumeration value="AcceptDirectumTask" />
-      <xs:enumeration value="RejectDirectumTask" />
-      <xs:enumeration value="SaveIncomingRequest" />
-      <xs:enumeration value="SaveActualPayment" />
+      <xs:enumeration value="StartTechnicalRequirementsTask" />
+      <xs:enumeration value="InstructTechnicalRequirementsTask" />
+      <xs:enumeration value="RejectTechnicalRequirementsTask" />
+      <xs:enumeration value="RejectByFrontManagerTechnicalRequirementsTask" />
+      <xs:enumeration value="FinishTechnicalRequirementsTask" />
+      <xs:enumeration value="AcceptTechnicalRequirementsTask" />
+      <xs:enumeration value="StopTechnicalRequirementsTask" />
       <xs:enumeration value="PriceEngineeringTasksStart" />
       <xs:enumeration value="PriceEngineeringTaskStart" />
       <xs:enumeration value="PriceEngineeringTaskStop" />
@@ -33,10 +23,8 @@
       <xs:enumeration value="PriceEngineeringTaskRejectByConstructorToManager" />
       <xs:enumeration value="PriceEngineeringTaskSendMessage" />
       <xs:enumeration value="PriceEngineeringTaskFinishGoToVerification" />
-      <xs:enumeration value="PriceEngineeringTaskVerificationRejectedByHead" />
-      <xs:enumeration value="PriceEngineeringTaskVerificationAcceptedByHead" />
-      <xs:enumeration value="SavePaymentDocument" />
-      <xs:enumeration value="PriceEngineeringTaskNotification" />
+      <xs:enumeration value="PriceEngineeringTaskVerificationRejected" />
+      <xs:enumeration value="PriceEngineeringTaskVerificationAcceptedByDesignDepartment" />
       <xs:enumeration value="PriceEngineeringTaskInstructToPlanMaker" />
       <xs:enumeration value="PriceEngineeringTaskLoadToTceStart" />
       <xs:enumeration value="PriceEngineeringTaskLoadToTceFinish" />
@@ -47,6 +35,11 @@
       <xs:enumeration value="PriceEngineeringTaskProductionRequestStopReject" />
       <xs:enumeration value="PriceEngineeringTaskRejectByHeadToManager" />
       <xs:enumeration value="PriceEngineeringTasksInstructToBackManager" />
+      <xs:enumeration value="PriceEngineeringTaskInstructInspector" />
+      <xs:enumeration value="TaskInvoiceForPaymentStart" />
+      <xs:enumeration value="TaskInvoiceForPaymentFinish" />
+      <xs:enumeration value="TaskInvoiceForPaymentInstruct" />
+      <xs:enumeration value="TaskInvoiceForPaymentStop" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="NotificationActionType" nillable="true" type="tns:NotificationActionType" />

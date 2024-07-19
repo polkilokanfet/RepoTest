@@ -52,6 +52,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
         {
             yield return new NotificationUnit
             {
+                TargetEntityId = this.Task.Model.Id,
                 RecipientUser = this.Task.Model.BackManager,
                 RecipientRole = Role.BackManager,
                 ActionType = NotificationActionType.TaskInvoiceForPaymentInstruct

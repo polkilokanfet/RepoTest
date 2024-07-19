@@ -5,12 +5,10 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 {
@@ -45,6 +43,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
         {
             yield return new NotificationUnit
             {
+                TargetEntityId = this.Task.Model.Id,
                 RecipientUser = this.Task.Model.Items.First().SalesUnits.First().Project.Manager,
                 RecipientRole = Role.SalesManager,
                 ActionType = NotificationActionType.TaskInvoiceForPaymentFinish
