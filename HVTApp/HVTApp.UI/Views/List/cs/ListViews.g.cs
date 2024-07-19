@@ -7278,12 +7278,6 @@ namespace HVTApp.UI.Views
             set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Entity)].Visibility = value; }
         }
 
-        public System.Windows.Visibility UnitsVisibility
-        {
-            get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Units)].Visibility; }
-            set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Units)].Visibility = value; }
-        }
-
 
 		#endregion
     }
@@ -7907,6 +7901,7 @@ namespace HVTApp.UI.Views
             get { return TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Entity)].Visibility; }
             set { TaskInvoiceForPaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TaskInvoiceForPaymentLookup.Entity)].Visibility = value; }
         }
+
 
 		#endregion
     }

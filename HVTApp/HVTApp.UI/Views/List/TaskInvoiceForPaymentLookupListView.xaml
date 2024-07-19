@@ -39,11 +39,11 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:DateTimeField Name="MomentStart" Label="Старт задачи" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="MomentFinish" Label="Финиш задачи" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Facilities" Label="Объект" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Orders" Label="Заказ" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="BackManager" Label="Исполнитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                        <infg:DateTimeField Name="MomentStart" Label="Старт задачи" Width="Auto" AllowResize="True" />
-                        <infg:DateTimeField Name="MomentFinish" Label="Финиш задачи" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsActual" Label="IsActual" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Comment" Label="Комментарий менеджера" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />

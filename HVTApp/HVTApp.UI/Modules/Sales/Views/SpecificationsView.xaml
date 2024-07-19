@@ -13,15 +13,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <views:SpecificationLookupListView Grid.Row="0" 
-                                           DataContext="{Binding}"
-                                           UnitsVisibility="Collapsed"/>
-            
-        <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
-
-        <GroupBox Grid.Row="2" Header="Оборудование">
-            <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding Groups}" />
-        </GroupBox>
+        <views:SpecificationLookupListView 
+            Grid.Row="0" 
+            DataContext="{Binding}"/>
     </Grid>
 
 </inf:ViewBase>

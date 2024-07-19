@@ -733,6 +733,7 @@
     </Compile>
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModel.cs" />
     <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
+    <Compile Include="Specifications\SpecificationsViewModel.cs" />
     <Compile Include="Tabs\TabDesignDepartments.xaml.cs">
       <DependentUpon>TabDesignDepartments.xaml</DependentUpon>
     </Compile>
