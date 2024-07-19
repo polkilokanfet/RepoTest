@@ -373,7 +373,7 @@ namespace HVTApp.Model.POCOs
 
         private sealed class LoadToTceStartStep : ScriptStep
         {
-            public override string Description => "Менеджер поставил задачу загрузить проработку в Team Center";
+            public override string Description => "Загрузка в Team Center";
 
             protected override IEnumerable<Role> RolesForShow => new[]
             {

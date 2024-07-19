@@ -6,6 +6,7 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.Unity;
@@ -20,25 +21,19 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override void ExecuteMethod()
         {
-            var fileNames = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
-            if (fileNames.Any() == false) return;
+            var filePaths = Container.Resolve<IGetFilePaths>().GetFilePaths().ToList();
+            if (filePaths.Any() == false) return;
 
-            var rootDirectoryPath = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+            var filesStorageService = Container.Resolve<IFilesStorageService>();
+            var storagePath = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
 
             //копируем каждый файл
-            foreach (var fileName in fileNames)
+            foreach (var filePath in filePaths)
             {
                 var fileWrapper = new TechnicalRequrementsFileWrapper(new TechnicalRequrementsFile());
-                try
-                {
-                    File.Copy(fileName, $"{rootDirectoryPath}\\{fileWrapper.Id}{Path.GetExtension(fileName)}");
-                    fileWrapper.Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(50);
-                    ((TechnicalRequrements2Wrapper)ViewModel.SelectedItem).Files.Add(fileWrapper);
-                }
-                catch (Exception e)
-                {
-                    Container.Resolve<IMessageService>().Message("Exception", e.PrintAllExceptions());
-                }
+                filesStorageService.LoadFileToStorage(storagePath, filePath, fileWrapper.Model.Id);
+                fileWrapper.Name = Path.GetFileNameWithoutExtension(filePath).LimitLength(50);
+                ((TechnicalRequrements2Wrapper) ViewModel.SelectedItem).Files.Add(fileWrapper);
             }
         }
     }

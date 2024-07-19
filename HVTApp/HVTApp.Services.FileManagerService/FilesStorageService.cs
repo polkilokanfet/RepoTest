@@ -24,6 +24,20 @@ namespace HVTApp.Services.FileManagerService
             _messageService = container.Resolve<IMessageService>();
         }
 
+        public bool FileContainsInStorage(Guid fileId, string storageDirectoryPath)
+        {
+            try
+            {
+                this.FindFile(fileId, storageDirectoryPath);
+            }
+            catch (FileNotFoundException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public FileInfo FindFile(Guid fileId, string storageDirectoryPath)
         {
             var storageDirectory = new DirectoryInfo(storageDirectoryPath);
@@ -150,7 +164,7 @@ namespace HVTApp.Services.FileManagerService
 
         public void OpenFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null)
         {
-            var filePath = CopyFileFromStorage(fileId, storageDirectoryPath, Path.GetTempPath(), addToFileName.LimitLength(7), showTargetDirectory: false);
+            var filePath = CopyFileFromStorage(fileId, storageDirectoryPath, Path.GetTempPath(), addToFileName.LimitLength(10), showTargetDirectory: false);
 
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -225,25 +239,25 @@ namespace HVTApp.Services.FileManagerService
             }
         }
 
-        public bool LoadFileToStorage(string storagePath, string filePath, Guid fileId)
+        public bool LoadFileToStorage(string storagePath, string filePath, Guid fileId, bool overwrite = false)
         {
             try
             {
-                File.Copy(filePath, $"{storagePath}\\{fileId}{Path.GetExtension(filePath)}");
+                File.Copy(filePath, $"{storagePath}\\{fileId}{Path.GetExtension(filePath)}", overwrite);
             }
-            catch 
+            catch (Exception e)
             {
-                return false;
+                _messageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
             }
 
             return true;
         }
 
-        public bool LoadFileToStorage(string storagePath, Guid fileId)
+        public bool LoadFileToStorage(string storagePath, Guid fileId, bool overwrite = false)
         {
             var filePath = _container.Resolve<IGetFilePaths>().GetFilePath();
             if (filePath == null) return false;
-            return this.LoadFileToStorage(storagePath, filePath, fileId);
+            return this.LoadFileToStorage(storagePath, filePath, fileId, overwrite);
         }
 
     }

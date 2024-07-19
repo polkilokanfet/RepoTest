@@ -28,8 +28,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         /// </summary>
         public ICommand MakeInvoiceForPaymentTaskCommand { get; }
 
-        public ICommand LoadScanCommand { get; }
-        public ICommand OpenScanCommand { get; }
+        public ICommand LoadScanCommand { get; private set; }
+        public ICommand OpenScanCommand { get; private set; }
 
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
@@ -37,23 +37,13 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 "Вы уверены, что хотите создать счёт на оплату?",
                 () =>
                 {
+                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+                    if (container.Resolve<IFilesStorageService>().FileContainsInStorage(this.DetailsViewModel.Entity.Id, storageDirectory) == false)
+                    {
+                        container.Resolve<IMessageService>().Message("Уведомление", "Сначала загрузите сканированную версию спецификации");
+                        return;
+                    }
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), this.DetailsViewModel.Entity}});
-                });
-
-            LoadScanCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var filesStorageService = container.Resolve<IFilesStorageService>();
-                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
-                    filesStorageService.LoadFileToStorage(storageDirectory, this.DetailsViewModel.Entity.Id);
-                });
-
-            OpenScanCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var filesStorageService = container.Resolve<IFilesStorageService>();
-                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
-                    filesStorageService.OpenFileFromStorage(this.DetailsViewModel.Entity.Id, storageDirectory);
                 });
         }
 
@@ -68,6 +58,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 var specificationSimpleWrapper = new SpecificationSimpleWrapper(DetailsViewModel.Item.Model);
                 EnumerableExtensions.ForEach(GroupsViewModel.Groups, x => x.Specification = specificationSimpleWrapper);
             }
+
+            this.LoadScanCommand = new LoadSpecificationScanCommand(model, this.Container.Resolve<IFilesStorageService>(), this.Container.Resolve<IMessageService>());
+            this.OpenScanCommand = new OpenSpecificationScanCommand(model, this.Container.Resolve<IFilesStorageService>(), this.Container.Resolve<IMessageService>());
         }
 
         protected override IEnumerable<SalesUnit> GetUnits(Specification specification, object parameter = null)
@@ -87,9 +80,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public override void AfterUnitsLoading()
         {
-            var uetm = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
-            var uetmWrapper = new CompanySimpleWrapper(uetm);
-            EnumerableExtensions.ForEach(GroupsViewModel.Groups, x => x.Producer = uetmWrapper);
+            var ourCompany = UnitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
+            var ourCompanyWrapper = new CompanySimpleWrapper(ourCompany);
+            EnumerableExtensions.ForEach(GroupsViewModel.Groups, x => x.Producer = ourCompanyWrapper);
         }
     }
 }

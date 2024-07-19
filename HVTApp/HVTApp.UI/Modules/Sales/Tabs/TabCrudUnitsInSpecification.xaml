@@ -40,7 +40,7 @@
 
     <infRib:RibbonGroup Caption="Сканированная версия">
         <infRib:ButtonTool Caption="Загрузить" Command="{Binding LoadScanCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Скачать" Command="{Binding OpenScanCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Скачать" Command="{Binding OpenScanCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Счёт на оплату">

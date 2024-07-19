@@ -5,6 +5,11 @@ namespace HVTApp.Infrastructure.Services
     public interface IGetFilePaths
     {
         string GetFilePath();
+
+        /// <summary>
+        /// Возвращает список путей к файлам
+        /// </summary>
+        /// <returns>Список путей к файлам</returns>
         IEnumerable<string> GetFilePaths();
     }
 }

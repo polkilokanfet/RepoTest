@@ -8,6 +8,14 @@ namespace HVTApp.Model.Services
     public interface IFilesStorageService
     {
         /// <summary>
+        /// Содержится ли данный файл в хранилище
+        /// </summary>
+        /// <param name="fileId">Id файла</param>
+        /// <param name="storageDirectoryPath">Путь к хранилищу</param>
+        /// <returns></returns>
+        bool FileContainsInStorage(Guid fileId, string storageDirectoryPath);
+
+        /// <summary>
         /// Пойск файла в директории по Id
         /// </summary>
         /// <param name="fileId">Id файла</param>
@@ -82,15 +90,17 @@ namespace HVTApp.Model.Services
         /// <param name="storagePath">Путь к хранилищу</param>
         /// <param name="filePath">Путь к файлу</param>
         /// <param name="fileId">Id файла</param>
+        /// <param name="overwrite"></param>
         /// <returns>Загружен ли файл в хранилище</returns>
-        bool LoadFileToStorage(string storagePath, string filePath, Guid fileId);
+        bool LoadFileToStorage(string storagePath, string filePath, Guid fileId, bool overwrite = false);
 
         /// <summary>
         /// Загрузка файла в хранилище (выбор файла вынесен в стандартную форму)
         /// </summary>
         /// <param name="storagePath">Путь к хранилищу</param>
         /// <param name="fileId">Id файла</param>
+        /// <param name="overwrite"></param>
         /// <returns>Загружен ли файл в хранилище</returns>
-        bool LoadFileToStorage(string storagePath, Guid fileId);
+        bool LoadFileToStorage(string storagePath, Guid fileId, bool overwrite = false);
     }
 }
