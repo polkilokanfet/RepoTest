@@ -82,10 +82,18 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         public void Load(Specification specification)
         {
             var invoice = new TaskInvoiceForPayment();
+
             foreach (var priceEngineeringTask in specification.PriceEngineeringTasks)
             {
                 var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem();
                 taskInvoiceForPaymentItem.PriceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
+                invoice.Items.Add(taskInvoiceForPaymentItem);
+            }
+
+            foreach (var technicalRequrements in specification.TechnicalRequrements)
+            {
+                var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem();
+                taskInvoiceForPaymentItem.TechnicalRequrements = UnitOfWork.Repository<TechnicalRequrements>().GetById(technicalRequrements.Id);
                 invoice.Items.Add(taskInvoiceForPaymentItem);
             }
 

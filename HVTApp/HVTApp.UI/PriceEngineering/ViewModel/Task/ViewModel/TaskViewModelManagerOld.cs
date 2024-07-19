@@ -1,20 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
-using HVTApp.UI.Modules.Sales.Views;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using Microsoft.Practices.Unity;
-using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -60,7 +57,7 @@ namespace HVTApp.UI.PriceEngineering
         /// <summary>
         /// Включить в спецификацию
         /// </summary>
-        public virtual DelegateLogConfirmationCommand IncludeInSpecificationCommand { get; }
+        public virtual ICommand IncludeInSpecificationCommand { get; }
 
         #endregion
 
@@ -118,42 +115,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",
                 () => { this.ReplaceProduct(this.Model); });
 
-            IncludeInSpecificationCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите включить данное оборудование в спецификацию?",
-                () =>
-                {
-                    if (this.Model.SalesUnits.Any(salesUnit => salesUnit.Specification != null))
-                    {
-                        container.Resolve<IMessageService>().Message("Отказ", "В задаче есть оборудование, которое уже включено в спецификацию.");
-                        return;
-                    }
-                    if (this.Model.SalesUnits.Any(salesUnit => salesUnit.IsRemoved))
-                    {
-                        container.Resolve<IMessageService>().Message("Отказ", "В задаче есть удалённое Вами оборудование.");
-                        return;
-                    }
-
-                    var unitOfWork = container.Resolve<IUnitOfWork>();
-                    //спецификации менеджера
-                    var specifications = unitOfWork.Repository<Specification>()
-                        .Find(specification1 =>
-                            specification1.PriceEngineeringTasks.SelectMany(x => x.SalesUnits)
-                                .Any(xx => xx.Project.Manager.Id == GlobalAppProperties.User.Id) ||
-                            specification1.TechnicalRequrements.SelectMany(x => x.SalesUnits)
-                                .Any(xx => xx.Project.Manager.Id == GlobalAppProperties.User.Id));
-                    var specification = container.Resolve<ISelectService>().SelectItem(specifications);
-                    if (specification == null) return;
-                    specification = unitOfWork.Repository<Specification>().GetById(specification.Id);
-                    var task = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
-                    specification.PriceEngineeringTasks.Add(task);
-                    foreach (var salesUnit in this.Model.SalesUnits)
-                    {
-                        var su = unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id);
-                        su.Specification = specification;
-                    }
-                    unitOfWork.SaveChanges();
-                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), specification } });
-                });
+            IncludeInSpecificationCommand = new IncludeInSpecificationCommand(container, () => this.Model.StatusesAll.Contains(ScriptStep.LoadToTceStart));
 
             #endregion
         }

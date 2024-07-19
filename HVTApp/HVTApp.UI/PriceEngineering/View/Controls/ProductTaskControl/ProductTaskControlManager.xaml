@@ -50,7 +50,8 @@
                 </controls:ButtonIsVisibleWhenCanExecute>
 
                 <controls:ButtonIsVisibleWhenCanExecute
-                    Command="{Binding IncludeInSpecificationCommand}">
+                    Command="{Binding IncludeInSpecificationCommand}"
+                    CommandParameter="{Binding Model}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Money"/>
                         <TextBlock Text="Включить в спецификацию"/>

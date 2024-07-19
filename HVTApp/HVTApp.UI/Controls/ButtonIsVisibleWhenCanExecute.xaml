@@ -11,6 +11,7 @@
         <ControlTemplate TargetType="UserControl">
             <Button Content="{Binding Content, ElementName=Root}"        
                     Command="{Binding Command, ElementName=Root}"
+                    CommandParameter="{Binding CommandParameter, ElementName=Root, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding Command.IsVisible, ElementName=Root, Converter={StaticResource VisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
         </ControlTemplate>
     </UserControl.Template>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
@@ -12,6 +13,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.Unity;
@@ -43,7 +45,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
             get => _selectedItem;
             set
             {
-                _selectedItem = value;
+                SetProperty(ref _selectedItem, value);
 
                 AddNewFileCommand.RaiseCanExecuteChanged();
                 AddOldFileCommand.RaiseCanExecuteChanged();
@@ -53,6 +55,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 LoadFileCommand.RaiseCanExecuteChanged();
                 StartProductionCommand.RaiseCanExecuteChanged();
                 MakeInvoiceForPaymentTaskCommand.RaiseCanExecuteChanged();
+                ((IncludeInSpecificationCommand)IncludeInSpecificationCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -270,6 +273,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         /// </summary>
         public virtual DelegateLogConfirmationCommand MakeInvoiceForPaymentTaskCommand { get; }
 
+        public ICommand IncludeInSpecificationCommand { get; }
+
         #endregion
 
         public TechnicalRequrementsTask2Wrapper TechnicalRequrementsTaskWrapper
@@ -337,6 +342,8 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         public TechnicalRequrementsTaskViewModel(IUnityContainer container) : base(container)
         {
             var messageService = container.Resolve<IMessageService>();
+
+            IncludeInSpecificationCommand = new IncludeInSpecificationCommand(container, () => SelectedItem is TechnicalRequrements2Wrapper);
 
             //сохранение изменений
             SaveCommand = new SaveCommand(this, this.Container);

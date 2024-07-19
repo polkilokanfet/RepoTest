@@ -1,7 +1,9 @@
 ﻿using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Commands;
+using HVTApp.Model.Services;
+using HVTApp.UI.Modules.Sales.ViewModels;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
@@ -21,6 +23,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
                 _task = value;
                 foreach (var item in _task.Items) item.SetTceNumber(this.UnitOfWork);
                 RaisePropertyChanged();
+                OpenSpecificationCommand = new OpenSpecificationScanCommand(Task.Specification, Container.Resolve<IFilesStorageService>(), Container.Resolve<IMessageService>());
             }
         }
 
@@ -34,7 +37,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
-        public ICommand LoadSpecificationCommand { get; }
+        public ICommand OpenSpecificationCommand { get; private set; }
 
         protected virtual void AfterSelectionItem() { }
 
@@ -43,7 +46,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         protected TaskInvoiceForPaymentViewModelBase(IUnityContainer container) : base(container)
         {
-            LoadSpecificationCommand = new DelegateLogCommand();
         }
 
         /// <summary>

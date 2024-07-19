@@ -16,7 +16,20 @@ namespace HVTApp.UI.Controls
             get => (ICommandIsVisibleWhenCanExecute) GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
         }
-        
+
+
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
+            "CommandParameter", 
+            typeof(object), 
+            typeof(ButtonIsVisibleWhenCanExecute), 
+            new PropertyMetadata(default(object)));
+
+        public object CommandParameter
+        {
+            get => (object) GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
+        }
+
         public ButtonIsVisibleWhenCanExecute()
         {
             InitializeComponent();

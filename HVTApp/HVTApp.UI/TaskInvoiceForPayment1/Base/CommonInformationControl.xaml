@@ -35,9 +35,9 @@
                 <RowDefinition Height="Auto" MaxHeight="300"/>
             </Grid.RowDefinitions>
 
-            <GroupBox Grid.Row="0" Header="Общая информация">
-                <Grid
-                    Visibility="{Binding ElementName=Root, Path=HeadIsVisible}">
+            <GroupBox Grid.Row="0" Header="Общая информация"
+                      Visibility="{Binding ElementName=Root, Path=HeadIsVisible}">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -69,6 +69,10 @@
 
             <GroupBox Grid.Row="1" Header="Спецификация">
                 <WrapPanel Orientation="Horizontal">
+
+                    <Button Content="Открыть"
+                            Padding="10, 0"
+                            Command="{Binding OpenSpecificationCommand}"/>
 
                     <Label Content="№" Margin="0"/>
                     <TextBox Text="{Binding Task.Specification.Number, Mode=OneWay}"/>

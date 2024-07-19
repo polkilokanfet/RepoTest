@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
     /// </summary>
     [Designation("Тех.задание")]
     [DesignationPlural("Тех.задания")]
-    public partial class TechnicalRequrements: BaseEntity
+    public partial class TechnicalRequrements: BaseEntity, ISalesUnitsContainer
     {
         public Guid TaskId { get; set; }
 

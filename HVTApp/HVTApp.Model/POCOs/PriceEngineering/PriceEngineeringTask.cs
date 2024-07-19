@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
     //то, что фиксируется в БД
     [Designation("Технико-стоимостная проработка")]
     [DesignationPlural("Технико-стоимостные проработки")]
-    public partial class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBasePriorityTask, IStructureCostVersionsContainer
+    public partial class PriceEngineeringTask : BaseEntity, IProductBlockContainer, IBasePriorityTask, IStructureCostVersionsContainer, ISalesUnitsContainer
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Designation("№"), OrderStatus(3000)]

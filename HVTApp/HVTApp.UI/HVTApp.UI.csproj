@@ -480,6 +480,7 @@
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopProductionRequest.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopProductionRequestConfirm.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandStopProductionRequestReject.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\IncludeInSpecificationCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\LoadHistoryCommandBase.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\LoadHistoryTaskCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\LoadHistoryTasksCommand.cs" />

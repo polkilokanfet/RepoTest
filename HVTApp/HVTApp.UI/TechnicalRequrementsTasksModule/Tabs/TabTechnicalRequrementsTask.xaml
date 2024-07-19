@@ -5,6 +5,11 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Class="HVTApp.UI.TechnicalRequrementsTasksModule.Tabs.TabTechnicalRequrementsTask"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:technicalRequrementsTasksModule="clr-namespace:HVTApp.UI.TechnicalRequrementsTasksModule"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance technicalRequrementsTasksModule:TechnicalRequrementsTaskViewModel, IsDesignTimeCreatable=True}"
              Header="TCE">
 
     <infRib:RibbonGroup Caption="Навигация">
@@ -152,6 +157,19 @@
                     <TextBlock Text="Счёт"/>
                 </StackPanel>
             </Button>
+
+        </WrapPanel>
+
+    </infRib:RibbonGroup>
+
+    <!--Действия ФМ-->
+    <infRib:RibbonGroup Caption="Спецификация"
+                        Visibility="{Binding CurrentUserIsManager, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <WrapPanel Orientation="Vertical">
+            <infRib:ButtonTool Caption="Включить" 
+                               Command="{Binding IncludeInSpecificationCommand}"
+                               CommandParameter="{Binding SelectedItem.Model, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                               SmallImage="/HVTApp.UI;component/Images/add.png" />
 
         </WrapPanel>
 
