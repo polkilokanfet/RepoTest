@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -35,6 +37,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
                     RaisePropertyChanged(nameof(Task.BackManager));
                     container.Resolve<IEventAggregator>().GetEvent<AfterSaveTaskInvoiceForPaymentEvent>().Publish(this.Task.Model);
+                    SendNotifications();
                 },
                 () => this.Task != null && this.IsStarted && this.IsFinished == false);
 
@@ -43,6 +46,16 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
         protected override TaskInvoiceForPaymentWrapperBackManagerBoss GetTask(TaskInvoiceForPayment taskInvoice)
         {
             return new TaskInvoiceForPaymentWrapperBackManagerBoss(taskInvoice);
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            yield return new NotificationUnit
+            {
+                RecipientUser = this.Task.Model.BackManager,
+                RecipientRole = Role.BackManager,
+                ActionType = NotificationActionType.TaskInvoiceForPaymentInstruct
+            };
         }
     }
 }

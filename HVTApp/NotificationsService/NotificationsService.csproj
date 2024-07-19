@@ -62,6 +62,7 @@
     <Compile Include="Notification\NotificationHelperPriceCalculation.cs" />
     <Compile Include="Notification\NotificationHelperPriceEngineeringTask.cs" />
     <Compile Include="Notification\NotificationHelperPriceEngineeringTasks.cs" />
+    <Compile Include="Notification\NotificationHelperTaskInvoiceForPayment.cs" />
     <Compile Include="Notification\NotificationHelperTechnicalRequrementsTask.cs" />
     <Compile Include="Notification\NotificationTextService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

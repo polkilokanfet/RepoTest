@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
@@ -24,7 +27,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                 container.Resolve<IMessageService>(),
                 "Удалить выделенную строку из счёта?",
                 () => this.Task.Items.Remove(SelectedItem),
-                () => this.SelectedItem != null);
+                () => this.SelectedItem != null && this.IsStarted == false);
 
             StartCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),
@@ -36,6 +39,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                     this.UnitOfWork.SaveEntity(this.Task.Model);
                     RaiseCanExecuteChangedCommands();
                     RaisePropertyChanged(nameof(IsStarted));
+                    SendNotifications();
                 },
                 () => this.Task != null && this.IsStarted == false && this.Task.IsValid);
 
@@ -77,6 +81,20 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         protected override TaskInvoiceForPaymentWrapperManager GetTask(TaskInvoiceForPayment taskInvoice)
         {
             return new TaskInvoiceForPaymentWrapperManager(taskInvoice);
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            var users = UnitOfWork.Repository<User>().Find(user => user.IsActual && user.Roles.Select(role => role.Role).Contains(Role.BackManagerBoss));
+            foreach (var user in users)
+            {
+                yield return new NotificationUnit
+                {
+                    RecipientUser = user,
+                    RecipientRole = Role.BackManagerBoss,
+                    ActionType = NotificationActionType.TaskInvoiceForPaymentStart
+                };
+            }
         }
 
         public void Load(Specification specification)

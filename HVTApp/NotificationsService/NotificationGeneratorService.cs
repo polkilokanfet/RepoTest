@@ -70,6 +70,12 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTasksInstructToBackManager:
                     return new NotificationHelperPriceEngineeringTasks(_unitOfWork, unit, _regionManager, _eventAggregator, _notificationTextService);
 
+                case NotificationActionType.TaskInvoiceForPaymentStart:
+                case NotificationActionType.TaskInvoiceForPaymentFinish:
+                case NotificationActionType.TaskInvoiceForPaymentInstruct:
+                case NotificationActionType.TaskInvoiceForPaymentStop:
+                    return new NotificationHelperTaskInvoiceForPayment(_unitOfWork, unit, _regionManager, _eventAggregator, _notificationTextService);
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

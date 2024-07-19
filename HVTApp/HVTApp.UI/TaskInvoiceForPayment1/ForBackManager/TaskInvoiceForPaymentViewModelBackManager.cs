@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 {
@@ -24,6 +30,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                     this.Task.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     ((DelegateLogConfirmationCommand) FinishCommand).RaiseCanExecuteChanged();
+                    SendNotifications();
                 },
                 () => 
                     this.Task != null && this.IsStarted == true && this.IsFinished == false && this.Task.IsValid);
@@ -32,6 +39,16 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
         protected override TaskInvoiceForPaymentWrapperBackManager GetTask(TaskInvoiceForPayment taskInvoice)
         {
             return new TaskInvoiceForPaymentWrapperBackManager(taskInvoice);
+        }
+
+        protected override IEnumerable<NotificationUnit> GetNotificationUnits()
+        {
+            yield return new NotificationUnit
+            {
+                RecipientUser = this.Task.Model.Items.First().SalesUnits.First().Project.Manager,
+                RecipientRole = Role.SalesManager,
+                ActionType = NotificationActionType.TaskInvoiceForPaymentFinish
+            };
         }
 
         public override void Load(TaskInvoiceForPayment task)

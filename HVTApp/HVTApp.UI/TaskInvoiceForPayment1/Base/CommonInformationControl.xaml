@@ -70,7 +70,7 @@
             <GroupBox Grid.Row="1" Header="Спецификация">
                 <WrapPanel Orientation="Horizontal">
 
-                    <Button Content="Открыть"
+                    <Button Content="Открыть скан"
                             Padding="10, 0"
                             Command="{Binding OpenSpecificationCommand}"/>
 

@@ -57,6 +57,11 @@
 
         PriceEngineeringTasksInstructToBackManager,
 
-        PriceEngineeringTaskInstructInspector
+        PriceEngineeringTaskInstructInspector,
+
+        TaskInvoiceForPaymentStart,
+        TaskInvoiceForPaymentFinish,
+        TaskInvoiceForPaymentInstruct,
+        TaskInvoiceForPaymentStop
     }
 }

@@ -186,9 +186,21 @@ namespace HVTApp.Model.POCOs
 
                 case NotificationActionType.StopTechnicalRequirementsTask:
                     return "Остановлена задача ТСЕ";
-                    
+
                 #endregion
 
+                #region TaskInvoiceForPayment
+
+                case NotificationActionType.TaskInvoiceForPaymentStart:
+                    return "Запущена задача на формирование счёта";
+                case NotificationActionType.TaskInvoiceForPaymentFinish:
+                    return "Завершена задача на формирование счёта";
+                case NotificationActionType.TaskInvoiceForPaymentInstruct:
+                    return "Поручена задача на формирование счёта";
+                case NotificationActionType.TaskInvoiceForPaymentStop:
+                    return "Остановлена задача на формирование счёта";
+
+                #endregion
                 default:
                     throw new ArgumentOutOfRangeException();
             }

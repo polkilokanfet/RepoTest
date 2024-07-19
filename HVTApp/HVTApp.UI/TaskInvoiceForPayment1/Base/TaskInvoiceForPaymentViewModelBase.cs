@@ -1,10 +1,15 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
@@ -59,5 +64,15 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         }
 
         protected abstract TTask GetTask(TaskInvoiceForPayment taskInvoice);
+
+        protected void SendNotifications()
+        {
+            foreach (var notificationUnit in this.GetNotificationUnits())
+            {
+                this.Container.Resolve<IEventAggregator>().GetEvent<NotificationEvent>().Publish(notificationUnit);
+            }
+        }
+
+        protected abstract IEnumerable<NotificationUnit> GetNotificationUnits();
     }
 }

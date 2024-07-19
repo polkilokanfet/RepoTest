@@ -153,6 +153,19 @@ namespace NotificationsService
 
                 #endregion
 
+                #region TaskInvoiceForPayment
+
+                case NotificationActionType.TaskInvoiceForPaymentStart:
+                    return "Запущена задача на формирование счёта";
+                case NotificationActionType.TaskInvoiceForPaymentFinish:
+                    return "Завершена задача на формирование счёта";
+                case NotificationActionType.TaskInvoiceForPaymentInstruct:
+                    return "Поручена задача на формирование счёта";
+                case NotificationActionType.TaskInvoiceForPaymentStop:
+                    return "Остановлена задача на формирование счёта";
+
+                #endregion
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -247,6 +260,22 @@ namespace NotificationsService
 
                 #endregion
 
+                #region TaskInvoiceForPayment
+
+                case NotificationActionType.TaskInvoiceForPaymentStart:
+                case NotificationActionType.TaskInvoiceForPaymentFinish:
+                case NotificationActionType.TaskInvoiceForPaymentInstruct:
+                case NotificationActionType.TaskInvoiceForPaymentStop:
+                {
+                    using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+                    {
+                        var targetEntity = unitOfWork.Repository<TaskInvoiceForPayment>().GetById(notificationUnit.TargetEntityId);
+                        return this.GetCommonInfo(targetEntity);
+                    }
+                }
+
+                #endregion
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -315,5 +344,20 @@ namespace NotificationsService
             }
             return sb.ToString();
         }
+
+
+        private string GetCommonInfo(TaskInvoiceForPayment taskInvoiceForPayment)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("Задача на формирование счёта");
+            sb.AppendLine("Строки счёта:");
+            foreach (var item in taskInvoiceForPayment.Items)
+            {
+                var salesUnit = item.SalesUnits.First();
+                sb.AppendLine($" - Объект: {salesUnit.Facility}; Оборудование: {salesUnit.Product}; Количество: {item.SalesUnits.Count()}");
+            }
+            return sb.ToString();
+        }
+
     }
 }
