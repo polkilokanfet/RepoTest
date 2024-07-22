@@ -6,6 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 using Microsoft.Practices.Unity;
@@ -15,6 +16,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
     public class TaskInvoiceForPaymentViewModelBackManager :
         TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperBackManager, TaskInvoiceForPaymentItemWrapperBackManager>
     {
+        public ICommand LoadInvoiceForPaymentCommand { get; private set; }
         public ICommand FinishCommand { get; }
 
         public TaskInvoiceForPaymentViewModelBackManager(IUnityContainer container) : base(container)
@@ -24,10 +26,16 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                 "Вы уверены, что хотите завершить задачу?",
                 () =>
                 {
+                    if (((OpenInvoiceForPaymentCommand)this.OpenInvoiceForPaymentCommand).ContainsInStorage() == false)
+                    {
+                        container.Resolve<IMessageService>().Message("Уведомление", "Загрузите сначала скан счёта.");
+                        return;
+                    }
                     this.Task.MomentFinish = DateTime.Now;
                     this.Task.AcceptChanges();
                     UnitOfWork.SaveChanges();
                     ((DelegateLogConfirmationCommand) FinishCommand).RaiseCanExecuteChanged();
+                    ((LoadInvoiceForPaymentCommand)LoadInvoiceForPaymentCommand).RaiseCanExecuteChanged();
                     SendNotifications();
                 },
                 () => 
@@ -74,6 +82,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                 if (args.PropertyName == nameof(this.Task.IsValid))
                     ((DelegateLogConfirmationCommand) FinishCommand).RaiseCanExecuteChanged();
             };
+
+            LoadInvoiceForPaymentCommand = new LoadInvoiceForPaymentCommand(
+                this.Task.Model,
+                this.Container.Resolve<IFilesStorageService>(),
+                this.Container.Resolve<IMessageService>(),
+                () => this.IsStarted == true && IsFinished == false);
         }
     }
 }

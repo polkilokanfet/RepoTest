@@ -29,6 +29,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
                 foreach (var item in _task.Items) item.SetTceNumber(this.UnitOfWork);
                 RaisePropertyChanged();
                 OpenSpecificationCommand = new OpenSpecificationScanCommand(Task.Specification, Container.Resolve<IFilesStorageService>(), Container.Resolve<IMessageService>());
+                OpenInvoiceForPaymentCommand = new OpenInvoiceForPaymentCommand(Task.Model, Container.Resolve<IFilesStorageService>(), Container.Resolve<IMessageService>());
             }
         }
 
@@ -43,6 +44,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         }
 
         public ICommand OpenSpecificationCommand { get; private set; }
+        public ICommand OpenInvoiceForPaymentCommand { get; private set; }
 
         protected virtual void AfterSelectionItem() { }
 

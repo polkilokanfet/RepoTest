@@ -36,4 +36,10 @@
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Счёт">
+        <infRib:ButtonTool Caption="Открыть скан" 
+                           Command="{Binding OpenInvoiceForPaymentCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

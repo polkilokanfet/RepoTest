@@ -358,6 +358,9 @@
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilterByProject.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
+    <Compile Include="TaskInvoiceForPayment1\Base\InvoiceForPaymentCommandBase.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForBackManager\LoadInvoiceForPaymentCommand.cs" />
+    <Compile Include="TaskInvoiceForPayment1\Base\OpenInvoiceForPaymentCommand.cs" />
     <Compile Include="Modules\Sales\ViewModels\OpenSpecificationScanCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\PriceCalculation1\Commands\BaseBasePriceCalculationCommandNotifyCommand.cs" />
     <Compile Include="PriceCalculations\ViewModel\Wrapper\StructureCost2Wrapper.cs" />

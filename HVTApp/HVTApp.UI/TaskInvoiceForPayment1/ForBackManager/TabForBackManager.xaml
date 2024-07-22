@@ -18,6 +18,12 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Действия">
+        <infRib:ButtonTool Caption="Загрузить скан" 
+                           Command="{Binding LoadInvoiceForPaymentCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Открыть скан" 
+                           Command="{Binding OpenInvoiceForPaymentCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
         <infRib:ButtonTool Caption="Завершить" 
                            Command="{Binding FinishCommand}" 
                            SmallImage="/HVTApp.UI;component/Images/done.png"/>
