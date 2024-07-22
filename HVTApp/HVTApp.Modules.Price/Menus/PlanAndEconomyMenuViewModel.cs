@@ -33,7 +33,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
                 Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
                 Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
-                Items.Add(new NavigationItem("Задачи на счета", typeof(InformationForTeamCenterView)));
+                //Items.Add(new NavigationItem("Задачи на счета", typeof(InformationForTeamCenterView)));
                 Items.Add(new NavigationItem("Спецификации", typeof(SpecificationSignDatesView)));
                 Items.Add(new NavigationItem("Шеф-монтаж", typeof(SupervisionView)));
                 //Items.Add(new NavigationItem("Услуги", typeof(ServiceRealizationDatesView)));
@@ -43,12 +43,11 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 GlobalAppProperties.UserIsBackManagerBoss || 
                 GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
-                Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsViewBase)));
-                //Items.Add(new NavigationItem("Задачи в ТСЕ (новое)", typeof(PriceEngineeringTasksTceView2)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
                 Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));
                 Items.Add(new NavigationItem("Счета", typeof(TaskInvoiceForPaymentListView)));
                 Items.Add(new NavigationItem("Расчеты ПЗ", typeof(PriceCalculationsView)));
+                Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsViewBase)));
             }
         }
     }
