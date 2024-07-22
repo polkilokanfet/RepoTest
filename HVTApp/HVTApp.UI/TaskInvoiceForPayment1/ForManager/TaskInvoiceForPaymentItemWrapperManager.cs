@@ -21,7 +21,17 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         #endregion
 
         public TaskInvoiceForPaymentItemWrapperManager(TaskInvoiceForPaymentItem model) : base(model)
-        { }
+        {
+            this.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(this.PaymentCondition))
+                {
+                    RaisePropertyChanged(nameof(this.CostInvoice));
+                    RaisePropertyChanged(nameof(this.SumInvoice));
+                    RaisePropertyChanged(nameof(this.SumWithVatInvoice));
+                }
+            };
+        }
 
         public override void InitializeComplexProperties()
         {

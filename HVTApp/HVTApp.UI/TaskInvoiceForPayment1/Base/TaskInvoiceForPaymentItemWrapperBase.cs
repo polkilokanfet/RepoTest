@@ -6,6 +6,7 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
@@ -117,6 +118,16 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         [Designation("Срок производства"), OrderStatus(-245)]
         public int ProductionTerm { get; }
+
+
+        [Designation("Цена по счёту"), OrderStatus(-21)]
+        public double? CostInvoice => this.Model.PaymentCondition?.Part * this.Cost;
+
+        [Designation("Стоимость по счёту"), OrderStatus(-23)]
+        public double? SumInvoice => CostInvoice * Amount;
+
+        [Designation("Стоимость с НДС по счёту"), OrderStatus(-24)]
+        public double? SumWithVatInvoice => Vat * SumInvoice;
 
         #endregion
 

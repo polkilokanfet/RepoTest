@@ -162,6 +162,27 @@
                                                Width="Auto"
                                                AllowResize="True" />
 
+
+                                <dataPresenter:NumericField AlternateBinding="{Binding CostInvoice}"
+                                                            BindingType="UseAlternateBinding"
+                                                            Label="Цена по счёту"
+                                                            Width="Auto"
+                                                            AllowResize="True" />
+
+                                <dataPresenter:NumericField AlternateBinding="{Binding SumInvoice}"
+                                                            BindingType="UseAlternateBinding"
+                                                            Label="Стоимость по счёту"
+                                                            Width="Auto"
+                                                            AllowResize="True" />
+
+                                <dataPresenter:NumericField AlternateBinding="{Binding SumWithVatInvoice}"
+                                                            BindingType="UseAlternateBinding"
+                                                            Label="Стоимость с НДС по счёту"
+                                                            Width="Auto"
+                                                            AllowResize="True" />
+
+
+
                                 <dataPresenter:NumericField AlternateBinding="{Binding Cost}"
                                                BindingType="UseAlternateBinding"
                                                Label="Цена"
