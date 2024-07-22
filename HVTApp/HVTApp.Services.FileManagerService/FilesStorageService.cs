@@ -65,9 +65,11 @@ namespace HVTApp.Services.FileManagerService
             return filesInDir.Single();
         }
 
+        #region CopyFileFromStorage
+
         public string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null, bool showTargetDirectory = true)
         {
-            string targetDirectoryPath = this.GetDirectoryPath();
+            var targetDirectoryPath = this.GetDirectoryPath();
             return string.IsNullOrEmpty(targetDirectoryPath) 
                 ? string.Empty 
                 : this.CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName, showTargetDirectory);
@@ -102,8 +104,7 @@ namespace HVTApp.Services.FileManagerService
                 return string.Empty;
             }
 
-            if (createDirectoryIfNotExists &&
-                Directory.Exists(targetDirectoryPath) == false)
+            if (createDirectoryIfNotExists && Directory.Exists(targetDirectoryPath) == false)
             {
                 Directory.CreateDirectory(targetDirectoryPath);
             }
@@ -114,6 +115,7 @@ namespace HVTApp.Services.FileManagerService
                 fileName = $"{fileName} {addToFileName}";
             }
             var destFilePath = Path.Combine(targetDirectoryPath, $"{fileName}{fileInfo.Extension}");
+
             File.Copy(fileInfo.FullName, destFilePath, true);
 
             if (showTargetDirectory)
@@ -145,6 +147,9 @@ namespace HVTApp.Services.FileManagerService
             }
         }
 
+        #endregion
+
+
         public string GetDirectoryPath()
         {
             using (var fdb = new FolderBrowserDialog())
@@ -164,18 +169,28 @@ namespace HVTApp.Services.FileManagerService
 
         public void OpenFileFromStorage(Guid fileId, string storageDirectoryPath, string addToFileName = null)
         {
-            var filePath = CopyFileFromStorage(fileId, storageDirectoryPath, Path.GetTempPath(), addToFileName.LimitLength(10), showTargetDirectory: false);
+            string filePath;
+            var targetDirectoryPath = Path.GetTempPath();
 
-            if (!string.IsNullOrEmpty(filePath))
+            try
             {
-                try
-                {
-                    Process.Start(filePath);
-                }
-                catch (Exception e)
-                {
-                    _messageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
-                }
+                filePath = CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName.LimitLength(10), showTargetDirectory: false);
+
+            }
+            catch (UnauthorizedAccessException)
+            {
+                filePath = CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, Guid.NewGuid().ToString(), showTargetDirectory: false);
+            }
+
+            if (string.IsNullOrEmpty(filePath)) return;
+
+            try
+            {
+                Process.Start(filePath);
+            }
+            catch (Exception e)
+            {
+                _messageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
             }
         }
 

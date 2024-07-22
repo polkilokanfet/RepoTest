@@ -1,3 +1,4 @@
+using System;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -8,14 +9,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 {
     public class OpenSpecificationScanCommand : DelegateLogCommand
     {
-        private readonly Specification _specification;
+        private readonly Func<Specification> _getSpecification;
+        private readonly Func<bool> _canExecute = null;
         private readonly IFilesStorageService _filesStorageService;
         private readonly IMessageService _messageService;
         private readonly string _storageDirectory;
 
-        public OpenSpecificationScanCommand(Specification specification, IFilesStorageService filesStorageService, IMessageService messageService)
+        public OpenSpecificationScanCommand(Specification specification, IFilesStorageService filesStorageService, IMessageService messageService) : this(() => specification, null, filesStorageService, messageService)
         {
-            _specification = specification;
+        }
+
+        public OpenSpecificationScanCommand(Func<Specification> getSpecification, Func<bool> canExecute, IFilesStorageService filesStorageService, IMessageService messageService)
+        {
+            _getSpecification = getSpecification;
+            _canExecute = canExecute;
             _filesStorageService = filesStorageService;
             _messageService = messageService;
             _storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
@@ -23,13 +30,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         protected override void ExecuteMethod()
         {
-            if (_filesStorageService.FileContainsInStorage(_specification.Id, _storageDirectory) == false)
+            var specification = this._getSpecification.Invoke();
+            if (_filesStorageService.FileContainsInStorage(specification.Id, _storageDirectory) == false)
             {
                 _messageService.Message("Уведомление", "Сканированная версия спецификации не загружена в хранилище");
                 return;
             }
 
-            _filesStorageService.OpenFileFromStorage(_specification.Id, _storageDirectory, addToFileName:$"{_specification.Contract.Number} {_specification.Number}");
+            _filesStorageService.OpenFileFromStorage(specification.Id, _storageDirectory, addToFileName:$"{specification.Contract.Number} {specification.Number}");
+        }
+
+        protected override bool CanExecuteMethod()
+        {
+            if (_canExecute == null) return base.CanExecuteMethod();
+            return _canExecute.Invoke();
         }
     }
 }

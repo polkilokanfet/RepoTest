@@ -43,6 +43,7 @@ using HVTApp.UI.PriceEngineering.Tce.List.View;
 using HVTApp.UI.PriceEngineering.Tce.Second.View;
 using HVTApp.UI.PriceEngineering.Tce.Unit;
 using HVTApp.UI.PriceEngineering.View;
+using HVTApp.UI.Specifications;
 using HVTApp.UI.TaskInvoiceForPayment1;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss;
@@ -73,6 +74,7 @@ namespace HVTApp.UI
         protected override void RegisterTypes()
         {
             Container.Resolve<IDialogService>().Register<PriceCalculationItemsViewModel, PriceCalculationItemsWindow>();
+            Container.RegisterViewForNavigation<SpecificationsViewBase>();
             Container.RegisterViewForNavigation<PriceCalculationView>();
             Container.RegisterViewForNavigation<PriceCalculationsView>();
             Container.RegisterViewForNavigation<ReferenceView>();

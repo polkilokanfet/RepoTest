@@ -15,6 +15,7 @@ using HVTApp.UI.Modules.Sales.Market.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using HVTApp.UI.PriceEngineering.View;
+using HVTApp.UI.Specifications;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -148,6 +149,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         public PriceEngineeringTasksContainer PriceEngineeringTasks { get; }
         public TechnicalRequrementsTasksContainer TechnicalRequrementsTasks { get; }
         public PriceCalculationsContainer PriceCalculations { get; }
+        public SpecificationsViewModelForManager Specifications { get; }
 
         #endregion
 
@@ -184,6 +186,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             PriceEngineeringTasks = new PriceEngineeringTasksContainer(Container, this);
             TechnicalRequrementsTasks = new TechnicalRequrementsTasksContainer(Container, this);
             PriceCalculations = new PriceCalculationsContainer(Container, this);
+            Specifications = new SpecificationsViewModelForManager(Container, this);
 
             Outlook = new Outlook(this, container);
 

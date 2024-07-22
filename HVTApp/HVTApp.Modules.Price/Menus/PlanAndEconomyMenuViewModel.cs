@@ -9,6 +9,7 @@ using HVTApp.UI.Modules.PlanAndEconomy.Supervision;
 using HVTApp.UI.Modules.PlanAndEconomy.Views;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.View;
+using HVTApp.UI.Specifications;
 using HVTApp.UI.TaskInvoiceForPayment1.List;
 using HVTApp.UI.TechnicalRequrementsTasksModule;
 
@@ -28,6 +29,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
             if (GlobalAppProperties.User.RoleCurrent == Role.Economist 
                 || GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
+                Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsViewBase)));
                 Items.Add(new NavigationItem("Поступления (факт)", typeof(PaymentsActualView)));
                 Items.Add(new NavigationItem("Поступления (план)", typeof(PaymentsPlanView)));
                 Items.Add(new NavigationItem("Фактические даты", typeof(DatesView)));
@@ -41,6 +43,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
                 GlobalAppProperties.UserIsBackManagerBoss || 
                 GlobalAppProperties.User.RoleCurrent == Role.Admin)
             {
+                Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsViewBase)));
                 //Items.Add(new NavigationItem("Задачи в ТСЕ (новое)", typeof(PriceEngineeringTasksTceView2)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
                 Items.Add(new NavigationItem("Задачи в ТСЕ", typeof(TechnicalRequrementsTasksView)));

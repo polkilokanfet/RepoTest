@@ -197,11 +197,12 @@ namespace HVTApp.UI.ViewModels
             LookupsCollection.Clear();
             SelectedLookup = null;
 
-            var lookups = GetAllLookups() ?? UnitOfWork.Repository<TEntity>()
-                .GetAllAsNoTracking()
-                .Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
+            var lookups = GetAllLookups() ??
+                          UnitOfWork.Repository<TEntity>()
+                              .GetAllAsNoTracking()
+                              .Select(entity => (TLookup) Activator.CreateInstance(typeof(TLookup), entity));
 
-            LookupsCollection.AddRange(lookups);
+            LookupsCollection.AddRange(lookups.OrderBy(lookup => lookup));
 
             Loaded?.Invoke();
         }
@@ -219,10 +220,9 @@ namespace HVTApp.UI.ViewModels
             LookupsCollection.Clear();
             if(!Lookups.Contains(SelectedLookup)) 
                 SelectedLookup = null;
-            lookups.OrderBy(lookup => lookup).ForEach(LookupsCollection.Add);
+            LookupsCollection.AddRange(lookups.OrderBy(lookup => lookup));
             Loaded?.Invoke();
         }
-
 
         private event Action LoadBegin;
 
@@ -334,10 +334,10 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual void InvalidateCommands()
         {
-            ((DelegateLogCommand)NewItemCommand).RaiseCanExecuteChanged();
-            ((DelegateLogCommand)EditItemCommand).RaiseCanExecuteChanged();
-            ((DelegateLogCommand)RemoveItemCommand).RaiseCanExecuteChanged();
-            ((DelegateLogCommand)SelectItemCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)NewItemCommand)?.RaiseCanExecuteChanged();
+            ((DelegateLogCommand)EditItemCommand)?.RaiseCanExecuteChanged();
+            ((DelegateLogCommand)RemoveItemCommand)?.RaiseCanExecuteChanged();
+            ((DelegateLogCommand)SelectItemCommand)?.RaiseCanExecuteChanged();
         }
         #endregion
 

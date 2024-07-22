@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="HVTApp.UI.Specifications.SpecificationsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             x:Name="Root">
+
+    <Grid DataContext="{Binding ViewModel, ElementName=Root}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SpecificationLookupListGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <dataPresenter:XamDataGrid 
+            x:Name="SpecificationLookupListGrid" Grid.Row="1" 
+            Style="{StaticResource ListViewGrid}" 
+            Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <dataPresenter:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </dataPresenter:XamDataGrid.ContextMenu>
+
+            <dataPresenter:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditItemCommand, Mode=OneTime}"/>
+            </dataPresenter:XamDataGrid.InputBindings>
+
+            <dataPresenter:XamDataGrid.FieldLayouts>
+                <dataPresenter:FieldLayout>
+                    <dataPresenter:FieldLayout.Fields>
+                        <dataPresenter:TextField Name="Company" Label="Контрагент" Width="300" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <dataPresenter:TextField Name="Number" Label="№" Width="50" AllowResize="True" />
+                        <dataPresenter:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="False" />
+                        <dataPresenter:TextField Name="Contract" Label="Договор" Width="100" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <dataPresenter:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
+                    </dataPresenter:FieldLayout.Fields>
+                </dataPresenter:FieldLayout>
+            </dataPresenter:XamDataGrid.FieldLayouts>
+        </dataPresenter:XamDataGrid>
+
+    </Grid>
+
+
+</UserControl>

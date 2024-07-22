@@ -8,30 +8,27 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Modules.Sales.Market;
 using HVTApp.UI.Modules.Sales.Views;
-using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
 namespace HVTApp.UI.Specifications
 {
-    public class SpecificationsViewModelForManager : SpecificationLookupListViewModel
+    public class SpecificationsViewModelForManager : SpecificationsViewModelBase
     {
-        public SpecificationsViewModelForManager(IUnityContainer container) : base(container)
+        public SpecificationsViewModelForManager(IUnityContainer container, Market2ViewModel market2ViewModel) : base(container)
         {
-        }
-
-        public override IEnumerable<SpecificationLookup> GetAllLookups()
-        {
-            return ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>())
-                .GetAllOfCurrentUser()
-                .Where(x => x.Specification != null)
-                .Select(x => x.Specification)
-                .Distinct()
-                .OrderByDescending(x => x.Date)
-                .ThenBy(x => x.Contract.Number)
-                .ThenBy(x => x.Number)
-                .Select(x => new SpecificationLookup(x));
+            market2ViewModel.SelectedProjectItemChanged += item =>
+            {
+                var specifications = item == null
+                    ? new List<Specification>()
+                    : item.SalesUnits
+                        .Select(salesUnit => salesUnit.Specification)
+                        .Where(specification => specification != null)
+                        .Distinct();
+                this.Load(specifications);
+            };
         }
 
         protected override void InitSpecialCommands()
@@ -74,21 +71,14 @@ namespace HVTApp.UI.Specifications
                 () => SelectedItem != null);
         }
 
-        private void EditItemCommandExecute()
+        public override IEnumerable<SpecificationLookup> GetAllLookups()
         {
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), SelectedItem } });
-        }
-    }
-
-    public class SpecificationsViewModelForBackManager : SpecificationLookupListViewModel
-    {
-        public SpecificationsViewModelForBackManager(IUnityContainer container) : base(container)
-        {
-        }
-
-        protected override void InitSpecialCommands()
-        {
-            EditItemCommand = null;
+            return ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>())
+                .GetAllOfCurrentUser()
+                .Where(salesUnit => salesUnit.Specification != null)
+                .Select(salesUnit => salesUnit.Specification)
+                .Distinct()
+                .Select(specification => new SpecificationLookup(specification));
         }
     }
 }

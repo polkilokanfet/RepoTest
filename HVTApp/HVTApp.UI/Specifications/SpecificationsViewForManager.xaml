@@ -1,0 +1,15 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:specifications="clr-namespace:HVTApp.UI.Specifications"
+              mc:Ignorable="d"
+              d:DataContext="{d:DesignInstance specifications:SpecificationsViewModelBase, IsDesignTimeCreatable=True}"
+              x:Class="HVTApp.UI.Specifications.SpecificationsViewForManager">
+
+    <specifications:SpecificationsControl ViewModel="{Binding}"/>
+
+</inf:ViewBase>
+
+	

@@ -340,6 +340,9 @@
     <Compile Include="Modules\Sales\Market\Controls\Market2PriceCalculationsControl.xaml.cs">
       <DependentUpon>Market2PriceCalculationsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\Market\Controls\Market2SpecificationsControl.xaml.cs">
+      <DependentUpon>Market2SpecificationsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Market\Controls\Market2TendersControl.xaml.cs">
       <DependentUpon>Market2TendersControl.xaml</DependentUpon>
     </Compile>
@@ -733,7 +736,20 @@
     </Compile>
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\TaskViewModel.cs" />
     <Compile Include="PriceEngineering\Comparers\SalesUnitForPriceEngineeringTaskComparer.cs" />
-    <Compile Include="Specifications\SpecificationsViewModel.cs" />
+    <Compile Include="Specifications\SpecificationsControl.xaml.cs">
+      <DependentUpon>SpecificationsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Specifications\SpecificationsViewForManager.xaml.cs">
+      <DependentUpon>SpecificationsViewForManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Specifications\SpecificationsViewBase.xaml.cs">
+      <DependentUpon>SpecificationsViewBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Specifications\SpecificationsViewModelBase.cs" />
+    <Compile Include="Specifications\SpecificationsViewModelForManager.cs" />
+    <Compile Include="Specifications\TabSpecifications.xaml.cs">
+      <DependentUpon>TabSpecifications.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabDesignDepartments.xaml.cs">
       <DependentUpon>TabDesignDepartments.xaml</DependentUpon>
     </Compile>
@@ -1993,6 +2009,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Sales\Market\Controls\Market2SpecificationsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Sales\Market\Controls\Market2TendersControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2462,6 +2482,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\TaskControl\TaskControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Specifications\SpecificationsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Specifications\SpecificationsViewForManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Specifications\SpecificationsViewBase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Specifications\TabSpecifications.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
