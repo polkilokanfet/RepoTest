@@ -70,15 +70,5 @@ namespace HVTApp.UI.Specifications
                 },
                 () => SelectedItem != null);
         }
-
-        public override IEnumerable<SpecificationLookup> GetAllLookups()
-        {
-            return ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>())
-                .GetAllOfCurrentUser()
-                .Where(salesUnit => salesUnit.Specification != null)
-                .Select(salesUnit => salesUnit.Specification)
-                .Distinct()
-                .Select(specification => new SpecificationLookup(specification));
-        }
     }
 }

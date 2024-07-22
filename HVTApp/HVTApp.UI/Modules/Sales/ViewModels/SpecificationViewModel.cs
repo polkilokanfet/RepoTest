@@ -31,8 +31,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         public ICommand LoadScanCommand { get; private set; }
         public ICommand OpenScanCommand { get; private set; }
 
-        public ICommand RemoveSpecificationCommand { get; private set; }
-
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
             MakeInvoiceForPaymentTaskCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),
@@ -63,14 +61,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
             this.LoadScanCommand = new LoadSpecificationScanCommand(model, this.Container.Resolve<IFilesStorageService>(), this.Container.Resolve<IMessageService>());
             this.OpenScanCommand = new OpenSpecificationScanCommand(model, this.Container.Resolve<IFilesStorageService>(), this.Container.Resolve<IMessageService>());
-            RemoveSpecificationCommand = new DelegateLogConfirmationCommand(
-                this.Container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите удалить данную спецификацию?",
-                () =>
-                {
-                    UnitOfWork.RemoveEntity(this.DetailsViewModel.Entity);
-                    this.GoBackCommand.Execute(null);
-                });
         }
 
         protected override IEnumerable<SalesUnit> GetUnits(Specification specification, object parameter = null)
