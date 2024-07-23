@@ -53,8 +53,4 @@
         <infRib:ButtonTool Caption="Копировать" Command="{Binding PriceCalculations.CopyPriceCalculationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Спецификация">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-    </infRib:RibbonGroup>
-
 </inf:RibbonTabItemWithViewModel>

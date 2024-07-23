@@ -164,8 +164,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         public ProjectRemoveCommand RemoveProjectCommand { get; }
         public UnionProjectsCommand UnionProjectsCommand { get; }
 
-        public SpecificationNewCommand NewSpecificationCommand { get; }
-
         public StructureCostsCommand StructureCostsCommand { get; }
 
         public MakeTceTaskCommand MakeTceTaskCommand { get; }
@@ -197,8 +195,6 @@ namespace HVTApp.UI.Modules.Sales.Market
             EditProjectCommand = new ProjectEditCommand(this, this.RegionManager);
             RemoveProjectCommand = new ProjectRemoveCommand(this, this.Container);
             UnionProjectsCommand = new UnionProjectsCommand(this, this.Container);
-
-            NewSpecificationCommand = new SpecificationNewCommand(this, this.Container, this.RegionManager);
 
             StructureCostsCommand = new StructureCostsCommand(this, this.RegionManager, this.UnitOfWork);
 
@@ -276,7 +272,6 @@ namespace HVTApp.UI.Modules.Sales.Market
         {
             RemoveProjectCommand.RaiseCanExecuteChanged();
             EditProjectCommand.RaiseCanExecuteChanged();
-            NewSpecificationCommand.RaiseCanExecuteChanged();
             StructureCostsCommand.RaiseCanExecuteChanged();
             MakeTceTaskCommand.RaiseCanExecuteChanged();
             MakePriceEngineeringTaskCommand.RaiseCanExecuteChanged();
