@@ -38,11 +38,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 () =>
                 {
                     var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+
+                    if (this.DetailsViewModel.Entity.PriceEngineeringTasks == null &&
+                        this.DetailsViewModel.Entity.TechnicalRequrements == null)
+                    {
+                        container.Resolve<IMessageService>().Message("Уведомление", "Спецификация не связана ни с одной из задач");
+                        return;
+                    }
+
                     if (container.Resolve<IFilesStorageService>().FileContainsInStorage(this.DetailsViewModel.Entity.Id, storageDirectory) == false)
                     {
                         container.Resolve<IMessageService>().Message("Уведомление", "Сначала загрузите сканированную версию спецификации");
                         return;
                     }
+
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), this.DetailsViewModel.Entity}});
                 });
         }

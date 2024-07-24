@@ -172,15 +172,14 @@
 
                 <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" MaxHeight="200"/>
-                        <RowDefinition Height="Auto" MaxHeight="200"/>
-                        <RowDefinition Height="Auto" MaxHeight="200"/>
-                        <RowDefinition Height="Auto" MaxHeight="200"/>
-                        <RowDefinition Height="Auto" MaxHeight="200"/>
-                        <RowDefinition Height="Auto" MaxHeight="200"/>
-                        <RowDefinition Height="Auto" MaxHeight="200"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="Auto" MaxHeight="300"/>
+                        <RowDefinition Height="Auto" MaxHeight="300"/>
+                        <RowDefinition Height="Auto" MaxHeight="300"/>
+                        <RowDefinition Height="Auto" MaxHeight="300"/>
+                        <RowDefinition Height="Auto" MaxHeight="300"/>
+                        <RowDefinition Height="Auto" MaxHeight="300"/>
+                        <RowDefinition Height="Auto" MaxHeight="300"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <!--Технико-стоимостные проработки-->
@@ -223,10 +222,10 @@
                             
                         </Grid>
                     </GroupBox>
-                    <GridSplitter Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>
+                    <!--<GridSplitter Grid.Row="7" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="3"/>-->
 
                     <!--Переписка-->
-                    <GroupBox Name="Messages" Header="Переписка" Grid.Row="8" AllowDrop="True" Drop="Messages_OnDrop">
+                    <GroupBox Name="Messages" Header="Переписка" Grid.Row="7" AllowDrop="True" Drop="Messages_OnDrop">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" MinHeight="150"/>

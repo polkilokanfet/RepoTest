@@ -116,6 +116,9 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                 invoice.Items.Add(taskInvoiceForPaymentItem);
             }
 
+            if (invoice.Items.Any() == false)
+                throw new ArgumentException();
+
             Task = new TaskInvoiceForPaymentWrapperManager(invoice);
         }
 
