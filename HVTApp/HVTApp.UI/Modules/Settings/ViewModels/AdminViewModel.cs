@@ -49,14 +49,28 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
+                    var sp = unitOfWork.Repository<Specification>().GetAll();
+                    foreach (var specification in sp)
+                    {
+                        specification.PriceEngineeringTasks.Clear();
+                    }
+
+                    unitOfWork.SaveChanges();
+
                     var tasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(task => task.SalesUnits.Any())
-                        .Where(task => task.Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.ProductionRequestStart.Value))
-                        .Where(task => task.Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.ProductionRequestStop.Value) == false);
+                        .Find(task => task.SalesUnits.Any() && task.SalesUnits.All(x => x.Specification != null))
+                        .Where(task => task.Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.LoadToTceStart.Value))
+                        .ToList();
 
                     foreach (var task in tasks)
                     {
                         if (task.SalesUnits.Select(x => x.Specification).Distinct().Count() != 1)
+                            continue;
+
+                        var rr = task.SalesUnits.First().Specification.PriceEngineeringTasks
+                            .SelectMany(x => x.SalesUnits);
+
+                        if (task.SalesUnits.Any(x => rr.Contains(x)))
                             continue;
 
                         foreach (var salesUnit in task.SalesUnits)

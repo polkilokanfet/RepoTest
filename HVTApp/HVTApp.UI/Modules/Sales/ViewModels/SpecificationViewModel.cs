@@ -39,8 +39,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 {
                     var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
 
-                    if (this.DetailsViewModel.Entity.PriceEngineeringTasks == null &&
-                        this.DetailsViewModel.Entity.TechnicalRequrements == null)
+                    if (this.DetailsViewModel.Entity.PriceEngineeringTasks.Any() == false &&
+                        this.DetailsViewModel.Entity.TechnicalRequrements.Any() == false)
                     {
                         container.Resolve<IMessageService>().Message("Уведомление", "Спецификация не связана ни с одной из задач");
                         return;
