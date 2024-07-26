@@ -137,8 +137,8 @@ namespace HVTApp.Model.POCOs
         /// Задание принято ФМ у БМ
         /// </summary>
         [Designation("Принято?")]
-        public bool IsAccepted=> LastHistoryElement != null &&
-                                 LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Accept;
+        public bool IsAccepted => LastHistoryElement != null &&
+                                  LastHistoryElement.Type == TechnicalRequrementsTaskHistoryElementType.Accept;
 
         public string Products
         {

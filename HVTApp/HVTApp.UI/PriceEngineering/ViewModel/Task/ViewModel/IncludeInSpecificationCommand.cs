@@ -15,7 +15,7 @@ namespace HVTApp.UI.PriceEngineering
 {
     public class IncludeInSpecificationCommand : DelegateLogCommand
     {
-        private readonly IUnityContainer _container;
+        protected readonly IUnityContainer Container;
         private readonly Func<bool> _canExecute;
         private readonly IMessageService _messageService;
 
@@ -23,7 +23,7 @@ namespace HVTApp.UI.PriceEngineering
 
         public IncludeInSpecificationCommand(IUnityContainer container, Func<bool> canExecute)
         {
-            _container = container;
+            Container = container;
             _canExecute = canExecute;
             _messageService = container.Resolve<IMessageService>();
         }
@@ -33,25 +33,31 @@ namespace HVTApp.UI.PriceEngineering
             throw new NotImplementedException();
         }
 
+        protected virtual bool AllowExecute(ISalesUnitsContainer salesUnitsContainer)
+        {
+            var dr = _messageService.ConfirmationDialog("Вы уверены, что хотите включить данное оборудование в спецификацию?");
+            if (dr == false) return false;
+
+            if (salesUnitsContainer.SalesUnits.Any(salesUnit => salesUnit.Specification != null))
+            {
+                Container.Resolve<IMessageService>().Message("Отказ", "В задаче есть оборудование, которое уже включено в спецификацию.");
+                return false;
+            }
+            if (salesUnitsContainer.SalesUnits.Any(salesUnit => salesUnit.IsRemoved))
+            {
+                Container.Resolve<IMessageService>().Message("Отказ", "В задаче есть удалённое Вами оборудование.");
+                return false;
+            }
+            return true;
+        }
+
         protected override void ExecuteMethod(object parameter)
         {
             if (!(parameter is ISalesUnitsContainer salesUnitsContainer)) throw new ArgumentException();
 
-            var dr = _messageService.ConfirmationDialog("Вы уверены, что хотите включить данное оборудование в спецификацию?");
-            if (dr == false) return;
+            if (this.AllowExecute(salesUnitsContainer) == false) return;
 
-            if (salesUnitsContainer.SalesUnits.Any(salesUnit => salesUnit.Specification != null))
-            {
-                _container.Resolve<IMessageService>().Message("Отказ", "В задаче есть оборудование, которое уже включено в спецификацию.");
-                return;
-            }
-            if (salesUnitsContainer.SalesUnits.Any(salesUnit => salesUnit.IsRemoved))
-            {
-                _container.Resolve<IMessageService>().Message("Отказ", "В задаче есть удалённое Вами оборудование.");
-                return;
-            }
-
-            var unitOfWork = _container.Resolve<IUnitOfWork>();
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
             var specification = this.GetSpecification(unitOfWork);
             if (specification == null) return;
 
@@ -78,7 +84,7 @@ namespace HVTApp.UI.PriceEngineering
             }
 
             unitOfWork.SaveChanges();
-            _container.Resolve<IRegionManager>().RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), specification } });
+            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), specification } });
         }
 
         private Specification GetSpecification(IUnitOfWork unitOfWork)
@@ -90,7 +96,7 @@ namespace HVTApp.UI.PriceEngineering
                         .Any(xx => xx.Project.Manager.Id == GlobalAppProperties.User.Id) ||
                     specification1.TechnicalRequrements.SelectMany(x => x.SalesUnits)
                         .Any(xx => xx.Project.Manager.Id == GlobalAppProperties.User.Id));
-            var specification = _container.Resolve<ISelectService>().SelectItem(specifications);
+            var specification = Container.Resolve<ISelectService>().SelectItem(specifications);
             return specification == null 
                 ? null 
                 : unitOfWork.Repository<Specification>().GetById(specification.Id);

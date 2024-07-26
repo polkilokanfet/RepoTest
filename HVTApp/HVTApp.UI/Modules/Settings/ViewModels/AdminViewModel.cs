@@ -49,39 +49,24 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var sp = unitOfWork.Repository<Specification>().GetAll();
-                    foreach (var specification in sp)
+                    var specifications = unitOfWork.Repository<Specification>().Find(x => x.TechnicalRequrements.Any() == false && x.PriceEngineeringTasks.Any() == false);
+                    var technicalRequrementsList = unitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.IsAccepted).SelectMany(x => x.Requrements).ToList();
+                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null);
+
+                    var sb = new StringBuilder();
+                    foreach (var specification in specifications)
                     {
-                        specification.PriceEngineeringTasks.Clear();
-                    }
-
-                    unitOfWork.SaveChanges();
-
-                    var tasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(task => task.SalesUnits.Any() && task.SalesUnits.All(x => x.Specification != null))
-                        .Where(task => task.Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.LoadToTceStart.Value))
-                        .ToList();
-
-                    foreach (var task in tasks)
-                    {
-                        if (task.SalesUnits.Select(x => x.Specification).Distinct().Count() != 1)
-                            continue;
-
-                        var rr = task.SalesUnits.First().Specification.PriceEngineeringTasks
-                            .SelectMany(x => x.SalesUnits);
-
-                        if (task.SalesUnits.Any(x => rr.Contains(x)))
-                            continue;
-
-                        foreach (var salesUnit in task.SalesUnits)
+                        var ssu = salesUnits.Where(x => Equals(x.Specification.Id, specification.Id));
+                        var trl = technicalRequrementsList.Where(x => x.SalesUnits.MembersAreSame(ssu)).ToList();
+                        if (trl.Count == 1)
                         {
-                            if (salesUnit.IsRemoved || salesUnit.Specification == null) continue;
-                            if (salesUnit.Specification.PriceEngineeringTasks.Contains(task)) continue;
-                            salesUnit.Specification.PriceEngineeringTasks.Add(task);
+                            specification.TechnicalRequrements.Add(trl.First());
+                            sb.AppendLine($"{specification} = {trl.First()}");
                         }
                     }
-
                     unitOfWork.SaveChanges();
+
+                    container.Resolve<IMessageService>().Message("", sb.ToString());
 
                     //Clipboard.SetText(sb.ToString());
                 });

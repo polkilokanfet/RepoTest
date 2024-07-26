@@ -12,7 +12,9 @@ using Microsoft.Practices.Unity;
 using HVTApp.DataAccess;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
@@ -38,12 +40,46 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                 () =>
                 {
                     var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+                    var specification = this.DetailsViewModel.Entity;
 
                     if (this.DetailsViewModel.Entity.PriceEngineeringTasks.Any() == false &&
                         this.DetailsViewModel.Entity.TechnicalRequrements.Any() == false)
                     {
-                        container.Resolve<IMessageService>().Message("Уведомление", "Спецификация не связана ни с одной из задач");
-                        return;
+                        var dr = container.Resolve<IMessageService>().ConfirmationDialog("Уведомление", "Спецификация не связана ни с одной из задач.\nПроизвести их поиск?");
+                        if (dr != true) return;
+
+                        var unitOfWork = container.Resolve<IUnitOfWork>();
+                        specification = unitOfWork.Repository<Specification>().GetById(specification.Id);
+
+                        var salesUnits = this.GroupsViewModel.Groups
+                            .SelectMany(x => x.SalesUnits)
+                            .Distinct()
+                            .Select(x => unitOfWork.Repository<SalesUnit>().GetById(x.Id))
+                            .ToList();
+
+                        var technicalRequrementsList = unitOfWork.Repository<TechnicalRequrements>()
+                            .Find(tr => tr.SalesUnits.AllContainsIn(salesUnits))
+                            .Where(tr => unitOfWork.Repository<TechnicalRequrementsTask>().GetById(tr.TaskId).IsAccepted)
+                            .ToList();
+
+                        while (technicalRequrementsList.Any())
+                        {
+                            var target = technicalRequrementsList.First();
+                            technicalRequrementsList.Remove(target);
+                            var requrementsList = technicalRequrementsList
+                                .Where(tr => tr.SalesUnits.MembersAreSame(target.SalesUnits))
+                                .ToList();
+                            requrementsList.ForEach(x => technicalRequrementsList.Remove(x));
+                            if (requrementsList.Any())
+                            {
+                                requrementsList.Add(target);
+                                target = container.Resolve<ISelectService>().SelectItem(requrementsList);
+                            }
+                            if (target != null)
+                                specification.TechnicalRequrements.Add(target);
+                        }
+
+                        unitOfWork.SaveChanges();
                     }
 
                     if (container.Resolve<IFilesStorageService>().FileContainsInStorage(this.DetailsViewModel.Entity.Id, storageDirectory) == false)
@@ -52,7 +88,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
                         return;
                     }
 
-                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), this.DetailsViewModel.Entity}});
+                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), specification}});
                 });
         }
 

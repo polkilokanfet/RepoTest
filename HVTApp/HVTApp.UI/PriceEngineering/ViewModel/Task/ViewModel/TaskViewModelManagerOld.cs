@@ -115,7 +115,7 @@ namespace HVTApp.UI.PriceEngineering
                 "Вы уверены, что хотите заменить продукт в проекте на продукт из этой задачи?",
                 () => { this.ReplaceProduct(this.Model); });
 
-            IncludeInSpecificationCommand = new IncludeInSpecificationCommand(container, () => this.Model.StatusesAll.Contains(ScriptStep.LoadToTceStart));
+            IncludeInSpecificationCommand = new IncludeInSpecificationCommandInTask(container);
 
             #endregion
         }

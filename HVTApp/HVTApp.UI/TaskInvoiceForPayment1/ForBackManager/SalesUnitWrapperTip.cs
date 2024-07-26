@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 

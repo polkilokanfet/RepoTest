@@ -150,14 +150,6 @@
                     <TextBlock Text="Произвести"/>
                 </StackPanel>
             </Button>
-
-            <Button Command="{Binding MakeInvoiceForPaymentTaskCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="Money"/>
-                    <TextBlock Text="Счёт"/>
-                </StackPanel>
-            </Button>
-
         </WrapPanel>
 
     </infRib:RibbonGroup>
