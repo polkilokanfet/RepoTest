@@ -26,7 +26,7 @@ namespace HVTApp.Model.Wrapper.Base
         public void Add(DataErrorInfo dataErrorInfo)
         {
             if (_actual.Contains(dataErrorInfo))
-                throw new ArgumentException("Такая ошибка уже добавлена.");
+                return;
 
             _actual.Add(dataErrorInfo);
 

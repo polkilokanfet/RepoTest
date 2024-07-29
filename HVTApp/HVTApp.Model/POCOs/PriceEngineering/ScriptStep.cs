@@ -394,7 +394,7 @@ namespace HVTApp.Model.POCOs
 
         private sealed class LoadToTceFinishStep : ScriptStep
         {
-            public override string Description => "Загрузка проработки в ТС завершена";
+            public override string Description => "Загружено в Team Center";
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
