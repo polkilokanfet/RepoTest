@@ -4,6 +4,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -13,7 +14,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 {
-    public abstract class TaskInvoiceForPaymentViewModelBase<TTask, TItem> : ViewModelBase
+    public abstract class TaskInvoiceForPaymentViewModelBase<TTask, TItem> : ViewModelBaseCanExportToExcel
         where TItem : TaskInvoiceForPaymentItemWrapperBase
         where TTask : TaskInvoiceForPaymentWrapperBase<TItem>
     {
