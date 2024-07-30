@@ -24,7 +24,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
         private PaymentActualWrapper2 _selectedPayment;
         private object[] _selectedPotentialUnits;
-        private IMessageService _messageService;
+        private readonly IMessageService _messageService;
 
         #endregion
 
@@ -128,12 +128,15 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                     Potential.Clear();
                     Potential.AddRange(((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetAllForPaymentDocument(OrderNumberFilter)
                         .Except(Item.Payments.Select(payment => payment.SalesUnit))
-                        .Where(x => x.IsPaid == false)
-                        .OrderBy(x => x.Facility.ToString())
-                        .ThenBy(x => x.Project.Name)
-                        .ThenBy(x => x.Product.ToString())
-                        .ThenBy(x => x.Cost));
+                        .Where(salesUnit => salesUnit.IsPaid == false)
+                        .OrderBy(salesUnit => salesUnit.Facility.ToString())
+                        .ThenBy(salesUnit => salesUnit.Project.Name)
+                        .ThenBy(salesUnit => salesUnit.Product.ToString())
+                        .ThenBy(salesUnit => salesUnit.Cost));
                     SelectedPotentialUnits = null;
+
+                    if (Potential.Any() == false)
+                        _messageService.Message("Уведомление", "Вашим критериям не соответствует ни одна строка.");
                 });
         }
 

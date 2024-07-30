@@ -71,6 +71,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -86,7 +87,9 @@
                     <Button Grid.Column="2" Command="{Binding LoadPotentialCommand}" Content="Загрузить"/>
                 </Grid>
 
-                <igWpf:XamDataGrid Grid.Row="1" DataSource="{Binding Potential}"
+                <Label Grid.Row="1" Content="*при пустом поле будет загружено ВСЁ неоплаченное оборудование"/>
+
+                <igWpf:XamDataGrid Grid.Row="2" DataSource="{Binding Potential}"
                                    SelectedDataItemsScope="RecordsOrCells"
                                    SelectedDataItems="{Binding Path=SelectedPotentialUnits, Mode=TwoWay}">
 
