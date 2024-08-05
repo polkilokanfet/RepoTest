@@ -18,7 +18,7 @@ namespace HVTApp.UI.PriceEngineering
 
             if (salesUnitsContainer is PriceEngineeringTask priceEngineeringTask)
             {
-                if (priceEngineeringTask.StatusesAll.Contains(ScriptStep.LoadToTceStart) == false)
+                if (priceEngineeringTask.Statuses.Select(x => x.StatusEnum).Contains(ScriptStep.LoadToTceStart.Value) == false)
                 {
                     Container.Resolve<IMessageService>().Message("Отказ", "Вы не давали распоряжение загрузить эту задачу в TeamCenter.");
                     return false;
