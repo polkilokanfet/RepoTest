@@ -95,12 +95,14 @@ namespace HVTApp.UI.Lookup
 
                 if (GlobalAppProperties.UserIsBackManagerBoss)
                 {
+                    if (Entity.Start == null) return false;
                     if (Entity.IsStopped) return false;
                     return Entity.BackManager == null;
                 }
 
                 if (GlobalAppProperties.UserIsBackManager)
                 {
+                    if (Entity.Start == null) return false;
                     if (Entity.IsFinished) return false;
                     if (Entity.IsRejected) return false;
                     if (Entity.IsStopped) return false;

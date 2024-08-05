@@ -144,12 +144,22 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     {
                         if (!requrement.SalesUnits.Any())
                         {
+                            var invoiceForPaymentItems = UnitOfWork.Repository<TaskInvoiceForPaymentItem>().Find(x => requrement.Id == x.TechnicalRequrements?.Id);
+                            foreach (var item in invoiceForPaymentItems)
+                            {
+                                var taskInvoiceForPayment = UnitOfWork.Repository<TaskInvoiceForPayment>().GetById(item.TaskId);
+                                taskInvoiceForPayment.Items.Remove(item);
+                                if (taskInvoiceForPayment.Items.Any() == false)
+                                    UnitOfWork.Repository<TaskInvoiceForPayment>().Delete(taskInvoiceForPayment);
+                                UnitOfWork.Repository<TaskInvoiceForPaymentItem>().Delete(item);
+                            }
+
                             task.Requrements.Remove(requrement);
                             UnitOfWork.Repository<TechnicalRequrements>().Delete(requrement);
                         }
                     }
 
-                    if (!task.Requrements.Any())
+                    if (task.Requrements.Any() == false)
                     {
                         //удаление файлов РТЗ
                         var shippingCostFiles = UnitOfWork.Repository<ShippingCostFile>().Find(shippingCostFile => task.Id == shippingCostFile.TechnicalRequrementsTaskId);
