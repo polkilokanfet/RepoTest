@@ -54,7 +54,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             if (ViewModel.TechnicalRequrementsTaskWrapper == null) return false;
             if (ViewModel.IsValid == false) return false;
-            if (ViewModel.IsStopped == false) return false;
+            if (ViewModel.IsStopped) return false;
 
             return ViewModel.IsStarted || ViewModel.IsRejected;
         }

@@ -33,6 +33,8 @@ namespace NotificationsFromDataBaseService
                 var recipientUserId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
                 unit.RecipientUser = unitOfWork.Repository<User>().GetById(recipientUserId);
 
+                if (unit.RecipientUser.IsActual == false) return;
+
                 unitOfWork.SaveEntity(unit);
             }
         }
