@@ -55,9 +55,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool AllowDoStepAction()
         {
-            var steps = new [] {ScriptStep.Accept, ScriptStep.LoadToTceStart, ScriptStep.LoadToTceFinish};
-            var tasks = UnitOfWork.Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
-            var notAccepted = tasks.Where(task => steps.Contains(task.Status) == false).ToList();
+            var notAccepted = GetNotAcceptedTasks().ToList();
             if (notAccepted.Any() == false) return true;
             MessageService.Message("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
             return false;
@@ -99,9 +97,41 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool CanExecuteMethod()
         {
-            return 
-                !this.ViewModel.Model.GetAllPriceEngineeringTasks().All(task => ScriptStep.LoadToTceFinish.Equals(ViewModel.Model.Status)) && 
-                base.CanExecuteMethod();
+            if (GlobalAppProperties.UserIsManager == false) return false;
+            return this.GetLastAcceptedTasks().Any();
+
+            //return 
+            //    !this.ViewModel.Model.GetAllPriceEngineeringTasks().All(task => ScriptStep.LoadToTceFinish.Equals(ViewModel.Model.Status)) && 
+            //    base.CanExecuteMethod();
+        }
+
+        /// <summary>
+        /// Вернуть задачи, где последнее действие - согласование проработки менеджером
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<PriceEngineeringTask> GetLastAcceptedTasks()
+        {
+            var tasks = UnitOfWork.Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
+            foreach (var task in tasks)
+            {
+                if (task.Status.Equals(ScriptStep.Accept))
+                    yield return task;
+            }
+        }
+
+        /// <summary>
+        /// Вернуть непринятые менеджером задачи
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<PriceEngineeringTask> GetNotAcceptedTasks()
+        {
+            var steps = new[] { ScriptStep.Accept, ScriptStep.LoadToTceStart, ScriptStep.LoadToTceFinish };
+            var tasks = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
+            foreach (var task in tasks)
+            {
+                if (steps.Contains(task.Status) == false)
+                    yield return task;
+            }
         }
     }
 }
