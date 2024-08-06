@@ -52,9 +52,11 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.IsValid &&
-                   ViewModel.IsStarted && 
-                   !ViewModel.IsStopped;
+            if (ViewModel.TechnicalRequrementsTaskWrapper == null) return false;
+            if (ViewModel.IsValid == false) return false;
+            if (ViewModel.IsStopped == false) return false;
+
+            return ViewModel.IsStarted || ViewModel.IsRejected;
         }
     }
 }
