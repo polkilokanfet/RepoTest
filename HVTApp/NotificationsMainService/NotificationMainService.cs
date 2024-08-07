@@ -43,14 +43,14 @@ namespace NotificationsMainService
             EventServiceClient = container.Resolve<IEventServiceClient>();
         }
 
-        public void Start()
+        public async void Start()
         {
             _notificationsReportService.SendReports();
             _notificationUnitWatcher.Start();
 
             this.EventServiceClient.StartActionInProgressEvent += EventServiceClientOnStartActionInProgressEvent;
 
-            this.EventServiceClient.Start();
+            await EventServiceClient.Start();
 
             //подписка на уведомления о событиях в ТСП
             _eventAggregator.GetEvent<NotificationEvent>().Subscribe(OnNotificationEvent, true);
@@ -67,35 +67,14 @@ namespace NotificationsMainService
 
         #region OnPriceEngineeringTaskNotificationEvent
 
-        private void OnNotificationEvent(NotificationUnit notification)
+        private async void OnNotificationEvent(NotificationUnit notification)
         {
-            var result = true;
-            
             //сохраняем уведомление в базе данных
-            _notificationFromDataBaseService.SaveNotificationInDataBase(notification); 
+            _notificationFromDataBaseService.SaveNotificationInDataBase(notification);
 
-            Task.Run(
-                () =>
-                {
-                    //отправка уведомления только через приложение
-                    result = _sendNotificationThroughApp.SendNotification(notification);
-                }).Await(
-                completedCallback:() =>
-                {
-                    if (result)
-                    {
-                        _notificationFromDataBaseService.RemoveNotificationFromDataBase(notification);
-                        return;
-                    }
-
-                    ////Если уведомление не дошло внутри приложения,
-                    ////отправляем уведомление по email
-                    //var emailAddress = notification.RecipientUser?.Employee.Email;
-                    //if (string.IsNullOrEmpty(emailAddress)) return;
-                    //var subject = $"[УП ВВА] {_notificationGeneratorService.GetActionInfo(notification)}";
-                    //var body = _notificationGeneratorService.GetCommonInfo(notification);
-                    //_emailService.SendMail(emailAddress, subject, body);
-                });
+            if (await _sendNotificationThroughApp.SendNotificationAsync(notification))
+                //удаляем уведомление в базе данных
+                _notificationFromDataBaseService.RemoveNotificationFromDataBase(notification);
         }
 
         #endregion

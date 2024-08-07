@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using System.Threading;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
@@ -51,20 +52,33 @@ namespace EventServiceClient2
 
         public event Action StartActionInProgressEvent;
 
-        public void Start()
+        public async Task<bool> Start()
         {
             this.StartActionInProgressEvent?.Invoke();
 
-            Task.Run(
-                () =>
-                {
-                    if (this.Connect() == false)
-                        this.StopWaitRestart(); //очистить следы от предыдущего подключения, подождать и рестартануть
-                }).Await();
+            var result = await this.ConnectAsync();
+            if (result == false)
+                this.StopWaitRestart(); //очистить следы от предыдущего подключения, подождать и рестартануть
+
+            return result;
+
+            //Task.Run(
+            //    () =>
+            //    {
+            //        if (this.Connect() == false)
+            //            this.StopWaitRestart(); //очистить следы от предыдущего подключения, подождать и рестартануть
+            //    }).Await();
         }
 
-        private bool Connect()
+        private async Task<bool> ConnectAsync()
         {
+            //не нужно реконектится к рабочему сервису
+            if (HostIsEnabled && await EventServiceHost.HostIsAliveAsync())
+            {
+                PingHost();
+                return true;
+            }
+
             //инициализация клиента сервиса
             EventServiceHost = new ServiceReference1.EventServiceClient(new InstanceContext(this), _netTcpBinding, _endpointAddress);
 
@@ -72,7 +86,7 @@ namespace EventServiceClient2
             try
             {
                 //подсоединяемся к сервису
-                result = EventServiceHost.Connect(AppSessionId, _userId, _userRole);
+                result = await EventServiceHost.ConnectAsync(AppSessionId, _userId, _userRole);
             }
             catch
             {
@@ -85,34 +99,36 @@ namespace EventServiceClient2
             return result;
         }
 
-        public void Stop()
+        public async Task Stop()
         {
-            Task.Run(
-                () =>
-                {
-                    if (HostIsEnabled)
-                        EventServiceHost.Disconnect(AppSessionId);
-                })
-                .Await(
-                    errorCallback: e =>
-                    {
-                        _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
-                    },
-                    lastAction: () =>
-                    {
-                        //сносим хост
-                        EventServiceHost?.Abort();
-                        EventServiceHost = null;
-                    });
+            try
+            {
+                if (HostIsEnabled)
+                    await EventServiceHost.DisconnectAsync(AppSessionId);
+            }
+            catch (Exception e)
+            {
+                _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
+            }
+
+            //сносим хост
+            EventServiceHost?.Abort();
+            EventServiceHost = null;
         }
 
         /// <summary>
         /// Очистить старое, подождать, рестартовать
         /// </summary>
-        private void StopWaitRestart()
+        private async void StopWaitRestart()
         {
-            Stop();
-            new Action(Start).SleepThenExecuteInAnotherThread(300);
+            await Stop();
+            //Thread.Sleep(new TimeSpan(0, 0, 0, 5));
+            await this.Start();
+
+            //new Action(async () =>
+            //{
+            //    await this.Start();
+            //}).SleepThenExecuteInAnotherThread(5);
         }
 
         #region Ping
@@ -164,36 +180,55 @@ namespace EventServiceClient2
             return false;
         }
 
-        public bool SendNotification(NotificationUnit unit)
+        public async Task<bool> SendNotificationAsync(NotificationUnit unit)
         {
             if (!this.HostIsEnabled) return false;
-
-            var result = false;
 
             try
             {
                 var senderId = unit.SenderUser?.Id ?? unit.SenderUserId;
                 var recipientId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
-
-                result = EventServiceHost.NotificationEvent(
+                return await EventServiceHost.NotificationEventAsync(
                     this.AppSessionId,
                     senderId,
                     recipientId,
                     unit.RecipientRole,
-                    unit.TargetEntityId, 
+                    unit.TargetEntityId,
                     unit.ActionType);
-            }
-            //хост недоступен
-            catch (TimeoutException)
-            {
-                StopWaitRestart();
             }
             catch
             {
                 StopWaitRestart();
             }
 
-            return result;
+            return false;
+
+            //var result = false;
+
+            //try
+            //{
+            //    var senderId = unit.SenderUser?.Id ?? unit.SenderUserId;
+            //    var recipientId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
+
+            //    result = EventServiceHost.NotificationEvent(
+            //        this.AppSessionId,
+            //        senderId,
+            //        recipientId,
+            //        unit.RecipientRole,
+            //        unit.TargetEntityId, 
+            //        unit.ActionType);
+            //}
+            ////хост недоступен
+            //catch (TimeoutException)
+            //{
+            //    StopWaitRestart();
+            //}
+            //catch
+            //{
+            //    StopWaitRestart();
+            //}
+
+            //return result;
         }
     }
 }

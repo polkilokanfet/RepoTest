@@ -4,6 +4,9 @@ using HVTApp.Infrastructure.Enums;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
 {
+    /// <summary>
+    /// Вызывается на клиенте по запросу сервиса
+    /// </summary>
     [ServiceContract]
     public interface IEventServiceCallback
     {

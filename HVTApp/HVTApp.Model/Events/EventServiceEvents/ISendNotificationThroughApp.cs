@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Events.EventServiceEvents
@@ -7,6 +8,6 @@ namespace HVTApp.Model.Events.EventServiceEvents
     /// </summary>
     public interface ISendNotificationThroughApp
     {
-        bool SendNotification(NotificationUnit unit);
+        Task<bool> SendNotificationAsync(NotificationUnit unit);
     }
 }

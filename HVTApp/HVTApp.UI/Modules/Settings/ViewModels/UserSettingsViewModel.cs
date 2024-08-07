@@ -13,17 +13,15 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
         {
             var eventServiceClient = container.Resolve<IEventServiceClient>();
 
-            StartEventServiceCommand = new DelegateLogCommand(
-                () =>
+            StartEventServiceCommand = new DelegateLogCommand(async () =>
                 {
-                    eventServiceClient.Stop();
-                    eventServiceClient.Start();
+                    await eventServiceClient.Stop();
+                    await eventServiceClient.Start();
                 });
 
-            StopEventServiceCommand = new DelegateLogCommand(
-                () =>
+            StopEventServiceCommand = new DelegateLogCommand(async () =>
                 {
-                    eventServiceClient.Stop();
+                    await eventServiceClient.Stop();
                 });
 
         }

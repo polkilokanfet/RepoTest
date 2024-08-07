@@ -53,9 +53,9 @@ namespace HVTApp
 #endif
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        protected override async void OnExit(ExitEventArgs e)
         {
-            _bootstrapper?.Container.Resolve<IEventServiceClient>().Stop();
+            await _bootstrapper?.Container.Resolve<IEventServiceClient>().Stop();
             base.OnExit(e);
         }
     }
