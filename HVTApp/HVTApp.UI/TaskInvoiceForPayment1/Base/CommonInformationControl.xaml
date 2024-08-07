@@ -44,6 +44,8 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -61,8 +63,13 @@
                              Text="{Binding Task.PaymentConditionString, Mode=OneTime}"/>
 
                     <Label Grid.Column="4" 
-                           Content="Комментарий менеджера:"/>
+                           Content="Mенеджер:"/>
                     <TextBox Grid.Column="5" 
+                             Text="{Binding Task.Manager, Mode=OneTime}"/>
+
+                    <Label Grid.Column="6" 
+                           Content="Комментарий менеджера:"/>
+                    <TextBox Grid.Column="7" 
                              Text="{Binding Task.Model.Comment, Mode=OneTime}"/>
                 </Grid>
             </GroupBox>

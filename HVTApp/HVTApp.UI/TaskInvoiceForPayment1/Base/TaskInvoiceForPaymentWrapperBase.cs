@@ -41,6 +41,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             }
         }
 
+        public string Manager => this.Items.FirstOrDefault()?.Model.SalesUnits.FirstOrDefault()?.Project.Manager.Employee.Person.ToString();
+
         public string ErrorsString
         {
             get
