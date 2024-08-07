@@ -42,17 +42,6 @@ namespace HVTApp.Infrastructure.Extensions
                     action.Invoke();
                 }).Await();
         }
-
-        public static void SleepThenExecuteInAnotherThread(this Action<Guid> action, int seconds, Guid guid)
-        {
-            Task.Run(
-                () =>
-                {
-                    Thread.Sleep(new TimeSpan(0, 0, 0, seconds));
-                    action.Invoke(guid);
-                }).Await();
-        }
-
     }
 
 

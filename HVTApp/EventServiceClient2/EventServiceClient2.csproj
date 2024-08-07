@@ -79,7 +79,7 @@
     <Compile Include="EventServiceClientChat.cs" />
     <Compile Include="EventServiceClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requsts\EventServiceClient.cs" />
+    <Compile Include="Requests\EventServiceClient.cs" />
     <Compile Include="Service References\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

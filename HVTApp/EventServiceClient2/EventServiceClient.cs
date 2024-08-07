@@ -14,6 +14,11 @@ namespace EventServiceClient2
 {
     public partial class EventServiceClient : IEventServiceClient, ISendNotificationThroughApp, EventServiceClient2.ServiceReference1.IEventServiceCallback
     {
+        /// <summary>
+        /// Идентификатор текущего приложения
+        /// </summary>
+        private Guid AppSessionId { get; } = Guid.NewGuid();
+
         private readonly IUnityContainer _container;
         private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
         private readonly Guid _userId = GlobalAppProperties.User.Id;
@@ -25,11 +30,10 @@ namespace EventServiceClient2
         /// <summary>
         /// Хост сервиса подключен
         /// </summary>
-        private bool HostIsEnabled => EventServiceHost != null && 
-                                      EventServiceHost.State != CommunicationState.Faulted && 
-                                      EventServiceHost.State != CommunicationState.Closed;
-
-        private Guid _appSessionId = Guid.Empty;
+        private bool HostIsEnabled =>
+            EventServiceHost != null &&
+            EventServiceHost.State != CommunicationState.Faulted &&
+            EventServiceHost.State != CommunicationState.Closed;
 
         private ServiceReference1.EventServiceClient EventServiceHost { get; set; }
 
@@ -64,14 +68,11 @@ namespace EventServiceClient2
             //инициализация клиента сервиса
             EventServiceHost = new ServiceReference1.EventServiceClient(new InstanceContext(this), _netTcpBinding, _endpointAddress);
 
-            //текущая сессия
-            _appSessionId = Guid.NewGuid();
-
             var result = false;
             try
             {
                 //подсоединяемся к сервису
-                result = EventServiceHost.Connect(_appSessionId, _userId, _userRole);
+                result = EventServiceHost.Connect(AppSessionId, _userId, _userRole);
             }
             catch
             {
@@ -81,7 +82,6 @@ namespace EventServiceClient2
             if (result == true)
                 PingHost(); //циклический пинг хоста
 
-
             return result;
         }
 
@@ -90,8 +90,8 @@ namespace EventServiceClient2
             Task.Run(
                 () =>
                 {
-                    if (HostIsEnabled) 
-                        EventServiceHost.Disconnect(_appSessionId);
+                    if (HostIsEnabled)
+                        EventServiceHost.Disconnect(AppSessionId);
                 })
                 .Await(
                     errorCallback: e =>
@@ -100,19 +100,10 @@ namespace EventServiceClient2
                     },
                     lastAction: () =>
                     {
-                        this.Disable();
-                        _appSessionId = Guid.Empty;
+                        //сносим хост
+                        EventServiceHost?.Abort();
+                        EventServiceHost = null;
                     });
-        }
-
-        /// <summary>
-        /// Отключение от хоста
-        /// </summary>
-        private void Disable()
-        {
-            //сносим хост
-            EventServiceHost?.Abort();
-            EventServiceHost = null;
         }
 
         /// <summary>
@@ -121,41 +112,39 @@ namespace EventServiceClient2
         private void StopWaitRestart()
         {
             Stop();
-            Action start = Start;
-            start.SleepThenExecuteInAnotherThread(300);
+            new Action(Start).SleepThenExecuteInAnotherThread(300);
         }
+
+        #region Ping
 
         /// <summary>
         /// Пинг хоста (циклический при удаче)
         /// </summary>
-        private Action<Guid> PingAction => appSessionId =>
-        {
-            if (_appSessionId == Guid.Empty) return;
-            if (_appSessionId != appSessionId) return;
-
-            if (HostIsEnabled)
-            {
-                try
-                {
-                    if (EventServiceHost.HostIsAlive())
-                    {
-                        this.PingHost();
-                        return;
-                    }
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
-            this.StopWaitRestart();
-        };
-
         private void PingHost()
         {
-            PingAction.SleepThenExecuteInAnotherThread(30, _appSessionId);
+            new Action(() =>
+            {
+                if (HostIsEnabled)
+                {
+                    try
+                    {
+                        if (EventServiceHost.HostIsAlive())
+                        {
+                            this.PingHost();
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+                this.StopWaitRestart();
+            }).SleepThenExecuteInAnotherThread(60);
         }
+
+        #endregion
 
         public bool UserConnected(Guid userId)
         {
@@ -187,7 +176,7 @@ namespace EventServiceClient2
                 var recipientId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
 
                 result = EventServiceHost.NotificationEvent(
-                    this._appSessionId,
+                    this.AppSessionId,
                     senderId,
                     recipientId,
                     unit.RecipientRole,

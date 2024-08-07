@@ -72,7 +72,7 @@ namespace EventService
         /// <returns>Доставлено ли уведомление целевому пользователю</returns>
         private bool PublishEventByServiceForUser(Guid targetUserId, Role targetRole, Guid sourceEventAppSessionId, Func<AppSession, bool> publishEvent)
         {
-            bool result = false;
+            var result = false;
 
             //целевые приложения (без того, которое и послало событие).
             var targetAppSessions = _appSessions
@@ -81,7 +81,6 @@ namespace EventService
                 .Where(appSession => appSession.AppSessionId != sourceEventAppSessionId)
                 .ToList();
 
-            PrintMessageEvent?.Invoke("-------------------");
             PrintMessageEvent?.Invoke($"Invoke {publishEvent.GetMethodInfo().Name} (sourceEventAppSessionId: {sourceEventAppSessionId} targetUserId: {targetUserId} targetRole: {targetRole.ToString()}");
 
             if (targetAppSessions.Any() == false)
@@ -117,8 +116,6 @@ namespace EventService
                     }
                 }
             }
-
-            PrintMessageEvent?.Invoke("-------------------");
 
             return result;
         }
@@ -184,7 +181,6 @@ namespace EventService
         }
 
         #region PriceEngineeringTasks
-
 
         public bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid messageId)
         {

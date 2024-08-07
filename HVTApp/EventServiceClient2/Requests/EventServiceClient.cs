@@ -9,7 +9,7 @@ namespace EventServiceClient2
     {
         public bool PriceEngineeringTaskSendMessagePublishEvent(Guid targetUserId, Role targetRole, Guid messageId)
         {
-            return this.EventServiceHost.PriceEngineeringTaskSendMessagePublishEvent(_appSessionId, targetUserId, targetRole, messageId);
+            return this.EventServiceHost.PriceEngineeringTaskSendMessagePublishEvent(AppSessionId, targetUserId, targetRole, messageId);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace EventService
         public bool Connect(Guid appSessionId, Guid userId, Role userRole)
         {
             //если приложение уже подключено к сервису
-            if (_appSessions.Any(session => session.AppSessionId == appSessionId)) return false;
+            Disconnect(appSessionId);
 
             //подключаем новое приложение к сервису
             var appSession = new AppSession(appSessionId, userId, userRole, OperationContext.Current);
