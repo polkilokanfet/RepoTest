@@ -676,65 +676,6 @@ namespace HVTApp.UI.Views
 
 	}
 
-    public partial class InvoiceForPaymentTaskDetailsView : ViewBase
-    {
-        public InvoiceForPaymentTaskDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public InvoiceForPaymentTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, InvoiceForPaymentTaskDetailsViewModel InvoiceForPaymentTaskDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = InvoiceForPaymentTaskDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-            //attr = typeof(HVTApp.Model.POCOs.InvoiceForPaymentTask).GetProperty(nameof(HVTApp.Model.POCOs.InvoiceForPaymentTask.PriceEngineeringTask)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityPriceEngineeringTaskInvoiceForPaymentTask = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.InvoiceForPaymentTask).GetProperty(nameof(HVTApp.Model.POCOs.InvoiceForPaymentTask.TechnicalRequrements)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityTechnicalRequrementsInvoiceForPaymentTask = Visibility.Collapsed;
-
-            //attr = typeof(HVTApp.Model.POCOs.InvoiceForPaymentTask).GetProperty(nameof(HVTApp.Model.POCOs.InvoiceForPaymentTask.Moment)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityMomentInvoiceForPaymentTask = Visibility.Collapsed;
-
-
-        }
-
-
-        public static readonly DependencyProperty VisibilityPriceEngineeringTaskInvoiceForPaymentTaskProperty = DependencyProperty.Register("VisibilityPriceEngineeringTaskInvoiceForPaymentTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityPriceEngineeringTaskInvoiceForPaymentTask
-        {
-            get { return (Visibility) GetValue(VisibilityPriceEngineeringTaskInvoiceForPaymentTaskProperty); }
-            set { SetValue(VisibilityPriceEngineeringTaskInvoiceForPaymentTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityTechnicalRequrementsInvoiceForPaymentTaskProperty = DependencyProperty.Register("VisibilityTechnicalRequrementsInvoiceForPaymentTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityTechnicalRequrementsInvoiceForPaymentTask
-        {
-            get { return (Visibility) GetValue(VisibilityTechnicalRequrementsInvoiceForPaymentTaskProperty); }
-            set { SetValue(VisibilityTechnicalRequrementsInvoiceForPaymentTaskProperty, value); OnPropertyChanged(); }
-        }
-
-
-        public static readonly DependencyProperty VisibilityMomentInvoiceForPaymentTaskProperty = DependencyProperty.Register("VisibilityMomentInvoiceForPaymentTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityMomentInvoiceForPaymentTask
-        {
-            get { return (Visibility) GetValue(VisibilityMomentInvoiceForPaymentTaskProperty); }
-            set { SetValue(VisibilityMomentInvoiceForPaymentTaskProperty, value); OnPropertyChanged(); }
-        }
-
-	}
-
     public partial class DesignDepartmentDetailsView : ViewBase
     {
         public DesignDepartmentDetailsView()
@@ -4828,6 +4769,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityPaymentConditionTaskInvoiceForPaymentItem = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.TaskInvoiceForPaymentItem).GetProperty(nameof(HVTApp.Model.POCOs.TaskInvoiceForPaymentItem.SalesUnits)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilitySalesUnitsTaskInvoiceForPaymentItem = Visibility.Collapsed;
+
 
         }
 
@@ -4861,6 +4806,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPaymentConditionTaskInvoiceForPaymentItemProperty); }
             set { SetValue(VisibilityPaymentConditionTaskInvoiceForPaymentItemProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilitySalesUnitsTaskInvoiceForPaymentItemProperty = DependencyProperty.Register("VisibilitySalesUnitsTaskInvoiceForPaymentItem", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilitySalesUnitsTaskInvoiceForPaymentItem
+        {
+            get { return (Visibility) GetValue(VisibilitySalesUnitsTaskInvoiceForPaymentItemProperty); }
+            set { SetValue(VisibilitySalesUnitsTaskInvoiceForPaymentItemProperty, value); OnPropertyChanged(); }
         }
 
 	}

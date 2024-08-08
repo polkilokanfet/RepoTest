@@ -54,7 +54,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                 DivideCommand.RaiseCanExecuteChanged();
                 LoadFileCommand.RaiseCanExecuteChanged();
                 StartProductionCommand.RaiseCanExecuteChanged();
-                MakeInvoiceForPaymentTaskCommand.RaiseCanExecuteChanged();
                 ((IncludeInSpecificationCommand)IncludeInSpecificationCommand).RaiseCanExecuteChanged();
             }
         }
@@ -268,11 +267,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
 
         public RemoveShippingCalculationFileCommand RemoveShippingCalculationFileCommand { get; }
 
-        /// <summary>
-        /// Задача на формирование счёта
-        /// </summary>
-        public virtual DelegateLogConfirmationCommand MakeInvoiceForPaymentTaskCommand { get; }
-
         public ICommand IncludeInSpecificationCommand { get; }
 
         #endregion
@@ -322,7 +316,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                         this.RaiseCanExecuteChangeInAllCommands();
                         RaisePropertyChanged(nameof(ValidationResult));
                         this.StartProductionCommand.RaiseCanExecuteChanged();
-                        this.MakeInvoiceForPaymentTaskCommand.RaiseCanExecuteChanged();
                     };
                 }
 
@@ -531,40 +524,6 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
                     }
                 },
                 () => 
-                    GlobalAppProperties.UserIsManager &&
-                    this.TechnicalRequrementsTaskWrapper != null &&
-                    this.TechnicalRequrementsTaskWrapper.HistoryElements.Any() &&
-                    this.TechnicalRequrementsTaskWrapper.HistoryElements.OrderBy(historyItem => historyItem.Moment).Last().Model.Type == TechnicalRequrementsTaskHistoryElementType.Accept &&
-                    SelectedItem is TechnicalRequrements2Wrapper);
-
-            MakeInvoiceForPaymentTaskCommand = new DelegateLogConfirmationCommand(
-                messageService, 
-                "Вы уверены, что хотите создать запрос на создание счёта?",
-                () =>
-                {
-                    if (string.IsNullOrEmpty(this.TechnicalRequrementsTaskWrapper.TceNumber))
-                    {
-                        messageService.Message("Отказ", "Вашей проработки нет в Team Center");
-                        return;
-                    }
-
-                    if (((TechnicalRequrements2Wrapper)SelectedItem).Model.SalesUnits.Any(salesUnit => salesUnit.Specification == null))
-                    {
-                        messageService.Message("Отказ", "Создайте перед этим спецификацию");
-                        return;
-                    }
-
-                    var unitOfWork = container.Resolve<IUnitOfWork>();
-
-                    unitOfWork.SaveEntity(new InvoiceForPaymentTask
-                    {
-                        TechnicalRequrements = unitOfWork.Repository<TechnicalRequrements>().GetById(((TechnicalRequrements2Wrapper)SelectedItem).Model.Id)
-                    });
-
-                    messageService.Message("Успех!", "Запрос на создание счёта успешно создан!");
-
-                },
-                () =>
                     GlobalAppProperties.UserIsManager &&
                     this.TechnicalRequrementsTaskWrapper != null &&
                     this.TechnicalRequrementsTaskWrapper.HistoryElements.Any() &&

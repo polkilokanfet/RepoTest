@@ -11,7 +11,6 @@ namespace HVTApp.DataAccess
     public partial interface IConstructorsParametersRepository : IRepository<ConstructorsParameters> { }
     public partial interface ICostsPercentsRepository : IRepository<CostsPercents> { }
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
-    public partial interface IInvoiceForPaymentTaskRepository : IRepository<InvoiceForPaymentTask> { }
     public partial interface IDesignDepartmentRepository : IRepository<DesignDepartment> { }
     public partial interface IDirectumTaskRepository : IRepository<DirectumTask> { }
     public partial interface IDirectumTaskGroupRepository : IRepository<DirectumTaskGroup> { }

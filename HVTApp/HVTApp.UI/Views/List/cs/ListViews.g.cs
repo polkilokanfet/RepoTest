@@ -2591,66 +2591,6 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
-	[Designation("Счёт на оплату (задание)")]
-	[DesignationPlural("InvoiceForPaymentTaskLookup")]
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
-    public partial class InvoiceForPaymentTaskLookupListView : ViewBase
-    {
-        public InvoiceForPaymentTaskLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public InvoiceForPaymentTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, InvoiceForPaymentTaskLookupListViewModel InvoiceForPaymentTaskLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = InvoiceForPaymentTaskLookupListViewModel;
-			InvoiceForPaymentTaskLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			((InvoiceForPaymentTaskLookupListViewModel)DataContext).Load();
-        }
-
-		#region VisibilityProps
-
-        public System.Windows.Visibility MomentVisibility
-        {
-            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Moment)].Visibility; }
-            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Moment)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.DisplayMember)].Visibility; }
-            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.DisplayMember)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility PriceEngineeringTaskVisibility
-        {
-            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.PriceEngineeringTask)].Visibility; }
-            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.PriceEngineeringTask)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility TechnicalRequrementsVisibility
-        {
-            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.TechnicalRequrements)].Visibility; }
-            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.TechnicalRequrements)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Entity)].Visibility; }
-            set { InvoiceForPaymentTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.InvoiceForPaymentTaskLookup.Entity)].Visibility = value; }
-        }
-
-
-		#endregion
-    }
-
-    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Нормо-час стоимость")]
 	[DesignationPlural("LaborHourCostLookup")]
 	[AllowEditAttribute(Infrastructure.Role.Admin)]

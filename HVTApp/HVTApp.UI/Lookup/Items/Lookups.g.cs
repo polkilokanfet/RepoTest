@@ -217,29 +217,6 @@ namespace HVTApp.UI.Lookup
         #endregion
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
-	[Designation("Счёт на оплату (задание)")]
-	public partial class InvoiceForPaymentTaskLookup : LookupItem<InvoiceForPaymentTask>
-	{
-		public InvoiceForPaymentTaskLookup(InvoiceForPaymentTask entity) : base(entity) 
-		{
-		}
-		
-        #region SimpleProperties
-		[OrderStatus(1)]
-        public System.DateTime Moment => Entity.Moment;
-
-        #endregion
-
-        #region ComplexProperties
-		[OrderStatus(1)]
-	    public PriceEngineeringTaskLookup PriceEngineeringTask { get { return GetLookup<PriceEngineeringTaskLookup>(); } }
-
-		[OrderStatus(1)]
-	    public TechnicalRequrementsLookup TechnicalRequrements { get { return GetLookup<TechnicalRequrementsLookup>(); } }
-
-        #endregion
-	}
-	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Департамент ОГК")]
 	public partial class DesignDepartmentLookup : LookupItem<DesignDepartment>
 	{

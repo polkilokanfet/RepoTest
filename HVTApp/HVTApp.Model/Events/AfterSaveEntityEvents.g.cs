@@ -11,9 +11,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveConstructorsParametersEvent : PubSubEvent<ConstructorsParameters> { }
 	public partial class AfterSaveCostsPercentsEvent : PubSubEvent<CostsPercents> { }
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
-	public partial class AfterSaveInvoiceForPaymentTaskEvent : PubSubEvent<InvoiceForPaymentTask> { }
-	public partial class AfterSaveTaskInvoiceForPaymentEvent : PubSubEvent<TaskInvoiceForPayment> { }
-	public partial class AfterSaveTaskInvoiceForPaymentItemEvent : PubSubEvent<TaskInvoiceForPaymentItem> { }
 	public partial class AfterSaveDesignDepartmentEvent : PubSubEvent<DesignDepartment> { }
 	public partial class AfterSaveDirectumTaskEvent : PubSubEvent<DirectumTask> { }
 	public partial class AfterSaveDirectumTaskGroupEvent : PubSubEvent<DirectumTaskGroup> { }
@@ -58,6 +55,8 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveStandartProductionTermEvent : PubSubEvent<StandartProductionTerm> { }
 	public partial class AfterSaveStructureCostEvent : PubSubEvent<StructureCost> { }
 	public partial class AfterSaveSupervisionEvent : PubSubEvent<Supervision> { }
+	public partial class AfterSaveTaskInvoiceForPaymentEvent : PubSubEvent<TaskInvoiceForPayment> { }
+	public partial class AfterSaveTaskInvoiceForPaymentItemEvent : PubSubEvent<TaskInvoiceForPaymentItem> { }
 	public partial class AfterSaveAnswerFileTceEvent : PubSubEvent<AnswerFileTce> { }
 	public partial class AfterSaveShippingCostFileEvent : PubSubEvent<ShippingCostFile> { }
 	public partial class AfterSaveTechnicalRequrementsEvent : PubSubEvent<TechnicalRequrements> { }

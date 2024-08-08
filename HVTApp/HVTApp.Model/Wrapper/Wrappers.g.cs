@@ -675,69 +675,6 @@ namespace HVTApp.Model.Wrapper
     }
 
 		
-    public partial class InvoiceForPaymentTaskWrapper : WrapperBase<InvoiceForPaymentTask>
-	{
-	    public InvoiceForPaymentTaskWrapper(InvoiceForPaymentTask model) : base(model) { }
-
-        #region SimpleProperties
-
-        /// <summary>
-        /// Moment
-        /// </summary>
-        public System.DateTime Moment
-        {
-          get { return Model.Moment; }
-          set { SetValue(value); }
-        }
-        public System.DateTime MomentOriginalValue => GetOriginalValue<System.DateTime>(nameof(Moment));
-        public bool MomentIsChanged => GetIsChanged(nameof(Moment));
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public System.Guid Id
-        {
-          get { return Model.Id; }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-        #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Задача ТСП
-        /// </summary>
-	    public PriceEngineeringTaskWrapper PriceEngineeringTask 
-        {
-            get { return GetWrapper<PriceEngineeringTaskWrapper>(); }
-            set { SetComplexValue<PriceEngineeringTask, PriceEngineeringTaskWrapper>(PriceEngineeringTask, value); }
-        }
-
-        /// <summary>
-        /// Задача ТСЕ
-        /// </summary>
-	    public TechnicalRequrementsWrapper TechnicalRequrements 
-        {
-            get { return GetWrapper<TechnicalRequrementsWrapper>(); }
-            set { SetComplexValue<TechnicalRequrements, TechnicalRequrementsWrapper>(TechnicalRequrements, value); }
-        }
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<PriceEngineeringTaskWrapper>(nameof(PriceEngineeringTask), Model.PriceEngineeringTask == null ? null : new PriceEngineeringTaskWrapper(Model.PriceEngineeringTask));
-            InitializeComplexProperty<TechnicalRequrementsWrapper>(nameof(TechnicalRequrements), Model.TechnicalRequrements == null ? null : new TechnicalRequrementsWrapper(Model.TechnicalRequrements));
-        }
-	}
-
-    public class InvoiceForPaymentTaskEmptyWrapper : WrapperBase<InvoiceForPaymentTask>
-	{
-	    public InvoiceForPaymentTaskEmptyWrapper(InvoiceForPaymentTask model) : base(model) { }
-    }
-
-		
     public partial class DesignDepartmentWrapper : WrapperBase<DesignDepartment>
 	{
 	    public DesignDepartmentWrapper(DesignDepartment model) : base(model) { }

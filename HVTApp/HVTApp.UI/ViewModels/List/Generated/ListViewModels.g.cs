@@ -47,11 +47,6 @@ namespace HVTApp.UI.ViewModels
         public CreateNewProductTaskLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
-	public partial class InvoiceForPaymentTaskLookupListViewModel : BaseListViewModel<InvoiceForPaymentTask, InvoiceForPaymentTaskLookup, AfterSaveInvoiceForPaymentTaskEvent, AfterSelectInvoiceForPaymentTaskEvent, AfterRemoveInvoiceForPaymentTaskEvent>
-    {
-        public InvoiceForPaymentTaskLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
 	public partial class DesignDepartmentLookupListViewModel : BaseListViewModel<DesignDepartment, DesignDepartmentLookup, AfterSaveDesignDepartmentEvent, AfterSelectDesignDepartmentEvent, AfterRemoveDesignDepartmentEvent>
     {
         public DesignDepartmentLookupListViewModel(IUnityContainer container) : base(container) { }

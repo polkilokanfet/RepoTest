@@ -43,11 +43,6 @@ namespace HVTApp.DataAccess
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class InvoiceForPaymentTaskRepositoryTest : TestBaseRepository<InvoiceForPaymentTask>, IInvoiceForPaymentTaskRepository
-    {
-        public InvoiceForPaymentTaskRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class DesignDepartmentRepositoryTest : TestBaseRepository<DesignDepartment>, IDesignDepartmentRepository
     {
         public DesignDepartmentRepositoryTest(TestData testData) : base(testData) {}

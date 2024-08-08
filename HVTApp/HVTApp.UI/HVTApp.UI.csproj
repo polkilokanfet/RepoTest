@@ -224,9 +224,6 @@
     <Compile Include="Modules\PlanAndEconomy\InformationForTeamCenter\InformationForTeamCenterManagerView.xaml.cs">
       <DependentUpon>InformationForTeamCenterManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\PlanAndEconomy\InformationForTeamCenter\InformationForTeamCenterView.xaml.cs">
-      <DependentUpon>InformationForTeamCenterView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\PaymentActualWrapper2.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\AddPaymentCommand.cs" />
     <Compile Include="Modules\PlanAndEconomy\PaymentsActual\PaymentDocument1\Commands\BasePaymentDocumentCommand.cs" />
@@ -382,13 +379,6 @@
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelManagerOldVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Converters\PriceEngineeringTaskViewModelToManagersCommentConverter.cs" />
     <Compile Include="PriceEngineering\Converters\ToFacilityOwnerConverter.cs" />
-    <Compile Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksView.xaml.cs">
-      <DependentUpon>InvoiceForPaymentTasksView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksViewModel.cs" />
-    <Compile Include="PriceEngineering\InvoiceForPayment\TabInvoiceForPaymentTasksView.xaml.cs">
-      <DependentUpon>TabInvoiceForPaymentTasksView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PriceEngineering\Statistics\PriceEngineeringStatisticsView.xaml.cs">
       <DependentUpon>PriceEngineeringStatisticsView.xaml</DependentUpon>
     </Compile>
@@ -1734,10 +1724,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\PlanAndEconomy\InformationForTeamCenter\InformationForTeamCenterView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Modules\PlanAndEconomy\SpecificationSignDates\SpecificationSignDatesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2191,14 +2177,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceCalculations\Tabs\TabPriceCalculations.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PriceEngineering\InvoiceForPayment\InvoiceForPaymentTasksView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PriceEngineering\InvoiceForPayment\TabInvoiceForPaymentTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2754,10 +2732,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\InvoiceForPaymentTaskDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Details\LaborHourCostDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -3202,10 +3176,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\InvoiceForPaymentTaskLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\List\LaborHourCostLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -3501,6 +3471,7 @@
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
     <Folder Include="Modules\Products\ProductRelations\" />
+    <Folder Include="PriceEngineering\InvoiceForPayment\" />
     <Folder Include="PriceEngineering\Tce\Unit\ViewModel\" />
     <Folder Include="PriceEngineering\Tce\Unit\View\" />
   </ItemGroup>

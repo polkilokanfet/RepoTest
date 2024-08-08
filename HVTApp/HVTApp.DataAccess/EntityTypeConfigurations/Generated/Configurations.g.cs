@@ -11,7 +11,6 @@ namespace HVTApp.DataAccess
     public partial class ConstructorsParametersConfiguration : EntityTypeConfiguration<ConstructorsParameters> { }
     public partial class CostsPercentsConfiguration : EntityTypeConfiguration<CostsPercents> { }
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
-    public partial class InvoiceForPaymentTaskConfiguration : EntityTypeConfiguration<InvoiceForPaymentTask> { }
     public partial class DesignDepartmentConfiguration : EntityTypeConfiguration<DesignDepartment> { }
     public partial class DirectumTaskConfiguration : EntityTypeConfiguration<DirectumTask> { }
     public partial class DirectumTaskGroupConfiguration : EntityTypeConfiguration<DirectumTaskGroup> { }

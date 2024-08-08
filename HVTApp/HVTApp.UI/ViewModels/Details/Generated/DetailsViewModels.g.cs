@@ -382,55 +382,6 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class InvoiceForPaymentTaskDetailsViewModel : BaseDetailsViewModel<InvoiceForPaymentTaskWrapper, InvoiceForPaymentTask, AfterSaveInvoiceForPaymentTaskEvent>
-    {
-		//private Func<Task<List<PriceEngineeringTask>>> _getEntitiesForSelectPriceEngineeringTaskCommand;
-		private Func<List<PriceEngineeringTask>> _getEntitiesForSelectPriceEngineeringTaskCommand;
-		public DelegateLogCommand SelectPriceEngineeringTaskCommand { get; private set; }
-		public DelegateLogCommand ClearPriceEngineeringTaskCommand { get; private set; }
-
-		//private Func<Task<List<TechnicalRequrements>>> _getEntitiesForSelectTechnicalRequrementsCommand;
-		private Func<List<TechnicalRequrements>> _getEntitiesForSelectTechnicalRequrementsCommand;
-		public DelegateLogCommand SelectTechnicalRequrementsCommand { get; private set; }
-		public DelegateLogCommand ClearTechnicalRequrementsCommand { get; private set; }
-
-        public InvoiceForPaymentTaskDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectPriceEngineeringTaskCommand == null) _getEntitiesForSelectPriceEngineeringTaskCommand = () => { return UnitOfWork.Repository<PriceEngineeringTask>().GetAll(); };
-			if (SelectPriceEngineeringTaskCommand == null) SelectPriceEngineeringTaskCommand = new DelegateLogCommand(SelectPriceEngineeringTaskCommand_Execute_Default);
-			if (ClearPriceEngineeringTaskCommand == null) ClearPriceEngineeringTaskCommand = new DelegateLogCommand(ClearPriceEngineeringTaskCommand_Execute_Default);
-
-			
-			if (_getEntitiesForSelectTechnicalRequrementsCommand == null) _getEntitiesForSelectTechnicalRequrementsCommand = () => { return UnitOfWork.Repository<TechnicalRequrements>().GetAll(); };
-			if (SelectTechnicalRequrementsCommand == null) SelectTechnicalRequrementsCommand = new DelegateLogCommand(SelectTechnicalRequrementsCommand_Execute_Default);
-			if (ClearTechnicalRequrementsCommand == null) ClearTechnicalRequrementsCommand = new DelegateLogCommand(ClearTechnicalRequrementsCommand_Execute_Default);
-
-		}
-
-		private void SelectPriceEngineeringTaskCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<PriceEngineeringTask, PriceEngineeringTaskWrapper>(_getEntitiesForSelectPriceEngineeringTaskCommand(), nameof(Item.PriceEngineeringTask), Item.PriceEngineeringTask?.Id);
-		}
-
-		private void ClearPriceEngineeringTaskCommand_Execute_Default() 
-		{
-						Item.PriceEngineeringTask = null;		    
-		}
-
-		private void SelectTechnicalRequrementsCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TechnicalRequrements, TechnicalRequrementsWrapper>(_getEntitiesForSelectTechnicalRequrementsCommand(), nameof(Item.TechnicalRequrements), Item.TechnicalRequrements?.Id);
-		}
-
-		private void ClearTechnicalRequrementsCommand_Execute_Default() 
-		{
-						Item.TechnicalRequrements = null;		    
-		}
-
-
-    }
-
     public partial class DesignDepartmentDetailsViewModel : BaseDetailsViewModel<DesignDepartmentWrapper, DesignDepartment, AfterSaveDesignDepartmentEvent>
     {
 		//private Func<Task<List<User>>> _getEntitiesForSelectHeadCommand;

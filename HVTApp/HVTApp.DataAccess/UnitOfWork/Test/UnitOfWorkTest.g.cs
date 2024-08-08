@@ -15,7 +15,6 @@ namespace HVTApp.DataAccess
             ConstructorsParametersRepository = new ConstructorsParametersRepositoryTest(testData);
             CostsPercentsRepository = new CostsPercentsRepositoryTest(testData);
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
-            InvoiceForPaymentTaskRepository = new InvoiceForPaymentTaskRepositoryTest(testData);
             DesignDepartmentRepository = new DesignDepartmentRepositoryTest(testData);
             DirectumTaskRepository = new DirectumTaskRepositoryTest(testData);
             DirectumTaskGroupRepository = new DirectumTaskGroupRepositoryTest(testData);
@@ -126,7 +125,6 @@ namespace HVTApp.DataAccess
         public IConstructorsParametersRepository ConstructorsParametersRepository { get; }
         public ICostsPercentsRepository CostsPercentsRepository { get; }
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
-        public IInvoiceForPaymentTaskRepository InvoiceForPaymentTaskRepository { get; }
         public IDesignDepartmentRepository DesignDepartmentRepository { get; }
         public IDirectumTaskRepository DirectumTaskRepository { get; }
         public IDirectumTaskGroupRepository DirectumTaskGroupRepository { get; }

@@ -43,10 +43,6 @@ namespace HVTApp.UI
             //_dialogService.Register<CreateNewProductTaskDetailsViewModel, CreateNewProductTaskDetailsView>();
 			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();
             _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
-            Container.RegisterViewForNavigation<InvoiceForPaymentTaskLookupListView>();
-            //_dialogService.Register<InvoiceForPaymentTaskDetailsViewModel, InvoiceForPaymentTaskDetailsView>();
-			_selectService.Register<InvoiceForPaymentTaskLookupListView, InvoiceForPaymentTask>();
-            _updateDetailsService.Register<InvoiceForPaymentTask, InvoiceForPaymentTaskDetailsView>();
             Container.RegisterViewForNavigation<DesignDepartmentLookupListView>();
             //_dialogService.Register<DesignDepartmentDetailsViewModel, DesignDepartmentDetailsView>();
 			_selectService.Register<DesignDepartmentLookupListView, DesignDepartment>();
@@ -223,6 +219,14 @@ namespace HVTApp.UI
             //_dialogService.Register<SupervisionDetailsViewModel, SupervisionDetailsView>();
 			_selectService.Register<SupervisionLookupListView, Supervision>();
             _updateDetailsService.Register<Supervision, SupervisionDetailsView>();
+            Container.RegisterViewForNavigation<TaskInvoiceForPaymentLookupListView>();
+            //_dialogService.Register<TaskInvoiceForPaymentDetailsViewModel, TaskInvoiceForPaymentDetailsView>();
+			_selectService.Register<TaskInvoiceForPaymentLookupListView, TaskInvoiceForPayment>();
+            _updateDetailsService.Register<TaskInvoiceForPayment, TaskInvoiceForPaymentDetailsView>();
+            Container.RegisterViewForNavigation<TaskInvoiceForPaymentItemLookupListView>();
+            //_dialogService.Register<TaskInvoiceForPaymentItemDetailsViewModel, TaskInvoiceForPaymentItemDetailsView>();
+			_selectService.Register<TaskInvoiceForPaymentItemLookupListView, TaskInvoiceForPaymentItem>();
+            _updateDetailsService.Register<TaskInvoiceForPaymentItem, TaskInvoiceForPaymentItemDetailsView>();
             Container.RegisterViewForNavigation<AnswerFileTceLookupListView>();
             //_dialogService.Register<AnswerFileTceDetailsViewModel, AnswerFileTceDetailsView>();
 			_selectService.Register<AnswerFileTceLookupListView, AnswerFileTce>();

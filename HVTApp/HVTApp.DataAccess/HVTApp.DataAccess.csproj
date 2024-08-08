@@ -105,7 +105,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\IncomingRequestConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\InvoiceForPaymentTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LaborHoursConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LogUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
@@ -508,6 +507,10 @@
     <Compile Include="Migrations\202407100500194_SpecificationUpdate.designer.cs">
       <DependentUpon>202407100500194_SpecificationUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202408081132083_InvoiceForPaymentTaskRemove.cs" />
+    <Compile Include="Migrations\202408081132083_InvoiceForPaymentTaskRemove.designer.cs">
+      <DependentUpon>202408081132083_InvoiceForPaymentTaskRemove.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -838,6 +841,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407100500194_SpecificationUpdate.resx">
       <DependentUpon>202407100500194_SpecificationUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408081132083_InvoiceForPaymentTaskRemove.resx">
+      <DependentUpon>202408081132083_InvoiceForPaymentTaskRemove.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

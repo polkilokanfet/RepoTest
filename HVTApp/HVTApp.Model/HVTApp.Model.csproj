@@ -112,7 +112,6 @@
     <Compile Include="POCOs\CostsPercents.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
-    <Compile Include="POCOs\InvoiceForPaymentTask.cs" />
     <Compile Include="POCOs\PriceEngineering\DesignDepartment.cs" />
     <Compile Include="POCOs\Directum\DirectumTask.cs" />
     <Compile Include="POCOs\Directum\DirectumTaskGroup.cs" />
