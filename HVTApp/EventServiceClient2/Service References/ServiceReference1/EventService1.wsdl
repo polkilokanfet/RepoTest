@@ -56,11 +56,11 @@
   <wsdl:message name="IEventService_SendMessageToUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToUserResponse" />
   </wsdl:message>
-  <wsdl:message name="IEventService_NotificationEvent_InputMessage">
-    <wsdl:part name="parameters" element="tns:NotificationEvent" />
+  <wsdl:message name="IEventService_SendNotificationToService_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToService" />
   </wsdl:message>
-  <wsdl:message name="IEventService_NotificationEvent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:NotificationEventResponse" />
+  <wsdl:message name="IEventService_SendNotificationToService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationToServiceResponse" />
   </wsdl:message>
   <wsdl:message name="IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage">
     <wsdl:part name="parameters" element="tns:PriceEngineeringTaskSendMessagePublishEvent" />
@@ -123,9 +123,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SendMessageToUser" message="tns:IEventService_SendMessageToUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SendMessageToUserResponse" message="tns:IEventService_SendMessageToUser_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="NotificationEvent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/NotificationEvent" message="tns:IEventService_NotificationEvent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/NotificationEventResponse" message="tns:IEventService_NotificationEvent_OutputMessage" />
+    <wsdl:operation name="SendNotificationToService">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEventService/SendNotificationToService" message="tns:IEventService_SendNotificationToService_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEventService/SendNotificationToServiceResponse" message="tns:IEventService_SendNotificationToService_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="PriceEngineeringTaskSendMessagePublishEvent">
       <wsdl:input wsaw:Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent" message="tns:IEventService_PriceEngineeringTaskSendMessagePublishEvent_InputMessage" />
@@ -213,8 +213,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="NotificationEvent">
-      <soap12:operation soapAction="http://tempuri.org/IEventService/NotificationEvent" style="document" />
+    <wsdl:operation name="SendNotificationToService">
+      <soap12:operation soapAction="http://tempuri.org/IEventService/SendNotificationToService" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -1,5 +1,6 @@
 using System;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure.Enums;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.EventService
@@ -49,7 +50,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
         #endregion
 
         [OperationContract]
-        bool NotificationEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, NotificationActionType actionType);
+        Task<bool> SendNotificationToServiceAsync(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, NotificationActionType actionType);
 
         [OperationContract]
         bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid messageId);

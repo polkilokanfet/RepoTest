@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
+using System.Text;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
@@ -127,23 +128,81 @@ namespace EventService
             this.Disconnect(appSession.AppSessionId);
         }
 
-        public bool NotificationEvent(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, NotificationActionType actionType)
+        //public bool SendNotificationToService(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, NotificationActionType actionType)
+        //{
+        //    bool result = false;
+
+        //    //целевые приложения (без того, которое и послало событие).
+        //    var targetAppSessions = _appSessions
+        //        .Where(appSession => appSession.UserId == userTargetId && 
+        //                             appSession.UserRole == userTargetRole && 
+        //                             appSession.AppSessionId != eventSourceAppSessionId)
+        //        .ToList();
+
+        //    PrintMessageEvent?.Invoke("-------------------");
+        //    PrintMessageEvent?.Invoke($"Invoke {nameof(SendNotificationToService)} {actionType} (sourceEventAppSessionId: {eventSourceAppSessionId} targetUserId: {userTargetId}");
+
+        //    if (targetAppSessions.Any() == false)
+        //    {
+        //        PrintMessageEvent?.Invoke($" - Service have no target connected user (role: {userTargetRole}, userId: {userTargetId})");
+        //    }
+        //    else
+        //    {
+        //        foreach (var appSession in targetAppSessions)
+        //        {
+        //            new Task(() =>
+        //            {
+        //                result = appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnNotificationCallback(actionType, priceEngineeringTaskId);
+        //            }).Await();
+
+        //            try
+        //            {
+        //                if (appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnNotificationCallback(actionType, priceEngineeringTaskId))
+        //                {
+        //                    result = true;
+        //                    PrintMessageEvent?.Invoke($" + Success ({appSession})");
+        //                }
+        //            }
+        //            //отключаем приложение от сервиса
+        //            catch (CommunicationObjectAbortedException e)
+        //            {
+        //                OnPublishEventByServiceForUserException(e, appSession);
+        //            }
+        //            catch (TimeoutException e)
+        //            {
+        //                OnPublishEventByServiceForUserException(e, appSession);
+        //            }
+        //            catch (Exception e)
+        //            {
+        //                PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} ({appSession})");
+        //                PrintMessageEvent?.Invoke($"!Exception on Invoke {nameof(SendNotificationToService)} ({this.GetType().FullName}) by appSession {eventSourceAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
+        //                this.Disconnect(appSession.AppSessionId);
+        //            }
+        //        }
+        //    }
+
+        //    PrintMessageEvent?.Invoke("-------------------");
+
+        //    return result;
+        //}
+
+        #region PriceEngineeringTasks
+
+        public async Task<bool> SendNotificationToServiceAsync(Guid eventSourceAppSessionId, Guid userAuthorId, Guid userTargetId, Role userTargetRole, Guid priceEngineeringTaskId, NotificationActionType actionType)
         {
             bool result = false;
 
             //целевые приложения (без того, которое и послало событие).
             var targetAppSessions = _appSessions
-                .Where(appSession => appSession.UserId == userTargetId && 
-                                     appSession.UserRole == userTargetRole && 
+                .Where(appSession => appSession.UserId == userTargetId &&
+                                     appSession.UserRole == userTargetRole &&
                                      appSession.AppSessionId != eventSourceAppSessionId)
                 .ToList();
 
-            PrintMessageEvent?.Invoke("-------------------");
-            PrintMessageEvent?.Invoke($"Invoke {nameof(NotificationEvent)} {actionType} (sourceEventAppSessionId: {eventSourceAppSessionId} targetUserId: {userTargetId}");
-
+            var s = $"Invoke {nameof(SendNotificationToServiceAsync)} {actionType} (sourceEventAppSessionId: {eventSourceAppSessionId} targetUserId: {userTargetId}";
             if (targetAppSessions.Any() == false)
             {
-                PrintMessageEvent?.Invoke($" - Service have no target connected user (role: {userTargetRole}, userId: {userTargetId})");
+                PrintMessageEvent?.Invoke($"- [{s}]: Service have no target connected user (role: {userTargetRole}, userId: {userTargetId})");
             }
             else
             {
@@ -151,10 +210,14 @@ namespace EventService
                 {
                     try
                     {
-                        if (appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnNotificationCallback(actionType, priceEngineeringTaskId))
+                        await Task.Run(() =>
                         {
-                            result = true;
-                            PrintMessageEvent?.Invoke($" + Success ({appSession})");
+                            result = appSession.OperationContext.GetCallbackChannel<IEventServiceCallback>().OnNotificationCallback(actionType, priceEngineeringTaskId);
+                        });
+
+                        if (result == true)
+                        {
+                            PrintMessageEvent?.Invoke($"+ [{s}]: Success ({appSession})");
                         }
                     }
                     //отключаем приложение от сервиса
@@ -168,19 +231,16 @@ namespace EventService
                     }
                     catch (Exception e)
                     {
-                        PrintMessageEvent?.Invoke($" - Faulted {e.GetType().FullName} ({appSession})");
-                        PrintMessageEvent?.Invoke($"!Exception on Invoke {nameof(NotificationEvent)} ({this.GetType().FullName}) by appSession {eventSourceAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
+                        PrintMessageEvent?.Invoke($"- [{s}] Faulted {e.GetType().FullName} ({appSession})");
+                        PrintMessageEvent?.Invoke($"!Exception on Invoke {nameof(SendNotificationToServiceAsync)} ({this.GetType().FullName}) by appSession {eventSourceAppSessionId}. \n{e.GetType().FullName}\n{e.PrintAllExceptions()}");
                         this.Disconnect(appSession.AppSessionId);
                     }
                 }
             }
 
-            PrintMessageEvent?.Invoke("-------------------");
-
             return result;
-        }
 
-        #region PriceEngineeringTasks
+        }
 
         public bool PriceEngineeringTaskSendMessagePublishEvent(Guid eventSourceAppSessionId, Guid targetUserId, Role targetRole, Guid messageId)
         {

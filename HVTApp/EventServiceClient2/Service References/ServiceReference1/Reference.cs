@@ -51,11 +51,11 @@ namespace EventServiceClient2.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendMessageToUser", ReplyAction="http://tempuri.org/IEventService/SendMessageToUserResponse")]
         System.Threading.Tasks.Task SendMessageToUserAsync(System.Guid authorId, System.Guid recipientId, string message);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/NotificationEvent", ReplyAction="http://tempuri.org/IEventService/NotificationEventResponse")]
-        bool NotificationEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendNotificationToService", ReplyAction="http://tempuri.org/IEventService/SendNotificationToServiceResponse")]
+        bool SendNotificationToService(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/NotificationEvent", ReplyAction="http://tempuri.org/IEventService/NotificationEventResponse")]
-        System.Threading.Tasks.Task<bool> NotificationEventAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/SendNotificationToService", ReplyAction="http://tempuri.org/IEventService/SendNotificationToServiceResponse")]
+        System.Threading.Tasks.Task<bool> SendNotificationToServiceAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEvent", ReplyAction="http://tempuri.org/IEventService/PriceEngineeringTaskSendMessagePublishEventRespo" +
             "nse")]
@@ -169,12 +169,12 @@ namespace EventServiceClient2.ServiceReference1 {
             return base.Channel.SendMessageToUserAsync(authorId, recipientId, message);
         }
         
-        public bool NotificationEvent(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType) {
-            return base.Channel.NotificationEvent(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, actionType);
+        public bool SendNotificationToService(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType) {
+            return base.Channel.SendNotificationToService(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, actionType);
         }
         
-        public System.Threading.Tasks.Task<bool> NotificationEventAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType) {
-            return base.Channel.NotificationEventAsync(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, actionType);
+        public System.Threading.Tasks.Task<bool> SendNotificationToServiceAsync(System.Guid eventSourceAppSessionId, System.Guid userAuthorId, System.Guid userTargetId, HVTApp.Infrastructure.Role userTargetRole, System.Guid priceEngineeringTaskId, HVTApp.Infrastructure.Enums.NotificationActionType actionType) {
+            return base.Channel.SendNotificationToServiceAsync(eventSourceAppSessionId, userAuthorId, userTargetId, userTargetRole, priceEngineeringTaskId, actionType);
         }
         
         public bool PriceEngineeringTaskSendMessagePublishEvent(System.Guid eventSourceAppSessionId, System.Guid targetUserId, HVTApp.Infrastructure.Role targetRole, System.Guid messageId) {

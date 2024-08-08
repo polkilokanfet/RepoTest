@@ -84,7 +84,7 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="NotificationEvent">
+  <xs:element name="SendNotificationToService">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="eventSourceAppSessionId" type="q9:guid" />
@@ -96,10 +96,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="NotificationEventResponse">
+  <xs:element name="SendNotificationToServiceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="NotificationEventResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="SendNotificationToServiceResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

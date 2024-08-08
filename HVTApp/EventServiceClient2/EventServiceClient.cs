@@ -61,13 +61,6 @@ namespace EventServiceClient2
                 this.StopWaitRestart(); //очистить следы от предыдущего подключения, подождать и рестартануть
 
             return result;
-
-            //Task.Run(
-            //    () =>
-            //    {
-            //        if (this.Connect() == false)
-            //            this.StopWaitRestart(); //очистить следы от предыдущего подключения, подождать и рестартануть
-            //    }).Await();
         }
 
         private async Task<bool> ConnectAsync()
@@ -104,7 +97,9 @@ namespace EventServiceClient2
             try
             {
                 if (HostIsEnabled)
+                {
                     await EventServiceHost.DisconnectAsync(AppSessionId);
+                }
             }
             catch (Exception e)
             {
@@ -124,11 +119,6 @@ namespace EventServiceClient2
             await Stop();
             //Thread.Sleep(new TimeSpan(0, 0, 0, 5));
             await this.Start();
-
-            //new Action(async () =>
-            //{
-            //    await this.Start();
-            //}).SleepThenExecuteInAnotherThread(5);
         }
 
         #region Ping
@@ -138,6 +128,7 @@ namespace EventServiceClient2
         /// </summary>
         private void PingHost()
         {
+            return;
             new Action(() =>
             {
                 if (HostIsEnabled)
@@ -182,53 +173,27 @@ namespace EventServiceClient2
 
         public async Task<bool> SendNotificationAsync(NotificationUnit unit)
         {
-            if (!this.HostIsEnabled) return false;
-
-            try
+            if (this.HostIsEnabled)
             {
-                var senderId = unit.SenderUser?.Id ?? unit.SenderUserId;
-                var recipientId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
-                return await EventServiceHost.NotificationEventAsync(
-                    this.AppSessionId,
-                    senderId,
-                    recipientId,
-                    unit.RecipientRole,
-                    unit.TargetEntityId,
-                    unit.ActionType);
-            }
-            catch
-            {
-                StopWaitRestart();
+                try
+                {
+                    var senderId = unit.SenderUser?.Id ?? unit.SenderUserId;
+                    var recipientId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
+                    return await EventServiceHost.SendNotificationToServiceAsync(
+                        this.AppSessionId,
+                        senderId,
+                        recipientId,
+                        unit.RecipientRole,
+                        unit.TargetEntityId,
+                        unit.ActionType);
+                }
+                catch
+                {
+                    StopWaitRestart();
+                }
             }
 
             return false;
-
-            //var result = false;
-
-            //try
-            //{
-            //    var senderId = unit.SenderUser?.Id ?? unit.SenderUserId;
-            //    var recipientId = unit.RecipientUser?.Id ?? unit.RecipientUserId;
-
-            //    result = EventServiceHost.NotificationEvent(
-            //        this.AppSessionId,
-            //        senderId,
-            //        recipientId,
-            //        unit.RecipientRole,
-            //        unit.TargetEntityId, 
-            //        unit.ActionType);
-            //}
-            ////хост недоступен
-            //catch (TimeoutException)
-            //{
-            //    StopWaitRestart();
-            //}
-            //catch
-            //{
-            //    StopWaitRestart();
-            //}
-
-            //return result;
         }
     }
 }
