@@ -14,8 +14,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
         public int Amount => _salesUnits.Count;
         public DateTime EndProductionDate { get; }
         public DateTime EndProductionPlanDate { get; }
-        public int EndProductionPlanDateYear { get; }
-        public int EndProductionPlanDateMonth { get; }
+        public int? EndProductionPlanDateYear { get; }
+        public int? EndProductionPlanDateMonth { get; }
         public Order Order { get; }
         public DateTime OrderOpenDate { get; }
         public User Manager { get; }

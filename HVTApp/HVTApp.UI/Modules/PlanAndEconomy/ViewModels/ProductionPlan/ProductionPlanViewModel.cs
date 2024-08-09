@@ -74,7 +74,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                     EndProductionPlanDate = salesUnit.EndProductionPlanDate,
                     OrderId = salesUnit.Order.Id
                 })
-                .Select(x => new OrderItem(x))
+                .Select(units => new OrderItem(units))
                 .OrderByDescending(orderItem => orderItem.EndProductionPlanDate)
                 .ToList();
         }

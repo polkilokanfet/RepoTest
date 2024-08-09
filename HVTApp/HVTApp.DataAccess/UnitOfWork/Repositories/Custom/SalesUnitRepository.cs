@@ -74,6 +74,7 @@ namespace HVTApp.DataAccess
                 .Include(salesUnit => salesUnit.Facility.Type)
                 .Include(salesUnit => salesUnit.Product.ProductBlock.Parameters)
                 .Include(salesUnit => salesUnit.Project.Manager.Employee.Person)
+                .Where(salesUnit => salesUnit.EndProductionPlanDate != null)
                 .Where(salesUnit => salesUnit.Order != null);
         }
 
