@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="InfragisticsWPF, Version=21.1.20211.27, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <HintPath>..\packages\Infragistics.WPF.21.1.27\lib\net40\InfragisticsWPF.dll</HintPath>
-    </Reference>
     <Reference Include="InfragisticsWPF4.Controls.Menus.XamDataTree.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HVTApp.Modules.SupplyModule\bin\Debug\InfragisticsWPF4.Controls.Menus.XamDataTree.v15.1.dll</HintPath>
