@@ -7,8 +7,8 @@ namespace HVTApp.Infrastructure
     {
         public BindableBase ViewModel
         {
-            get { return (BindableBase)DataContext; }
-            set { DataContext = value; }
+            get => (BindableBase)DataContext;
+            set => DataContext = value;
         }
     }
 }

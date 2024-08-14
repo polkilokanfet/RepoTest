@@ -48,8 +48,7 @@ namespace HVTApp.Infrastructure.Prism
 
         private static void OnCommandParameterChangeCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            XamDataTree menuItem = d as XamDataTree;
-            if (menuItem != null)
+            if (d is XamDataTree menuItem)
             {
                 XamDataTreeCommandBehavior behavior = GetOrCreateCommandBehavior(menuItem);
                 behavior.CommandParameter = e.NewValue;

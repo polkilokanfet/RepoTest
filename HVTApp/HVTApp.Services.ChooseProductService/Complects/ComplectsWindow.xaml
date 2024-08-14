@@ -12,7 +12,7 @@
             <Button Content="Выбрать" Command="{Binding SelectCommand}" Margin="5,10" Padding="5"/>
             <Button Content="Создать" Command="{Binding NewComplectCommand}" Margin="5,10" Padding="5"/>
         </StackPanel>
-        
+
 		<dataPresenter:XamDataGrid x:Name="ProductListGrid"
                                    DataSource="{Binding Items}"
                                    SelectedDataItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
