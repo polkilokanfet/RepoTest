@@ -752,7 +752,6 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
-
         #endregion
 
         public int? GetOrderPosition()

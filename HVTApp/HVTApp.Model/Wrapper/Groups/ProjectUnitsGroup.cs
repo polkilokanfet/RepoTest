@@ -81,7 +81,7 @@ namespace HVTApp.Model.Wrapper.Groups
 
         public override string ToString()
         {
-            return $"ProjectUnitsGroup: {Facility} = {Product} = {Amount} רע.";
+            return $"{Product} הכÿ {Facility} ({Amount} רע.)";
         }
     }
 }

@@ -28,17 +28,31 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             var unitOfWork = _container.Resolve<IUnitOfWork>();
             var salesUnits = unitOfWork.Repository<SalesUnit>()
                 .Find(salesUnit => salesUnit.Project.Id == _viewModel.SelectedProjectItem.Project.Id)
-                .Where(salesUnit => !salesUnit.IsRemoved)
+                .Where(salesUnit => salesUnit.IsRemoved == false)
                 .ToList();
 
             if (salesUnits.Any(salesUnit => salesUnit.Order != null))
             {
-                _messageService.Message("Информация", "Нельзя удалить проект целиком, т.к. в нем есть оборудование, размещенное в производстве.");
+                _messageService.Message("Нельзя удалить проект целиком", "В проекте есть оборудование, размещенное в производстве.");
+                return;
+            }
+
+            var tasks = unitOfWork.Repository<PriceEngineeringTask>().Find(x => x.SalesUnits.Intersect(salesUnits).Any());
+            if (tasks.Any())
+            {
+                _messageService.Message("Нельзя удалить проект целиком", "В проекте есть оборудование, размещенное в ТСП.");
+                return;
+            }
+
+            var requrements = unitOfWork.Repository<TechnicalRequrements>().Find(x => x.SalesUnits.Intersect(salesUnits).Any());
+            if (requrements.Any())
+            {
+                _messageService.Message("Нельзя удалить проект целиком", "В проекте есть оборудование, размещенное в ТСЕ.");
                 return;
             }
 
             //проверяем не включено ли оборудование в какой-либо бюджет
-            var budgetUnits = unitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
+            var budgetUnits = unitOfWork.Repository<BudgetUnit>().Find(budgetUnit => budgetUnit.IsRemoved == false);
             var idIntersection = salesUnits.Select(salesUnit => salesUnit.Id).Intersect(budgetUnits.Select(budgetUnit => budgetUnit.SalesUnit.Id)).ToList();
             if (idIntersection.Any())
             {

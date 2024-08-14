@@ -15,7 +15,6 @@ using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Project1;
-using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -28,9 +27,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         protected override bool CanRemoveGroup(ProjectUnitsGroup targetGroup)
         {
-            if (!targetGroup.CanRemove)
+            if (targetGroup.CanRemove == false)
             {
-                Container.Resolve<IMessageService>().Message("Информация", "Удаление невозможно, т.к. это оборудование размещено в производстве.");
+                Container.Resolve<IMessageService>().Message("Удаление невозможно", $"Оборудованию ({targetGroup}) присвоен заводской заказ.");
                 return targetGroup.CanRemove;
             }
             return true;
@@ -40,14 +39,21 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         {
             var salesUnits = targetGroup.Groups == null
                 ? new List<SalesUnit> {targetGroup.SalesUnit}
-                : new List<SalesUnit>(targetGroup.Groups.Select(x => x.SalesUnit));
+                : new List<SalesUnit>(targetGroup.Groups.Select(projectUnitsGroup => projectUnitsGroup.SalesUnit));
+
+            //если ни один юнит ещё не сохранен в БД
+            if (salesUnits.All(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id) == null))
+            {
+                base.RemoveGroup(targetGroup);
+                return;
+            }
 
             //проверяем не включено ли оборудование в какой-либо бюджет
-            var budgetUnits = UnitOfWork.Repository<BudgetUnit>().Find(x => !x.IsRemoved);
-
+            var budgetUnits = UnitOfWork.Repository<BudgetUnit>().Find(budgetUnit => budgetUnit.IsRemoved == false);
             var idIntersection = salesUnits
                 .Select(salesUnit => salesUnit.Id)
-                .Intersect(budgetUnits.Select(budgetUnit => budgetUnit.SalesUnit.Id)).ToList();
+                .Intersect(budgetUnits.Select(budgetUnit => budgetUnit.SalesUnit.Id))
+                .ToList();
             if (idIntersection.Any())
             {
                 var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Это оборудование включено в бюджет. Вы уверены, что хотите удалить его?");
@@ -59,8 +65,19 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             }
 
             //проверка на включение в задачи ТСП
-            var salesUnitsInTasks = UnitOfWork.Repository<PriceEngineeringTask>().GetAll().SelectMany(x => x.SalesUnits);
+            var salesUnitsInTasks = UnitOfWork.Repository<PriceEngineeringTask>()
+                .Find(priceEngineeringTask => priceEngineeringTask.SalesUnits.Any())
+                .SelectMany(priceEngineeringTask => priceEngineeringTask.SalesUnits);
             foreach (var salesUnit in salesUnits.Intersect(salesUnitsInTasks))
+            {
+                salesUnit.IsRemoved = true;
+            }
+
+            //проверка на включение в задачи TCE
+            var salesUnitsInTce = UnitOfWork.Repository<TechnicalRequrements>()
+                .Find(technicalRequrements => technicalRequrements.SalesUnits.Any())
+                .SelectMany(technicalRequrements => technicalRequrements.SalesUnits);
+            foreach (var salesUnit in salesUnits.Intersect(salesUnitsInTce))
             {
                 salesUnit.IsRemoved = true;
             }
