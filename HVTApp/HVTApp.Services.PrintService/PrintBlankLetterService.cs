@@ -1,9 +1,4 @@
-﻿using System;
-using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extensions;
-using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Services.PrintService.Extensions;
 using Infragistics.Documents.Word;
