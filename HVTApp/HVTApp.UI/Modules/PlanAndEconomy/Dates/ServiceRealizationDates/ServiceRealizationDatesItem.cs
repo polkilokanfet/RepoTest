@@ -25,7 +25,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates
         private void SetValueNew<TValue>(TValue newValue, [CallerMemberName] string propertyName = null)
         {
             this.SetValue(newValue, propertyName);
-            OnPropertyChanged(nameof(HasFullInformation));
+            RaisePropertyChanged(nameof(HasFullInformation));
             SettedValueToProperty?.Invoke();
         }
     }

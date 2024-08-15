@@ -80,7 +80,7 @@ namespace HVTApp.Model.Wrapper.Base
             _trackingObjects.ForEach(x => x.AcceptChanges());
             AcceptWrappers();
             //обновляем в WPF весь объект целиком.
-            OnPropertyChanged("");
+            RaisePropertyChanged("");
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace HVTApp.Model.Wrapper.Base
             Validate();
 
             //обновляем в WPF весь объект целиком.
-            OnPropertyChanged("");
+            RaisePropertyChanged("");
         }
 
         /// <summary>
@@ -209,9 +209,9 @@ namespace HVTApp.Model.Wrapper.Base
                 CurrentWrappers[propertyName] = newValue;
 
                 Validate();
-                OnPropertyChanged(propertyName);
-                OnPropertyChanged(propertyName + "IsChanged");
-                OnPropertyChanged(nameof(IsChanged));
+                RaisePropertyChanged(propertyName);
+                RaisePropertyChanged(propertyName + "IsChanged");
+                RaisePropertyChanged(nameof(IsChanged));
             }
         }
 
@@ -260,14 +260,14 @@ namespace HVTApp.Model.Wrapper.Base
                 {
                     //удаляем значение свойства из списка измененных значений.
                     _originalValues.Remove(propertyName);
-                    OnPropertyChanged(nameof(IsChanged));
+                    RaisePropertyChanged(nameof(IsChanged));
                 }
             }
             else
             {
                 //добавляем значение свойства в список измененных значений.
                 _originalValues.Add(propertyName, originalValue);
-                OnPropertyChanged(nameof(IsChanged));
+                RaisePropertyChanged(nameof(IsChanged));
             }
         }
 
@@ -281,14 +281,14 @@ namespace HVTApp.Model.Wrapper.Base
                 {
                     //удаляем значение свойства из списка измененных значений.
                     _originalValues.Remove(propertyName);
-                    OnPropertyChanged(nameof(IsChanged));
+                    RaisePropertyChanged(nameof(IsChanged));
                 }
             }
             else
             {
                 //добавляем значение свойства в список измененных значений.
                 _originalValues.Add(propertyName, originalValue);
-                OnPropertyChanged(nameof(IsChanged));
+                RaisePropertyChanged(nameof(IsChanged));
             }
         }
 
@@ -408,8 +408,8 @@ namespace HVTApp.Model.Wrapper.Base
         /// <param name="propertyChangedEventArgs"></param>
         private void TrackingObjectOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
-            if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
+            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) RaisePropertyChanged(nameof(IsChanged));
+            if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) RaisePropertyChanged(nameof(IsValid));
         }
 
         /// <summary>
@@ -473,7 +473,7 @@ namespace HVTApp.Model.Wrapper.Base
 
         public void Refresh()
         {
-            OnPropertyChanged(string.Empty);
+            RaisePropertyChanged(string.Empty);
         }
     }
 

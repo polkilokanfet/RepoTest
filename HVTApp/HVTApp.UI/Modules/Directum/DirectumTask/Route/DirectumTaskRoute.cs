@@ -155,7 +155,7 @@ namespace HVTApp.UI.Modules.Directum
             set
             {
                 _isParallel = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

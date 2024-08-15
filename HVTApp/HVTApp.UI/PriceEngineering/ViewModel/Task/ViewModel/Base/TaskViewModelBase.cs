@@ -213,16 +213,16 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     return new List<PriceEngineeringTaskFileAnswerWrapper>();
-                    var fs = this.Container.Resolve<IFilesStorageService>();
-                    return Model
-                        .GetTopPriceEngineeringTask(this.UnitOfWork)
-                        .GetAllPriceEngineeringTasks()
-                        .SelectMany(x => x.FilesAnswers)
-                        .Distinct()
-                        .Select(x => new PriceEngineeringTaskFileAnswerWrapper(x)
-                        {
-                            Path = fs.FindFile(x.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath).FullName
-                        });
+                    //var fs = this.Container.Resolve<IFilesStorageService>();
+                    //return Model
+                    //    .GetTopPriceEngineeringTask(this.UnitOfWork)
+                    //    .GetAllPriceEngineeringTasks()
+                    //    .SelectMany(x => x.FilesAnswers)
+                    //    .Distinct()
+                    //    .Select(x => new PriceEngineeringTaskFileAnswerWrapper(x)
+                    //    {
+                    //        Path = fs.FindFile(x.Id, GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath).FullName
+                    //    });
                 });
             RegisterCollection(FilesAnswers, Model.FilesAnswers);
 

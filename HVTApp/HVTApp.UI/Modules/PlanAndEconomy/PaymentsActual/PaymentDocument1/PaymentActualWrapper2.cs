@@ -19,7 +19,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             set
             {
                 Sum = value / ((100.0 + SalesUnit.Vat) / 100.0);
-                this.OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -38,8 +38,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             {
                 if (args.PropertyName == nameof(Sum))
                 {
-                    OnPropertyChanged(nameof(SumWithVat));
-                    OnPropertyChanged(nameof(SumNotPaidWithVat));
+                    RaisePropertyChanged(nameof(SumWithVat));
+                    RaisePropertyChanged(nameof(SumNotPaidWithVat));
                 }
             };
         }

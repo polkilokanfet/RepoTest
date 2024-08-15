@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Shippings
             {
                 if (Model.ShipmentDate.HasValue) return;
                 ShipmentPlanDate = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

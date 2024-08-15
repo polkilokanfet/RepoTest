@@ -85,9 +85,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
         protected override DateTime GetPriceDate(ProjectUnitsGroup @group)
         {
             return @group.RealizationDateCalculated;
-            var spec = @group.Specification;
-            if (spec == null || spec.Model.Date == default(DateTime)) return DateTime.Today;
-            return spec.Model.Date < DateTime.Today ? spec.Model.Date : DateTime.Today;
+            //var spec = @group.Specification;
+            //if (spec == null || spec.Model.Date == default(DateTime)) return DateTime.Today;
+            //return spec.Model.Date < DateTime.Today ? spec.Model.Date : DateTime.Today;
         }
 
         public override void AcceptChanges()

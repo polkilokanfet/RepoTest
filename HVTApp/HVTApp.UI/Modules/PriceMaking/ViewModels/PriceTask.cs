@@ -76,10 +76,10 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
 
         private void RefreshProperties()
         {
-            OnPropertyChanged(nameof(HasReasons));
-            OnPropertyChanged(nameof(SpecificationsCount));
-            OnPropertyChanged(nameof(OffersCount));
-            OnPropertyChanged(nameof(ProjectsCount));
+            RaisePropertyChanged(nameof(HasReasons));
+            RaisePropertyChanged(nameof(SpecificationsCount));
+            RaisePropertyChanged(nameof(OffersCount));
+            RaisePropertyChanged(nameof(ProjectsCount));
         }
 
         protected override void InitializeCollectionProperties()

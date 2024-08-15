@@ -21,7 +21,7 @@ namespace HVTApp.UI.PaymentConditionsSet
                 if (Equals(_daysTo, value)) return;
                 _daysTo = value;
                 this.DaysToPoint = (IsBefore ? -1 : 1) * DaysTo;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -33,7 +33,7 @@ namespace HVTApp.UI.PaymentConditionsSet
                 if (Equals(_isBefore, value)) return;
                 _isBefore = value;
                 this.DaysToPoint = (IsBefore ? -1 : 1) * DaysTo;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

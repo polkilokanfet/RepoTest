@@ -19,7 +19,7 @@ namespace HVTApp.Model.Wrapper
             set
             {
                 _isMain = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -70,7 +70,7 @@ namespace HVTApp.Model.Wrapper
             set
             {
                 _showPreviousTask = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -80,7 +80,7 @@ namespace HVTApp.Model.Wrapper
             set
             {
                 _showNextTask = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 

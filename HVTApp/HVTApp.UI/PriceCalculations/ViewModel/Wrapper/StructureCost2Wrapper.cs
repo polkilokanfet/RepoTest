@@ -106,14 +106,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             {
                 if (args.PropertyName == nameof(UnitPrice))
                 {
-                    OnPropertyChanged(nameof(Total));
+                    RaisePropertyChanged(nameof(Total));
                 }
 
                 if (args.PropertyName == nameof(AmountNumerator) || 
                     args.PropertyName == nameof(AmountDenomerator))
                 {
-                    OnPropertyChanged(nameof(Amount));
-                    OnPropertyChanged(nameof(Total));
+                    RaisePropertyChanged(nameof(Amount));
+                    RaisePropertyChanged(nameof(Total));
                 }
             };
         }

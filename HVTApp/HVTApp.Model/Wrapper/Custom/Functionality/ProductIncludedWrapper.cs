@@ -15,7 +15,7 @@ namespace HVTApp.Model.Wrapper
         private void OnParentCountChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(ParentsCount)) return;
-            OnPropertyChanged(nameof(Count));
+            RaisePropertyChanged(nameof(Count));
         }
     }
 }

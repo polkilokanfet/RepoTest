@@ -129,26 +129,26 @@ namespace EventServiceClient2
         private void PingHost()
         {
             return;
-            new Action(() =>
-            {
-                if (HostIsEnabled)
-                {
-                    try
-                    {
-                        if (EventServiceHost.HostIsAlive())
-                        {
-                            this.PingHost();
-                            return;
-                        }
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
+            //new Action(() =>
+            //{
+            //    if (HostIsEnabled)
+            //    {
+            //        try
+            //        {
+            //            if (EventServiceHost.HostIsAlive())
+            //            {
+            //                this.PingHost();
+            //                return;
+            //            }
+            //        }
+            //        catch
+            //        {
+            //            // ignored
+            //        }
+            //    }
 
-                this.StopWaitRestart();
-            }).SleepThenExecuteInAnotherThread(60);
+            //    this.StopWaitRestart();
+            //}).SleepThenExecuteInAnotherThread(60);
         }
 
         #endregion

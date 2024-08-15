@@ -89,17 +89,17 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
                 if (PaymentConditionSet == null)
                     PaymentConditionSet = new PaymentConditionSetEmptyWrapper(Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet);
 
-                OnPropertyChanged(string.Empty);
+                RaisePropertyChanged(string.Empty);
             };
 
             this.StructureCosts.PropertyChanged += (sender, args) =>
             {
-                this.OnPropertyChanged(nameof(UnitPrice));
+                RaisePropertyChanged(nameof(UnitPrice));
             };
 
             this.StructureCosts.CollectionChanged += (sender, args) =>
             {
-                this.OnPropertyChanged(nameof(UnitPrice));
+                RaisePropertyChanged(nameof(UnitPrice));
             };
         }
     }

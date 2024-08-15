@@ -103,7 +103,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
             SalesUnit = model.SalesUnits.First();
             this.SalesUnits.CollectionChanged += (sender, args) =>
             {
-                OnPropertyChanged(nameof(Amount));
+                RaisePropertyChanged(nameof(Amount));
             };
 
             if (this.OrderInTakeDate == null) this.OrderInTakeDate = SalesUnit.OrderInTakeDate;

@@ -58,7 +58,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                     return;
                 }
                 Payments.ForEach(payment => payment.Date = value);
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -137,8 +137,8 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
 
             this.Payments.PropertyChanged += (sender, args) =>
             {
-                OnPropertyChanged(nameof(DockSumWithVat));
-                OnPropertyChanged(nameof(DockDate));
+                RaisePropertyChanged(nameof(DockSumWithVat));
+                RaisePropertyChanged(nameof(DockDate));
             };
         }
 

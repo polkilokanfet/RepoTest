@@ -49,12 +49,12 @@ namespace HVTApp.Model.Wrapper
 
         public DateTime PriceDate
         {
-            get { return _priceDate; }
+            get => _priceDate;
             set
             {
                 if (Equals(_priceDate, value)) return;
                 _priceDate = value;
-                OnPropertyChanged(); 
+                RaisePropertyChanged(); 
                 RisePropertyChangedEvents();
             }
         }
@@ -91,16 +91,16 @@ namespace HVTApp.Model.Wrapper
                 if (Equals(MarginalIncome, value)) return;
                 if (Math.Abs(value - 100) < 0.001) return;
                 Cost = Price / (100 - value) * 100;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
         protected void RisePropertyChangedEvents()
         {
-            OnPropertyChanged(nameof(Price));
-            OnPropertyChanged(nameof(MarginalIncome));
-            OnPropertyChanged(nameof(PriceErrors));
-            OnPropertyChanged(nameof(HasBlocksWithoutPrice));
+            RaisePropertyChanged(nameof(Price));
+            RaisePropertyChanged(nameof(MarginalIncome));
+            RaisePropertyChanged(nameof(PriceErrors));
+            RaisePropertyChanged(nameof(HasBlocksWithoutPrice));
         }
     }
 

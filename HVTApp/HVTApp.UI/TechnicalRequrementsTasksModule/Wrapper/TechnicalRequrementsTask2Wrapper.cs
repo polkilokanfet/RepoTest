@@ -40,7 +40,7 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper
                 if (value.HasValue && value.Value < DateTime.Today)
                 {
                     Model.DesiredFinishDate = DateTime.Today;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                     return;
                 }
 
