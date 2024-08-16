@@ -33,8 +33,13 @@ namespace EmailNotificationsService
                         string.IsNullOrWhiteSpace(notificationUnit.RecipientUser.Employee.Email) == false);
                 foreach (var notificationUnit in notificationUnits)
                 {
+                    if (notificationUnit.RecipientUser == null || 
+                        notificationUnit.RecipientUser.IsActual == false ||
+                        string.IsNullOrWhiteSpace(notificationUnit.RecipientUser.Employee.Email))
+                        continue;
+
                     //отправляем уведомление по email
-                    var emailAddress = notificationUnit.RecipientUser?.Employee.Email;
+                    var emailAddress = notificationUnit.RecipientUser.Employee.Email;
                     var subject = $"[УП ВВА] {_notificationTextService.GetActionInfo(notificationUnit)}";
                     var body = _notificationTextService.GetCommonInfo(notificationUnit);
                     try

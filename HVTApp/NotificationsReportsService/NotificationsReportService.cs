@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
-using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Services;
@@ -16,27 +13,21 @@ namespace NotificationsReportsService
 {
     public class NotificationsReportService : INotificationsReportService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly INotificationGeneratorService _notificationGeneratorService;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IEmailService _emailService;
+        private readonly INotificationTextService _notificationTextService;
 
-        private readonly List<LogUnit> _logUnits = new List<LogUnit>();
 
-        public NotificationsReportService(IUnitOfWork unitOfWork, IEmailService emailService, INotificationGeneratorService notificationGeneratorService)
+        public NotificationsReportService(IUnitOfWorkFactory unitOfWorkFactory, IEmailService emailService, INotificationTextService notificationTextService)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWorkFactory = unitOfWorkFactory;
             _emailService = emailService;
-            _notificationGeneratorService = notificationGeneratorService;
+            _notificationTextService = notificationTextService;
+            //_notificationGeneratorService = notificationGeneratorService;
         }
 
         private bool CanStart(NotificationsReportsSettings settings, DateTime now)
         {
-            if (GlobalAppProperties.User.Roles.Any(x => x.Role == Role.Admin) == false)
-                return false;
-
-            if (settings == null)
-                return false;
-
             if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday || 
                 DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
                 return false;
@@ -49,53 +40,30 @@ namespace NotificationsReportsService
 
         public void SendReports()
         {
-            var settings = _unitOfWork.Repository<NotificationsReportsSettings>().GetAll().FirstOrDefault();
-            var now = DateTime.Now;
-            if (CanStart(settings, now) == false) return;
+            using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+            {
+                var settings = unitOfWork.Repository<NotificationsReportsSettings>().GetAll().FirstOrDefault();
+                if (settings == null) return;
+                var now = DateTime.Now;
+                if (CanStart(settings, now) == false) return;
 
-            Task.Run(
-                    () =>
-                    {
-                        //if (settings != null && settings.ChiefEngineerReportDistributionList.Any())
-                        //    this.GetAndSendChiefEngineerReport(settings, now);
+                //if (settings.ChiefEngineerReportDistributionList.Any())
+                //    this.GetAndSendChiefEngineerReport(settings, now);
 
-                        this.GetAndSendDeadlineReports(now);
-                    })
-                .Await(
-                () =>
-                {
-                    if (_logUnits.Any())
-                    {
-                        foreach (var logUnit in _logUnits)
-                        {
-                            _unitOfWork.SaveEntity(logUnit);
-                        }
-                    }
+                this.GetAndSendDeadlineReports(now, unitOfWork);
 
-                    settings.ChiefEngineerReportMoment = now;
-                    _unitOfWork.SaveChanges();
-                    _unitOfWork.Dispose();
-                },
-                e =>
-                {
-                    if (_logUnits.Any())
-                    {
-                        foreach (var logUnit in _logUnits)
-                        {
-                            _unitOfWork.SaveEntity(logUnit);
-                        }
-
-                        _unitOfWork.SaveChanges();
-                    }
-                    _unitOfWork.Dispose();
-                });
+                settings.ChiefEngineerReportMoment = now;
+                unitOfWork.SaveChanges();
+            }
         }
+
+        public event Action<string> MessageEvent;
 
         private void GetAndSendChiefEngineerReport(NotificationsReportsSettings settings, DateTime now)
         {
-            var subject = $"[Отчёт из УП ВВА] Отчёт для ОГК НВВА ({settings.ChiefEngineerReportMoment} - {now})";
+            var subject = $"[УП ВВА] Отчёт для ОГК НВВА ({settings.ChiefEngineerReportMoment} - {now})";
             var report =
-                new ChiefEngineerReport(_unitOfWork, settings.ChiefEngineerReportMoment, now).GetReport();
+                new ChiefEngineerReport(_unitOfWorkFactory.GetUnitOfWork(), settings.ChiefEngineerReportMoment, now).GetReport();
             if (string.IsNullOrWhiteSpace(report)) return;
             foreach (var user in settings.ChiefEngineerReportDistributionList)
             {
@@ -105,56 +73,50 @@ namespace NotificationsReportsService
                 {
                     _emailService.SendMail(email, subject, report);
                 }
-                catch (Exception e)
+                catch
                 {
-                    var logUnit = new LogUnit()
-                    {
-                        Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Head = $"GetAndSendChiefEngineerReport {email}",
-                        Message = e.PrintAllExceptions()
-                    };
-                    _logUnits.Add(logUnit);
                 }
             }
         }
 
-        private void GetAndSendDeadlineReports(DateTime moment)
+        private void GetAndSendDeadlineReports(DateTime moment, IUnitOfWork unitOfWork)
         {
-            var tasks = _unitOfWork.Repository<PriceEngineeringTask>().Find(task =>
+            var tasks = unitOfWork.Repository<PriceEngineeringTask>().Find(task =>
                 task.UserConstructor != null &&
                 task.UserConstructor.IsActual &&
                 task.IsStarted &&
                 task.IsFinishedByConstructor == false &&
-                task.GetDeadline(_unitOfWork).Value < moment &&
-                task.GetTopPriceEngineeringTask(_unitOfWork).SalesUnits.Any());
+                task.GetDeadline(unitOfWork).Value < moment &&
+                task.GetTopPriceEngineeringTask(unitOfWork).SalesUnits.Any());
 
             foreach (var task in tasks)
             {
                 var email = task.UserConstructor.Employee.Email;
-                if (string.IsNullOrWhiteSpace(email)) continue;
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    this.MessageEvent?.Invoke($"e-mail of {task.UserConstructor.Login} is empty");
+                    continue;
+                }
 
-                var notificationUnit = new NotificationUnit()
+                var notificationUnit = new NotificationUnit
                 {
                     ActionType = NotificationActionType.PriceEngineeringTaskInstructToConstructor,
                     TargetEntityId = task.Id
                 };
-                var report = _notificationGeneratorService.GetCommonInfo(notificationUnit); //DeadlineReport.GetReport(_unitOfWork, task);
+                var report = _notificationTextService.GetCommonInfo(notificationUnit); //DeadlineReport.GetReport(_unitOfWork, task);
 
                 try
                 {
-                    Thread.Sleep(1000);
-                    _emailService.SendMail(email, "[Уведомление из УП ВВА] Истек срок проработки блока ТСП", report);
+                    _emailService.SendMail(email, "[УП ВВА] Истек срок проработки блока ТСП", report);
+                    this.MessageEvent?.Invoke($"success: {email}; SendDeadlineReport");
                 }
                 catch (Exception e)
                 {
-                    var logUnit = new LogUnit()
-                    {
-                        Author = _unitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id),
-                        Head = $"GetAndSendDeadlineReports {email}",
-                        Message = e.PrintAllExceptions()
-                    };
-                    _logUnits.Add(logUnit);
+                    this.MessageEvent?.Invoke($"exception: {email}; SendDeadlineReport");
+                    this.MessageEvent?.Invoke(e.ToString());
                 }
+
+                Thread.Sleep(new TimeSpan(0,0,0,5));
             }
         }
     }

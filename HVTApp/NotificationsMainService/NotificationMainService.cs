@@ -26,7 +26,6 @@ namespace NotificationsMainService
         private readonly ISendNotificationThroughApp _sendNotificationThroughApp;
         private readonly INotificationGeneratorService _notificationGeneratorService;
         private readonly INotificationFromDataBaseService _notificationFromDataBaseService;
-        private readonly INotificationsReportService _notificationsReportService;
         private readonly INotificationUnitWatcher _notificationUnitWatcher;
         private readonly IEmailService _emailService;
 
@@ -37,7 +36,6 @@ namespace NotificationsMainService
             _sendNotificationThroughApp = container.Resolve<ISendNotificationThroughApp>();
             _notificationGeneratorService = container.Resolve<INotificationGeneratorService>();
             _notificationFromDataBaseService = container.Resolve<INotificationFromDataBaseService>();
-            _notificationsReportService = container.Resolve<INotificationsReportService>();
             _notificationUnitWatcher = container.Resolve<INotificationUnitWatcher>();
             _emailService = container.Resolve<IEmailService>();
             EventServiceClient = container.Resolve<IEventServiceClient>();
@@ -45,7 +43,6 @@ namespace NotificationsMainService
 
         public async void Start()
         {
-            _notificationsReportService.SendReports();
             _notificationUnitWatcher.Start();
 
             this.EventServiceClient.StartActionInProgressEvent += EventServiceClientOnStartActionInProgressEvent;
