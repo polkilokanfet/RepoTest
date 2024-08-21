@@ -50,60 +50,46 @@ namespace EventServiceClient2
             //CloseTimeout = new TimeSpan(7, 0, 0, 0)
         }
 
-        public event Action StartActionInProgressEvent;
+        public event Action StartEvent;
 
-        public async Task<bool> Start()
+        public async Task Start()
         {
-            this.StartActionInProgressEvent?.Invoke();
-
-            var result = await this.ConnectAsync();
-            if (result == false)
-                this.StopWaitRestart(); //очистить следы от предыдущего подключения, подождать и рестартануть
-
-            return result;
-        }
-
-        private async Task<bool> ConnectAsync()
-        {
-            //не нужно реконектится к рабочему сервису
-            if (HostIsEnabled && await EventServiceHost.HostIsAliveAsync())
+            if (await Ping() == false)
             {
-                PingHost();
-                return true;
+                await Stop();
+
+                StartEvent?.Invoke();
+
+                //инициализация клиента сервиса
+                EventServiceHost = new ServiceReference1.EventServiceClient(new InstanceContext(this), _netTcpBinding, _endpointAddress);
+
+                try
+                {
+                    //подсоединяемся к сервису
+                    await EventServiceHost.ConnectAsync(AppSessionId, _userId, _userRole);
+                }
+                catch
+                {
+                    // ignored
+                }
             }
 
-            //инициализация клиента сервиса
-            EventServiceHost = new ServiceReference1.EventServiceClient(new InstanceContext(this), _netTcpBinding, _endpointAddress);
-
-            var result = false;
-            try
-            {
-                //подсоединяемся к сервису
-                result = await EventServiceHost.ConnectAsync(AppSessionId, _userId, _userRole);
-            }
-            catch
-            {
-                // ignored
-            }
-
-            if (result == true)
-                PingHost(); //циклический пинг хоста
-
-            return result;
+            await Task.Delay(new TimeSpan(0, 0, 0, 600));
+            await Start();
         }
 
         public async Task Stop()
         {
-            try
+            if (HostIsEnabled)
             {
-                if (HostIsEnabled)
+                try
                 {
                     await EventServiceHost.DisconnectAsync(AppSessionId);
                 }
-            }
-            catch (Exception e)
-            {
-                _container.Resolve<IHvtAppLogger>().LogError(e.GetType().Name, e);
+                catch
+                {
+                    // ignored
+                }
             }
 
             //сносим хост
@@ -111,62 +97,41 @@ namespace EventServiceClient2
             EventServiceHost = null;
         }
 
-        /// <summary>
-        /// Очистить старое, подождать, рестартовать
-        /// </summary>
-        private async void StopWaitRestart()
-        {
-            await Stop();
-            //Thread.Sleep(new TimeSpan(0, 0, 0, 5));
-            await this.Start();
-        }
 
-        #region Ping
-
-        /// <summary>
-        /// Пинг хоста (циклический при удаче)
-        /// </summary>
-        private void PingHost()
-        {
-            return;
-            //new Action(() =>
-            //{
-            //    if (HostIsEnabled)
-            //    {
-            //        try
-            //        {
-            //            if (EventServiceHost.HostIsAlive())
-            //            {
-            //                this.PingHost();
-            //                return;
-            //            }
-            //        }
-            //        catch
-            //        {
-            //            // ignored
-            //        }
-            //    }
-
-            //    this.StopWaitRestart();
-            //}).SleepThenExecuteInAnotherThread(60);
-        }
-
-        #endregion
-
-        public bool UserConnected(Guid userId)
+        private async Task<bool> Ping()
         {
             if (HostIsEnabled)
             {
                 try
                 {
-                    return EventServiceHost.UserIsConnected(userId);
+                    if (await EventServiceHost.HostIsAliveAsync())
+                    {
+                        return true;
+                    }
                 }
-                catch (CommunicationObjectFaultedException)
+                catch
                 {
-                    this.StopWaitRestart();
-                    return false;
+                    // ignored
                 }
             }
+
+            return false;
+        }
+
+        public bool UserConnected(Guid userId)
+        {
+            //if (HostIsEnabled)
+            //{
+            //    try
+            //    {
+            //        return EventServiceHost.UserIsConnected(userId);
+            //    }
+            //    catch (CommunicationObjectFaultedException)
+            //    {
+            //        this.StopWaitStart();
+            //        return false;
+            //    }
+            //}
 
             return false;
         }
@@ -189,7 +154,7 @@ namespace EventServiceClient2
                 }
                 catch
                 {
-                    StopWaitRestart();
+                    await Stop();
                 }
             }
 

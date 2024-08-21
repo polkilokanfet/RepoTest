@@ -45,7 +45,7 @@ namespace NotificationsMainService
         {
             _notificationUnitWatcher.Start();
 
-            this.EventServiceClient.StartActionInProgressEvent += EventServiceClientOnStartActionInProgressEvent;
+            this.EventServiceClient.StartEvent += EventServiceClientOnStartEvent;
 
             await EventServiceClient.Start();
 
@@ -56,7 +56,7 @@ namespace NotificationsMainService
             _eventAggregator.GetEvent<AfterSavePaymentDocumentEvent>().Subscribe(OnAfterSavePaymentDocumentEvent, true);
         }
 
-        private void EventServiceClientOnStartActionInProgressEvent()
+        private void EventServiceClientOnStartEvent()
         {
             //при старте сервиса синхронизации необходимо проверить уведомления из базы данных
             Task.Run(() => _notificationFromDataBaseService.CheckMessagesInDbAndShowNotifications()).Await();
@@ -127,7 +127,7 @@ namespace NotificationsMainService
 
         public void Dispose()
         {
-            this.EventServiceClient.StartActionInProgressEvent -= EventServiceClientOnStartActionInProgressEvent;
+            this.EventServiceClient.StartEvent -= EventServiceClientOnStartEvent;
             _unitOfWork.Dispose();
         }
     }

@@ -42,7 +42,7 @@ namespace EventServiceClient2
         /// </summary>
         public void OnServiceDisposeEvent()
         {
-            this.StopWaitRestart();
+            this.Stop();
         }
 
         public bool IsAlive()

@@ -6,14 +6,14 @@ namespace HVTApp.Infrastructure.Interfaces.Services.EventService
     public interface IEventServiceClient : IEventServiceCallback
     {
         /// <summary>
-        /// Сигнал о начале старта сервиса
+        /// Сигнал о стопе сервиса
         /// </summary>
-        event Action StartActionInProgressEvent;
+        event Action StartEvent;
 
         /// <summary>
         /// Стартовать сервис синхронизации
         /// </summary>
-        Task<bool> Start();
+        Task Start();
 
         /// <summary>
         /// Остановить сервис синхронизации
