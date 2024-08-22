@@ -87,14 +87,17 @@ namespace NotificationsReportsService
                 task.IsStarted &&
                 (task.Status.Equals(ScriptStep.VerificationRequestByConstructor) || task.IsFinishedByConstructor == false) &&
                 task.GetDeadline(unitOfWork).Value < moment &&
-                task.GetTopPriceEngineeringTask(unitOfWork).SalesUnits.Any())
-                .OrderBy(x => x.StartMoment);
+                task.GetTopPriceEngineeringTask(unitOfWork).SalesUnits.Any());
 
-            foreach (var task in tasks)
+            foreach (var task in tasks.OrderBy(x => x.StartMoment))
             {
                 var user = task.UserConstructor;
-                if (task.IsFinishedByConstructor == false)
-                    user = task.DesignDepartment.Head;
+                bool isInspection = false;
+                if (task.Status.Equals(ScriptStep.VerificationRequestByConstructor))
+                {
+                    isInspection = true;
+                    user = task.UserConstructorInspector ?? task.DesignDepartment.Head;
+                }
 
                 var email = user.Employee.Email;
                 if (string.IsNullOrWhiteSpace(email))
@@ -113,11 +116,11 @@ namespace NotificationsReportsService
                 try
                 {
                     _emailService.SendMail(email, $"[УП ВВА] {task.GetDeadline(unitOfWork).Value.ToShortDateString()} Истек срок проработки блока ТСП", report);
-                    this.MessageEvent?.Invoke($"success: {email}; SendDeadlineReport");
+                    this.MessageEvent?.Invoke($"success: {email}; SendDeadlineReport isInspection={isInspection}");
                 }
                 catch (Exception e)
                 {
-                    this.MessageEvent?.Invoke($"exception: {email}; SendDeadlineReport");
+                    this.MessageEvent?.Invoke($"exception: {email}; SendDeadlineReport isInspection={isInspection}");
                     this.MessageEvent?.Invoke(e.ToString());
                 }
 
