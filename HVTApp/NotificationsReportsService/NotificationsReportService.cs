@@ -85,16 +85,21 @@ namespace NotificationsReportsService
                 task.UserConstructor != null &&
                 task.UserConstructor.IsActual &&
                 task.IsStarted &&
-                task.IsFinishedByConstructor == false &&
+                (task.Status.Equals(ScriptStep.VerificationRequestByConstructor) || task.IsFinishedByConstructor == false) &&
                 task.GetDeadline(unitOfWork).Value < moment &&
-                task.GetTopPriceEngineeringTask(unitOfWork).SalesUnits.Any());
+                task.GetTopPriceEngineeringTask(unitOfWork).SalesUnits.Any())
+                .OrderBy(x => x.StartMoment);
 
             foreach (var task in tasks)
             {
-                var email = task.UserConstructor.Employee.Email;
+                var user = task.UserConstructor;
+                if (task.IsFinishedByConstructor == false)
+                    user = task.DesignDepartment.Head;
+
+                var email = user.Employee.Email;
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    this.MessageEvent?.Invoke($"e-mail of {task.UserConstructor.Login} is empty");
+                    this.MessageEvent?.Invoke($"e-mail of {user.Login} is empty");
                     continue;
                 }
 
@@ -107,7 +112,7 @@ namespace NotificationsReportsService
 
                 try
                 {
-                    _emailService.SendMail(email, "[УП ВВА] Истек срок проработки блока ТСП", report);
+                    _emailService.SendMail(email, $"[УП ВВА] {task.GetDeadline(unitOfWork).Value.ToShortDateString()} Истек срок проработки блока ТСП", report);
                     this.MessageEvent?.Invoke($"success: {email}; SendDeadlineReport");
                 }
                 catch (Exception e)
