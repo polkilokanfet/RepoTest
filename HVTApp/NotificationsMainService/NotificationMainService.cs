@@ -41,13 +41,13 @@ namespace NotificationsMainService
             EventServiceClient = container.Resolve<IEventServiceClient>();
         }
 
-        public async void Start()
+        public void Start()
         {
             _notificationUnitWatcher.Start();
 
             this.EventServiceClient.StartEvent += EventServiceClientOnStartEvent;
 
-            await EventServiceClient.Start();
+            EventServiceClient.Start();
 
             //подписка на уведомления о событиях в ТСП
             _eventAggregator.GetEvent<NotificationEvent>().Subscribe(OnNotificationEvent, true);
