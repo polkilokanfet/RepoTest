@@ -40,29 +40,43 @@ namespace HVTApp.UI.Specifications
                 },
                 () => SelectedItem != null);
 
-            RemoveItemCommand = new DelegateLogCommand(
+            RemoveItemCommand = new DelegateLogConfirmationCommand(
+                MessageService,
+                $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?",
                 () =>
                 {
-                    var dr = MessageService.ConfirmationDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?", defaultNo: true);
-                    if (dr == false) return;
-
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
 
                     var specification = unitOfWork.Repository<Specification>().GetById(SelectedLookup.Id);
-                    if (specification != null)
+                    if (specification == null) return;
+
+                    var salesUnits = unitOfWork.Repository<SalesUnit>()
+                        .Find(salesUnit => salesUnit.Specification?.Id == specification.Id);
+
+                    foreach (var salesUnit in salesUnits)
                     {
-                        var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Specification?.Id == specification.Id);
-                        salesUnits.ForEach(salesUnit => salesUnit.Specification = null);
-                        try
+                        var items = unitOfWork.Repository<TaskInvoiceForPaymentItem>()
+                            .Find(item => item.SalesUnits.Contains(salesUnit));
+                        if (items.Any())
                         {
-                            unitOfWork.Repository<Specification>().Delete(specification);
-                            unitOfWork.SaveChanges();
-                        }
-                        catch (DbUpdateException e)
-                        {
-                            MessageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
+                            MessageService.Message("Уведомление", "Спецификация фигурирует в заданиях на создание счёта. Удалить нельзя.");
                             return;
                         }
+                    }
+
+                    salesUnits.ForEach(salesUnit => salesUnit.Specification = null);
+                    specification.PriceEngineeringTasks.ForEach(task => task.Specification = null);
+                    specification.TechnicalRequrements.ForEach(requrements => requrements.Specification = null);
+
+                    try
+                    {
+                        unitOfWork.Repository<Specification>().Delete(specification);
+                        unitOfWork.SaveChanges();
+                    }
+                    catch (DbUpdateException e)
+                    {
+                        MessageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
+                        return;
                     }
 
                     EventAggregator.GetEvent<AfterRemoveSpecificationEvent>().Publish(specification);
