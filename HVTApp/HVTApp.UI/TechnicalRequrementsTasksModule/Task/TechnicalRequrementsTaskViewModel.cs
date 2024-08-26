@@ -336,7 +336,15 @@ namespace HVTApp.UI.TechnicalRequrementsTasksModule
         {
             var messageService = container.Resolve<IMessageService>();
 
-            IncludeInSpecificationCommand = new IncludeInSpecificationCommand(container, () => SelectedItem is TechnicalRequrements2Wrapper);
+            IncludeInSpecificationCommand = new IncludeInSpecificationCommand(
+                container, 
+                () =>
+                {
+                    if (this.TechnicalRequrementsTaskWrapper == null) return false;
+                    var id = this.TechnicalRequrementsTaskWrapper.Model.Id;
+                    if (UnitOfWork.Repository<TechnicalRequrementsTask>().GetById(id) == null) return false;
+                    return SelectedItem is TechnicalRequrements2Wrapper;
+                });
 
             //сохранение изменений
             SaveCommand = new SaveCommand(this, this.Container);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
@@ -28,16 +29,56 @@ namespace HVTApp.UI.ViewModels
                 },
                 () => this.SelectedItem != null);
 
-            RemoveItemCommand = new DelegateLogConfirmationCommand(
-                this.Container.Resolve<IMessageService>(),
-                "Вы уверены, что хотите удалить данную спецификацию?",
-                () =>
-                {
-                    var unitOfWork = Container.Resolve<IUnitOfWork>();
-                    unitOfWork.RemoveEntity(this.SelectedItem);
-                    Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSpecificationEvent>().Publish(this.SelectedItem);
-                },
-                () => this.SelectedItem != null);
+                RemoveItemCommand = new DelegateLogConfirmationCommand(
+                    this.Container.Resolve<IMessageService>(),
+                    "Вы уверены, что хотите удалить данную спецификацию?",
+                    () =>
+                    {
+                        var unitOfWork = Container.Resolve<IUnitOfWork>();
+
+                        var specification = unitOfWork.Repository<Specification>().GetById(SelectedLookup.Id);
+                        if (specification == null) return;
+
+                        var salesUnits = unitOfWork.Repository<SalesUnit>()
+                            .Find(salesUnit => salesUnit.Specification?.Id == specification.Id);
+
+                        foreach (var salesUnit in salesUnits)
+                        {
+                            var items = unitOfWork.Repository<TaskInvoiceForPaymentItem>()
+                                .Find(item => item.SalesUnits.Contains(salesUnit));
+                            if (items.Any())
+                            {
+                                MessageService.Message("Уведомление", "Спецификация фигурирует в заданиях на создание счёта. Удалить нельзя.");
+                                return;
+                            }
+                        }
+
+                        salesUnits.ForEach(salesUnit => salesUnit.Specification = null);
+                        specification.PriceEngineeringTasks.ForEach(task => task.Specification = null);
+                        specification.TechnicalRequrements.ForEach(requrements => requrements.Specification = null);
+
+                        try
+                        {
+                            unitOfWork.Repository<Specification>().Delete(specification);
+                            unitOfWork.SaveChanges();
+                        }
+                        catch (DbUpdateException e)
+                        {
+                            MessageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
+                            return;
+                        }
+
+                        EventAggregator.GetEvent<AfterRemoveSpecificationEvent>().Publish(specification);
+
+                    },
+
+                    //() =>
+                    //{
+                    //    var unitOfWork = Container.Resolve<IUnitOfWork>();
+                    //    unitOfWork.RemoveEntity(this.SelectedItem);
+                    //    Container.Resolve<IEventAggregator>().GetEvent<AfterRemoveSpecificationEvent>().Publish(this.SelectedItem);
+                    //},
+                    () => GlobalAppProperties.UserIsManager && this.SelectedItem != null);
 
             this.SelectedLookupChanged += lookup =>
             {

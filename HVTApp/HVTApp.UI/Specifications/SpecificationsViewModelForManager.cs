@@ -42,7 +42,6 @@ namespace HVTApp.UI.Specifications
 
             RemoveItemCommand = new DelegateLogConfirmationCommand(
                 MessageService,
-                $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?",
                 () =>
                 {
                     var unitOfWork = Container.Resolve<IUnitOfWork>();
