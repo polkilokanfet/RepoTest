@@ -40,6 +40,23 @@ namespace HVTApp.Services.FileManagerService
 
         public FileInfo FindFile(Guid fileId, string storageDirectoryPath)
         {
+            var fileInfos = this.FindFiles(fileId, storageDirectoryPath).ToList();
+
+            if (fileInfos.Any() == false)
+            {
+                throw new FileNotFoundException();
+            }
+
+            if (fileInfos.Count > 1)
+            {
+                throw new FileNotSingleFoundException();
+            }
+
+            return fileInfos.Single();
+        }
+
+        public IEnumerable<FileInfo> FindFiles(Guid fileId, string storageDirectoryPath)
+        {
             var storageDirectory = new DirectoryInfo(storageDirectoryPath);
             FileInfo[] filesInDir;
             try
@@ -52,18 +69,9 @@ namespace HVTApp.Services.FileManagerService
                 throw;
             }
 
-            if (!filesInDir.Any())
-            {
-                throw new FileNotFoundException();
-            }
-
-            if (filesInDir.Length > 1)
-            {
-                throw new FileNotSingleFoundException();
-            }
-
-            return filesInDir.Single();
+            return filesInDir;
         }
+
 
         #region CopyFileFromStorage
 

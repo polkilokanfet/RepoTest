@@ -46,25 +46,29 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    _container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
                     //}
 
+                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+
+                    var filesStorageService = container.Resolve<IFilesStorageService>();
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var specifications = unitOfWork.Repository<Specification>().Find(x => x.TechnicalRequrements.Any() == false && x.PriceEngineeringTasks.Any() == false);
-                    var technicalRequrementsList = unitOfWork.Repository<TechnicalRequrementsTask>().Find(x => x.IsAccepted).SelectMany(x => x.Requrements).ToList();
-                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null);
+                    var specifications = unitOfWork.Repository<Specification>().GetAll();
 
                     var sb = new StringBuilder();
                     foreach (var specification in specifications)
                     {
-                        var ssu = salesUnits.Where(x => Equals(x.Specification.Id, specification.Id));
-                        var trl = technicalRequrementsList.Where(x => x.SalesUnits.MembersAreSame(ssu)).ToList();
-                        if (trl.Count == 1)
+                        var fileInfos = filesStorageService.FindFiles(specification.Id, storageDirectory)
+                            .OrderBy(x => x.CreationTime).ToList();
+
+                        if (fileInfos.Count > 1)
                         {
-                            specification.TechnicalRequrements.Add(trl.First());
-                            sb.AppendLine($"{specification} = {trl.First()}");
+                            for (int i = 0; i < fileInfos.Count - 1; i++)
+                            {
+                                sb.AppendLine(fileInfos[i].FullName);
+                                fileInfos[i].Delete();
+                            }
                         }
                     }
-                    unitOfWork.SaveChanges();
 
                     container.Resolve<IMessageService>().Message("", sb.ToString());
 

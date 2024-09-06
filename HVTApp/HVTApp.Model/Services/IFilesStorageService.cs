@@ -24,6 +24,14 @@ namespace HVTApp.Model.Services
         FileInfo FindFile(Guid fileId, string storageDirectoryPath);
 
         /// <summary>
+        /// Пойск файлов в директории по Id (один Id, но разные расширения файла)
+        /// </summary>
+        /// <param name="fileId">Id файла</param>
+        /// <param name="storageDirectoryPath">Путь к директории</param>
+        /// <returns></returns>
+        IEnumerable<FileInfo> FindFiles(Guid fileId, string storageDirectoryPath);
+
+        /// <summary>
         /// Копирование файла из хранилища с выбором целевой папки.
         /// </summary>
         /// <param name="fileId">Id файла</param>
