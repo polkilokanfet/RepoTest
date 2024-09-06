@@ -27,6 +27,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             {
                 var dr = _messageService.ConfirmationDialog("Данная спецификация уже загружена в хранилище. Заменить?");
                 if (dr == false) return;
+                _filesStorageService.FindFile(_specification.Id, _storageDirectory).Delete();
             }
 
             _filesStorageService.LoadFileToStorage(_storageDirectory, _specification.Id, true);
