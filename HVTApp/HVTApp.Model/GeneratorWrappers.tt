@@ -124,6 +124,7 @@ namespace HVTApp.Model.Wrapper
 <#+ 
     }
 #>
+
         #endregion
 <#+
   }
@@ -150,6 +151,7 @@ namespace HVTApp.Model.Wrapper
 <#+
     }
 #>
+
         #endregion
 <#+
   }
@@ -181,6 +183,7 @@ namespace HVTApp.Model.Wrapper
 <#+   
     }
 #>
+
         #endregion
 <#+
   }
@@ -208,6 +211,7 @@ namespace HVTApp.Model.Wrapper
 <#+  
     }
 #>
+
         #endregion
 <#+
   }
@@ -250,7 +254,7 @@ namespace HVTApp.Model.Wrapper
 		var propertyName = property.Name;
 		   
 #>
-          if (Model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
+          if (Model.<#= propertyName #> == null) throw new ArgumentException($"{nameof(Model.<#= propertyName #>)} cannot be null");
           <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(Model.<#= propertyName #>.Select(e => new <#= itemType #>Wrapper(e)));
           RegisterCollection(<#= propertyName #>, Model.<#= propertyName #>);
 <#+

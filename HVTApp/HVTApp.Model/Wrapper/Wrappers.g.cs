@@ -111,6 +111,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -132,6 +133,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(RecipientUser, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -174,6 +176,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -182,11 +185,12 @@ namespace HVTApp.Model.Wrapper
         /// Страны объединения
         /// </summary>
         public IValidatableChangeTrackingCollection<CountryWrapper> Countries { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Countries == null) throw new ArgumentException("Countries cannot be null");
+          if (Model.Countries == null) throw new ArgumentException($"{nameof(Model.Countries)} cannot be null");
           Countries = new ValidatableChangeTrackingCollection<CountryWrapper>(Model.Countries.Select(e => new CountryWrapper(e)));
           RegisterCollection(Countries, Model.Countries);
         }
@@ -258,6 +262,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -266,11 +271,12 @@ namespace HVTApp.Model.Wrapper
         /// Единицы бюджета
         /// </summary>
         public IValidatableChangeTrackingCollection<BudgetUnitWrapper> Units { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Units == null) throw new ArgumentException("Units cannot be null");
+          if (Model.Units == null) throw new ArgumentException($"{nameof(Model.Units)} cannot be null");
           Units = new ValidatableChangeTrackingCollection<BudgetUnitWrapper>(Model.Units.Select(e => new BudgetUnitWrapper(e)));
           RegisterCollection(Units, Model.Units);
         }
@@ -375,6 +381,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -405,6 +412,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<PaymentConditionSetWrapper>(); }
             set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSetByManager, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -448,6 +456,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -456,11 +465,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -499,6 +509,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -512,14 +523,15 @@ namespace HVTApp.Model.Wrapper
         /// Списки параметров
         /// </summary>
         public IValidatableChangeTrackingCollection<ConstructorParametersListWrapper> PatametersLists { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Constructors == null) throw new ArgumentException("Constructors cannot be null");
+          if (Model.Constructors == null) throw new ArgumentException($"{nameof(Model.Constructors)} cannot be null");
           Constructors = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Constructors.Select(e => new UserWrapper(e)));
           RegisterCollection(Constructors, Model.Constructors);
-          if (Model.PatametersLists == null) throw new ArgumentException("PatametersLists cannot be null");
+          if (Model.PatametersLists == null) throw new ArgumentException($"{nameof(Model.PatametersLists)} cannot be null");
           PatametersLists = new ValidatableChangeTrackingCollection<ConstructorParametersListWrapper>(Model.PatametersLists.Select(e => new ConstructorParametersListWrapper(e)));
           RegisterCollection(PatametersLists, Model.PatametersLists);
         }
@@ -591,6 +603,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -649,6 +662,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -661,6 +675,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductWrapper>(); }
             set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -702,6 +717,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -714,6 +730,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Head, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -737,6 +754,7 @@ namespace HVTApp.Model.Wrapper
         /// Наборы параметров оборудования для подзадач
         /// </summary>
         public IValidatableChangeTrackingCollection<DesignDepartmentParametersSubTaskWrapper> ParameterSetsSubTask { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -746,16 +764,16 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Staff == null) throw new ArgumentException("Staff cannot be null");
+          if (Model.Staff == null) throw new ArgumentException($"{nameof(Model.Staff)} cannot be null");
           Staff = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Staff.Select(e => new UserWrapper(e)));
           RegisterCollection(Staff, Model.Staff);
-          if (Model.ParameterSets == null) throw new ArgumentException("ParameterSets cannot be null");
+          if (Model.ParameterSets == null) throw new ArgumentException($"{nameof(Model.ParameterSets)} cannot be null");
           ParameterSets = new ValidatableChangeTrackingCollection<DesignDepartmentParametersWrapper>(Model.ParameterSets.Select(e => new DesignDepartmentParametersWrapper(e)));
           RegisterCollection(ParameterSets, Model.ParameterSets);
-          if (Model.ParameterSetsAddedBlocks == null) throw new ArgumentException("ParameterSetsAddedBlocks cannot be null");
+          if (Model.ParameterSetsAddedBlocks == null) throw new ArgumentException($"{nameof(Model.ParameterSetsAddedBlocks)} cannot be null");
           ParameterSetsAddedBlocks = new ValidatableChangeTrackingCollection<DesignDepartmentParametersAddedBlocksWrapper>(Model.ParameterSetsAddedBlocks.Select(e => new DesignDepartmentParametersAddedBlocksWrapper(e)));
           RegisterCollection(ParameterSetsAddedBlocks, Model.ParameterSetsAddedBlocks);
-          if (Model.ParameterSetsSubTask == null) throw new ArgumentException("ParameterSetsSubTask cannot be null");
+          if (Model.ParameterSetsSubTask == null) throw new ArgumentException($"{nameof(Model.ParameterSetsSubTask)} cannot be null");
           ParameterSetsSubTask = new ValidatableChangeTrackingCollection<DesignDepartmentParametersSubTaskWrapper>(Model.ParameterSetsSubTask.Select(e => new DesignDepartmentParametersSubTaskWrapper(e)));
           RegisterCollection(ParameterSetsSubTask, Model.ParameterSetsSubTask);
         }
@@ -827,6 +845,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -866,6 +885,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<DirectumTaskWrapper>(); }
             set { SetComplexValue<DirectumTask, DirectumTaskWrapper>(PreviousTask, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -889,6 +909,7 @@ namespace HVTApp.Model.Wrapper
         /// Next
         /// </summary>
         public IValidatableChangeTrackingCollection<DirectumTaskWrapper> Next { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -907,6 +928,7 @@ namespace HVTApp.Model.Wrapper
         /// Актуальность
         /// </summary>
         public System.Boolean IsActual => Model.IsActual; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -919,16 +941,16 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
+          if (Model.Messages == null) throw new ArgumentException($"{nameof(Model.Messages)} cannot be null");
           Messages = new ValidatableChangeTrackingCollection<DirectumTaskMessageWrapper>(Model.Messages.Select(e => new DirectumTaskMessageWrapper(e)));
           RegisterCollection(Messages, Model.Messages);
-          if (Model.Childs == null) throw new ArgumentException("Childs cannot be null");
+          if (Model.Childs == null) throw new ArgumentException($"{nameof(Model.Childs)} cannot be null");
           Childs = new ValidatableChangeTrackingCollection<DirectumTaskWrapper>(Model.Childs.Select(e => new DirectumTaskWrapper(e)));
           RegisterCollection(Childs, Model.Childs);
-          if (Model.Parallel == null) throw new ArgumentException("Parallel cannot be null");
+          if (Model.Parallel == null) throw new ArgumentException($"{nameof(Model.Parallel)} cannot be null");
           Parallel = new ValidatableChangeTrackingCollection<DirectumTaskWrapper>(Model.Parallel.Select(e => new DirectumTaskWrapper(e)));
           RegisterCollection(Parallel, Model.Parallel);
-          if (Model.Next == null) throw new ArgumentException("Next cannot be null");
+          if (Model.Next == null) throw new ArgumentException($"{nameof(Model.Next)} cannot be null");
           Next = new ValidatableChangeTrackingCollection<DirectumTaskWrapper>(Model.Next.Select(e => new DirectumTaskWrapper(e)));
           RegisterCollection(Next, Model.Next);
         }
@@ -1011,6 +1033,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -1023,6 +1046,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Author, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -1036,6 +1060,7 @@ namespace HVTApp.Model.Wrapper
         /// Приложения
         /// </summary>
         public IValidatableChangeTrackingCollection<DirectumTaskGroupFileWrapper> Files { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1045,10 +1070,10 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Observers == null) throw new ArgumentException("Observers cannot be null");
+          if (Model.Observers == null) throw new ArgumentException($"{nameof(Model.Observers)} cannot be null");
           Observers = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Observers.Select(e => new UserWrapper(e)));
           RegisterCollection(Observers, Model.Observers);
-          if (Model.Files == null) throw new ArgumentException("Files cannot be null");
+          if (Model.Files == null) throw new ArgumentException($"{nameof(Model.Files)} cannot be null");
           Files = new ValidatableChangeTrackingCollection<DirectumTaskGroupFileWrapper>(Model.Files.Select(e => new DirectumTaskGroupFileWrapper(e)));
           RegisterCollection(Files, Model.Files);
         }
@@ -1109,6 +1134,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -1121,6 +1147,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Author, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1173,6 +1200,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -1185,6 +1213,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Author, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1226,6 +1255,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -1284,6 +1314,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -1296,6 +1327,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<DocumentWrapper>(); }
             set { SetComplexValue<Document, DocumentWrapper>(Document, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -1304,6 +1336,7 @@ namespace HVTApp.Model.Wrapper
         /// Исполнители
         /// </summary>
         public IValidatableChangeTrackingCollection<EmployeeWrapper> Performers { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -1312,6 +1345,7 @@ namespace HVTApp.Model.Wrapper
         /// Исполнен
         /// </summary>
         public System.Boolean IsDone => Model.IsDone; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1321,7 +1355,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Performers == null) throw new ArgumentException("Performers cannot be null");
+          if (Model.Performers == null) throw new ArgumentException($"{nameof(Model.Performers)} cannot be null");
           Performers = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Performers.Select(e => new EmployeeWrapper(e)));
           RegisterCollection(Performers, Model.Performers);
         }
@@ -1371,6 +1405,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -1418,6 +1453,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -1426,11 +1462,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры блока
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -1491,6 +1528,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -1503,6 +1541,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Author, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1544,6 +1583,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -1580,6 +1620,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -1588,11 +1629,12 @@ namespace HVTApp.Model.Wrapper
         /// Сферы деятельноси
         /// </summary>
         public IValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFields { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ActivityFields == null) throw new ArgumentException("ActivityFields cannot be null");
+          if (Model.ActivityFields == null) throw new ArgumentException($"{nameof(Model.ActivityFields)} cannot be null");
           ActivityFields = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(Model.ActivityFields.Select(e => new ActivityFieldWrapper(e)));
           RegisterCollection(ActivityFields, Model.ActivityFields);
         }
@@ -1675,6 +1717,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -1722,6 +1765,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -1791,6 +1835,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -1803,6 +1848,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<PaymentConditionWrapper>(); }
             set { SetComplexValue<PaymentCondition, PaymentConditionWrapper>(Condition, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1866,6 +1912,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -1924,6 +1971,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -1936,6 +1984,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Initiator, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -1954,6 +2003,7 @@ namespace HVTApp.Model.Wrapper
         /// Файлы расчета
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceCalculationFileWrapper> Files { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -1992,6 +2042,7 @@ namespace HVTApp.Model.Wrapper
         /// Пользователь
         /// </summary>
         public HVTApp.Model.POCOs.User FrontManager => Model.FrontManager; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2001,13 +2052,13 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
+          if (Model.PriceCalculationItems == null) throw new ArgumentException($"{nameof(Model.PriceCalculationItems)} cannot be null");
           PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItemWrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItemWrapper(e)));
           RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
-          if (Model.History == null) throw new ArgumentException("History cannot be null");
+          if (Model.History == null) throw new ArgumentException($"{nameof(Model.History)} cannot be null");
           History = new ValidatableChangeTrackingCollection<PriceCalculationHistoryItemWrapper>(Model.History.Select(e => new PriceCalculationHistoryItemWrapper(e)));
           RegisterCollection(History, Model.History);
-          if (Model.Files == null) throw new ArgumentException("Files cannot be null");
+          if (Model.Files == null) throw new ArgumentException($"{nameof(Model.Files)} cannot be null");
           Files = new ValidatableChangeTrackingCollection<PriceCalculationFileWrapper>(Model.Files.Select(e => new PriceCalculationFileWrapper(e)));
           RegisterCollection(Files, Model.Files);
         }
@@ -2057,6 +2108,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -2126,6 +2178,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -2138,6 +2191,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(User, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2223,6 +2277,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -2235,6 +2290,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<PaymentConditionSetWrapper>(); }
             set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -2248,6 +2304,7 @@ namespace HVTApp.Model.Wrapper
         /// Сралчахвосты
         /// </summary>
         public IValidatableChangeTrackingCollection<StructureCostWrapper> StructureCosts { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -2266,6 +2323,7 @@ namespace HVTApp.Model.Wrapper
         /// Price
         /// </summary>
         public System.Nullable<System.Double> Price => Model.Price; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2275,10 +2333,10 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          if (Model.SalesUnits == null) throw new ArgumentException($"{nameof(Model.SalesUnits)} cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
-          if (Model.StructureCosts == null) throw new ArgumentException("StructureCosts cannot be null");
+          if (Model.StructureCosts == null) throw new ArgumentException($"{nameof(Model.StructureCosts)} cannot be null");
           StructureCosts = new ValidatableChangeTrackingCollection<StructureCostWrapper>(Model.StructureCosts.Select(e => new StructureCostWrapper(e)));
           RegisterCollection(StructureCosts, Model.StructureCosts);
         }
@@ -2328,6 +2386,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -2336,11 +2395,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -2390,6 +2450,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -2398,11 +2459,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -2452,6 +2514,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -2460,11 +2523,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -2503,6 +2567,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -2516,14 +2581,15 @@ namespace HVTApp.Model.Wrapper
         /// Список рассылки уведомлений о платежах
         /// </summary>
         public IValidatableChangeTrackingCollection<UserWrapper> SavePaymentDocumentDistributionList { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ChiefEngineerReportDistributionList == null) throw new ArgumentException("ChiefEngineerReportDistributionList cannot be null");
+          if (Model.ChiefEngineerReportDistributionList == null) throw new ArgumentException($"{nameof(Model.ChiefEngineerReportDistributionList)} cannot be null");
           ChiefEngineerReportDistributionList = new ValidatableChangeTrackingCollection<UserWrapper>(Model.ChiefEngineerReportDistributionList.Select(e => new UserWrapper(e)));
           RegisterCollection(ChiefEngineerReportDistributionList, Model.ChiefEngineerReportDistributionList);
-          if (Model.SavePaymentDocumentDistributionList == null) throw new ArgumentException("SavePaymentDocumentDistributionList cannot be null");
+          if (Model.SavePaymentDocumentDistributionList == null) throw new ArgumentException($"{nameof(Model.SavePaymentDocumentDistributionList)} cannot be null");
           SavePaymentDocumentDistributionList = new ValidatableChangeTrackingCollection<UserWrapper>(Model.SavePaymentDocumentDistributionList.Select(e => new UserWrapper(e)));
           RegisterCollection(SavePaymentDocumentDistributionList, Model.SavePaymentDocumentDistributionList);
         }
@@ -2694,6 +2760,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -2769,6 +2836,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<SpecificationWrapper>(); }
             set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -2817,6 +2885,7 @@ namespace HVTApp.Model.Wrapper
         /// SalesUnits
         /// </summary>
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -2895,6 +2964,7 @@ namespace HVTApp.Model.Wrapper
         /// Блок
         /// </summary>
         public HVTApp.Model.POCOs.ProductBlock ProductBlock => Model.ProductBlock; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2911,31 +2981,31 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
+          if (Model.ProductBlocksAdded == null) throw new ArgumentException($"{nameof(Model.ProductBlocksAdded)} cannot be null");
           ProductBlocksAdded = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper>(Model.ProductBlocksAdded.Select(e => new PriceEngineeringTaskProductBlockAddedWrapper(e)));
           RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
-          if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
+          if (Model.FilesTechnicalRequirements == null) throw new ArgumentException($"{nameof(Model.FilesTechnicalRequirements)} cannot be null");
           FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
           RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
-          if (Model.FilesAnswers == null) throw new ArgumentException("FilesAnswers cannot be null");
+          if (Model.FilesAnswers == null) throw new ArgumentException($"{nameof(Model.FilesAnswers)} cannot be null");
           FilesAnswers = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileAnswerWrapper>(Model.FilesAnswers.Select(e => new PriceEngineeringTaskFileAnswerWrapper(e)));
           RegisterCollection(FilesAnswers, Model.FilesAnswers);
-          if (Model.Messages == null) throw new ArgumentException("Messages cannot be null");
+          if (Model.Messages == null) throw new ArgumentException($"{nameof(Model.Messages)} cannot be null");
           Messages = new ValidatableChangeTrackingCollection<PriceEngineeringTaskMessageWrapper>(Model.Messages.Select(e => new PriceEngineeringTaskMessageWrapper(e)));
           RegisterCollection(Messages, Model.Messages);
-          if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+          if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException($"{nameof(Model.ChildPriceEngineeringTasks)} cannot be null");
           ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
           RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-          if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
+          if (Model.StructureCostVersions == null) throw new ArgumentException($"{nameof(Model.StructureCostVersions)} cannot be null");
           StructureCostVersions = new ValidatableChangeTrackingCollection<StructureCostVersionWrapper>(Model.StructureCostVersions.Select(e => new StructureCostVersionWrapper(e)));
           RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
-          if (Model.PriceCalculationItems == null) throw new ArgumentException("PriceCalculationItems cannot be null");
+          if (Model.PriceCalculationItems == null) throw new ArgumentException($"{nameof(Model.PriceCalculationItems)} cannot be null");
           PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItemWrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItemWrapper(e)));
           RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
-          if (Model.Statuses == null) throw new ArgumentException("Statuses cannot be null");
+          if (Model.Statuses == null) throw new ArgumentException($"{nameof(Model.Statuses)} cannot be null");
           Statuses = new ValidatableChangeTrackingCollection<PriceEngineeringTaskStatusWrapper>(Model.Statuses.Select(e => new PriceEngineeringTaskStatusWrapper(e)));
           RegisterCollection(Statuses, Model.Statuses);
-          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          if (Model.SalesUnits == null) throw new ArgumentException($"{nameof(Model.SalesUnits)} cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
         }
@@ -3018,6 +3088,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -3087,6 +3158,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -3145,6 +3217,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -3157,6 +3230,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Author, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3231,6 +3305,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -3243,6 +3318,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductBlockWrapper>(); }
             set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -3251,6 +3327,7 @@ namespace HVTApp.Model.Wrapper
         /// Версии SCC
         /// </summary>
         public IValidatableChangeTrackingCollection<StructureCostVersionWrapper> StructureCostVersions { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -3259,6 +3336,7 @@ namespace HVTApp.Model.Wrapper
         /// HasSccInTce
         /// </summary>
         public System.Boolean HasSccInTce => Model.HasSccInTce; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3268,7 +3346,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");
+          if (Model.StructureCostVersions == null) throw new ArgumentException($"{nameof(Model.StructureCostVersions)} cannot be null");
           StructureCostVersions = new ValidatableChangeTrackingCollection<StructureCostVersionWrapper>(Model.StructureCostVersions.Select(e => new StructureCostVersionWrapper(e)));
           RegisterCollection(StructureCostVersions, Model.StructureCostVersions);
         }
@@ -3351,6 +3429,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -3372,6 +3451,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(BackManager, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -3390,6 +3470,7 @@ namespace HVTApp.Model.Wrapper
         /// Расчеты переменных затрат
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceCalculationWrapper> PriceCalculations { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -3413,6 +3494,7 @@ namespace HVTApp.Model.Wrapper
         /// Статусы задач
         /// </summary>
         public System.Collections.Generic.IEnumerable<HVTApp.Model.POCOs.ScriptStep> StatusesAll => Model.StatusesAll; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3423,13 +3505,13 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.FilesTechnicalRequirements == null) throw new ArgumentException("FilesTechnicalRequirements cannot be null");
+          if (Model.FilesTechnicalRequirements == null) throw new ArgumentException($"{nameof(Model.FilesTechnicalRequirements)} cannot be null");
           FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTasksFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTasksFileTechnicalRequirementsWrapper(e)));
           RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
-          if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException("ChildPriceEngineeringTasks cannot be null");
+          if (Model.ChildPriceEngineeringTasks == null) throw new ArgumentException($"{nameof(Model.ChildPriceEngineeringTasks)} cannot be null");
           ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<PriceEngineeringTaskWrapper>(Model.ChildPriceEngineeringTasks.Select(e => new PriceEngineeringTaskWrapper(e)));
           RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
-          if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
+          if (Model.PriceCalculations == null) throw new ArgumentException($"{nameof(Model.PriceCalculations)} cannot be null");
           PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
           RegisterCollection(PriceCalculations, Model.PriceCalculations);
         }
@@ -3512,6 +3594,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -3581,6 +3664,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -3650,6 +3734,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -3697,6 +3782,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -3705,11 +3791,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -3770,6 +3857,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -3782,6 +3870,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductCategoryWrapper>(); }
             set { SetComplexValue<ProductCategory, ProductCategoryWrapper>(Category, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3845,6 +3934,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -3857,6 +3947,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductWrapper>(); }
             set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
+
         #endregion
 
         #region GetProperties
@@ -3865,6 +3956,7 @@ namespace HVTApp.Model.Wrapper
         /// AmountOnUnit
         /// </summary>
         public System.Double AmountOnUnit => Model.AmountOnUnit; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3906,6 +3998,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -3919,14 +4012,15 @@ namespace HVTApp.Model.Wrapper
         /// Родители
         /// </summary>
         public IValidatableChangeTrackingCollection<ProductDesignationWrapper> Parents { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
-          if (Model.Parents == null) throw new ArgumentException("Parents cannot be null");
+          if (Model.Parents == null) throw new ArgumentException($"{nameof(Model.Parents)} cannot be null");
           Parents = new ValidatableChangeTrackingCollection<ProductDesignationWrapper>(Model.Parents.Select(e => new ProductDesignationWrapper(e)));
           RegisterCollection(Parents, Model.Parents);
         }
@@ -3965,6 +4059,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -3990,6 +4085,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -4002,6 +4098,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductTypeWrapper>(); }
             set { SetComplexValue<ProductType, ProductTypeWrapper>(ProductType, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -4010,6 +4107,7 @@ namespace HVTApp.Model.Wrapper
         /// Параметры
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4019,7 +4117,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -4058,6 +4156,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -4094,6 +4193,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -4102,11 +4202,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры оборудования
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -4145,6 +4246,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -4153,11 +4255,12 @@ namespace HVTApp.Model.Wrapper
         /// Параметры оборудования
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
         }
@@ -4262,6 +4365,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -4274,6 +4378,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductBlockWrapper>(); }
             set { SetComplexValue<ProductBlock, ProductBlockWrapper>(OriginalStructureCostProductBlock, value); }
         }
+
         #endregion
 
         #region GetProperties
@@ -4287,6 +4392,7 @@ namespace HVTApp.Model.Wrapper
         /// Total
         /// </summary>
         public System.Nullable<System.Double> Total => Model.Total; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4361,6 +4467,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -4382,6 +4489,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<SalesUnitWrapper>(); }
             set { SetComplexValue<SalesUnit, SalesUnitWrapper>(SupervisionUnit, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4457,6 +4565,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -4469,6 +4578,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(BackManager, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -4477,6 +4587,7 @@ namespace HVTApp.Model.Wrapper
         /// Строки счёта
         /// </summary>
         public IValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemWrapper> Items { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4486,7 +4597,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Items == null) throw new ArgumentException("Items cannot be null");
+          if (Model.Items == null) throw new ArgumentException($"{nameof(Model.Items)} cannot be null");
           Items = new ValidatableChangeTrackingCollection<TaskInvoiceForPaymentItemWrapper>(Model.Items.Select(e => new TaskInvoiceForPaymentItemWrapper(e)));
           RegisterCollection(Items, Model.Items);
         }
@@ -4525,6 +4636,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -4555,6 +4667,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<PaymentConditionWrapper>(); }
             set { SetComplexValue<PaymentCondition, PaymentConditionWrapper>(PaymentCondition, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4642,6 +4755,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -4689,6 +4803,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -4780,6 +4895,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -4792,6 +4908,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<SpecificationWrapper>(); }
             set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -4805,6 +4922,7 @@ namespace HVTApp.Model.Wrapper
         /// Файлы
         /// </summary>
         public IValidatableChangeTrackingCollection<TechnicalRequrementsFileWrapper> Files { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -4814,10 +4932,10 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          if (Model.SalesUnits == null) throw new ArgumentException($"{nameof(Model.SalesUnits)} cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
-          if (Model.Files == null) throw new ArgumentException("Files cannot be null");
+          if (Model.Files == null) throw new ArgumentException($"{nameof(Model.Files)} cannot be null");
           Files = new ValidatableChangeTrackingCollection<TechnicalRequrementsFileWrapper>(Model.Files.Select(e => new TechnicalRequrementsFileWrapper(e)));
           RegisterCollection(Files, Model.Files);
         }
@@ -4889,6 +5007,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -4980,6 +5099,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -4992,6 +5112,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(BackManager, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -5020,6 +5141,7 @@ namespace HVTApp.Model.Wrapper
         /// История проработки
         /// </summary>
         public IValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper> HistoryElements { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -5073,6 +5195,7 @@ namespace HVTApp.Model.Wrapper
         /// Статус тех.задания (задача)
         /// </summary>
         public HVTApp.Model.POCOs.TechnicalRequrementsTaskHistoryElement LastHistoryElement => Model.LastHistoryElement; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -5082,19 +5205,19 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Requrements == null) throw new ArgumentException("Requrements cannot be null");
+          if (Model.Requrements == null) throw new ArgumentException($"{nameof(Model.Requrements)} cannot be null");
           Requrements = new ValidatableChangeTrackingCollection<TechnicalRequrementsWrapper>(Model.Requrements.Select(e => new TechnicalRequrementsWrapper(e)));
           RegisterCollection(Requrements, Model.Requrements);
-          if (Model.PriceCalculations == null) throw new ArgumentException("PriceCalculations cannot be null");
+          if (Model.PriceCalculations == null) throw new ArgumentException($"{nameof(Model.PriceCalculations)} cannot be null");
           PriceCalculations = new ValidatableChangeTrackingCollection<PriceCalculationWrapper>(Model.PriceCalculations.Select(e => new PriceCalculationWrapper(e)));
           RegisterCollection(PriceCalculations, Model.PriceCalculations);
-          if (Model.AnswerFiles == null) throw new ArgumentException("AnswerFiles cannot be null");
+          if (Model.AnswerFiles == null) throw new ArgumentException($"{nameof(Model.AnswerFiles)} cannot be null");
           AnswerFiles = new ValidatableChangeTrackingCollection<AnswerFileTceWrapper>(Model.AnswerFiles.Select(e => new AnswerFileTceWrapper(e)));
           RegisterCollection(AnswerFiles, Model.AnswerFiles);
-          if (Model.ShippingCostFiles == null) throw new ArgumentException("ShippingCostFiles cannot be null");
+          if (Model.ShippingCostFiles == null) throw new ArgumentException($"{nameof(Model.ShippingCostFiles)} cannot be null");
           ShippingCostFiles = new ValidatableChangeTrackingCollection<ShippingCostFileWrapper>(Model.ShippingCostFiles.Select(e => new ShippingCostFileWrapper(e)));
           RegisterCollection(ShippingCostFiles, Model.ShippingCostFiles);
-          if (Model.HistoryElements == null) throw new ArgumentException("HistoryElements cannot be null");
+          if (Model.HistoryElements == null) throw new ArgumentException($"{nameof(Model.HistoryElements)} cannot be null");
           HistoryElements = new ValidatableChangeTrackingCollection<TechnicalRequrementsTaskHistoryElementWrapper>(Model.HistoryElements.Select(e => new TechnicalRequrementsTaskHistoryElementWrapper(e)));
           RegisterCollection(HistoryElements, Model.HistoryElements);
         }
@@ -5166,6 +5289,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -5178,6 +5302,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(User, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -5219,6 +5344,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -5227,11 +5353,12 @@ namespace HVTApp.Model.Wrapper
         /// Пользователи
         /// </summary>
         public IValidatableChangeTrackingCollection<UserWrapper> Users { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Users == null) throw new ArgumentException("Users cannot be null");
+          if (Model.Users == null) throw new ArgumentException($"{nameof(Model.Users)} cannot be null");
           Users = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Users.Select(e => new UserWrapper(e)));
           RegisterCollection(Users, Model.Users);
         }
@@ -5402,6 +5529,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -5603,6 +5731,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ParameterWrapper>(); }
             set { SetComplexValue<Parameter, ParameterWrapper>(ParameterCurrentTransformersSetCustom, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -5665,6 +5794,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -5677,6 +5807,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<LocalityWrapper>(); }
             set { SetComplexValue<Locality, LocalityWrapper>(Locality, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -5718,6 +5849,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -5754,6 +5886,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -5766,6 +5899,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<CountryWrapper>(); }
             set { SetComplexValue<Country, CountryWrapper>(Country, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -5851,6 +5985,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -5872,6 +6007,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<RegionWrapper>(); }
             set { SetComplexValue<Region, RegionWrapper>(Region, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -5925,6 +6061,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -5961,6 +6098,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -5973,6 +6111,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<DistrictWrapper>(); }
             set { SetComplexValue<District, DistrictWrapper>(District, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -6036,6 +6175,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -6105,6 +6245,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -6163,6 +6304,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -6243,6 +6385,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -6282,6 +6425,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<PaymentConditionSetWrapper>(); }
             set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -6290,6 +6434,7 @@ namespace HVTApp.Model.Wrapper
         /// Включенные продукты
         /// </summary>
         public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -6302,7 +6447,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
+          if (Model.ProductsIncluded == null) throw new ArgumentException($"{nameof(Model.ProductsIncluded)} cannot be null");
           ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedWrapper(e)));
           RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
         }
@@ -6330,6 +6475,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -6338,11 +6484,12 @@ namespace HVTApp.Model.Wrapper
         /// Список условий
         /// </summary>
         public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentConditions { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.PaymentConditions == null) throw new ArgumentException("PaymentConditions cannot be null");
+          if (Model.PaymentConditions == null) throw new ArgumentException($"{nameof(Model.PaymentConditions)} cannot be null");
           PaymentConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentConditions.Select(e => new PaymentConditionWrapper(e)));
           RegisterCollection(PaymentConditions, Model.PaymentConditions);
         }
@@ -6436,6 +6583,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -6459,6 +6607,7 @@ namespace HVTApp.Model.Wrapper
         /// Параметры (упорядоченные)
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> ParametersOrdered { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -6502,20 +6651,21 @@ namespace HVTApp.Model.Wrapper
         /// Тип
         /// </summary>
         public HVTApp.Model.POCOs.ProductType ProductType => Model.ProductType; 
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException($"{nameof(Model.Parameters)} cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
-          if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
+          if (Model.Prices == null) throw new ArgumentException($"{nameof(Model.Prices)} cannot be null");
           Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.Prices.Select(e => new SumOnDateWrapper(e)));
           RegisterCollection(Prices, Model.Prices);
-          if (Model.FixedCosts == null) throw new ArgumentException("FixedCosts cannot be null");
+          if (Model.FixedCosts == null) throw new ArgumentException($"{nameof(Model.FixedCosts)} cannot be null");
           FixedCosts = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.FixedCosts.Select(e => new SumOnDateWrapper(e)));
           RegisterCollection(FixedCosts, Model.FixedCosts);
-          if (Model.ParametersOrdered == null) throw new ArgumentException("ParametersOrdered cannot be null");
+          if (Model.ParametersOrdered == null) throw new ArgumentException($"{nameof(Model.ParametersOrdered)} cannot be null");
           ParametersOrdered = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.ParametersOrdered.Select(e => new ParameterWrapper(e)));
           RegisterCollection(ParametersOrdered, Model.ParametersOrdered);
         }
@@ -6565,6 +6715,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -6577,6 +6728,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductWrapper>(); }
             set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -6651,6 +6803,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -6720,6 +6873,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -6759,6 +6913,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<AddressWrapper>(); }
             set { SetComplexValue<Address, AddressWrapper>(AddressPost, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -6772,6 +6927,7 @@ namespace HVTApp.Model.Wrapper
         /// Сферы деятельности
         /// </summary>
         public IValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFilds { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -6784,10 +6940,10 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.BankDetailsList == null) throw new ArgumentException("BankDetailsList cannot be null");
+          if (Model.BankDetailsList == null) throw new ArgumentException($"{nameof(Model.BankDetailsList)} cannot be null");
           BankDetailsList = new ValidatableChangeTrackingCollection<BankDetailsWrapper>(Model.BankDetailsList.Select(e => new BankDetailsWrapper(e)));
           RegisterCollection(BankDetailsList, Model.BankDetailsList);
-          if (Model.ActivityFilds == null) throw new ArgumentException("ActivityFilds cannot be null");
+          if (Model.ActivityFilds == null) throw new ArgumentException($"{nameof(Model.ActivityFilds)} cannot be null");
           ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(Model.ActivityFilds.Select(e => new ActivityFieldWrapper(e)));
           RegisterCollection(ActivityFilds, Model.ActivityFilds);
         }
@@ -6837,6 +6993,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -6884,6 +7041,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -6920,6 +7078,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -6967,6 +7126,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -7014,6 +7174,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -7061,6 +7222,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -7073,6 +7235,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<CompanyWrapper>(); }
             set { SetComplexValue<Company, CompanyWrapper>(Contragent, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -7125,6 +7288,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -7183,6 +7347,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -7195,6 +7360,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ParameterGroupWrapper>(); }
             set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(ParameterGroup, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -7203,6 +7369,7 @@ namespace HVTApp.Model.Wrapper
         /// Ограничения
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterRelationWrapper> ParameterRelations { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -7211,6 +7378,7 @@ namespace HVTApp.Model.Wrapper
         /// Начало?
         /// </summary>
         public System.Boolean IsOrigin => Model.IsOrigin; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -7220,7 +7388,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ParameterRelations == null) throw new ArgumentException("ParameterRelations cannot be null");
+          if (Model.ParameterRelations == null) throw new ArgumentException($"{nameof(Model.ParameterRelations)} cannot be null");
           ParameterRelations = new ValidatableChangeTrackingCollection<ParameterRelationWrapper>(Model.ParameterRelations.Select(e => new ParameterRelationWrapper(e)));
           RegisterCollection(ParameterRelations, Model.ParameterRelations);
         }
@@ -7281,6 +7449,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -7293,6 +7462,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<MeasureWrapper>(); }
             set { SetComplexValue<Measure, MeasureWrapper>(Measure, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -7356,6 +7526,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -7369,14 +7540,15 @@ namespace HVTApp.Model.Wrapper
         /// Дочерние параметры
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> ChildProductParameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ParentProductParameters == null) throw new ArgumentException("ParentProductParameters cannot be null");
+          if (Model.ParentProductParameters == null) throw new ArgumentException($"{nameof(Model.ParentProductParameters)} cannot be null");
           ParentProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.ParentProductParameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(ParentProductParameters, Model.ParentProductParameters);
-          if (Model.ChildProductParameters == null) throw new ArgumentException("ChildProductParameters cannot be null");
+          if (Model.ChildProductParameters == null) throw new ArgumentException($"{nameof(Model.ChildProductParameters)} cannot be null");
           ChildProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.ChildProductParameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(ChildProductParameters, Model.ChildProductParameters);
         }
@@ -7448,6 +7620,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -7484,6 +7657,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -7492,11 +7666,12 @@ namespace HVTApp.Model.Wrapper
         /// Обязательные параметры перед
         /// </summary>
         public IValidatableChangeTrackingCollection<ParameterWrapper> RequiredParameters { get; private set; }
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.RequiredParameters == null) throw new ArgumentException("RequiredParameters cannot be null");
+          if (Model.RequiredParameters == null) throw new ArgumentException($"{nameof(Model.RequiredParameters)} cannot be null");
           RequiredParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.RequiredParameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(RequiredParameters, Model.RequiredParameters);
         }
@@ -7799,6 +7974,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -7883,6 +8059,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<AddressWrapper>(); }
             set { SetComplexValue<Address, AddressWrapper>(AddressDelivery, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -7921,6 +8098,7 @@ namespace HVTApp.Model.Wrapper
         /// Расчетные плановые платежи + сохраненные
         /// </summary>
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedCalculated { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -8084,6 +8262,7 @@ namespace HVTApp.Model.Wrapper
         /// Адрес доставки (расчетный)
         /// </summary>
         public HVTApp.Model.POCOs.Address AddressDeliveryCalculated => Model.AddressDeliveryCalculated; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8101,25 +8280,25 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
+          if (Model.ProductsIncluded == null) throw new ArgumentException($"{nameof(Model.ProductsIncluded)} cannot be null");
           ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedWrapper(e)));
           RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
-          if (Model.LosingReasons == null) throw new ArgumentException("LosingReasons cannot be null");
+          if (Model.LosingReasons == null) throw new ArgumentException($"{nameof(Model.LosingReasons)} cannot be null");
           LosingReasons = new ValidatableChangeTrackingCollection<LosingReasonWrapper>(Model.LosingReasons.Select(e => new LosingReasonWrapper(e)));
           RegisterCollection(LosingReasons, Model.LosingReasons);
-          if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
+          if (Model.PaymentsActual == null) throw new ArgumentException($"{nameof(Model.PaymentsActual)} cannot be null");
           PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
           RegisterCollection(PaymentsActual, Model.PaymentsActual);
-          if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
+          if (Model.PaymentsPlanned == null) throw new ArgumentException($"{nameof(Model.PaymentsPlanned)} cannot be null");
           PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
-          if (Model.PaymentsPlannedActual == null) throw new ArgumentException("PaymentsPlannedActual cannot be null");
+          if (Model.PaymentsPlannedActual == null) throw new ArgumentException($"{nameof(Model.PaymentsPlannedActual)} cannot be null");
           PaymentsPlannedActual = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedActual.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlannedActual, Model.PaymentsPlannedActual);
-          if (Model.PaymentsPlannedGenerated == null) throw new ArgumentException("PaymentsPlannedGenerated cannot be null");
+          if (Model.PaymentsPlannedGenerated == null) throw new ArgumentException($"{nameof(Model.PaymentsPlannedGenerated)} cannot be null");
           PaymentsPlannedGenerated = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedGenerated.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlannedGenerated, Model.PaymentsPlannedGenerated);
-          if (Model.PaymentsPlannedCalculated == null) throw new ArgumentException("PaymentsPlannedCalculated cannot be null");
+          if (Model.PaymentsPlannedCalculated == null) throw new ArgumentException($"{nameof(Model.PaymentsPlannedCalculated)} cannot be null");
           PaymentsPlannedCalculated = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedCalculated.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlannedCalculated, Model.PaymentsPlannedCalculated);
         }
@@ -8202,6 +8381,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -8259,6 +8439,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
             set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfRecipient, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -8267,6 +8448,7 @@ namespace HVTApp.Model.Wrapper
         /// Копия
         /// </summary>
         public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -8280,6 +8462,7 @@ namespace HVTApp.Model.Wrapper
         /// Направление
         /// </summary>
         public HVTApp.Model.POCOs.DocumentDirection Direction => Model.Direction; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8294,7 +8477,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
+          if (Model.CopyToRecipients == null) throw new ArgumentException($"{nameof(Model.CopyToRecipients)} cannot be null");
           CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => new EmployeeWrapper(e)));
           RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
         }
@@ -8344,6 +8527,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -8391,6 +8575,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -8403,6 +8588,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ProductBlockWrapper>(); }
             set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -8411,6 +8597,7 @@ namespace HVTApp.Model.Wrapper
         /// Продукты в составе
         /// </summary>
         public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -8434,6 +8621,7 @@ namespace HVTApp.Model.Wrapper
         /// Категория
         /// </summary>
         public HVTApp.Model.POCOs.ProductCategory Category => Model.Category; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8443,7 +8631,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
+          if (Model.DependentProducts == null) throw new ArgumentException($"{nameof(Model.DependentProducts)} cannot be null");
           DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(Model.DependentProducts.Select(e => new ProductDependentWrapper(e)));
           RegisterCollection(DependentProducts, Model.DependentProducts);
         }
@@ -8548,6 +8736,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -8614,6 +8803,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
             set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfRecipient, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -8622,6 +8812,7 @@ namespace HVTApp.Model.Wrapper
         /// Копия
         /// </summary>
         public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -8635,6 +8826,7 @@ namespace HVTApp.Model.Wrapper
         /// Направление
         /// </summary>
         public HVTApp.Model.POCOs.DocumentDirection Direction => Model.Direction; 
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8650,7 +8842,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
+          if (Model.CopyToRecipients == null) throw new ArgumentException($"{nameof(Model.CopyToRecipients)} cannot be null");
           CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => new EmployeeWrapper(e)));
           RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
         }
@@ -8711,6 +8903,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -8741,6 +8934,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<EmployeesPositionWrapper>(); }
             set { SetComplexValue<EmployeesPosition, EmployeesPositionWrapper>(Position, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8795,6 +8989,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -8842,6 +9037,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -8854,6 +9050,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<PaymentConditionPointWrapper>(); }
             set { SetComplexValue<PaymentConditionPoint, PaymentConditionPointWrapper>(PaymentConditionPoint, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -8906,6 +9103,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region CollectionProperties
@@ -8914,6 +9112,7 @@ namespace HVTApp.Model.Wrapper
         /// Платежи
         /// </summary>
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> Payments { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -8927,11 +9126,12 @@ namespace HVTApp.Model.Wrapper
         /// SumWithVat
         /// </summary>
         public System.Double SumWithVat => Model.SumWithVat; 
+
         #endregion
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Payments == null) throw new ArgumentException("Payments cannot be null");
+          if (Model.Payments == null) throw new ArgumentException($"{nameof(Model.Payments)} cannot be null");
           Payments = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.Payments.Select(e => new PaymentActualWrapper(e)));
           RegisterCollection(Payments, Model.Payments);
         }
@@ -8970,6 +9170,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -9000,6 +9201,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<AddressWrapper>(); }
             set { SetComplexValue<Address, AddressWrapper>(Address, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -9065,6 +9267,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -9086,6 +9289,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(Manager, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -9094,6 +9298,7 @@ namespace HVTApp.Model.Wrapper
         /// Заметки
         /// </summary>
         public IValidatableChangeTrackingCollection<NoteWrapper> Notes { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -9104,7 +9309,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Notes == null) throw new ArgumentException("Notes cannot be null");
+          if (Model.Notes == null) throw new ArgumentException($"{nameof(Model.Notes)} cannot be null");
           Notes = new ValidatableChangeTrackingCollection<NoteWrapper>(Model.Notes.Select(e => new NoteWrapper(e)));
           RegisterCollection(Notes, Model.Notes);
         }
@@ -9154,6 +9359,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -9223,6 +9429,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -9235,6 +9442,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<ContractWrapper>(); }
             set { SetComplexValue<Contract, ContractWrapper>(Contract, value); }
         }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -9320,6 +9528,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -9341,6 +9550,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<CompanyWrapper>(); }
             set { SetComplexValue<Company, CompanyWrapper>(Winner, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -9354,6 +9564,7 @@ namespace HVTApp.Model.Wrapper
         /// Участники
         /// </summary>
         public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -9364,10 +9575,10 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Types == null) throw new ArgumentException("Types cannot be null");
+          if (Model.Types == null) throw new ArgumentException($"{nameof(Model.Types)} cannot be null");
           Types = new ValidatableChangeTrackingCollection<TenderTypeWrapper>(Model.Types.Select(e => new TenderTypeWrapper(e)));
           RegisterCollection(Types, Model.Types);
-          if (Model.Participants == null) throw new ArgumentException("Participants cannot be null");
+          if (Model.Participants == null) throw new ArgumentException($"{nameof(Model.Participants)} cannot be null");
           Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.Participants.Select(e => new CompanyWrapper(e)));
           RegisterCollection(Participants, Model.Participants);
         }
@@ -9417,6 +9628,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 	}
 
@@ -9486,6 +9698,7 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
         public bool IdIsChanged => GetIsChanged(nameof(Id));
+
         #endregion
 
         #region ComplexProperties
@@ -9498,6 +9711,7 @@ namespace HVTApp.Model.Wrapper
             get { return GetWrapper<EmployeeWrapper>(); }
             set { SetComplexValue<Employee, EmployeeWrapper>(Employee, value); }
         }
+
         #endregion
 
         #region CollectionProperties
@@ -9506,6 +9720,7 @@ namespace HVTApp.Model.Wrapper
         /// Роли
         /// </summary>
         public IValidatableChangeTrackingCollection<UserRoleWrapper> Roles { get; private set; }
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -9515,7 +9730,7 @@ namespace HVTApp.Model.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Roles == null) throw new ArgumentException("Roles cannot be null");
+          if (Model.Roles == null) throw new ArgumentException($"{nameof(Model.Roles)} cannot be null");
           Roles = new ValidatableChangeTrackingCollection<UserRoleWrapper>(Model.Roles.Select(e => new UserRoleWrapper(e)));
           RegisterCollection(Roles, Model.Roles);
         }
