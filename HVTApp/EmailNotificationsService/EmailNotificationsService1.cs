@@ -39,11 +39,12 @@ namespace EmailNotificationsService
                         continue;
 
                     //отправляем уведомление по email
-                    var emailAddress = notificationUnit.RecipientUser.Employee.Email;
-                    var subject = $"[УП ВВА] {_notificationTextService.GetActionInfo(notificationUnit)}";
-                    var body = _notificationTextService.GetCommonInfo(notificationUnit);
                     try
                     {
+                        var emailAddress = notificationUnit.RecipientUser.Employee.Email;
+                        var subject = $"[УП ВВА] {_notificationTextService.GetActionInfo(notificationUnit)}";
+                        var body = _notificationTextService.GetCommonInfo(notificationUnit);
+
                         _emailService.SendMail(emailAddress, subject, body);
                         notificationUnit.IsSentByEmail = true;
                         SuccessSendNotificationEvent?.Invoke(notificationUnit);

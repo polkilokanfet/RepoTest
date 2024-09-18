@@ -213,13 +213,16 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopReject:
                 case NotificationActionType.PriceEngineeringTaskInstructInspector:
                 {
-                        using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
+                    using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
                     {
-                        var targetEntity = unitOfWork.Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId);
+                        var priceEngineeringTaskTarget = unitOfWork.Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId);
+                        var priceEngineeringTaskTop = priceEngineeringTaskTarget.GetTopPriceEngineeringTask(unitOfWork);
+                        var priceEngineeringTasks = priceEngineeringTaskTarget.GetPriceEngineeringTasks(unitOfWork);
+
                         return this.GetCommonInfo(
-                            targetEntity.GetPriceEngineeringTasks(unitOfWork), 
-                            targetEntity, 
-                            targetEntity.GetTopPriceEngineeringTask(unitOfWork));
+                            priceEngineeringTasks,
+                            priceEngineeringTaskTarget,
+                            priceEngineeringTaskTop);
                     }
                 }
 

@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure;
+﻿using System;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -75,10 +76,17 @@ namespace NotificationsFromDataBaseService
 
                 foreach (var notificationUnit in notificationUnits)
                 {
-                    //показ уведомления
-                    this.ShowNotification(notificationUnit);
-                    //удаление уведомления
-                    unitOfWork.RemoveEntity(notificationUnit);
+                    try
+                    {
+                        //показ уведомления
+                        this.ShowNotification(notificationUnit);
+                        //удаление уведомления
+                        unitOfWork.RemoveEntity(notificationUnit);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
             }
 

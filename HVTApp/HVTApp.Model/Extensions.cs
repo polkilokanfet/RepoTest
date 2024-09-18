@@ -172,10 +172,11 @@ namespace HVTApp.Model
         /// <returns></returns>
         public static PriceEngineeringTasks GetPriceEngineeringTasks(this PriceEngineeringTask task, IUnitOfWork unitOfWork)
         {
-            while (task.ParentPriceEngineeringTasksId.HasValue == false)
-            {
+            if (task.ParentPriceEngineeringTasksId.HasValue == false) 
                 task = task.GetTopPriceEngineeringTask(unitOfWork);
-            }
+
+            if (task.ParentPriceEngineeringTasksId.HasValue == false)
+                throw new ArgumentException($"Задача ТСП не связана ни с одной сборкой задач. {nameof(GetPriceEngineeringTasks)} failed");
 
             return unitOfWork.Repository<PriceEngineeringTasks>().GetById(task.ParentPriceEngineeringTasksId.Value);
         }
