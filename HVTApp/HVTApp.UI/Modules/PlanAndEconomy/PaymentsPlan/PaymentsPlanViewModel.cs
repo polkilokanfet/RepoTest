@@ -49,6 +49,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
                 x.SalesUnit.Project,
                 x.SalesUnit.Facility,
                 x.SalesUnit.Specification,
+                x.SalesUnit.Order,
                 x.PaymentPlanned.Part,
                 x.PaymentPlanned.Date,
                 x.PaymentPlanned.Condition
