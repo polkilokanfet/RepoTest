@@ -600,6 +600,11 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        /// <summary>
+        /// Задача не имеет родительской задачи
+        /// </summary>
+        public bool IsTop => this.ParentPriceEngineeringTaskId.HasValue == false;
+
         public DateTime? GetDeadline(IUnitOfWork unitOfWork)
         {
             if (StartMoment.HasValue == false) return default;

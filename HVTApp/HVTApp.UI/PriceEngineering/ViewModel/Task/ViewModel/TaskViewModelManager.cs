@@ -64,6 +64,11 @@ namespace HVTApp.UI.PriceEngineering
         public virtual ICommandIsVisibleWhenCanExecute StartProductionCommand { get; } = new DelegateLogCommand(() => { }, () => false);
 
         /// <summary>
+        /// Отменить открытие производства
+        /// </summary>
+        public virtual ICommandIsVisibleWhenCanExecute CancelStartProductionCommand { get; }
+
+        /// <summary>
         /// Запросить остановку производства
         /// </summary>
         public virtual ICommandIsVisibleWhenCanExecute StopProductionRequestCommand { get; } = new DelegateLogCommand(() => { }, () => false);

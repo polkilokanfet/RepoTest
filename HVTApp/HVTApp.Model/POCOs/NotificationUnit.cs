@@ -134,6 +134,9 @@ namespace HVTApp.Model.POCOs
                         ? "Назначте плановика (для открытия производства)"
                         : "Отправлен запрос на открытие производства";
 
+                case NotificationActionType.PriceEngineeringTaskProductionRequestCancel:
+                    return "Запрос на открытие производства отозван";
+
                 case NotificationActionType.PriceEngineeringTaskProductionRequestFinish:
                     return "Производство открыто";
 

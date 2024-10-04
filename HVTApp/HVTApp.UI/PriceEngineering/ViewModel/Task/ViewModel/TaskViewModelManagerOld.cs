@@ -45,6 +45,11 @@ namespace HVTApp.UI.PriceEngineering
         public override ICommandIsVisibleWhenCanExecute StartProductionCommand { get; }
 
         /// <summary>
+        /// Отменить открытие производства
+        /// </summary>
+        public override ICommandIsVisibleWhenCanExecute CancelStartProductionCommand { get; }
+
+        /// <summary>
         /// Запросить остановку производства
         /// </summary>
         public override ICommandIsVisibleWhenCanExecute StopProductionRequestCommand { get; }
@@ -109,6 +114,7 @@ namespace HVTApp.UI.PriceEngineering
             StopCommand = new DoStepCommandStop(this, container);
             LoadToTceStartCommand = new DoStepCommandLoadToTceStart(this, container);
             StartProductionCommand = new DoStepCommandProductionRequestStart(this, container);
+            CancelStartProductionCommand = new DoStepCommandProductionRequestCancel(this, container);
             StopProductionRequestCommand = new DoStepCommandStopProductionRequest(this, container);
 
             ReplaceProductCommand = new DelegateLogConfirmationCommand(container.Resolve<IMessageService>(),

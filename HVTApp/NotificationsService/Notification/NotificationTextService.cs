@@ -98,6 +98,9 @@ namespace NotificationsService
                         ? "Назначте плановика (для открытия производства)"
                         : "Отправлен запрос на открытие производства";
 
+                case NotificationActionType.PriceEngineeringTaskProductionRequestCancel:
+                    return "Отозван запрос на откритие производства";
+
                 case NotificationActionType.PriceEngineeringTaskProductionRequestFinish:
                     return "Производство открыто";
 
@@ -207,6 +210,7 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskLoadToTceStart:
                 case NotificationActionType.PriceEngineeringTaskLoadToTceFinish:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStart:
+                case NotificationActionType.PriceEngineeringTaskProductionRequestCancel:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestFinish:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:

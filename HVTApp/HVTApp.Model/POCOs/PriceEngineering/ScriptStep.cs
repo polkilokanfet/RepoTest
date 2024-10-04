@@ -111,6 +111,11 @@ namespace HVTApp.Model.POCOs
         public static readonly ScriptStep ProductionRequestStart = new ProductionRequestStartStep();
 
         /// <summary>
+        /// Отзыв запроса на открытие производства (до открытия производства)
+        /// </summary>
+        public static readonly ScriptStep ProductionRequestCancel = new ProductionRequestStartCancel();
+
+        /// <summary>
         /// Запрос на открытие производства обработан
         /// </summary>
         public static readonly ScriptStep ProductionRequestFinish = new ProductionRequestFinishStep();
@@ -201,8 +206,8 @@ namespace HVTApp.Model.POCOs
                 VerificationReject,
                 Accept, 
                 LoadToTceStart,
-                LoadToTceFinish,
-                ProductionRequestStart
+                LoadToTceFinish, 
+                ProductionRequestCancel
             };
 
             protected override IEnumerable<Role> RolesForShow => new List<Role>();
@@ -415,7 +420,8 @@ namespace HVTApp.Model.POCOs
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
                 Accept,
-                LoadToTceFinish
+                LoadToTceFinish,
+                ProductionRequestCancel
             };
 
             protected override IEnumerable<Role> RolesForShow => new[]
@@ -428,6 +434,28 @@ namespace HVTApp.Model.POCOs
             {
             }
         }
+        
+
+        private sealed class ProductionRequestStartCancel : ScriptStep
+        {
+            public override string Description => "Запроса на открытие производства отозван менеджером";
+
+            public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
+            {
+                ProductionRequestStart
+            };
+
+            protected override IEnumerable<Role> RolesForShow => new[]
+            {
+                Role.BackManagerBoss,
+                Role.PlanMaker
+            };
+
+            public ProductionRequestStartCancel() : base(16, Role.SalesManager)
+            {
+            }
+        }
+
 
         private sealed class ProductionRequestFinishStep : ScriptStep
         {
@@ -454,7 +482,7 @@ namespace HVTApp.Model.POCOs
                 ProductionRequestFinish
             };
 
-            protected override IEnumerable<Role> RolesForShow => new List<Role>()
+            protected override IEnumerable<Role> RolesForShow => new List<Role>
             {
                 Role.SalesManager,
                 Role.BackManagerBoss

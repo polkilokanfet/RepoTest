@@ -59,6 +59,7 @@ namespace NotificationsService
                 case NotificationActionType.PriceEngineeringTaskLoadToTceStart:
                 case NotificationActionType.PriceEngineeringTaskLoadToTceFinish:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStart:
+                case NotificationActionType.PriceEngineeringTaskProductionRequestCancel:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestFinish:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStop:
                 case NotificationActionType.PriceEngineeringTaskProductionRequestStopConfirm:
