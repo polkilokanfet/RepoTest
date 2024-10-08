@@ -6,6 +6,7 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:base="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.Base"
               xmlns:forBackManagerBoss="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               mc:Ignorable="d"
               d:DataContext="{d:DesignInstance forBackManagerBoss:TaskInvoiceForPaymentViewModelBackManagerBoss, IsDesignTimeCreatable=True}"
               >
@@ -16,15 +17,50 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Исполнитель">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Назначить" Command="{Binding InstructCommand}"/>
-                <TextBox 
-                    Text="{Binding Task.BackManager.Model.Employee, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
-                    IsReadOnly="True"
-                    Background="Transparent"
-                    BorderThickness="0"/>
-            </StackPanel>
+        <GroupBox Grid.Row="0" Header="Исполнители">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Button Grid.Column="0" Content="Сохранить" Command="{Binding InstructCommand}"/>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                  <Label Grid.Row="0" Grid.Column="0" Content="Плановик"></Label>
+                  <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
+                                              Item="{Binding Task.PlanMaker.Model.Employee.Person, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                              AddItemCommand="{Binding SelectPlanMakerCommand}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Экономист"></Label>
+                    <controls:ChooseItemControl Grid.Row="1" Grid.Column="1"
+                                                Item="{Binding Task.BackManager.Model.Employee.Person, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                AddItemCommand="{Binding SelectBackManagerCommand}"/>
+
+                </Grid>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBox 
+                        Text="{Binding Task.BackManager.Model.Employee, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                        IsReadOnly="True"
+                        Background="Transparent"
+                        BorderThickness="0"/>
+                </StackPanel>
+
+
+
+
+            </Grid>
 
         </GroupBox>
 

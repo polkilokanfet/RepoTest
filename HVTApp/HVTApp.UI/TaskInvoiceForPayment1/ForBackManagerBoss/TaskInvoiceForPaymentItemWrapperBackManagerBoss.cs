@@ -1,5 +1,4 @@
-﻿using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss

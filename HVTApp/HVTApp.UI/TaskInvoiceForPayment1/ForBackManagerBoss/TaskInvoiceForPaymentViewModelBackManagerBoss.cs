@@ -17,29 +17,56 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
     public class TaskInvoiceForPaymentViewModelBackManagerBoss :
         TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperBackManagerBoss, TaskInvoiceForPaymentItemWrapperBackManagerBoss>
     {
+        public ICommand SelectPlanMakerCommand { get; }
+        public ICommand SelectBackManagerCommand { get; }
         public ICommand InstructCommand { get; }
 
         public TaskInvoiceForPaymentViewModelBackManagerBoss(IUnityContainer container) : base(container)
         {
+            SelectBackManagerCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var users = UnitOfWork.Repository<User>().Find(user1 =>
+                        user1.IsActual &&
+                        user1.Roles.Select(role => role.Role).Contains(Role.BackManager));
+
+                    var user = container.Resolve<ISelectService>().SelectItem(users);
+                    if (user == null) return;
+
+                    this.Task.BackManager = new UserEmptyWrapper(user);
+
+                    RaisePropertyChanged(nameof(Task.BackManager));
+                    ((DelegateLogCommand)InstructCommand).RaiseCanExecuteChanged();
+                },
+                () => this.Task != null && this.IsStarted && this.IsFinished == false);
+
+            SelectPlanMakerCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var users = UnitOfWork.Repository<User>().Find(user1 =>
+                        user1.IsActual &&
+                        user1.Roles.Select(role => role.Role).Contains(Role.PlanMaker));
+
+                    var user = container.Resolve<ISelectService>().SelectItem(users);
+                    if (user == null) return;
+
+                    this.Task.PlanMaker = new UserEmptyWrapper(user);
+
+                    RaisePropertyChanged(nameof(Task.PlanMaker));
+                    ((DelegateLogCommand)InstructCommand).RaiseCanExecuteChanged();
+                },
+                () => this.Task != null && this.IsStarted && this.IsFinished == false);
+
             InstructCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var users = UnitOfWork.Repository<User>().Find(user =>
-                        user.IsActual &&
-                        user.Roles.Select(role => role.Role).Contains(Role.BackManager));
-
-                    var backManager = container.Resolve<ISelectService>().SelectItem(users);
-                    if (backManager == null) return;
-
-                    this.Task.BackManager = new UserEmptyWrapper(backManager);
                     this.Task.AcceptChanges();
                     this.UnitOfWork.SaveChanges();
 
-                    RaisePropertyChanged(nameof(Task.BackManager));
                     container.Resolve<IEventAggregator>().GetEvent<AfterSaveTaskInvoiceForPaymentEvent>().Publish(this.Task.Model);
                     SendNotifications();
                 },
-                () => this.Task != null && this.IsStarted && this.IsFinished == false);
+                () => this.Task != null && this.IsStarted && this.IsFinished == false && Task.IsValid && Task.IsChanged);
 
         }
 
@@ -50,13 +77,26 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
         protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
-            yield return new NotificationUnit
+            if (Task.PlanMaker == null)
             {
-                TargetEntityId = this.Task.Model.Id,
-                RecipientUser = this.Task.Model.BackManager,
-                RecipientRole = Role.BackManager,
-                ActionType = NotificationActionType.TaskInvoiceForPaymentInstruct
-            };
+                yield return new NotificationUnit
+                {
+                    TargetEntityId = this.Task.Model.Id,
+                    RecipientUser = this.Task.Model.BackManager,
+                    RecipientRole = Role.BackManager,
+                    ActionType = NotificationActionType.TaskInvoiceForPaymentInstruct
+                };
+            }
+            else
+            {
+                yield return new NotificationUnit
+                {
+                    TargetEntityId = this.Task.Model.Id,
+                    RecipientUser = this.Task.Model.PlanMaker,
+                    RecipientRole = Role.PlanMaker,
+                    ActionType = NotificationActionType.TaskInvoiceForPaymentInstruct
+                };
+            }
         }
     }
 }

@@ -11,6 +11,15 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
         /// <summary>
         /// Исполнитель
         /// </summary>
+        public UserEmptyWrapper PlanMaker
+        {
+            get => GetWrapper<UserEmptyWrapper>();
+            set => SetComplexValue<User, UserEmptyWrapper>(PlanMaker, value);
+        }
+
+        /// <summary>
+        /// Исполнитель
+        /// </summary>
         public UserEmptyWrapper BackManager
         {
             get => GetWrapper<UserEmptyWrapper>();
@@ -23,6 +32,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty(nameof(PlanMaker), Model.BackManager == null ? null : new UserEmptyWrapper(Model.PlanMaker));
             InitializeComplexProperty(nameof(BackManager), Model.BackManager == null ? null : new UserEmptyWrapper(Model.BackManager));
         }
 
@@ -34,8 +44,11 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
+            if (this.PlanMaker == null && Model.PlanMakerIsRequired)
+                yield return new ValidationResult("Назначьте исполнителя - плановика.", new[] { nameof(PlanMaker) });
+
             if (this.BackManager == null)
-                yield return new ValidationResult("Назначьте исполнителя.", new[] {nameof(BackManager)});
+                yield return new ValidationResult("Назначьте исполнителя - экономиста.", new[] { nameof(BackManager) });
         }
     }
 }
