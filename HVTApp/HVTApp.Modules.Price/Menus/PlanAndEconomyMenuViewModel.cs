@@ -24,6 +24,7 @@ namespace HVTApp.Modules.PlanAndEconomy.Menus
             {
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListView)));
                 Items.Add(new NavigationItem("План производства", typeof(ProductionPlanView)));
+                Items.Add(new NavigationItem("Счета", typeof(TaskInvoiceForPaymentListView)));
             }
 
             if (GlobalAppProperties.User.RoleCurrent == Role.Economist 

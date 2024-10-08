@@ -37,6 +37,11 @@ namespace HVTApp.Model
         public static bool UserIsBackManager => User?.RoleCurrent == Role.BackManager;
 
         /// <summary>
+        /// Текущий пользлватель в роли back-менеджера
+        /// </summary>
+        public static bool UserIsPlanMaker => User?.RoleCurrent == Role.PlanMaker;
+
+        /// <summary>
         /// Текущий пользлватель в роли BackManagerBoss
         /// </summary>
         public static bool UserIsBackManagerBoss => User?.RoleCurrent == Role.BackManagerBoss;

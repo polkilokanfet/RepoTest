@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 
-namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
+namespace HVTApp.UI.TaskInvoiceForPayment1.ForPlanMaker
 {
     public class SalesUnitWrapperTip : WrapperBase<SalesUnit>
     {

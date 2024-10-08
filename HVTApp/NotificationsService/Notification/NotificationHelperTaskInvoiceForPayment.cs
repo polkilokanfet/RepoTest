@@ -7,6 +7,7 @@ using HVTApp.Model.Services;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss;
 using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
+using HVTApp.UI.TaskInvoiceForPayment1.ForPlanMaker;
 using Prism.Events;
 using Prism.Regions;
 
@@ -32,6 +33,9 @@ namespace NotificationsService
 
                 case Role.BackManagerBoss:
                     return () => RegionManager.RequestNavigateContentRegion<TaskInvoiceForPaymentBackManagerBossView>(parameters);
+
+                case Role.PlanMaker:
+                    return () => RegionManager.RequestNavigateContentRegion<TaskInvoiceForPaymentPlanMakerView>(parameters);
 
                 default:
                     throw new ArgumentOutOfRangeException();

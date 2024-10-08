@@ -55,7 +55,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
                     RaisePropertyChanged(nameof(Task.PlanMaker));
                     ((DelegateLogCommand)InstructCommand).RaiseCanExecuteChanged();
                 },
-                () => this.Task != null && this.IsStarted && this.IsFinished == false);
+                () => this.Task != null && this.Task.Model.PlanMakerIsRequired && this.IsStarted && this.IsFinished == false);
 
             InstructCommand = new DelegateLogCommand(
                 () =>
@@ -65,6 +65,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
                     container.Resolve<IEventAggregator>().GetEvent<AfterSaveTaskInvoiceForPaymentEvent>().Publish(this.Task.Model);
                     SendNotifications();
+                    ((DelegateLogCommand)InstructCommand).RaiseCanExecuteChanged();
                 },
                 () => this.Task != null && this.IsStarted && this.IsFinished == false && Task.IsValid && Task.IsChanged);
 

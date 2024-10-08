@@ -33,6 +33,9 @@ namespace HVTApp.UI.Lookup
                 if (GlobalAppProperties.UserIsBackManager)
                     return this.Entity.MomentStart != null && this.Entity.MomentFinish == null;
 
+                if (GlobalAppProperties.UserIsPlanMaker)
+                    return this.Entity.MomentStart != null && this.Entity.MomentFinishByPlanMaker == null;
+
                 if (GlobalAppProperties.UserIsManager)
                     return this.Entity.MomentStart != null;
 

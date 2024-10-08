@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Model;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
 
-namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
+namespace HVTApp.UI.TaskInvoiceForPayment1.ForPlanMaker
 {
     public class OrderPositionsCollection : ValidatableChangeTrackingCollection<SalesUnitWrapperTip>
     {

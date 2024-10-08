@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
-namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
+namespace HVTApp.UI.TaskInvoiceForPayment1.ForPlanMaker
 {
     public class TechnicalRequrementsWrapperTip : WrapperBase<TechnicalRequrements>
     {

@@ -62,21 +62,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
         {
             base.Load(task);
 
-            //назначение з/з, если их нет
-            foreach (var item in Task.Items)
-            {
-                int position = 1;
-                foreach (var salesUnit in item.SalesUnits)
-                {
-                    if (salesUnit.Order == null)
-                    {
-                        salesUnit.Order = new OrderWrapperTip(new Order(), true);
-                        salesUnit.OrderPosition = position.ToString();
-                        position++;
-                    }
-                }
-            }
-
             this.Task.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(this.Task.IsValid))

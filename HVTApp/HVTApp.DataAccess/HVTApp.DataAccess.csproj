@@ -511,6 +511,10 @@
     <Compile Include="Migrations\202408081132083_InvoiceForPaymentTaskRemove.designer.cs">
       <DependentUpon>202408081132083_InvoiceForPaymentTaskRemove.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410081045121_AddPlanMakerInTaskInvoiceForPayment.cs" />
+    <Compile Include="Migrations\202410081045121_AddPlanMakerInTaskInvoiceForPayment.designer.cs">
+      <DependentUpon>202410081045121_AddPlanMakerInTaskInvoiceForPayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -844,6 +848,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202408081132083_InvoiceForPaymentTaskRemove.resx">
       <DependentUpon>202408081132083_InvoiceForPaymentTaskRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410081045121_AddPlanMakerInTaskInvoiceForPayment.resx">
+      <DependentUpon>202410081045121_AddPlanMakerInTaskInvoiceForPayment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

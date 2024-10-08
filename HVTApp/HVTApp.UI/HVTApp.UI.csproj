@@ -811,20 +811,29 @@
     <Compile Include="TaskInvoiceForPayment1\ForBackManagerBoss\TaskInvoiceForPaymentBackManagerBossView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentBackManagerBossView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskInvoiceForPayment1\ForBackManager\OrderPositionsCollection.cs" />
-    <Compile Include="TaskInvoiceForPayment1\ForBackManager\OrderWrapperTip.cs" />
-    <Compile Include="TaskInvoiceForPayment1\ForBackManager\PriceEngineeringTaskWrapperTip.cs" />
-    <Compile Include="TaskInvoiceForPayment1\ForBackManager\SalesUnitWrapperTip.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\OrderPositionsCollection.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\OrderWrapperTip.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\PriceEngineeringTaskWrapperTip.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\SalesUnitWrapperTip.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TabForBackManager.xaml.cs">
       <DependentUpon>TabForBackManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentBackManagerView.xaml.cs">
       <DependentUpon>TaskInvoiceForPaymentBackManagerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\TabForPlanMaker.xaml.cs">
+      <DependentUpon>TabForPlanMaker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\TaskInvoiceForPaymentPlanMakerView.xaml.cs">
+      <DependentUpon>TaskInvoiceForPaymentPlanMakerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\TaskInvoiceForPaymentItemWrapperPlanMaker.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentViewModelBackManager.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\TaskInvoiceForPaymentWrapperPlanMaker.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\TaskInvoiceForPaymentViewModelPlanMaker.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentWrapperBackManager.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\TaskInvoiceForPaymentItemWrapperBackManager.cs" />
-    <Compile Include="TaskInvoiceForPayment1\ForBackManager\TechnicalRequrementsWrapperTip.cs" />
+    <Compile Include="TaskInvoiceForPayment1\ForPlanMaker\TechnicalRequrementsWrapperTip.cs" />
     <Compile Include="Lookup\ObservableCollectionSync.cs" />
     <Compile Include="TaskInvoiceForPayment1\List\TabTaskInvoiceForPaymentListView.xaml.cs">
       <DependentUpon>TabTaskInvoiceForPaymentListView.xaml</DependentUpon>
@@ -2593,6 +2602,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskInvoiceForPayment1\ForManager\TaskInvoiceForPaymentManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForPlanMaker\TabForPlanMaker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskInvoiceForPayment1\ForPlanMaker\TaskInvoiceForPaymentPlanMakerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

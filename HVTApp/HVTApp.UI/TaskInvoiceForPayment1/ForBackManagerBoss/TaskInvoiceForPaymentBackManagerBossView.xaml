@@ -49,17 +49,6 @@
 
                 </Grid>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <TextBox 
-                        Text="{Binding Task.BackManager.Model.Employee, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
-                        IsReadOnly="True"
-                        Background="Transparent"
-                        BorderThickness="0"/>
-                </StackPanel>
-
-
-
-
             </Grid>
 
         </GroupBox>

@@ -13,6 +13,7 @@ using HVTApp.UI.PriceEngineering.ViewModel;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
 using HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss;
 using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
+using HVTApp.UI.TaskInvoiceForPayment1.ForPlanMaker;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Mvvm;
@@ -52,6 +53,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.List
                     var p = new NavigationParameters {{string.Empty, SelectedItem.Entity}};
                     if (GlobalAppProperties.UserIsManager)
                         container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(p);
+                    if (GlobalAppProperties.UserIsPlanMaker)
+                        container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentPlanMakerView>(p);
                     if (GlobalAppProperties.UserIsBackManager)
                         container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentBackManagerView>(p);
                     if (GlobalAppProperties.UserIsBackManagerBoss)
@@ -72,9 +75,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.List
             else if (GlobalAppProperties.UserIsManager)
                 items = unitOfWork.Repository<TaskInvoiceForPayment>()
                     .Find(task => task.Items.SelectMany(item => item.SalesUnits).Any(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser()));
+            else if (GlobalAppProperties.UserIsPlanMaker)
+                items = unitOfWork.Repository<TaskInvoiceForPayment>()
+                    .Find(task => task.PlanMaker?.Id == GlobalAppProperties.User.Id);
             else
                 items = unitOfWork.Repository<TaskInvoiceForPayment>()
-                    .Find(x => x.BackManager?.Id == GlobalAppProperties.User.Id);
+                    .Find(task => task.BackManager?.Id == GlobalAppProperties.User.Id);
 
             Items.Clear();
             Items.AddRange(items

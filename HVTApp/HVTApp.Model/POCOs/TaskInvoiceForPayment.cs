@@ -17,10 +17,13 @@ namespace HVTApp.Model.POCOs
         [Designation("Старт задачи"), OrderStatus(200)]
         public DateTime? MomentStart { get; set; }
 
-        [Designation("Финиш задачи"), OrderStatus(190)]
+        [Designation("Финиш (экономиста)"), OrderStatus(190)]
         public DateTime? MomentFinish { get; set; }
 
-        [Designation("Исполнитель"), OrderStatus(50)]
+        [Designation("Финиш (плановика)"), OrderStatus(190)]
+        public DateTime? MomentFinishByPlanMaker { get; set; }
+
+        [Designation("Экономист"), OrderStatus(50)]
         public virtual User BackManager { get; set; }
 
         [Designation("Плановик"), OrderStatus(51)]
