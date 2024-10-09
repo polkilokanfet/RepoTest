@@ -38,8 +38,18 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
                     ((LoadInvoiceForPaymentCommand)LoadInvoiceForPaymentCommand).RaiseCanExecuteChanged();
                     SendNotifications();
                 },
-                () => 
-                    this.Task != null && this.IsStarted == true && this.IsFinished == false && this.Task.IsValid);
+                () =>
+                {
+                    if (this.Task == null) return false;
+                    if (this.IsStarted == false) return false;
+                    if (this.IsFinished == true) return false;
+                    if (this.Task.IsValid == false) return false;
+                    if (this.Task.Model.PlanMakerIsRequired &&
+                        this.Task.Model.MomentFinishByPlanMaker.HasValue == false)
+                        return false;
+
+                    return true;
+                });
         }
 
         protected override TaskInvoiceForPaymentWrapperBackManager GetTask(TaskInvoiceForPayment taskInvoice)

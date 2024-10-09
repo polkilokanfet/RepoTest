@@ -80,12 +80,13 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.List
                     .Find(task => task.PlanMaker?.Id == GlobalAppProperties.User.Id);
             else
                 items = unitOfWork.Repository<TaskInvoiceForPayment>()
-                    .Find(task => task.BackManager?.Id == GlobalAppProperties.User.Id);
+                    .Find(task => task.BackManager?.Id == GlobalAppProperties.User.Id)
+                    .Where(task => task.PlanMakerIsRequired == false || task.MomentFinishByPlanMaker.HasValue);
 
             Items.Clear();
             Items.AddRange(items
-                .OrderBy(x => x.MomentStart)
-                .Select(x => new TaskInvoiceForPaymentLookup(x)));
+                .OrderBy(task => task.MomentStart)
+                .Select(task => new TaskInvoiceForPaymentLookup(task)));
         }
     }
 }
