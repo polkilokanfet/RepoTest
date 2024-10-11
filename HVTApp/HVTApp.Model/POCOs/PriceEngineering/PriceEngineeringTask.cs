@@ -62,6 +62,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Добавленные блоки продукта от инженера-конструктора"), OrderStatus(800)]
         public virtual List<PriceEngineeringTaskProductBlockAdded> ProductBlocksAdded { get; set; } = new List<PriceEngineeringTaskProductBlockAdded>();
 
+        [NotMapped]
+        public List<PriceEngineeringTaskProductBlockAdded> ProductBlocksAddedActual =>
+            ProductBlocksAdded.Where(x => x.IsRemoved == false).ToList();
+
 
         [Designation("Файлы технических требований"), Required, OrderStatus(610)]
         public virtual List<PriceEngineeringTaskFileTechnicalRequirements> FilesTechnicalRequirements { get; set; } = new List<PriceEngineeringTaskFileTechnicalRequirements>();
