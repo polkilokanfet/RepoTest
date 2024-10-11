@@ -21,6 +21,8 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
         public ICommand SelectBackManagerCommand { get; }
         public ICommand InstructCommand { get; }
 
+        public bool PlanMakerIsRequired => Task != null && (Task.Model.PlanMakerIsRequired || Task.Model.MomentFinishByPlanMaker.HasValue);
+
         public TaskInvoiceForPaymentViewModelBackManagerBoss(IUnityContainer container) : base(container)
         {
             SelectBackManagerCommand = new DelegateLogCommand(
@@ -98,6 +100,12 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
                     ActionType = NotificationActionType.TaskInvoiceForPaymentInstruct
                 };
             }
+        }
+
+        public override void Load(TaskInvoiceForPayment task)
+        {
+            base.Load(task);
+            RaisePropertyChanged(nameof(PlanMakerIsRequired));
         }
     }
 }

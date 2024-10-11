@@ -39,7 +39,7 @@
 
                     <dataPresenter:FieldLayout.Fields>
                         <dataPresenter:TextField Name="Facilities" Label="Объект" Width="Auto" AllowResize="True" />
-                        <dataPresenter:TextField Name="Orders" Label="Заказ" Width="Auto" AllowResize="True" />
+                        <dataPresenter:TextField Name="Orders" Label="Заказ" Width="100" AllowResize="True" />
                         <dataPresenter:TextField Name="BackManager" Label="Исполнитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <dataPresenter:DateTimeField Name="MomentStart" Label="Старт" Width="Auto" AllowResize="True" />
                         <dataPresenter:DateTimeField Name="MomentFinish" Label="Финиш" Width="Auto" AllowResize="True" />

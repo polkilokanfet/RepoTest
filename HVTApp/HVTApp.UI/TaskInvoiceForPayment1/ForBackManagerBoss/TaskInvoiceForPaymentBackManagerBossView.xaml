@@ -20,14 +20,11 @@
         <GroupBox Grid.Row="0" Header="Исполнители">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-
-                <Button Grid.Column="0" Content="Сохранить" Command="{Binding InstructCommand}"/>
-
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -37,10 +34,12 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                  <Label Grid.Row="0" Grid.Column="0" Content="Плановик"></Label>
+                  <Label Grid.Row="0" Grid.Column="0" Content="Плановик" 
+                         Visibility="{Binding PlanMakerIsRequired, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                   <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
                                               Item="{Binding Task.PlanMaker.Model.Employee.Person, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                              AddItemCommand="{Binding SelectPlanMakerCommand}"/>
+                                              AddItemCommand="{Binding SelectPlanMakerCommand}"
+                                              Visibility="{Binding PlanMakerIsRequired, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Экономист"></Label>
                     <controls:ChooseItemControl Grid.Row="1" Grid.Column="1"
@@ -48,6 +47,8 @@
                                                 AddItemCommand="{Binding SelectBackManagerCommand}"/>
 
                 </Grid>
+
+                <Button Grid.Column="1" Content="Сохранить" Command="{Binding InstructCommand}"/>
 
             </Grid>
 

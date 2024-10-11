@@ -32,7 +32,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManagerBoss
 
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty(nameof(PlanMaker), Model.BackManager == null ? null : new UserEmptyWrapper(Model.PlanMaker));
+            InitializeComplexProperty(nameof(PlanMaker), Model.PlanMaker == null ? null : new UserEmptyWrapper(Model.PlanMaker));
             InitializeComplexProperty(nameof(BackManager), Model.BackManager == null ? null : new UserEmptyWrapper(Model.BackManager));
         }
 
