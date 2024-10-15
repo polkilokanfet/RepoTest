@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Annotations;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services.Storage;
@@ -113,6 +112,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Позиция в ТСЕ"), MaxLength(4)]
         public string TcePosition { get; set; }
+
+        public virtual List<UpdateStructureCostNumberTask> UpdateStructureCostNumberTasks { get; set; } = new List<UpdateStructureCostNumberTask>();
 
         #region DesignDocumentationAvailability
 
