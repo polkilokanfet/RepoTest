@@ -127,6 +127,9 @@ namespace HVTApp.DataAccess
             StructureCostVersionRepository = new StructureCostVersionRepository(_context);
             StructureCostVersionRepository.OperationFailedEvent += OnOperationFailedEvent;
 
+            UpdateStructureCostNumberTaskRepository = new UpdateStructureCostNumberTaskRepository(_context);
+            UpdateStructureCostNumberTaskRepository.OperationFailedEvent += OnOperationFailedEvent;
+
             ProductCategoryRepository = new ProductCategoryRepository(_context);
             ProductCategoryRepository.OperationFailedEvent += OnOperationFailedEvent;
 
@@ -364,6 +367,7 @@ namespace HVTApp.DataAccess
             PriceEngineeringTasksFileTechnicalRequirementsRepository.OperationFailedEvent -= OnOperationFailedEvent;
             PriceEngineeringTaskStatusRepository.OperationFailedEvent -= OnOperationFailedEvent;
             StructureCostVersionRepository.OperationFailedEvent -= OnOperationFailedEvent;
+            UpdateStructureCostNumberTaskRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductCategoryPriceAndCostRepository.OperationFailedEvent -= OnOperationFailedEvent;
             ProductIncludedRepository.OperationFailedEvent -= OnOperationFailedEvent;
@@ -472,6 +476,7 @@ namespace HVTApp.DataAccess
         protected IPriceEngineeringTasksFileTechnicalRequirementsRepository PriceEngineeringTasksFileTechnicalRequirementsRepository;
         protected IPriceEngineeringTaskStatusRepository PriceEngineeringTaskStatusRepository;
         protected IStructureCostVersionRepository StructureCostVersionRepository;
+        protected IUpdateStructureCostNumberTaskRepository UpdateStructureCostNumberTaskRepository;
         protected IProductCategoryRepository ProductCategoryRepository;
         protected IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository;
         protected IProductIncludedRepository ProductIncludedRepository;

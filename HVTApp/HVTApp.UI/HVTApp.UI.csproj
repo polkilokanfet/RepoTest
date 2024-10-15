@@ -401,6 +401,9 @@
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandProductionRequestCancel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\IncludeInSpecificationCommandInTask.cs" />
+    <Compile Include="PriceEngineering\View\Controls\UpdateStructureCostNumberTaskControl1\UpdateStructureCostNumberTaskControl.xaml.cs">
+      <DependentUpon>UpdateStructureCostNumberTaskControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TaskInvoiceForPayment1\Base\InvoiceForPaymentCommandBase.cs" />
     <Compile Include="TaskInvoiceForPayment1\ForBackManager\LoadInvoiceForPaymentCommand.cs" />
     <Compile Include="TaskInvoiceForPayment1\Base\OpenInvoiceForPaymentCommand.cs" />
@@ -2482,6 +2485,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\View\Controls\PriceEngineeringTaskStatusControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\View\Controls\UpdateStructureCostNumberTaskControl1\UpdateStructureCostNumberTaskControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

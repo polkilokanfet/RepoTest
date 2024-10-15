@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:uc="clr-namespace:HVTApp.UI.PriceEngineering.View.UpdateStructureCostNumberTaskControl1"
              x:Name="Root">
 
     <!--Задача на блок продукта-->
@@ -30,29 +31,6 @@
             <view:FilesControl Grid.Row="1" TaskViewModel="{Binding}"/>
         </view:TaskControl.AreaFiles>
 
-        <view:TaskControl.AreaActionButtons>
-            <UniformGrid Rows="1">
-                <Button Command="{Binding RejectPriceEngineeringTaskCommandToManager}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:FontAwesome Icon="Ban" Foreground="Red"/>
-                        <TextBlock Text="Отклонить менеджеру"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding AcceptPriceEngineeringTaskCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:FontAwesome Icon="CheckCircle" Foreground="Green"/>
-                        <TextBlock Text="Согласовать"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding RejectPriceEngineeringTaskCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:FontAwesome Icon="Remove" Foreground="OrangeRed"/>
-                        <TextBlock Text="На доработку исполнителю"/>
-                    </StackPanel>
-                </Button>
-            </UniformGrid>
-        </view:TaskControl.AreaActionButtons>
-
         <view:TaskControl.AreaIncludedBlocks>
             <ItemsControl 
                 Background="Transparent" 
@@ -72,6 +50,46 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </view:TaskControl.AreaIncludedBlocks>
+
+        <view:TaskControl.AreaActionButtons>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Grid.Row="1" Header="Изменение номеров стракчакостов">
+                    <ItemsControl ItemsSource="{Binding UpdateStructureCostNumberTasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <uc:UpdateStructureCostNumberTaskControl UpdateTask="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </GroupBox>
+
+                <UniformGrid Grid.Row="1" Rows="1">
+                    <Button Command="{Binding RejectPriceEngineeringTaskCommandToManager}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Ban" Foreground="Red"/>
+                            <TextBlock Text="Отклонить менеджеру"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding AcceptPriceEngineeringTaskCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="CheckCircle" Foreground="Green"/>
+                            <TextBlock Text="Согласовать"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding RejectPriceEngineeringTaskCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="Remove" Foreground="OrangeRed"/>
+                            <TextBlock Text="На доработку исполнителю"/>
+                        </StackPanel>
+                    </Button>
+                </UniformGrid>
+            </Grid>
+        </view:TaskControl.AreaActionButtons>
 
     </view:TaskControl>
 

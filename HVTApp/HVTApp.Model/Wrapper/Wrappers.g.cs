@@ -2847,6 +2847,11 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper> ProductBlocksAdded { get; private set; }
 
         /// <summary>
+        /// ProductBlocksAddedActual
+        /// </summary>
+        public IValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper> ProductBlocksAddedActual { get; private set; }
+
+        /// <summary>
         /// Файлы технических требований
         /// </summary>
         public IValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper> FilesTechnicalRequirements { get; private set; }
@@ -2885,6 +2890,11 @@ namespace HVTApp.Model.Wrapper
         /// SalesUnits
         /// </summary>
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+
+        /// <summary>
+        /// UpdateStructureCostNumberTasks
+        /// </summary>
+        public IValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskWrapper> UpdateStructureCostNumberTasks { get; private set; }
 
         #endregion
 
@@ -2951,6 +2961,11 @@ namespace HVTApp.Model.Wrapper
         public System.Nullable<System.DateTime> MomentFinishByDesignDepartment => Model.MomentFinishByDesignDepartment; 
 
         /// <summary>
+        /// IsTop
+        /// </summary>
+        public System.Boolean IsTop => Model.IsTop; 
+
+        /// <summary>
         /// Статус
         /// </summary>
         public HVTApp.Model.POCOs.ScriptStep Status => Model.Status; 
@@ -2984,6 +2999,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.ProductBlocksAdded == null) throw new ArgumentException($"{nameof(Model.ProductBlocksAdded)} cannot be null");
           ProductBlocksAdded = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper>(Model.ProductBlocksAdded.Select(e => new PriceEngineeringTaskProductBlockAddedWrapper(e)));
           RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
+          if (Model.ProductBlocksAddedActual == null) throw new ArgumentException($"{nameof(Model.ProductBlocksAddedActual)} cannot be null");
+          ProductBlocksAddedActual = new ValidatableChangeTrackingCollection<PriceEngineeringTaskProductBlockAddedWrapper>(Model.ProductBlocksAddedActual.Select(e => new PriceEngineeringTaskProductBlockAddedWrapper(e)));
+          RegisterCollection(ProductBlocksAddedActual, Model.ProductBlocksAddedActual);
           if (Model.FilesTechnicalRequirements == null) throw new ArgumentException($"{nameof(Model.FilesTechnicalRequirements)} cannot be null");
           FilesTechnicalRequirements = new ValidatableChangeTrackingCollection<PriceEngineeringTaskFileTechnicalRequirementsWrapper>(Model.FilesTechnicalRequirements.Select(e => new PriceEngineeringTaskFileTechnicalRequirementsWrapper(e)));
           RegisterCollection(FilesTechnicalRequirements, Model.FilesTechnicalRequirements);
@@ -3008,6 +3026,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.SalesUnits == null) throw new ArgumentException($"{nameof(Model.SalesUnits)} cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
+          if (Model.UpdateStructureCostNumberTasks == null) throw new ArgumentException($"{nameof(Model.UpdateStructureCostNumberTasks)} cannot be null");
+          UpdateStructureCostNumberTasks = new ValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskWrapper>(Model.UpdateStructureCostNumberTasks.Select(e => new UpdateStructureCostNumberTaskWrapper(e)));
+          RegisterCollection(UpdateStructureCostNumberTasks, Model.UpdateStructureCostNumberTasks);
         }
 	}
 
@@ -3741,6 +3762,105 @@ namespace HVTApp.Model.Wrapper
     public class StructureCostVersionEmptyWrapper : WrapperBase<StructureCostVersion>
 	{
 	    public StructureCostVersionEmptyWrapper(StructureCostVersion model) : base(model) { }
+    }
+
+		
+    public partial class UpdateStructureCostNumberTaskWrapper : WrapperBase<UpdateStructureCostNumberTask>
+	{
+	    public UpdateStructureCostNumberTaskWrapper(UpdateStructureCostNumberTask model) : base(model) { }
+
+        #region SimpleProperties
+
+        /// <summary>
+        /// MomentStart
+        /// </summary>
+        public System.DateTime MomentStart
+        {
+          get { return Model.MomentStart; }
+          set { SetValue(value); }
+        }
+        public System.DateTime MomentStartOriginalValue => GetOriginalValue<System.DateTime>(nameof(MomentStart));
+        public bool MomentStartIsChanged => GetIsChanged(nameof(MomentStart));
+
+        /// <summary>
+        /// MomentFinish
+        /// </summary>
+        public System.Nullable<System.DateTime> MomentFinish
+        {
+          get { return Model.MomentFinish; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> MomentFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(MomentFinish));
+        public bool MomentFinishIsChanged => GetIsChanged(nameof(MomentFinish));
+
+        /// <summary>
+        /// StructureCostNumberOriginal
+        /// </summary>
+        public System.String StructureCostNumberOriginal
+        {
+          get { return Model.StructureCostNumberOriginal; }
+          set { SetValue(value); }
+        }
+        public System.String StructureCostNumberOriginalOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumberOriginal));
+        public bool StructureCostNumberOriginalIsChanged => GetIsChanged(nameof(StructureCostNumberOriginal));
+
+        /// <summary>
+        /// StructureCostNumber
+        /// </summary>
+        public System.String StructureCostNumber
+        {
+          get { return Model.StructureCostNumber; }
+          set { SetValue(value); }
+        }
+        public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
+        public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
+
+        /// <summary>
+        /// IsAccepted
+        /// </summary>
+        public System.Nullable<System.Boolean> IsAccepted
+        {
+          get { return Model.IsAccepted; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Boolean> IsAcceptedOriginalValue => GetOriginalValue<System.Nullable<System.Boolean>>(nameof(IsAccepted));
+        public bool IsAcceptedIsChanged => GetIsChanged(nameof(IsAccepted));
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public System.Guid Id
+        {
+          get { return Model.Id; }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+
+        /// <summary>
+        /// Блок
+        /// </summary>
+	    public ProductBlockWrapper ProductBlock 
+        {
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
+        }
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
+        }
+	}
+
+    public class UpdateStructureCostNumberTaskEmptyWrapper : WrapperBase<UpdateStructureCostNumberTask>
+	{
+	    public UpdateStructureCostNumberTaskEmptyWrapper(UpdateStructureCostNumberTask model) : base(model) { }
     }
 
 		
@@ -4523,7 +4643,7 @@ namespace HVTApp.Model.Wrapper
         public bool MomentStartIsChanged => GetIsChanged(nameof(MomentStart));
 
         /// <summary>
-        /// Финиш задачи
+        /// Финиш (экономиста)
         /// </summary>
         public System.Nullable<System.DateTime> MomentFinish
         {
@@ -4532,6 +4652,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Nullable<System.DateTime> MomentFinishOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(MomentFinish));
         public bool MomentFinishIsChanged => GetIsChanged(nameof(MomentFinish));
+
+        /// <summary>
+        /// Финиш (плановика)
+        /// </summary>
+        public System.Nullable<System.DateTime> MomentFinishByPlanMaker
+        {
+          get { return Model.MomentFinishByPlanMaker; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> MomentFinishByPlanMakerOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(MomentFinishByPlanMaker));
+        public bool MomentFinishByPlanMakerIsChanged => GetIsChanged(nameof(MomentFinishByPlanMaker));
 
         /// <summary>
         /// Требуется оригинал счёта
@@ -4571,12 +4702,21 @@ namespace HVTApp.Model.Wrapper
         #region ComplexProperties
 
         /// <summary>
-        /// Исполнитель
+        /// Экономист
         /// </summary>
 	    public UserWrapper BackManager 
         {
             get { return GetWrapper<UserWrapper>(); }
             set { SetComplexValue<User, UserWrapper>(BackManager, value); }
+        }
+
+        /// <summary>
+        /// Плановик
+        /// </summary>
+	    public UserWrapper PlanMaker 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(PlanMaker, value); }
         }
 
         #endregion
@@ -4590,9 +4730,19 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
+        #region GetProperties
+
+        /// <summary>
+        /// PlanMakerIsRequired
+        /// </summary>
+        public System.Boolean PlanMakerIsRequired => Model.PlanMakerIsRequired; 
+
+        #endregion
+
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<UserWrapper>(nameof(BackManager), Model.BackManager == null ? null : new UserWrapper(Model.BackManager));
+            InitializeComplexProperty<UserWrapper>(nameof(PlanMaker), Model.PlanMaker == null ? null : new UserWrapper(Model.PlanMaker));
         }
 
         protected override void InitializeCollectionProperties()

@@ -136,6 +136,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\TechnicalRequrementsTaskHistoryElementConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\UpdateStructureCostNumberTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\UserGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterRelationConfiguration.cs" />

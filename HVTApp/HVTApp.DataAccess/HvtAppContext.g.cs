@@ -50,6 +50,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PriceEngineeringTasksFileTechnicalRequirementsConfiguration());
             modelBuilder.Configurations.Add(new PriceEngineeringTaskStatusConfiguration());
             modelBuilder.Configurations.Add(new StructureCostVersionConfiguration());
+            modelBuilder.Configurations.Add(new UpdateStructureCostNumberTaskConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryPriceAndCostConfiguration());
             modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
@@ -159,6 +160,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PriceEngineeringTasksFileTechnicalRequirements> PriceEngineeringTasksFileTechnicalRequirementsDbSet { get; set; }
         public virtual DbSet<PriceEngineeringTaskStatus> PriceEngineeringTaskStatusDbSet { get; set; }
         public virtual DbSet<StructureCostVersion> StructureCostVersionDbSet { get; set; }
+        public virtual DbSet<UpdateStructureCostNumberTask> UpdateStructureCostNumberTaskDbSet { get; set; }
         public virtual DbSet<ProductCategory> ProductCategoryDbSet { get; set; }
         public virtual DbSet<ProductCategoryPriceAndCost> ProductCategoryPriceAndCostDbSet { get; set; }
         public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }

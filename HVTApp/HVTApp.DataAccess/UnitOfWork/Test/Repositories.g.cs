@@ -208,6 +208,11 @@ namespace HVTApp.DataAccess
         public StructureCostVersionRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class UpdateStructureCostNumberTaskRepositoryTest : TestBaseRepository<UpdateStructureCostNumberTask>, IUpdateStructureCostNumberTaskRepository
+    {
+        public UpdateStructureCostNumberTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProductCategoryRepositoryTest : TestBaseRepository<ProductCategory>, IProductCategoryRepository
     {
         public ProductCategoryRepositoryTest(TestData testData) : base(testData) {}

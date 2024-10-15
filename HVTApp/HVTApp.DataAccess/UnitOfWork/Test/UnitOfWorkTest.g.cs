@@ -48,6 +48,7 @@ namespace HVTApp.DataAccess
             PriceEngineeringTasksFileTechnicalRequirementsRepository = new PriceEngineeringTasksFileTechnicalRequirementsRepositoryTest(testData);
             PriceEngineeringTaskStatusRepository = new PriceEngineeringTaskStatusRepositoryTest(testData);
             StructureCostVersionRepository = new StructureCostVersionRepositoryTest(testData);
+            UpdateStructureCostNumberTaskRepository = new UpdateStructureCostNumberTaskRepositoryTest(testData);
             ProductCategoryRepository = new ProductCategoryRepositoryTest(testData);
             ProductCategoryPriceAndCostRepository = new ProductCategoryPriceAndCostRepositoryTest(testData);
             ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
@@ -158,6 +159,7 @@ namespace HVTApp.DataAccess
         public IPriceEngineeringTasksFileTechnicalRequirementsRepository PriceEngineeringTasksFileTechnicalRequirementsRepository { get; }
         public IPriceEngineeringTaskStatusRepository PriceEngineeringTaskStatusRepository { get; }
         public IStructureCostVersionRepository StructureCostVersionRepository { get; }
+        public IUpdateStructureCostNumberTaskRepository UpdateStructureCostNumberTaskRepository { get; }
         public IProductCategoryRepository ProductCategoryRepository { get; }
         public IProductCategoryPriceAndCostRepository ProductCategoryPriceAndCostRepository { get; }
         public IProductIncludedRepository ProductIncludedRepository { get; }
