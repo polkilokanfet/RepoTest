@@ -99,6 +99,8 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         /// </summary>
         public new IValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor> ProductBlocksAdded { get; private set; }
 
+        public IValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForConstructorViewModel> UpdateStructureCostNumberTasks { get; private set; }
+
         #endregion
 
         #region ctors
@@ -129,6 +131,10 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
             ProductBlocksAdded = new ValidatableChangeTrackingCollection<TaskProductBlockAddedWrapperConstructor>(Model.ProductBlocksAdded.Select(x => new TaskProductBlockAddedWrapperConstructor(x)));
             RegisterCollection(ProductBlocksAdded, Model.ProductBlocksAdded);
+
+            if (Model.UpdateStructureCostNumberTasks == null) throw new ArgumentException("UpdateStructureCostNumberTasks cannot be null");
+            UpdateStructureCostNumberTasks = new ValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForConstructorViewModel>(Model.UpdateStructureCostNumberTasks.Select(x => new UpdateStructureCostNumberTaskForConstructorViewModel(x)));
+            RegisterCollection(UpdateStructureCostNumberTasks, Model.UpdateStructureCostNumberTasks);
         }
 
         protected override IEnumerable<ValidationResult> ValidateOther()

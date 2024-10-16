@@ -38,13 +38,25 @@
                      Text="{Binding Model.StructureCostNumber, Mode=OneTime}"
                      IsReadOnly="True"/>
 
-            <Label Grid.Column="5" Content="Согласовано: " Margin="5 0 0 0"/>
+            <!--<Label Grid.Column="5" Content="Согласовано" DataContext="{}">
+                <Label.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding}" Value="Visible">
+                                <Setter Property="Label.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>-->
+
+            <!--<Label Grid.Column="5" Content="Согласовано: " Margin="5 0 0 0"/>
             <CheckBox Grid.Column="6" 
                       IsChecked="{Binding Model.IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      IsReadOnly="True"/>
+                      IsReadOnly="True"/>-->
 
-            <Button Grid.Column="7" Width="100" Content="Согласовать"/>
-            <Button Grid.Column="8" Width="100" Content="Отклонить"/>
+            <Button Grid.Column="7" Width="100" Content="Согласовать" Command="{Binding AcceptNumberCommand}"/>
+            <Button Grid.Column="8" Width="100" Content="Отклонить" Command="{Binding RejectNumberCommand}"/>
 
         </Grid>
     </Border>

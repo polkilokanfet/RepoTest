@@ -7,11 +7,11 @@ namespace HVTApp.UI.PriceEngineering.View.UpdateStructureCostNumberTaskControl1
     public partial class UpdateStructureCostNumberTaskControl : UserControl
     {
         public static readonly DependencyProperty UpdateTaskProperty = DependencyProperty.Register(
-            nameof(UpdateTask), typeof(UpdateStructureCostNumberTaskViewModel), typeof(UpdateStructureCostNumberTaskControl), new PropertyMetadata(default(TaskProductBlockAddedWrapper)));
+            nameof(UpdateTask), typeof(UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel), typeof(UpdateStructureCostNumberTaskControl), new PropertyMetadata(default(TaskProductBlockAddedWrapper)));
 
-        public UpdateStructureCostNumberTaskViewModel UpdateTask
+        public UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel UpdateTask
         {
-            get => (UpdateStructureCostNumberTaskViewModel) GetValue(UpdateTaskProperty);
+            get => (UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel) GetValue(UpdateTaskProperty);
             set => SetValue(UpdateTaskProperty, value);
         }
 

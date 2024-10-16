@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
+using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.DoStepCommand
@@ -62,6 +65,28 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 ViewModel.RequestForVerificationFromConstructor = MessageService.ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
 
             ViewModel.IsValidForProduction = MessageService.ConfirmationDialog("Проверка", "Предоставленного ТЗ достаточно для производства?", defaultNo: true);
+
+            //добавление задач на смену стракчакоста
+            var moment = DateTime.Now;
+            
+            var targetProductBlocks = ViewModel.ProductBlocksAdded
+                .Where(x => x.ProductBlock.StructureCostNumberIsChanged)
+                .Select(x => x.ProductBlock)
+                .ToList();
+            if (ViewModel.ProductBlockEngineer.StructureCostNumberIsChanged)
+                targetProductBlocks.Add(ViewModel.ProductBlockEngineer);
+
+            foreach (var pb in targetProductBlocks)
+            {
+                var ut = new UpdateStructureCostNumberTaskForConstructorViewModel(new UpdateStructureCostNumberTask())
+                    {
+                        ProductBlock = new ProductBlockEmptyWrapper(pb.Model),
+                        MomentStart = moment, 
+                        StructureCostNumber = pb.StructureCostNumber, 
+                        StructureCostNumberOriginal = pb.StructureCostNumberOriginalValue
+                    };
+                ViewModel.UpdateStructureCostNumberTasks.Add(ut);
+            }
         }
 
         protected override string GetStatusComment()
@@ -90,6 +115,19 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 : "\nПредоставленного ТЗ недостаточно для производства.");
 
             sb.AppendLine(ViewModel.Model.GetDesignDocumentationAvailabilityInfo());
+
+            //добавление запросов на изменение номеров стракчакостов
+            var updateTasks = ViewModel.UpdateStructureCostNumberTasks
+                .Where(x => x.Model.MomentFinish.HasValue == false)
+                .ToList();
+            if (updateTasks.Any())
+            {
+                sb.AppendLine("\nЗапросы на изменения номера стракчакостов:");
+                foreach (var updateTask in updateTasks)
+                {
+                    sb.AppendLine($" - {updateTask.StructureCostNumberOriginalValue} => {updateTask.StructureCostNumber} ({updateTask.ProductBlock})");
+                }
+            }
 
             return sb.ToString().TrimEnd('\n', '\r');
         }

@@ -171,5 +171,19 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
         }
+
+        private List<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel> _updateTasks;
+        protected override void Save_Before()
+        {
+            _updateTasks = UpdateStructureCostNumberTasks
+                .Where(x => x.MomentFinish.HasValue == false)
+                .ToList();
+
+            _
+        }
+
+        protected override void Save_After()
+        {
+        }
     }
 }
