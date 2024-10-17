@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
@@ -29,8 +30,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool CanExecuteMethod()
         {
-            return this.ViewModel.Model.UserConstructor == null && 
-                   base.CanExecuteMethod();
+            return
+                this.ViewModel.Model.DesignDepartment != null &&
+                this.ViewModel.Model.DesignDepartment.Head.Id == GlobalAppProperties.User.Id &&
+                this.ViewModel.Model.UserConstructor == null &&
+                base.CanExecuteMethod();
         }
     }
 }

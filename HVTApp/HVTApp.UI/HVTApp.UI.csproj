@@ -399,6 +399,7 @@
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilterByProject.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\AcceptConverter.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\UpdateStructureCostNumberTaskForConstructorViewModel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\DoStepCommand\DoStepCommandProductionRequestCancel.cs" />

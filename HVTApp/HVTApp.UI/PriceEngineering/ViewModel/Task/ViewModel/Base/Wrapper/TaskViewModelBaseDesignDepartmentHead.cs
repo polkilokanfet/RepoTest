@@ -1,11 +1,9 @@
 using System;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
@@ -44,6 +42,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         #endregion
 
+        public bool UpdateStructureCostNumberTasksHasMembers => this.UpdateStructureCostNumberTasks.Any();
         public IValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel> UpdateStructureCostNumberTasks { get; private set; }
 
         protected TaskViewModelBaseDesignDepartmentHead(IUnityContainer container, Guid priceEngineeringTaskId) : base(container, priceEngineeringTaskId)
@@ -63,7 +62,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         protected override void InitializeCollectionProperties()
         {
             if (Model.UpdateStructureCostNumberTasks == null) throw new ArgumentException($"{nameof(Model.UpdateStructureCostNumberTasks)} cannot be null");
-            UpdateStructureCostNumberTasks = new ValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel>(Model.UpdateStructureCostNumberTasks.Select(e => new UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel(e)));
+            UpdateStructureCostNumberTasks = new ValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel>(Model.UpdateStructureCostNumberTasks.Select(e => new UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel(e, this)));
             RegisterCollection(UpdateStructureCostNumberTasks, Model.UpdateStructureCostNumberTasks);
         }
     }

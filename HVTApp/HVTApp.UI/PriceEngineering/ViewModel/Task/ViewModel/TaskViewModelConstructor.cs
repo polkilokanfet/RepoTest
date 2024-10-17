@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
@@ -303,6 +304,42 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
+
+        protected override void SaveCommand_ExecuteMethod()
+        {
+            //добавление задач на смену стракчакоста
+            var targetProductBlocks = ProductBlocksAdded
+                .Where(x => x.ProductBlock.StructureCostNumberIsChanged)
+                .Where(x => string.IsNullOrWhiteSpace(x.ProductBlock.StructureCostNumberOriginalValue) == false)
+                .Select(x => x.ProductBlock)
+                .ToList();
+            if (ProductBlockEngineer.StructureCostNumberIsChanged)
+                targetProductBlocks.Add(ProductBlockEngineer);
+
+            if (targetProductBlocks.Any())
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine("Запросы на изменения номеров стракчакостов:");
+                var moment = DateTime.Now;
+
+                foreach (var pb in targetProductBlocks)
+                {
+                    var ut = new UpdateStructureCostNumberTaskForConstructorViewModel(new UpdateStructureCostNumberTask())
+                    {
+                        ProductBlock = new ProductBlockEmptyWrapper(pb.Model),
+                        MomentStart = moment,
+                        StructureCostNumber = pb.StructureCostNumber,
+                        StructureCostNumberOriginal = pb.StructureCostNumberOriginalValue
+                    };
+                    this.UpdateStructureCostNumberTasks.Add(ut);
+                    sb.AppendLine($" - {ut.Model.ToString()};");
+                }
+
+                Messenger.SendMessage(sb.ToString());
+            }
+
+            base.SaveCommand_ExecuteMethod();
+        }
 
         protected override bool SaveCommand_CanExecuteMethod()
         {

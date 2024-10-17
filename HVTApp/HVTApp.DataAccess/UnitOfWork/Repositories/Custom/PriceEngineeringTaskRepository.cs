@@ -11,6 +11,7 @@ namespace HVTApp.DataAccess
             return Context.Set<PriceEngineeringTask>().AsQueryable()
                 .Include(x => x.Statuses)
                 .Include(x => x.ChildPriceEngineeringTasks)
+                .Include(x => x.UpdateStructureCostNumberTasks)
                 .Include(x => x.UserConstructor);
         }
     }

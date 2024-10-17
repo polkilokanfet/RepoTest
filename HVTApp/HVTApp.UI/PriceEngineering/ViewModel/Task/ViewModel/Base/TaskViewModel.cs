@@ -255,10 +255,8 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
-        private void SaveCommand_ExecuteMethod()
+        protected virtual void SaveCommand_ExecuteMethod()
         {
-            Save_Before();
-
             if (this.UnitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id) == null)
                 this.UnitOfWork.Repository<PriceEngineeringTask>().Add(this.Model);
 
@@ -267,11 +265,7 @@ namespace HVTApp.UI.PriceEngineering
             SaveCommand.RaiseCanExecuteChanged();
             SavedEvent?.Invoke();
             Container.Resolve<IEventAggregator>().GetEvent<AfterSavePriceEngineeringTaskEvent>().Publish(this.Model);
-
-            Save_After();
         }
-        protected virtual void Save_Before() { }
-        protected virtual void Save_After() { }
 
         protected virtual bool SaveCommand_CanExecuteMethod()
         {

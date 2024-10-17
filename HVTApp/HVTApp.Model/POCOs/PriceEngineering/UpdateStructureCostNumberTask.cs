@@ -21,5 +21,10 @@ namespace HVTApp.Model.POCOs
         public string StructureCostNumber { get; set; }
 
         public bool? IsAccepted { get; set; }
+
+        public override string ToString()
+        {
+            return $"{StructureCostNumberOriginal} => {StructureCostNumber} ({ProductBlock})";
+        }
     }
 }

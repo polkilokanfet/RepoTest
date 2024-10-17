@@ -3,24 +3,45 @@ using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Messages;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {
     public class UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel : WrapperBase<UpdateStructureCostNumberTask>
     {
+        private readonly TaskViewModelBaseDesignDepartmentHead _vm;
+
         public ICommand AcceptNumberCommand { get; }
         public ICommand RejectNumberCommand { get; }
 
-        public UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel(UpdateStructureCostNumberTask model) :
+        public UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel(
+            UpdateStructureCostNumberTask model,
+            TaskViewModelBaseDesignDepartmentHead vm) :
             base(model)
         {
+            _vm = vm;
             AcceptNumberCommand = new DelegateLogCommand(
-                () => { this.IsAccepted = true; },
+                () => { NumberCommand(true); },
                 () => this.MomentFinish.HasValue == false);
 
             RejectNumberCommand = new DelegateLogCommand(
-                () => { this.IsAccepted = false; },
+                () =>
+                {
+                    this.Model.ProductBlock.StructureCostNumber = this.Model.StructureCostNumberOriginal;
+                    NumberCommand(false);
+                },
                 () => this.MomentFinish.HasValue == false);
+        }
+
+        private void NumberCommand(bool isAccepted)
+        {
+            this.MomentFinish = DateTime.Now;
+            this.IsAccepted = isAccepted;
+            _vm.SaveCommand.Execute();
+            var s = isAccepted ? "Согласовано" : "Отклонено";
+            _vm.Messenger.SendMessage($"{s} изменение номера стракчакоста: {this.Model.ToString()}");
+            ((DelegateLogCommand)AcceptNumberCommand).RaiseCanExecuteChanged();
+            ((DelegateLogCommand)RejectNumberCommand).RaiseCanExecuteChanged();
         }
 
         public DateTime? MomentFinish

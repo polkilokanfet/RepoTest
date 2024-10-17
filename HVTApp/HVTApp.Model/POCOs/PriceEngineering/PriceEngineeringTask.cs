@@ -105,7 +105,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Запрос на проверку от исполнителя"), OrderStatus(35)]
         public bool RequestForVerificationFromConstructor { get; set; } = false;
 
-        public bool VerificationIsRequested => RequestForVerificationFromConstructor || RequestForVerificationFromHead;
+        public bool VerificationIsRequested => 
+            RequestForVerificationFromConstructor || 
+            RequestForVerificationFromHead;
 
         [Designation("ТЗ валидно для производства"), OrderStatus(36)]
         public bool IsValidForProduction { get; set; } = true;

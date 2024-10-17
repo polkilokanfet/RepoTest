@@ -8,7 +8,6 @@ using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.Events.EventServiceEvents;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -170,20 +169,6 @@ namespace HVTApp.UI.PriceEngineering
                     yield return child2;
                 }
             }
-        }
-
-        private List<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel> _updateTasks;
-        protected override void Save_Before()
-        {
-            _updateTasks = UpdateStructureCostNumberTasks
-                .Where(x => x.MomentFinish.HasValue == false)
-                .ToList();
-
-            _
-        }
-
-        protected override void Save_After()
-        {
         }
     }
 }

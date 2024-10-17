@@ -3,8 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
              xmlns:ribbon="http://schemas.infragistics.com/xaml/wpf"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:cvs="clr-namespace:HVTApp.UI.PriceEngineering.Wrapper"
              x:Name="Root"
              MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ribbon:RibbonWindowContentHost}}, Path=ActualWidth, Converter={StaticResource BlockAddedWidthConverter}}">
+
+    <UserControl.Resources>
+        <cvs:AcceptConverter x:Key="AcceptConverter"/>
+        <cvs:RejectConverter x:Key="RejectConverter"/>
+        <cvs:ButtonsVisibilityConverter x:Key="ButtonsVisibilityConverter"/>
+    </UserControl.Resources>
 
     <Border 
         DataContext="{Binding ElementName=Root, Path=UpdateTask}"
@@ -13,10 +21,8 @@
         CornerRadius="5">
         <Grid >
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -24,39 +30,41 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <view:ProductBlockControl Grid.Column="0" ProductBlock="{Binding Model.ProductBlock, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 0 0 0"/>
 
-            <Label Grid.Column="1" Content="Было: " Margin="5 0 0 0"/>
-            <TextBox Grid.Column="2" 
+            <fa:FontAwesome Grid.Column="0" Icon="CheckCircle" Foreground="Green"
+                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AcceptConverter}}"/>
+
+            <fa:FontAwesome Grid.Column="0" Icon="Ban" Foreground="Red"
+                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RejectConverter}}"/>
+
+            <fa:FontAwesome Grid.Column="0" Icon="Question" Foreground="CornflowerBlue"
+                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ButtonsVisibilityConverter}}"/>
+
+            <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding Model.ProductBlock, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 0 0 0"/>
+
+            <Label Grid.Column="2" Content="Было: " Margin="5 0 0 0"/>
+            <TextBox Grid.Column="3" 
                      Width="120" 
                      Text="{Binding Model.StructureCostNumberOriginal, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="True"/>
+                     IsReadOnly="True"
+                     Background="Transparent"/>
 
-            <Label Grid.Column="3" Content="Стало: " Margin="5 0 0 0"/>
-            <TextBox Grid.Column="4" 
+            <Label Grid.Column="4" Content="Стало: " Margin="5 0 0 0"/>
+            <TextBox Grid.Column="5" 
                      Width="120" 
                      Text="{Binding Model.StructureCostNumber, Mode=OneTime}"
-                     IsReadOnly="True"/>
+                     IsReadOnly="True"
+                     Background="Transparent"/>
 
-            <!--<Label Grid.Column="5" Content="Согласовано" DataContext="{}">
-                <Label.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding}" Value="Visible">
-                                <Setter Property="Label.Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Label.Style>
-            </Label>-->
-
-            <!--<Label Grid.Column="5" Content="Согласовано: " Margin="5 0 0 0"/>
-            <CheckBox Grid.Column="6" 
-                      IsChecked="{Binding Model.IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      IsReadOnly="True"/>-->
-
-            <Button Grid.Column="7" Width="100" Content="Согласовать" Command="{Binding AcceptNumberCommand}"/>
-            <Button Grid.Column="8" Width="100" Content="Отклонить" Command="{Binding RejectNumberCommand}"/>
+            <StackPanel Grid.Column="6" Orientation="Horizontal" 
+                        Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ButtonsVisibilityConverter}}">
+                <Button Command="{Binding AcceptNumberCommand}">
+                    <fa:FontAwesome Icon="CheckCircle" Foreground="Green"/>
+                </Button>
+                <Button Command="{Binding RejectNumberCommand}">
+                    <fa:FontAwesome Icon="Ban" Foreground="Red"/>
+                </Button>
+            </StackPanel>
 
         </Grid>
     </Border>
