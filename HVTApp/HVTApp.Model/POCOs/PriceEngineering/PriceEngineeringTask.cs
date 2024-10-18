@@ -116,6 +116,8 @@ namespace HVTApp.Model.POCOs
         public string TcePosition { get; set; }
 
         public virtual List<UpdateStructureCostNumberTask> UpdateStructureCostNumberTasks { get; set; } = new List<UpdateStructureCostNumberTask>();
+        public bool HasAnyUpdateStructureCostNumberTaskNotFinished 
+            => this.UpdateStructureCostNumberTasks.Any(x => x.MomentFinish.HasValue == false);
 
         #region DesignDocumentationAvailability
 

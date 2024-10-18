@@ -58,8 +58,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override void BeforeDoStepAction()
         {
-            if (ViewModel.Model.RequestForVerificationFromHead == false)
-                ViewModel.RequestForVerificationFromConstructor = MessageService.ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
+            if (ViewModel.Model.HasAnyUpdateStructureCostNumberTaskNotFinished)
+            {
+                ViewModel.Model.RequestForVerificationFromConstructor = true;
+            }
+            else
+            {
+                if (ViewModel.Model.RequestForVerificationFromHead == false)
+                    ViewModel.RequestForVerificationFromConstructor = MessageService.ConfirmationDialog("Проверка", "Хотите проверить результаты проработки?", defaultNo: true);
+            }
 
             ViewModel.IsValidForProduction = MessageService.ConfirmationDialog("Проверка", "Предоставленного ТЗ достаточно для производства?", defaultNo: true);
         }

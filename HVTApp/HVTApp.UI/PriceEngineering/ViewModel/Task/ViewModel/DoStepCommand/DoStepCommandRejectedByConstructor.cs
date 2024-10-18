@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Enums;
 using HVTApp.Model.POCOs;
@@ -34,6 +35,14 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected override bool CanExecuteMethod()
         {
             return Step.AllowDoStep(ViewModel.Status);
+        }
+
+        protected override bool AllowDoStepAction()
+        {
+            var allow = ViewModel.Model.HasAnyUpdateStructureCostNumberTaskNotFinished == false;
+            if (allow) return true;
+            MessageService.Message("Отказ", "Нельзя отклонить задачу в которой менялись номера стракчакостов.");
+            return false;
         }
     }
 }

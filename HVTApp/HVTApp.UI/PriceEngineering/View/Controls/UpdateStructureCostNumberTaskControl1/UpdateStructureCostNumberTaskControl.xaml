@@ -30,16 +30,6 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-
-            <fa:FontAwesome Grid.Column="0" Icon="CheckCircle" Foreground="Green"
-                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AcceptConverter}}"/>
-
-            <fa:FontAwesome Grid.Column="0" Icon="Ban" Foreground="Red"
-                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RejectConverter}}"/>
-
-            <fa:FontAwesome Grid.Column="0" Icon="Question" Foreground="CornflowerBlue"
-                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ButtonsVisibilityConverter}}"/>
-
             <view:ProductBlockControl Grid.Column="1" ProductBlock="{Binding Model.ProductBlock, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5 0 0 0"/>
 
             <Label Grid.Column="2" Content="Было: " Margin="5 0 0 0"/>
@@ -65,6 +55,12 @@
                     <fa:FontAwesome Icon="Ban" Foreground="Red"/>
                 </Button>
             </StackPanel>
+
+            <fa:FontAwesome Grid.Column="6" Icon="CheckCircle" Foreground="Green"
+                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AcceptConverter}}"/>
+
+            <fa:FontAwesome Grid.Column="6" Icon="Ban" Foreground="Red"
+                            Visibility="{Binding IsAccepted, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RejectConverter}}"/>
 
         </Grid>
     </Border>

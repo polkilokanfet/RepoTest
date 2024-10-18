@@ -45,5 +45,14 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             ViewModel.SaveCommand.Execute();
             this.RaiseCanExecuteChanged();
         }
+
+        protected override bool AllowDoStepAction()
+        {
+            var allow = ViewModel.Model.HasAnyUpdateStructureCostNumberTaskNotFinished == false;
+            if (allow) return true;
+            MessageService.Message("Отказ", "Сначала завершите задачи по изменению номеров стракчакостов.");
+            return false;
+        }
+
     }
 }
