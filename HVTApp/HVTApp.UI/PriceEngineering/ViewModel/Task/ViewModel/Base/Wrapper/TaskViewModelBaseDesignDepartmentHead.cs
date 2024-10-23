@@ -61,6 +61,8 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
 
         protected override void InitializeCollectionProperties()
         {
+            base.InitializeCollectionProperties();
+
             if (Model.UpdateStructureCostNumberTasks == null) throw new ArgumentException($"{nameof(Model.UpdateStructureCostNumberTasks)} cannot be null");
             UpdateStructureCostNumberTasks = new ValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel>(Model.UpdateStructureCostNumberTasks.Select(e => new UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel(e, this)));
             RegisterCollection(UpdateStructureCostNumberTasks, Model.UpdateStructureCostNumberTasks);
