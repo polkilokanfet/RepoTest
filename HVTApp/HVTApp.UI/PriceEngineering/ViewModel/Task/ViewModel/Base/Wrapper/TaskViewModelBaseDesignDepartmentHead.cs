@@ -64,7 +64,9 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
             base.InitializeCollectionProperties();
 
             if (Model.UpdateStructureCostNumberTasks == null) throw new ArgumentException($"{nameof(Model.UpdateStructureCostNumberTasks)} cannot be null");
-            UpdateStructureCostNumberTasks = new ValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel>(Model.UpdateStructureCostNumberTasks.Select(e => new UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel(e, this)));
+            UpdateStructureCostNumberTasks = new ValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel>(Model.UpdateStructureCostNumberTasks
+                .Select(e => new UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel(e, this))
+                .OrderBy(x => x.Model.MomentStart));
             RegisterCollection(UpdateStructureCostNumberTasks, Model.UpdateStructureCostNumberTasks);
         }
     }

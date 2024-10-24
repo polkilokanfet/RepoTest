@@ -25,11 +25,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
                 () => this.MomentFinish.HasValue == false);
 
             RejectNumberCommand = new DelegateLogCommand(
-                () =>
-                {
-                    this.Model.ProductBlock.StructureCostNumber = this.Model.StructureCostNumberOriginal;
-                    NumberCommand(false);
-                },
+                () => { NumberCommand(false); },
                 () => this.MomentFinish.HasValue == false);
         }
 
@@ -37,6 +33,9 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
         {
             this.MomentFinish = DateTime.Now;
             this.IsAccepted = isAccepted;
+            this.Model.ProductBlock.StructureCostNumber = isAccepted
+                ? this.Model.StructureCostNumber
+                : this.Model.StructureCostNumberOriginal;
             _vm.SaveCommand.Execute();
             var s = isAccepted ? "Согласовано" : "Отклонено";
             _vm.Messenger.SendMessage($"{s} изменение номера стракчакоста: {this.Model.ToString()}");
