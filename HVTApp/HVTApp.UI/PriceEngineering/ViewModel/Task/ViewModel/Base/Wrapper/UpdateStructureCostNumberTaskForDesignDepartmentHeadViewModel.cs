@@ -3,7 +3,6 @@ using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.UI.Commands;
-using HVTApp.UI.PriceEngineering.Messages;
 
 namespace HVTApp.UI.PriceEngineering.Wrapper
 {

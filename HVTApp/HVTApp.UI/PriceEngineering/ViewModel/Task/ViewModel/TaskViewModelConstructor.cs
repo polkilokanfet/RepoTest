@@ -314,7 +314,8 @@ namespace HVTApp.UI.PriceEngineering
                 .Select(x => x.ProductBlock)
                 .ToList();
             if (ProductBlockEngineer.StructureCostNumberIsChanged)
-                targetProductBlocks.Add(ProductBlockEngineer);
+                if (string.IsNullOrWhiteSpace(ProductBlockEngineer.StructureCostNumberOriginalValue) == false)
+                    targetProductBlocks.Add(ProductBlockEngineer);
 
             if (targetProductBlocks.Any())
             {
