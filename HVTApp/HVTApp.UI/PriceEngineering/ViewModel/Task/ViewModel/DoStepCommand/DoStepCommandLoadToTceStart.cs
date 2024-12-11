@@ -56,9 +56,22 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected override bool AllowDoStepAction()
         {
             var notAccepted = GetNotAcceptedTasks().ToList();
-            if (notAccepted.Any() == false) return true;
-            MessageService.Message("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
-            return false;
+            if (notAccepted.Any())
+            {
+                MessageService.Message("Отказ", $"Сначала примите блоки:\n{notAccepted.Select(task => task.ProductBlock).ToStringEnum()}");
+                return false;
+            }
+
+            var allProductBlocksHasSccNumbersInTce = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).AllProductBlocksHasSccNumbersInTce;
+            if (allProductBlocksHasSccNumbersInTce)
+            {
+                MessageService.Message("Отказ", "Все блоки уже загружены в TeamCenter");
+                return false;
+            }
+
+
+            return true;
+
         }
 
         protected override bool NeedAddSameStatusOnSubTasks => true;
@@ -125,7 +138,13 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// <returns></returns>
         private IEnumerable<PriceEngineeringTask> GetNotAcceptedTasks()
         {
-            var steps = new[] { ScriptStep.Accept, ScriptStep.LoadToTceStart, ScriptStep.LoadToTceFinish };
+            var steps = new[]
+            {
+                ScriptStep.Accept, 
+                ScriptStep.LoadToTceStart, 
+                ScriptStep.LoadToTceFinish
+            };
+
             var tasks = Container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
             foreach (var task in tasks)
             {

@@ -115,6 +115,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Позиция в ТСЕ"), MaxLength(4)]
         public string TcePosition { get; set; }
 
+        [Designation("Задачи на изменение номера стракчакоста блока")]
         public virtual List<UpdateStructureCostNumberTask> UpdateStructureCostNumberTasks { get; set; } = new List<UpdateStructureCostNumberTask>();
         public bool HasAnyUpdateStructureCostNumberTaskNotFinished 
             => this.UpdateStructureCostNumberTasks.Any(x => x.MomentFinish.HasValue == false);
@@ -284,17 +285,32 @@ namespace HVTApp.Model.POCOs
             Status.Equals(ScriptStep.Create) == false &&
             Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.Start.Value);
 
-        public bool HasSccInTce
+        /// <summary>
+        /// Блок продукта конкретно из этой задачи имеет версию номера SCC в TCE
+        /// </summary>
+        private bool HasSccNumberInTce =>
+            this.StructureCostVersions.Any(structureCostVersion =>
+                structureCostVersion.Version.HasValue &&
+                structureCostVersion.OriginalStructureCostNumber == this.ProductBlock.StructureCostNumber); 
+
+
+        /// <summary>
+        /// Все блоки из задачи (в т.ч. включённое и дочернее оборудование) имеют SCC в TCE
+        /// </summary>
+        [NotMapped, NotForDetailsView, NotForListView]
+        public bool AllProductBlocksHasSccNumbersInTce
         {
             get
             {
-                if (this.StructureCostVersions.Any(x => x.Version.HasValue && x.OriginalStructureCostNumber == this.ProductBlock.StructureCostNumber) == false)
+                if (this.HasSccNumberInTce == false)
                     return false;
 
-                if (this.ProductBlocksAdded.Where(x => x.IsRemoved == false).Any(x => x.HasSccInTce == false))
+                var actualProductBlocksAdded =
+                    this.ProductBlocksAdded.Where(blockAdded => blockAdded.IsRemoved == false);
+                if (actualProductBlocksAdded.Any(blockAdded => blockAdded.HasSccNumberInTce == false))
                     return false;
 
-                if (this.ChildPriceEngineeringTasks.Any(x => x.HasSccInTce == false))
+                if (this.ChildPriceEngineeringTasks.Any(task => task.AllProductBlocksHasSccNumbersInTce == false))
                     return false;
 
                 return true;
@@ -468,7 +484,7 @@ namespace HVTApp.Model.POCOs
             return "no scc";
         }
 
-        private StructureCost GetNewStructureCost(ProductBlock productBlock, string structureCostNumber, double amountNumerator, double amountDenomerator)
+        private StructureCost GetNewStructureCost(ProductBlock productBlock, string structureCostNumber, double amountNumerator, double amountDenomenator)
         {
             return new StructureCost
             {
@@ -477,7 +493,7 @@ namespace HVTApp.Model.POCOs
                 OriginalStructureCostProductBlock = productBlock,
                 OriginalStructureCostNumber = productBlock.StructureCostNumber,
                 AmountNumerator = amountNumerator,
-                AmountDenomerator = amountDenomerator
+                AmountDenomerator = amountDenomenator
             };
         }
 

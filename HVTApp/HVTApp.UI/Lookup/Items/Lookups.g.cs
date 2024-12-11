@@ -902,7 +902,7 @@ namespace HVTApp.UI.Lookup
         public System.Boolean IsStarted => Entity.IsStarted;
 
 		[OrderStatus(1)]
-        public System.Boolean HasSccInTce => Entity.HasSccInTce;
+        public System.Boolean HasSccInTce => Entity.AllProductBlocksHasSccNumbersInTce;
 
 		[OrderStatus(1)]
         public System.Boolean HasDesignDocumentationInfo => Entity.HasDesignDocumentationInfo;
@@ -1055,9 +1055,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(950)]
         public System.Boolean IsRemoved => Entity.IsRemoved;
-
-		[OrderStatus(1)]
-        public System.Boolean HasSccInTce => Entity.HasSccInTce;
 
         #endregion
 

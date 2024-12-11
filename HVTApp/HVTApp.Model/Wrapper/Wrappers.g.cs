@@ -2943,7 +2943,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// HasSccInTce
         /// </summary>
-        public System.Boolean HasSccInTce => Model.HasSccInTce; 
+        public System.Boolean HasSccInTce => Model.AllProductBlocksHasSccNumbersInTce; 
 
         /// <summary>
         /// HasDesignDocumentationInfo
@@ -3351,14 +3351,6 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
-        #region GetProperties
-
-        /// <summary>
-        /// HasSccInTce
-        /// </summary>
-        public System.Boolean HasSccInTce => Model.HasSccInTce; 
-
-        #endregion
 
         public override void InitializeComplexProperties()
         {

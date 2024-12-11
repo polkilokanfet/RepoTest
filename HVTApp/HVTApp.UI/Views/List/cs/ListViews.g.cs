@@ -5292,12 +5292,6 @@ namespace HVTApp.UI.Views
             set { PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.IsRemoved)].Visibility = value; }
         }
 
-        public System.Windows.Visibility HasSccInTceVisibility
-        {
-            get { return PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.HasSccInTce)].Visibility; }
-            set { PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.HasSccInTce)].Visibility = value; }
-        }
-
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PriceEngineeringTaskProductBlockAddedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskProductBlockAddedLookup.DisplayMember)].Visibility; }

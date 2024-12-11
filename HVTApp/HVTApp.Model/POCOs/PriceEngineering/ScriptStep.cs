@@ -389,7 +389,8 @@ namespace HVTApp.Model.POCOs
 
             public override IEnumerable<ScriptStep> PossiblePreviousSteps => new List<ScriptStep>
             {
-                Accept
+                Accept, 
+                LoadToTceFinish
             };
 
             public LoadToTceStartStep() : base(11, Role.SalesManager)

@@ -30,10 +30,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Версии SCC"), OrderStatus(80)]
         public virtual List<StructureCostVersion> StructureCostVersions { get; set; } = new List<StructureCostVersion>();
 
-
-        [NotMapped]
-        public bool HasSccInTce => this.StructureCostVersions.Any(x => x.Version.HasValue && x.OriginalStructureCostNumber == this.ProductBlock.StructureCostNumber);
-
         /// <summary>
         /// Формирует продукт из проработанных блоков
         /// </summary>
@@ -51,5 +47,12 @@ namespace HVTApp.Model.POCOs
             string s = IsOnBlock ? "на каждый блок" : "на весь заказ";
             return $"{ProductBlock} = {Amount} шт. {s}, SCC: {ProductBlock.StructureCostNumber}";
         }
+        /// <summary>
+        /// Блок продукта конкретно из этой задачи имеет версию номера SCC в TCE
+        /// </summary>
+        public bool HasSccNumberInTce =>
+            this.StructureCostVersions.Any(structureCostVersion =>
+                structureCostVersion.Version.HasValue &&
+                structureCostVersion.OriginalStructureCostNumber == this.ProductBlock.StructureCostNumber);
     }
 }

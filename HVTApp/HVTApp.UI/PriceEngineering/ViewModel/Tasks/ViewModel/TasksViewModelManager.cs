@@ -6,6 +6,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
@@ -222,31 +223,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     });
                 });
 
-            CreatePriceCalculationCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var priceEngineeringTasks = container.Resolve<IUnitOfWork>().Repository<PriceEngineeringTasks>().GetById(this.TasksWrapper.Model.Id);
-
-                    var isTceConnected = priceEngineeringTasks.ChildPriceEngineeringTasks
-                                             .Any(x => x.IsAcceptedTotal) &&
-                                         priceEngineeringTasks.ChildPriceEngineeringTasks
-                                             .All(x => x.IsAcceptedTotal || x.IsStoppedTotal);
-                    if (isTceConnected == false)
-                    {
-                        if (this.TasksWrapper.ChildTasks.Any(x => x.Model.IsAcceptedTotal))
-                        {
-                            isTceConnected = true;
-                        }
-                    }
-
-                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
-                        new NavigationParameters
-                        {
-                            {nameof(PriceEngineeringTasks), this.TasksWrapper.Model},
-                            {nameof(Boolean), isTceConnected}
-                        });
-                },
-                () => this.TasksWrapper != null && this.IsNew == false);
+            CreatePriceCalculationCommand = new CreatePriceCalculationCommand(container, this);
 
 
             OpenTceCommand = new DelegateLogCommand(
@@ -348,6 +325,86 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         {
             if (this.TasksWrapper.ChildTasks.Contains(taskViewModel))
                 this.TasksWrapper.ChildTasks.Remove(taskViewModel);
+        }
+    }
+
+    class CreatePriceCalculationCommand : DelegateLogCommand
+    {
+        private readonly IUnityContainer _container;
+        private readonly TasksViewModelManager _tasksViewModel;
+
+        public CreatePriceCalculationCommand(IUnityContainer container, TasksViewModelManager tasksViewModel)
+        {
+            _container = container;
+            _tasksViewModel = tasksViewModel;
+        }
+
+        protected override bool CanExecuteMethod()
+        {
+            return _tasksViewModel.TasksWrapper != null && _tasksViewModel.IsNew == false;
+        }
+
+        protected override void ExecuteMethod()
+        {
+            using (var unitOfWork = _container.Resolve<IUnitOfWork>())
+            {
+                var priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTasks>().GetById(_tasksViewModel.TasksWrapper.Model.Id);
+
+                var hasProblemTasks = HasProblemTasks(priceEngineeringTasks);
+                if (hasProblemTasks)
+                {
+                    var dr = _container.Resolve<IMessageService>().ConfirmationDialog("В TeamCenter не загружены некоторые сралчахвосты. \nХотите продолжить создание задачи на расчёт ПЗ?");
+                    if (dr == false) return;
+                }
+
+                _container.Resolve<IRegionManager>().RequestNavigateContentRegion<PriceCalculationView>(
+                    new NavigationParameters
+                    {
+                        {nameof(PriceEngineeringTasks), _tasksViewModel.TasksWrapper.Model},
+                        {nameof(Boolean), IsTceConnected(priceEngineeringTasks)}
+                    });
+            }
+        }
+
+        private bool HasProblemTasks(PriceEngineeringTasks priceEngineeringTasks)
+        {
+            //Задачи, которые имеют не загруженные в ТСЕ стракчакосты
+            var problemTasks = priceEngineeringTasks
+                .ChildPriceEngineeringTasks
+                .Where(task => task.AllProductBlocksHasSccNumbersInTce == false)
+                .ToList();
+
+            if (problemTasks.Any() == false) return false;
+
+            foreach (var problemTask in problemTasks)
+            {
+                var problemTaskViewModel = _tasksViewModel.TasksWrapper.ChildTasks.Single(x => x.Model.Id == problemTask.Id);
+                if (problemTaskViewModel.LoadToTceStartCommand.CanExecute(null))
+                {
+                    var dr = _container.Resolve<IMessageService>().ConfirmationDialog($"В TeamCenter не загружены некоторые сралчахвосты из ТСП №{problemTask.Number}. \nХотите запустить эту задачу на загрузку в TeamCenter?");
+                    if (dr == false) continue;
+                    problemTaskViewModel.LoadToTceStartCommand.Execute(false);
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsTceConnected(PriceEngineeringTasks priceEngineeringTasks)
+        {
+            var result = priceEngineeringTasks.ChildPriceEngineeringTasks
+                                     .Any(task => task.IsAcceptedTotal) &&
+                                 priceEngineeringTasks.ChildPriceEngineeringTasks
+                                     .All(task => task.IsAcceptedTotal || task.IsStoppedTotal);
+            if (result == false)
+            {
+                if (_tasksViewModel.TasksWrapper.ChildTasks.Any(task => task.Model.IsAcceptedTotal))
+                {
+                    result = true;
+                }
+            }
+
+            return result;
         }
     }
 }
