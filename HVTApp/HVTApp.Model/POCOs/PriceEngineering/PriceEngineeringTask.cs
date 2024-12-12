@@ -497,6 +497,10 @@ namespace HVTApp.Model.POCOs
             };
         }
 
+        /// <summary>
+        /// Возвращает эту задачу и все дочерние
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<PriceEngineeringTask> GetAllPriceEngineeringTasks()
         {
             yield return this;

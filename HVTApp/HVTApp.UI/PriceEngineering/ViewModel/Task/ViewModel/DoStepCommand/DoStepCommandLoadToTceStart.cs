@@ -111,11 +111,15 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected override bool CanExecuteMethod()
         {
             if (GlobalAppProperties.UserIsManager == false) return false;
-            return this.GetLastAcceptedTasks().Any();
 
-            //return 
-            //    !this.ViewModel.Model.GetAllPriceEngineeringTasks().All(task => ScriptStep.LoadToTceFinish.Equals(ViewModel.Model.Status)) && 
-            //    base.CanExecuteMethod();
+            var task = UnitOfWork.Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id);
+
+            if (task.StatusesAll.All(s =>
+                    s.Equals(ScriptStep.Accept) ||
+                    s.Equals(ScriptStep.LoadToTceFinish)) == false)
+                return false;
+
+            return task.AllProductBlocksHasSccNumbersInTce == false;
         }
 
         /// <summary>
@@ -124,7 +128,11 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         /// <returns></returns>
         private IEnumerable<PriceEngineeringTask> GetLastAcceptedTasks()
         {
-            var tasks = UnitOfWork.Repository<PriceEngineeringTask>().GetById(ViewModel.Model.Id).GetAllPriceEngineeringTasks().ToList();
+            var tasks = UnitOfWork
+                .Repository<PriceEngineeringTask>()
+                .GetById(ViewModel.Model.Id)
+                .GetAllPriceEngineeringTasks()
+                .ToList();
             foreach (var task in tasks)
             {
                 if (task.Status.Equals(ScriptStep.Accept))

@@ -16,6 +16,7 @@ using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceCalculations.View;
 using HVTApp.UI.PriceEngineering.Comparers;
+using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using HVTApp.UI.PriceEngineering.Tce.Second.View;
 using Microsoft.Practices.Unity;
@@ -383,7 +384,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 {
                     var dr = _container.Resolve<IMessageService>().ConfirmationDialog($"В TeamCenter не загружены некоторые сралчахвосты из ТСП №{problemTask.Number}. \nХотите запустить эту задачу на загрузку в TeamCenter?");
                     if (dr == false) continue;
-                    problemTaskViewModel.LoadToTceStartCommand.Execute(false);
+                    ((DoStepCommandLoadToTceStart)problemTaskViewModel.LoadToTceStartCommand).ExecuteWithoutConfirmation();
                 }
             }
 
