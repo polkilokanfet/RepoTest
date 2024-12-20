@@ -220,6 +220,9 @@ namespace NotificationsService
                     using (var unitOfWork = _unitOfWorkFactory.GetUnitOfWork())
                     {
                         var priceEngineeringTaskTarget = unitOfWork.Repository<PriceEngineeringTask>().GetById(notificationUnit.TargetEntityId);
+                        if (priceEngineeringTaskTarget == null)
+                            throw new NotificationUnitHasNoTargetEntityException();
+
                         var priceEngineeringTaskTop = priceEngineeringTaskTarget.GetTopPriceEngineeringTask(unitOfWork);
                         var priceEngineeringTasks = priceEngineeringTaskTarget.GetPriceEngineeringTasks(unitOfWork);
 

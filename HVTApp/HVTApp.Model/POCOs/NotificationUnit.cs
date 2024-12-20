@@ -238,4 +238,9 @@ namespace HVTApp.Model.POCOs
 
         #endregion
     }
+
+    public class NotificationUnitHasNoTargetEntityException : Exception
+    {
+
+    }
 }

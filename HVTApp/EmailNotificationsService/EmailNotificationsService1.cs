@@ -50,6 +50,12 @@ namespace EmailNotificationsService
                         SuccessSendNotificationEvent?.Invoke(notificationUnit);
                         unitOfWork.SaveChanges();
                     }
+                    catch (NotificationUnitHasNoTargetEntityException e)
+                    {
+                        NotSuccessSendNotificationEvent?.Invoke(notificationUnit, e);
+                        unitOfWork.RemoveEntity(notificationUnit);
+                        unitOfWork.SaveChanges();
+                    }
                     catch (Exception e)
                     {
                         NotSuccessSendNotificationEvent?.Invoke(notificationUnit, e);
