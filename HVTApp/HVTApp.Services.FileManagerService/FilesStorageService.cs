@@ -182,7 +182,7 @@ namespace HVTApp.Services.FileManagerService
 
             try
             {
-                filePath = CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName.LimitLength(10), showTargetDirectory: false);
+                filePath = CopyFileFromStorage(fileId, storageDirectoryPath, targetDirectoryPath, addToFileName.LimitLength(10).ReplaceUncorrectSimbols(), showTargetDirectory: false);
 
             }
             catch (UnauthorizedAccessException)
