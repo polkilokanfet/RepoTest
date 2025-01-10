@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.DataAccess.Annotations;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.Sales.Production
+namespace HVTApp.Model.ProductionViewModelEntities
 {
     public class ProductionGroup
     {
@@ -16,9 +15,13 @@ namespace HVTApp.UI.Modules.Sales.Production
 
         public DateTime EndProductionDateExpected => ProductionItems.First().EndProductionDateExpected;
 
-        public ProductionGroup([NotNull] IEnumerable<ProductionItem> productionItems)
+        public ProductionGroup(IEnumerable<ProductionItem> productionItems)
         {
-            if (productionItems == null) throw new ArgumentNullException(nameof(productionItems));
+            if (productionItems == null)
+                throw new ArgumentNullException(nameof(productionItems));
+            if (productionItems.Any() == false)
+                throw new ArgumentException(nameof(productionItems));
+
             ProductionItems = new List<ProductionItem>(productionItems);
         }
 

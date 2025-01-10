@@ -6,6 +6,10 @@
                                       x:Class="HVTApp.UI.Modules.Sales.Production.ProductionView"
                                       xmlns:controls="clr-namespace:HVTApp.UI.Controls" 
                                       xmlns:components="clr-namespace:HVTApp.UI.Components">
+    <!--xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                                      xmlns:production="clr-namespace:HVTApp.UI.Modules.Sales.Production"
+                                      d:DataContext="{d:DesignInstance production:ProductionViewModel, IsDesignTimeCreatable=True}"
+                                      >-->
 
     <components:ViewBaseSaveCustomization.Resources>
         <localConverters:ProductionGroupToColorConverter x:Key="ProductionGroupToColorConverter"/>
@@ -15,7 +19,9 @@
 
         <GroupBox Header="Размещенное в производстве оборудование">
             <infg:XamDataGrid DataSource="{Binding GroupsInProduction}"
-                              ActiveDataItem="{Binding SelectedInProduction, Mode=TwoWay}">
+                              ActiveDataItem="{Binding SelectedInProduction, Mode=TwoWay}"
+                              SelectedDataItemsScope="RecordsOrCells"
+                              SelectedDataItems="{Binding Path=SelectedProductionGroups, Mode=TwoWay}">
 
                 <infg:XamDataGrid.Resources>
                     <Style TargetType="{x:Type infg:DataRecordPresenter}">

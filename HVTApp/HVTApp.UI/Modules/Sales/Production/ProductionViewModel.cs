@@ -5,9 +5,13 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.ProductionViewModelEntities;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.View;
 using Microsoft.Practices.Unity;
@@ -27,6 +31,11 @@ namespace HVTApp.UI.Modules.Sales.Production
         /// </summary>
         public ICommandRaiseCanExecuteChanged OpenOrderTaskCommand { get; }
 
+        /// <summary>
+        /// Сформировать уведомление об окончании производства оборудования
+        /// </summary>
+        public ICommandRaiseCanExecuteChanged PrintNoticeCommand { get; }
+
         public ProductionGroup SelectedInProduction
         {
             get => _selectedInProduction;
@@ -35,6 +44,27 @@ namespace HVTApp.UI.Modules.Sales.Production
                 SetProperty(ref _selectedInProduction, value, () => OpenOrderTaskCommand.RaiseCanExecuteChanged());
             }
         }
+
+        private ProductionGroup[] _selectedProductionGroups;
+        public object[] SelectedProductionGroups
+        {
+            get => _selectedProductionGroups;
+            set
+            {
+                if (value.Any() &&
+                    value.All(x => x is ProductionGroup))
+                {
+                    _selectedProductionGroups = value.Select(x => x as ProductionGroup).ToArray();
+                }
+                else
+                {
+                    _selectedProductionGroups = null;
+                }
+                
+                this.PrintNoticeCommand.RaiseCanExecuteChanged();
+            }
+        }
+
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
@@ -55,6 +85,33 @@ namespace HVTApp.UI.Modules.Sales.Production
                         container.Resolve<IMessageService>().Message("Информация", "Задача не найдена...");
                 },
                 () => SelectedInProduction != null);
+
+            PrintNoticeCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                () =>
+                {
+                    var contragent = _selectedProductionGroups.First().SalesUnit.Specification.Contract.Contragent;
+                    var employees = UnitOfWork.Repository<Employee>().Find(e => e.Company.Id == contragent.Id);
+                    var employee = container.Resolve<ISelectService>().SelectItem(employees);
+                    if (employee == null) return;
+                    var document = new Document
+                    {
+                        Number = new DocumentNumber(),
+                        SenderEmployee = UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id),
+                        RecipientEmployee = employee,
+                        Author = UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.User.Id),
+                        Comment = $"О готовности оборудования"
+                        //Comment = $"О готовности оборудования для нужд объектов: {_selectedProductionGroups.Select(x => x.SalesUnit.Facility.ToString().ToStringEnum())}"
+                    };
+                    UnitOfWork.Repository<Document>().Add(document);
+                    UnitOfWork.SaveChanges();
+
+                    var path = container.Resolve<IFileManagerService>().GetPath(document);
+
+                    container.Resolve<IPrintNoticeOfCompletionOfProductionService>()
+                        .PrintNoticeOfCompletionOfProduction(_selectedProductionGroups, document, path);
+                },
+                () => _selectedProductionGroups != null && _selectedProductionGroups.Any());
         }
 
         protected override void GetData()

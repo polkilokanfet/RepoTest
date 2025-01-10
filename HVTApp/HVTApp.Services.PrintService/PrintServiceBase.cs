@@ -3,7 +3,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -131,9 +130,9 @@ namespace HVTApp.Services.PrintService
                     {
                         docWriter.StartTableCell(tableCellProperties2);
 
-                        var prpr = docWriter.CreateParagraphProperties();
-                        prpr.Alignment = ParagraphAlignment.Center;
-                        docWriter.StartParagraph(prpr);
+                        var paragraphProperties = docWriter.CreateParagraphProperties();
+                        paragraphProperties.Alignment = ParagraphAlignment.Center;
+                        docWriter.StartParagraph(paragraphProperties);
                         docWriter.AddInlinePicture(GetImage("sign_deev.png"));
                         docWriter.EndParagraph();
 

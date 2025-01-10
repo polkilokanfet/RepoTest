@@ -1,7 +1,7 @@
 using System;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.Modules.Sales.Production
+namespace HVTApp.Model.ProductionViewModelEntities
 {
     public class ProductionItem
     {

@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Extensions\OtherExt.cs" />
     <Compile Include="PrintBlankLetterService.cs" />
+    <Compile Include="PrintNoticeOfCompletionOfProductionService.cs" />
     <Compile Include="PrintPriceEngineeringService.cs" />
     <Compile Include="PrintServiceBase.cs" />
     <Compile Include="PrintSupervisionLetterService.cs" />

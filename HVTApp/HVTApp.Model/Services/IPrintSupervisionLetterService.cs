@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Services

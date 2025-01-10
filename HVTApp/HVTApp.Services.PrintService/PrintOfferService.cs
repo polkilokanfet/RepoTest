@@ -506,5 +506,4 @@ namespace HVTApp.Services.PrintService
             throw new NotImplementedException();
         }
     }
-
 }

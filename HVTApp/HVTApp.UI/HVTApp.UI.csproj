@@ -1169,8 +1169,6 @@
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\OfferViewModel.cs" />
     <Compile Include="Modules\Sales\Payments\PaymentsViewModel.cs" />
-    <Compile Include="Modules\Sales\Production\ProductionGroup.cs" />
-    <Compile Include="Modules\Sales\Production\ProductionItem.cs" />
     <Compile Include="Modules\Sales\Production\ProductionViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="Modules\Sales\Market\Items\ProjectItem.cs" />
