@@ -68,6 +68,7 @@
                             <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding SalesUnit.Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowResize="True" AllowEdit="False"/>
                             <infg:CheckBoxField Name="IsProduced" AlternateBinding="{Binding IsProduced}" BindingType="UseAlternateBinding" Label="Произведено" Width="Auto" AllowResize="False"/>
+                            <infg:DateTimeField AlternateBinding="{Binding SalesUnit.ShipmentDate}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowResize="False"/>
                             <infg:Field Name="ProductionItems" IsExpandable="True"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>

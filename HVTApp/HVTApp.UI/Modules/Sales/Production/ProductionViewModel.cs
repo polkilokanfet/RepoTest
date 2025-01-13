@@ -5,6 +5,7 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
@@ -90,17 +91,27 @@ namespace HVTApp.UI.Modules.Sales.Production
                 container.Resolve<IMessageService>(),
                 () =>
                 {
+                    //выбор получателя уведомления о готовности
                     var contragent = _selectedProductionGroups.First().SalesUnit.Specification.Contract.Contragent;
                     var employees = UnitOfWork.Repository<Employee>().Find(e => e.Company.Id == contragent.Id);
                     var employee = container.Resolve<ISelectService>().SelectItem(employees);
                     if (employee == null) return;
+
+                    //выбор контактного лица ответственного за отгрузку
+                    Employee em = null;
+                    if (container.Resolve<IMessageService>().ConfirmationDialog("Включить ли в уведомление контактную информацию лица ответственного за отгрузку?"))
+                    {
+                        var es = UnitOfWork.Repository<User>().GetAll().Select(user => user.Employee);
+                        em = container.Resolve<ISelectService>().SelectItem(es);
+                    }
+
                     var document = new Document
                     {
                         Number = new DocumentNumber(),
                         SenderEmployee = UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id),
                         RecipientEmployee = employee,
                         Author = UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.User.Id),
-                        Comment = $"О готовности оборудования"
+                        Comment = "Уведомление о готовности оборудования"
                         //Comment = $"О готовности оборудования для нужд объектов: {_selectedProductionGroups.Select(x => x.SalesUnit.Facility.ToString().ToStringEnum())}"
                     };
                     UnitOfWork.Repository<Document>().Add(document);
@@ -109,7 +120,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                     var path = container.Resolve<IFileManagerService>().GetPath(document);
 
                     container.Resolve<IPrintNoticeOfCompletionOfProductionService>()
-                        .PrintNoticeOfCompletionOfProduction(_selectedProductionGroups, document, path);
+                        .PrintNoticeOfCompletionOfProduction(_selectedProductionGroups, document, path, em);
                 },
                 () => _selectedProductionGroups != null && _selectedProductionGroups.Any());
         }

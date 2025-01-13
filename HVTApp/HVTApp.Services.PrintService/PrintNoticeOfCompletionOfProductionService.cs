@@ -14,14 +14,16 @@ namespace HVTApp.Services.PrintService
     public class PrintNoticeOfCompletionOfProductionService : PrintServiceBase, IPrintNoticeOfCompletionOfProductionService
     {
         private List<ProductionGroup> _productionGroups;
+        private Employee _employee;
 
         public PrintNoticeOfCompletionOfProductionService(IUnityContainer container) : base(container)
         {
         }
 
-        public void PrintNoticeOfCompletionOfProduction(IEnumerable<ProductionGroup> productionGroups, Document letter, string path)
+        public void PrintNoticeOfCompletionOfProduction(IEnumerable<ProductionGroup> productionGroups, Document letter, string path, Employee employee)
         {
             _productionGroups = productionGroups.ToList();
+            _employee = employee;
             this.PrintOnLetterhead(letter, path);
         }
 
@@ -34,8 +36,6 @@ namespace HVTApp.Services.PrintService
         {
             Font fontBold = docWriter.CreateFont();
             fontBold.Bold = true;
-
-            var productionGroupsByFacilities = _productionGroups.GroupBy(x => x.SalesUnit.Facility).ToList();
 
             #region Print Text Above Table
 
@@ -53,7 +53,7 @@ namespace HVTApp.Services.PrintService
             {
                 printComments = MessageService.ConfirmationDialog("Печать комментариев", "Вы хотите включить в таблицу комментарии?", defaultNo: true);
             }
-            int columnsCount = printComments ? 7 : 6;
+            int columnsCount = printComments ? 8 : 7;
 
 
             var colorTableHeader = Colors.AliceBlue;
@@ -75,10 +75,10 @@ namespace HVTApp.Services.PrintService
 
             if (printComments)
                 docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
-                    "№", "Тип оборудования", "Обозначение", "Комментарий", "Кол.", "Зав.зак.", "Зав.№№");
+                    "№", "Объект", "Тип оборудования", "Обозначение", "Комментарий", "Кол.", "Зав.зак.", "Зав.№№");
             else
                 docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
-                    "№", "Тип оборудования", "Обозначение", "Кол.", "Зав.зак.", "Зав.№№");
+                    "№", "Объект", "Тип оборудования", "Обозначение", "Кол.", "Зав.зак.", "Зав.№№");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             tableCellProperties.Reset();
@@ -92,43 +92,48 @@ namespace HVTApp.Services.PrintService
             var dr2 = MessageService.ConfirmationDialog("Обозначение", "Использовать полное обозначение оборудования?", defaultYes: true);
             bool printFullDesignation = dr2;
 
-            foreach (var productionGroupByFacilities in productionGroupsByFacilities)
+            int rowNumber = 1;
+            foreach (var productionGroup in _productionGroups.OrderBy(x => x.SalesUnit.Product.Designation).ThenBy(x => x.SalesUnit.Order?.Number))
             {
-                //Название объекта
                 docWriter.StartTableRow();
 
-                tableCellProperties.ColumnSpan = columnsCount;
-                docWriter.PrintTableCell($"{productionGroupByFacilities.Key}", tableCellProperties, font: fontBold); //объект
+                docWriter.PrintTableCell(rowNumber.ToString(), tableCellProperties); //номер строки
+                docWriter.PrintTableCell(productionGroup.SalesUnit.Facility.ToString(), tableCellProperties); //объект
+                docWriter.PrintTableCell(productionGroup.SalesUnit.Product.ProductType?.Name, tableCellProperties); //тип оборудования
+                var des = printFullDesignation ? productionGroup.SalesUnit.Product.Designation : productionGroup.SalesUnit.Product.Category.NameShort;
+                docWriter.PrintTableCell(des, tableCellProperties); //обозначение
+                if (printComments) docWriter.PrintTableCell($"{productionGroup.SalesUnit.Comment}", tableCellProperties); //комментарий
+                docWriter.PrintTableCell($"{productionGroup.Amount:D}", tableCellProperties, parPropRight); //колличество
+                docWriter.PrintTableCell($"{productionGroup.SalesUnit.Order.Number}", tableCellProperties); //заводской заказ
+                docWriter.PrintTableCell($"{productionGroup.ProductionItems.Select(x => x.Model.SerialNumber).ToStringEnum()}", tableCellProperties); //заводской номер
 
+                rowNumber++;
                 docWriter.EndTableRow();
-
-                tableCellProperties.ColumnSpan = 1;
-                int rowNumber = 1;
-                foreach (var productionGroup in productionGroupByFacilities)
-                {
-                    docWriter.StartTableRow();
-
-                    docWriter.PrintTableCell(rowNumber.ToString(), tableCellProperties); //номер строки
-                    docWriter.PrintTableCell(productionGroup.SalesUnit.Product.ProductType?.Name, tableCellProperties); //тип оборудования
-                    var des = printFullDesignation ? productionGroup.SalesUnit.Product.Designation : productionGroup.SalesUnit.Product.Category.NameShort;
-                    docWriter.PrintTableCell(des, tableCellProperties); //обозначение
-                    if (printComments) docWriter.PrintTableCell($"{productionGroup.SalesUnit.Comment}", tableCellProperties); //комментарий
-                    docWriter.PrintTableCell($"{productionGroup.Amount:D}", tableCellProperties, parPropRight); //колличество
-                    docWriter.PrintTableCell($"{productionGroup.SalesUnit.Order.Number}", tableCellProperties); //заводской заказ
-                    docWriter.PrintTableCell($"{productionGroup.ProductionItems.Select(x => x.Model.SerialNumber).ToStringEnum()}", tableCellProperties); //заводской номер
-
-                    rowNumber++;
-                    docWriter.EndTableRow();
-                }
             }
+            //foreach (var productionGroupByFacilities in productionGroupsByFacilities)
+            //{
+            //    tableCellProperties.ColumnSpan = 1;
+            //}
 
             docWriter.EndTable();
 
             #endregion
 
-            #region Print Conditions
+            #region Print Other
 
-            docWriter.PrintParagraph("Просим Вас осуществить платежи в соответствии с условиями вышеназванной спецификации к договору. Счёт приложен к настоящему письму.");
+            docWriter.PrintParagraph("Предлагаем Вам осуществить платежи в соответствии с условиями спецификации. Счёт приложен к настоящему письму.");
+
+            #endregion
+
+            #region Print Employee
+
+            if (_employee == null) return;
+
+            docWriter.PrintParagraph("");
+            docWriter.PrintParagraph("По вопросам связанным с отгрузкой оборудования просим Вас обращаться к следующему сотруднику нашего предприятия:");
+            docWriter.PrintParagraph($"{_employee.Person}");
+            docWriter.PrintParagraph($"тел.: {_employee.PhoneNumber}");
+            docWriter.PrintParagraph($"e-mail: {_employee.Email}");
 
             #endregion
         }
