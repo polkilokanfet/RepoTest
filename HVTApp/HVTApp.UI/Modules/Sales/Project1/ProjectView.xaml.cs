@@ -4,7 +4,6 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Tabs;
-using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -14,12 +13,10 @@ namespace HVTApp.UI.Modules.Sales.Project1
     [RibbonTab(typeof(TabCrudUnitsInProject))]
     public partial class ProjectView : ViewBaseConfirmNavigationRequest
     {
-        private readonly IUnityContainer _container;
         private readonly ProjectViewModel _viewModel;
 
         public ProjectView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
-            _container = container;
             InitializeComponent();
             _viewModel = container.Resolve<ProjectViewModel>();
             this.DataContext = _viewModel;

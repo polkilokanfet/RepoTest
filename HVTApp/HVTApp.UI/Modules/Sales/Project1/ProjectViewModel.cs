@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using HVTApp.UI.Modules.Sales.Project1.Commands;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
-using HVTApp.UI.Modules.Sales.ViewModels.ProjectViewModel.Commands;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.Project1
@@ -27,10 +28,16 @@ namespace HVTApp.UI.Modules.Sales.Project1
         /// </summary>
         public MoveToExistsProjectCommand MoveToExistsProjectCommand { get; }
 
+        /// <summary>
+        /// ¬ключить услугу в спецификацию
+        /// </summary>
+        public ICommand IncludeServiceInSpecificationCommand { get; }
+
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
             MoveToNewProjectCommand = new MoveToNewProjectCommand(this, Container);
             MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, Container);
+            IncludeServiceInSpecificationCommand = new IncludeServiceInSpecificationCommand(this, container);
         }
 
         public override void Load(Project project, bool isNew, object parameter = null)

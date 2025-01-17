@@ -80,6 +80,10 @@
         </Grid>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Услуга">
+        <infRib:ButtonTool Caption="В спецификацию" Command="{Binding IncludeServiceInSpecificationCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_back.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>

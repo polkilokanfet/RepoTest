@@ -227,10 +227,16 @@
                                                AllowResize="True" />
 
                                 <dataPresenter:TextField AlternateBinding="{Binding TceNumber}"
-                                            BindingType="UseAlternateBinding"
-                                            Label="Заявка в Team Center"
-                                            Width="Auto"
-                                            AllowResize="True" />
+                                                         BindingType="UseAlternateBinding"
+                                                         Label="Заявка в Team Center"
+                                                         Width="Auto"
+                                                         AllowResize="True" />
+
+                                <dataPresenter:TextField AlternateBinding="{Binding TceNumberPosition}"
+                                                         BindingType="UseAlternateBinding"
+                                                         Label="Позиция в Team Center"
+                                                         Width="Auto"
+                                                         AllowResize="True" />
 
                                 <dataPresenter:TextField AlternateBinding="{Binding FacilityOwners}"
                                             BindingType="UseAlternateBinding"

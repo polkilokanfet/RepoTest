@@ -6,10 +6,8 @@ using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using HVTApp.UI.TaskInvoiceForPayment1.ForBackManager;
 using HVTApp.UI.TaskInvoiceForPayment1.ForPlanMaker;
 
 namespace HVTApp.UI.TaskInvoiceForPayment1.Base
@@ -27,10 +25,23 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
 
         public void SetTceNumber(IUnitOfWork unitOfWork)
         {
-            TceNumber = this.Model.PriceEngineeringTask != null
-                ? Model.PriceEngineeringTask.GetPriceEngineeringTasks(unitOfWork).TceNumber
-                : unitOfWork.Repository<TechnicalRequrementsTask>().GetById(Model.TechnicalRequrements.TaskId).TceNumber;;
+            if (this.Model.PriceEngineeringTask != null)
+            {
+                TceNumber = Model.PriceEngineeringTask.GetPriceEngineeringTasks(unitOfWork).TceNumber;
+                TceNumberPosition = Model.PriceEngineeringTask.TcePosition;
+            }
+            else if (this.Model.TechnicalRequrements != null)
+            {
+                TceNumber = unitOfWork.Repository<TechnicalRequrementsTask>().GetById(Model.TechnicalRequrements.TaskId).TceNumber;
+                TceNumberPosition = this.Model.TechnicalRequrements.PositionInTeamCenter?.ToString();
+            }
+            else
+            {
+                return;
+            }
+
             RaisePropertyChanged(nameof(TceNumber));
+            RaisePropertyChanged(nameof(TceNumberPosition));
         }
 
         #region Info
@@ -39,6 +50,15 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         /// Заявка Team Center
         /// </summary>
         public string TceNumber
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Номер позиции в заявке Team Center
+        /// </summary>
+        public string TceNumberPosition
         {
             get;
             private set;
