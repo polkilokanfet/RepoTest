@@ -62,6 +62,8 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                         salesUnit.PaidSum = salesUnit.PaymentsActual.Sum(paymentActual => paymentActual.Sum); ;
                     }
 
+                    unitOfWork.SaveChanges();
+
                     container.Resolve<IMessageService>().Message("", sb.ToString());
 
                     //Clipboard.SetText(sb.ToString());
