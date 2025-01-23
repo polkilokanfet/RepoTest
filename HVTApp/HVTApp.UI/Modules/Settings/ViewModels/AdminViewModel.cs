@@ -46,28 +46,20 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    _container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
                     //}
 
-                    var storageDirectory = GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
-
-                    var filesStorageService = container.Resolve<IFilesStorageService>();
-
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var specifications = unitOfWork.Repository<Specification>().GetAll();
+                    var salesUnits = unitOfWork.Repository<SalesUnit>().GetAll();
 
                     var sb = new StringBuilder();
-                    foreach (var specification in specifications)
+                    foreach (var salesUnit in salesUnits)
                     {
-                        var fileInfos = filesStorageService.FindFiles(specification.Id, storageDirectory)
-                            .OrderBy(x => x.CreationTime).ToList();
-
-                        if (fileInfos.Count > 1)
-                        {
-                            for (int i = 0; i < fileInfos.Count - 1; i++)
-                            {
-                                sb.AppendLine(fileInfos[i].FullName);
-                                fileInfos[i].Delete();
-                            }
-                        }
+                        //актуализация даты первого платежа и оплаченной суммы
+                        salesUnit.FirstPaymentDate = salesUnit
+                            .PaymentsActual.Where(paymentActual => paymentActual.Sum > 0)
+                            .OrderBy(paymentActual => paymentActual.Date)
+                            .FirstOrDefault()?
+                            .Date;
+                        salesUnit.PaidSum = salesUnit.PaymentsActual.Sum(paymentActual => paymentActual.Sum); ;
                     }
 
                     container.Resolve<IMessageService>().Message("", sb.ToString());

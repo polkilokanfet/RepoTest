@@ -178,6 +178,24 @@ namespace HVTApp.Model.POCOs
         public Guid ActualPriceCalculationItemId =>
             GlobalAppProperties.PriceService?.GetPriceCalculationItem(this)?.Id ?? default;
 
+
+
+
+        /// <summary>
+        /// Первый платеж по заказу
+        /// </summary>
+        [Designation("Дата первого платежа по заказу")]
+        public DateTime? FirstPaymentDate { get; set; }
+
+        /// <summary>
+        /// Оплачено
+        /// </summary>
+        [Designation("Оплачено")]
+        public double PaidSum { get; set; }
+
+
+
+
         public override string ToString()
         {
             if (Order != null)
@@ -231,16 +249,10 @@ namespace HVTApp.Model.POCOs
         public bool IsPaid => Math.Abs(SumNotPaid) < 0.00001;
 
         /// <summary>
-        /// Оплаченная сумма
-        /// </summary>
-        [Designation("Оплачено"), NotMapped]
-        public double SumPaid => PaymentsActual.Sum(paymentActual => paymentActual.Sum);
-
-        /// <summary>
         /// Неоплаченная сумма без НДС
         /// </summary>
         [Designation("Неоплачено без НДС"), NotMapped]
-        public double SumNotPaid => Cost - SumPaid;
+        public double SumNotPaid => Cost - PaidSum;
 
         /// <summary>
         /// НДС
@@ -321,41 +333,24 @@ namespace HVTApp.Model.POCOs
                 if (OrderInTakeDateInjected.HasValue)
                     return OrderInTakeDateInjected.Value.Date;
 
-                //по подписанной спецификации
+                //по дате подписания спецификации
                 if (Specification?.SignDate != null)
                 {
                     return Specification.SignDate.Value.Date;
                 }
 
                 //если для старта производства не требуется денег
-                if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
+                if (Specification != null)
                 {
-                    if (Specification != null)
-                    {
-                        return Specification.Date.Date;
-                    }
+                    if (Cost > 0 && Math.Abs(SumToStartProduction) < 0.001)
+                        return Specification.Date;
                 }
 
                 //первый платеж по заказу
-                return this.FirstPaymentDateCalculated ?? StartProductionDateCalculated.Date;
-            }
-        }
-
-        /// <summary>
-        /// Первый платеж по заказу
-        /// </summary>
-        [Designation("Первый платеж по заказу"), NotMapped]
-        public DateTime? FirstPaymentDateCalculated
-        {
-            get
-            {
-                var dates = PaymentsActual
-                    .Where(payment => payment.Sum > 0)
-                    .Select(payment => payment.Date)
-                    .OrderBy(dateTime => dateTime)
-                    .ToList();
-                if (dates.Any()) return dates.First();
-                return null;
+                if (this.FirstPaymentDate.HasValue) return this.FirstPaymentDate.Value;
+                
+                //дата начала производства
+                return StartProductionDateCalculated.Date;
             }
         }
 
@@ -452,8 +447,7 @@ namespace HVTApp.Model.POCOs
                 if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value.Date;
 
                 //по дате первого платежа
-                var firstPaymentDateCalculated = this.FirstPaymentDateCalculated;
-                if (firstPaymentDateCalculated.HasValue) return firstPaymentDateCalculated.Value;
+                if (FirstPaymentDate.HasValue) return FirstPaymentDate.Value;
 
                 //по дате доставки оборудования на объект
                 if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend().Date;
@@ -615,7 +609,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Платежное условие и процент его исполнения
         /// </summary>
-        private Dictionary<PaymentCondition, double> PaymentConditionsDictionary => GetConditionsDictionary(SumPaid);
+        private Dictionary<PaymentCondition, double> PaymentConditionsDictionary => GetConditionsDictionary(PaidSum);
 
         private Dictionary<PaymentCondition, double> GetConditionsDictionary(double sum)
         {

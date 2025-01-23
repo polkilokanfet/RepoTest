@@ -5034,12 +5034,6 @@ namespace HVTApp.UI.Views
             set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.IsStarted)].Visibility = value; }
         }
 
-        public System.Windows.Visibility HasSccInTceVisibility
-        {
-            get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.HasSccInTce)].Visibility; }
-            set { PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.HasSccInTce)].Visibility = value; }
-        }
-
         public System.Windows.Visibility HasDesignDocumentationInfoVisibility
         {
             get { return PriceEngineeringTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PriceEngineeringTaskLookup.HasDesignDocumentationInfo)].Visibility; }
@@ -6828,12 +6822,6 @@ namespace HVTApp.UI.Views
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsPaid)].Visibility = value; }
         }
 
-        public System.Windows.Visibility SumPaidVisibility
-        {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumPaid)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumPaid)].Visibility = value; }
-        }
-
         public System.Windows.Visibility SumNotPaidVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SumNotPaid)].Visibility; }
@@ -6880,12 +6868,6 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderInTakeDate)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.OrderInTakeDate)].Visibility = value; }
-        }
-
-        public System.Windows.Visibility FirstPaymentDateCalculatedVisibility
-        {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FirstPaymentDateCalculated)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.FirstPaymentDateCalculated)].Visibility = value; }
         }
 
         public System.Windows.Visibility OrderInTakeYearVisibility

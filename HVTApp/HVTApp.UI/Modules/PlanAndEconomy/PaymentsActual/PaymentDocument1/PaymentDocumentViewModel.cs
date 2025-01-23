@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.DataAccess;
@@ -10,10 +7,8 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
 using HVTApp.UI.ViewModels;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
@@ -106,9 +101,13 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
                 this.Container.Resolve<IMessageService>(),
                 () =>
                 {
+                    this.Item.RejectChanges();
+
                     foreach (var paymentActualWrapper2 in this.Item.Payments.ToList())
                     {
                         this.Item.Payments.Remove(paymentActualWrapper2);
+                        paymentActualWrapper2.SalesUnit.PaymentsActual.Remove(paymentActualWrapper2.Model);
+                        this.RefreshSalesUnit(paymentActualWrapper2);
                         this.UnitOfWork1.Repository<PaymentActual>().Delete(paymentActualWrapper2.Model);
                     }
 
@@ -156,6 +155,14 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             //var units = this.Item.Payments.Where(paymentActual => paymentActual.IsChanged).Select(paymentActual => paymentActual.SalesUnit).ToList();
             //var entity = new ActualPaymentEventEntity(this.Item.Model, units);
 
+            var paymentsRemoved = this.Item.Payments.RemovedItems;
+            var paymentsAll = paymentsRemoved.Union(this.Item.Payments).Distinct();
+
+            foreach (var payment in paymentsAll)
+            {
+                this.RefreshSalesUnit(payment);
+            }
+
             base.SaveItem();
             EventAggregator.GetEvent<AfterSaveActualPaymentDocumentEvent>().Publish(this.Item.Model);
 
@@ -165,6 +172,18 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsActual
             //{
             //    EventAggregator.GetEvent<AfterSaveActualPaymentEvent>().Publish(salesUnit);
             //}
+        }
+
+        private void RefreshSalesUnit(PaymentActualWrapper2 payment)
+        {
+            var salesUnit = payment.SalesUnit;
+
+            salesUnit.FirstPaymentDate = salesUnit
+                .PaymentsActual.Where(paymentActual => paymentActual.Sum > 0)
+                .OrderBy(paymentActual => paymentActual.Date)
+                .FirstOrDefault()?
+                .Date;
+            salesUnit.PaidSum = salesUnit.PaymentsActual.Sum(paymentActual => paymentActual.Sum);
         }
     }
 

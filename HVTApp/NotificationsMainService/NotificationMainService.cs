@@ -92,10 +92,14 @@ namespace NotificationsMainService
             var subject = "[УП ВВА] Пришла денюжка!";
             var message = GetEmailMessageOnAfterSavePaymentDocumentEvent(paymentDocument, salesUnits);
 
-            var emails = _unitOfWork.Repository<NotificationsReportsSettings>().GetAll().First().SavePaymentDocumentDistributionList
+            var emails = _unitOfWork.Repository<NotificationsReportsSettings>()
+                .GetAll()
+                .FirstOrDefault()?
+                .SavePaymentDocumentDistributionList
                 .Where(user => string.IsNullOrEmpty(user.Employee.Email) == false)
                 .Select(user => user.Employee.Email)
-                .ToList();
+                .ToList() ?? new List<string>();
+
             if (string.IsNullOrEmpty(email) == false) emails.Add(email);
 
             foreach (var email1 in emails)

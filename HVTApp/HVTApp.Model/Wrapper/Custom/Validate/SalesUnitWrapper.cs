@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -7,8 +8,11 @@ namespace HVTApp.Model.Wrapper
     {
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if(Cost < SumPaid)
-                yield return new ValidationResult("Сумма платежей превышает стоимость", new []{nameof(Cost), nameof(PaymentsActual)});
+            if (this.Model.PaymentsActual.Any())
+            {
+                if(Cost < this.Model.PaymentsActual.Sum(x => x.Sum))
+                    yield return new ValidationResult("Сумма платежей превышает стоимость", new []{nameof(Cost), nameof(PaymentsActual)});
+            }
         }
     }
 }

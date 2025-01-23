@@ -869,6 +869,9 @@ namespace HVTApp.UI.Lookup
         public System.String TcePosition => Entity.TcePosition;
 
 		[OrderStatus(1)]
+        public System.Boolean HasAnyUpdateStructureCostNumberTaskNotFinished => Entity.HasAnyUpdateStructureCostNumberTaskNotFinished;
+
+		[OrderStatus(1)]
         public System.Boolean NeedDesignDocumentationDevelopment => Entity.NeedDesignDocumentationDevelopment;
 
 		[OrderStatus(1)]
@@ -902,7 +905,7 @@ namespace HVTApp.UI.Lookup
         public System.Boolean IsStarted => Entity.IsStarted;
 
 		[OrderStatus(1)]
-        public System.Boolean HasSccInTce => Entity.AllProductBlocksHasSccNumbersInTce;
+        public System.Boolean AllProductBlocksHasSccNumbersInTce => Entity.AllProductBlocksHasSccNumbersInTce;
 
 		[OrderStatus(1)]
         public System.Boolean HasDesignDocumentationInfo => Entity.HasDesignDocumentationInfo;
@@ -912,6 +915,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> MomentFinishByDesignDepartment => Entity.MomentFinishByDesignDepartment;
+
+		[OrderStatus(1)]
+        public System.Boolean IsTop => Entity.IsTop;
 
         #endregion
 
@@ -943,6 +949,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(800)]
 	    public List<PriceEngineeringTaskProductBlockAddedLookup> ProductBlocksAdded { get { return GetLookupEnum<PriceEngineeringTaskProductBlockAddedLookup>().ToList(); } }
+		[OrderStatus(1)]
+	    public List<PriceEngineeringTaskProductBlockAddedLookup> ProductBlocksAddedActual { get { return GetLookupEnum<PriceEngineeringTaskProductBlockAddedLookup>().ToList(); } }
 		[OrderStatus(610)]
 	    public List<PriceEngineeringTaskFileTechnicalRequirementsLookup> FilesTechnicalRequirements { get { return GetLookupEnum<PriceEngineeringTaskFileTechnicalRequirementsLookup>().ToList(); } }
 		[OrderStatus(600)]
@@ -959,6 +967,8 @@ namespace HVTApp.UI.Lookup
 	    public List<PriceEngineeringTaskStatusLookup> Statuses { get { return GetLookupEnum<PriceEngineeringTaskStatusLookup>().ToList(); } }
 		[OrderStatus(10)]
 	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
+		[OrderStatus(1)]
+	    public List<UpdateStructureCostNumberTaskLookup> UpdateStructureCostNumberTasks { get { return GetLookupEnum<UpdateStructureCostNumberTaskLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Технико-стоимостная проработка (файл ответа ОГК)")]
@@ -1055,6 +1065,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(950)]
         public System.Boolean IsRemoved => Entity.IsRemoved;
+
+		[OrderStatus(1)]
+        public System.Boolean HasSccNumberInTce => Entity.HasSccNumberInTce;
 
         #endregion
 
@@ -1185,6 +1198,38 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Nullable<System.Int32> Version => Entity.Version;
+
+        #endregion
+	}
+	[AllowEditAttribute(Infrastructure.Role.Admin)]
+	[Designation("UpdateStructureCostNumberTask")]
+	public partial class UpdateStructureCostNumberTaskLookup : LookupItem<UpdateStructureCostNumberTask>
+	{
+		public UpdateStructureCostNumberTaskLookup(UpdateStructureCostNumberTask entity) : base(entity) 
+		{
+		}
+		
+        #region SimpleProperties
+		[OrderStatus(1)]
+        public System.DateTime MomentStart => Entity.MomentStart;
+
+		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> MomentFinish => Entity.MomentFinish;
+
+		[OrderStatus(1)]
+        public System.String StructureCostNumberOriginal => Entity.StructureCostNumberOriginal;
+
+		[OrderStatus(1)]
+        public System.String StructureCostNumber => Entity.StructureCostNumber;
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Boolean> IsAccepted => Entity.IsAccepted;
+
+        #endregion
+
+        #region ComplexProperties
+		[OrderStatus(1)]
+	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
         #endregion
 	}
@@ -1447,17 +1492,26 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(190)]
         public System.Nullable<System.DateTime> MomentFinish => Entity.MomentFinish;
 
+		[OrderStatus(190)]
+        public System.Nullable<System.DateTime> MomentFinishByPlanMaker => Entity.MomentFinishByPlanMaker;
+
 		[OrderStatus(1)]
         public System.Boolean OriginalIsRequired => Entity.OriginalIsRequired;
 
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
 
+		[OrderStatus(1)]
+        public System.Boolean PlanMakerIsRequired => Entity.PlanMakerIsRequired;
+
         #endregion
 
         #region ComplexProperties
 		[OrderStatus(50)]
 	    public UserLookup BackManager { get { return GetLookup<UserLookup>(); } }
+
+		[OrderStatus(51)]
+	    public UserLookup PlanMaker { get { return GetLookup<UserLookup>(); } }
 
         #endregion
 	}
@@ -2560,6 +2614,12 @@ namespace HVTApp.UI.Lookup
         public System.Guid ActualPriceCalculationItemId => Entity.ActualPriceCalculationItemId;
 
 		[OrderStatus(1)]
+        public System.Nullable<System.DateTime> FirstPaymentDate => Entity.FirstPaymentDate;
+
+		[OrderStatus(1)]
+        public System.Double PaidSum => Entity.PaidSum;
+
+		[OrderStatus(1)]
         public System.Boolean OrderIsTaken => Entity.OrderIsTaken;
 
 		[OrderStatus(1)]
@@ -2570,9 +2630,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean IsPaid => Entity.IsPaid;
-
-		[OrderStatus(1)]
-        public System.Double SumPaid => Entity.SumPaid;
 
 		[OrderStatus(1)]
         public System.Double SumNotPaid => Entity.SumNotPaid;
@@ -2597,9 +2654,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(990)]
         public System.DateTime OrderInTakeDate => Entity.OrderInTakeDate;
-
-		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> FirstPaymentDateCalculated => Entity.FirstPaymentDateCalculated;
 
 		[OrderStatus(985)]
         public System.Int32 OrderInTakeYear => Entity.OrderInTakeYear;

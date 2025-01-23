@@ -33,11 +33,11 @@ namespace HVTApp.UI.Modules.Reports.PriorityReport
             Facility = salesUnit.Facility.ToString();
             Contragent = salesUnit.Specification?.Contract.Contragent.ToString();
             Order = salesUnit.Order;
-            Positions = salesUnits1.Select(x => x.OrderPosition).GetOrderPositions();
+            Positions = salesUnits1.Select(unit => unit.OrderPosition).GetOrderPositions();
             Amount = salesUnits1.Count;
-            Cost = salesUnits1.Sum(x => x.Cost);
-            CostWithVat = salesUnits1.Sum(x => (1.0 + x.Vat / 100.0) * x.Cost);
-            SumPaid = salesUnits1.Sum(x => x.SumPaid);
+            Cost = salesUnits1.Sum(unit => unit.Cost);
+            CostWithVat = salesUnits1.Sum(unit => (1.0 + unit.Vat / 100.0) * unit.Cost);
+            SumPaid = salesUnits1.Sum(unit => unit.PaidSum);
         }
     }
 }

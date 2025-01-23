@@ -520,6 +520,10 @@
     <Compile Include="Migrations\202410170559406_UpdateStructureCostNumberTask.designer.cs">
       <DependentUpon>202410170559406_UpdateStructureCostNumberTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501230904226_FirstPaymentDate.cs" />
+    <Compile Include="Migrations\202501230904226_FirstPaymentDate.Designer.cs">
+      <DependentUpon>202501230904226_FirstPaymentDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -859,6 +863,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202410170559406_UpdateStructureCostNumberTask.resx">
       <DependentUpon>202410170559406_UpdateStructureCostNumberTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501230904226_FirstPaymentDate.resx">
+      <DependentUpon>202501230904226_FirstPaymentDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

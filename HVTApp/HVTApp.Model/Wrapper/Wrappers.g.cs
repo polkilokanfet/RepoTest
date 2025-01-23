@@ -2892,7 +2892,7 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
         /// <summary>
-        /// UpdateStructureCostNumberTasks
+        /// Задачи на изменение номера стракчакоста блока
         /// </summary>
         public IValidatableChangeTrackingCollection<UpdateStructureCostNumberTaskWrapper> UpdateStructureCostNumberTasks { get; private set; }
 
@@ -2904,6 +2904,11 @@ namespace HVTApp.Model.Wrapper
         /// VerificationIsRequested
         /// </summary>
         public System.Boolean VerificationIsRequested => Model.VerificationIsRequested; 
+
+        /// <summary>
+        /// HasAnyUpdateStructureCostNumberTaskNotFinished
+        /// </summary>
+        public System.Boolean HasAnyUpdateStructureCostNumberTaskNotFinished => Model.HasAnyUpdateStructureCostNumberTaskNotFinished; 
 
         /// <summary>
         /// IsInProcessByConstructor
@@ -2941,9 +2946,9 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsStarted => Model.IsStarted; 
 
         /// <summary>
-        /// HasSccInTce
+        /// AllProductBlocksHasSccNumbersInTce
         /// </summary>
-        public System.Boolean HasSccInTce => Model.AllProductBlocksHasSccNumbersInTce; 
+        public System.Boolean AllProductBlocksHasSccNumbersInTce => Model.AllProductBlocksHasSccNumbersInTce; 
 
         /// <summary>
         /// HasDesignDocumentationInfo
@@ -3351,6 +3356,14 @@ namespace HVTApp.Model.Wrapper
 
         #endregion
 
+        #region GetProperties
+
+        /// <summary>
+        /// HasSccNumberInTce
+        /// </summary>
+        public System.Boolean HasSccNumberInTce => Model.HasSccNumberInTce; 
+
+        #endregion
 
         public override void InitializeComplexProperties()
         {
@@ -8085,6 +8098,28 @@ namespace HVTApp.Model.Wrapper
         public bool IsRemovedIsChanged => GetIsChanged(nameof(IsRemoved));
 
         /// <summary>
+        /// Дата первого платежа по заказу
+        /// </summary>
+        public System.Nullable<System.DateTime> FirstPaymentDate
+        {
+          get { return Model.FirstPaymentDate; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> FirstPaymentDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(FirstPaymentDate));
+        public bool FirstPaymentDateIsChanged => GetIsChanged(nameof(FirstPaymentDate));
+
+        /// <summary>
+        /// Оплачено
+        /// </summary>
+        public System.Double PaidSum
+        {
+          get { return Model.PaidSum; }
+          set { SetValue(value); }
+        }
+        public System.Double PaidSumOriginalValue => GetOriginalValue<System.Double>(nameof(PaidSum));
+        public bool PaidSumIsChanged => GetIsChanged(nameof(PaidSum));
+
+        /// <summary>
         /// OrderInTakeDateInjected
         /// </summary>
         public System.Nullable<System.DateTime> OrderInTakeDateInjected
@@ -8301,11 +8336,6 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsPaid => Model.IsPaid; 
 
         /// <summary>
-        /// Оплачено
-        /// </summary>
-        public System.Double SumPaid => Model.SumPaid; 
-
-        /// <summary>
         /// Неоплачено без НДС
         /// </summary>
         public System.Double SumNotPaid => Model.SumNotPaid; 
@@ -8339,11 +8369,6 @@ namespace HVTApp.Model.Wrapper
         /// ОИТ
         /// </summary>
         public System.DateTime OrderInTakeDate => Model.OrderInTakeDate; 
-
-        /// <summary>
-        /// Первый платеж по заказу
-        /// </summary>
-        public System.Nullable<System.DateTime> FirstPaymentDateCalculated => Model.FirstPaymentDateCalculated; 
 
         /// <summary>
         /// Год ОИТ
