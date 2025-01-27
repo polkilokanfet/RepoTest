@@ -52,7 +52,7 @@ namespace HVTApp.UI.PriceEngineering
         private void OnSavedEvent()
         {
             if (string.IsNullOrWhiteSpace(_changesMessage) == false)
-                this.Messenger.SendMessage(_changesMessage);
+                this.Messenger.SendMessage(_changesMessage, true);
 
             _changesMessage = null;
         }
