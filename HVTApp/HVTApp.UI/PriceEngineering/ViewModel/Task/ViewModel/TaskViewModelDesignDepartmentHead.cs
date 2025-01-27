@@ -111,7 +111,7 @@ namespace HVTApp.UI.PriceEngineering
                         TargetEntityId = Model.Id
                     });
 
-                    Messenger.SendMessage($"Назначен проверяющий: {user}");
+                    Messenger.SendMessage($"Назначен проверяющий: {user}", true);
                 }, 
                 () => 
                     this.IsTarget && 
@@ -137,7 +137,7 @@ namespace HVTApp.UI.PriceEngineering
 
             this.RequestForVerificationFromHead = needVerification;
             this.UserConstructor = new UserEmptyWrapper(this.UnitOfWork.Repository<User>().GetById(user.Id));
-            Messenger.SendMessage(sb.ToString());
+            Messenger.SendMessage(sb.ToString(), false);
             this.SaveCommand.Execute();
 
             var notificationUnit = new NotificationUnit

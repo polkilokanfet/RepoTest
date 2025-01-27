@@ -87,7 +87,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 tasks.BackManager = null;
                 unitOfWork.SaveChanges();
                 MessageService.Message("Информация", "Back-manager удален из задачи, т.к. его профиль не актуален");
-                this.ViewModel.Messenger.SendMessage("Back-manager удален из задачи, т.к. его профиль не актуален. Необходимо назначить другого.");
+                this.ViewModel.Messenger.SendMessage("Back-manager удален из задачи, т.к. его профиль не актуален. Необходимо назначить другого.", true);
             }
 
             #endregion

@@ -37,7 +37,7 @@ namespace HVTApp.UI.PriceEngineering.Wrapper
                 : this.Model.StructureCostNumberOriginal;
             _vm.SaveCommand.Execute();
             var s = isAccepted ? "Согласовано" : "Отклонено";
-            _vm.Messenger.SendMessage($"{s} изменение номера стракчакоста: {this.Model.ToString()}");
+            _vm.Messenger.SendMessage($"{s} изменение номера стракчакоста: {this.Model.ToString()}", false);
             ((DelegateLogCommand)AcceptNumberCommand).RaiseCanExecuteChanged();
             ((DelegateLogCommand)RejectNumberCommand).RaiseCanExecuteChanged();
         }

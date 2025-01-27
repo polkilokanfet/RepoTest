@@ -82,7 +82,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
             {
                 this.ViewModel.Model.UserConstructor = null;
                 MessageService.Message("Информация", "Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален");
-                this.ViewModel.Messenger.SendMessage("Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален. Руководителю КБ необходимо назначить другого исполнителя.");
+                this.ViewModel.Messenger.SendMessage("Исполнитель от ОГК удален из задачи, т.к. его профиль не актуален. Руководителю КБ необходимо назначить другого исполнителя.", true);
             }
         }
     }

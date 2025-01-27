@@ -336,7 +336,7 @@ namespace HVTApp.UI.PriceEngineering
                     sb.AppendLine($" - {ut.Model.ToString()};");
                 }
 
-                Messenger.SendMessage(sb.ToString());
+                Messenger.SendMessage(sb.ToString(), false);
             }
 
             base.SaveCommand_ExecuteMethod();

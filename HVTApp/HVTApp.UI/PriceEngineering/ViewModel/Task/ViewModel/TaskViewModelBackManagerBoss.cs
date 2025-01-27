@@ -72,7 +72,7 @@ namespace HVTApp.UI.PriceEngineering
 
                     UnitOfWork.SaveChanges();
 
-                    this.Messenger.SendMessage($"Назначен плановик: {planMaker.Employee.Person}");
+                    this.Messenger.SendMessage($"Назначен плановик: {planMaker.Employee.Person}", false);
 
                     var notificationUnit = new NotificationUnit
                         {

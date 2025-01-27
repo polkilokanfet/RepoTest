@@ -71,7 +71,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
             SendMessageCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var message = this.SendMessage(MessageText);
+                    var message = this.SendMessage(MessageText, true);
                     container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskSendMessageEvent>().Publish(message);
                     this.MessageText = string.Empty;
                 },
@@ -92,7 +92,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
             _container.Resolve<IEventAggregator>().GetEvent<PriceEngineeringTaskReciveMessageEvent>().Subscribe(OnReciveMessageEvent);
         }
 
-        public PriceEngineeringTaskMessage SendMessage(string text)
+        public PriceEngineeringTaskMessage SendMessage(string text, bool sendNotifications)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return null;
@@ -108,7 +108,8 @@ namespace HVTApp.UI.PriceEngineering.Messages
 
             this.Items.Insert(0, message);
 
-            this.SendNotifications(message);
+            if (sendNotifications)
+                this.SendNotifications();
 
             return message;
         }
@@ -116,7 +117,7 @@ namespace HVTApp.UI.PriceEngineering.Messages
         /// <summary>
         /// Отправка уведомлений
         /// </summary>
-        private void SendNotifications(PriceEngineeringTaskMessage message)
+        private void SendNotifications()
         {
             var manager = _viewModel.Model.GetPriceEngineeringTasks(this.UnitOfWork).UserManager;
             this.SendNotification(manager, Role.SalesManager);
