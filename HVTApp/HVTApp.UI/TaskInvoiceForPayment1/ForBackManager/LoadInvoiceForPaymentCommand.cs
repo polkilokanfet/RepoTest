@@ -17,10 +17,19 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForBackManager
 
         protected override void ExecuteMethod()
         {
-            if (this.ContainsInStorage())
+            try
             {
-                var dr = MessageService.ConfirmationDialog("Счёт уже загружена в хранилище. Заменить?");
+                if (this.ContainsInStorage())
+                {
+                    var dr = MessageService.ConfirmationDialog("Счёт уже загружен в хранилище. Заменить?");
+                    if (dr == false) return;
+                }
+            }
+            catch (FileNotSingleFoundException e)
+            {
+                var dr = MessageService.ConfirmationDialog("Уже загружено более одного счёта. Рекомендую их удалить. Удалить?");
                 if (dr == false) return;
+                FilesStorageService.RemoveFiles(StorageDirectory, TaskInvoiceForPayment.Id);
             }
 
             FilesStorageService.LoadFileToStorage(StorageDirectory, TaskInvoiceForPayment.Id, true);

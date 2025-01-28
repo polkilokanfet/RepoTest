@@ -26,6 +26,5 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
         {
             return FilesStorageService.FileContainsInStorage(TaskInvoiceForPayment.Id, StorageDirectory);
         }
-
     }
 }

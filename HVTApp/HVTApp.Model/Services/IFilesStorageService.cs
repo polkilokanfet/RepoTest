@@ -110,5 +110,13 @@ namespace HVTApp.Model.Services
         /// <param name="overwrite"></param>
         /// <returns>Загружен ли файл в хранилище</returns>
         bool LoadFileToStorage(string storagePath, Guid fileId, bool overwrite = false);
+
+        /// <summary>
+        /// Удаление файлов из хранилища
+        /// </summary>
+        /// <param name="storagePath"></param>
+        /// <param name="fileId"></param>
+        /// <returns></returns>
+        bool RemoveFiles(string storagePath, Guid fileId);
     }
 }

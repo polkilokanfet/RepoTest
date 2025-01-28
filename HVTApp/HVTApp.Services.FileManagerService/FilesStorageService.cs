@@ -283,5 +283,15 @@ namespace HVTApp.Services.FileManagerService
             return this.LoadFileToStorage(storagePath, filePath, fileId, overwrite);
         }
 
+        public bool RemoveFiles(string storagePath, Guid fileId)
+        {
+            var files = this.FindFiles(fileId, storagePath);
+            foreach (var file in files)
+            {
+                
+                File.Delete(file.FullName);
+            }
+            return true;
+        }
     }
 }
