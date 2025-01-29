@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
@@ -11,23 +13,37 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
     {
         public bool IsChecked { get; set; } = false;
 
-        public Project Project => Model.SalesUnits.FirstOrDefault()?.Project;
         public Facility Facility => Model.SalesUnits.FirstOrDefault()?.Facility;
         public Product Product => Model.SalesUnits.FirstOrDefault()?.Product;
         public int Amount => Model.SalesUnits.Count;
         public double? UnitPrice => StructureCosts.Sum(structureCostWrapper => structureCostWrapper.Total);
 
+        #region SimpleProperties
+
+        /// <summary>
+        /// Позиция в TeamCenter
+        /// </summary>
+        public int? PositionInTeamCenter
+        {
+            get => GetValue<int?>();
+            set => SetValue(value);
+        }
+        public int? PositionInTeamCenterOriginalValue => GetOriginalValue<int?>(nameof(PositionInTeamCenter));
+        public bool PositionInTeamCenterIsChanged => GetIsChanged(nameof(PositionInTeamCenter));
+
+        #endregion
+
         #region ComplexProperties
 
-        public DateTime? OrderInTakeDate
+        public DateTime OrderInTakeDate
         {
-            get => GetValue<DateTime?>();
+            get => GetValue<DateTime>();
             set => SetValue(value);
         }
 
-        public DateTime? RealizationDate
+        public DateTime RealizationDate
         {
-            get => GetValue<DateTime?>();
+            get => GetValue<DateTime>();
             set => SetValue(value);
         }
 
@@ -50,18 +66,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
         #endregion
 
-        /// <summary>
-        /// Позиция в TeamCenter
-        /// </summary>
-        public int? PositionInTeamCenter
-        {
-            get => GetValue<int?>();
-            set => SetValue(value);
-        }
-        public int? PositionInTeamCenterOriginalValue => GetOriginalValue<int?>(nameof(PositionInTeamCenter));
-        public bool PositionInTeamCenterIsChanged => GetIsChanged(nameof(PositionInTeamCenter));
-
-
         public PriceCalculationItem2Wrapper(PriceCalculationItem model) : base(model)
         {
             #region Initialize
@@ -80,15 +84,6 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 
             this.SalesUnits.CollectionChanged += (sender, args) =>
             {
-                if (OrderInTakeDate.HasValue == false)
-                    OrderInTakeDate = Model.SalesUnits.FirstOrDefault()?.OrderInTakeDate;
-
-                if (RealizationDate.HasValue == false)
-                    RealizationDate = Model.SalesUnits.FirstOrDefault()?.RealizationDateCalculated;
-
-                if (PaymentConditionSet == null)
-                    PaymentConditionSet = new PaymentConditionSetEmptyWrapper(Model.SalesUnits.FirstOrDefault()?.PaymentConditionSet);
-
                 RaisePropertyChanged(string.Empty);
             };
 
@@ -101,6 +96,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             {
                 RaisePropertyChanged(nameof(UnitPrice));
             };
+        }
+
+        public PriceCalculationItem2Wrapper(IEnumerable<SalesUnit> salesUnits)
+            : this(new PriceCalculationItem {SalesUnits = salesUnits.ToList()})
+        {
+            this.OrderInTakeDate = DateTime.Today.AddDays(14).SkipWeekend();
+            this.RealizationDate = DateTime.Today.AddDays(120).SkipWeekend();
         }
     }
 }

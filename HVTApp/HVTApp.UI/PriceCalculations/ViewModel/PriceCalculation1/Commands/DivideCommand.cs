@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -32,10 +33,10 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                 {
                     OrderInTakeDate = selectedItem.OrderInTakeDate,
                     RealizationDate = selectedItem.RealizationDate,
-                    PaymentConditionSet = selectedItem.PaymentConditionSet.Model
+                    PaymentConditionSet = selectedItem.PaymentConditionSet.Model, 
+                    SalesUnits = new List<SalesUnit> {unit.Model}
                 };
                 var priceCalculationItemWrapper = new PriceCalculationItem2Wrapper(priceCalculationItem);
-                priceCalculationItemWrapper.SalesUnits.Add(unit);
                 foreach (var structureCost in selectedItem.StructureCosts)
                 {
                     var sc = new StructureCost

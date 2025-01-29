@@ -3,7 +3,6 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
@@ -23,9 +22,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
             //потенциальные группы
             var items = _unitOfWork.Repository<SalesUnit>()
                 .Find(salesUnit => salesUnit.Project.Manager.IsAppCurrentUser())
-                .Except(ViewModel.PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.SalesUnits).Select(x => x.Model))
-                .Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit))
-                .GroupBy(x => x, new SalesUnit2Comparer())
+                .Except(ViewModel.PriceCalculationWrapper.PriceCalculationItems.SelectMany(x => x.Model.SalesUnits))
+                .GroupBy(salesUnit => salesUnit, new SalesUnit2Comparer())
                 .Select(ViewModel.GetPriceCalculationItem2Wrapper);
 
             //выбор группы

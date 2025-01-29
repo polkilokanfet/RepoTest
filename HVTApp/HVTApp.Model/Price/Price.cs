@@ -22,7 +22,7 @@ namespace HVTApp.Model.Price
         {
             get
             {
-                if (HasCalculation) return $"По калькуляции от {_priceCalculationItem?.FinishDate?.ToShortDateString()} (реализация {_priceCalculationItem?.RealizationDate?.ToShortDateString()})";
+                if (HasCalculation) return $"По калькуляции от {_priceCalculationItem?.FinishDate?.ToShortDateString()} (реализация {_priceCalculationItem?.RealizationDate.ToShortDateString()})";
                 if (ContainsAnyAnalog) return "Содержит ПЗ по аналогам";
                 return "По оригинальным блокам";
             }

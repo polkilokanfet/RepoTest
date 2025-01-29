@@ -73,14 +73,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1.Commands
                                 .GetById(structureCost.OriginalStructureCostProductBlock.Id);
                             var calculationItem = unitOfWork.Repository<PriceCalculationItem>()
                                 .GetById(structureCost.PriceCalculationItemId);
-                            if (calculationItem.RealizationDate.Value > DateTime.Today.AddDays(180) &&
+                            if (calculationItem.RealizationDate > DateTime.Today.AddDays(180) &&
                                 productBlock.Prices.Any())
                                 continue;
 
                             var sumOnDate = new SumOnDate
                             {
                                 Sum = structureCost.UnitPrice.Value,
-                                Date = calculationItem.RealizationDate.Value
+                                Date = calculationItem.RealizationDate
                             };
 
                             if (productBlock.Prices.Any(x =>

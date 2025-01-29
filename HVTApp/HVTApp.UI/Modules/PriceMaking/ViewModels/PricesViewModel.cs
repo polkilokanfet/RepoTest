@@ -129,10 +129,6 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                             var priceCalculationItem = _unitOfWork.Repository<PriceCalculationItem>().GetById(structureCost.PriceCalculationItemId);
                             var date = priceCalculationItem.OrderInTakeDate;
 
-                            //если нет даты ОИТ - не актуально
-                            if (!date.HasValue)
-                                continue;
-
                             //если такой прайс уже есть - не актуально
                             var prices = priceTask.Prices.Where(price => price.Date == date);
                             if (prices.Any(x => Math.Abs(x.Sum - structureCost.UnitPrice.Value) < 0.00001))
@@ -143,11 +139,11 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
                             //добавление прайса, сформированного из стракчакоста
                             priceTask.Prices.Add(new SumOnDateWrapper(new SumOnDate())
                             {
-                                Date = date.Value,
+                                Date = date,
                                 Sum = structureCost.UnitPrice.Value
                             });
 
-                            sb.AppendLine($"В \"{priceTask.BlockName}\" добавлен прайс: {structureCost.UnitPrice.Value} {date.Value.ToShortDateString()}");
+                            sb.AppendLine($"В \"{priceTask.BlockName}\" добавлен прайс: {structureCost.UnitPrice.Value} {date.ToShortDateString()}");
                         }
                     }
 
@@ -163,7 +159,7 @@ namespace HVTApp.UI.Modules.PriceMaking.ViewModels
         {
             var block = SelectedPriceTask;
             var products = _unitOfWork.Repository<Product>().GetAll();
-            products = products.Where(x => x.GetBlocks().Contains(block.Model)).Distinct().ToList();
+            products = products.Where(product => product.GetBlocks().Contains(block.Model)).Distinct().ToList();
             Container.Resolve<IPrintProductService>().PrintProducts(products, block.Model);
         }
 

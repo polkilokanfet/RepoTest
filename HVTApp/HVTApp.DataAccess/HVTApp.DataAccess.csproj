@@ -524,6 +524,10 @@
     <Compile Include="Migrations\202501230904226_FirstPaymentDate.Designer.cs">
       <DependentUpon>202501230904226_FirstPaymentDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501291003210_PriceCalculationItemNotNullableDates.cs" />
+    <Compile Include="Migrations\202501291003210_PriceCalculationItemNotNullableDates.Designer.cs">
+      <DependentUpon>202501291003210_PriceCalculationItemNotNullableDates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -866,6 +870,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501230904226_FirstPaymentDate.resx">
       <DependentUpon>202501230904226_FirstPaymentDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501291003210_PriceCalculationItemNotNullableDates.resx">
+      <DependentUpon>202501291003210_PriceCalculationItemNotNullableDates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

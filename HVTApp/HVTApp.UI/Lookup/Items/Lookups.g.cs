@@ -722,10 +722,10 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.Guid> PriceEngineeringTaskId => Entity.PriceEngineeringTaskId;
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> OrderInTakeDate => Entity.OrderInTakeDate;
+        public System.DateTime OrderInTakeDate => Entity.OrderInTakeDate;
 
 		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> RealizationDate => Entity.RealizationDate;
+        public System.DateTime RealizationDate => Entity.RealizationDate;
 
 		[OrderStatus(1)]
         public System.Nullable<System.Int32> PositionInTeamCenter => Entity.PositionInTeamCenter;

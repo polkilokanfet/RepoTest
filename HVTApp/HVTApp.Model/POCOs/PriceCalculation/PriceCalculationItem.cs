@@ -27,10 +27,10 @@ namespace HVTApp.Model.POCOs
         public virtual List<StructureCost> StructureCosts { get; set; } = new List<StructureCost>();
 
         [Designation("Дата ОИТ")]
-        public DateTime? OrderInTakeDate { get; set; }
+        public DateTime OrderInTakeDate { get; set; }
 
         [Designation("Дата реализации")]
-        public DateTime? RealizationDate { get; set; }
+        public DateTime RealizationDate { get; set; }
 
         [Designation("Условия оплаты")]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }

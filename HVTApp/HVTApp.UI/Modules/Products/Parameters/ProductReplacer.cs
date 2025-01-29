@@ -187,6 +187,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
             _unitOfWork.Repository<ProductBlock>().Delete(blockReplace);
         }
 
+        //удаление блоков-дубликатов
         private void RemoveBlockDuplicates(ProductBlock blockTarget)
         {
             var target = blockTarget;

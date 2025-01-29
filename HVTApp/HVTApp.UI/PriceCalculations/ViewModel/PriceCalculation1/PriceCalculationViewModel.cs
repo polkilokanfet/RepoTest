@@ -10,7 +10,6 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Price;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
@@ -315,18 +314,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
 
             foreach (var calculationItem in priceCalculation.PriceCalculationItems)
             {
-                var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem())
+                var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(calculationItem.SalesUnits.ToList())
                 {
                     PositionInTeamCenter = calculationItem.PositionInTeamCenter,
-                    OrderInTakeDate = calculationItem.OrderInTakeDate,
-                    RealizationDate = calculationItem.RealizationDate,
                     PaymentConditionSet = new PaymentConditionSetEmptyWrapper(calculationItem.PaymentConditionSet)
                 };
-
-                foreach (var salesUnit in calculationItem.SalesUnits)
-                {
-                    priceCalculationItem2Wrapper.SalesUnits.Add(new SalesUnitEmptyWrapper(salesUnit));
-                }
 
                 foreach (var structureCost in calculationItem.StructureCosts)
                 {
@@ -355,11 +347,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         {
             var salesUnitWrappers = salesUnits
                 .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
-                .Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit))
                 .ToList();
             
-            salesUnitWrappers.GroupBy(salesUnitEmptyWrapper => salesUnitEmptyWrapper, new SalesUnit2Comparer())
-                             .ForEach(x => { PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(x)); });
+            salesUnitWrappers
+                .GroupBy(salesUnitEmptyWrapper => salesUnitEmptyWrapper, new SalesUnit2Comparer())
+                .ForEach(x => { PriceCalculationWrapper.PriceCalculationItems.Add(GetPriceCalculationItem2Wrapper(x)); });
 
             //инициатор задачи
             if(this.PriceCalculationWrapper.Initiator == null)
@@ -382,8 +374,8 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             //добавляем в расчет ПЗ оборудование
             foreach (var technicalRequrements in technicalRequirementsTask.Requrements.Where(technicalRequrements => technicalRequrements.IsActual))
             {
-                var saleUnits = technicalRequrements.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit));
-                var item = GetPriceCalculationItem2Wrapper(saleUnits, technicalRequrements.OrderInTakeDate.Value, technicalRequrements.RealizationDate.Value);
+                var saleUnits = technicalRequrements.SalesUnits.ToList();
+                var item = GetPriceCalculationItem2Wrapper(saleUnits);
                 item.PositionInTeamCenter = technicalRequrements.PositionInTeamCenter;
                 PriceCalculationWrapper.PriceCalculationItems.Add(item);
             }
@@ -456,53 +448,39 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
         }
 
 
-        public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits, DateTime orderInTakeDate, DateTime realizationDate)
+        public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnit> salesUnits)
         {
-            var result = this.GetPriceCalculationItem2Wrapper(salesUnits);
-            result.OrderInTakeDate = orderInTakeDate;
-            result.RealizationDate = realizationDate;
-            return result;
-        }
-
-        public PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(IEnumerable<SalesUnitEmptyWrapper> salesUnits)
-        {
-            var priceCalculationItem2Wrapper = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
-            salesUnits.ForEach(salesUnitEmptyWrapper => priceCalculationItem2Wrapper.SalesUnits.Add(salesUnitEmptyWrapper));
+            var result = new PriceCalculationItem2Wrapper(salesUnits);
 
             //создание основного стракчакоста
             var structureCost = new StructureCost
             {
-                Comment = $"{priceCalculationItem2Wrapper.Product}",
+                Comment = $"{result.Product}",
                 AmountNumerator = 1,
                 AmountDenomerator = 1,
                 Number = $"{TceNumber} V"
             };
-            priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCost2Wrapper(structureCost));
+            result.StructureCosts.Add(new StructureCost2Wrapper(structureCost));
 
             //создание стракчакостов доп.оборудования
-            foreach (var productIncluded in priceCalculationItem2Wrapper.SalesUnits.First().Model.ProductsIncluded.Where(x => !x.Product.ProductBlock.IsService))
+            foreach (var productIncluded in result.SalesUnits.First().Model.ProductsIncluded.Where(x => !x.Product.ProductBlock.IsService))
             {
                 var structureCostPrIncl = new StructureCost
                 {
                     Comment = $"{productIncluded.Product}",
-                    AmountNumerator = (double)productIncluded.Amount / priceCalculationItem2Wrapper.SalesUnits.Count,
+                    AmountNumerator = (double)productIncluded.Amount / result.SalesUnits.Count,
                     AmountDenomerator = 1,
                     Number = $"{TceNumber} V"
                 };
-                priceCalculationItem2Wrapper.StructureCosts.Add(new StructureCost2Wrapper(structureCostPrIncl));
+                result.StructureCosts.Add(new StructureCost2Wrapper(structureCostPrIncl));
             }
 
-            return priceCalculationItem2Wrapper;
+            return result;
         }
 
         private PriceCalculationItem2Wrapper GetPriceCalculationItem2Wrapper(PriceEngineeringTasks priceEngineeringTasks, PriceEngineeringTask priceEngineeringTask)
         {
-            var item = new PriceCalculationItem2Wrapper(new PriceCalculationItem());
-            item.SalesUnits.AddRange(priceEngineeringTask.SalesUnits.Select(salesUnit => new SalesUnitEmptyWrapper(salesUnit)));
-            item.OrderInTakeDate = priceEngineeringTask.SalesUnits.First().OrderInTakeDate;
-            if (item.OrderInTakeDate.Value < DateTime.Today) item.OrderInTakeDate = DateTime.Today;
-            item.RealizationDate = priceEngineeringTask.SalesUnits.First().RealizationDateCalculated;
-            if (item.RealizationDate.Value < item.OrderInTakeDate.Value) item.RealizationDate = item.OrderInTakeDate.Value.AddDays(120);
+            var item = new PriceCalculationItem2Wrapper(priceEngineeringTask.SalesUnits.ToList());
             item.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(priceEngineeringTask.SalesUnits.First().PaymentConditionSet);
             item.Model.PriceEngineeringTaskId = priceEngineeringTask.Id;
 

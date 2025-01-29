@@ -2237,23 +2237,23 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Дата ОИТ
         /// </summary>
-        public System.Nullable<System.DateTime> OrderInTakeDate
+        public System.DateTime OrderInTakeDate
         {
           get { return Model.OrderInTakeDate; }
           set { SetValue(value); }
         }
-        public System.Nullable<System.DateTime> OrderInTakeDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OrderInTakeDate));
+        public System.DateTime OrderInTakeDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(OrderInTakeDate));
         public bool OrderInTakeDateIsChanged => GetIsChanged(nameof(OrderInTakeDate));
 
         /// <summary>
         /// Дата реализации
         /// </summary>
-        public System.Nullable<System.DateTime> RealizationDate
+        public System.DateTime RealizationDate
         {
           get { return Model.RealizationDate; }
           set { SetValue(value); }
         }
-        public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
+        public System.DateTime RealizationDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RealizationDate));
         public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
 
         /// <summary>
