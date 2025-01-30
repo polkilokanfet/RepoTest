@@ -19,7 +19,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{Sum} на {Date.ToShortDateString()}";
+            return $"{Sum:C} на {Date.ToShortDateString()}";
         }
 
         public int CompareTo(SumOnDate other)

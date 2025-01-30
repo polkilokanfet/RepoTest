@@ -2134,10 +2134,10 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-		[OrderStatus(1)]
+		[OrderStatus(8)]
         public System.String DesignationSpecial => Entity.DesignationSpecial;
 
-		[OrderStatus(1)]
+		[OrderStatus(7)]
         public System.String StructureCostNumber => Entity.StructureCostNumber;
 
 		[OrderStatus(1)]
@@ -2149,7 +2149,7 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Nullable<System.Double> LaborCosts => Entity.LaborCosts;
 
-		[OrderStatus(1)]
+		[OrderStatus(9)]
         public System.String Designation => Entity.Designation;
 
 		[OrderStatus(1)]
@@ -2180,11 +2180,7 @@ namespace HVTApp.UI.Lookup
 	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
 
         #endregion
-		[OrderStatus(1)]
-	    public List<SumOnDateLookup> Prices { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
-		[OrderStatus(1)]
-	    public List<SumOnDateLookup> FixedCosts { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
-		[OrderStatus(1)]
+		[OrderStatus(-10)]
 	    public List<ParameterLookup> ParametersOrdered { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]

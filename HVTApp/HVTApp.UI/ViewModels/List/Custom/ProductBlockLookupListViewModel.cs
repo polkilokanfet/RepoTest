@@ -103,8 +103,8 @@ namespace HVTApp.UI.ViewModels
                                     {
                                         var sb = new StringBuilder();
                                         sb.AppendLine(productBlock.Designation);
-                                        sb.AppendLine($"{sumOnDate.Date.Quarter()} квартал {sumOnDate.Date.Year}");
-                                        sb.AppendLine($"подозрительное: {sumOnDate:C}");
+                                        sb.AppendLine($"{pricesByQuarter.Quarter} квартал {sumOnDate.Date.Year}");
+                                        sb.AppendLine($"подозрительное: {sumOnDate}");
                                         sb.AppendLine($"среднее в текущем году: {averageLastYear:C}");
                                         sb.AppendLine($"среднее в текущем квартале: {averageQuarter:C}");
                                         sb.AppendLine($"среднее в прошлом квартале: {averageLastQuarter:C}");

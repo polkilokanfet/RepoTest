@@ -14,19 +14,19 @@ namespace HVTApp.Model.POCOs
     [Designation("Блок")]
     public partial class ProductBlock : BaseEntity
     {
-        [Designation("Специальное обозначение"), MaxLength(256)]
+        [Designation("Специальное обозначение"), MaxLength(256), OrderStatus(8)]
         public string DesignationSpecial { get; set; }
 
         [Designation("Параметры"), NotForListView]
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
 
-        [Designation("Себестоимости")]
+        [Designation("Себестоимости"), NotForListView]
         public virtual List<SumOnDate> Prices { get; set; } = new List<SumOnDate>();
 
-        [Designation("Фиксированные цены")]
+        [Designation("Фиксированные цены"), NotForListView]
         public virtual List<SumOnDate> FixedCosts { get; set; } = new List<SumOnDate>();
 
-        [Designation("Сралчахвост"), MaxLength(50)]
+        [Designation("Сралчахвост"), MaxLength(50), OrderStatus(7)]
         public string StructureCostNumber { get; set; }
 
         [Designation("Чертеж"), MaxLength(25)]
@@ -44,10 +44,10 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Параметры (упорядоченные)
         /// </summary>
-        [Designation("Параметры (упорядоченные)"), NotMapped]
+        [Designation("Параметры (упорядоченные)"), NotMapped, OrderStatus(-10)]
         public List<Parameter> ParametersOrdered => Parameters.OrderBy(parameter => parameter).ToList();
 
-        [Designation("Обозначение"), NotMapped]
+        [Designation("Обозначение"), NotMapped, OrderStatus(9)]
         public string Designation => GlobalAppProperties.ProductDesignationService?.GetDesignation(this);
 
         [Designation("Тип"), NotMapped, OrderStatus(10)]

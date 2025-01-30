@@ -63,11 +63,14 @@
                         <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="UserConstructorInitiator" Label="Инициатор подзадачи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:CheckBoxField Name="VerificationIsRequested" Label="VerificationIsRequested" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="UpdateStructureCostNumberTasks" Label="Задачи на изменение номера стракчакоста блока" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="TcePosition" Label="Позиция в ТСЕ" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="StartMoment" Label="Старт" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ProductBlocksAddedActual" Label="ProductBlocksAddedActual" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="NeedEquipment" Label="Требуется оснастка" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="NeedDesignDocumentationDevelopment" Label="Требуется разработка КД" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="MomentFinishByDesignDepartment" Label="MomentFinishByDesignDepartment" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsTop" Label="IsTop" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsStoppedTotal" Label="IsStoppedTotal" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsStarted" Label="IsStarted" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsInProcessByConstructor" Label="IsInProcessByConstructor" Width="Auto" AllowResize="True" />
@@ -75,8 +78,8 @@
                         <infg:CheckBoxField Name="IsFinishedByConstructor" Label="IsFinishedByConstructor" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsAcceptedTotal" Label="IsAcceptedTotal" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsAccepted" Label="IsAccepted" Width="Auto" AllowResize="True" />
-                        <infg:CheckBoxField Name="HasSccInTce" Label="HasSccInTce" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="HasDesignDocumentationInfo" Label="HasDesignDocumentationInfo" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="HasAnyUpdateStructureCostNumberTaskNotFinished" Label="HasAnyUpdateStructureCostNumberTaskNotFinished" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="DesignDocumentationAvailabilityComment" Label="Комментарий по разработке КД" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>

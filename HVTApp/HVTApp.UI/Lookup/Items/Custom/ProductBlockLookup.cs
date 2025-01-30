@@ -19,11 +19,7 @@ namespace HVTApp.UI.Lookup
             }
         }
 
-        [Designation("Параметры")]
-        public string ParametersString =>
-            this.Entity.Parameters
-                .Select(x => $"[({x.ParameterGroup}) : ({x.Value})]")
-                .OrderBy(x => x)
-                .ToStringEnum();
+        [Designation("Пайсы")]
+        public string Prices => this.Entity.Prices.OrderBy(x => x).ToStringEnum();
     }
 }

@@ -67,7 +67,6 @@
                         <infg:NumericField Name="Vat" Label="НДС" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" AllowResize="True" />
-                        <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="SumNotPaidWithVat" Label="Неоплачено с НДС" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="SumNotPaid" Label="Неоплачено без НДС" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="StartProductionDateInjected" Label="StartProductionDateInjected" Width="Auto" AllowResize="True" />
@@ -87,6 +86,7 @@
                         <infg:TextField Name="PaymentsPlannedActual" Label="PaymentsPlannedActual" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:NumericField Name="PaidSum" Label="Оплачено" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="OrderIsTaken" Label="Заказ взят" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="OrderIsRealized" Label="Заказ реализован" Width="Auto" AllowResize="True" />
@@ -98,7 +98,7 @@
                         <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="FixedCost" Label="Сумма фиксированных затрат" Width="Auto" AllowResize="True" />
-                        <infg:DateTimeField Name="FirstPaymentDateCalculated" Label="Первый платеж по заказу" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="FirstPaymentDate" Label="Дата первого платежа по заказу" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата окончания производства" Width="Auto" AllowResize="True" />

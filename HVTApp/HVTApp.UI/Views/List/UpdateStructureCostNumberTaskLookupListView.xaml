@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.PriceEngineeringTaskProductBlockAddedLookupListView">
+              x:Class="HVTApp.UI.Views.UpdateStructureCostNumberTaskLookupListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=PriceEngineeringTaskProductBlockAddedLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=UpdateStructureCostNumberTaskLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="PriceEngineeringTaskProductBlockAddedLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="UpdateStructureCostNumberTaskLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -39,13 +39,12 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:CheckBoxField Name="IsRemoved" Label="Удалено" Width="Auto" AllowResize="True" />
-                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="ProductBlock" Label="Блок продукта" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                        <infg:CheckBoxField Name="IsOnBlock" Label="На каждый блок" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="PriceEngineeringTaskId" Label="Id технико-стоимостной проработки" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="StructureCostVersions" Label="Версии SCC" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                        <infg:CheckBoxField Name="HasSccNumberInTce" Label="HasSccNumberInTce" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ProductBlock" Label="Блок" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="StructureCostNumberOriginal" Label="StructureCostNumberOriginal" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="StructureCostNumber" Label="StructureCostNumber" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="MomentStart" Label="MomentStart" Width="Auto" AllowResize="True" />
+                        <infg:DateTimeField Name="MomentFinish" Label="MomentFinish" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsAccepted" Label="IsAccepted" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
