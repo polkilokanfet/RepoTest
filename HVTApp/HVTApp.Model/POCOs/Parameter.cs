@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extensions;
@@ -10,7 +9,7 @@ using HVTApp.Infrastructure.Extensions;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Параметр")]
-    public partial class Parameter : BaseEntity, IComparable<Parameter>
+    public class Parameter : BaseEntity, IComparable<Parameter>
     {
         [Designation("Группа"), Required, OrderStatus(5)]
         public virtual ParameterGroup ParameterGroup { get; set; }

@@ -16,6 +16,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
     public class ParametersViewModel : ParameterDetailsViewModel
     {
         public ProductReplacer ProductReplacer { get; }
+
         /// <summary>
         /// Список всех параметров
         /// </summary>
@@ -219,28 +220,17 @@ namespace HVTApp.UI.Modules.Products.Parameters
                         return;
                     }
 
-
                     var blocks = unitOfWork.Repository<ProductBlock>().Find(block => block.Parameters.Contains(parameter));
                     if (blocks.Any())
                     {
                         container.Resolve<IMessageService>().Message("Info", $"Удалите сначала параметр из блоков: {blocks.ToStringEnum()}");
                         return;
                     }
-                    //foreach (var block in blocks)
-                    //{
-                    //    block.Parameters.Remove(parameter);
-                    //}
 
                     foreach (var relation in parameter.ParameterRelations.ToList())
                     {
                         unitOfWork.Repository<ParameterRelation>().Delete(relation);
                     }
-
-                    //var relations = unitOfWork.Repository<ParameterRelation>().Find(x => x.RequiredParameters.Contains(parameter));
-                    //foreach (var relation in relations)
-                    //{
-                    //    relation.RequiredParameters.Remove(parameter);
-                    //}
 
                     unitOfWork.Repository<Parameter>().Delete(parameter);
 

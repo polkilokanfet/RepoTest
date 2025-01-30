@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -57,11 +58,14 @@ namespace HVTApp.UI.Modules.Products.Parameters
         public ICommand AddParameterCommand { get; }
         public ICommand ReplaceCommand { get; }
 
+        //полное удаление параметра
+        public ICommand RemoveParameterTotalCommand { get; }
         #endregion
 
         public ProductReplacer(IUnityContainer container, ParametersViewModel parametersViewModel)
         {
             _unitOfWork = container.Resolve<IUnitOfWork>();
+            var selectService = container.Resolve<ISelectService>();
             var getProductService = container.Resolve<IGetProductService>();
 
             AddParameterToTargetListByBlockCommand = new DelegateCommand(() =>
@@ -153,12 +157,78 @@ namespace HVTApp.UI.Modules.Products.Parameters
 
                     container.Resolve<IMessageService>().Message("", "done");
                 });
+
+            RemoveParameterTotalCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите удалить параметр из базы данных?",
+                () =>
+                {
+                    var parameter = _unitOfWork.Repository<Parameter>().GetById(this.SelectedParameterTarget.Id);
+
+                    var relations = _unitOfWork
+                        .Repository<ProductRelation>()
+                        .Find(relation => 
+                            relation.ParentProductParameters.Contains(parameter) || 
+                            relation.ChildProductParameters.Contains(parameter));
+                    if (relations.Any())
+                    {
+                        container.Resolve<IMessageService>().Message("Info", $"Удалите сначала связи между блоками: {relations.ToStringEnum()}");
+                        return;
+                    }
+
+
+                    var allBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
+                    var blocks = allBlocks.Where(block => block.Parameters.Contains(parameter)).ToList();
+                    blocks.ForEach(block => block.Parameters.Remove(parameter));
+
+                    var gps = allBlocks.GroupBy(block => new
+                        {
+                            ddd = block.Parameters
+                                .Select(p => p.Id.ToString())
+                                .OrderBy(s => s)
+                                .ToStringEnum()
+                        })
+                        .Where(x => x.Count() > 1)
+                        .ToList();
+
+                    foreach (var gp in gps)
+                    {
+                        var targetBlock = selectService.SelectItem(gp);
+                        if (targetBlock == null) return;
+
+                        foreach (var replaceBlock in gp)
+                        {
+                            if (targetBlock.Id == replaceBlock.Id) continue;
+                            this.ReplaceBlock(targetBlock, replaceBlock, true);
+                            _unitOfWork.Repository<ProductBlock>().Delete(replaceBlock);
+                        }
+                    }
+
+                    _unitOfWork.Repository<Parameter>().Delete(parameter);
+                    _unitOfWork.SaveChanges();
+
+                    SelectedParameterTarget = null;
+
+                    container.Resolve<IMessageService>().Message("info", "RemoveParameterTotalCommand done");
+                });
         }
 
+        //замена одного блока другим
         private void ReplaceBlock(ProductBlock blockTarget, ProductBlock blockReplace, bool removeProductDuplicates)
         {
             blockTarget = _unitOfWork.Repository<ProductBlock>().GetById(blockTarget.Id);
             blockReplace = _unitOfWork.Repository<ProductBlock>().GetById(blockReplace.Id);
+
+            //сохранение переменных затрат
+            if (string.IsNullOrWhiteSpace(blockTarget.StructureCostNumber) == false &&
+                blockTarget.StructureCostNumber == blockReplace.StructureCostNumber)
+            {
+                foreach (var sumOnDate in blockReplace.Prices.ToList())
+                {
+                    blockReplace.Prices.Remove(sumOnDate);
+                    blockTarget.Prices.Add(sumOnDate);
+                }
+            }
 
             //в scc
             _unitOfWork.Repository<StructureCost>()
@@ -179,7 +249,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
             //в продуктах
             var productsAll = _unitOfWork.Repository<Product>().GetAll();
             var products = productsAll.Where(product => product.ProductBlock.Id == blockReplace.Id).ToList();
-            products.ForEach(x => x.ProductBlock = blockTarget);
+            products.ForEach(product => product.ProductBlock = blockTarget);
 
             if (removeProductDuplicates)
                 RemoveProductDuplicates();
@@ -191,12 +261,13 @@ namespace HVTApp.UI.Modules.Products.Parameters
         private void RemoveBlockDuplicates(ProductBlock blockTarget)
         {
             var target = blockTarget;
-            var blocks = _unitOfWork.Repository<ProductBlock>().Find(block => block.Parameters.MembersAreSame(target.Parameters));
+            var blocks = _unitOfWork.Repository<ProductBlock>()
+                .Find(block => block.Parameters.MembersAreSame(target.Parameters));
 
             if (string.IsNullOrEmpty(blockTarget.StructureCostNumber) &&
                 blocks.Any(block => string.IsNullOrEmpty(block.StructureCostNumber) == false))
             {
-                blockTarget = blocks.First(x => string.IsNullOrEmpty(x.StructureCostNumber) == false);
+                blockTarget = blocks.First(block => string.IsNullOrEmpty(block.StructureCostNumber) == false);
             }
 
             bool removeProductDuplicates = false;
@@ -231,20 +302,24 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     if (productFirst.Equals(product))
                     {
                         _unitOfWork.Repository<ProductDependent>()
-                            .Find(x => x.Product.Id == product.Id)
-                            .ForEach(x => x.Product = productFirst);
+                            .Find(productDependent => productDependent.Product.Id == product.Id)
+                            .ForEach(productDependent => productDependent.Product = productFirst);
 
                         _unitOfWork.Repository<ProductIncluded>()
-                            .Find(x => x.Product.Id == product.Id)
-                            .ForEach(x => x.Product = productFirst);
+                            .Find(productIncluded => productIncluded.Product.Id == product.Id)
+                            .ForEach(productIncluded => productIncluded.Product = productFirst);
 
                         if (_salesUnits == null)
                             _salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll();
-                        _salesUnits.Where(x => x.Product.Id == product.Id).ForEach(x => x.Product = productFirst);
+                        _salesUnits
+                            .Where(salesUnit => salesUnit.Product.Id == product.Id)
+                            .ForEach(salesUnit => salesUnit.Product = productFirst);
 
                         if (_offerUnits == null)
                             _offerUnits = _unitOfWork.Repository<OfferUnit>().GetAll();
-                        _offerUnits.Where(x => x.Product.Id == product.Id).ForEach(x => x.Product = productFirst);
+                        _offerUnits
+                            .Where(offerUnit => offerUnit.Product.Id == product.Id)
+                            .ForEach(offerUnit => offerUnit.Product = productFirst);
 
                         productsToRemove.Add(product);
                     }
