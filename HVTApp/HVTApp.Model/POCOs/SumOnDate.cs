@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     /// Сумма на какую-либо дату
     /// </summary>
     [Designation("Сумма на дату")]
-    public partial class SumOnDate : BaseEntity, ISumOnDate
+    public partial class SumOnDate : BaseEntity, ISumOnDate, IComparable<SumOnDate>
     {
         [Designation("Дата"), Required]
         public DateTime Date { get; set; } = DateTime.Today;
@@ -20,6 +20,15 @@ namespace HVTApp.Model.POCOs
         public override string ToString()
         {
             return $"{Sum} на {Date.ToShortDateString()}";
+        }
+
+        public int CompareTo(SumOnDate other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            var dateComparison = Date.CompareTo(other.Date);
+            if (dateComparison != 0) return dateComparison;
+            return Sum.CompareTo(other.Sum);
         }
     }
 }

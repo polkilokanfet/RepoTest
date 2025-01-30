@@ -22,10 +22,16 @@ namespace HVTApp.Model.Price
             }
         }
 
-        public override string Comment =>
-            ContainsAnyAnalog
-                ? $" ПЗ от {Analog?.LastPriceDate?.ToShortDateString()} блока-аналога: {Analog}"
-                : $" ПЗ от {_productBlock.LastPriceDate?.ToShortDateString()} оригинального блока";
+        public override string Comment
+        {
+            get
+            {
+                var q = $"{_averageQuarterSum.Date.Quarter()} кв. {_averageQuarterSum.Date.Year} г.";
+                return ContainsAnyAnalog
+                    ? $" ПЗ аналога ({q}): {Analog}"
+                    : $" ПЗ оригинала ({q})";
+            }
+        }
 
         public override string CommentLaborHours =>
             ContainsAnyBlockWithNoLaborHours
@@ -76,11 +82,12 @@ namespace HVTApp.Model.Price
         /// <param name="originalBlock"></param>
         private void Init(ProductBlock productBlock, DateTime targetDate, ProductBlock originalBlock)
         {
-            Init(productBlock, targetDate);
             Name = $"{originalBlock} (по аналогу: {productBlock})";
             Analog = productBlock;
+            Init(productBlock, targetDate);
         }
 
+        private ISumOnDate _averageQuarterSum;
         /// <summary>
         /// инициализация по прайсу/фиксированной цене
         /// </summary>
@@ -100,7 +107,8 @@ namespace HVTApp.Model.Price
             //по прайсу
             if (productBlock.HasPrice)
             {
-                UnitPrice = productBlock.Prices.GetClosedSumOnDate(targetDate).Sum;
+                _averageQuarterSum = productBlock.Prices.GetAverageQuarterSum(targetDate);
+                UnitPrice = _averageQuarterSum.Sum;
             }
         }
     }

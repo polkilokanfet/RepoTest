@@ -71,23 +71,87 @@ namespace HVTApp.Model
             if (sumsOnDates == null)
                 throw new ArgumentNullException(nameof(sumsOnDates));
 
-            return
-                sumsOnDates
-                    .OrderBy(sumOnDate => Math.Abs((sumOnDate.Date - date).Ticks))
-                    .First();
+            return sumsOnDates
+                .OrderBy(sumOnDate => Math.Abs((sumOnDate.Date - date).Ticks))
+                .First();
+        }
 
-            //SumOnDate result = null;
-            //double? currentDif = null;
-            //foreach (var sumOnDate in sumsOnDates)
-            //{
-            //    var dif = Math.Abs((sumOnDate.Date - date).TotalDays);
-            //    if (currentDif == null || dif < currentDif)
-            //    {
-            //        currentDif = dif;
-            //        result = sumOnDate;
-            //    }
-            //}
-            //return result;
+        /// <summary>
+        /// Возвращает среднюю по кварталу
+        /// </summary>
+        /// <param name="sumsOnDates"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static ISumOnDate GetAverageQuarterSum(this IEnumerable<ISumOnDate> sumsOnDates, DateTime date)
+        {
+            if (sumsOnDates == null)
+                throw new ArgumentNullException(nameof(sumsOnDates));
+
+            var quarterAbsolute = date.QuarterAbsolute();
+
+            //суммы из квартала целевой даты (или ближайшего)
+            var sums = sumsOnDates
+                .GroupBy(sumOnDate => sumOnDate.Date.QuarterAbsolute())
+                .OrderBy(x => Math.Abs(x.Key - quarterAbsolute))
+                .First();
+
+            return new SumOnDate
+            {
+                Sum = ExceptMistakes(sums.Select(x => x.Sum), 30).Average(),
+                Date = sums.First().Date
+            };
+        }
+
+        /// <summary>
+        /// Исключить из последовательности те, что "выпадают"
+        /// </summary>
+        /// <param name="doubles"></param>
+        /// <param name="percentage"></param>
+        /// <returns></returns>
+        private static IEnumerable<double> ExceptMistakes(IEnumerable<double> doubles, int percentage)
+        {
+            var result = doubles.ToList();
+
+            int count;
+            do
+            {
+                count = result.Count;
+                var average = result.Average();
+                foreach (var d in result.ToList())
+                {
+                    if ((average) < (d * (1 - percentage / 100)))
+                    {
+                        result.Remove(d);
+                    }
+                }
+            } while (count != result.Count);
+            
+            return result;
+        }
+
+        /// <summary>
+        /// Квартал года
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static int Quarter(this DateTime date)
+        {
+            var month = date.Month;
+            if (month < 4) return 1;
+            if (month < 7) return 2;
+            if (month < 10) return 3;
+            return 4;
+        }
+
+        /// <summary>
+        /// Крартал с 0 года н.э.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static int QuarterAbsolute(this DateTime date)
+        {
+            return (date.Year - 1) * 4 + date.Quarter();
         }
 
         /// <summary>
