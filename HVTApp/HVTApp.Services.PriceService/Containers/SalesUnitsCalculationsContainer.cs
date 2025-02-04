@@ -74,10 +74,21 @@ namespace HVTApp.Services.PriceService1.Containers
             }
         }
 
+        private const int DaysForToOldPriceCalculation = 6 * 31;
+
         private void Add(PriceCalculationItem priceCalculationItem, SalesUnit salesUnit)
         {
             if (_salesUnitsCalculationsDictionary == null)
                 Reload();
+
+            //отбрасываем слишком старые расчёты для не выигранного оборудования
+            if (salesUnit.IsLoosen == false && 
+                salesUnit.IsWon == false && 
+                priceCalculationItem.FinishDate.HasValue &&
+                (DateTime.Today - priceCalculationItem.FinishDate.Value).Days > DaysForToOldPriceCalculation)
+            {
+                return;
+            }
 
             if (_salesUnitsCalculationsDictionary.ContainsKey(salesUnit.Id))
                 _salesUnitsCalculationsDictionary[salesUnit.Id].Add(priceCalculationItem);
