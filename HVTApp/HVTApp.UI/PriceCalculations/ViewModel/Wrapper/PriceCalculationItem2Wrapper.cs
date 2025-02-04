@@ -101,8 +101,11 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
         public PriceCalculationItem2Wrapper(IEnumerable<SalesUnit> salesUnits)
             : this(new PriceCalculationItem {SalesUnits = salesUnits.ToList()})
         {
+            var salesUnit = this.Model.SalesUnits.First();
+
             this.OrderInTakeDate = DateTime.Today.AddDays(14).SkipWeekend();
-            this.RealizationDate = DateTime.Today.AddDays(120).SkipWeekend();
+            this.RealizationDate = DateTime.Today.AddDays(salesUnit.ProductionTerm).SkipWeekend();
+            this.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(salesUnit.PaymentConditionSet);
         }
     }
 }
