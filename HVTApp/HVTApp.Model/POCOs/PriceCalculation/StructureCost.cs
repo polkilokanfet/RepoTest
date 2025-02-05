@@ -14,9 +14,15 @@ namespace HVTApp.Model.POCOs
         [Designation("Номер"), Required, MaxLength(50)]
         public string Number { get; set; }
 
+        /// <summary>
+        /// Номер scc оригинального блока (блока при котором был создан данный стракчакост)
+        /// </summary>
         [Designation("Номер scc оригинального блока"), MaxLength(50)]
         public string OriginalStructureCostNumber { get; set; }
 
+        /// <summary>
+        /// Оригинальный блок scc (блока при котором был создан данный стракчакост)
+        /// </summary>
         [Designation("Оригинальный блок scc")]
         public virtual ProductBlock OriginalStructureCostProductBlock { get; set; }
 

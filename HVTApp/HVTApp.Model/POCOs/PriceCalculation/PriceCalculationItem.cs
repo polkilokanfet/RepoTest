@@ -9,6 +9,9 @@ using HVTApp.Infrastructure.Extensions;
 
 namespace HVTApp.Model.POCOs
 {
+    /// <summary>
+    /// ≈диница расчета себестоимости оборудовани€
+    /// </summary>
     [Designation("≈диница расчета себестоимости оборудовани€")]
     public class PriceCalculationItem : BaseEntity
     {

@@ -347,6 +347,7 @@ namespace NotificationsService
             var sb = new StringBuilder();
             sb.AppendLine("Расчёт переменных затрат");
             sb.AppendLine("Оборудование:");
+            
             foreach (var priceCalculationItem in priceCalculation.PriceCalculationItems.Where(item => item.SalesUnits.Any()))
             {
                 var salesUnit = priceCalculationItem.SalesUnits.First();

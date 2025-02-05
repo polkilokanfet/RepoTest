@@ -133,5 +133,35 @@ namespace HVTApp.Model.POCOs
             if (costs.Any() == false) return default;
             return costs.OrderBy(x => x.Date).Last().Sum;
         }
+
+        private const int DaysForPrices = 150;
+        private const double Tolerance = 0.5;
+        public bool AllowAddThisPriceFromCalculation(SumOnDate price)
+        {
+            if (price.Date < DateTime.Today) return false;
+            if (price.Date > DateTime.Today.AddDays(DaysForPrices)) return false;
+            if (this.Prices.Any(p => p.Date == price.Date && Math.Abs(p.Sum - price.Sum) < 0.0001)) return false;
+
+            //по прайсам из этого квартала
+            for (int i = 0; i < 5; i++)
+            {
+                var quarter = price.Date.QuarterAbsolute() - i;
+                var pricesOfQuarter = this.Prices
+                    .Where(x => x.Date.QuarterAbsolute() == quarter)
+                    .ToList();
+                if (pricesOfQuarter.Any())
+                {
+                    var average = pricesOfQuarter.Select(x => x.Sum).Average();
+                    if ((average * (1 + Tolerance)) < price.Sum)
+                        return false;
+                    if ((average * (1 - Tolerance)) > price.Sum)
+                        return false;
+
+                    return true;
+                }
+            }
+
+            return true;
+        }
     }
 }
