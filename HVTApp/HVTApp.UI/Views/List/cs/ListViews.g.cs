@@ -3222,6 +3222,12 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
+        public System.Windows.Visibility ActionStringVisibility
+        {
+            get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.ActionString)].Visibility; }
+            set { NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.ActionString)].Visibility = value; }
+        }
+
         public System.Windows.Visibility MomentVisibility
         {
             get { return NotificationUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.NotificationUnitLookup.Moment)].Visibility; }

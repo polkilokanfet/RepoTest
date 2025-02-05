@@ -39,13 +39,12 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
-                        <infg:TextField Name="SenderUser" Label="Пользователь" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
-                        <infg:TextField Name="RecipientUser" Label="Пользователь" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="SenderUser" Label="Отправитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <infg:TextField Name="RecipientUser" Label="Получатель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="TargetEntityId" Label="TargetEntityId" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="SenderUserId" Label="SenderUserId" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="RecipientUserId" Label="RecipientUserId" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="Moment" Label="Moment" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsSentByEmail" Label="Отправлено по почте" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="ActionString" Label="Действие" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -135,7 +135,7 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             PriceCalculationWrapper.Model.History.Any() &&
             PriceCalculationWrapper.Model.LastHistoryItem.Type == PriceCalculationHistoryItemType.Reject;
 
-        public bool CanChangePrice => CurrentUserIsPricer && !IsFinished;
+        public bool CanChangePrice => CurrentUserIsPricer && this.IsFinished == false;
 
         public bool CalculationHasFile => PriceCalculationWrapper != null && PriceCalculationWrapper.Files.Any();
 

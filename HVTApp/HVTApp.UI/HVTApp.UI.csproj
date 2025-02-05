@@ -190,6 +190,7 @@
     <Compile Include="Lookup\Items\Custom\DocumentLookup.cs" />
     <Compile Include="Lookup\Items\Custom\IncomingRequestLookup.cs" />
     <Compile Include="Lookup\Items\Custom\LaborHoursLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\NotificationUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationFileLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PriceCalculationItemLookup.cs" />

@@ -21,14 +21,16 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// отправитель
         /// </summary>
-        [Required]
+        [Designation("Отправитель"), Required]
         public virtual User SenderUser { get; set; }
 
+        [NotForListView]
         public Guid SenderUserId { get; set; } = GlobalAppProperties.User.Id;
 
         /// <summary>
         /// роль отправителя
         /// </summary>
+        [Designation("Роль отправителя")]
         public Role SenderRole { get; set; } = GlobalAppProperties.User.RoleCurrent;
 
         #endregion
@@ -38,14 +40,16 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Получатель
         /// </summary>
-        [Required]
+        [Designation("Получатель"), Required]
         public virtual User RecipientUser { get; set; }
 
+        [NotForListView]
         public Guid RecipientUserId { get; set; }
 
         /// <summary>
         /// Роль получателя
         /// </summary>
+        [Designation("Роль получателя")]
         public Role RecipientRole { get; set; }
 
         #endregion
@@ -209,7 +213,7 @@ namespace HVTApp.Model.POCOs
             }
         }
 
-        #region MyRegion
+        #region GetCommonInfo
 
         public string GetCommonInfo(PriceEngineeringTasks tasks, PriceEngineeringTask taskTarget, PriceEngineeringTask taskTop)
         {
@@ -234,7 +238,6 @@ namespace HVTApp.Model.POCOs
 
             return sb.ToString();
         }
-
 
         #endregion
     }
