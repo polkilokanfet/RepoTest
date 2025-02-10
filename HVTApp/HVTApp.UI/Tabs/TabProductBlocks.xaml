@@ -7,6 +7,7 @@
     
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Проверить ПЗ выделенных блоков" Command="{Binding CheckPricesCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Обновить спец.обозначения блоков" Command="{Binding DesignationRefreshCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Включить параметр в выбранные блоки" Command="{Binding AddParameterCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
     

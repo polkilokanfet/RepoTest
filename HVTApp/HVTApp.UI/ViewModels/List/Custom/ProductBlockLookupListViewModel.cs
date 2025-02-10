@@ -159,8 +159,7 @@ namespace HVTApp.UI.ViewModels
                     }
 
                     Container.Resolve<IMessageService>().Message("done", sb.ToString());
-                },
-                () => SelectedItems != null && SelectedItems.Any());
+                });
 
             this.SelectedLookupChanged += lookup =>
             {
