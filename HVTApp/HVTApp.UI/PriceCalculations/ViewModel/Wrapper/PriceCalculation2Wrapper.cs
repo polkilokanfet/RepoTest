@@ -83,6 +83,13 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
             PriceCalculationItems = new ValidatableChangeTrackingCollection<PriceCalculationItem2Wrapper>(Model.PriceCalculationItems.Select(e => new PriceCalculationItem2Wrapper(e)));
             RegisterCollection(PriceCalculationItems, Model.PriceCalculationItems);
 
+            int stringNumber = 0;
+            foreach (var calculationItem in PriceCalculationItems)
+            {
+                stringNumber++;
+                calculationItem.StringNumber = stringNumber;
+            }
+
             if (Model.Files == null) throw new ArgumentException("Files cannot be null");
             Files = new ValidatableChangeTrackingCollection<PriceCalculationFileWrapper>(Model.Files.Select(e => new PriceCalculationFileWrapper(e)));
             RegisterCollection(Files, Model.Files);

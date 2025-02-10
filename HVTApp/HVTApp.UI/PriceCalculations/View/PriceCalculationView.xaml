@@ -98,7 +98,7 @@
                             </infgDp:FieldLayout.FieldSettings>
 
                             <infgDp:FieldLayout.Fields>
-                                
+                                <infgDp:NumericField AlternateBinding="{Binding StringNumber}" BindingType="UseAlternateBinding" Label="№" Width="Auto" AllowResize="False"/>
                                 <infgDp:CheckBoxField AlternateBinding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label=" " Width="Auto" AllowEdit="True" AllowResize="False">
                                     <infgDp:Field.Settings>
                                         <infgDp:FieldSettings>

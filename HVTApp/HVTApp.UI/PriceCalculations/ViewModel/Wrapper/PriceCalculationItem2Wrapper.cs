@@ -11,6 +11,14 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.Wrapper
 {
     public class PriceCalculationItem2Wrapper : WrapperBase<PriceCalculationItem>
     {
+        private int _stringNumber;
+
+        public int StringNumber
+        {
+            get => _stringNumber;
+            set => SetProperty(ref _stringNumber, value);
+        }
+
         public bool IsChecked { get; set; } = false;
 
         public Facility Facility => Model.SalesUnits.FirstOrDefault()?.Facility;
