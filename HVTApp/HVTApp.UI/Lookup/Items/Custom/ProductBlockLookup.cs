@@ -20,6 +20,9 @@ namespace HVTApp.UI.Lookup
         }
 
         [Designation("Пайсы")]
-        public string Prices => this.Entity.Prices.OrderBy(x => x).ToStringEnum();
+        public string Prices => this.Entity.Prices.ToStringEnum();
+
+        [Designation("Пайсы (упорядоченно)")]
+        public string PricesOrdered => this.Entity.Prices.OrderBy(sumOnDate => sumOnDate).ToStringEnum();
     }
 }

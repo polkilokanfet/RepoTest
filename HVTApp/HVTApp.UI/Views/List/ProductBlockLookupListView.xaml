@@ -43,6 +43,7 @@
                         <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="PricesOrdered" Label="Пайсы (упорядоченно)" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="DesignDepartments" Label="КБ" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="Weight" Label="Вес" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" AllowResize="True" />

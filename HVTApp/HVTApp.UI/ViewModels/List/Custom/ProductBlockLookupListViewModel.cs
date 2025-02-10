@@ -41,6 +41,7 @@ namespace HVTApp.UI.ViewModels
         }
         public DelegateLogCommand AddParameterCommand { get; private set; }
         public DelegateLogCommand CheckPricesCommand { get; private set; }
+        public DelegateLogCommand DesignationRefreshCommand { get; private set; }
 
         protected override void InitSpecialCommands()
         {
@@ -130,6 +131,34 @@ namespace HVTApp.UI.ViewModels
                     }
 
                     messageService.Message("done", "done");
+                },
+                () => SelectedItems != null && SelectedItems.Any());
+
+            DesignationRefreshCommand = new DelegateLogCommand(
+                () =>
+                {
+                    var sb = new StringBuilder();
+
+                    using (var unitOfWork = Container.Resolve<IUnitOfWork>())
+                    {
+
+                        var productBlocks = unitOfWork.Repository<ProductBlock>().GetAll();
+                        foreach (var block in productBlocks)
+                        {
+                            var designation = block.Designation;
+                            var designationSpecial = block.DesignationSpecial;
+
+                            if (designation != designationSpecial)
+                            {
+                                sb.AppendLine($"{designationSpecial} => {designation}");
+                                block.DesignationSpecial = block.Designation;
+                            }
+                        }
+
+                        unitOfWork.SaveChanges();
+                    }
+
+                    Container.Resolve<IMessageService>().Message("done", sb.ToString());
                 },
                 () => SelectedItems != null && SelectedItems.Any());
 
