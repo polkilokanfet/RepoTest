@@ -48,7 +48,9 @@ namespace HVTApp.Model.POCOs
         public List<Parameter> ParametersOrdered => Parameters.OrderBy(parameter => parameter).ToList();
 
         [Designation("Обозначение"), NotMapped, OrderStatus(9)]
-        public string Designation => GlobalAppProperties.ProductDesignationService?.GetDesignation(this);
+        public string Designation => string.IsNullOrEmpty(this.DesignationSpecial)
+            ? GlobalAppProperties.ProductDesignationService?.GetDesignation(this)
+            : this.DesignationSpecial;
 
         [Designation("Тип"), NotMapped, OrderStatus(10)]
         public ProductType ProductType => GlobalAppProperties.ProductDesignationService?.GetProductType(this);
@@ -92,7 +94,8 @@ namespace HVTApp.Model.POCOs
 
         protected bool Equals(ProductBlock other)
         {
-            return other != null && this.Parameters.MembersAreSame(other.Parameters, new ParameterComparer());
+            if (other == null) return false;
+            return this.Parameters.MembersAreSame(other.Parameters, new ParameterComparer());
         }
 
         ///// <summary>
@@ -116,9 +119,7 @@ namespace HVTApp.Model.POCOs
         
         public override string ToString()
         {
-            if (DesignationSpecial != null) return DesignationSpecial;
-            if (Designation != null) return Designation;
-            return ParametersToString();
+            return Designation ?? ParametersToString();
         }
 
         /// <summary>
