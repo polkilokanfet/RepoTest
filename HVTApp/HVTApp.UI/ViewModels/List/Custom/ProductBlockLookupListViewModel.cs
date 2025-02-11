@@ -148,10 +148,13 @@ namespace HVTApp.UI.ViewModels
                             var designation = block.Designation;
                             var designationSpecial = block.DesignationSpecial;
 
+                            if (designation.Length > 256)
+                                continue;
+
                             if (designation != designationSpecial)
                             {
                                 sb.AppendLine($"{designationSpecial} => {designation}");
-                                block.DesignationSpecial = block.Designation;
+                                block.DesignationSpecial = designation;
                             }
                         }
 
