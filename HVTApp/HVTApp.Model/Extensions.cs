@@ -96,9 +96,14 @@ namespace HVTApp.Model
                 .OrderBy(x => Math.Abs(x.Key - quarterAbsolute))
                 .First();
 
+            var sumem = ExceptMistakes(sums.Select(x => x.Sum), 50).ToList();
+            var sum = sumem.Any() 
+                ? sumem.Average() 
+                : sums.Select(x => x.Sum).Average();
+
             return new SumOnDate
             {
-                Sum = ExceptMistakes(sums.Select(x => x.Sum), 30).Average(),
+                Sum = sum,
                 Date = sums.First().Date
             };
         }
@@ -120,12 +125,18 @@ namespace HVTApp.Model
                 var average = result.Average();
                 foreach (var d in result.ToList())
                 {
-                    if ((average) < (d * (1 - percentage / 100)))
+                    //удаление больших значений
+                    if ((average) < (d * (1.0 - percentage / 100.0)))
+                    {
+                        result.Remove(d);
+                    }
+                    //удаление меньших значений
+                    else if ((average) > (d * (1.0 + percentage / 100.0)))
                     {
                         result.Remove(d);
                     }
                 }
-            } while (count != result.Count);
+            } while (result.Any() && count != result.Count);
             
             return result;
         }
