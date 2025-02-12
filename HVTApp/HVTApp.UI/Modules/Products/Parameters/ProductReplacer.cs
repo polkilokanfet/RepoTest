@@ -127,7 +127,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 {
                     var blockTarget = _unitOfWork.Repository<ProductBlock>().GetById(SelectedBlockTarget.Id);
                     blockTarget.Parameters.RemoveById(SelectedParameterInBlock);
-                    this.RemoveBlockDuplicates(blockTarget);
+                    this.RemoveBlockDuplicates(blockTarget, _unitOfWork);
                     _unitOfWork.SaveChanges();
                     SelectedBlockTarget.Parameters.Remove(SelectedParameterInBlock);
                     container.Resolve<IMessageService>().Message("", "done");
@@ -140,7 +140,7 @@ namespace HVTApp.UI.Modules.Products.Parameters
                     var blockTarget = _unitOfWork.Repository<ProductBlock>().GetById(SelectedBlockTarget.Id);
                     var parameter = _unitOfWork.Repository<Parameter>().GetById(parametersViewModel.SelectedParameterLookup.Id);
                     blockTarget.Parameters.Add(parameter);
-                    this.RemoveBlockDuplicates(blockTarget);
+                    this.RemoveBlockDuplicates(blockTarget, _unitOfWork);
                     _unitOfWork.SaveChanges();
                     container.Resolve<IMessageService>().Message("", "done");
                 });
@@ -149,8 +149,11 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 container.Resolve<IMessageService>(),
                 () =>
                 {
-                    ReplaceBlock(SelectedBlockTarget, SelectedBlockReplace, true);
-                    _unitOfWork.SaveChanges();
+                    using (var unitOfWork = container.Resolve<IUnitOfWork>())
+                    {
+                        ReplaceBlock(SelectedBlockTarget, SelectedBlockReplace, true, unitOfWork, true);
+                        unitOfWork.SaveChanges();
+                    }
 
                     this.BlocksReplace.Remove(SelectedBlockReplace);
                     SelectedBlockReplace = null;
@@ -163,50 +166,61 @@ namespace HVTApp.UI.Modules.Products.Parameters
                 "Вы уверены, что хотите удалить параметр из базы данных?",
                 () =>
                 {
-                    var parameter = _unitOfWork.Repository<Parameter>().GetById(this.SelectedParameterTarget.Id);
-
-                    var relations = _unitOfWork
-                        .Repository<ProductRelation>()
-                        .Find(relation => 
-                            relation.ParentProductParameters.Contains(parameter) || 
-                            relation.ChildProductParameters.Contains(parameter));
-                    if (relations.Any())
+                    using (var unitOfWork = container.Resolve<IUnitOfWork>())
                     {
-                        container.Resolve<IMessageService>().Message("Info", $"Удалите сначала связи между блоками: {relations.ToStringEnum()}");
-                        return;
-                    }
+                        var parameter = unitOfWork.Repository<Parameter>().GetById(this.SelectedParameterTarget.Id);
 
-
-                    var allBlocks = _unitOfWork.Repository<ProductBlock>().GetAll();
-                    var blocks = allBlocks.Where(block => block.Parameters.Contains(parameter)).ToList();
-                    blocks.ForEach(block => block.Parameters.Remove(parameter));
-
-                    var gps = allBlocks.GroupBy(block => new
+                        var relations = unitOfWork.Repository<ProductRelation>()
+                            .Find(relation => 
+                                relation.ParentProductParameters.Contains(parameter) || 
+                                relation.ChildProductParameters.Contains(parameter));
+                        if (relations.Any())
                         {
-                            ddd = block.Parameters
-                                .Select(p => p.Id.ToString())
-                                .OrderBy(s => s)
-                                .ToStringEnum()
-                        })
-                        .Where(x => x.Count() > 1)
-                        .ToList();
-
-                    foreach (var gp in gps)
-                    {
-                        var targetBlock = selectService.SelectItem(gp);
-                        if (targetBlock == null) return;
-
-                        foreach (var replaceBlock in gp)
-                        {
-                            if (targetBlock.Id == replaceBlock.Id) continue;
-                            this.ReplaceBlock(targetBlock, replaceBlock, true);
-                            _unitOfWork.Repository<ProductBlock>().Delete(replaceBlock);
+                            container.Resolve<IMessageService>().Message("Info", $"Удалите сначала связи между блоками: {relations.ToStringEnum()}");
+                            return;
                         }
+
+
+                        var allBlocks = unitOfWork.Repository<ProductBlock>().GetAll();
+                        var blocks = allBlocks.Where(block => block.Parameters.Contains(parameter)).ToList();
+                        blocks.ForEach(block => block.Parameters.Remove(parameter));
+
+                        var gps = allBlocks.GroupBy(block => new
+                            {
+                                parToStr = block.Parameters
+                                    .Select(p => p.Id.ToString())
+                                    .OrderBy(s => s)
+                                    .ToStringEnum()
+                            })
+                            .Where(x => x.Count() > 1)
+                            .ToList();
+
+                        var productBlocksToRemove = new List<ProductBlock>();
+
+                        foreach (var gp in gps)
+                        {
+                            var targetBlock = selectService.SelectItem(gp);
+                            if (targetBlock == null) return;
+
+                            foreach (var replaceBlock in gp)
+                            {
+                                if (targetBlock.Id == replaceBlock.Id) continue;
+                                this.ReplaceBlock(targetBlock, replaceBlock, false, unitOfWork, false);
+                                productBlocksToRemove.Add(replaceBlock);
+                            }
+                        }
+
+
+                        this.RemoveProductDuplicates(unitOfWork);
+
+                        unitOfWork.Repository<ProductBlock>().DeleteRange(productBlocksToRemove);
+                        unitOfWork.SaveChanges();
+
+                        if (parameter.ParameterRelations.Any())
+                            unitOfWork.Repository<ParameterRelation>().DeleteRange(parameter.ParameterRelations);
+                        unitOfWork.Repository<Parameter>().Delete(parameter);
+                        unitOfWork.SaveChanges();
                     }
-
-                    _unitOfWork.Repository<Parameter>().Delete(parameter);
-                    _unitOfWork.SaveChanges();
-
                     SelectedParameterTarget = null;
 
                     container.Resolve<IMessageService>().Message("info", "RemoveParameterTotalCommand done");
@@ -214,10 +228,10 @@ namespace HVTApp.UI.Modules.Products.Parameters
         }
 
         //замена одного блока другим
-        private void ReplaceBlock(ProductBlock blockTarget, ProductBlock blockReplace, bool removeProductDuplicates)
+        private void ReplaceBlock(ProductBlock blockTarget, ProductBlock blockReplace, bool removeProductDuplicates, IUnitOfWork unitOfWork, bool removeProductBlock)
         {
-            blockTarget = _unitOfWork.Repository<ProductBlock>().GetById(blockTarget.Id);
-            blockReplace = _unitOfWork.Repository<ProductBlock>().GetById(blockReplace.Id);
+            blockTarget = unitOfWork.Repository<ProductBlock>().GetById(blockTarget.Id);
+            blockReplace = unitOfWork.Repository<ProductBlock>().GetById(blockReplace.Id);
 
             //сохранение переменных затрат
             if (string.IsNullOrWhiteSpace(blockTarget.StructureCostNumber) == false &&
@@ -231,37 +245,38 @@ namespace HVTApp.UI.Modules.Products.Parameters
             }
 
             //в scc
-            _unitOfWork.Repository<StructureCost>()
+            unitOfWork.Repository<StructureCost>()
                 .Find(task => task.OriginalStructureCostProductBlock?.Id == blockReplace.Id)
                 .ForEach(task => task.OriginalStructureCostProductBlock = blockTarget);
 
             //в задачах ТСП
-            _unitOfWork.Repository<PriceEngineeringTask>()
+            unitOfWork.Repository<PriceEngineeringTask>()
                 .Find(task => task.ProductBlockManager.Id == blockReplace.Id)
                 .ForEach(task => task.ProductBlockManager = blockTarget);
-            _unitOfWork.Repository<PriceEngineeringTask>()
+            unitOfWork.Repository<PriceEngineeringTask>()
                 .Find(task => task.ProductBlockEngineer.Id == blockReplace.Id)
                 .ForEach(task => task.ProductBlockEngineer = blockTarget);
-            _unitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>()
+            unitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>()
                 .Find(blockAdded => blockAdded.ProductBlock.Id == blockReplace.Id)
                 .ForEach(blockAdded => blockAdded.ProductBlock = blockTarget);
 
             //в продуктах
-            var productsAll = _unitOfWork.Repository<Product>().GetAll();
+            var productsAll = unitOfWork.Repository<Product>().GetAll();
             var products = productsAll.Where(product => product.ProductBlock.Id == blockReplace.Id).ToList();
             products.ForEach(product => product.ProductBlock = blockTarget);
 
             if (removeProductDuplicates)
-                RemoveProductDuplicates();
+                RemoveProductDuplicates(unitOfWork);
 
-            _unitOfWork.Repository<ProductBlock>().Delete(blockReplace);
+            if (removeProductBlock)
+                unitOfWork.Repository<ProductBlock>().Delete(blockReplace);
         }
 
         //удаление блоков-дубликатов
-        private void RemoveBlockDuplicates(ProductBlock blockTarget)
+        private void RemoveBlockDuplicates(ProductBlock blockTarget, IUnitOfWork unitOfWork)
         {
             var target = blockTarget;
-            var blocks = _unitOfWork.Repository<ProductBlock>()
+            var blocks = unitOfWork.Repository<ProductBlock>()
                 .Find(block => block.Parameters.MembersAreSame(target.Parameters));
 
             if (string.IsNullOrEmpty(blockTarget.StructureCostNumber) &&
@@ -274,59 +289,56 @@ namespace HVTApp.UI.Modules.Products.Parameters
             foreach (var blockReplace in blocks)
             {
                 if (blockTarget.Id == blockReplace.Id) continue;
-                ReplaceBlock(blockTarget, blockReplace, false);
+                ReplaceBlock(blockTarget, blockReplace, false, unitOfWork, true);
                 removeProductDuplicates = true;
             }
 
             if (removeProductDuplicates)
-                RemoveProductDuplicates();
+                RemoveProductDuplicates(unitOfWork);
         }
-
-        List<SalesUnit> _salesUnits = null;
-        List<OfferUnit> _offerUnits = null;
 
         /// <summary>
         /// Удаление дубликатов продуктов
         /// </summary>
-        private void RemoveProductDuplicates()
+        private void RemoveProductDuplicates(IUnitOfWork unitOfWork)
         {
-            var products = _unitOfWork.Repository<Product>().GetAll();
+            var products = unitOfWork.Repository<Product>().GetAll();
             var productsToRemove = new List<Product>();
+
+            var salesUnits = unitOfWork.Repository<SalesUnit>().GetAll().GroupBy(x => x.Product).ToDictionary(x => x.Key, x => x.ToList());
+            var offerUnits = unitOfWork.Repository<OfferUnit>().GetAll().GroupBy(x => x.Product).ToDictionary(x => x.Key, x => x.ToList());
+            var productsDependent = unitOfWork.Repository<ProductDependent>().GetAll().GroupBy(x => x.Product).ToDictionary(x => x.Key, x => x.ToList());
+            var productsIncluded = unitOfWork.Repository<ProductIncluded>().GetAll().GroupBy(x => x.Product).ToDictionary(x => x.Key, x => x.ToList());
 
             while (products.Any())
             {
-                var productFirst = products.First();
+                var productTarget = products.First();
                 products = products.Skip(1).ToList();
-                foreach (var product in products)
+                var productsSameDesignation = products
+                    .Where(x => x.ProductBlock.DesignationSpecial == productTarget.ProductBlock.DesignationSpecial)
+                    .ToList();
+                foreach (var product in productsSameDesignation)
                 {
-                    if (productFirst.Equals(product))
-                    {
-                        _unitOfWork.Repository<ProductDependent>()
-                            .Find(productDependent => productDependent.Product.Id == product.Id)
-                            .ForEach(productDependent => productDependent.Product = productFirst);
+                    if (productTarget.Equals(product) == false) 
+                        continue;
+                    if (productsToRemove.Contains(product))
+                        continue;
 
-                        _unitOfWork.Repository<ProductIncluded>()
-                            .Find(productIncluded => productIncluded.Product.Id == product.Id)
-                            .ForEach(productIncluded => productIncluded.Product = productFirst);
+                    if (salesUnits.ContainsKey(product))
+                        salesUnits[product].ForEach(salesUnit => salesUnit.Product = productTarget);
+                    if (offerUnits.ContainsKey(product))
+                        offerUnits[product].ForEach(offerUnit => offerUnit.Product = productTarget);
+                    if (productsDependent.ContainsKey(product))
+                        productsDependent[product].ForEach(productDependent => productDependent.Product = productTarget);
+                    if (productsIncluded.ContainsKey(product))
+                        productsIncluded[product].ForEach(productIncluded => productIncluded.Product = productTarget);
 
-                        if (_salesUnits == null)
-                            _salesUnits = _unitOfWork.Repository<SalesUnit>().GetAll();
-                        _salesUnits
-                            .Where(salesUnit => salesUnit.Product.Id == product.Id)
-                            .ForEach(salesUnit => salesUnit.Product = productFirst);
-
-                        if (_offerUnits == null)
-                            _offerUnits = _unitOfWork.Repository<OfferUnit>().GetAll();
-                        _offerUnits
-                            .Where(offerUnit => offerUnit.Product.Id == product.Id)
-                            .ForEach(offerUnit => offerUnit.Product = productFirst);
-
-                        productsToRemove.Add(product);
-                    }
+                    productsToRemove.Add(product);
+                    products.Remove(product);
                 }
             }
-
-            _unitOfWork.Repository<Product>().DeleteRange(productsToRemove);
+        
+            unitOfWork.Repository<Product>().DeleteRange(productsToRemove);
         }
     }
 }
