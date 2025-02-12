@@ -214,8 +214,6 @@ namespace HVTApp.UI.Modules.Products.Parameters
                         this.RemoveProductDuplicates(unitOfWork);
 
                         unitOfWork.Repository<ProductBlock>().DeleteRange(productBlocksToRemove);
-                        unitOfWork.SaveChanges();
-
                         if (parameter.ParameterRelations.Any())
                             unitOfWork.Repository<ParameterRelation>().DeleteRange(parameter.ParameterRelations);
                         unitOfWork.Repository<Parameter>().Delete(parameter);
@@ -248,6 +246,10 @@ namespace HVTApp.UI.Modules.Products.Parameters
             unitOfWork.Repository<StructureCost>()
                 .Find(task => task.OriginalStructureCostProductBlock?.Id == blockReplace.Id)
                 .ForEach(task => task.OriginalStructureCostProductBlock = blockTarget);
+
+            unitOfWork.Repository<UpdateStructureCostNumberTask>()
+                .Find(x => x.ProductBlock.Id == blockReplace.Id)
+                .ForEach(task => task.ProductBlock = blockTarget);
 
             //в задачах ТСП
             unitOfWork.Repository<PriceEngineeringTask>()
