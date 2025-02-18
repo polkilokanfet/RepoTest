@@ -12,6 +12,11 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
 
         public Facility Facility { get; }
         public Product Product { get; }
+
+        public string Designation => Product.Category.IsStub
+            ? Product.Designation
+            : Product.Category.NameShort;
+
         public int Amount { get; }
         public double Cost { get; }
         public double Total { get; }

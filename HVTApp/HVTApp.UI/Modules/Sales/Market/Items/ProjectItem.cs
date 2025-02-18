@@ -134,7 +134,11 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         /// </summary>
         public event Action<ProjectItem> LastSalesUnitRemoveEvent;
 
-        public string ProductsInProject => SalesUnits.Select(salesUnit => salesUnit.Product.Designation).Distinct().OrderBy(x => x).ToStringEnum();
+        public string ProductsInProject => this.ProjectUnitsGroups?
+            .Select(x => x.Designation.Replace("-ÓÝÒÌ-", "-"))
+            .Distinct()
+            .OrderBy(x => x)
+            .ToStringEnum();
 
         public IEnumerable<Company> FacilitiesOwners
         {

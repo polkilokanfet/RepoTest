@@ -110,7 +110,7 @@ namespace HVTApp.Services.ProductDesignationService
 
         #region Category
 
-        private readonly ProductCategory _emptyCategory = new ProductCategory() { NameFull = "Категория не найдена", NameShort = "no" };
+        private readonly ProductCategory _emptyCategory = new ProductCategory { IsStub = true, NameFull = "Категория не найдена", NameShort = "no" };
         readonly Dictionary<Guid, ProductCategory> _dictionaryBlockCategories = new Dictionary<Guid, ProductCategory>();
 
         public ProductCategory GetProductCategory(Product product)
@@ -118,8 +118,7 @@ namespace HVTApp.Services.ProductDesignationService
             if (_dictionaryBlockCategories.ContainsKey(product.ProductBlock.Id))
                 return _dictionaryBlockCategories[product.ProductBlock.Id];
 
-            var productParametersIds = product.ProductBlock.Parameters.Select(x => x.Id);
-            var result = _productCategories.FirstOrDefault(x => x.Parameters.Select(p => p.Id).AllContainsIn(productParametersIds)) ?? _emptyCategory;
+            var result = _productCategories.FirstOrDefault(category => category.Parameters.AllContainsInById(product.ProductBlock.Parameters)) ?? _emptyCategory;
 
             _dictionaryBlockCategories.Add(product.ProductBlock.Id, result);
 

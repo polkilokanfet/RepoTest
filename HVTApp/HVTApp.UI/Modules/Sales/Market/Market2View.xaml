@@ -152,7 +152,7 @@
                                 <dp:FieldLayout.Fields>
                                     <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="200"/>
                                     <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}" Label="Тип оборудования" Width="200"/>
-                                    <dp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="200"/>
+                                    <dp:TextField AlternateBinding="{Binding Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="200"/>
                                     <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False" />
                                     <dp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Цена" Width="Auto" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
