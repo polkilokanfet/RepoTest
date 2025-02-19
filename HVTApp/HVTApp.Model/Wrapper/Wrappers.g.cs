@@ -58,7 +58,7 @@ namespace HVTApp.Model.Wrapper
         public bool SenderUserIdIsChanged => GetIsChanged(nameof(SenderUserId));
 
         /// <summary>
-        /// SenderRole
+        /// Роль отправителя
         /// </summary>
         public HVTApp.Infrastructure.Role SenderRole
         {
@@ -80,7 +80,7 @@ namespace HVTApp.Model.Wrapper
         public bool RecipientUserIdIsChanged => GetIsChanged(nameof(RecipientUserId));
 
         /// <summary>
-        /// RecipientRole
+        /// Роль получателя
         /// </summary>
         public HVTApp.Infrastructure.Role RecipientRole
         {
@@ -117,7 +117,7 @@ namespace HVTApp.Model.Wrapper
         #region ComplexProperties
 
         /// <summary>
-        /// Пользователь
+        /// Отправитель
         /// </summary>
 	    public UserWrapper SenderUser 
         {
@@ -126,7 +126,7 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
-        /// Пользователь
+        /// Получатель
         /// </summary>
 	    public UserWrapper RecipientUser 
         {
@@ -7843,6 +7843,17 @@ namespace HVTApp.Model.Wrapper
 	    public SalesUnitWrapper(SalesUnit model) : base(model) { }
 
         #region SimpleProperties
+
+        /// <summary>
+        /// FacilityId
+        /// </summary>
+        public System.Guid FacilityId
+        {
+          get { return Model.FacilityId; }
+          set { SetValue(value); }
+        }
+        public System.Guid FacilityIdOriginalValue => GetOriginalValue<System.Guid>(nameof(FacilityId));
+        public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
 
         /// <summary>
         /// Стоимость

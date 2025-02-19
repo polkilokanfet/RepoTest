@@ -101,7 +101,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         protected override IEnumerable<SalesUnit> GetUnits(Project project, object parameter = null)
         {
-            List<SalesUnit> result = new List<SalesUnit>();
+            var result = new List<SalesUnit>();
 
             if (!_isNew)
             {

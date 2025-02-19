@@ -5,6 +5,11 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:editors="http://infragistics.com/Editors"
              x:Class="HVTApp.UI.Modules.Sales.Tabs.TabCrudUnitsInProject"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance project1:ProjectViewModel, IsDesignTimeCreatable=True}"
+             xmlns:project1="clr-namespace:HVTApp.UI.Modules.Sales.Project1"
              Header="Редактирование оборудования"
              xmlns:converters="clr-namespace:HVTApp.UI.Modules.Sales.Project1.Converters">
 
@@ -33,7 +38,7 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Label Content="До: " />
-                <editors:XamNumericEditor Value="{Binding RoundUpAccuracy}" MinWidth="80"/>
+                <editors:XamNumericEditor Value="{Binding RoundUpModule.RoundUpAccuracy}" MinWidth="80"/>
             </StackPanel>
             <infRib:ButtonTool Caption="Округлить" Command="{Binding RoundUpCommand}"/>
         </StackPanel>

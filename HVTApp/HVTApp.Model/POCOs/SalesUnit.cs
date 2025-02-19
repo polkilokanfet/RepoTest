@@ -17,8 +17,14 @@ namespace HVTApp.Model.POCOs
         [Designation("Объект"), OrderStatus(1000), Required]
         public virtual Facility Facility { get; set; }
 
+        [NotForDetailsView, NotForListView]
+        public virtual Guid FacilityId { get; set; }
+
         [Designation("Продукт"), Required, OrderStatus(995)]
         public virtual Product Product { get; set; }
+
+        [NotForDetailsView, NotForListView]
+        public virtual Guid ProductId { get; set; }
 
         [Designation("Стоимость"), Required, OrderStatus(990)]
         public double Cost { get; set; }
@@ -34,6 +40,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Условия оплаты"), Required]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+
+        [NotForDetailsView, NotForListView]
+        public virtual Guid PaymentConditionSetId { get; set; }
 
         [Designation("Срок производства"), Required]
         public int ProductionTerm { get; set; } = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
@@ -55,6 +64,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Производитель")]
         public virtual Company Producer { get; set; }
+        
+        [NotForDetailsView, NotForListView]
+        public virtual Guid ProducerId { get; set; }
+
 
         [Designation("Причины проигрыша")]
         public virtual List<LosingReason> LosingReasons { get; set; } = new List<LosingReason>();

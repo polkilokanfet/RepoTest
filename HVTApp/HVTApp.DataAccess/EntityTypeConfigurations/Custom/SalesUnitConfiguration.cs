@@ -4,15 +4,15 @@ namespace HVTApp.DataAccess
     {
         public SalesUnitConfiguration()
         {
-            HasRequired(x => x.Facility).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.Facility).WithMany().HasForeignKey(x => x.FacilityId).WillCascadeOnDelete(false);
+            HasRequired(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).WillCascadeOnDelete(false);
+            HasRequired(x => x.PaymentConditionSet).WithMany().HasForeignKey(x => x.ProducerId).WillCascadeOnDelete(false);
 
             HasMany(x => x.ProductsIncluded).WithMany();
             Property(x => x.ProductionTerm).IsOptional();
             Property(x => x.Cost).IsRequired();
 
-            HasOptional(x => x.Producer).WithMany();
+            HasOptional(x => x.Producer).WithMany().HasForeignKey(x => x.ProducerId).WillCascadeOnDelete(false);
 
             HasMany(x => x.LosingReasons).WithMany();
 

@@ -37,9 +37,9 @@ namespace HVTApp.UI.Modules.Sales.Project1
                 if (navigationContext.Parameters.Count() == 1)
                 {
                     //загрузка проекта
-                    if (navigationContext.Parameters.First().Value is Model.POCOs.Project)
+                    if (navigationContext.Parameters.First().Value is Project)
                     {
-                        var project = (Model.POCOs.Project)navigationContext.Parameters.First().Value;
+                        var project = (Project)navigationContext.Parameters.First().Value;
                         _viewModel.Load(project, false);
                     }
 
@@ -53,7 +53,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
                 else if (navigationContext.Parameters.Count() == 2)
                 {
                     //перенос оборудования в существующий проект
-                    var project = (Model.POCOs.Project)navigationContext.Parameters.First().Value;
+                    var project = (Project)navigationContext.Parameters.First().Value;
                     var units = (List<SalesUnit>)navigationContext.Parameters.Last().Value;
                     _viewModel.LoadForMove(units, project);
                 }
@@ -61,7 +61,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
             //если грузится новый проект
             else
             {
-                _viewModel.Load(new Model.POCOs.Project(), true);
+                _viewModel.Load(new Project(), true);
             }
         }
 

@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public class ProjectDetailsViewModel1 : BaseDetailsViewModel<ProjectWrapper1, Model.POCOs.Project, AfterSaveProjectEvent>
+    public class ProjectDetailsViewModel1 : BaseDetailsViewModel<ProjectWrapper1, Project, AfterSaveProjectEvent>
     {
         public ICommand SelectProjectTypeCommand { get; }
         public ICommand ClearProjectTypeCommand { get; }
@@ -20,7 +20,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
             SelectProjectTypeCommand = new DelegateLogCommand(
                 () =>
                 {
-                    List<ProjectType> projectTypes = UnitOfWork.Repository<ProjectType>().GetAll();
+                    var projectTypes = UnitOfWork.Repository<ProjectType>().GetAll();
 
                     //выбор сущности
                     var selectedProjectType = Container.Resolve<ISelectService>().SelectItem(projectTypes, Item.ProjectType?.Model.Id);

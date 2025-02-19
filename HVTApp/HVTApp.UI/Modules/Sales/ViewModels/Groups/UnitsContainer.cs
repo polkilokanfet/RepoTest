@@ -1,23 +1,18 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Infrastructure.ViewModels;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public abstract class UnitsContainer<TModel, TWrapper, TDetailsViewModel, TGroupsViewModel, TUnit, TAfterSaveModelEvent> : ViewModelBase
-        where TModel : class, IBaseEntity
-        where TWrapper : class, IWrapper<TModel>
-        where TDetailsViewModel : IDetailsViewModel<TWrapper, TModel>
-        where TGroupsViewModel : IGroupsViewModel<TUnit, TWrapper>
-        where TAfterSaveModelEvent : PubSubEvent<TModel>, new()
+    public class RoundUpModule
     {
         private double _roundUpAccuracy = 5000;
 
@@ -26,13 +21,26 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         /// </summary>
         public double RoundUpAccuracy
         {
-            get { return _roundUpAccuracy; }
+            get => _roundUpAccuracy;
             set
             {
                 if (value <= 0) return;
                 _roundUpAccuracy = value;
             }
         }
+
+        public double RoundUp(double origin)
+        {
+            return Math.Ceiling(origin / RoundUpAccuracy) * RoundUpAccuracy;
+        }
+    }
+    public abstract class UnitsContainer<TModel, TWrapper, TDetailsViewModel, TGroupsViewModel, TUnit, TAfterSaveModelEvent> : ViewModelBase
+        where TModel : class, IBaseEntity
+        where TWrapper : class, IWrapper<TModel>
+        where TDetailsViewModel : IDetailsViewModel<TWrapper, TModel>
+        where TGroupsViewModel : IGroupsViewModel<TUnit, TWrapper>
+        where TAfterSaveModelEvent : PubSubEvent<TModel>, new()
+    {
 
         //детали
         public TDetailsViewModel DetailsViewModel { get; }
@@ -41,6 +49,9 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         public TGroupsViewModel GroupsViewModel { get; }
 
         public DelegateLogCommand SaveCommand { get; }
+
+
+        public RoundUpModule RoundUpModule { get; } = new RoundUpModule();
 
         /// <summary>
         /// Округлить цены
@@ -96,7 +107,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             RoundUpCommand = new DelegateLogCommand(
                 () =>
                 {
-                    GroupsViewModel.RoundUpGroupsCosts(RoundUpAccuracy);
+                    GroupsViewModel.RoundUpGroupsCosts(RoundUpModule.RoundUpAccuracy);
                 });
         }
 
