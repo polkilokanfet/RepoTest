@@ -55,6 +55,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Проект"), OrderStatus(1005), Required]
         public virtual Project Project { get; set; }
 
+        [NotForDetailsView, NotForListView]
+        public virtual Guid ProjectId { get; set; }
+
         /// <summary>
         /// Требуемая дата поставки
         /// </summary>

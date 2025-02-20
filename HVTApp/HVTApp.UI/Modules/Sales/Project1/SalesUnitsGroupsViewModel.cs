@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -16,334 +15,139 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using HVTApp.UI.Commands;
-using HVTApp.UI.Modules.Sales.Project1;
+using HVTApp.UI.Modules.Sales.Project1.Commands;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
+using HVTApp.UI.Modules.Sales.ViewModels;
+using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
-namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
+namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public interface IProjectUnit
+    public class AddProjectUnitCommand : ICommand
     {
-        double Cost { get; set; }
-        double? CostDelivery { get; set; }
-        int ProductionTerm { get; set; }
-        string Comment { get; set; }
-        Facility Facility { get; set; }
-        Product Product { get; set; }
-        PaymentConditionSet PaymentConditionSet { get; set; }
-        Company Producer { get; set; }
-    }
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnityContainer _container;
+        private readonly SalesUnitsGroupsViewModel _viewModel;
 
-    public class SalesUnitViewModel : WrapperBase<SalesUnit>, IProjectUnit
-    {
-
-        public double Cost
+        #region CanExecute
+        public bool CanExecute(object parameter)
         {
-            get => Model.Cost;
-            set
-            {
-                if (value < 0) return;
-                SetValue(value);
-            }
-        }
-
-        public double? CostDelivery
-        {
-            get => Model.CostDelivery;
-            set
-            {
-                if (value < 0) return;
-                SetValue(value);
-            }
-        }
-
-        public bool IsRemoved
-        {
-            get => Model.IsRemoved;
-            set => SetValue(value);
-        }
-
-        public int ProductionTerm
-        {
-            get => Model.ProductionTerm;
-            set
-            {
-                if (value < 0) return;
-                SetValue(value);
-            }
-        }
-
-        public string Comment
-        {
-            get => Model.Comment;
-            set => SetValue(value);
-        }
-
-        #region Facility
-
-        private Facility _facility;
-        public Facility Facility
-        {
-            get => _facility;
-            set => SetProperty(ref _facility, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.FacilityId));
-            });
-        }
-
-        #endregion
-
-        #region Product
-
-        private Product _product;
-        public Product Product
-        {
-            get => _product;
-            set => SetProperty(ref _product, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.ProductId));
-            });
-        }
-
-        #endregion
-
-        #region PaymentConditionSet
-
-        private PaymentConditionSet _paymentConditionSet;
-        public PaymentConditionSet PaymentConditionSet
-        {
-            get => _paymentConditionSet;
-            set => SetProperty(ref _paymentConditionSet, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.PaymentConditionSetId));
-            });
-        }
-
-        #endregion
-
-        #region Producer
-
-        private Company _producer;
-        public Company Producer
-        {
-            get => _producer;
-            set => SetProperty(ref _producer, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.ProducerId));
-            });
-        }
-
-        #endregion
-
-        public SalesUnitViewModel(SalesUnit model) : base(model)
-        {
-        }
-
-        public bool HasSameGroup(SalesUnit other)
-        {
-            return (new ProjectUnitComparer()).Equals(this, new SalesUnitViewModel(other));
-        }
-
-        public bool HasSameGroup(SalesUnitViewModel other)
-        {
-            return (new ProjectUnitComparer()).Equals(this, other);
-        }
-
-        public class ProjectUnitComparer : IEqualityComparer<IProjectUnit>
-        {
-            public virtual bool Equals(IProjectUnit x, IProjectUnit y)
-            {
-                if (x == null) throw new ArgumentNullException(nameof(x));
-                if (y == null) throw new ArgumentNullException(nameof(y));
-
-                if (!Equals(x.Cost, y.Cost)) return false;
-                if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
-                if (!Equals(x.Product.Id, y.Product.Id)) return false;
-                if (!Equals(x.Facility.Id, y.Facility.Id)) return false;
-                if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
-                if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
-                if (!Equals(x.Comment, y.Comment)) return false;
-
-                //var productsInclX = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
-                //var productsInclY = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
-
-                //if (productsInclX.Except(productsInclY, new ProductAmountComparer()).Any()) return false;
-                //if (productsInclY.Except(productsInclX, new ProductAmountComparer()).Any()) return false;
-
-                return true;
-            }
-
-            public int GetHashCode(IProjectUnit obj)
-            {
-                return 0;
-            }
-        }
-    }
-
-
-    public class SalesUnitsGroupViewModel : BindableBase, IProjectUnit
-    {
-        public IValidatableChangeTrackingCollection<SalesUnitViewModel> Units { get; }
-
-        public double Cost
-        {
-            get => this.Units.First().Cost;
-            set => this.Units.ForEach(x => x.Cost = value);
-        }
-
-        public double? CostDelivery
-        {
-            get => this.Units.First().CostDelivery;
-            set => this.Units.ForEach(x => x.CostDelivery = value);
-        }
-
-        public int ProductionTerm
-        {
-            get => this.Units.First().ProductionTerm;
-            set => this.Units.ForEach(x => x.ProductionTerm = value);
-        }
-        public string Comment
-        {
-            get => this.Units.First().Comment;
-            set => this.Units.ForEach(x => x.Comment = value);
-        }
-
-        #region Facility
-
-        public Facility Facility
-        {
-            get => Units.First().Facility;
-            set
-            {
-                Units.ForEach(x => x.Facility = value);
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Product
-
-        public Product Product
-        {
-            get => Units.First().Product;
-            set
-            {
-                Units.ForEach(x => x.Product = value);
-                RaisePropertyChanged();
-            }
-        }
-
-        public PaymentConditionSet PaymentConditionSet { get; set; }
-        public Company Producer { get; set; }
-
-        #endregion
-
-        public SalesUnitsGroupViewModel(IEnumerable<SalesUnitViewModel> salesUnits)
-        {
-            Units = new ValidatableChangeTrackingCollection<SalesUnitViewModel>(salesUnits.Select(salesUnit => salesUnit));
-        }
-
-        public bool Add(SalesUnit salesUnit)
-        {
-            if (!this.Units.First().HasSameGroup(salesUnit)) return false;
-            this.Units.Add(new SalesUnitViewModel(salesUnit));
             return true;
         }
-    }
 
-    public class SalesUnitsGroupViewModelContainer : IEnumerable<SalesUnitsGroupViewModel>, INotifyCollectionChanged
-    {
-        ObservableCollection<SalesUnitsGroupViewModel> SalesUnitsGroups {get; }
-        IValidatableChangeTrackingCollection<SalesUnitViewModel> SalesUnits { get; }
+        public event EventHandler CanExecuteChanged;
 
-        public bool IsValid => this.SalesUnits.Any() && SalesUnits.All(x => x.IsValid);
-        public bool IsChanged => SalesUnits.IsChanged;
+        #endregion
 
-        public SalesUnitsGroupViewModelContainer(IEnumerable<SalesUnit> salesUnits)
+        public AddProjectUnitCommand(IUnitOfWork unitOfWork, IUnityContainer container, SalesUnitsGroupsViewModel viewModel)
         {
-            SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitViewModel>(salesUnits.Select(salesUnit => new SalesUnitViewModel(salesUnit)));
-            
-            var g = this.SalesUnits
-                .GroupBy(x => x.Model, new SalesUnitViewModel.ProjectUnitComparer())
-                .Select(x => new SalesUnitsGroupViewModel(x));
-            this.SalesUnitsGroups = new ObservableCollection<SalesUnitsGroupViewModel>(g);
+            _unitOfWork = unitOfWork;
+            _container = container;
+            _viewModel = viewModel;
+        }
 
-            this.SalesUnitsGroups.CollectionChanged += (sender, args) =>
+        public void Execute(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region AddCommand
+
+        protected void AddCommand_Execute()
+        {
+            //создаем новый юнит и привязываем его к объекту
+            var salesUnit = new SalesUnitWrapper(new SalesUnit());
+            if (_projectWrapper != null) salesUnit.Project = new ProjectWrapper(_projectWrapper.Model);
+
+            //создаем модель для диалога
+            var viewModel = new SalesUnitsViewModel(salesUnit, _container, _unitOfWork);
+
+            //заполняем юнит начальными данными
+            FillingSalesUnit(viewModel.ViewModel.Item);
+
+            //диалог с пользователем
+            var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
+            if (!result.HasValue || !result.Value) return;
+
+            //клонируем юниты
+            var units = CloneSalesUnits(viewModel.ViewModel.Item.Model, viewModel.Amount);
+
+            var group = new ProjectUnitsGroup(units.ToList());
+            Groups.Add(group);
+            RefreshPrice(group);
+            Groups.SelectedGroup = group;
+        }
+
+        /// <summary>
+        /// Заполнение юнита по выбранной группе
+        /// </summary>
+        /// <param name="salesUnitWrapper"></param>
+        private void FillingSalesUnit(SalesUnitWrapper salesUnitWrapper)
+        {
+            if (_viewModel.Groups.SelectedUnit == null)
             {
-                this.CollectionChanged?.Invoke(sender, args);
-            };
-        }
+                var paymentConditionSet = _unitOfWork.Repository<PaymentConditionSet>().GetById(GlobalAppProperties.Actual.PaymentConditionSet.Id);
+                salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
+                salesUnitWrapper.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
 
-        public IEnumerator<SalesUnitsGroupViewModel> GetEnumerator()
-        {
-            return this.SalesUnitsGroups.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public void Add(SalesUnit salesUnit)
-        {
-            if (this.SalesUnitsGroups.Any(x => x.Add(salesUnit)))
                 return;
+            }
 
-            this.SalesUnitsGroups.Add(new SalesUnitsGroupViewModel(new []{new SalesUnitViewModel(salesUnit)}));
+            salesUnitWrapper.Cost = _viewModel.Groups.SelectedUnit.Cost;
+            salesUnitWrapper.Facility = new FacilityWrapper(_viewModel.Groups.SelectedUnit.Facility);
+            salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(_viewModel.Groups.SelectedUnit.PaymentConditionSet.Model);
+            salesUnitWrapper.ProductionTerm = _viewModel.Groups.SelectedUnit.ProductionTerm;
+            salesUnitWrapper.Product = new ProductWrapper(_viewModel.Groups.SelectedUnit.Product);
+            salesUnitWrapper.DeliveryDateExpected = _viewModel.Groups.SelectedUnit.DeliveryDateExpected;
+            if (Groups.SelectedGroup.CostDelivery.HasValue)
+            {
+                if (Groups.SelectedGroup.Groups != null &&
+                    Groups.SelectedGroup.Groups.Any() &&
+                    !Groups.SelectedGroup.Groups.First().CostDelivery.HasValue)
+                {
+                    salesUnitWrapper.CostDelivery = null;
+                }
+                else
+                {
+                    salesUnitWrapper.CostDelivery = _viewModel.Groups.SelectedUnit.CostDelivery / _viewModel.Groups.SelectedUnit.Amount;
+                }
+            }
+
+            //создаем зависимое оборудование
+            foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
+            {
+                var pi = new ProductIncluded { Product = prodIncl.Model.Product, Amount = prodIncl.Model.Amount };
+                salesUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
+            }
         }
 
-
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-    }
-
-    
-    public class ChangePaymentsCommand : DelegateCommand<IProjectUnit>
-    {
-        private static IUnitOfWork _unitOfWork;
-        private static ISelectService _selectService;
-
-        public ChangePaymentsCommand(IUnitOfWork unitOfWork, ISelectService selectService) : base(ExecuteMethod)
+        /// <summary>
+        /// Клонирование юнитов по образцу.
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        private IEnumerable<SalesUnit> CloneSalesUnits(SalesUnit salesUnit, int amount)
         {
-            _unitOfWork = unitOfWork;
-            _selectService = selectService;
+            for (int i = 0; i < amount; i++)
+            {
+                var unit = (SalesUnit)salesUnit.Clone();
+                unit.Id = Guid.NewGuid();
+                unit.ProductsIncluded = new List<ProductIncluded>();
+                yield return unit;
+            }
+
         }
 
-        private static void ExecuteMethod(IProjectUnit projectUnit)
-        {
-            var paymentConditionSets = _unitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTracking();
-            var paymentConditionSet = _selectService.SelectItem(paymentConditionSets, projectUnit.PaymentConditionSet.Id);
-            if (paymentConditionSet == null) return;
-            projectUnit.PaymentConditionSet = paymentConditionSet;
-        }
-    }
+        #endregion
 
-    public class ChangeFacilityCommand : DelegateCommand<IProjectUnit>
-    {
-        private static IUnitOfWork _unitOfWork;
-        private static ISelectService _selectService;
-
-        public ChangeFacilityCommand(IUnitOfWork unitOfWork, ISelectService selectService) : base(ExecuteMethod)
-        {
-            _unitOfWork = unitOfWork;
-            _selectService = selectService;
-        }
-
-        private static void ExecuteMethod(IProjectUnit projectUnit)
-        {
-            var facilities = _unitOfWork.Repository<Facility>().GetAllAsNoTracking();
-            var facility = _selectService.SelectItem(facilities, projectUnit.Facility.Id);
-            if (facility == null) return;
-            projectUnit.Facility = facility;
-        }
     }
 
     public class SalesUnitsGroupsViewModel : ViewModelBaseCanExportToExcel
@@ -367,7 +171,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
         #endregion
 
 
-        public SalesUnitsGroupViewModelContainer Groups { get; private set; }
+        public ProjectUnitGroupsContainer Groups { get; private set; }
 
 
         #region BaseGroupsViewModel
@@ -916,7 +720,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         public void Load(IEnumerable<SalesUnit> units, ProjectWrapper1 projectWrapper1, IUnitOfWork unitOfWork, bool isNew)
         {
-            this.Groups1 = new SalesUnitsGroupViewModelContainer(units);
+            this.Groups1 = new ProjectUnitGroupsContainer(units);
 
             Load(units, unitOfWork, isNew);
             _projectWrapper = projectWrapper1;
@@ -928,96 +732,5 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             return @group.RealizationDateCalculated;
         }
 
-        #region AddCommand
-
-        protected void AddCommand_Execute()
-        {
-            //создаем новый юнит и привязываем его к объекту
-            var salesUnit = new SalesUnitWrapper(new SalesUnit());
-            if(_projectWrapper != null) salesUnit.Project = new ProjectWrapper(_projectWrapper.Model);;
-
-            //создаем модель для диалога
-            var viewModel = new SalesUnitsViewModel(salesUnit, Container, UnitOfWork);
-
-            //заполняем юнит начальными данными
-            FillingSalesUnit(viewModel.ViewModel.Item);
-
-            //диалог с пользователем
-            var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-            if (!result.HasValue || !result.Value) return;
-
-            //клонируем юниты
-            var units = CloneSalesUnits(viewModel.ViewModel.Item.Model, viewModel.Amount);
-
-            var group = new ProjectUnitsGroup(units.ToList());
-            Groups.Add(group);
-            RefreshPrice(group);
-            Groups.SelectedGroup = group;
-        }
-
-        /// <summary>
-        /// Заполнение юнита по выбранной группе
-        /// </summary>
-        /// <param name="salesUnitWrapper"></param>
-        private void FillingSalesUnit(SalesUnitWrapper salesUnitWrapper)
-        {
-            if (Groups.SelectedGroup == null)
-            {
-                var paymentConditionSet = UnitOfWork.Repository<PaymentConditionSet>()
-                        .Find(conditionSet => conditionSet.Id == GlobalAppProperties.Actual.PaymentConditionSet.Id)
-                        .First();
-                salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
-                salesUnitWrapper.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
-
-                return;
-            }
-
-            salesUnitWrapper.Cost = Groups.SelectedGroup.Cost;
-            salesUnitWrapper.Facility = new FacilityWrapper(Groups.SelectedGroup.Facility.Model);
-            salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(Groups.SelectedGroup.PaymentConditionSet.Model);
-            salesUnitWrapper.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
-            salesUnitWrapper.Product = new ProductWrapper(Groups.SelectedGroup.Product.Model);
-            salesUnitWrapper.DeliveryDateExpected = Groups.SelectedGroup.DeliveryDateExpected;
-            if (Groups.SelectedGroup.CostDelivery.HasValue)
-            {
-                if (Groups.SelectedGroup.Groups != null &&
-                    Groups.SelectedGroup.Groups.Any() &&
-                    !Groups.SelectedGroup.Groups.First().CostDelivery.HasValue)
-                {
-                    salesUnitWrapper.CostDelivery = null;
-                }
-                else
-                {
-                    salesUnitWrapper.CostDelivery = Groups.SelectedGroup.CostDelivery / Groups.SelectedGroup.Amount;
-                }
-            }
-
-            //создаем зависимое оборудование
-            foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
-            {
-                var pi = new ProductIncluded { Product = prodIncl.Model.Product, Amount = prodIncl.Model.Amount };
-                salesUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-            }
-        }
-
-        /// <summary>
-        /// Клонирование юнитов по образцу.
-        /// </summary>
-        /// <param name="salesUnit"></param>
-        /// <param name="amount"></param>
-        /// <returns></returns>
-        private IEnumerable<SalesUnit> CloneSalesUnits(SalesUnit salesUnit, int amount)
-        {
-            for (int i = 0; i < amount; i++)
-            {
-                var unit = (SalesUnit)salesUnit.Clone();
-                unit.Id = Guid.NewGuid();
-                unit.ProductsIncluded = new List<ProductIncluded>();
-                yield return unit;
-            }
-            
-        }
-
-        #endregion
     }
 }

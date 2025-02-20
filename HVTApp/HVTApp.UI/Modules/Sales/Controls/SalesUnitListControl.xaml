@@ -5,9 +5,9 @@
              xmlns:dp="http://infragistics.com/DataPresenter"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:groups="clr-namespace:HVTApp.UI.Modules.Sales.ViewModels.Groups"
+             xmlns:project1="clr-namespace:HVTApp.UI.Modules.Sales.Project1"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance groups:SalesUnitsGroupsViewModel, IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance project1:SalesUnitsGroupsViewModel, IsDesignTimeCreatable=True}"
              x:Name="Root">
 
     <UserControl.Resources>

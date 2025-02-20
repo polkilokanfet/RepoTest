@@ -5,6 +5,7 @@ namespace HVTApp.DataAccess
         public ProjectConfiguration()
         {
             HasRequired(project => project.Manager).WithMany().WillCascadeOnDelete(false);
+            HasMany(project => project.SalesUnits).WithRequired(salesUnit => salesUnit.Project).HasForeignKey(salesUnit => salesUnit.ProjectId).WillCascadeOnDelete(true);
             HasMany(project => project.Notes).WithOptional().WillCascadeOnDelete(true);
             HasOptional(project => project.ProjectType).WithMany();
         }

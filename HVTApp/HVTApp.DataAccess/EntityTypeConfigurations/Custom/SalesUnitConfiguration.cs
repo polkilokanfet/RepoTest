@@ -4,6 +4,7 @@ namespace HVTApp.DataAccess
     {
         public SalesUnitConfiguration()
         {
+            HasRequired(x => x.Project).WithMany(project => project.SalesUnits).HasForeignKey(x => x.ProjectId).WillCascadeOnDelete(false);
             HasRequired(x => x.Facility).WithMany().HasForeignKey(x => x.FacilityId).WillCascadeOnDelete(false);
             HasRequired(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).WillCascadeOnDelete(false);
             HasRequired(x => x.PaymentConditionSet).WithMany().HasForeignKey(x => x.ProducerId).WillCascadeOnDelete(false);

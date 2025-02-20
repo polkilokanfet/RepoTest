@@ -5,12 +5,13 @@ using HVTApp.Model.Services;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public class SalesUnitsViewModel : BindableBase, IDialogRequestClose
+    public class SalesUnitsViewModel : ProjectUnit, IDialogRequestClose
     {
         private int _amount = 1;
         public int Amount
@@ -18,11 +19,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             get => _amount;
             set
             {
-                if (Equals(_amount, value)) return;
-                if (value <= 0) return;
-                _amount = value;
-                OkCommand.RaiseCanExecuteChanged();
-                RaisePropertyChanged();
+                if (value < 1) return;
+                SetProperty(ref _amount, value);
             }
         }
 
@@ -30,7 +28,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         public DelegateLogCommand OkCommand { get; }
 
-        public SalesUnitsViewModel(SalesUnitWrapper item, IUnityContainer container, IUnitOfWork unitOfWork)
+        public SalesUnitsViewModel(SalesUnitWrapper item, IUnityContainer container, IUnitOfWork unitOfWork) : base()
         {
             ViewModel = container.Resolve<SalesUnitDetailsViewModel>();
             ViewModel.Load(item, unitOfWork);
@@ -38,7 +36,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
             OkCommand = new DelegateLogCommand(
                 () => { CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)); }, 
                 () => ViewModel.Item.IsValid);
-            ViewModel.Item.PropertyChanged += (sender, args) => (OkCommand).RaiseCanExecuteChanged();
+            ViewModel.Item.PropertyChanged += (sender, args) => OkCommand.RaiseCanExecuteChanged();
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;

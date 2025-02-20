@@ -27,6 +27,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Заметки"), OrderStatus(-10)]
         public virtual List<Note> Notes { get; set; } = new List<Note>();
 
+        [NotForWrapper, NotForListView, NotForDetailsView]
+        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+
         public override string ToString()
         {
             return $"{Name}";

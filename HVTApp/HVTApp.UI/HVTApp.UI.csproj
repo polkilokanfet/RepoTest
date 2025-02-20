@@ -400,6 +400,12 @@
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilterByProject.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\PriceEngineeringTasksContainer.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\IProjectUnit.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\ChangeFacilityCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\ChangePaymentsCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnit.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitGroup.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitGroupsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\AcceptConverter.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\UpdateStructureCostNumberTaskForConstructorViewModel.cs" />
@@ -1162,7 +1168,7 @@
     <Compile Include="Modules\Sales\ViewModels\Groups\IGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\OfferUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\OfferUnitsViewModel.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsGroupsViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\UnitsContainer.cs" />
     <Compile Include="Modules\Sales\Market\Market2ViewModel_Notes.cs" />
