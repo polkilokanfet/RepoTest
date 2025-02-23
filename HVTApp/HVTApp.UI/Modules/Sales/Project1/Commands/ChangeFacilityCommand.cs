@@ -1,28 +1,38 @@
+using System;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
-    public class ChangeFacilityCommand : DelegateCommand<IProjectUnit>
+    public class ChangeFacilityCommand : ICommand
     {
+        private readonly IProjectUnit _projectUnit;
         private static IUnitOfWork _unitOfWork;
         private static ISelectService _selectService;
 
-        public ChangeFacilityCommand(IUnitOfWork unitOfWork, ISelectService selectService) : base(ExecuteMethod)
+        public ChangeFacilityCommand(IProjectUnit projectUnit, IUnitOfWork unitOfWork, ISelectService selectService)
         {
+            _projectUnit = projectUnit;
             _unitOfWork = unitOfWork;
             _selectService = selectService;
         }
 
-        private static void ExecuteMethod(IProjectUnit projectUnit)
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
         {
             var facilities = _unitOfWork.Repository<Facility>().GetAllAsNoTracking();
-            var facility = _selectService.SelectItem(facilities, projectUnit.Facility.Id);
+            var facility = _selectService.SelectItem(facilities, _projectUnit.FacilityId);
             if (facility == null) return;
-            projectUnit.Facility = facility;
+            _projectUnit.SetFacility(facility);
         }
+
+        public event EventHandler CanExecuteChanged;
     }
 }

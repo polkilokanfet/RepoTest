@@ -7,6 +7,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
     public class ProjectUnit : WrapperBase<SalesUnit>, IProjectUnit
     {
+        #region SimpleProperties
+
         public double Cost
         {
             get => Model.Cost;
@@ -55,42 +57,39 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set => SetValue(value);
         }
 
+        #endregion
+
         #region Facility
 
-        private Facility _facility;
-        public Facility Facility
+        public string Facility { get; private set; }
+        public bool FacilityIsChanged => GetIsChanged(nameof(ProductId));
+
+        public Guid FacilityId => Model.FacilityId;
+
+        public void SetFacility(Facility facility)
         {
-            get => _facility;
-            set => SetProperty(ref _facility, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.FacilityId));
-            });
+            if (SetValue(facility.Id, nameof(SalesUnit.ProductId)) == false) return;
+            Facility = facility.ToString();
+            RaisePropertyChanged(nameof(Product));
+            RaisePropertyChanged(nameof(ProductIsChanged));
         }
 
         #endregion
 
         #region Product
 
-        private Product _product;
-        public Product Product
-        {
-            get => _product;
-            set => SetProperty(ref _product, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.ProductId));
-            });
-        }
+        public string Product { get; private set; }
+        public bool ProductIsChanged => GetIsChanged(nameof(ProductId));
 
-        private Project _project;
-        public Project Project
-        {
-            get => _project;
-            set => SetProperty(ref _project, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.ProjectId));
-            });
-        }
+        public Guid ProductId => Model.ProductId;
 
+        public void SetProduct(Product product)
+        {
+            if (SetValue(product.Id, nameof(SalesUnit.ProductId)) == false) return;
+            Product = product.ToString();
+            RaisePropertyChanged(nameof(Product));
+            RaisePropertyChanged(nameof(ProductIsChanged));
+        }
 
         #endregion
 
@@ -111,6 +110,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         #region Producer
 
         private Company _producer;
+
         public Company Producer
         {
             get => _producer;
@@ -124,6 +124,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public ProjectUnit(SalesUnit model) : base(model)
         {
+            Facility = model.Facility.ToString();
+            Product = model.Product.ToString();
+            _producer = model.Producer;
+            _paymentConditionSet = model.PaymentConditionSet;
         }
 
         public bool HasSameGroup(SalesUnit other)
@@ -145,7 +149,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
                 if (!Equals(x.Cost, y.Cost)) return false;
                 if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
-                if (!Equals(x.Product.Id, y.Product.Id)) return false;
+                if (!Equals(x.ProductId, y.ProductId)) return false;
                 if (!Equals(x.Facility.Id, y.Facility.Id)) return false;
                 if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
                 if (!Equals(x.CostDelivery, y.CostDelivery)) return false;

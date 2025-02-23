@@ -1,19 +1,26 @@
 using System;
+using System.ComponentModel;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
-    public interface IProjectUnit
+    public interface IProjectUnit : INotifyPropertyChanged, IIsValid
     {
         double Cost { get; set; }
         double? CostDelivery { get; set; }
         int ProductionTerm { get; set; }
         DateTime DeliveryDateExpected { get; set; }
         string Comment { get; set; }
-        Facility Facility { get; set; }
-        Product Product { get; set; }
-        Project Project { get; set; }
+        Guid FacilityId { get; }
+        void SetFacility(Facility product);
+        Guid ProductId { get; }
+        void SetProduct(Product product);
         PaymentConditionSet PaymentConditionSet { get; set; }
         Company Producer { get; set; }
+    }
+
+    public interface IProjectUnitViewModel
+    {
     }
 }

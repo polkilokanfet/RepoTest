@@ -153,20 +153,22 @@ namespace HVTApp.Model.Wrapper.Base
         /// <typeparam name="TValue">Тип свойства.</typeparam>
         /// <param name="newValue">Новое значение свойства.</param>
         /// <param name="propertyName">Имя свойства.</param>
-        protected void SetValue<TValue>(TValue newValue, [CallerMemberName] string propertyName = null)
+        /// <returns>Установлено ли новое значение (нет - оно было таким и до запуска функции)</returns>
+        protected bool SetValue<TValue>(TValue newValue, [CallerMemberName] string propertyName = null)
         {
             PropertyInfo propertyInfo = Model.GetType().GetProperty(propertyName);
             object currentValue = propertyInfo.GetValue(Model); //текущее значение свойства
-            if (!Equals(newValue, currentValue))
-            {
-                UpdateOriginalValue(propertyName, currentValue, newValue); //обновляем список оригинальных значений.
-                propertyInfo.SetValue(Model, newValue); //устанавливаем в свойство модели новое значение.
+            if (Equals(newValue, currentValue)) 
+                return false;
 
-                Validate();
-                RaisePropertyChanged(propertyName);
-                RaisePropertyChanged(propertyName + "IsChanged");
-                RaisePropertyChanged(nameof(IsChanged));
-            }
+            UpdateOriginalValue(propertyName, currentValue, newValue); //обновляем список оригинальных значений.
+            propertyInfo.SetValue(Model, newValue); //устанавливаем в свойство модели новое значение.
+
+            Validate();
+            RaisePropertyChanged(propertyName);
+            RaisePropertyChanged(propertyName + "IsChanged");
+            RaisePropertyChanged(nameof(IsChanged));
+            return true;
         }
 
         private void AcceptWrappers()

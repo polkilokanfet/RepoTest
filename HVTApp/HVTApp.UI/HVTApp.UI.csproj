@@ -394,6 +394,7 @@
     <Compile Include="Modules\Sales\Market\ISelectedProjectItemChanged.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\IncludeServiceInSpecificationCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitEditViewModel.cs" />
     <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInSpecification.xaml.cs">
       <DependentUpon>TabCrudUnitsInSpecification.xaml</DependentUpon>
     </Compile>

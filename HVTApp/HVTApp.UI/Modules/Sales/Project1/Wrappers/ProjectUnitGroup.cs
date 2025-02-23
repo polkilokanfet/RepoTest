@@ -12,6 +12,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
     {
         public IValidatableChangeTrackingCollection<ProjectUnit> Units { get; }
 
+        #region SimpleProperties
+
         public double Cost
         {
             get => this.Units.First().Cost;
@@ -41,6 +43,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             get => this.Units.First().Comment;
             set => this.Units.ForEach(x => x.Comment = value);
         }
+
+        #endregion
 
         #region Facility
 
@@ -77,7 +81,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public ProjectUnitGroup(IEnumerable<ProjectUnit> salesUnits)
         {
-            Units = new ValidatableChangeTrackingCollection<ProjectUnit>(salesUnits.Select(salesUnit => salesUnit));
+            Units = new ValidatableChangeTrackingCollection<ProjectUnit>(salesUnits);
         }
 
         public bool Add(ProjectUnit projectUnit)

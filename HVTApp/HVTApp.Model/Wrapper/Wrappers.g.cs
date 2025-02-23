@@ -7856,6 +7856,17 @@ namespace HVTApp.Model.Wrapper
         public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
 
         /// <summary>
+        /// ProductId
+        /// </summary>
+        public System.Guid ProductId
+        {
+          get { return Model.ProductId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ProductIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
+        /// <summary>
         /// Стоимость
         /// </summary>
         public System.Double Cost
@@ -7889,6 +7900,17 @@ namespace HVTApp.Model.Wrapper
         public bool LaborHoursIsChanged => GetIsChanged(nameof(LaborHours));
 
         /// <summary>
+        /// PaymentConditionSetId
+        /// </summary>
+        public System.Guid PaymentConditionSetId
+        {
+          get { return Model.PaymentConditionSetId; }
+          set { SetValue(value); }
+        }
+        public System.Guid PaymentConditionSetIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PaymentConditionSetId));
+        public bool PaymentConditionSetIdIsChanged => GetIsChanged(nameof(PaymentConditionSetId));
+
+        /// <summary>
         /// Срок производства
         /// </summary>
         public System.Int32 ProductionTerm
@@ -7911,6 +7933,17 @@ namespace HVTApp.Model.Wrapper
         public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
         /// <summary>
+        /// ProjectId
+        /// </summary>
+        public System.Guid ProjectId
+        {
+          get { return Model.ProjectId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ProjectIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectId));
+        public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
+
+        /// <summary>
         /// Требуемая дата поставки
         /// </summary>
         public System.DateTime DeliveryDateExpected
@@ -7920,6 +7953,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.DateTime DeliveryDateExpectedOriginalValue => GetOriginalValue<System.DateTime>(nameof(DeliveryDateExpected));
         public bool DeliveryDateExpectedIsChanged => GetIsChanged(nameof(DeliveryDateExpected));
+
+        /// <summary>
+        /// ProducerId
+        /// </summary>
+        public System.Guid ProducerId
+        {
+          get { return Model.ProducerId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ProducerIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProducerId));
+        public bool ProducerIdIsChanged => GetIsChanged(nameof(ProducerId));
 
         /// <summary>
         /// Дата реализации

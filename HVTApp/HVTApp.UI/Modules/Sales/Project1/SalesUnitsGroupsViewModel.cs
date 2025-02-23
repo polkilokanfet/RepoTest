@@ -30,6 +30,37 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
+    public class EditProjectUnitCommand : ICommand
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnityContainer _container;
+        private readonly SalesUnitsGroupsViewModel _viewModel;
+
+        #region CanExecute
+        public bool CanExecute(object parameter)
+        {
+            return _viewModel.Groups.SelectedUnit != null;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        #endregion
+
+        public EditProjectUnitCommand(IUnitOfWork unitOfWork, IUnityContainer container, SalesUnitsGroupsViewModel viewModel)
+        {
+            _unitOfWork = unitOfWork;
+            _container = container;
+            _viewModel = viewModel;
+        }
+
+        public void Execute(object parameter)
+        {
+            var unit = _viewModel.Groups.SelectedUnit;
+            var projectUnitViewModel = new ProjectUnitEditViewModel(unit, _unitOfWork, _container.Resolve<ISelectService>());
+            _container.Resolve<IDialogService>().Show(projectUnitViewModel);
+        }
+    }
+
     public class AddProjectUnitCommand : ICommand
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -62,19 +93,25 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         protected void AddCommand_Execute()
         {
-            //создаем новый юнит и привязываем его к объекту
-            var salesUnit = new SalesUnitWrapper(new SalesUnit());
-            if (_projectWrapper != null) salesUnit.Project = new ProjectWrapper(_projectWrapper.Model);
-
             //создаем модель для диалога
-            var viewModel = new SalesUnitsViewModel(salesUnit, _container, _unitOfWork);
+            var viewModel = new ProjectUnitAddViewModel(_unitOfWork, _container.Resolve<ISelectService>());
 
-            //заполняем юнит начальными данными
-            FillingSalesUnit(viewModel.ViewModel.Item);
+            //заполняем начальные данные
+            if (_viewModel.Groups.SelectedUnit != null)
+            {
+                var selectedUnit = _viewModel.Groups.SelectedUnit;
+                var viewModelUnit = viewModel.ProjectUnit;
+
+                viewModelUnit.Cost = selectedUnit.Cost;
+                viewModelUnit.Comment = selectedUnit.Comment;
+                viewModelUnit.CostDelivery = selectedUnit.CostDelivery;
+                viewModelUnit.DeliveryDateExpected = selectedUnit.DeliveryDateExpected;
+                viewModelUnit.SetFacility(_unitOfWork.Repository<Facility>().GetById(selectedUnit.FacilityId));
+            }
 
             //диалог с пользователем
-            var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-            if (!result.HasValue || !result.Value) return;
+            var result = _container.Resolve<IDialogService>().ShowDialog(viewModel);
+            if (result.HasValue == false || result.Value == false) return;
 
             //клонируем юниты
             var units = CloneSalesUnits(viewModel.ViewModel.Item.Model, viewModel.Amount);
@@ -156,10 +193,10 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         #region ICommand
 
-        public DelegateLogCommand AddCommand { get; private set; }
+        public DelegateLogCommand AddCommand { get; }
+        public ICommand EditCommand { get; }
         public DelegateLogCommand RemoveCommand { get; }
 
-        public ICommand ChangeFacilityCommand { get; }
         public ICommand ChangeProductCommand { get; }
         public ICommand ChangePaymentsCommand { get; }
 
@@ -212,6 +249,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
         protected BaseGroupsViewModel(IUnityContainer container) : base(container)
         {
             AddCommand = new DelegateLogCommand(AddCommand_Execute);
+            EditCommand = new EditProjectUnitCommand(this.UnitOfWork, container, this);
             RemoveCommand = new DelegateLogCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
 
             ChangeFacilityCommand = new ChangeFacilityCommand(container.Resolve<IUnitOfWork>(), container.Resolve<ISelectService>());
