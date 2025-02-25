@@ -120,8 +120,35 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             });
         }
 
+        public void CopyProps(IProjectUnit projectUnit)
+        {
+            if (projectUnit == null) return;
+
+            Cost = projectUnit.Cost;
+            Comment = projectUnit.Comment;
+            CostDelivery = projectUnit.CostDelivery;
+            DeliveryDateExpected = projectUnit.DeliveryDateExpected;
+            SetFacility(new Facility
+            {
+                Id = projectUnit.FacilityId,
+                Name = projectUnit.Facility
+            });
+        }
+
         #endregion
 
+        /// <summary>
+        /// Для создания по образцу
+        /// </summary>
+        public ProjectUnit(IProjectUnit projectUnit) : base(new SalesUnit())
+        {
+            this.CopyProps(projectUnit);
+        }
+
+        /// <summary>
+        /// Для редактирования
+        /// </summary>
+        /// <param name="model"></param>
         public ProjectUnit(SalesUnit model) : base(model)
         {
             Facility = model.Facility.ToString();

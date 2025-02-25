@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -19,7 +17,6 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using HVTApp.UI.Commands;
-using HVTApp.UI.Modules.Sales.Project1.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
@@ -30,175 +27,15 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public class EditProjectUnitCommand : ICommand
-    {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IUnityContainer _container;
-        private readonly SalesUnitsGroupsViewModel _viewModel;
-
-        #region CanExecute
-        public bool CanExecute(object parameter)
-        {
-            return _viewModel.Groups.SelectedUnit != null;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        #endregion
-
-        public EditProjectUnitCommand(IUnitOfWork unitOfWork, IUnityContainer container, SalesUnitsGroupsViewModel viewModel)
-        {
-            _unitOfWork = unitOfWork;
-            _container = container;
-            _viewModel = viewModel;
-        }
-
-        public void Execute(object parameter)
-        {
-            var unit = _viewModel.Groups.SelectedUnit;
-            var projectUnitViewModel = new ProjectUnitEditViewModel(unit, _unitOfWork, _container.Resolve<ISelectService>());
-            _container.Resolve<IDialogService>().Show(projectUnitViewModel);
-        }
-    }
-
-    public class AddProjectUnitCommand : ICommand
-    {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IUnityContainer _container;
-        private readonly SalesUnitsGroupsViewModel _viewModel;
-
-        #region CanExecute
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        #endregion
-
-        public AddProjectUnitCommand(IUnitOfWork unitOfWork, IUnityContainer container, SalesUnitsGroupsViewModel viewModel)
-        {
-            _unitOfWork = unitOfWork;
-            _container = container;
-            _viewModel = viewModel;
-        }
-
-        public void Execute(object parameter)
-        {
-            throw new NotImplementedException();
-        }
-
-        #region AddCommand
-
-        protected void AddCommand_Execute()
-        {
-            //создаем модель для диалога
-            var viewModel = new ProjectUnitAddViewModel(_unitOfWork, _container.Resolve<ISelectService>());
-
-            //заполняем начальные данные
-            if (_viewModel.Groups.SelectedUnit != null)
-            {
-                var selectedUnit = _viewModel.Groups.SelectedUnit;
-                var viewModelUnit = viewModel.ProjectUnit;
-
-                viewModelUnit.Cost = selectedUnit.Cost;
-                viewModelUnit.Comment = selectedUnit.Comment;
-                viewModelUnit.CostDelivery = selectedUnit.CostDelivery;
-                viewModelUnit.DeliveryDateExpected = selectedUnit.DeliveryDateExpected;
-                viewModelUnit.SetFacility(_unitOfWork.Repository<Facility>().GetById(selectedUnit.FacilityId));
-            }
-
-            //диалог с пользователем
-            var result = _container.Resolve<IDialogService>().ShowDialog(viewModel);
-            if (result.HasValue == false || result.Value == false) return;
-
-            //клонируем юниты
-            var units = CloneSalesUnits(viewModel.ViewModel.Item.Model, viewModel.Amount);
-
-            var group = new ProjectUnitsGroup(units.ToList());
-            Groups.Add(group);
-            RefreshPrice(group);
-            Groups.SelectedGroup = group;
-        }
-
-        /// <summary>
-        /// Заполнение юнита по выбранной группе
-        /// </summary>
-        /// <param name="salesUnitWrapper"></param>
-        private void FillingSalesUnit(SalesUnitWrapper salesUnitWrapper)
-        {
-            if (_viewModel.Groups.SelectedUnit == null)
-            {
-                var paymentConditionSet = _unitOfWork.Repository<PaymentConditionSet>().GetById(GlobalAppProperties.Actual.PaymentConditionSet.Id);
-                salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
-                salesUnitWrapper.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
-
-                return;
-            }
-
-            salesUnitWrapper.Cost = _viewModel.Groups.SelectedUnit.Cost;
-            salesUnitWrapper.Facility = new FacilityWrapper(_viewModel.Groups.SelectedUnit.Facility);
-            salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(_viewModel.Groups.SelectedUnit.PaymentConditionSet.Model);
-            salesUnitWrapper.ProductionTerm = _viewModel.Groups.SelectedUnit.ProductionTerm;
-            salesUnitWrapper.Product = new ProductWrapper(_viewModel.Groups.SelectedUnit.Product);
-            salesUnitWrapper.DeliveryDateExpected = _viewModel.Groups.SelectedUnit.DeliveryDateExpected;
-            if (Groups.SelectedGroup.CostDelivery.HasValue)
-            {
-                if (Groups.SelectedGroup.Groups != null &&
-                    Groups.SelectedGroup.Groups.Any() &&
-                    !Groups.SelectedGroup.Groups.First().CostDelivery.HasValue)
-                {
-                    salesUnitWrapper.CostDelivery = null;
-                }
-                else
-                {
-                    salesUnitWrapper.CostDelivery = _viewModel.Groups.SelectedUnit.CostDelivery / _viewModel.Groups.SelectedUnit.Amount;
-                }
-            }
-
-            //создаем зависимое оборудование
-            foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
-            {
-                var pi = new ProductIncluded { Product = prodIncl.Model.Product, Amount = prodIncl.Model.Amount };
-                salesUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-            }
-        }
-
-        /// <summary>
-        /// Клонирование юнитов по образцу.
-        /// </summary>
-        /// <param name="salesUnit"></param>
-        /// <param name="amount"></param>
-        /// <returns></returns>
-        private IEnumerable<SalesUnit> CloneSalesUnits(SalesUnit salesUnit, int amount)
-        {
-            for (int i = 0; i < amount; i++)
-            {
-                var unit = (SalesUnit)salesUnit.Clone();
-                unit.Id = Guid.NewGuid();
-                unit.ProductsIncluded = new List<ProductIncluded>();
-                yield return unit;
-            }
-
-        }
-
-        #endregion
-
-    }
-
     public class SalesUnitsGroupsViewModel : ViewModelBaseCanExportToExcel
     {
         private ProjectWrapper1 _projectWrapper;
 
         #region ICommand
 
-        public DelegateLogCommand AddCommand { get; }
+        public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public DelegateLogCommand RemoveCommand { get; }
-
-        public ICommand ChangeProductCommand { get; }
-        public ICommand ChangePaymentsCommand { get; }
 
         public DelegateLogCommand AddProductIncludedCommand { get; }
         public DelegateLogCommand RemoveProductIncludedCommand { get; }
@@ -248,13 +85,12 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         protected BaseGroupsViewModel(IUnityContainer container) : base(container)
         {
-            AddCommand = new DelegateLogCommand(AddCommand_Execute);
-            EditCommand = new EditProjectUnitCommand(this.UnitOfWork, container, this);
-            RemoveCommand = new DelegateLogCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
+            var selectService = container.Resolve<ISelectService>();
+            var dialogService = container.Resolve<IDialogService>();
 
-            ChangeFacilityCommand = new ChangeFacilityCommand(container.Resolve<IUnitOfWork>(), container.Resolve<ISelectService>());
-            ChangeProductCommand = new DelegateCommand<TGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new ChangePaymentsCommand(container.Resolve<IUnitOfWork>(), container.Resolve<ISelectService>());
+            AddCommand = new AddProjectUnitCommand(this.UnitOfWork, selectService, dialogService, this);
+            EditCommand = new EditProjectUnitCommand(this.UnitOfWork, selectService, dialogService, this);
+            RemoveCommand = new DelegateLogCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
 
             #region ProductIncludedCommands
 

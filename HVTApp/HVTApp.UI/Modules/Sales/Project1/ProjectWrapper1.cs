@@ -1,13 +1,12 @@
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
-using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
+using System;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
     public class ProjectWrapper1 : WrapperBase<Project>
     {
-        public ProjectWrapper1(Project model) : base(model) { }
-
         #region SimpleProperties
 
         //Name
@@ -37,22 +36,32 @@ namespace HVTApp.UI.Modules.Sales.Project1
         public bool ForReportOriginalValue => GetOriginalValue<bool>(nameof(ForReport));
         public bool ForReportIsChanged => GetIsChanged(nameof(ForReport));
 
+        /// <summary>
+        /// ProjectTypeId
+        /// </summary>
+        public System.Guid ProjectTypeId
+        {
+            get => Model.ProjectTypeId;
+            set => SetValue(value);
+        }
+        public System.Guid ProjectTypeIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectTypeId));
+        public bool ProjectTypeIdIsChanged => GetIsChanged(nameof(ProjectTypeId));
+
         #endregion
 
-        #region ComplexProperties
+        #region CollectionProperties
 
-        public ProjectTypeSimpleWrapper ProjectType
-        {
-            get => GetWrapper<ProjectTypeSimpleWrapper>();
-            set => SetComplexValue<ProjectType, ProjectTypeSimpleWrapper>(ProjectType, value);
-        }
+        public ProjectUnitGroupsContainer Units { get; private set; }
 
         #endregion
 
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty(nameof(ProjectType), Model.ProjectType == null ? null : new ProjectTypeSimpleWrapper(Model.ProjectType));
-        }
+        public ProjectWrapper1(Project model) : base(model) { }
 
+        protected override void InitializeCollectionProperties()
+        {
+            if (Model.SalesUnits == null) throw new ArgumentException($"{nameof(Model.SalesUnits)} cannot be null");
+            Units = new ProjectUnitGroupsContainer(Model.SalesUnits);
+            RegisterCollection(Units, Model.SalesUnits);
+        }
     }
 }

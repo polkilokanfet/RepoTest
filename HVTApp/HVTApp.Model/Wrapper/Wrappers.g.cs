@@ -9458,6 +9458,17 @@ namespace HVTApp.Model.Wrapper
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
         /// <summary>
+        /// ProjectTypeId
+        /// </summary>
+        public System.Guid ProjectTypeId
+        {
+          get { return Model.ProjectTypeId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ProjectTypeIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectTypeId));
+        public bool ProjectTypeIdIsChanged => GetIsChanged(nameof(ProjectTypeId));
+
+        /// <summary>
         /// В работе
         /// </summary>
         public System.Boolean InWork

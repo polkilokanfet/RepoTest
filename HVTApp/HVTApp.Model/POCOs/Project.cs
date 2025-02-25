@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
@@ -15,6 +16,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Тип проекта"), Required, OrderStatus(5)]
         public virtual ProjectType ProjectType { get; set; }
 
+        [NotForDetailsView, NotForListView]
+        public virtual Guid ProjectTypeId { get; set; }
+
         [Designation("В работе"), OrderStatus(2), Required]
         public bool InWork { get; set; } = false;
 
@@ -23,6 +27,9 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Менеджер"), NotUpdate(Role.SalesManager), OrderStatus(4)]
         public virtual User Manager { get; set; }
+
+        [NotForDetailsView, NotForListView]
+        public virtual Guid ManagerId { get; set; }
 
         [Designation("Заметки"), OrderStatus(-10)]
         public virtual List<Note> Notes { get; set; } = new List<Note>();

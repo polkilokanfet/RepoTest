@@ -12,12 +12,14 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         int ProductionTerm { get; set; }
         DateTime DeliveryDateExpected { get; set; }
         string Comment { get; set; }
+        string Facility { get; }
         Guid FacilityId { get; }
         void SetFacility(Facility product);
         Guid ProductId { get; }
         void SetProduct(Product product);
         PaymentConditionSet PaymentConditionSet { get; set; }
         Company Producer { get; set; }
+        void CopyProps(IProjectUnit projectUnit);
     }
 
     public interface IProjectUnitViewModel

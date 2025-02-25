@@ -1,15 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
-    public class ProjectUnitGroupsContainer : BindableBase, IEnumerable<ProjectUnitGroup>, INotifyCollectionChanged
+    public class ProjectUnitGroupsContainer : ValidatableChangeTrackingCollection<ProjectUnit>
     {
         private IProjectUnit _selectedUnit;
 
@@ -19,45 +16,22 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set => SetProperty(ref _selectedUnit, value);
         }
 
-        private ObservableCollection<ProjectUnitGroup> SalesUnitsGroups {get; }
-        private IValidatableChangeTrackingCollection<ProjectUnit> ProjectUnits { get; }
+        public IEnumerable<ProjectUnitGroup> Groups { get; }
 
-        public bool IsValid => this.ProjectUnits.Any() && ProjectUnits.All(projectUnit => projectUnit.IsValid);
-        public bool IsChanged => ProjectUnits.IsChanged;
-
-        public ProjectUnitGroupsContainer(IEnumerable<SalesUnit> salesUnits)
+        public ProjectUnitGroupsContainer(IEnumerable<SalesUnit> salesUnits) : base(salesUnits.Select(salesUnit => new ProjectUnit(salesUnit)))
         {
-            ProjectUnits = new ValidatableChangeTrackingCollection<ProjectUnit>(salesUnits.Select(salesUnit => new ProjectUnit(salesUnit)));
-            
-            var g = this.ProjectUnits
+            var groups = this
                 .GroupBy(projectUnit => projectUnit, new ProjectUnit.ProjectUnitComparer())
                 .Select(projectUnits => new ProjectUnitGroup(projectUnits));
-            this.SalesUnitsGroups = new ObservableCollection<ProjectUnitGroup>(g);
-
-            this.SalesUnitsGroups.CollectionChanged += (sender, args) =>
-            {
-                this.CollectionChanged?.Invoke(sender, args);
-            };
+            this.Groups = new ObservableCollection<ProjectUnitGroup>(groups);
         }
 
-        public IEnumerator<ProjectUnitGroup> GetEnumerator()
+        public new void Add(ProjectUnit projectUnit)
         {
-            return this.SalesUnitsGroups.GetEnumerator();
+            if (this.Groups.Any(projectUnitGroup => projectUnitGroup.Add(projectUnit)) == false)
+                ((ObservableCollection<ProjectUnitGroup>)this.Groups).Add(new ProjectUnitGroup(new [] { projectUnit }));
+
+            base.Add(projectUnit);
         }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public void Add(ProjectUnit projectUnit)
-        {
-            if (this.SalesUnitsGroups.Any(projectUnitGroup => projectUnitGroup.Add(projectUnit)) == false)
-                this.SalesUnitsGroups.Add(new ProjectUnitGroup(new [] { projectUnit }));
-
-            this.ProjectUnits.Add(projectUnit);
-        }
-
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
     }
 }

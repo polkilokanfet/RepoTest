@@ -392,8 +392,11 @@
       <DependentUpon>Market2OffersControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Market\ISelectedProjectItemChanged.cs" />
+    <Compile Include="Modules\Sales\Project1\AddProjectUnitCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\IncludeServiceInSpecificationCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
+    <Compile Include="Modules\Sales\Project1\EditProjectUnitCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitAddViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitEditViewModel.cs" />
     <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInSpecification.xaml.cs">
       <DependentUpon>TabCrudUnitsInSpecification.xaml</DependentUpon>
