@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
@@ -59,81 +60,33 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         #endregion
 
-        #region Facility
+        #region ComplexProperties
 
-        public string Facility { get; private set; }
-        public bool FacilityIsChanged => GetIsChanged(nameof(ProductId));
-
-        public Guid FacilityId => Model.FacilityId;
-
-        public void SetFacility(Facility facility)
+        public FacilityEmptyWrapper Facility
         {
-            if (SetValue(facility.Id, nameof(SalesUnit.ProductId)) == false) return;
-            Facility = facility.ToString();
-            RaisePropertyChanged(nameof(Product));
-            RaisePropertyChanged(nameof(ProductIsChanged));
+            get => GetWrapper<FacilityEmptyWrapper>();
+            set => SetComplexValue<Facility, FacilityEmptyWrapper>(Facility, value);
+        }
+
+        public ProductEmptyWrapper Product
+        {
+            get => GetWrapper<ProductEmptyWrapper>();
+            set => SetComplexValue<Product, ProductEmptyWrapper>(Product, value);
+        }
+
+        public PaymentConditionSetEmptyWrapper PaymentConditionSet
+        {
+            get => GetWrapper<PaymentConditionSetEmptyWrapper>();
+            set => SetComplexValue<PaymentConditionSet, PaymentConditionSetEmptyWrapper>(PaymentConditionSet, value);
+        }
+
+        public CompanyEmptyWrapper Producer
+        {
+            get => GetWrapper<CompanyEmptyWrapper>();
+            set => SetComplexValue<Company, CompanyEmptyWrapper>(Producer, value);
         }
 
         #endregion
-
-        #region Product
-
-        public string Product { get; private set; }
-        public bool ProductIsChanged => GetIsChanged(nameof(ProductId));
-
-        public Guid ProductId => Model.ProductId;
-
-        public void SetProduct(Product product)
-        {
-            if (SetValue(product.Id, nameof(SalesUnit.ProductId)) == false) return;
-            Product = product.ToString();
-            RaisePropertyChanged(nameof(Product));
-            RaisePropertyChanged(nameof(ProductIsChanged));
-        }
-
-        #endregion
-
-        #region PaymentConditionSet
-
-        public string PaymentConditionSet { get; private set; }
-        public Guid PaymentConditionSetId => Model.PaymentConditionSetId;
-        public void SetPaymentConditionSet(PaymentConditionSet paymentConditionSet)
-        {
-            if (SetValue(paymentConditionSet.Id, nameof(SalesUnit.PaymentConditionSetId)) == false) return;
-            PaymentConditionSet = paymentConditionSet.ToString();
-            RaisePropertyChanged(nameof(PaymentConditionSet));
-        }
-
-        #endregion
-
-        #region Producer
-
-        public string Producer { get; private set; }
-        public Guid? ProducerId => Model.ProducerId;
-
-        public void SetProducer(Company producer)
-        {
-            if (SetValue(producer.Id, nameof(SalesUnit.ProducerId)) == false) return;
-            PaymentConditionSet = producer.ToString();
-            RaisePropertyChanged(nameof(Producer));
-        }
-
-        #endregion
-
-        public void CopyProps(IProjectUnit projectUnit)
-        {
-            if (projectUnit == null) return;
-
-            Cost = projectUnit.Cost;
-            Comment = projectUnit.Comment;
-            CostDelivery = projectUnit.CostDelivery;
-            DeliveryDateExpected = projectUnit.DeliveryDateExpected;
-            SetFacility(new Facility
-            {
-                Id = projectUnit.FacilityId,
-                Name = projectUnit.Facility
-            });
-        }
 
         /// <summary>
         /// Для создания по образцу
@@ -149,12 +102,31 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         /// <param name="model"></param>
         public ProjectUnit(SalesUnit model) : base(model)
         {
-            Facility = model.Facility.ToString();
-            Product = model.Product.ToString();
-            Producer = model.Producer.ToString();
-            PaymentConditionSet = model.PaymentConditionSet.ToString();
         }
 
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty(nameof(Facility), Model.Facility == null ? null : new FacilityEmptyWrapper(Model.Facility));
+            InitializeComplexProperty(nameof(Product), Model.Product == null ? null : new ProductEmptyWrapper(Model.Product));
+            InitializeComplexProperty(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetEmptyWrapper(Model.PaymentConditionSet));
+            InitializeComplexProperty(nameof(Producer), Model.Producer == null ? null : new CompanyEmptyWrapper(Model.Producer));
+        }
+
+        public void CopyProps(IProjectUnit projectUnit)
+        {
+            if (projectUnit == null) return;
+
+            Cost = projectUnit.Cost;
+            Comment = projectUnit.Comment;
+            CostDelivery = projectUnit.CostDelivery;
+            DeliveryDateExpected = projectUnit.DeliveryDateExpected;
+
+            Facility = projectUnit.Facility;
+            Product = projectUnit.Product;
+            PaymentConditionSet = projectUnit.PaymentConditionSet;
+            Producer = projectUnit.Producer;
+        }
+        
         public bool HasSameGroup(SalesUnit other)
         {
             return (new ProjectUnitComparer()).Equals(this, new ProjectUnit(other));
@@ -174,10 +146,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
                 if (!Equals(x.Cost, y.Cost)) return false;
                 if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
-                if (!Equals(x.ProductId, y.ProductId)) return false;
-                if (!Equals(x.FacilityId, y.FacilityId)) return false;
-                if (!Equals(x.PaymentConditionSetId, y.PaymentConditionSetId)) return false;
-                if (!Equals(x.ProducerId, y.ProducerId)) return false;
+                if (!Equals(x.Product, y.Product)) return false;
+                if (!Equals(x.Facility, y.Facility)) return false;
+                if (!Equals(x.PaymentConditionSet, y.PaymentConditionSet)) return false;
+                if (!Equals(x.Producer, y.Producer)) return false;
                 if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
                 if (!Equals(x.Comment, y.Comment)) return false;
                 if (!Equals(x.DeliveryDateExpected, y.DeliveryDateExpected)) return false;

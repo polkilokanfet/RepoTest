@@ -6,7 +6,6 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               mc:Ignorable="d"
               d:DataContext="{d:DesignInstance project1:ProjectViewModel1, IsDesignTimeCreatable=True}"
-              xmlns:controls="clr-namespace:HVTApp.UI.Modules.Sales.Controls"
               xmlns:project1="clr-namespace:HVTApp.UI.Modules.Sales.Project1"
               xmlns:dp="http://infragistics.com/DataPresenter"
               xmlns:igEditors="http://infragistics.com/Editors">

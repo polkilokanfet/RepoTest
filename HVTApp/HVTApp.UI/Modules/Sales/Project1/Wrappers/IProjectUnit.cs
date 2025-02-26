@@ -1,11 +1,10 @@
 using System;
 using System.ComponentModel;
-using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
-    public interface IProjectUnit : INotifyPropertyChanged, IIsValid
+    public interface IProjectUnit : INotifyPropertyChanged
     {
         double Cost { get; set; }
         double? CostDelivery { get; set; }
@@ -13,21 +12,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         DateTime DeliveryDateExpected { get; set; }
         string Comment { get; set; }
 
-        string Facility { get; }
-        Guid FacilityId { get; }
-        void SetFacility(Facility product);
-
-        string Product { get; }
-        Guid ProductId { get; }
-        void SetProduct(Product product);
-        
-        string PaymentConditionSet { get; }
-        Guid PaymentConditionSetId { get; }
-        void SetPaymentConditionSet(PaymentConditionSet paymentConditionSet);
-
-        string Producer { get; }
-        Guid? ProducerId { get; }
-        void SetProducer(Company producer);
+        FacilityEmptyWrapper Facility { get; set; }
+        ProductEmptyWrapper Product { get; set; }
+        PaymentConditionSetEmptyWrapper PaymentConditionSet { get; set; }
+        CompanyEmptyWrapper Producer { get; set; }
 
 
         void CopyProps(IProjectUnit projectUnit);
