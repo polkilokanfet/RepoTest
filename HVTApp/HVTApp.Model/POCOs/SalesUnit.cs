@@ -69,7 +69,7 @@ namespace HVTApp.Model.POCOs
         public virtual Company Producer { get; set; }
         
         [NotForDetailsView, NotForListView]
-        public virtual Guid ProducerId { get; set; }
+        public virtual Guid? ProducerId { get; set; }
 
 
         [Designation("Причины проигрыша")]

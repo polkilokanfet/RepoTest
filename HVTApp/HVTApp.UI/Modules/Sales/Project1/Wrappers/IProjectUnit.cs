@@ -12,17 +12,24 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         int ProductionTerm { get; set; }
         DateTime DeliveryDateExpected { get; set; }
         string Comment { get; set; }
+
         string Facility { get; }
         Guid FacilityId { get; }
         void SetFacility(Facility product);
+
+        string Product { get; }
         Guid ProductId { get; }
         void SetProduct(Product product);
-        PaymentConditionSet PaymentConditionSet { get; set; }
-        Company Producer { get; set; }
-        void CopyProps(IProjectUnit projectUnit);
-    }
+        
+        string PaymentConditionSet { get; }
+        Guid PaymentConditionSetId { get; }
+        void SetPaymentConditionSet(PaymentConditionSet paymentConditionSet);
 
-    public interface IProjectUnitViewModel
-    {
+        string Producer { get; }
+        Guid? ProducerId { get; }
+        void SetProducer(Company producer);
+
+
+        void CopyProps(IProjectUnit projectUnit);
     }
 }

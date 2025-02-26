@@ -63,7 +63,9 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Тип:"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=ProjectTypes}" SelectedItem="{Binding Path=DetailsViewModel.Item.ProjectType, Converter={StaticResource ProjectTypeConverter}}">
+                <ComboBox Grid.Row="0" Grid.Column="1" 
+                          ItemsSource="{Binding Path=ProjectTypes}" 
+                          SelectedItem="{Binding Path=DetailsViewModel.Item.ProjectType, Converter={StaticResource ProjectTypeConverter}}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Path=Name}"/>

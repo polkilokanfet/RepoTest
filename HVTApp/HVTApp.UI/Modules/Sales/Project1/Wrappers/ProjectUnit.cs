@@ -95,30 +95,30 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         #region PaymentConditionSet
 
-        private PaymentConditionSet _paymentConditionSet;
-        public PaymentConditionSet PaymentConditionSet
+        public string PaymentConditionSet { get; private set; }
+        public Guid PaymentConditionSetId => Model.PaymentConditionSetId;
+        public void SetPaymentConditionSet(PaymentConditionSet paymentConditionSet)
         {
-            get => _paymentConditionSet;
-            set => SetProperty(ref _paymentConditionSet, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.PaymentConditionSetId));
-            });
+            if (SetValue(paymentConditionSet.Id, nameof(SalesUnit.PaymentConditionSetId)) == false) return;
+            PaymentConditionSet = paymentConditionSet.ToString();
+            RaisePropertyChanged(nameof(PaymentConditionSet));
         }
 
         #endregion
 
         #region Producer
 
-        private Company _producer;
+        public string Producer { get; private set; }
+        public Guid? ProducerId => Model.ProducerId;
 
-        public Company Producer
+        public void SetProducer(Company producer)
         {
-            get => _producer;
-            set => SetProperty(ref _producer, value, () =>
-            {
-                this.SetValue(value.Id, nameof(SalesUnit.ProducerId));
-            });
+            if (SetValue(producer.Id, nameof(SalesUnit.ProducerId)) == false) return;
+            PaymentConditionSet = producer.ToString();
+            RaisePropertyChanged(nameof(Producer));
         }
+
+        #endregion
 
         public void CopyProps(IProjectUnit projectUnit)
         {
@@ -134,8 +134,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 Name = projectUnit.Facility
             });
         }
-
-        #endregion
 
         /// <summary>
         /// Для создания по образцу
@@ -153,8 +151,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         {
             Facility = model.Facility.ToString();
             Product = model.Product.ToString();
-            _producer = model.Producer;
-            _paymentConditionSet = model.PaymentConditionSet;
+            Producer = model.Producer.ToString();
+            PaymentConditionSet = model.PaymentConditionSet.ToString();
         }
 
         public bool HasSameGroup(SalesUnit other)
@@ -177,8 +175,9 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 if (!Equals(x.Cost, y.Cost)) return false;
                 if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
                 if (!Equals(x.ProductId, y.ProductId)) return false;
-                if (!Equals(x.Facility.Id, y.Facility.Id)) return false;
-                if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
+                if (!Equals(x.FacilityId, y.FacilityId)) return false;
+                if (!Equals(x.PaymentConditionSetId, y.PaymentConditionSetId)) return false;
+                if (!Equals(x.ProducerId, y.ProducerId)) return false;
                 if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
                 if (!Equals(x.Comment, y.Comment)) return false;
                 if (!Equals(x.DeliveryDateExpected, y.DeliveryDateExpected)) return false;
