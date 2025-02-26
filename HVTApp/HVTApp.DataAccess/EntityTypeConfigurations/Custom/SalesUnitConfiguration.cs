@@ -13,7 +13,7 @@ namespace HVTApp.DataAccess
             Property(x => x.ProductionTerm).IsOptional();
             Property(x => x.Cost).IsRequired();
 
-            HasOptional(x => x.Producer).WithMany().HasForeignKey(x => x.ProducerId).WillCascadeOnDelete(false);
+            HasOptional(x => x.Producer).WithMany().WillCascadeOnDelete(false);
 
             HasMany(x => x.LosingReasons).WithMany();
 

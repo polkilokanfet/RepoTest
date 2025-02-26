@@ -28,7 +28,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 
         public DelegateLogCommand OkCommand { get; }
 
-        public SalesUnitsViewModel(SalesUnitWrapper item, IUnityContainer container, IUnitOfWork unitOfWork) : base()
+        public SalesUnitsViewModel(SalesUnitWrapper item, IUnityContainer container, IUnitOfWork unitOfWork) : base(item.Model)
         {
             ViewModel = container.Resolve<SalesUnitDetailsViewModel>();
             ViewModel.Load(item, unitOfWork);

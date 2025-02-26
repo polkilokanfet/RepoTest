@@ -9,6 +9,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Comparers;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
 using HVTApp.Model.Services;
@@ -27,426 +28,9 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public class SalesUnitsGroupsViewModel : ViewModelBaseCanExportToExcel
+    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper1>
     {
         private ProjectWrapper1 _projectWrapper;
-
-        #region ICommand
-
-        public ICommand AddCommand { get; }
-        public ICommand EditCommand { get; }
-        public DelegateLogCommand RemoveCommand { get; }
-
-        public DelegateLogCommand AddProductIncludedCommand { get; }
-        public DelegateLogCommand RemoveProductIncludedCommand { get; }
-
-        public DelegateLogCommand SetCustomFixedPriceCommand { get; }
-
-        #endregion
-
-
-        public ProjectUnitGroupsContainer Groups { get; private set; }
-
-
-        #region BaseGroupsViewModel
-
-        /// <summary>
-        /// Флаг групповых действий над айтемами
-        /// </summary>
-        public bool IsGroupActionMode { get; set; } = true;
-
-        public double Sum
-        {
-            get { return Groups.Sum(x => x.Total); }
-            set
-            {
-                //распределение суммы по всем юнитам равномерно
-
-                if (!Groups.Any()) return;
-
-                if (value <= 0) return;
-
-                var totalWithout = value
-                    - Groups.Sum(x => x.FixedCost * x.Amount)
-                    - Groups.Sum(x => x.CostDelivery ?? 0);
-
-                if (totalWithout <= 0) return;
-
-                var priceTotal = Groups.Sum(x => x.Price * x.Amount);
-
-                foreach (var grp in Groups)
-                {
-                    double deliveryCost = grp.CostDelivery ?? 0;
-                    grp.Cost = grp.FixedCost + deliveryCost / grp.Amount + totalWithout * (grp.Price) / priceTotal;
-                }
-            }
-        }
-
-
-        protected BaseGroupsViewModel(IUnityContainer container) : base(container)
-        {
-            var selectService = container.Resolve<ISelectService>();
-            var dialogService = container.Resolve<IDialogService>();
-
-            AddCommand = new AddProjectUnitCommand(this.UnitOfWork, selectService, dialogService, this);
-            EditCommand = new EditProjectUnitCommand(this.UnitOfWork, selectService, dialogService, this);
-            RemoveCommand = new DelegateLogCommand(RemoveCommand_Execute, () => Groups.SelectedGroup != null);
-
-            #region ProductIncludedCommands
-
-            //добавление включенного оборудования
-            AddProductIncludedCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var productIncludedWrapper = new ProductIncludedWrapper(new ProductIncluded());
-                    var productsIncludedViewModel = new ProductsIncludedViewModel(productIncludedWrapper, UnitOfWork, Container);
-                    var dr = Container.Resolve<IDialogService>().ShowDialog(productsIncludedViewModel);
-                    if (!dr.HasValue || !dr.Value) return;
-                    Groups.SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
-                    RefreshPrice(Groups.SelectedGroup);
-                },
-                () => Groups.SelectedGroup != null);
-
-            //удаление включенного оборудования
-            RemoveProductIncludedCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (Container.Resolve<IMessageService>().ConfirmationDialog("Удаление", "Удалить?", defaultNo: true) == false)
-                        return;
-
-                    Groups.SelectedGroup.RemoveProductIncluded(Groups.SelectedProductIncluded);
-                    RefreshPrice(Groups.SelectedGroup);
-
-                },
-                () => Groups.SelectedProductIncluded != null);
-
-            //установка нестандартной себестоимости шеф-монтажа
-            SetCustomFixedPriceCommand = new DelegateLogCommand(
-                () =>
-                {
-                    //шеф-монтажи, которые подлежат изменению
-                    var productsIncludedTarget = Groups
-                        .Where(x => x.Groups != null)
-                        .SelectMany(x => x.Groups)
-                        .SelectMany(x => x.ProductsIncluded)
-                        .Where(x => Equals(x.Model.Id, Groups.SelectedProductIncluded.Model.Id))
-                        .ToList();
-
-                    var productIncluded = productsIncludedTarget.Any()
-                        ? productsIncludedTarget.Select(x => x.Model).Distinct().Single()
-                        : Groups.SelectedProductIncluded.Model;
-
-                    var original = productIncluded.CustomFixedPrice;
-
-                    var viewModel = new SupervisionPriceViewModel(new ProductIncludedWrapper(productIncluded), UnitOfWork, Container);
-                    var dr = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-                    if (dr.HasValue || dr.Value == true)
-                    {
-                        productsIncludedTarget.ForEach(x => x.CustomFixedPrice = productIncluded.CustomFixedPrice);
-                    }
-                    else
-                    {
-                        productsIncludedTarget.ForEach(x => x.CustomFixedPrice = original);
-                    }
-
-                    if (!Equals(productIncluded.CustomFixedPrice, original))
-                    {
-                        RefreshPrice(Groups.SelectedGroup);
-                    }
-                },
-                () => Groups.SelectedProductIncluded != null && Groups.SelectedProductIncluded.Model.Product.ProductBlock.IsSupervision);
-
-            #endregion
-
-            Groups.SumChanged += () => { RaisePropertyChanged(nameof(Sum)); };
-        }
-
-        protected virtual void RemoveCommand_Execute()
-        {
-            if (CanRemoveGroup(Groups.SelectedGroup))
-            {
-                if (Container.Resolve<IMessageService>().ConfirmationDialog("Удаление", "Вы уверены, что хотите удалить это оборудование?", defaultNo: true) == false)
-                {
-                    return;
-                }
-
-                RemoveGroup(Groups.SelectedGroup);
-                Groups.SelectedGroup = default(TGroup);
-            }
-        }
-
-        protected virtual void RemoveGroup(TGroup targetGroup)
-        {
-            //удаление из группы
-            if (Groups.Contains(targetGroup))
-            {
-                Groups.Remove(targetGroup);
-            }
-            //удаление из подгруппы
-            else
-            {
-                var parentGroup = Groups.Single(x => x.Groups != null && x.Groups.Contains(targetGroup as TMember));
-                parentGroup.Groups.Remove(targetGroup as TMember);
-
-                //если группа стала пустая - удалить
-                if (!parentGroup.Groups.Any())
-                {
-                    Groups.Remove(parentGroup);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Можно ли удалять группу?
-        /// </summary>
-        /// <param name="targetGroup"></param>
-        /// <returns></returns>
-        protected virtual bool CanRemoveGroup(TGroup targetGroup)
-        {
-            return true;
-        }
-
-        protected void Load(IEnumerable<TModel> units, IUnitOfWork unitOfWork, bool isNew)
-        {
-            UnitOfWork = unitOfWork;
-            var unitsArray = units as TModel[] ?? units.ToArray();
-
-            //проставляем количество родительских юнитов включенного оборудования
-            var productsIncluded = unitsArray.SelectMany(x => x.ProductsIncluded).ToList();
-            foreach (var productIncluded in productsIncluded)
-            {
-                productIncluded.ParentsCount = unitsArray.Count(x => x.ProductsIncluded.Contains(productIncluded));
-            }
-
-            //создаем контейнер
-            Groups = new GroupsCollection<TModel, TGroup, TMember>(GetGroups(unitsArray), isNew);
-            Groups.SumChanged += () => { RaisePropertyChanged(nameof(Sum)); };
-
-            // реакция на выбор группы
-            Groups.SelectedGroupChanged += group =>
-            {
-                RemoveCommand?.RaiseCanExecuteChanged();
-                AddProductIncludedCommand?.RaiseCanExecuteChanged();
-                RaisePropertyChanged(nameof(Prices));
-                RaisePropertyChanged(nameof(PricesLaborHours));
-            };
-
-            // реакция на выбор включенного оборудования
-            Groups.SelectedProductIncludedChanged += productIncluded =>
-            {
-                (RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
-                SetCustomFixedPriceCommand?.RaiseCanExecuteChanged();
-            };
-
-            // событие для того, чтобы вид перепривязал группы
-            RaisePropertyChanged(nameof(Groups));
-
-            // подписка на события изменения каждой группы и их членов
-            ((IValidatableChangeTrackingCollection<TGroup>)Groups).PropertyChanged += (sender, args) => GroupChanged?.Invoke();
-            Groups.CollectionChanged += (sender, args) => GroupChanged?.Invoke();
-
-            // обновление прайса каждой группы
-            Groups.ForEach(RefreshPrice);
-        }
-
-        #region Commands
-
-        private void ChangeProductCommand_Execute(TGroup wrappersGroup)
-        {
-            var product = Container.Resolve<IGetProductService>().GetProduct(wrappersGroup.Product?.Model);
-            if (product == null || product.Id == wrappersGroup.Product?.Model.Id) return;
-            product = UnitOfWork.Repository<Product>().GetById(product.Id);
-            wrappersGroup.Product = new ProductSimpleWrapper(product);
-            RefreshPrice(wrappersGroup);
-
-            //если групповое действие
-            if (IsGroupActionMode && this.Groups.SelectedGroups != null && this.Groups.SelectedGroups.Length > 1)
-            {
-                foreach (var selectedGroup in Groups.SelectedGroups)
-                {
-                    if (selectedGroup is TGroup grp)
-                    {
-                        if (Equals(grp, wrappersGroup))
-                            continue;
-
-                        grp.Product = wrappersGroup.Product;
-                        RefreshPrice(grp);
-                    }
-                }
-            }
-
-        }
-
-        #endregion
-
-        public bool IsValid => Groups != null && Groups.Any() && Groups.IsValid;
-
-        public bool IsChanged => Groups != null && Groups.IsChanged;
-
-        public event Action GroupChanged;
-
-        #region Accept
-
-        public virtual void AcceptChanges()
-        {
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
-            //добавляем созданные
-            var added = GetAddedUnits().ToList();
-            UnitOfWork.Repository<TModel>().AddRange(added);
-
-            //удаляем удаленные
-            var removedModels = GetUnitsForTotalRemove().ToList();
-            //сообщаем об удалении (так высоко, т.к. после удаления объект рушится)
-            removedModels.ForEach(x => eventAggregator.GetEvent<TAfterRemoveEvent>().Publish(x));
-            UnitOfWork.Repository<TModel>().DeleteRange(removedModels);
-
-            var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).Cast<TGroup>().ToList();
-            modified = modified.Concat(Groups.ModifiedItems).ToList();
-
-            Groups.AcceptChanges();
-
-            added.Concat(modified.Select(x => x.Model)).Distinct().ForEach(x => eventAggregator.GetEvent<TAfterSaveEvent>().Publish(x));
-        }
-
-        protected IEnumerable<TModel> GetAddedUnits()
-        {
-            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>();
-            added = added.Concat(Groups.AddedItems);
-            return added.Select(x => x.Model).Distinct();
-        }
-
-        protected virtual IEnumerable<TModel> GetUnitsForTotalRemove()
-        {
-            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>().ToList();
-            added = added.Concat(Groups.AddedItems).ToList();
-
-            //удаляем удаленные
-            var removed =
-                Groups
-                    .Except(added)
-                    .Where(x => x.Groups != null)
-                    .SelectMany(x => x.Groups.RemovedItems)
-                    .Cast<TGroup>()
-                    .ToList();
-            removed = Groups.RemovedItems.Concat(removed).ToList();
-            removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>()).ToList();
-            return removed.Select(x => x.Model).Distinct().ToList();
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Округлание цен
-        /// </summary>
-        public void RoundUpGroupsCosts(double roundUpAccuracy)
-        {
-            foreach (var grp in Groups)
-            {
-                grp.Cost = Math.Ceiling(grp.Cost / roundUpAccuracy) * roundUpAccuracy;
-            }
-        }
-
-
-        #endregion
-
-
-        #region Price
-
-        //блоки, необходимые для поиска аналогов
-        protected readonly Dictionary<TGroup, Price> PriceDictionary = new Dictionary<TGroup, Price>();
-
-        protected readonly Dictionary<TGroup, Price> PriceDictionaryLaborHours = new Dictionary<TGroup, Price>();
-
-        /// <summary>
-        /// Структура себестоимости выбранной группы
-        /// </summary>
-        public List<Price> Prices => Groups.SelectedGroup == null
-            ? null
-            : new List<Price> { PriceDictionary[Groups.SelectedGroup] };
-
-        public List<Price> PricesLaborHours => Groups.SelectedGroup == null
-            ? null
-            : new List<Price> { PriceDictionaryLaborHours[Groups.SelectedGroup] };
-
-        /// <summary>
-        /// Дата для расчета себестоимости.
-        /// </summary>
-        /// <param name="grp"></param>
-        /// <returns></returns>
-        protected abstract DateTime GetPriceDate(TGroup grp);
-
-        /// <summary>
-        /// Обновление себестоимости группы.
-        /// </summary>
-        /// <param name="grp"></param>
-        protected void RefreshPrice(TGroup grp)
-        {
-            if (grp == null) return;
-
-            this.RefreshPriceLaborHours(grp);
-
-            //срок актуальности
-            var priceTerm = GlobalAppProperties.Actual.ActualPriceTerm;
-
-            //если в словаре нет такой группы, добавляем её
-            if (!PriceDictionary.ContainsKey(grp))
-                PriceDictionary.Add(grp, null);
-
-            //обновляем структуру себестоимости этой группе
-            PriceDictionary[grp] = GlobalAppProperties.PriceService.GetPrice(grp.Model, GetPriceDate(grp), true);
-
-            //обновляем себестоимость группы
-            grp.Price = PriceDictionary[grp].SumPriceTotal;
-            grp.FixedCost = PriceDictionary[grp].SumFixedTotal;
-
-            //основная з/п
-            var primaryPayment = PriceDictionary[grp].LaborHoursTotal * GlobalAppProperties.PriceService.GetLaborHoursCost(GetPriceDate(grp));
-            //отчисления
-            var dif = primaryPayment * 30.7 / 100.0;
-            //резерв отпусков
-            var vac = (primaryPayment + dif) * 7.7 / 100;
-            //фонд оплаты труда
-            grp.WageFund = primaryPayment + dif + vac;
-
-            RaisePropertyChanged(nameof(Prices));
-
-            //если в группе есть зависимые группы - обновить и для них
-            grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));
-        }
-
-        private void RefreshPriceLaborHours(TGroup grp)
-        {
-            if (grp == null) return;
-
-            //если в словаре нет такой группы, добавляем её
-            if (!PriceDictionaryLaborHours.ContainsKey(grp))
-                PriceDictionaryLaborHours.Add(grp, null);
-
-            //обновляем структуру себестоимости этой группе
-            PriceDictionaryLaborHours[grp] = GlobalAppProperties.PriceService.GetPrice(grp.Model, GetPriceDate(grp), false);
-
-            //обновляем себестоимость группы
-            grp.Price = PriceDictionaryLaborHours[grp].SumPriceTotal;
-            grp.FixedCost = PriceDictionaryLaborHours[grp].SumFixedTotal;
-
-            //основная з/п
-            var primaryPayment = PriceDictionaryLaborHours[grp].LaborHoursTotal * GlobalAppProperties.PriceService.GetLaborHoursCost(GetPriceDate(grp));
-            //отчисления
-            var dif = primaryPayment * 30.7 / 100.0;
-            //резерв отпусков
-            var vac = (primaryPayment + dif) * 7.7 / 100;
-            //фонд оплаты труда
-            grp.WageFund = primaryPayment + dif + vac;
-
-            RaisePropertyChanged(nameof(PricesLaborHours));
-
-            //если в группе есть зависимые группы - обновить и для них
-            grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));
-        }
-
-
-        #endregion
 
         protected override bool CanRemoveGroup(ProjectUnitsGroup targetGroup)
         {
@@ -461,7 +45,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
         protected override void RemoveGroup(ProjectUnitsGroup targetGroup)
         {
             var salesUnits = targetGroup.Groups == null
-                ? new List<SalesUnit> {targetGroup.SalesUnit}
+                ? new List<SalesUnit> { targetGroup.SalesUnit }
                 : new List<SalesUnit>(targetGroup.Groups.Select(projectUnitsGroup => projectUnitsGroup.SalesUnit));
 
             //если ни один юнит ещё не сохранен в БД
@@ -592,13 +176,11 @@ namespace HVTApp.UI.Modules.Sales.Project1
                 .Select(x => new ProjectUnitsGroup(x.ToList())).ToList();
         }
 
-        public void Load(IEnumerable<SalesUnit> units, ProjectWrapper1 projectWrapper1, IUnitOfWork unitOfWork, bool isNew)
+        public void Load(IEnumerable<SalesUnit> units, ProjectWrapper1 parentWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
-            this.Groups1 = new ProjectUnitGroupsContainer(units);
-
             Load(units, unitOfWork, isNew);
-            _projectWrapper = projectWrapper1;
-            _projectWrapper.PropertyChanged += (sender, args) => { AddCommand.RaiseCanExecuteChanged();};
+            _projectWrapper = parentWrapper;
+            _projectWrapper.PropertyChanged += (sender, args) => { AddCommand.RaiseCanExecuteChanged(); };
         }
 
         protected override DateTime GetPriceDate(ProjectUnitsGroup @group)
@@ -606,5 +188,101 @@ namespace HVTApp.UI.Modules.Sales.Project1
             return @group.RealizationDateCalculated;
         }
 
+        #region AddCommand
+
+        protected override void AddCommand_Execute()
+        {
+            //создаем новый юнит и привязываем его к объекту
+            var salesUnit = new SalesUnitWrapper(new SalesUnit());
+            if (_projectWrapper != null) salesUnit.Project = new ProjectWrapper(_projectWrapper.Model); ;
+
+            //создаем модель для диалога
+            var viewModel = new SalesUnitsViewModel(salesUnit, Container, UnitOfWork);
+
+            //заполняем юнит начальными данными
+            FillingSalesUnit(viewModel.ViewModel.Item);
+
+            //диалог с пользователем
+            var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
+            if (!result.HasValue || !result.Value) return;
+
+            //клонируем юниты
+            var units = CloneSalesUnits(viewModel.ViewModel.Item.Model, viewModel.Amount);
+
+            var group = new ProjectUnitsGroup(units.ToList());
+            Groups.Add(group);
+            RefreshPrice(group);
+            Groups.SelectedGroup = group;
+        }
+
+        protected override bool AddCommand_CanExecute()
+        {
+            return _projectWrapper != null && _projectWrapper.IsValid;
+        }
+
+        /// <summary>
+        /// Заполнение юнита по выбранной группе
+        /// </summary>
+        /// <param name="salesUnitWrapper"></param>
+        private void FillingSalesUnit(SalesUnitWrapper salesUnitWrapper)
+        {
+            if (Groups.SelectedGroup == null)
+            {
+                var paymentConditionSet = UnitOfWork.Repository<PaymentConditionSet>()
+                        .Find(conditionSet => conditionSet.Id == GlobalAppProperties.Actual.PaymentConditionSet.Id)
+                        .First();
+                salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(paymentConditionSet);
+                salesUnitWrapper.ProductionTerm = GlobalAppProperties.Actual.StandartTermFromStartToEndProduction;
+
+                return;
+            }
+
+            salesUnitWrapper.Cost = Groups.SelectedGroup.Cost;
+            salesUnitWrapper.Facility = new FacilityWrapper(Groups.SelectedGroup.Facility.Model);
+            salesUnitWrapper.PaymentConditionSet = new PaymentConditionSetWrapper(Groups.SelectedGroup.PaymentConditionSet.Model);
+            salesUnitWrapper.ProductionTerm = Groups.SelectedGroup.ProductionTerm;
+            salesUnitWrapper.Product = new ProductWrapper(Groups.SelectedGroup.Product.Model);
+            salesUnitWrapper.DeliveryDateExpected = Groups.SelectedGroup.DeliveryDateExpected;
+            if (Groups.SelectedGroup.CostDelivery.HasValue)
+            {
+                if (Groups.SelectedGroup.Groups != null &&
+                    Groups.SelectedGroup.Groups.Any() &&
+                    !Groups.SelectedGroup.Groups.First().CostDelivery.HasValue)
+                {
+                    salesUnitWrapper.CostDelivery = null;
+                }
+                else
+                {
+                    salesUnitWrapper.CostDelivery = Groups.SelectedGroup.CostDelivery / Groups.SelectedGroup.Amount;
+                }
+            }
+
+            //создаем зависимое оборудование
+            foreach (var prodIncl in Groups.SelectedGroup.ProductsIncluded)
+            {
+                var pi = new ProductIncluded { Product = prodIncl.Model.Product, Amount = prodIncl.Model.Amount };
+                salesUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
+            }
+        }
+
+        /// <summary>
+        /// Клонирование юнитов по образцу.
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        private IEnumerable<SalesUnit> CloneSalesUnits(SalesUnit salesUnit, int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                var unit = (SalesUnit)salesUnit.Clone();
+                unit.Id = Guid.NewGuid();
+                unit.ProductsIncluded = new List<ProductIncluded>();
+                yield return unit;
+            }
+
+        }
+
+        #endregion
     }
 }

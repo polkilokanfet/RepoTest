@@ -58,7 +58,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
                 if (GlobalAppProperties.Actual.DefaultProjectType != null)
                 {
                     ProjectType defaultProjectType = UnitOfWork.Repository<ProjectType>().GetById(GlobalAppProperties.Actual.DefaultProjectType.Id);
-                    DetailsViewModel.Item.ProjectType = new ProjectTypeSimpleWrapper(defaultProjectType);
+                    //DetailsViewModel.Item.ProjectType = new ProjectTypeSimpleWrapper(defaultProjectType);
                 }
             }
 

@@ -59,19 +59,19 @@
 
                                 <dp:FieldLayout Key="GroupsLayout">
                                     <dp:FieldLayout.Fields>
-                                        <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />
-                                        <dp:TextField AlternateBinding="{Binding Product}" Label="Продукт" Width="350" />
-                                        <dp:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
-                                        <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>
-                                        <dp:NumericField Name="MarginalIncome" Label="МД" Width="50" AllowEdit="True" AllowResize="False"/>-->
+                                        <!--<dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />-->
+                                        <!--<dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Продукт" Width="350" />-->
+                                        <!--<dp:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>-->
+                                        <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>-->
+                                        <!--<dp:NumericField Name="MarginalIncome" Label="МД" Width="50" AllowEdit="True" AllowResize="False"/>-->
                                         <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                                        <!--<dp:NumericField Name="Total" Label="Сумма" Width="Auto" AllowResize="False"/>-->
+                                        <!--<dp:NumericField Name="Total" Label="Сумма" Width="Auto" AllowResize="False"/>--><!--
                                         <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                                        <!--<dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" AllowResize="False"/>-->
+                                        --><!--<dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" AllowResize="False"/>--><!--
                                         <dp:NumericField Name="ProductionTerm" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
-                                        <dp:TextField AlternateBinding="{Binding PaymentConditionSet}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
-                                        <dp:Field AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />
-                                        <dp:TextField AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowEdit="True" />
+                                        <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
+                                        --><!--<dp:Field AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />--><!--
+                                        <dp:TextField AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowEdit="True" />-->
                                         <dp:Field Name="Units" IsExpandable="True"/>
 
                                     </dp:FieldLayout.Fields>
@@ -79,7 +79,12 @@
 
                                 <dp:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Units">
                                     <dp:FieldLayout.Fields>
-                                        <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />
+                                        <!--<dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />-->
+                                        <dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Продукт" Width="350" />
+                                        <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                        <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                        <dp:NumericField Name="ProductionTerm" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
+                                        <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
                                     </dp:FieldLayout.Fields>
                                 </dp:FieldLayout>
 

@@ -7955,17 +7955,6 @@ namespace HVTApp.Model.Wrapper
         public bool DeliveryDateExpectedIsChanged => GetIsChanged(nameof(DeliveryDateExpected));
 
         /// <summary>
-        /// ProducerId
-        /// </summary>
-        public System.Guid ProducerId
-        {
-          get { return Model.ProducerId; }
-          set { SetValue(value); }
-        }
-        public System.Guid ProducerIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProducerId));
-        public bool ProducerIdIsChanged => GetIsChanged(nameof(ProducerId));
-
-        /// <summary>
         /// Дата реализации
         /// </summary>
         public System.Nullable<System.DateTime> RealizationDate

@@ -67,10 +67,6 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Производитель")]
         public virtual Company Producer { get; set; }
-        
-        [NotForDetailsView, NotForListView]
-        public virtual Guid? ProducerId { get; set; }
-
 
         [Designation("Причины проигрыша")]
         public virtual List<LosingReason> LosingReasons { get; set; } = new List<LosingReason>();

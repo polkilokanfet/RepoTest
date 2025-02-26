@@ -35,8 +35,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 {
                     Result = CloneProjectUnits(this.ProjectUnit, this.Amount);
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-                },
-                () => this.ProjectUnit.IsValid);
+                });
             this.ProjectUnit.PropertyChanged += (sender, args) => OkCommand.RaiseCanExecuteChanged();
         }
 

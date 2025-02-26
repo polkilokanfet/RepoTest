@@ -18,7 +18,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         public bool CanExecute(object parameter)
         {
-            return _viewModel.Groups.SelectedUnit != null;
+            return _viewModel.ProjectWrapper.Units.SelectedUnit != null;
         }
 
         public event EventHandler CanExecuteChanged;

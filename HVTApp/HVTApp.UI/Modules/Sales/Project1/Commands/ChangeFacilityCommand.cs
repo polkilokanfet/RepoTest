@@ -3,6 +3,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
@@ -28,9 +29,9 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         public void Execute(object parameter)
         {
             var facilities = _unitOfWork.Repository<Facility>().GetAllAsNoTracking();
-            var facility = _selectService.SelectItem(facilities, _projectUnit.FacilityId);
+            var facility = _selectService.SelectItem(facilities, _projectUnit.Facility.Model.Id);
             if (facility == null) return;
-            _projectUnit.SetFacility(facility);
+            _projectUnit.Facility = new FacilityEmptyWrapper(facility);
         }
 
         public event EventHandler CanExecuteChanged;

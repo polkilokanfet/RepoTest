@@ -528,6 +528,10 @@
     <Compile Include="Migrations\202501291003210_PriceCalculationItemNotNullableDates.Designer.cs">
       <DependentUpon>202501291003210_PriceCalculationItemNotNullableDates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502261935396_SalesUnitProductId.cs" />
+    <Compile Include="Migrations\202502261935396_SalesUnitProductId.Designer.cs">
+      <DependentUpon>202502261935396_SalesUnitProductId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -873,6 +877,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501291003210_PriceCalculationItemNotNullableDates.resx">
       <DependentUpon>202501291003210_PriceCalculationItemNotNullableDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502261935396_SalesUnitProductId.resx">
+      <DependentUpon>202502261935396_SalesUnitProductId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

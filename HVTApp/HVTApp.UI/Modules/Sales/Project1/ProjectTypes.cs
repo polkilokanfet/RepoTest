@@ -7,34 +7,34 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public class ProjectTypes : IEnumerable<ProductType>
+    public class ProjectTypes : IEnumerable<ProjectType>
     {
         private readonly ProjectWrapper1 _projectWrapper1;
-        private readonly List<ProductType> _productTypes;
-        private ProductType _selectedProductType;
+        private readonly List<ProjectType> _projectTypes;
+        private ProjectType _selectedProjectType;
 
-        public ProductType SelectedProductType
+        public ProjectType SelectedProjectType
         {
-            get => _selectedProductType;
+            get => _selectedProjectType;
             set
             {
-                if (Equals(_selectedProductType, value)) return;
-                _selectedProductType = value;
+                if (Equals(_selectedProjectType, value)) return;
+                _selectedProjectType = value;
                 this._projectWrapper1.ProjectTypeId = value.Id;
             }
         }
 
         public ProjectTypes(IUnitOfWork unitOfWork, ProjectWrapper1 projectWrapper1)
         {
-            _productTypes = unitOfWork.Repository<ProductType>().GetAllAsNoTracking();
+            _projectTypes = unitOfWork.Repository<ProjectType>().GetAllAsNoTracking();
             _projectWrapper1 = projectWrapper1;
             if (_projectWrapper1.ProjectTypeId != Guid.Empty)
-                _selectedProductType = _productTypes.Single(productType => productType.Id == _projectWrapper1.ProjectTypeId);
+                _selectedProjectType = _projectTypes.Single(projectType => projectType.Id == _projectWrapper1.ProjectTypeId);
         }
 
-        public IEnumerator<ProductType> GetEnumerator()
+        public IEnumerator<ProjectType> GetEnumerator()
         {
-            return _productTypes.GetEnumerator();
+            return _projectTypes.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

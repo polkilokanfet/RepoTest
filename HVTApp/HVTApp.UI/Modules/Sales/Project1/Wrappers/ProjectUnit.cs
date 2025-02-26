@@ -146,13 +146,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
                 if (!Equals(x.Cost, y.Cost)) return false;
                 if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
-                if (!Equals(x.Product, y.Product)) return false;
-                if (!Equals(x.Facility, y.Facility)) return false;
-                if (!Equals(x.PaymentConditionSet, y.PaymentConditionSet)) return false;
-                if (!Equals(x.Producer, y.Producer)) return false;
                 if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
                 if (!Equals(x.Comment, y.Comment)) return false;
                 if (!Equals(x.DeliveryDateExpected, y.DeliveryDateExpected)) return false;
+                if (!Equals(x.Product?.Model.Id, y.Product?.Model.Id)) return false;
+                if (!Equals(x.Facility?.Model.Id, y.Facility?.Model.Id)) return false;
+                if (!Equals(x.PaymentConditionSet?.Model.Id, y.PaymentConditionSet?.Model.Id)) return false;
+                if (!Equals(x.Producer?.Model.Id, y.Producer?.Model.Id)) return false;
 
                 //var productsInclX = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
                 //var productsInclY = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
