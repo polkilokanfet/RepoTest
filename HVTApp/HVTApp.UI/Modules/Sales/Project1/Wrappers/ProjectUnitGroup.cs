@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.ObjectBuilder2;
@@ -90,6 +91,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         #endregion
 
+
+        public Specification Specification => Units.First().Specification;
 
         public void CopyProps(IProjectUnit projectUnit)
         {

@@ -37,7 +37,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
         {
             var unit = _viewModel.ProjectWrapper.Units.SelectedUnit;
             var projectUnitViewModel = new ProjectUnitEditViewModel(unit, _unitOfWork, _selectService);
-            _dialogService.Show(projectUnitViewModel);
+            _dialogService.Show(projectUnitViewModel, "Редактирование единицы продаж");
         }
     }
 }

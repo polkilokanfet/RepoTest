@@ -55,6 +55,11 @@
                                 </ContextMenu>
                             </dp:XamDataGrid.ContextMenu>
 
+                            <dp:XamDataGrid.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCommand, Mode=OneWay}" />
+                            </dp:XamDataGrid.InputBindings>
+
+
                             <dp:XamDataGrid.FieldLayouts>
 
                                 <dp:FieldLayout Key="GroupsLayout">

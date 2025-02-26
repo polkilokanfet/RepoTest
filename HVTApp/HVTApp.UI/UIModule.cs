@@ -30,6 +30,8 @@ using HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
+using HVTApp.UI.Modules.Sales.Project1;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using HVTApp.UI.Modules.SupplyModule.Views;
 using HVTApp.UI.PaymentConditionsSet;
 using HVTApp.UI.PriceCalculations.View;
@@ -150,6 +152,7 @@ namespace HVTApp.UI
             _dialogService.RegisterShow<SalesReportViewModel, SalesReportView>();
             _dialogService.RegisterShow<PaymentsPlanViewModel, PaymentsPlanView>();
             _dialogService.RegisterShow<PriceEngineeringTask, BlockReportView>();
+            _dialogService.RegisterShow<ProjectUnitEditViewModel, ProjectUnitEditView>();
 
             RegisterViews();
 

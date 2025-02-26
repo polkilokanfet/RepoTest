@@ -9,6 +9,18 @@ namespace HVTApp.UI.Controls
         public ChooseItemControl()
         {
             InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (this.RemoveItemCommand == default(ICommand))
+                this.RemoveButton.Visibility = Visibility.Collapsed;
+
+            if (this.AddItemCommand == default(ICommand))
+                this.AddButton.Visibility = Visibility.Collapsed;
+
+            this.Loaded -= OnLoaded;
         }
 
         #region Item       

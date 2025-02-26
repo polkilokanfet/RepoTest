@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
@@ -16,6 +17,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         ProductEmptyWrapper Product { get; set; }
         PaymentConditionSetEmptyWrapper PaymentConditionSet { get; set; }
         CompanyEmptyWrapper Producer { get; set; }
+
+        Specification Specification { get; }
 
 
         void CopyProps(IProjectUnit projectUnit);

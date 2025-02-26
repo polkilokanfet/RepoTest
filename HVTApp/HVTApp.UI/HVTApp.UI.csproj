@@ -401,8 +401,12 @@
       <DependentUpon>ProjectView1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Project1\ProjectViewModel1.cs" />
+    <Compile Include="Modules\Sales\Project1\ProjectUnitEditView.xaml.cs">
+      <DependentUpon>ProjectUnitEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitAddViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitEditViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\RemoveProducerCommand.cs" />
     <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInSpecification.xaml.cs">
       <DependentUpon>TabCrudUnitsInSpecification.xaml</DependentUpon>
     </Compile>
@@ -2090,6 +2094,10 @@
     <Page Include="Modules\Sales\Project1\ProjectView1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sales\Project1\ProjectUnitEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\Sales\Supervision\SupervisionView.xaml">
       <Generator>MSBuild:Compile</Generator>

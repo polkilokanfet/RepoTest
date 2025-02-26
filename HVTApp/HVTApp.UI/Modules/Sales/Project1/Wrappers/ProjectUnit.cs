@@ -112,6 +112,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             InitializeComplexProperty(nameof(Producer), Model.Producer == null ? null : new CompanyEmptyWrapper(Model.Producer));
         }
 
+        public Specification Specification => this.Model.Specification;
+
         public void CopyProps(IProjectUnit projectUnit)
         {
             if (projectUnit == null) return;
@@ -153,6 +155,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 if (!Equals(x.Facility?.Model.Id, y.Facility?.Model.Id)) return false;
                 if (!Equals(x.PaymentConditionSet?.Model.Id, y.PaymentConditionSet?.Model.Id)) return false;
                 if (!Equals(x.Producer?.Model.Id, y.Producer?.Model.Id)) return false;
+                if (!Equals(x.Specification?.Id, y.Specification?.Id)) return false;
 
                 //var productsInclX = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
                 //var productsInclY = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
