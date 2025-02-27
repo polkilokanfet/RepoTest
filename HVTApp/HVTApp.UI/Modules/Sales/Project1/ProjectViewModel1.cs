@@ -67,7 +67,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
             //MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, _unitOfWork, container);
             //IncludeServiceInSpecificationCommand = new IncludeServiceInSpecificationCommand(this, container);
 
-            ProjectWrapper = new ProjectWrapper1(project);
+            ProjectWrapper = new ProjectWrapper1(UnitOfWork.Repository<Project>().GetById(project.Id));
             ProjectTypes = new ProjectTypes(UnitOfWork, this.ProjectWrapper);
         }
 

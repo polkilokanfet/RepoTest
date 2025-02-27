@@ -8,7 +8,8 @@
               d:DataContext="{d:DesignInstance project1:ProjectViewModel1, IsDesignTimeCreatable=True}"
               xmlns:project1="clr-namespace:HVTApp.UI.Modules.Sales.Project1"
               xmlns:dp="http://infragistics.com/DataPresenter"
-              xmlns:igEditors="http://infragistics.com/Editors">
+              xmlns:igEditors="http://infragistics.com/Editors"
+              xmlns:system="clr-namespace:System;assembly=mscorlib">
 
 
     <Grid>
@@ -26,109 +27,85 @@
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" MaxHeight="480"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <GroupBox Grid.Row="0" Header="Оборудование">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <GroupBox Grid.Column="0" Header="Оборудование">
+                    <dp:XamDataGrid x:Name="UnitListGrid"
+                                DataSource="{Binding ProjectWrapper.Units.Groups}"
+                                SelectedDataItemsScope="RecordsOrCells"
+                                ActiveDataItem="{Binding ProjectWrapper.Units.SelectedUnit, Mode=TwoWay}">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                        <dp:XamDataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                            </ContextMenu>
+                        </dp:XamDataGrid.ContextMenu>
 
-                        <dp:XamDataGrid x:Name="UnitListGrid"
-                                    DataSource="{Binding ProjectWrapper.Units.Groups}"
-                                    SelectedDataItemsScope="RecordsOrCells"
-                                    ActiveDataItem="{Binding ProjectWrapper.Units.SelectedUnit, Mode=TwoWay}">
+                        <dp:XamDataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCommand, Mode=OneWay}" />
+                        </dp:XamDataGrid.InputBindings>
 
-                            <dp:XamDataGrid.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                                </ContextMenu>
-                            </dp:XamDataGrid.ContextMenu>
-
-                            <dp:XamDataGrid.InputBindings>
-                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditCommand, Mode=OneWay}" />
-                            </dp:XamDataGrid.InputBindings>
-
-
-                            <dp:XamDataGrid.FieldLayouts>
-
-                                <dp:FieldLayout Key="GroupsLayout">
-                                    <dp:FieldLayout.Fields>
-                                        <dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />
-                                        <dp:TextField AlternateBinding="{Binding Product.Model.ProductType.Name}" Label="Продукт" Width="200" />
-                                        <dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Продукт" Width="350" />
-                                        <!--<dp:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>-->
-                                        <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>-->
-                                        <!--<dp:NumericField Name="MarginalIncome" Label="МД" Width="50" AllowEdit="True" AllowResize="False"/>-->
-                                        <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                                        <!--<dp:NumericField Name="Total" Label="Сумма" Width="Auto" AllowResize="False"/>--><!--
-                                        <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                                        --><!--<dp:NumericField Name="CostDelivery" Label="Доставка" Width="Auto" AllowEdit="True" AllowResize="False"/>--><!--
-                                        <dp:NumericField Name="ProductionTerm" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
-                                        <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
-                                        --><!--<dp:Field AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />--><!--
-                                        <dp:TextField AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowEdit="True" />-->
-                                        <dp:Field Name="Units" IsExpandable="True"/>
-
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
-
-                                <dp:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Units">
-                                    <dp:FieldLayout.Fields>
-                                        <!--<dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />-->
-                                        <dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Продукт" Width="350" />
-                                        <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                                        <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                                        <dp:NumericField Name="ProductionTerm" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
-                                        <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
-
-                            </dp:XamDataGrid.FieldLayouts>
-
-                        </dp:XamDataGrid>
-
-                        <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <Label Content="Общая стоимость без НДС: "/>
-                            <igEditors:XamNumericEditor Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                        </StackPanel>
-
-                    </Grid>
-
-                </GroupBox>
-
-                <GridSplitter Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"/>
-
-                <!--<GroupBox Grid.Column="2" Header="Включено (на единицу)" Name="ProductsIncludedGroupBox">
-                    <dp:XamDataGrid x:Name="ProductsIncludedListGrid"
-                                DataSource="{Binding Path=SelectedDataItem.ProductsIncluded, ElementName=UnitListGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                ActiveDataItem="{Binding Groups.SelectedProductIncluded}">
 
                         <dp:XamDataGrid.FieldLayouts>
-                            <dp:FieldLayout>
+
+                            <dp:FieldLayout Key="GroupsLayout">
                                 <dp:FieldLayout.Fields>
+                                    <dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />
+                                    <dp:TextField AlternateBinding="{Binding Product.Model.ProductType.Name}" Label="Тип" Width="200" />
+                                    <dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Обозначение" Width="200" />
+                                    <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                    <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>-->
+                                    <dp:NumericField AlternateBinding="{Binding CalculatedParts.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД%" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False" />
+                                    <dp:NumericField AlternateBinding="{Binding CostTotal, Mode=OneWay}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
+                                    <dp:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />
+                                    <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
+                                    <dp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowEdit="True" />
+                                    <dp:Field Name="Units" IsExpandable="True"/>
+                                </dp:FieldLayout.Fields>
+                            </dp:FieldLayout>
 
-                                    <dp:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Model.Product}" Label="Продукт" Width="250" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}" />
-                                    <dp:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding Count}" Label="Кол." Width="Auto" />
-
+                            <dp:FieldLayout ParentFieldLayoutKey="GroupsLayout" ParentFieldName="Units">
+                                <dp:FieldLayout.Fields>
+                                    <dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />
+                                    <dp:TextField AlternateBinding="{Binding Product.Model.ProductType.Name}" Label="Тип" Width="200" />
+                                    <dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Обозначение" Width="200" />
+                                    <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>-->
+                                    <dp:NumericField AlternateBinding="{Binding CalculatedParts.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД%" Width="50" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding ProductionTerm}" BindingType="UseAlternateBinding" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
+                                    <dp:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />
+                                    <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
+                                    <dp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowEdit="True" />
                                 </dp:FieldLayout.Fields>
                             </dp:FieldLayout>
 
                         </dp:XamDataGrid.FieldLayouts>
-                    </dp:XamDataGrid>
-                </GroupBox>-->
 
-            </Grid>
+                    </dp:XamDataGrid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Label Content="Общая стоимость без НДС: "/>
+                        <igEditors:XamNumericEditor Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                    </StackPanel>
+
+                </Grid>
+
+            </GroupBox>
 
             <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
@@ -162,8 +139,9 @@
 
             </GroupBox>
 
+            <GridSplitter Grid.Row="3" VerticalAlignment="Center"/>
 
-            <!--<Border Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
+            <Border Grid.Row="4" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
                 <Expander Header="Затраты (на единицу)">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid>
@@ -175,7 +153,7 @@
                             <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2">
                                 <Expander Header="Структура себестоимости" IsExpanded="True">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <dp:XamDataGrid DataSource="{Binding Prices}" Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                        <dp:XamDataGrid DataSource="{Binding Path=ProjectWrapper.Units.SelectedUnit.Prices}" Style="{StaticResource XamDataGridWithoutGroupByArea}">
                                             <dp:XamDataGrid.FieldLayouts>
                                                 <dp:FieldLayout>
                                                     <dp:FieldLayout.Fields>
@@ -227,7 +205,7 @@
 
                     </ScrollViewer>
                 </Expander>
-            </Border>-->
+            </Border>
 
 
         </Grid>

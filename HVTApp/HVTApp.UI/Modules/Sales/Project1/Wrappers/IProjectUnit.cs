@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
@@ -26,6 +26,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         /// ¬ключенные продукты
         /// </summary>
         IEnumerable<ProjectUnitProductIncludedGroup> ProductsIncludedGroups { get; }
+
+        Price Price { get; }
+
+        ProjectUnitCalculatedParts CalculatedParts { get; }
 
         void CopyProps(IProjectUnit projectUnit);
     }

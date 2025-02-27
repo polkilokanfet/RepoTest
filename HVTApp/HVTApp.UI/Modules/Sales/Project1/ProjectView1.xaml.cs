@@ -16,6 +16,10 @@ namespace HVTApp.UI.Modules.Sales.Project1
         public ProjectView1(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             InitializeComponent();
+            this.UnitListGrid.ClipboardPasting += (sender, args) =>
+            {
+
+            };
         }
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)

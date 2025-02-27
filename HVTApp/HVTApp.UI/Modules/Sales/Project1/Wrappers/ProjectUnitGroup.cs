@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.ObjectBuilder2;
@@ -13,18 +14,22 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
     {
         public IValidatableChangeTrackingCollection<ProjectUnit> Units { get; }
 
+        public int Amount => Units.Count;
+
         #region SimpleProperties
 
         public double Cost
         {
-            get => this.Units.First().Cost;
-            set => this.Units.ForEach(projectUnit => projectUnit.Cost = value);
+            get => CostTotal / Amount;
+            set { this.Units.ForEach(projectUnit => projectUnit.Cost = value); }
         }
+
+        public double CostTotal => this.Units.Sum(x => x.Cost);
 
         public double? CostDelivery
         {
-            get => this.Units.First().CostDelivery;
-            set => this.Units.ForEach(projectUnit => projectUnit.CostDelivery = value);
+            get => this.Units.Where(x => x.CostDelivery.HasValue).Sum(x => x.CostDelivery.Value);
+            set { this.Units.ForEach(projectUnit => projectUnit.CostDelivery = value / Amount); }
         }
 
         public int ProductionTerm
@@ -91,7 +96,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         #endregion
 
-
         public Specification Specification => Units.First().Specification;
 
         public IEnumerable<ProjectUnitProductIncludedGroup> ProductsIncludedGroups =>
@@ -101,6 +105,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 .Select(x => new ProjectUnitProductIncludedGroup(x))
                 .OrderBy(x => x.Name);
 
+        public Price Price => Units.First().Price;
+        public ProjectUnitCalculatedParts CalculatedParts { get; }
+
+        public IEnumerable<Price> Prices => new List<Price> { this.Price };
+
+
         public void CopyProps(IProjectUnit projectUnit)
         {
             throw new NotImplementedException();
@@ -109,6 +119,24 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         public ProjectUnitGroup(IEnumerable<ProjectUnit> projectUnits)
         {
             Units = new ValidatableChangeTrackingCollection<ProjectUnit>(projectUnits);
+            CalculatedParts = new ProjectUnitCalculatedParts(this);
+            foreach (var unit in Units)
+            {
+                unit.PropertyChanged += (sender, args) =>
+                {
+                    if (args.PropertyName == nameof(Cost))
+                    {
+                        RaisePropertyChanged(nameof(Cost));
+                        RaisePropertyChanged(nameof(CostTotal));
+                        RaisePropertyChanged(nameof(CalculatedParts));
+                    }
+                    else if (args.PropertyName == nameof(CostDelivery))
+                    {
+                        RaisePropertyChanged(nameof(CostDelivery));
+                        RaisePropertyChanged(nameof(CalculatedParts));
+                    }
+                };
+            }
         }
 
         public bool Add(ProjectUnit projectUnit)

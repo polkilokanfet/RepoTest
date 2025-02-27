@@ -1,13 +1,63 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
+    public class ProjectUnitCalculatedParts : BindableBase
+    {
+        private readonly IProjectUnit _projectUnit;
+
+
+        private double CostDelivery
+        {
+            get
+            {
+                double result = 0;
+                if (_projectUnit.CostDelivery.HasValue)
+                    result = _projectUnit.CostDelivery.Value;
+
+                if (_projectUnit is ProjectUnitGroup projectUnitGroup)
+                    result /= projectUnitGroup.Amount;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// ћинимально возможна€ цена единицы оборудовани€ (продукты с фиксированной ценой + стоимость доставки)
+        /// </summary>
+        private double CostMin => _projectUnit.Price.SumFixedTotal + CostDelivery;
+
+        public double? MarginalIncome
+        {
+            get => _projectUnit.Cost - CostMin <= 0
+                ? default(double?)
+                : (1.0 - _projectUnit.Price.SumPriceTotal / (_projectUnit.Cost - CostMin)) * 100.0;
+            set
+            {
+                if (value.HasValue == false || value >= 100) 
+                    return;
+
+                var marginalIncome = value.Value;
+                _projectUnit.Cost = _projectUnit.Price.SumPriceTotal / (1.0 - marginalIncome / 100.0) + CostMin;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ProjectUnitCalculatedParts(IProjectUnit projectUnit)
+        {
+            _projectUnit = projectUnit;
+        }
+    }
+
     public class ProjectUnit : WrapperBase<SalesUnit>, IProjectUnit
     {
         public Specification Specification => this.Model.Specification;
@@ -21,6 +71,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             {
                 if (value < 0) return;
                 SetValue(value);
+                RaisePropertyChanged(nameof(CalculatedParts));
             }
         }
 
@@ -107,10 +158,16 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 .Select(x => new ProjectUnitProductIncludedGroup(x))
                 .OrderBy(x => x.Name);
 
+        public Price Price => GlobalAppProperties.PriceService.GetPrice(this.Model, this.Model.RealizationDateCalculated, true);
+        public ProjectUnitCalculatedParts CalculatedParts { get; }
+        public IEnumerable<Price> Prices => new List<Price> { this.Price };
+
+        #region Ctors
+
         /// <summary>
         /// ƒл€ создани€ по образцу
         /// </summary>
-        public ProjectUnit(IProjectUnit projectUnit) : base(new SalesUnit())
+        public ProjectUnit(IProjectUnit projectUnit) : this(new SalesUnit())
         {
             this.CopyProps(projectUnit);
         }
@@ -123,6 +180,21 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         {
             this.ProductsIncluded.CollectionChanged +=
                 (sender, args) => RaisePropertyChanged(nameof(ProductsIncludedGroups));
+
+            CalculatedParts = new ProjectUnitCalculatedParts(this);
+
+            this.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(Cost))
+                {
+                    RaisePropertyChanged(nameof(CalculatedParts));
+                }
+                else if (args.PropertyName == nameof(CostDelivery))
+                {
+                    RaisePropertyChanged(nameof(CalculatedParts));
+                }
+            };
+
         }
 
         public override void InitializeComplexProperties()
@@ -139,6 +211,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             ProductsIncluded = new ValidatableChangeTrackingCollection<ProjectUnitProductIncluded>(Model.ProductsIncluded.Select(e => new ProjectUnitProductIncluded(e)));
             RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
         }
+
+        #endregion
 
         public void CopyProps(IProjectUnit projectUnit)
         {
