@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
     public class ProjectUnit : WrapperBase<SalesUnit>, IProjectUnit
     {
+        public Specification Specification => this.Model.Specification;
+
         #region SimpleProperties
 
         public double Cost
@@ -88,6 +92,21 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         #endregion
 
+        #region CollectionProperties
+
+        /// <summary>
+        /// Включенные продукты
+        /// </summary>
+        public IValidatableChangeTrackingCollection<ProjectUnitProductIncluded> ProductsIncluded { get; private set; }
+
+        #endregion
+
+        public IEnumerable<ProjectUnitProductIncludedGroup> ProductsIncludedGroups =>
+            this.ProductsIncluded
+                .GroupBy(x => x, new ProjectUnitProductIncluded.ProjectUnitProductIncludedComparer())
+                .Select(x => new ProjectUnitProductIncludedGroup(x))
+                .OrderBy(x => x.Name);
+
         /// <summary>
         /// Для создания по образцу
         /// </summary>
@@ -102,6 +121,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         /// <param name="model"></param>
         public ProjectUnit(SalesUnit model) : base(model)
         {
+            this.ProductsIncluded.CollectionChanged +=
+                (sender, args) => RaisePropertyChanged(nameof(ProductsIncludedGroups));
         }
 
         public override void InitializeComplexProperties()
@@ -112,7 +133,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             InitializeComplexProperty(nameof(Producer), Model.Producer == null ? null : new CompanyEmptyWrapper(Model.Producer));
         }
 
-        public Specification Specification => this.Model.Specification;
+        protected override void InitializeCollectionProperties()
+        {
+            if (Model.ProductsIncluded == null) throw new ArgumentException($"{nameof(Model.ProductsIncluded)} cannot be null");
+            ProductsIncluded = new ValidatableChangeTrackingCollection<ProjectUnitProductIncluded>(Model.ProductsIncluded.Select(e => new ProjectUnitProductIncluded(e)));
+            RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
+        }
 
         public void CopyProps(IProjectUnit projectUnit)
         {

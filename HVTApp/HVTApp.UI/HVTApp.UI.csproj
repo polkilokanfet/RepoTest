@@ -406,6 +406,8 @@
     </Compile>
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitAddViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitEditViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitProductIncluded.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitProductIncludedGroup.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\RemoveProducerCommand.cs" />
     <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInSpecification.xaml.cs">
       <DependentUpon>TabCrudUnitsInSpecification.xaml</DependentUpon>

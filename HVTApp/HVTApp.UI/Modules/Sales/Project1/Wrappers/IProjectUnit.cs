@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
@@ -20,6 +22,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         Specification Specification { get; }
 
+        /// <summary>
+        /// ¬ключенные продукты
+        /// </summary>
+        IEnumerable<ProjectUnitProductIncludedGroup> ProductsIncludedGroups { get; }
 
         void CopyProps(IProjectUnit projectUnit);
     }

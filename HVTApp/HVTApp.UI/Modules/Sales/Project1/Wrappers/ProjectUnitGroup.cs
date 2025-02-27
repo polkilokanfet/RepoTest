@@ -94,6 +94,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public Specification Specification => Units.First().Specification;
 
+        public IEnumerable<ProjectUnitProductIncludedGroup> ProductsIncludedGroups =>
+            this.Units
+                .SelectMany(x => x.ProductsIncluded)
+                .GroupBy(x => x, new ProjectUnitProductIncluded.ProjectUnitProductIncludedComparer())
+                .Select(x => new ProjectUnitProductIncludedGroup(x))
+                .OrderBy(x => x.Name);
+
         public void CopyProps(IProjectUnit projectUnit)
         {
             throw new NotImplementedException();

@@ -23,9 +23,9 @@
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -64,8 +64,9 @@
 
                                 <dp:FieldLayout Key="GroupsLayout">
                                     <dp:FieldLayout.Fields>
-                                        <!--<dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />-->
-                                        <!--<dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Продукт" Width="350" />-->
+                                        <dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />
+                                        <dp:TextField AlternateBinding="{Binding Product.Model.ProductType.Name}" Label="Продукт" Width="200" />
+                                        <dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Продукт" Width="350" />
                                         <!--<dp:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>-->
                                         <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>-->
                                         <!--<dp:NumericField Name="MarginalIncome" Label="МД" Width="50" AllowEdit="True" AllowResize="False"/>-->
@@ -129,9 +130,40 @@
 
             </Grid>
 
-            <!--<GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
+            <GridSplitter Grid.Row="1" VerticalAlignment="Center"/>
 
-            <Border Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
+            <GroupBox Grid.Row="2" Header="Включено в стоимость">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <dp:XamDataGrid x:Name="ProductsIncludedGroupsGrid"
+                                    DataSource="{Binding ProjectWrapper.Units.SelectedUnit.ProductsIncludedGroups}"
+                                    SelectedDataItemsScope="RecordsOrCells"
+                                    ActiveDataItem="{Binding ProjectWrapper.Units.SelectedProductsIncludedGroup, Mode=OneWay}">
+
+                        <dp:XamDataGrid.FieldLayouts>
+
+                            <dp:FieldLayout Key="GroupsLayout">
+                                <dp:FieldLayout.Fields>
+                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Обозначение" Width="350" />
+                                    <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                                    <dp:NumericField Name="CustomFixedPrice" Label="Стоимость на единицу" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                </dp:FieldLayout.Fields>
+                            </dp:FieldLayout>
+                        </dp:XamDataGrid.FieldLayouts>
+
+                    </dp:XamDataGrid>
+
+                </Grid>
+
+            </GroupBox>
+
+
+            <!--<Border Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
                 <Expander Header="Затраты (на единицу)">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid>

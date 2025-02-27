@@ -28,6 +28,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public IEnumerable<ProjectUnitGroup> Groups { get; }
 
+        public ProjectUnitProductIncludedGroup SelectedProductsIncludedGroup { get; }
+
         public ProjectUnitGroupsContainer(IEnumerable<SalesUnit> salesUnits) : base(salesUnits.Select(salesUnit => new ProjectUnit(salesUnit)))
         {
             var groups = this
