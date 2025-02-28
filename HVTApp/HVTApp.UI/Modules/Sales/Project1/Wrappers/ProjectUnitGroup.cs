@@ -24,7 +24,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set { this.Units.ForEach(projectUnit => projectUnit.Cost = value); }
         }
 
-        public double CostTotal => this.Units.Sum(x => x.Cost);
+        public double CostTotal => this.Units.Sum(projectUnit => projectUnit.Cost);
 
         public double? CostDelivery
         {
@@ -120,6 +120,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         {
             Units = new ValidatableChangeTrackingCollection<ProjectUnit>(projectUnits);
             CalculatedParts = new ProjectUnitCalculatedParts(this);
+
+            Units.CollectionChanged += (sender, args) =>
+            {
+                RaisePropertyChanged(nameof(Amount));
+            };
+
             foreach (var unit in Units)
             {
                 unit.PropertyChanged += (sender, args) =>
@@ -134,6 +140,18 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                     {
                         RaisePropertyChanged(nameof(CostDelivery));
                         RaisePropertyChanged(nameof(CalculatedParts));
+                    }
+                    else if (args.PropertyName == nameof(Comment))
+                    {
+                        RaisePropertyChanged(nameof(Comment));
+                    }
+                    else if (args.PropertyName == nameof(ProductionTerm))
+                    {
+                        RaisePropertyChanged(nameof(ProductionTerm));
+                    }
+                    else if (args.PropertyName == nameof(DeliveryDateExpected))
+                    {
+                        RaisePropertyChanged(nameof(DeliveryDateExpected));
                     }
                 };
             }

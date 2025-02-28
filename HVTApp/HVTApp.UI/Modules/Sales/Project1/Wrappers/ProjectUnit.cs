@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Comparers;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
@@ -257,11 +258,17 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 if (!Equals(x.Producer?.Model.Id, y.Producer?.Model.Id)) return false;
                 if (!Equals(x.Specification?.Id, y.Specification?.Id)) return false;
 
-                //var productsInclX = x.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
-                //var productsInclY = y.ProductsIncluded.Select(p => new ProductAmount(p.Product.Id, p.Amount, p.CustomFixedPrice)).ToList();
+                var productsInclX = x.ProductsIncludedGroups
+                    .SelectMany(productIncludedGroup => productIncludedGroup.Items)
+                    .Select(p => new ProductAmount(p.Model.Product.Id, p.Model.Amount, p.CustomFixedPrice))
+                    .ToList();
+                var productsInclY = y.ProductsIncludedGroups
+                    .SelectMany(productIncludedGroup => productIncludedGroup.Items)
+                    .Select(p => new ProductAmount(p.Model.Product.Id, p.Model.Amount, p.CustomFixedPrice))
+                    .ToList();
 
-                //if (productsInclX.Except(productsInclY, new ProductAmountComparer()).Any()) return false;
-                //if (productsInclY.Except(productsInclX, new ProductAmountComparer()).Any()) return false;
+                if (productsInclX.Except(productsInclY, new ProductAmountComparer()).Any()) return false;
+                if (productsInclY.Except(productsInclX, new ProductAmountComparer()).Any()) return false;
 
                 return true;
             }

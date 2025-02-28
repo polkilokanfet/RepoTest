@@ -6,7 +6,9 @@ namespace HVTApp.Infrastructure.Comparers
     {
         public bool Equals(ProductAmount x, ProductAmount y)
         {
-            return Equals(x.ProductId, y.ProductId) && Equals(x.Amount, y.Amount) && Equals(x.Price, y.Price);
+            return Equals(x.ProductId, y.ProductId) && 
+                   Equals(x.Amount, y.Amount) && 
+                   Equals(x.Price, y.Price);
         }
 
         public int GetHashCode(ProductAmount obj)
