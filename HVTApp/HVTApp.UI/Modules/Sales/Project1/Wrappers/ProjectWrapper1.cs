@@ -1,9 +1,8 @@
+using System;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
-using System;
-using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
-namespace HVTApp.UI.Modules.Sales.Project1
+namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
     public class ProjectWrapper1 : WrapperBase<Project>
     {

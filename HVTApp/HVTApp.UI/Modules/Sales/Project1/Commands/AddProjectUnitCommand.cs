@@ -3,10 +3,11 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
-using HVTApp.UI.Modules.Sales.Project1.Wrappers;
+using HVTApp.Model.Services;
+using HVTApp.UI.Modules.Sales.Project1.ViewModels;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace HVTApp.UI.Modules.Sales.Project1
+namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
     public class AddProjectUnitCommand : ICommand
     {
@@ -14,6 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
         private readonly IDialogService _dialogService;
         private readonly ISelectService _selectService;
         private readonly ProjectViewModel1 _viewModel;
+        private readonly IGetProductService _getProductService;
 
         #region CanExecute
 
@@ -26,18 +28,19 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         #endregion
 
-        public AddProjectUnitCommand(IUnitOfWork unitOfWork, ISelectService selectService, IDialogService dialogService, ProjectViewModel1 viewModel)
+        public AddProjectUnitCommand(IUnitOfWork unitOfWork, ISelectService selectService, IDialogService dialogService, ProjectViewModel1 viewModel, IGetProductService getProductService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
             _selectService = selectService;
             _viewModel = viewModel;
+            _getProductService = getProductService;
         }
 
         public void Execute(object parameter)
         {
             //создаем модель для диалога
-            var projectUnitAddViewModel = new ProjectUnitAddViewModel(_unitOfWork, _selectService);
+            var projectUnitAddViewModel = new ProjectUnitAddViewModel(_unitOfWork, _selectService, _getProductService, _dialogService);
 
             //заполняем начальные данные
             projectUnitAddViewModel.ProjectUnit.CopyProps(_viewModel.ProjectWrapper.Units.SelectedUnit);

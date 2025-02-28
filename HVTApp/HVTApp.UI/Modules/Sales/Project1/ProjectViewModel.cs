@@ -7,6 +7,7 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using Microsoft.Practices.Unity;
 

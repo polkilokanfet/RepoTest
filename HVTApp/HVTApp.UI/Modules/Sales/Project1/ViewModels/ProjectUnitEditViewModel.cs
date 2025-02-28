@@ -1,6 +1,8 @@
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -28,7 +30,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         public ICommand RemoveProductsIncludedGroupCommand { get; }
 
 
-        public ProjectUnitEditViewModel(IProjectUnit projectUnit, IUnitOfWork unitOfWork, ISelectService selectService)
+        public ProjectUnitEditViewModel(IProjectUnit projectUnit, IUnitOfWork unitOfWork, ISelectService selectService, IGetProductService getProductService, IDialogService dialogService)
         {
             ProjectUnit = projectUnit;
             ChangeFacilityCommand = new ChangeFacilityCommand(projectUnit, unitOfWork, selectService);
@@ -38,7 +40,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             AddProductsIncludedGroupCommand = new DelegateCommand(
                 () =>
                 {
-
+                    var viewModel = new ProductIncludedViewModel(unitOfWork, getProductService);
+                    var dr = dialogService.ShowDialog(viewModel);
+                    if (dr == true)
+                    {
+                        
+                    }
                 });
 
             RemoveProductsIncludedGroupCommand = new DelegateCommand(

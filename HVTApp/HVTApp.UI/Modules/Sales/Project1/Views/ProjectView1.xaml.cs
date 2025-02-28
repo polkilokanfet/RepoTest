@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -8,7 +7,7 @@ using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Modules.Sales.Project1
+namespace HVTApp.UI.Modules.Sales.Project1.Views
 {
     [RibbonTab(typeof(TabCrudUnitsInProject))]
     public partial class ProjectView1 : ViewBaseConfirmNavigationRequest

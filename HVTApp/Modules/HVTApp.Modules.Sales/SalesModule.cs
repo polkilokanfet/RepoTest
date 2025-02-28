@@ -16,6 +16,7 @@ using HVTApp.UI.Modules.Sales.Market;
 using HVTApp.UI.Modules.Sales.Payments;
 using HVTApp.UI.Modules.Sales.Production;
 using HVTApp.UI.Modules.Sales.Project1;
+using HVTApp.UI.Modules.Sales.Project1.Views;
 using HVTApp.UI.Modules.Sales.Shippings;
 using HVTApp.UI.Modules.Sales.ViewModels;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;

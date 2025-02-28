@@ -4,7 +4,9 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.Project1
@@ -59,9 +61,10 @@ namespace HVTApp.UI.Modules.Sales.Project1
         {
             var selectService = container.Resolve<ISelectService>();
             var dialogService = container.Resolve<IDialogService>();
+            var getProductService = container.Resolve<IGetProductService>();
 
-            EditCommand = new EditProjectUnitCommand(UnitOfWork, selectService, dialogService, this);
-            AddCommand = new AddProjectUnitCommand(UnitOfWork, selectService, dialogService, this);
+            EditCommand = new EditProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
+            AddCommand = new AddProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
 
             //MoveToNewProjectCommand = new MoveToNewProjectCommand(this, container);
             //MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, _unitOfWork, container);

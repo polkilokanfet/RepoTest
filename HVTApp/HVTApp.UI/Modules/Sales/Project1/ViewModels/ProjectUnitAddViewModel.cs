@@ -4,9 +4,11 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
-namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
+namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
     public class ProjectUnitAddViewModel : ProjectUnitEditViewModel, IDialogRequestClose
     {
@@ -28,7 +30,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         public DelegateLogCommand OkCommand { get; }
         public IEnumerable<ProjectUnit> Result { get; private set; }
 
-        public ProjectUnitAddViewModel(IUnitOfWork unitOfWork, ISelectService selectService) : base(new ProjectUnit(new SalesUnit()), unitOfWork, selectService)
+        public ProjectUnitAddViewModel(IUnitOfWork unitOfWork, ISelectService selectService, IGetProductService getProductService, IDialogService dialogService) 
+            : base(new ProjectUnit(new SalesUnit()), unitOfWork, selectService, getProductService, dialogService)
         {
             OkCommand = new DelegateLogCommand(
                 () =>

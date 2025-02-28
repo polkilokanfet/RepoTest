@@ -1,5 +1,6 @@
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 

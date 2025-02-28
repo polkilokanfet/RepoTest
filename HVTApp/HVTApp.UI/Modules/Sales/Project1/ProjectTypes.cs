@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {

@@ -392,24 +392,25 @@
       <DependentUpon>Market2OffersControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Market\ISelectedProjectItemChanged.cs" />
-    <Compile Include="Modules\Sales\Project1\AddProjectUnitCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\AddProjectUnitCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\IncludeServiceInSpecificationCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
-    <Compile Include="Modules\Sales\Project1\EditProjectUnitCommand.cs" />
-    <Compile Include="Modules\Sales\Project1\ProductIncludedViewModel.cs" />
-    <Compile Include="Modules\Sales\Views\ProductIncludedWindow.xaml.cs">
+    <Compile Include="Modules\Sales\Project1\Commands\EditProjectUnitCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\ViewModels\ProductIncludedViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProductIncludedWrapper1.cs" />
+    <Compile Include="Modules\Sales\Project1\Views\ProductIncludedWindow.xaml.cs">
       <DependentUpon>ProductIncludedWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Project1\ProjectTypes.cs" />
-    <Compile Include="Modules\Sales\Project1\ProjectView1.xaml.cs">
+    <Compile Include="Modules\Sales\Project1\Views\ProjectView1.xaml.cs">
       <DependentUpon>ProjectView1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Project1\ProjectViewModel1.cs" />
-    <Compile Include="Modules\Sales\Project1\ProjectUnitEditView.xaml.cs">
+    <Compile Include="Modules\Sales\Project1\Views\ProjectUnitEditView.xaml.cs">
       <DependentUpon>ProjectUnitEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitAddViewModel.cs" />
-    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitEditViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\ViewModels\ProjectUnitAddViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\ViewModels\ProjectUnitEditViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitProductIncluded.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitProductIncludedGroup.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\RemoveProducerCommand.cs" />
@@ -994,7 +995,7 @@
     <Compile Include="Modules\Sales\Project1\Commands\MoveToExistsProjectCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\MoveToNewProjectCommand.cs" />
     <Compile Include="Modules\Sales\Project1\ProjectDetailsViewModel1.cs" />
-    <Compile Include="Modules\Sales\Project1\ProjectWrapper1.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectWrapper1.cs" />
     <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />
     <Compile Include="Modules\Sales\Views\SupervisionPriceWindow.xaml.cs">
       <DependentUpon>SupervisionPriceWindow.xaml</DependentUpon>
@@ -2097,15 +2098,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\Sales\Views\ProductIncludedWindow.xaml">
+    <Page Include="Modules\Sales\Project1\Views\ProductIncludedWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Project1\ProjectView1.xaml">
+    <Page Include="Modules\Sales\Project1\Views\ProjectView1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Project1\ProjectUnitEditView.xaml">
+    <Page Include="Modules\Sales\Project1\Views\ProjectUnitEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
