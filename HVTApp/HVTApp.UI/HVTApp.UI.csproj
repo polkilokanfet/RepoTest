@@ -396,6 +396,10 @@
     <Compile Include="Modules\Sales\Project1\Commands\IncludeServiceInSpecificationCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
     <Compile Include="Modules\Sales\Project1\EditProjectUnitCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\ProductIncludedViewModel.cs" />
+    <Compile Include="Modules\Sales\Views\ProductIncludedWindow.xaml.cs">
+      <DependentUpon>ProductIncludedWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Project1\ProjectTypes.cs" />
     <Compile Include="Modules\Sales\Project1\ProjectView1.xaml.cs">
       <DependentUpon>ProjectView1.xaml</DependentUpon>
@@ -2092,6 +2096,10 @@
     <Page Include="Modules\Sales\Market\Controls\Market2OffersControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Sales\Views\ProductIncludedWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Project1\ProjectView1.xaml">
       <Generator>MSBuild:Compile</Generator>

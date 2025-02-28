@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
@@ -27,10 +28,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         /// </summary>
         IEnumerable<ProjectUnitProductIncludedGroup> ProductsIncludedGroups { get; }
 
+
         Price Price { get; }
 
         ProjectUnitCalculatedParts CalculatedParts { get; }
 
         void CopyProps(IProjectUnit projectUnit);
+
+        void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded);
     }
 }

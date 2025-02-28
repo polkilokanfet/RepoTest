@@ -33,5 +33,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
             Name = Items.First().Model.Product.ToString();
         }
+
+        public override string ToString()
+        {
+            return $"{Name} = {Amount} רע.";
+        }
     }
 }

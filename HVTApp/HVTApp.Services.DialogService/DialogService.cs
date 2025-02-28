@@ -79,7 +79,8 @@ namespace HVTApp.Services.DialogService
             content.DataContext = viewModel;
             var window = new Window
             {
-                Content = content,
+                Content = content, 
+                SizeToContent = SizeToContent.WidthAndHeight,
                 Title = title ?? string.Empty
             };
             window.Show();

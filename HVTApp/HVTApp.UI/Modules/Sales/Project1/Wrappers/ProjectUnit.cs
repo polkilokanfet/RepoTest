@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Comparers;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -8,6 +9,7 @@ using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
@@ -229,7 +231,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             PaymentConditionSet = projectUnit.PaymentConditionSet;
             Producer = projectUnit.Producer;
         }
-        
+
+        public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)
+        {
+            this.ProductsIncluded.Remove(productIncluded);
+            RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
+        }
+
         public bool HasSameGroup(SalesUnit other)
         {
             return (new ProjectUnitComparer()).Equals(this, new ProjectUnit(other));

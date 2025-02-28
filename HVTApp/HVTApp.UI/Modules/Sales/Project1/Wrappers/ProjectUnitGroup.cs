@@ -105,6 +105,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 .Select(x => new ProjectUnitProductIncludedGroup(x))
                 .OrderBy(x => x.Name);
 
+        public ProjectUnitProductIncludedGroup SelectedProductsIncludedGroup { get; set; }
+
         public Price Price => Units.First().Price;
         public ProjectUnitCalculatedParts CalculatedParts { get; }
 
@@ -114,6 +116,15 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         public void CopyProps(IProjectUnit projectUnit)
         {
             throw new NotImplementedException();
+        }
+
+        public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)
+        {
+            foreach (var projectUnit in Units)
+            {
+                projectUnit.RemoveProductIncluded(productIncluded);
+            }
+            RaisePropertyChanged(nameof(ProjectUnitGroup.ProductsIncludedGroups));
         }
 
         public ProjectUnitGroup(IEnumerable<ProjectUnit> projectUnits)

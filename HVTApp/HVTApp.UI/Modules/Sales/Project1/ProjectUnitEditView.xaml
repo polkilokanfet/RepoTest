@@ -18,12 +18,12 @@
         <Grid.Resources>
             <Style TargetType="Label">
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="MinWidth" Value="200"/>
+                <Setter Property="MinWidth" Value="50"/>
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -38,73 +38,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Объект"/>
@@ -117,46 +51,63 @@
                                     Item="{Binding ProjectUnit.Product}" 
                                     AddItemCommand="{Binding ChangeProductCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Стоимость" />
-        <infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
-                               Value="{Binding ProjectUnit.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Стоимость единицы" />
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Стоимость доставки" />
-        <infE:XamNumericEditor Grid.Column="1" Grid.Row="5" 
-                               Value="{Binding ProjectUnit.CostDelivery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <infE:XamNumericEditor Grid.Column="0" 
+                                   Value="{Binding ProjectUnit.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="8" Content="Условия оплаты" />
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
-                                    Item="{Binding ProjectUnit.PaymentConditionSet}" 
-                                    AddItemCommand="{Binding ChangePaymentConditionsSetCommand}"/>
+            <Label Grid.Column="1" Content="Стоимость доставки" Margin="5 0 0 0"/>
+            <infE:XamNumericEditor Grid.Column="2"
+                                   Value="{Binding ProjectUnit.CostDelivery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="10" Content="Требуемая дата поставки" />
-        <DatePicker Grid.Column="1" Grid.Row="10" 
+        </Grid>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Требуемая дата поставки" />
+        <Grid Grid.Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+        <DatePicker Grid.Column="0"
                     SelectedDate="{Binding ProjectUnit.DeliveryDateExpected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="13" Content="Срок производства" />
-        <infE:XamNumericEditor Grid.Column="1" Grid.Row="13"
+        <Label Grid.Column="1" Content="Срок производства" Margin="5 0 0 0"/>
+        <infE:XamNumericEditor Grid.Column="2"
 							   ValueType="core:Int32"
                                Value="{Binding ProjectUnit.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="18" Content="Производитель" />
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="18" 
+        </Grid>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Условия оплаты" />
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding ProjectUnit.PaymentConditionSet}" 
+                                    AddItemCommand="{Binding ChangePaymentConditionsSetCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Производитель" />
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding ProjectUnit.Producer}" 
                                     AddItemCommand="{Binding ChangeProducerCommand}" 
                                     RemoveItemCommand="{Binding RemoveProducerCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="24" Content="Комментарий" />
-        <TextBox Grid.Column="1" Grid.Row="24"
+        <Label Grid.Column="0" Grid.Row ="6" Content="Комментарий" />
+        <TextBox Grid.Column="1" Grid.Row="6"
                  Text="{Binding ProjectUnit.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-
-        <!--<Label Grid.Column="0" Grid.Row ="34" Content="Включенные продукты" Visibility="{Binding VisibilityProductsIncludedSalesUnit, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="34"
-										 Items="{Binding Path=ProjectUnit.ProductsIncluded}"
-										 SelectedItem="{Binding SelectedProductsIncludedItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInProductsIncludedCommand}"
-										 RemoveItemCommand="{Binding RemoveFromProductsIncludedCommand}"
-										 Visibility="{Binding VisibilityProductsIncludedSalesUnit, ElementName=Root}"/>-->
+        <Label Grid.Column="0" Grid.Row ="7" Content="Включено в стоимость"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
+										 Items="{Binding Path=ProjectUnit.ProductsIncludedGroups}"
+										 SelectedItem="{Binding SelectedProductsIncludedGroup, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddProductsIncludedGroupCommand}"
+										 RemoveItemCommand="{Binding RemoveProductsIncludedGroupCommand}"/>
 
     </Grid>
 </inf:ViewBase>
