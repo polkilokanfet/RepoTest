@@ -30,8 +30,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         public DelegateLogCommand OkCommand { get; }
         public IEnumerable<ProjectUnit> Result { get; private set; }
 
-        public ProjectUnitAddViewModel(IUnitOfWork unitOfWork, ISelectService selectService, IGetProductService getProductService, IDialogService dialogService) 
-            : base(new ProjectUnit(new SalesUnit()), unitOfWork, selectService, getProductService, dialogService)
+        public ProjectUnitAddViewModel(IUnitOfWork unitOfWork, ISelectService selectService, IGetProductService productService, IDialogService dialogService) 
+            : base(new ProjectUnit(new SalesUnit()), unitOfWork, selectService, productService, dialogService)
         {
             OkCommand = new DelegateLogCommand(
                 () =>

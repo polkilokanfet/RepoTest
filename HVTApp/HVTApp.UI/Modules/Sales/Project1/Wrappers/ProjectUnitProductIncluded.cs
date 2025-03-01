@@ -50,5 +50,21 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 return 0;
             }
         }
+
+
+        public class ProjectUnitProductIncludedComparer2 : IEqualityComparer<ProjectUnitProductIncluded>
+        {
+            public virtual bool Equals(ProjectUnitProductIncluded x, ProjectUnitProductIncluded y)
+            {
+                if (x == null) throw new ArgumentNullException(nameof(x));
+                if (y == null) throw new ArgumentNullException(nameof(y));
+                return x.Model.Id == y.Model.Id;
+            }
+
+            public int GetHashCode(ProjectUnitProductIncluded obj)
+            {
+                return 0;
+            }
+        }
     }
 }

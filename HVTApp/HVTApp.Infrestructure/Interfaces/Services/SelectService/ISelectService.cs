@@ -33,7 +33,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
         /// <param name="items">Список, из которого нужно выбрать</param>
         /// <param name="selectedItemId">Предварительно выбранный айтем</param>
         /// <returns></returns>
-        TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null)
+        TItem SelectItem<TItem>(IEnumerable<TItem> items = null, Guid? selectedItemId = null)
             where TItem : class, IBaseEntity;
 
         /// <summary>

@@ -1,23 +1,18 @@
-using System;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
-using Infragistics.Documents.Excel.Charts;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
-    public class SaveProjectCommand : ICommand
+    public class SaveProjectCommand : RaiseCanExecuteChangedCommand
     {
         private readonly ProjectWrapper1 _projectWrapper;
         private readonly IUnitOfWork _unitOfWork;
-        private bool _canExecuteFlag;
 
         public SaveProjectCommand(ProjectWrapper1 projectWrapper, IUnitOfWork unitOfWork)
         {
             _projectWrapper = projectWrapper;
             _unitOfWork = unitOfWork;
-            _canExecuteFlag = CanExecute(null);
             _projectWrapper.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(ProjectWrapper1.IsValid) ||
@@ -26,28 +21,18 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             };
         }
 
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             return _projectWrapper.IsValid &&
                    _projectWrapper.IsChanged;
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public void RaiseCanExecuteChanged()
-        {
-            var canExecute = CanExecute(null);
-            if (_canExecuteFlag == canExecute) return;
-            _canExecuteFlag = canExecute;
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             _projectWrapper.AcceptChanges();
             MapProject();
             _unitOfWork.SaveEntity(_projectWrapper.Model);
-            RaiseCanExecuteChanged();
+            base.Execute(null);
         }
 
         private void MapProject()

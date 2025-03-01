@@ -125,7 +125,8 @@
 
                             <dp:FieldLayout Key="GroupsLayout">
                                 <dp:FieldLayout.Fields>
-                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Обозначение" Width="350" />
+                                    <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="350" />
+                                    <dp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="350" />
                                     <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
                                     <dp:NumericField Name="CustomFixedPrice" Label="Стоимость на единицу" Width="Auto" AllowEdit="True" AllowResize="False"/>
                                 </dp:FieldLayout.Fields>

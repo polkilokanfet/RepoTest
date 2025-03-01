@@ -36,5 +36,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         void CopyProps(IProjectUnit projectUnit);
 
         void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded);
+        void AddProductIncluded(ProductIncluded productIncluded, bool isForEach);
     }
 }

@@ -43,9 +43,14 @@ namespace HVTApp.Services.SelectService
             Mappings[typeof(TItem)] = typeof(TView);
         }
 
-        public TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
+        public TItem SelectItem<TItem>(IEnumerable<TItem> items = null, Guid? selectedItemId = null) 
             where TItem : class, IBaseEntity
         {
+            if (items == null)
+            {
+                items = _container.Resolve<IUnitOfWork>().Repository<TItem>().GetAllAsNoTracking();
+            }
+
             TItem result = null;
 
             Type viewType = Mappings[typeof(TItem)];

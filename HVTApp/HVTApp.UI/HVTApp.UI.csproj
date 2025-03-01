@@ -393,11 +393,17 @@
     </Compile>
     <Compile Include="Modules\Sales\Market\ISelectedProjectItemChanged.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\AddProjectUnitCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\ChangeProducerCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\IncludeServiceInSpecificationCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\RaiseCanExecuteChangedCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\EditProjectUnitCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\SaveProjectCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\ChangeProductCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\AddProductsIncludedGroupCommand.cs" />
     <Compile Include="Modules\Sales\Project1\ViewModels\ProductIncludedViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\ProjectUnitEditBaseCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\RemoveProductsIncludedGroupCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Views\TabProject.xaml.cs">
       <DependentUpon>TabProject.xaml</DependentUpon>
     </Compile>

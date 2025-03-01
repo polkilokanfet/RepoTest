@@ -156,8 +156,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         public IEnumerable<ProjectUnitProductIncludedGroup> ProductsIncludedGroups =>
             this.ProductsIncluded
                 .GroupBy(x => x, new ProjectUnitProductIncluded.ProjectUnitProductIncludedComparer())
-                .Select(x => new ProjectUnitProductIncludedGroup(x))
-                .OrderBy(x => x.Name);
+                .Select(x => new ProjectUnitProductIncludedGroup(x));
 
         public Price Price => GlobalAppProperties.PriceService.GetPrice(this.Model, this.Model.RealizationDateCalculated, true);
         public ProjectUnitCalculatedParts CalculatedParts { get; }
@@ -233,6 +232,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)
         {
             this.ProductsIncluded.Remove(productIncluded);
+            RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
+        }
+
+        public void AddProductIncluded(ProductIncluded productIncluded, bool isForEach = true)
+        {
+            this.ProductsIncluded.Add(new ProjectUnitProductIncluded(productIncluded));
             RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
         }
 

@@ -102,8 +102,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             this.Units
                 .SelectMany(x => x.ProductsIncluded)
                 .GroupBy(x => x, new ProjectUnitProductIncluded.ProjectUnitProductIncludedComparer())
-                .Select(x => new ProjectUnitProductIncludedGroup(x))
-                .OrderBy(x => x.Name);
+                .Select(x => new ProjectUnitProductIncludedGroup(x));
 
         public ProjectUnitProductIncludedGroup SelectedProductsIncludedGroup { get; set; }
 
@@ -126,6 +125,31 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             }
             RaisePropertyChanged(nameof(ProjectUnitGroup.ProductsIncludedGroups));
         }
+
+        public void AddProductIncluded(ProductIncluded productIncluded, bool isForEach)
+        {
+            if (isForEach)
+            {
+                foreach (var projectUnit in Units)
+                {
+                    projectUnit.AddProductIncluded(new ProductIncluded
+                    {
+                        Product = productIncluded.Product, 
+                        Amount = productIncluded.Amount
+                    });
+                }
+            }
+            else
+            {
+                foreach (var projectUnit in Units)
+                {
+                    projectUnit.AddProductIncluded(productIncluded);
+                }
+            }
+
+            RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
+        }
+
 
         public ProjectUnitGroup(IEnumerable<ProjectUnit> projectUnits)
         {

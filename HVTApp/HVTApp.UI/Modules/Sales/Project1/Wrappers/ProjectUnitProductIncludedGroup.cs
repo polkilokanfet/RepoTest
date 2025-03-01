@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Model.POCOs;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
@@ -9,9 +10,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
     {
         public IEnumerable<ProjectUnitProductIncluded> Items { get; }
 
-        public string Name { get; }
+        public Product Product => Items.FirstOrDefault()?.Model.Product;
 
-        public int Amount => Items.Sum(x => x.Model.Amount);
+        public int Amount => Items
+            .Distinct(new ProjectUnitProductIncluded.ProjectUnitProductIncludedComparer2())
+            .Sum(x => x.Model.Amount);
 
         /// <summary>
         /// Прайс на единицу
@@ -30,13 +33,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 projectUnitProductIncluded.PropertyChanged +=
                     (sender, args) => RaisePropertyChanged(nameof(CustomFixedPrice));
             }
-
-            Name = Items.First().Model.Product.ToString();
         }
 
         public override string ToString()
         {
-            return $"{Name} = {Amount} шт.";
+            return $"{Product} = {Amount} шт.";
         }
     }
 }
