@@ -2,9 +2,9 @@
 
 namespace HVTApp.UI.Modules.Sales.Project1.Views
 {
-    public partial class ProjectUnitEditView : IDataContext
+    public partial class ProjectUnitAddView : IDataContext
     {
-        public ProjectUnitEditView()
+        public ProjectUnitAddView()
         {
             InitializeComponent();
         }

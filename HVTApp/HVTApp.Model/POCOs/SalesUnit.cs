@@ -52,7 +52,7 @@ namespace HVTApp.Model.POCOs
 
         #region Проект
 
-        [Designation("Проект"), OrderStatus(1005), Required]
+        [Designation("Проект"), OrderStatus(1005)]
         public virtual Project Project { get; set; }
 
         [NotForDetailsView, NotForListView]

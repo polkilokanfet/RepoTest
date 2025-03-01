@@ -47,6 +47,9 @@
   <ItemGroup>
     <Compile Include="DialogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DialogServiceWindow.xaml.cs">
+      <DependentUpon>DialogServiceWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
@@ -56,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DialogServiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

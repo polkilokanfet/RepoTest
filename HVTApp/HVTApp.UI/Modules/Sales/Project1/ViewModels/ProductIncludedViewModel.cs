@@ -5,10 +5,11 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
-    public class ProductIncludedViewModel : IDialogRequestClose
+    public class ProductIncludedViewModel : BindableBase, IDialogRequestClose
     {
         public ProductIncludedWrapper1 Item { get; }
 
@@ -27,6 +28,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
                     var product = getProductService.GetProduct(Item.Model.Product);
                     if (product == null) return;
                     Item.Model.Product = product;
+                    RaisePropertyChanged(nameof(Item));
                 });
 
 

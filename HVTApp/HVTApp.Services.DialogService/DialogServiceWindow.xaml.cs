@@ -1,10 +1,10 @@
 ﻿using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
-namespace HVTApp.UI.Views
+namespace HVTApp.Services.DialogService
 {
-    public partial class ProductStructureView : IDataContext
+    public partial class DialogServiceWindow : IDialog
     {
-        public ProductStructureView()
+        public DialogServiceWindow()
         {
             InitializeComponent();
         }

@@ -2,9 +2,9 @@
 
 namespace HVTApp.UI.Modules.Sales.Project1.Views
 {
-    public partial class ProductIncludedWindow : IDialog, IDataContext
+    public partial class ProductIncludedView : IDataContext
     {
-        public ProductIncludedWindow()
+        public ProductIncludedView()
         {
             InitializeComponent();
         }

@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -6,7 +7,7 @@ using Prism.Regions;
 namespace HVTApp.UI.Modules.PlanAndEconomy.PaymentsPlan
 {
     [RibbonTab(typeof(TabPayments))]
-    public partial class PaymentsPlanView
+    public partial class PaymentsPlanView : IDataContext
     {
         public PaymentsPlanView()
         {

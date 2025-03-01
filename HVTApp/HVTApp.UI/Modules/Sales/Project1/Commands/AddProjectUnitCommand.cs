@@ -46,7 +46,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             projectUnitAddViewModel.ProjectUnit.CopyProps(_viewModel.SelectedUnit);
 
             //диалог с пользователем
-            var result = _dialogService.ShowDialog(projectUnitAddViewModel);
+            var result = _dialogService.ShowDialog(projectUnitAddViewModel, "Добавить оборудование в проект");
             if (result.HasValue == false || 
                 result.Value == false) 
                 return;

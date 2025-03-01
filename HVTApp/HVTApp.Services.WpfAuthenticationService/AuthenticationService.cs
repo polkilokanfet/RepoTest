@@ -15,14 +15,14 @@ namespace HVTApp.Services.WpfAuthenticationService
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
 
-            _dialogService.Register<AuthenticationWindowModel, AuthenticationWindow>();
+            _dialogService.Register<AuthenticationViewModel, AuthenticationView>();
         }
 
         public User GetAuthenticationUser()
         {
             var users = _unitOfWork.Repository<User>().GetAll();
-            var authenticationWindowModel = new AuthenticationWindowModel(users);
-            bool? result = _dialogService.ShowDialog(authenticationWindowModel);
+            var authenticationWindowModel = new AuthenticationViewModel(users);
+            bool? result = _dialogService.ShowDialog(authenticationWindowModel, "Вход в систему УП ВВА");
             if (result.HasValue && result.Value)
             {
                 return authenticationWindowModel.User;

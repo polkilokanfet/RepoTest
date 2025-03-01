@@ -30,7 +30,6 @@ using HVTApp.UI.Modules.Reports.SalesCharts.ProducersSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.ProductTypesSalesChart;
 using HVTApp.UI.Modules.Reports.SalesCharts.RegionsSalesChart;
 using HVTApp.UI.Modules.Reports.Views;
-using HVTApp.UI.Modules.Sales.Project1;
 using HVTApp.UI.Modules.Sales.Project1.ViewModels;
 using HVTApp.UI.Modules.Sales.Project1.Views;
 using HVTApp.UI.Modules.SupplyModule.Views;
@@ -141,17 +140,18 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<TaskInvoiceForPaymentBackManagerView>();
             Container.RegisterViewForNavigation<TaskInvoiceForPaymentPlanMakerView>();
 
-            Container.Resolve<IDialogService>().Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
-            Container.Resolve<IDialogService>().Register<PaymentConditionViewModel, PaymentConditionView>();
-            Container.Resolve<IDialogService>().Register<ParametersServiceViewModel, ParametersServiceView>();
-            Container.Resolve<IDialogService>().Register<ProductIncludedViewModel, ProductIncludedWindow>();
+            _dialogService.Register<DirectumTaskRouteViewModel, DirectumTaskRouteWindow>();
+            _dialogService.Register<PaymentConditionViewModel, PaymentConditionView>();
+            _dialogService.Register<ParametersServiceViewModel, ParametersServiceView>();
+            _dialogService.Register<ProductIncludedViewModel, ProductIncludedView>();
+            _dialogService.Register<ProjectUnitAddViewModel, ProjectUnitAddView>();
 
-            _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
-            _dialogService.RegisterShow<BudgetComparisionViewModel, BudgetComparisionView>();
-            _dialogService.RegisterShow<SalesReportViewModel, SalesReportView>();
-            _dialogService.RegisterShow<PaymentsPlanViewModel, PaymentsPlanView>();
-            _dialogService.RegisterShow<PriceEngineeringTask, BlockReportView>();
-            _dialogService.RegisterShow<ProjectUnitEditViewModel, ProjectUnitEditView>();
+            _dialogService.Register<ProductStructureViewModel, ProductStructureView>();
+            _dialogService.Register<BudgetComparisionViewModel, BudgetComparisionView>();
+            _dialogService.Register<SalesReportViewModel, SalesReportView>();
+            _dialogService.Register<PaymentsPlanViewModel, PaymentsPlanView>();
+            _dialogService.Register<PriceEngineeringTask, BlockReportView>();
+            _dialogService.Register<ProjectUnitEditViewModel, ProjectUnitEditView>();
 
             RegisterViews();
 

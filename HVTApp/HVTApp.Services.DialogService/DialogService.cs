@@ -16,12 +16,9 @@ namespace HVTApp.Services.DialogService
             _owner = owner;
         }
 
-        #region ShowDialog
-
         public Dictionary<Type, Type> ShowDialogMappings { get; } = new Dictionary<Type, Type>();
 
         public void Register<TViewModel, TView>()
-            where TViewModel : IDialogRequestClose
             where TView : IDataContext
         {
             if (ShowDialogMappings.ContainsKey(typeof(TViewModel)))
@@ -30,7 +27,7 @@ namespace HVTApp.Services.DialogService
             ShowDialogMappings.Add(typeof(TViewModel), typeof(TView));
         }
 
-        public bool? ShowDialog<TViewModel>(TViewModel viewModel) 
+        public bool? ShowDialog<TViewModel>(TViewModel viewModel, string title = null) 
             where TViewModel : IDialogRequestClose
         {
             Type viewType = ShowDialogMappings[typeof(TViewModel)];
@@ -43,14 +40,13 @@ namespace HVTApp.Services.DialogService
             else
             {
                 var content = (UserControl)Activator.CreateInstance(viewType);
-                var window = new Window
+                var window = new DialogServiceWindow
                 {
                     Content = content,
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    Title = "Диалоговое окно"
+                    Title = title ?? "Диалоговое окно"
                 };
 
-                dialog = (IDialog)window;
+                dialog = window;
             }
 
             EventHandler<DialogRequestCloseEventArgs> handler = null;
@@ -75,36 +71,16 @@ namespace HVTApp.Services.DialogService
             return dialog.ShowDialog();
         }
 
-        #endregion
-
-        #region Show
-
-        public Dictionary<Type, Type> ShowMappings { get; } = new Dictionary<Type, Type>();
-
-        public void RegisterShow<TViewModel, TView>()
-            where TView : UserControl
-        {
-            if (ShowMappings.ContainsKey(typeof(TViewModel)))
-                throw new ArgumentException($"Type {typeof(TViewModel)} is already mapped to type {typeof(TView)}");
-
-            ShowMappings.Add(typeof(TViewModel), typeof(TView));
-        }
-
-
         public void Show<TViewModel>(TViewModel viewModel, string title = null)
         {
-            var content = (UserControl)Activator.CreateInstance(ShowMappings[typeof(TViewModel)]);
+            var content = (UserControl)Activator.CreateInstance(ShowDialogMappings[typeof(TViewModel)]);
             content.DataContext = viewModel;
-            var window = new Window
+            var window = new DialogServiceWindow
             {
                 Content = content, 
-                SizeToContent = SizeToContent.WidthAndHeight,
                 Title = title ?? string.Empty
             };
             window.Show();
         }
-
-        #endregion
-
     }
 }

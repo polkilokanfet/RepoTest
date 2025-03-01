@@ -24,7 +24,7 @@ namespace HVTApp.Modules.DirectumLite
 
         protected override void RegisterTypes()
         {
-            Container.Resolve<IDialogService>().RegisterShow<DirectumTasksIncomingViewModel, DirectumTasksIncomingToLateView>();
+            Container.Resolve<IDialogService>().Register<DirectumTasksIncomingViewModel, DirectumTasksIncomingToLateView>();
             ShowDirectumTasks();
         }
 

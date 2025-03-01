@@ -186,6 +186,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             Product = projectUnit.Product;
             PaymentConditionSet = projectUnit.PaymentConditionSet;
             Producer = projectUnit.Producer;
+
+            foreach (var productIncluded in projectUnit.ProductsIncludedGroups.SelectMany(x => x.Items).Select(x => x.Model))
+            {
+                this.ProductsIncluded.Add(new ProjectUnitProductIncluded(productIncluded));
+            }
         }
 
         public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)

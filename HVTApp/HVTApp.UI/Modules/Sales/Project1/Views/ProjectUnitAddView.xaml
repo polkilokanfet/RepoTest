@@ -1,0 +1,129 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Modules.Sales.Project1.Views.ProjectUnitAddView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infE="http://infragistics.com/Editors"
+              xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:viewModels="clr-namespace:HVTApp.UI.Modules.Sales.Project1.ViewModels"
+              mc:Ignorable="d"
+              d:DataContext="{d:DesignInstance viewModels:ProjectUnitAddViewModel, IsDesignTimeCreatable=True}"
+              Height="Auto"
+              Width="Auto"
+              MaxWidth="640"
+              x:Name="Root">
+
+    <StackPanel Margin="3">
+
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="MinWidth" Value="50"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" MinWidth="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row ="0" Content="Объект"/>
+            <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                        Item="{Binding ProjectUnit.Facility}" 
+                                        AddItemCommand="{Binding ChangeFacilityCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="1" Content="Продукт"/>
+            <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                        Item="{Binding ProjectUnit.Product}" 
+                                        AddItemCommand="{Binding ChangeProductCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="2" Content="Стоимость единицы" />
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <infE:XamNumericEditor Grid.Column="0" 
+                                       Value="{Binding ProjectUnit.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Column="1" Content="Стоимость доставки" Margin="5 0 0 0"/>
+                <infE:XamNumericEditor Grid.Column="2"
+                                       Value="{Binding ProjectUnit.CostDelivery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </Grid>
+
+            <Label Grid.Column="0" Grid.Row ="3" Content="Требуемая дата поставки" />
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="50"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="50"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="50"/>
+                </Grid.ColumnDefinitions>
+
+            <DatePicker Grid.Column="0"
+                        SelectedDate="{Binding ProjectUnit.DeliveryDateExpected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Column="1" Content="Срок производства" Margin="5 0 0 0"/>
+            <infE:XamNumericEditor Grid.Column="2"
+							       ValueType="core:Int32"
+                                   Value="{Binding ProjectUnit.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+            <Label Grid.Column="3" Content="Количество" Margin="5 0 0 0"/>
+            <infE:XamNumericEditor Grid.Column="4"
+                                   ValueType="core:Int32"
+                                   Value="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+
+
+            <Label Grid.Column="0" Grid.Row ="4" Content="Условия оплаты" />
+            <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                        Item="{Binding ProjectUnit.PaymentConditionSet}" 
+                                        AddItemCommand="{Binding ChangePaymentConditionsSetCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="5" Content="Производитель" />
+            <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+                                        Item="{Binding ProjectUnit.Producer}" 
+                                        AddItemCommand="{Binding ChangeProducerCommand}" 
+                                        RemoveItemCommand="{Binding RemoveProducerCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="6" Content="Комментарий" />
+            <TextBox Grid.Column="1" Grid.Row="6"
+                     Text="{Binding ProjectUnit.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Column="0" Grid.Row ="7" Content="Включено в стоимость"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
+                                             MaxWidth="550"
+										     Items="{Binding Path=ProjectUnit.ProductsIncludedGroups}"
+										     SelectedItem="{Binding SelectedProductsIncludedGroup, Mode=TwoWay}"
+										     AddItemCommand="{Binding AddProductsIncludedGroupCommand}"
+										     RemoveItemCommand="{Binding RemoveProductsIncludedGroupCommand}"/>
+
+        </Grid>
+
+        <Button Content="Добавить" Command="{Binding OkCommand}"/>
+
+    </StackPanel>
+
+</inf:ViewBase>
