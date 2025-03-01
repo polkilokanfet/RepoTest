@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Services;
-using HVTApp.UI.Modules.Sales.Project1.Wrappers;
+using HVTApp.UI.Modules.Sales.Project1.ViewModels;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
@@ -20,7 +20,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public bool CanExecute(object parameter)
         {
-            return _viewModel.ProjectWrapper.Units.SelectedUnit != null;
+            return _viewModel.SelectedUnit != null;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -38,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public void Execute(object parameter)
         {
-            var unit = _viewModel.ProjectWrapper.Units.SelectedUnit;
+            var unit = _viewModel.SelectedUnit;
             var projectUnitViewModel = new ProjectUnitEditViewModel(unit, _unitOfWork, _selectService, _getProductService, _dialogService);
             _dialogService.Show(projectUnitViewModel, "Редактирование единицы продаж");
         }

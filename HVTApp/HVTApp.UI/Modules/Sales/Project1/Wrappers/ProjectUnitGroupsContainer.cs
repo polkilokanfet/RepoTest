@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
@@ -9,20 +10,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
     public class ProjectUnitGroupsContainer : ValidatableChangeTrackingCollection<ProjectUnit>
     {
-        private IProjectUnit _selectedUnit;
-
-        public IProjectUnit SelectedUnit
-        {
-            get => _selectedUnit;
-            set
-            {
-                if (_selectedUnit == value) return;
-                _selectedUnit = value;
-                SelectedUnitChanged?.Invoke();
-            }
-        }
-
-        public event Action SelectedUnitChanged;
 
         public IEnumerable<ProjectUnitGroup> Groups { get; }
 

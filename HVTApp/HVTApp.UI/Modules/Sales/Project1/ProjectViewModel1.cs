@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.ViewModels;
@@ -10,57 +9,27 @@ using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Project1
 {
-    public class SaveProjectCommand : ICommand
-    {
-        private readonly ProjectWrapper1 _projectWrapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private bool _canExecuteFlag;
-
-        private bool CanExecuteFlag
-        {
-            set
-            {
-                if (_canExecuteFlag == value) return;
-                _canExecuteFlag = value;
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public SaveProjectCommand(ProjectWrapper1 projectWrapper, IUnitOfWork unitOfWork)
-        {
-            _projectWrapper = projectWrapper;
-            _unitOfWork = unitOfWork;
-            _projectWrapper.PropertyChanged += (sender, args) =>
-            {
-                CanExecuteFlag = CanExecute(null);
-            };
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _projectWrapper.IsValid &&
-                   _projectWrapper.IsChanged;
-        }
-
-        public void Execute(object parameter)
-        {
-            _projectWrapper.AcceptChanges();
-            _unitOfWork.SaveEntity(_projectWrapper.Model);
-            CanExecuteFlag = CanExecute(null);
-        }
-
-        public event EventHandler CanExecuteChanged;
-    }
-
     public class ProjectViewModel1 : ViewModelBaseCanExportToExcel
     {
         public ProjectWrapper1 ProjectWrapper { get; }
 
         public ProjectTypes ProjectTypes { get; private set; }
+
+        private IProjectUnit _selectedUnit;
+
+        public IProjectUnit SelectedUnit
+        {
+            get => _selectedUnit;
+            set
+            {
+                if (_selectedUnit == value) return;
+                _selectedUnit = value;
+                RaisePropertyChanged();
+            }
+        }
 
         #region Commands
 

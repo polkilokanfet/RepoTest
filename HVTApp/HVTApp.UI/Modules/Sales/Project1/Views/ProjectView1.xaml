@@ -42,7 +42,7 @@
                     <dp:XamDataGrid x:Name="UnitListGrid"
                                 DataSource="{Binding ProjectWrapper.Units.Groups}"
                                 SelectedDataItemsScope="RecordsOrCells"
-                                ActiveDataItem="{Binding ProjectWrapper.Units.SelectedUnit, Mode=TwoWay}">
+                                ActiveDataItem="{Binding SelectedUnit, Mode=TwoWay}">
 
                         <dp:XamDataGrid.ContextMenu>
                             <ContextMenu>
@@ -118,9 +118,8 @@
                     </Grid.RowDefinitions>
 
                     <dp:XamDataGrid x:Name="ProductsIncludedGroupsGrid"
-                                    DataSource="{Binding ProjectWrapper.Units.SelectedUnit.ProductsIncludedGroups}"
-                                    SelectedDataItemsScope="RecordsOrCells"
-                                    ActiveDataItem="{Binding ProjectWrapper.Units.SelectedProductsIncludedGroup, Mode=OneWay}">
+                                    DataSource="{Binding SelectedUnit.ProductsIncludedGroups}"
+                                    SelectedDataItemsScope="RecordsOrCells">
 
                         <dp:XamDataGrid.FieldLayouts>
 
@@ -153,7 +152,7 @@
                             <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2">
                                 <Expander Header="Структура себестоимости" IsExpanded="True">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <dp:XamDataGrid DataSource="{Binding Path=ProjectWrapper.Units.SelectedUnit.Prices}" Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                        <dp:XamDataGrid DataSource="{Binding SelectedUnit.Prices}" Style="{StaticResource XamDataGridWithoutGroupByArea}">
                                             <dp:XamDataGrid.FieldLayouts>
                                                 <dp:FieldLayout>
                                                     <dp:FieldLayout.Fields>

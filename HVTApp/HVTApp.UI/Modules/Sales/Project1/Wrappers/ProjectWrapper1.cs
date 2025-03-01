@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
-using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
@@ -40,29 +39,15 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         /// <summary>
         /// ProjectTypeId
         /// </summary>
-        public System.Guid ProjectTypeId
+        public Guid ProjectTypeId
         {
             get => Model.ProjectTypeId;
             set => SetValue(value);
         }
-        public System.Guid ProjectTypeIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectTypeId));
+        public Guid ProjectTypeIdOriginalValue => GetOriginalValue<Guid>(nameof(ProjectTypeId));
         public bool ProjectTypeIdIsChanged => GetIsChanged(nameof(ProjectTypeId));
 
         #endregion
-
-        #region ComplexProperties
-
-        /// <summary>
-        /// Тип проекта
-        /// </summary>
-        public ProjectTypeSimpleWrapper ProjectType
-        {
-            get => GetWrapper<ProjectTypeSimpleWrapper>();
-            set => SetComplexValue<ProjectType, ProjectTypeSimpleWrapper>(ProjectType, value);
-        }
-
-        #endregion
-
 
         #region CollectionProperties
 
@@ -71,11 +56,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         #endregion
 
         public ProjectWrapper1(Project model) : base(model) { }
-
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty(nameof(ProjectType), Model.ProjectType == null ? null : new ProjectTypeSimpleWrapper(Model.ProjectType));
-        }
 
         protected override void InitializeCollectionProperties()
         {

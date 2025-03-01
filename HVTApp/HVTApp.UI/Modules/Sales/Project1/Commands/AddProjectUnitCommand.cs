@@ -43,7 +43,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             var projectUnitAddViewModel = new ProjectUnitAddViewModel(_unitOfWork, _selectService, _getProductService, _dialogService);
 
             //заполняем начальные данные
-            projectUnitAddViewModel.ProjectUnit.CopyProps(_viewModel.ProjectWrapper.Units.SelectedUnit);
+            projectUnitAddViewModel.ProjectUnit.CopyProps(_viewModel.SelectedUnit);
 
             //диалог с пользователем
             var result = _dialogService.ShowDialog(projectUnitAddViewModel);

@@ -396,6 +396,7 @@
     <Compile Include="Modules\Sales\Project1\Commands\IncludeServiceInSpecificationCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\EditProjectUnitCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\SaveProjectCommand.cs" />
     <Compile Include="Modules\Sales\Project1\ViewModels\ProductIncludedViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\Views\TabProject.xaml.cs">
       <DependentUpon>TabProject.xaml</DependentUpon>

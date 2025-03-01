@@ -4,10 +4,11 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
+namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
     public class ProjectUnitEditViewModel : BindableBase
     {
