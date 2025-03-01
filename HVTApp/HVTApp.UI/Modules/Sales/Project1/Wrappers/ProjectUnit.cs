@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure.Comparers;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -9,7 +8,6 @@ using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
-using Prism.Commands;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers

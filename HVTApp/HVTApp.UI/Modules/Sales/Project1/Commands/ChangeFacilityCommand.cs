@@ -21,17 +21,17 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             _selectService = selectService;
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
         public void Execute(object parameter)
         {
             var facilities = _unitOfWork.Repository<Facility>().GetAllAsNoTracking();
             var facility = _selectService.SelectItem(facilities, _projectUnit.Facility.Model.Id);
             if (facility == null) return;
             _projectUnit.Facility = new FacilityEmptyWrapper(facility);
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
         }
 
         public event EventHandler CanExecuteChanged;
