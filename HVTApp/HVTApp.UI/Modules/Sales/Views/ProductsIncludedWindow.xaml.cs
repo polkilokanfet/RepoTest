@@ -2,7 +2,7 @@
 
 namespace HVTApp.UI.Modules.Sales.Views
 {
-    public partial class ProductsIncludedWindow : IDialog
+    public partial class ProductsIncludedWindow : IDialog, IDataContext
     {
         public ProductsIncludedWindow()
         {

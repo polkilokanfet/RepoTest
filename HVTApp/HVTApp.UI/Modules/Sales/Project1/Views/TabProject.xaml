@@ -8,8 +8,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance project1:ProjectViewModel1, IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance viewModels:ProjectViewModel1, IsDesignTimeCreatable=True}"
              xmlns:project1="clr-namespace:HVTApp.UI.Modules.Sales.Project1"
+             xmlns:viewModels="clr-namespace:HVTApp.UI.Modules.Sales.Project1.ViewModels"
              Header="Редактирование проекта">
 
     <infRib:RibbonGroup Caption="Навигация">
@@ -21,12 +22,6 @@
     <infRib:RibbonGroup Caption="Основное">
         <infRib:ButtonTool Caption="Добавить" Command="{Binding AddCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-    </infRib:RibbonGroup>
-
-    <infRib:RibbonGroup Caption="Включенное">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddProductIncludedCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProductIncludedCommand}" SmallImage="/HVTApp.UI;component/Images/remove.png"/>
-        <infRib:ButtonTool Caption="Стоимость" Command="{Binding SetCustomFixedPriceCommand}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Стоимости">

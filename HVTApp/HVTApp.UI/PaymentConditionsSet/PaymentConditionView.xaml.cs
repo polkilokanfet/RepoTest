@@ -5,7 +5,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI.PaymentConditionsSet
 {
-    public partial class PaymentConditionView : IDialog
+    public partial class PaymentConditionView : IDialog, IDataContext
     {
         public PaymentConditionView()
         {

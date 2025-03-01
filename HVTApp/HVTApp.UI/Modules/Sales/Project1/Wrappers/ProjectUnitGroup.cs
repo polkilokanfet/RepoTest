@@ -117,15 +117,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             throw new NotImplementedException();
         }
 
-        public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)
-        {
-            foreach (var projectUnit in Units)
-            {
-                projectUnit.RemoveProductIncluded(productIncluded);
-            }
-            RaisePropertyChanged(nameof(ProjectUnitGroup.ProductsIncludedGroups));
-        }
-
         public void AddProductIncluded(ProductIncluded productIncluded, bool isForEach)
         {
             if (isForEach)
@@ -148,6 +139,15 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             }
 
             RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
+        }
+
+        public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)
+        {
+            foreach (var projectUnit in Units)
+            {
+                projectUnit.RemoveProductIncluded(productIncluded);
+            }
+            RaisePropertyChanged(nameof(ProjectUnitGroup.ProductsIncludedGroups));
         }
 
 
@@ -187,7 +187,21 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                     else if (args.PropertyName == nameof(DeliveryDateExpected))
                     {
                         RaisePropertyChanged(nameof(DeliveryDateExpected));
+                        RaisePropertyChanged(nameof(CalculatedParts));
+                        RaisePropertyChanged(nameof(Prices));
                     }
+                    else if (args.PropertyName == nameof(Product))
+                    {
+                        RaisePropertyChanged(nameof(Product));
+                        RaisePropertyChanged(nameof(CalculatedParts));
+                        RaisePropertyChanged(nameof(Prices));
+                    }
+                };
+
+                unit.ProductsIncluded.CollectionChanged += (sender, args) =>
+                {
+                    RaisePropertyChanged(nameof(CalculatedParts));
+                    RaisePropertyChanged(nameof(Prices));
                 };
             }
         }

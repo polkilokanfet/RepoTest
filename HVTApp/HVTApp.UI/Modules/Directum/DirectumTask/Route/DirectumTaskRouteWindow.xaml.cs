@@ -2,7 +2,7 @@
 
 namespace HVTApp.UI.Modules.Directum
 {
-    public partial class DirectumTaskRouteWindow : IDialog
+    public partial class DirectumTaskRouteWindow : IDialog, IDataContext
     {
         public DirectumTaskRouteWindow()
         {

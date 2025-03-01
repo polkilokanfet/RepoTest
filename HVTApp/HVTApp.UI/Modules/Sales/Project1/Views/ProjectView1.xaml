@@ -5,11 +5,11 @@
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               mc:Ignorable="d"
-              d:DataContext="{d:DesignInstance project1:ProjectViewModel1, IsDesignTimeCreatable=True}"
+              d:DataContext="{d:DesignInstance viewModels:ProjectViewModel1, IsDesignTimeCreatable=True}"
               xmlns:project1="clr-namespace:HVTApp.UI.Modules.Sales.Project1"
               xmlns:dp="http://infragistics.com/DataPresenter"
               xmlns:igEditors="http://infragistics.com/Editors"
-              xmlns:system="clr-namespace:System;assembly=mscorlib">
+              xmlns:viewModels="clr-namespace:HVTApp.UI.Modules.Sales.Project1.ViewModels">
 
 
     <Grid>
@@ -68,7 +68,7 @@
                                     <dp:NumericField AlternateBinding="{Binding Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="100" AllowEdit="True" AllowResize="False" />
                                     <dp:NumericField AlternateBinding="{Binding CostTotal, Mode=OneWay}" BindingType="UseAlternateBinding" Label="Сумма" Width="100" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="100" AllowEdit="True" AllowResize="False"/>
-                                    <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding ProductionTerm, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
                                     <dp:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />
                                     <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
@@ -86,7 +86,7 @@
                                     <dp:NumericField AlternateBinding="{Binding CalculatedParts.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД%" Width="50" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="100" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="200" AllowEdit="True" AllowResize="False"/>
-                                    <dp:DateTimeField AlternateBinding="{Binding DeliveryDateExpected, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding ProductionTerm, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
                                     <dp:TextField AlternateBinding="{Binding Producer}" BindingType="UseAlternateBinding" Label="Производитель" Width="Auto" />
                                     <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
@@ -128,7 +128,7 @@
                                     <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="350" />
                                     <dp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="350" />
                                     <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                                    <dp:NumericField Name="CustomFixedPrice" Label="Стоимость на единицу" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding CustomFixedPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость на единицу" Width="Auto" AllowEdit="True" AllowResize="False"/>
                                 </dp:FieldLayout.Fields>
                             </dp:FieldLayout>
                         </dp:XamDataGrid.FieldLayouts>

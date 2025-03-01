@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -21,7 +22,7 @@ namespace HVTApp.Services.DialogService
 
         public void Register<TViewModel, TView>()
             where TViewModel : IDialogRequestClose
-            where TView : IDialog
+            where TView : IDataContext
         {
             if (ShowDialogMappings.ContainsKey(typeof(TViewModel)))
                 throw new ArgumentException($"Type {typeof(TViewModel)} is already mapped to type {typeof(TView)}");
@@ -33,7 +34,24 @@ namespace HVTApp.Services.DialogService
             where TViewModel : IDialogRequestClose
         {
             Type viewType = ShowDialogMappings[typeof(TViewModel)];
-            IDialog dialog = (IDialog)Activator.CreateInstance(viewType);
+            IDialog dialog;
+
+            if (viewType.GetInterfaces().Any(x => x.Name == nameof(IDialog)))
+            {
+                dialog = (IDialog)Activator.CreateInstance(viewType);
+            }
+            else
+            {
+                var content = (UserControl)Activator.CreateInstance(viewType);
+                var window = new Window
+                {
+                    Content = content,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    Title = "Диалоговое окно"
+                };
+
+                dialog = (IDialog)window;
+            }
 
             EventHandler<DialogRequestCloseEventArgs> handler = null;
             handler = (sender, args) =>

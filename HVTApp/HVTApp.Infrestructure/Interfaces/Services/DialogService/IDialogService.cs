@@ -8,11 +8,16 @@ namespace HVTApp.Infrastructure.Interfaces.Services.DialogService
     {
         void Register<TViewModel, TView>()
             where TViewModel : IDialogRequestClose
-            where TView : IDialog;
+            where TView : IDataContext;
         bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IDialogRequestClose;
 
         void RegisterShow<TViewModel, TView>() where TView : UserControl;
         void Show<TViewModel>(TViewModel viewModel, string title = null);
+    }
+
+    public interface IDataContext
+    {
+        object DataContext { get; set; }
     }
 
     public interface IDialog

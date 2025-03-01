@@ -1,39 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
-using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels.Groups
 {
-    public class RoundUpModule
-    {
-        private double _roundUpAccuracy = 5000;
-
-        /// <summary>
-        /// Коэффициент округления
-        /// </summary>
-        public double RoundUpAccuracy
-        {
-            get => _roundUpAccuracy;
-            set
-            {
-                if (value <= 0) return;
-                _roundUpAccuracy = value;
-            }
-        }
-
-        public double RoundUp(double origin)
-        {
-            return Math.Ceiling(origin / RoundUpAccuracy) * RoundUpAccuracy;
-        }
-    }
     public abstract class UnitsContainer<TModel, TWrapper, TDetailsViewModel, TGroupsViewModel, TUnit, TAfterSaveModelEvent> : ViewModelBase
         where TModel : class, IBaseEntity
         where TWrapper : class, IWrapper<TModel>

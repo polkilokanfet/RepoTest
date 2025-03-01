@@ -2,7 +2,7 @@
 
 namespace HVTApp.UI.PriceCalculations.View
 {
-    public partial class PriceCalculationItemsWindow : IDialog
+    public partial class PriceCalculationItemsWindow : IDialog, IDataContext
     {
         public PriceCalculationItemsWindow()
         {

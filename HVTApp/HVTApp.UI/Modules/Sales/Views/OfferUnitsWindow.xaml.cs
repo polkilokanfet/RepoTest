@@ -2,7 +2,7 @@
 
 namespace HVTApp.UI.Modules.Sales.Views
 {
-    public partial class OfferUnitsWindow : IDialog
+    public partial class OfferUnitsWindow : IDialog, IDataContext
     {
         public OfferUnitsWindow()
         {

@@ -2,7 +2,7 @@
 
 namespace HVTApp.Services.WpfAuthenticationService
 {
-    public partial class AuthenticationWindow : IDialog
+    public partial class AuthenticationWindow : IDialog, IDataContext
     {
         public AuthenticationWindow()
         {

@@ -415,15 +415,16 @@
     <Compile Include="Modules\Sales\Project1\Views\ProjectView1.xaml.cs">
       <DependentUpon>ProjectView1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Project1\ProjectViewModel1.cs" />
+    <Compile Include="Modules\Sales\Project1\ViewModels\ProjectViewModel1.cs" />
     <Compile Include="Modules\Sales\Project1\Views\ProjectUnitEditView.xaml.cs">
       <DependentUpon>ProjectUnitEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Project1\ViewModels\ProjectUnitAddViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\ViewModels\ProjectUnitEditViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitCalculatedParts.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitProductIncluded.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitProductIncludedGroup.cs" />
-    <Compile Include="Modules\Sales\Project1\Wrappers\RemoveProducerCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\Commands\RemoveProducerCommand.cs" />
     <Compile Include="Modules\Sales\Tabs\TabCrudUnitsInSpecification.xaml.cs">
       <DependentUpon>TabCrudUnitsInSpecification.xaml</DependentUpon>
     </Compile>
@@ -436,6 +437,7 @@
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnit.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitGroup.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitGroupsContainer.cs" />
+    <Compile Include="Modules\Sales\ViewModels\Groups\RoundUpModule.cs" />
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\AcceptConverter.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\UpdateStructureCostNumberTaskForConstructorViewModel.cs" />

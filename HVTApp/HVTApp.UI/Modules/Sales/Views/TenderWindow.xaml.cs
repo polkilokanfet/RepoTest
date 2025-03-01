@@ -2,7 +2,7 @@
 
 namespace HVTApp.UI.Modules.Sales.Views
 {
-    public partial class TenderWindow : IDialog
+    public partial class TenderWindow : IDialog, IDataContext
     {
         public TenderWindow()
         {

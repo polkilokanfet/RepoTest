@@ -2,7 +2,7 @@
 
 namespace HVTApp.UI.PriceEngineering.ParametersService1
 {
-    public partial class ParametersServiceView : IDialog
+    public partial class ParametersServiceView : IDialog, IDataContext
     {
         public ParametersServiceView()
         {

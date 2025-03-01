@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -8,9 +7,12 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
+using HVTApp.UI.Modules.Sales.ViewModels.Groups;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
-namespace HVTApp.UI.Modules.Sales.Project1
+namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
     public class ProjectViewModel1 : ViewModelBaseCanExportToExcel
     {
@@ -19,7 +21,6 @@ namespace HVTApp.UI.Modules.Sales.Project1
         public ProjectTypes ProjectTypes { get; private set; }
 
         private IProjectUnit _selectedUnit;
-
         public IProjectUnit SelectedUnit
         {
             get => _selectedUnit;
@@ -31,11 +32,15 @@ namespace HVTApp.UI.Modules.Sales.Project1
             }
         }
 
+        public RoundUpModule RoundUpModule { get; } = new RoundUpModule();
+
         #region Commands
 
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand RemoveCommand { get; }
+
+        public ICommand RoundUpCommand { get; }
 
         public ICommand SaveCommand { get; }
 
@@ -87,6 +92,8 @@ namespace HVTApp.UI.Modules.Sales.Project1
             AddCommand = new AddProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
 
             SaveCommand = new SaveProjectCommand(this.ProjectWrapper, UnitOfWork);
+
+            RoundUpCommand = new DelegateCommand(() => this.ProjectWrapper.Units.ForEach(projectUnit => projectUnit.Cost = RoundUpModule.RoundUp(projectUnit.Cost)));
         }
     }
 }
