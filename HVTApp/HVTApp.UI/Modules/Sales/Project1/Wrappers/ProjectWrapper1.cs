@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
+using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
@@ -48,6 +50,20 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         #endregion
 
+        #region ComplexProperties
+
+        /// <summary>
+        /// Тип проекта
+        /// </summary>
+        public ProjectTypeSimpleWrapper ProjectType
+        {
+            get => GetWrapper<ProjectTypeSimpleWrapper>();
+            set => SetComplexValue<ProjectType, ProjectTypeSimpleWrapper>(ProjectType, value);
+        }
+
+        #endregion
+
+
         #region CollectionProperties
 
         public ProjectUnitGroupsContainer Units { get; private set; }
@@ -56,10 +72,15 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public ProjectWrapper1(Project model) : base(model) { }
 
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty(nameof(ProjectType), Model.ProjectType == null ? null : new ProjectTypeSimpleWrapper(Model.ProjectType));
+        }
+
         protected override void InitializeCollectionProperties()
         {
             if (Model.SalesUnits == null) throw new ArgumentException($"{nameof(Model.SalesUnits)} cannot be null");
-            Units = new ProjectUnitGroupsContainer(Model.SalesUnits);
+            Units = new ProjectUnitGroupsContainer(Model.SalesUnits.Where(salesUnit => salesUnit.IsRemoved == false));
             RegisterCollection(Units, Model.SalesUnits);
         }
     }

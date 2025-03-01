@@ -397,6 +397,9 @@
     <Compile Include="Modules\Sales\Project1\Converters\ProjectTypeConverter.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\EditProjectUnitCommand.cs" />
     <Compile Include="Modules\Sales\Project1\ViewModels\ProductIncludedViewModel.cs" />
+    <Compile Include="Modules\Sales\Project1\Views\TabProject.xaml.cs">
+      <DependentUpon>TabProject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Sales\Project1\Wrappers\ProductIncludedWrapper1.cs" />
     <Compile Include="Modules\Sales\Project1\Views\ProductIncludedWindow.xaml.cs">
       <DependentUpon>ProductIncludedWindow.xaml</DependentUpon>
@@ -2109,6 +2112,10 @@
     <Page Include="Modules\Sales\Project1\Views\ProjectUnitEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Sales\Project1\Views\TabProject.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Supervision\SupervisionView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -2,23 +2,18 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Modules.Sales.Tabs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Views
 {
-    [RibbonTab(typeof(TabCrudUnitsInProject))]
+    [RibbonTab(typeof(TabProject))]
     public partial class ProjectView1 : ViewBaseConfirmNavigationRequest
     {
         public ProjectView1(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             InitializeComponent();
-            this.UnitListGrid.ClipboardPasting += (sender, args) =>
-            {
-
-            };
         }
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)

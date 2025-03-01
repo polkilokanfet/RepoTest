@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Windows;
 using Prism.Mvvm;
 
 namespace HVTApp.Infrastructure
@@ -8,5 +8,6 @@ namespace HVTApp.Infrastructure
     {
         BindableBase ViewModel { get; set; }
         IList<IRibbonTabItem> RibbonTabs { get; }
+        event DependencyPropertyChangedEventHandler DataContextChanged;
     }
 }

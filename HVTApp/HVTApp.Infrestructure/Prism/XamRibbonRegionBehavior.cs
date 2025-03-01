@@ -41,8 +41,16 @@ namespace HVTApp.Infrastructure.Prism
                         ribbonTabItem.IsSelected = isFirst;
 
                         if (isFirst) isFirst = false;
-                    }
 
+                        //если view меняет viewModel, нужно поменять её у viewRibbonTab
+                        view.DataContextChanged += (o, args) =>
+                        {
+                            foreach (var viewRibbonTab in view.RibbonTabs)
+                            {
+                                viewRibbonTab.ViewModel = view.ViewModel;
+                            }
+                        };
+                    }
                 }
             }
         }
