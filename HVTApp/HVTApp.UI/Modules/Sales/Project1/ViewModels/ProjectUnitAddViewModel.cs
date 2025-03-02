@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
@@ -31,7 +32,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         public IEnumerable<ProjectUnit> Result { get; private set; }
 
         public ProjectUnitAddViewModel(IUnitOfWork unitOfWork, ISelectService selectService, IGetProductService productService, IDialogService dialogService) 
-            : base(new ProjectUnit(new SalesUnit()), unitOfWork, selectService, productService, dialogService)
+            : base(new ProjectUnit(new SalesUnit(){PaymentConditionSet = GlobalAppProperties.Actual.StandartPaymentsConditionSet}), unitOfWork, selectService, productService, dialogService)
         {
             OkCommand = new DelegateLogCommand(
                 () =>

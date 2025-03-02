@@ -53,6 +53,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             var project = this._projectWrapper.Model;
             foreach (var salesUnit in project.SalesUnits)
             {
+                salesUnit.Project = _unitOfWork.Repository<Project>().GetById(_projectWrapper.Model.Id);
                 if (salesUnit.Producer != null)
                     salesUnit.Producer = _unitOfWork.Repository<Company>().GetById(salesUnit.Producer.Id);
                 salesUnit.Facility = _unitOfWork.Repository<Facility>().GetById(salesUnit.Facility.Id);

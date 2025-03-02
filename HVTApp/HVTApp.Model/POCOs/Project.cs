@@ -13,7 +13,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Название"), Required, OrderStatus(9), MaxLength(512)]
         public string Name { get; set; }
 
-        [Designation("Тип проекта"), Required, OrderStatus(5)]
+        [Designation("Тип проекта"), OrderStatus(5)]
         public virtual ProjectType ProjectType { get; set; }
 
         [NotForDetailsView, NotForListView]

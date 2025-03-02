@@ -20,7 +20,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public double Cost
         {
-            get => CostTotal / Amount;
+            get => this.Units.First().Cost;
             set { this.Units.ForEach(projectUnit => projectUnit.Cost = value); }
         }
 

@@ -38,7 +38,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                     return;
 
                 var marginalIncome = value.Value;
-                _projectUnit.Cost = _projectUnit.Price.SumPriceTotal / (1.0 - marginalIncome / 100.0) + CostMin;
+                var cost = _projectUnit.Price.SumPriceTotal / (1.0 - marginalIncome / 100.0) + CostMin;
+                _projectUnit.Cost = cost;
                 RaisePropertyChanged();
             }
         }

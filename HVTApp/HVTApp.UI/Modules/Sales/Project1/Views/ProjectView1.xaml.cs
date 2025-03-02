@@ -27,7 +27,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
             base.OnNavigatedTo(navigationContext);
 
             //если грузится существующий проект
-            if (navigationContext.Parameters != null && navigationContext.Parameters.Any())
+            if (navigationContext.Parameters != null && 
+                navigationContext.Parameters.Any())
             {
                 if (navigationContext.Parameters.Count() == 1)
                 {
@@ -55,7 +56,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
             //если грузится новый проект
             else
             {
-                //_viewModel.Load(new Project(), true);
+                this.DataContext = new ProjectViewModel1(Container);
             }
         }
 

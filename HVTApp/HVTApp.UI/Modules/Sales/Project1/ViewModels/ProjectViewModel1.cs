@@ -83,7 +83,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// <param name="container"></param>
         public ProjectViewModel1(Project project, IUnityContainer container) : base(container)
         {
-            ProjectWrapper = new ProjectWrapper1(UnitOfWork.Repository<Project>().GetById(project.Id));
+            project = UnitOfWork.Repository<Project>().GetById(project.Id) ?? project;
+            ProjectWrapper = new ProjectWrapper1(project);
             ProjectTypes = new ProjectTypes(UnitOfWork, this.ProjectWrapper);
 
             var selectService = container.Resolve<ISelectService>();

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
@@ -62,6 +64,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             if (Model.SalesUnits == null) throw new ArgumentException($"{nameof(Model.SalesUnits)} cannot be null");
             Units = new ProjectUnitGroupsContainer(Model.SalesUnits.Where(salesUnit => salesUnit.IsRemoved == false));
             RegisterCollection(Units, Model.SalesUnits);
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (string.IsNullOrWhiteSpace(Name))
+                yield return new ValidationResult("Ќазвание проекта не может быть пустым", new[] { nameof(Name) });
         }
     }
 }
