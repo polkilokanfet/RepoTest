@@ -46,6 +46,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             {
                 _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(salesUnit);
             }
+            _eventAggregator.GetEvent<AfterSaveProjectEvent>().Publish(_projectWrapper.Model);
         }
 
         private void MapProject()
