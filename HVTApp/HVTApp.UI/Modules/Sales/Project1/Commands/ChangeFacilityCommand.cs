@@ -16,7 +16,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
-            var facility = _selectService.SelectItem<Facility>(selectedItemId: ProjectUnit.Facility.Model.Id);
+            var facility = _selectService.SelectItem<Facility>(selectedItemId: ProjectUnit.Facility?.Model.Id);
             if (facility == null) return;
             ProjectUnit.Facility = new FacilityEmptyWrapper(facility);
         }

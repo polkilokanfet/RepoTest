@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
-            var product = _productService.GetProduct(ProjectUnit.Product.Model);
+            var product = _productService.GetProduct(ProjectUnit.Product?.Model);
             if (product == null) return;
             ProjectUnit.Product = new ProductEmptyWrapper(product);
         }

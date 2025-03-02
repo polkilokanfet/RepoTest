@@ -38,7 +38,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
                 {
                     Result = CloneProjectUnits(this.ProjectUnit, this.Amount);
                     CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-                });
+                }, 
+                () => ProjectUnit.IsValid);
             this.ProjectUnit.PropertyChanged += (sender, args) => OkCommand.RaiseCanExecuteChanged();
         }
 

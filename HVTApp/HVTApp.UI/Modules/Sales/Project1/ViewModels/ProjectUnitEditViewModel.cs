@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -9,7 +10,7 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
-    public class ProjectUnitEditViewModel : BindableBase
+    public class ProjectUnitEditViewModel : BindableBase, IDialogRequestClose
     {
         private ProjectUnitProductIncludedGroup _selectedProductsIncludedGroup;
         public IProjectUnit ProjectUnit { get; }
@@ -40,5 +41,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             AddProductsIncludedGroupCommand = new AddProductsIncludedGroupCommand(projectUnit, productService, dialogService);
             RemoveProductsIncludedGroupCommand = new RemoveProductsIncludedGroupCommand(this);
         }
+
+        public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
     }
 }

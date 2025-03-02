@@ -16,7 +16,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
-            var paymentConditionSet = _selectService.SelectItem<PaymentConditionSet>(selectedItemId: ProjectUnit.PaymentConditionSet.Model.Id);
+            var paymentConditionSet = _selectService.SelectItem<PaymentConditionSet>(selectedItemId: ProjectUnit.PaymentConditionSet?.Model.Id);
             if (paymentConditionSet == null) return;
             ProjectUnit.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(paymentConditionSet);
         }

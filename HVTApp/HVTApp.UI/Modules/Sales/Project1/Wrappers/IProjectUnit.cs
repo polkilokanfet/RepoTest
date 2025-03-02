@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
-    public interface IProjectUnit : INotifyPropertyChanged
+    public interface IProjectUnit : INotifyPropertyChanged, IIsValid
     {
         double Cost { get; set; }
         double? CostDelivery { get; set; }

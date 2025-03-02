@@ -214,5 +214,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             this.Units.Add(projectUnit);
             return true;
         }
+
+        public bool IsValid => this.Units.All(projectUnit => projectUnit.IsValid);
     }
 }

@@ -40,7 +40,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         {
             var unit = _viewModel.SelectedUnit;
             var projectUnitViewModel = new ProjectUnitEditViewModel(unit, _unitOfWork, _selectService, _getProductService, _dialogService);
-            _dialogService.Show(projectUnitViewModel, "Редактирование оборудования в проекте");
+            _dialogService.ShowDialog(projectUnitViewModel, "Редактирование оборудования в проекте");
         }
     }
 }

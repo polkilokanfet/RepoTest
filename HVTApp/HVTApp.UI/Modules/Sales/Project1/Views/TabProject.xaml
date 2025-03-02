@@ -3,13 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:editors="http://infragistics.com/Editors"
              x:Class="HVTApp.UI.Modules.Sales.Project1.Views.TabProject"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:ProjectViewModel1, IsDesignTimeCreatable=True}"
-             xmlns:project1="clr-namespace:HVTApp.UI.Modules.Sales.Project1"
              xmlns:viewModels="clr-namespace:HVTApp.UI.Modules.Sales.Project1.ViewModels"
              Header="Редактирование проекта">
 
@@ -17,16 +15,6 @@
         <infRib:ButtonTool Caption="Назад" 
                            Command="{Binding GoBackCommand}" 
                            SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
-    </infRib:RibbonGroup>
-
-    <infRib:RibbonGroup Caption="Стоимости">
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="До: " />
-                <editors:XamNumericEditor Value="{Binding RoundUpModule.RoundUpAccuracy}" MinWidth="80"/>
-            </StackPanel>
-            <infRib:ButtonTool Caption="Округлить" Command="{Binding RoundUpCommand}"/>
-        </StackPanel>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Перенести оборудование">

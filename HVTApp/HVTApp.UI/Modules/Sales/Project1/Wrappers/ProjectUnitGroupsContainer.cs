@@ -47,17 +47,25 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         {
             var groups = this
                 .GroupBy(projectUnit => projectUnit, new ProjectUnit.ProjectUnitComparer())
-                .Select(projectUnits => new ProjectUnitGroup(projectUnits));
+                .Select(projectUnits => new ProjectUnitGroup(projectUnits))
+                .OrderByDescending(x => x.Cost);
             this.Groups = new ObservableCollection<ProjectUnitGroup>(groups);
 
             this.CollectionChanged += (sender, args) =>
             {
                 this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Cost)));
             };
-            //this.PropertyChanged += (sender, args) =>
-            //{
-            //    this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Cost)));
-            //};
+
+            foreach (var pu in this)
+            {
+                pu.PropertyChanged += PuOnPropertyChanged; 
+            }
+        }
+
+        private void PuOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ProjectUnit.Cost)) return;
+            this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Cost)));
         }
 
         public new void Add(ProjectUnit projectUnit)
@@ -66,6 +74,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 ((ObservableCollection<ProjectUnitGroup>)this.Groups).Add(new ProjectUnitGroup(new [] { projectUnit }));
 
             base.Add(projectUnit);
+            projectUnit.PropertyChanged += PuOnPropertyChanged;
         }
     }
 }
