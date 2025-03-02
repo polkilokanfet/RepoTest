@@ -12,6 +12,7 @@ using HVTApp.UI.Modules.Sales.ViewModels.Groups;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
@@ -88,11 +89,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             var selectService = container.Resolve<ISelectService>();
             var dialogService = container.Resolve<IDialogService>();
             var getProductService = container.Resolve<IGetProductService>();
+            var eventAggregator = container.Resolve<IEventAggregator>();
 
             EditCommand = new EditProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
             AddCommand = new AddProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
 
-            SaveCommand = new SaveProjectCommand(this.ProjectWrapper, UnitOfWork);
+            SaveCommand = new SaveProjectCommand(this.ProjectWrapper, UnitOfWork, eventAggregator);
 
             RoundUpCommand = new DelegateCommand(() => this.ProjectWrapper.Units.ForEach(projectUnit => projectUnit.Cost = RoundUpModule.RoundUp(projectUnit.Cost)));
         }

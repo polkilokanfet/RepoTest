@@ -1,6 +1,9 @@
+using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
+using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
@@ -8,11 +11,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
     {
         private readonly ProjectWrapper1 _projectWrapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEventAggregator _eventAggregator;
 
-        public SaveProjectCommand(ProjectWrapper1 projectWrapper, IUnitOfWork unitOfWork)
+        public SaveProjectCommand(ProjectWrapper1 projectWrapper, IUnitOfWork unitOfWork, IEventAggregator eventAggregator)
         {
             _projectWrapper = projectWrapper;
             _unitOfWork = unitOfWork;
+            _eventAggregator = eventAggregator;
             _projectWrapper.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(ProjectWrapper1.IsValid) ||
@@ -29,10 +34,18 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
+            var changedSalesUnits = _projectWrapper.Units.Where(projectUnit => projectUnit.IsChanged).Select(projectUnit => projectUnit.Model).ToList();
+            var addedSalesUnits = _projectWrapper.Units.AddedItems.Select(projectUnit => projectUnit.Model).ToList();
+
             _projectWrapper.AcceptChanges();
             MapProject();
             _unitOfWork.SaveEntity(_projectWrapper.Model);
             base.Execute(null);
+
+            foreach (var salesUnit in changedSalesUnits.Union(addedSalesUnits).Distinct())
+            {
+                _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(salesUnit);
+            }
         }
 
         private void MapProject()
