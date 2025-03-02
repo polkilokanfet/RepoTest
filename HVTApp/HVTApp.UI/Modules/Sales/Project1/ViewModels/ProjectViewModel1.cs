@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -30,9 +32,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             {
                 if (_selectedUnit == value) return;
                 _selectedUnit = value;
+                SelectedUnitChanged?.Invoke();
                 RaisePropertyChanged();
             }
         }
+
+        public event Action SelectedUnitChanged;
 
         public RoundUpModule RoundUpModule { get; } = new RoundUpModule();
 
@@ -95,9 +100,41 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             EditCommand = new EditProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
             AddCommand = new AddProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
 
+            MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, container);
+            MoveToNewProjectCommand = new MoveToNewProjectCommand(this, container);
+
             SaveCommand = new SaveProjectCommand(this.ProjectWrapper, UnitOfWork, eventAggregator);
 
             RoundUpCommand = new DelegateCommand(() => this.ProjectWrapper.Units.ForEach(projectUnit => projectUnit.Cost = RoundUpModule.RoundUp(projectUnit.Cost)));
+        }
+
+        /// <summary>
+        /// ƒл€ переноса оборудовани€ в существующий проект
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="container"></param>
+        /// <param name="salesUnits"></param>
+        public ProjectViewModel1(Project project, IUnityContainer container, IEnumerable<SalesUnit> salesUnits) : this(project, container)
+        {
+            foreach (var salesUnit in salesUnits.Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id)))
+            {
+                salesUnit.Project = this.ProjectWrapper.Model;
+                this.ProjectWrapper.Units.Add(new ProjectUnit(salesUnit));
+            }
+        }
+
+        /// <summary>
+        /// ƒл€ переноса оборудовани€ в новый проект
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="salesUnits"></param>
+        public ProjectViewModel1(IUnityContainer container, IEnumerable<SalesUnit> salesUnits) : this(container)
+        {
+            foreach (var salesUnit in salesUnits.Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id)))
+            {
+                salesUnit.Project = this.ProjectWrapper.Model;
+                this.ProjectWrapper.Units.Add(new ProjectUnit(salesUnit));
+            }
         }
     }
 }

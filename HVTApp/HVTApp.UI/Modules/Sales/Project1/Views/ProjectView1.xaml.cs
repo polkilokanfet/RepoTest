@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -38,19 +39,18 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
                         this.DataContext = new ProjectViewModel1(project, Container);
                     }
 
-                    ////перенос оборудования в новый проект
-                    //if (navigationContext.Parameters.First().Value is List<SalesUnit>)
-                    //{
-                    //    var units = (List<SalesUnit>)navigationContext.Parameters.First().Value;
-                    //    _viewModel.LoadForMove(units);
-                    //}
+                    //перенос оборудования в новый проект
+                    else if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
+                    {
+                        this.DataContext = new ProjectViewModel1(Container, salesUnits);
+                    }
                 }
                 else if (navigationContext.Parameters.Count() == 2)
                 {
-                    ////перенос оборудования в существующий проект
-                    //var project = (Project)navigationContext.Parameters.First().Value;
-                    //var units = (List<SalesUnit>)navigationContext.Parameters.Last().Value;
-                    //_viewModel.LoadForMove(units, project);
+                    //перенос оборудования в существующий проект
+                    var project = (Project)navigationContext.Parameters.First().Value;
+                    var salesUnits = (IEnumerable<SalesUnit>)navigationContext.Parameters.Last().Value;
+                    this.DataContext = new ProjectViewModel1(project, Container, salesUnits);
                 }
             }
             //если грузится новый проект

@@ -51,7 +51,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         private void MapProject()
         {
             var project = this._projectWrapper.Model;
-            foreach (var salesUnit in project.SalesUnits)
+            foreach (var salesUnit in _projectWrapper.Units.Where(x => x.IsChanged).Select(x => x.Model))
             {
                 salesUnit.Project = _unitOfWork.Repository<Project>().GetById(_projectWrapper.Model.Id);
                 if (salesUnit.Producer != null)

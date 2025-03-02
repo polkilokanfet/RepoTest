@@ -36,8 +36,8 @@ namespace HVTApp.UI.Modules.Sales.Project1
 
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
-            MoveToNewProjectCommand = new MoveToNewProjectCommand(this, Container);
-            MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, Container);
+            //MoveToNewProjectCommand = new MoveToNewProjectCommand(this, Container);
+            //MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, Container);
             IncludeServiceInSpecificationCommand = new IncludeServiceInSpecificationCommand(this, container);
         }
 

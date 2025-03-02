@@ -1,38 +1,43 @@
 using HVTApp.Infrastructure.Extensions;
-using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Commands;
+using HVTApp.UI.Modules.Sales.Project1.Views;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
+using System.Collections.Generic;
+using System.Linq;
+using HVTApp.UI.Modules.Sales.Project1.ViewModels;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
-    public class MoveToNewProjectCommand : DelegateLogCommand
+    public class MoveToNewProjectCommand : RaiseCanExecuteChangedCommand
     {
-        private readonly ProjectViewModel _viewModel;
+        private readonly ProjectViewModel1 _viewModel;
         private readonly IUnityContainer _container;
 
-        public MoveToNewProjectCommand(ProjectViewModel viewModel, IUnityContainer container)
+        public MoveToNewProjectCommand(ProjectViewModel1 viewModel, IUnityContainer container)
         {
             _viewModel = viewModel;
             _container = container;
-        }
-        protected override void ExecuteMethod()
-        {
-            if (_container.Resolve<IMessageService>().ConfirmationDialog("ѕеремещение", "¬ы уверены, что хотите перенести это оборудование в новый проект?", defaultYes: true) == false)
-            {
-                return;
-            }
 
-            _container.Resolve<IRegionManager>().RequestNavigateContentRegion<ProjectView>(new NavigationParameters
+            _viewModel.SelectedUnitChanged += RaiseCanExecuteChanged;
+        }
+
+        public override void Execute(object parameter)
+        {
+            IEnumerable<SalesUnit> salesUnits = _viewModel.SelectedUnit is ProjectUnitGroup projectUnitGroup
+                ? projectUnitGroup.Units.Select(x => x.Model)
+                : new[] { ((ProjectUnit)_viewModel.SelectedUnit).Model };
+
+            _container.Resolve<IRegionManager>().RequestNavigateContentRegion<ProjectView1>(new NavigationParameters
             {
-                { nameof(SalesUnit), _viewModel.GroupsViewModel.Groups.SelectedGroup.SalesUnits }
+                { nameof(SalesUnit), salesUnits }
             });
         }
 
-        protected override bool CanExecuteMethod()
+        public override bool CanExecute(object parameter)
         {
-            return _viewModel.GroupsViewModel.Groups.SelectedGroup != null;
+            return _viewModel.SelectedUnit != null;
         }
     }
 }

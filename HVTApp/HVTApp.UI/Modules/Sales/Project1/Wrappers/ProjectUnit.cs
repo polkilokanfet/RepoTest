@@ -34,7 +34,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set
             {
                 if (value < 0) return;
-                SetValue(value);
+                SetValue(value == 0 ? default(double?) : value);
             }
         }
 
