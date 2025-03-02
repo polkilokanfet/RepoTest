@@ -414,7 +414,7 @@
     <Compile Include="Modules\Sales\Project1\Views\ProductIncludedView.xaml.cs">
       <DependentUpon>ProductIncludedView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Project1\ProjectTypes.cs" />
+    <Compile Include="Modules\Sales\Project1\ViewModels\ProjectTypes.cs" />
     <Compile Include="Modules\Sales\Project1\Views\ProjectView1.xaml.cs">
       <DependentUpon>ProjectView1.xaml</DependentUpon>
     </Compile>
@@ -1009,7 +1009,6 @@
     <Compile Include="Commands\DelegateLogCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\MoveToExistsProjectCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\MoveToNewProjectCommand.cs" />
-    <Compile Include="Modules\Sales\Project1\ProjectDetailsViewModel1.cs" />
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectWrapper1.cs" />
     <Compile Include="Modules\Sales\ViewModels\SupervisionPriceViewModel.cs" />
     <Compile Include="Modules\Sales\Views\SupervisionPriceWindow.xaml.cs">
@@ -1193,7 +1192,6 @@
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\BaseContainerViewModelWithFilter.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\OffersContainer.cs" />
-    <Compile Include="Modules\Sales\ViewModels\Containers\ProjectsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\SalesUnitsSpecificationBase.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\SelectedItemChangedEvent.cs" />
     <Compile Include="Modules\Sales\ViewModels\Containers\TendersContainer.cs" />
@@ -1216,9 +1214,7 @@
     <Compile Include="Modules\Sales\ViewModels\ProductsIncludedViewModel.cs" />
     <Compile Include="Modules\Sales\Market\Items\ProjectItem.cs" />
     <Compile Include="Modules\Sales\ViewModels\ProjectNotesWrapper.cs" />
-    <Compile Include="Modules\Sales\ViewModels\ProjectsViewModel.cs" />
     <Compile Include="Modules\Sales\Market\Items\ProjectUnitsGroup.cs" />
-    <Compile Include="Modules\Sales\Project1\ProjectViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsCollection.cs" />
     <Compile Include="Modules\Sales\ViewModels\SalesUnitsWrappersGroupsContainer.cs" />
     <Compile Include="Modules\Sales\Shippings\ShippingViewModel.cs" />
@@ -1249,12 +1245,6 @@
     </Compile>
     <Compile Include="Modules\Sales\Views\ProductsIncludedWindow.xaml.cs">
       <DependentUpon>ProductsIncludedWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Sales\Views\ProjectsView.xaml.cs">
-      <DependentUpon>ProjectsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Sales\Project1\ProjectView.xaml.cs">
-      <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Views\SalesUnitsWindow.xaml.cs">
       <DependentUpon>SalesUnitsWindow.xaml</DependentUpon>
@@ -2210,14 +2200,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Sales\Views\ProductsIncludedWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Sales\Views\ProjectsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Sales\Project1\ProjectView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

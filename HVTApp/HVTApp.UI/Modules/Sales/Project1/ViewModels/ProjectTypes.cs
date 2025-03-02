@@ -6,7 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
-namespace HVTApp.UI.Modules.Sales.Project1
+namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
     public class ProjectTypes : IEnumerable<ProjectType>
     {

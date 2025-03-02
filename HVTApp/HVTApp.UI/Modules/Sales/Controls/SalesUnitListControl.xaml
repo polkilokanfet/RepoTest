@@ -109,7 +109,7 @@
                     </Grid.RowDefinitions>
                     
                     <dp:XamDataGrid x:Name="UnitListGrid"
-                                    DataSource="{Binding Groups1}"
+                                    DataSource="{Binding Groups}"
                                     SelectedDataItemsScope="RecordsOrCells"
                                     SelectedDataItems="{Binding Groups.SelectedGroups, Mode=TwoWay}"
                                     ActiveDataItem="{Binding Groups.SelectedGroup, Mode=TwoWay}">

@@ -19,7 +19,7 @@ using HVTApp.Model.Wrapper.Groups.SimpleWrappers;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
 {
-    public class SpecificationUnitsGroupsViewModel : UI.Modules.Sales.ViewModels.Groups.BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, 
+    public class SpecificationUnitsGroupsViewModel : BaseGroupsViewModel<ProjectUnitsGroup, ProjectUnitsGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, 
         IGroupsViewModel<SalesUnit, SpecificationWrapper>
     {
         private SpecificationWrapper _specificationWrapper;
