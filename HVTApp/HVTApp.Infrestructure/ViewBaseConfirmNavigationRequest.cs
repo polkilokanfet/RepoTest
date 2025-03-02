@@ -28,7 +28,7 @@ namespace HVTApp.Infrastructure
             var confirmNavigate = true;
             if (IsSomethingChanged())
             {
-                var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Внимание!", "При переходе все несохраненные изменения будут потеряны. \nПерейти без сохранения изменений?", defaultYes: true);
+                var dr = Container.Resolve<IMessageService>().ConfirmationDialog("Внимание!", "При переходе все несохраненные изменения будут потеряны. \nПерейти без сохранения изменений?", defaultNo: true);
                 if (dr == false)
                     confirmNavigate = false;
             }

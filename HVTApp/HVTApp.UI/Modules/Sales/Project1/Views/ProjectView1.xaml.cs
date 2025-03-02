@@ -63,25 +63,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
         {
             if (this.DataContext is ProjectViewModel1 vm)
             {
-                return vm.ProjectWrapper.IsChanged;
+                return vm.ProjectWrapper.IsChanged &&
+                       vm.ProjectWrapper.IsValid;
             }
 
             throw new NotImplementedException();
-        }
-
-        public override void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
-        {
-            ////если придет запрос при несохраненных изменениях
-            //if (_viewModel.SaveCommand.CanExecute(null))
-            //{
-            //    var dr = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить сделанные изменения?", defaultNo: true);
-            //    if (dr == MessageDialogResult.Yes)
-            //        _viewModel.SaveCommand.Execute(null);
-            //}
-
-            //continuationCallback(true);
-
-            continuationCallback(true);
         }
     }
 }
