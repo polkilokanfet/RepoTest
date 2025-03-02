@@ -52,9 +52,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         {
             var salesUnits1 = _projectWrapper.Units.Where(x => x.IsChanged).Select(x => x.Model);
             var salesUnits2 = _projectWrapper.Units.AddedItems.Select(x => x.Model);
-            var salesUnits3 = _projectWrapper.Units.RemovedItems.Select(x => x.Model);
 
-            foreach (var salesUnit in salesUnits1.Union(salesUnits2).Union(salesUnits3).Distinct())
+            foreach (var salesUnit in salesUnits1.Union(salesUnits2).Distinct())
             {
                 salesUnit.Project = _unitOfWork.Repository<Project>().GetById(_projectWrapper.Model.Id);
                 if (salesUnit.Producer != null)

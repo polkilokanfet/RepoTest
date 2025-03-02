@@ -12,10 +12,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
     public class MoveToNewProjectCommand : RaiseCanExecuteChangedCommand
     {
-        private readonly ProjectViewModel1 _viewModel;
+        private readonly ProjectViewModel _viewModel;
         private readonly IUnityContainer _container;
 
-        public MoveToNewProjectCommand(ProjectViewModel1 viewModel, IUnityContainer container)
+        public MoveToNewProjectCommand(ProjectViewModel viewModel, IUnityContainer container)
         {
             _viewModel = viewModel;
             _container = container;
@@ -29,7 +29,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
                 ? projectUnitGroup.Units.Select(x => x.Model)
                 : new[] { ((ProjectUnit)_viewModel.SelectedUnit).Model };
 
-            _container.Resolve<IRegionManager>().RequestNavigateContentRegion<ProjectView1>(new NavigationParameters
+            _container.Resolve<IRegionManager>().RequestNavigateContentRegion<ProjectView>(new NavigationParameters
             {
                 { nameof(SalesUnit), salesUnits }
             });

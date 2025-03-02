@@ -14,7 +14,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
         private readonly ISelectService _selectService;
-        private readonly ProjectViewModel1 _viewModel;
+        private readonly ProjectViewModel _viewModel;
         private readonly IGetProductService _getProductService;
 
         #region CanExecute
@@ -28,7 +28,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         #endregion
 
-        public AddProjectUnitCommand(IUnitOfWork unitOfWork, ISelectService selectService, IDialogService dialogService, ProjectViewModel1 viewModel, IGetProductService getProductService)
+        public AddProjectUnitCommand(IUnitOfWork unitOfWork, ISelectService selectService, IDialogService dialogService, ProjectViewModel viewModel, IGetProductService getProductService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;

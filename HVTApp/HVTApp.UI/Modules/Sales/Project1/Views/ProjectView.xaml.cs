@@ -11,9 +11,9 @@ using Prism.Regions;
 namespace HVTApp.UI.Modules.Sales.Project1.Views
 {
     [RibbonTab(typeof(TabProject))]
-    public partial class ProjectView1 : ViewBaseConfirmNavigationRequest
+    public partial class ProjectView : ViewBaseConfirmNavigationRequest
     {
-        public ProjectView1(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
+        public ProjectView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             InitializeComponent();
         }
@@ -36,13 +36,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
                     //редактирование существующего проекта
                     if (navigationContext.Parameters.First().Value is Project project)
                     {
-                        this.DataContext = new ProjectViewModel1(project, Container);
+                        this.DataContext = new ProjectViewModel(project, Container);
                     }
 
                     //перенос оборудования в новый проект
                     else if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
                     {
-                        this.DataContext = new ProjectViewModel1(Container, salesUnits);
+                        this.DataContext = new ProjectViewModel(Container, salesUnits);
                     }
                 }
                 else if (navigationContext.Parameters.Count() == 2)
@@ -50,19 +50,19 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
                     //перенос оборудования в существующий проект
                     var project = (Project)navigationContext.Parameters.First().Value;
                     var salesUnits = (IEnumerable<SalesUnit>)navigationContext.Parameters.Last().Value;
-                    this.DataContext = new ProjectViewModel1(project, Container, salesUnits);
+                    this.DataContext = new ProjectViewModel(project, Container, salesUnits);
                 }
             }
             //если грузится новый проект
             else
             {
-                this.DataContext = new ProjectViewModel1(Container);
+                this.DataContext = new ProjectViewModel(Container);
             }
         }
 
         protected override bool IsSomethingChanged()
         {
-            if (this.DataContext is ProjectViewModel1 vm)
+            if (this.DataContext is ProjectViewModel vm)
             {
                 return vm.ProjectWrapper.IsChanged &&
                        vm.ProjectWrapper.IsValid;

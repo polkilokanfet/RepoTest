@@ -404,6 +404,7 @@
     <Compile Include="Modules\Sales\Project1\ViewModels\ProductIncludedViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\ProjectUnitEditBaseCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\RemoveProductsIncludedGroupCommand.cs" />
+    <Compile Include="Modules\Sales\Project1\ViewModels\RemoveProjectUnitCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Views\ProjectUnitAddView.xaml.cs">
       <DependentUpon>ProjectUnitAddView.xaml</DependentUpon>
     </Compile>
@@ -415,10 +416,10 @@
       <DependentUpon>ProductIncludedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Sales\Project1\ViewModels\ProjectTypes.cs" />
-    <Compile Include="Modules\Sales\Project1\Views\ProjectView1.xaml.cs">
-      <DependentUpon>ProjectView1.xaml</DependentUpon>
+    <Compile Include="Modules\Sales\Project1\Views\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Sales\Project1\ViewModels\ProjectViewModel1.cs" />
+    <Compile Include="Modules\Sales\Project1\ViewModels\ProjectViewModel.cs" />
     <Compile Include="Modules\Sales\Project1\Views\ProjectUnitEditView.xaml.cs">
       <DependentUpon>ProjectUnitEditView.xaml</DependentUpon>
     </Compile>
@@ -2111,7 +2112,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\Sales\Project1\Views\ProjectView1.xaml">
+    <Page Include="Modules\Sales\Project1\Views\ProjectView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

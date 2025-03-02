@@ -15,7 +15,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            _regionManager.RequestNavigateContentRegion<ProjectView1>(new NavigationParameters());
+            _regionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters());
         }
     }
 }

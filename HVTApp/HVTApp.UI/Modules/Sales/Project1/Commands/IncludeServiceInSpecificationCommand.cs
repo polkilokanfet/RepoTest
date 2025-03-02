@@ -14,12 +14,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
     internal class IncludeServiceInSpecificationCommand : RaiseCanExecuteChangedCommand
     {
-        private readonly ProjectViewModel1 _viewModel;
+        private readonly ProjectViewModel _viewModel;
         private readonly IUnityContainer _container;
         private readonly IMessageService _messageService;
         private readonly ISelectService _selectService;
 
-        public IncludeServiceInSpecificationCommand(ProjectViewModel1 viewModel, IUnityContainer container)
+        public IncludeServiceInSpecificationCommand(ProjectViewModel viewModel, IUnityContainer container)
         {
             _viewModel = viewModel;
             _container = container;

@@ -76,5 +76,16 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             base.Add(projectUnit);
             projectUnit.PropertyChanged += PuOnPropertyChanged;
         }
+
+        public new void Remove(ProjectUnit projectUnit)
+        {
+            var projectUnitGroup = Groups.Single(x => x.Units.Contains(projectUnit));
+            projectUnitGroup.Units.Remove(projectUnit);
+            if (projectUnitGroup.Units.Count == 0)
+                ((ObservableCollection<ProjectUnitGroup>)Groups).Remove(projectUnitGroup);
+            projectUnit.PropertyChanged -= PuOnPropertyChanged;
+
+            base.Remove(projectUnit);
+        }
     }
 }

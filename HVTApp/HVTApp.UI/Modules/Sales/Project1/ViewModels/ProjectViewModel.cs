@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -18,7 +19,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 {
-    public class ProjectViewModel1 : ViewModelBaseCanExportToExcel
+    public class ProjectViewModel : ViewModelBaseCanExportToExcel
     {
         public ProjectWrapper1 ProjectWrapper { get; }
 
@@ -73,7 +74,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// Создание проекта
         /// </summary>
         /// <param name="container"></param>
-        public ProjectViewModel1(IUnityContainer container) : this(new Project
+        public ProjectViewModel(IUnityContainer container) : this(new Project
         {
             ProjectTypeId = GlobalAppProperties.Actual.DefaultProjectType.Id,
             ManagerId = GlobalAppProperties.User.Id
@@ -86,7 +87,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// </summary>
         /// <param name="project"></param>
         /// <param name="container"></param>
-        public ProjectViewModel1(Project project, IUnityContainer container) : base(container)
+        public ProjectViewModel(Project project, IUnityContainer container) : base(container)
         {
             project = UnitOfWork.Repository<Project>().GetById(project.Id) ?? project;
             ProjectWrapper = new ProjectWrapper1(project);
@@ -96,9 +97,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             var dialogService = container.Resolve<IDialogService>();
             var getProductService = container.Resolve<IGetProductService>();
             var eventAggregator = container.Resolve<IEventAggregator>();
+            var messageService = container.Resolve<IMessageService>();
 
             EditCommand = new EditProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
             AddCommand = new AddProjectUnitCommand(UnitOfWork, selectService, dialogService, this, getProductService);
+            RemoveCommand = new RemoveProjectUnitCommand(this, messageService, UnitOfWork);
 
             MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, container);
             MoveToNewProjectCommand = new MoveToNewProjectCommand(this, container);
@@ -116,7 +119,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// <param name="project"></param>
         /// <param name="container"></param>
         /// <param name="salesUnits"></param>
-        public ProjectViewModel1(Project project, IUnityContainer container, IEnumerable<SalesUnit> salesUnits) : this(project, container)
+        public ProjectViewModel(Project project, IUnityContainer container, IEnumerable<SalesUnit> salesUnits) : this(project, container)
         {
             foreach (var salesUnit in salesUnits.Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id)))
             {
@@ -130,7 +133,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// </summary>
         /// <param name="container"></param>
         /// <param name="salesUnits"></param>
-        public ProjectViewModel1(IUnityContainer container, IEnumerable<SalesUnit> salesUnits) : this(container)
+        public ProjectViewModel(IUnityContainer container, IEnumerable<SalesUnit> salesUnits) : this(container)
         {
             foreach (var salesUnit in salesUnits.Select(x => UnitOfWork.Repository<SalesUnit>().GetById(x.Id)))
             {

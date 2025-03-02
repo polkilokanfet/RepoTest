@@ -15,11 +15,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
     public class MoveToExistsProjectCommand : RaiseCanExecuteChangedCommand
     {
-        private readonly ProjectViewModel1 _viewModel;
+        private readonly ProjectViewModel _viewModel;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUnityContainer _container;
 
-        public MoveToExistsProjectCommand(ProjectViewModel1 viewModel, IUnitOfWork unitOfWork, IUnityContainer container)
+        public MoveToExistsProjectCommand(ProjectViewModel viewModel, IUnitOfWork unitOfWork, IUnityContainer container)
         {
             _viewModel = viewModel;
             _unitOfWork = unitOfWork;
@@ -38,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
                 ? projectUnitGroup.Units.Select(x => x.Model)
                 : new[] { ((ProjectUnit)_viewModel.SelectedUnit).Model };
 
-            _container.Resolve<IRegionManager>().RequestNavigateContentRegion<ProjectView1>(new NavigationParameters
+            _container.Resolve<IRegionManager>().RequestNavigateContentRegion<ProjectView>(new NavigationParameters
             {
                 { nameof(Project), project },
                 { nameof(SalesUnit), salesUnits }
