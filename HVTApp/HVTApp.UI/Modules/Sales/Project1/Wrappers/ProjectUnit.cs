@@ -187,7 +187,16 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             PaymentConditionSet = projectUnit.PaymentConditionSet;
             Producer = projectUnit.Producer;
 
-            foreach (var productIncluded in projectUnit.ProductsIncludedGroups.SelectMany(x => x.Items).Select(x => x.Model))
+            var pu = projectUnit is ProjectUnitGroup projectUnitGroup
+                ? projectUnitGroup.Units.First()
+                : projectUnit;
+            var pi = pu
+                .ProductsIncludedGroups
+                .SelectMany(x => x.Items)
+                .Select(x => x.Model)
+                .Select(x => new ProductIncluded() { Product = x.Product, Amount = x.Amount, CustomFixedPrice = x.CustomFixedPrice });
+
+            foreach (var productIncluded in pi)
             {
                 this.ProductsIncluded.Add(new ProjectUnitProductIncluded(productIncluded));
             }
