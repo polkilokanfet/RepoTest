@@ -103,6 +103,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, container);
             MoveToNewProjectCommand = new MoveToNewProjectCommand(this, container);
 
+            IncludeServiceInSpecificationCommand = new IncludeServiceInSpecificationCommand(this, container);
+
             SaveCommand = new SaveProjectCommand(this.ProjectWrapper, UnitOfWork, eventAggregator);
 
             RoundUpCommand = new DelegateCommand(() => this.ProjectWrapper.Units.ForEach(projectUnit => projectUnit.Cost = RoundUpModule.RoundUp(projectUnit.Cost)));

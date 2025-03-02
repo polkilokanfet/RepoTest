@@ -1,41 +1,52 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Modules.Sales.Project1.ViewModels;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
-    internal class IncludeServiceInSpecificationCommand : ICommand
+    internal class IncludeServiceInSpecificationCommand : RaiseCanExecuteChangedCommand
     {
-        private readonly ProjectViewModel _projectViewModel;
+        private readonly ProjectViewModel1 _viewModel;
         private readonly IUnityContainer _container;
         private readonly IMessageService _messageService;
         private readonly ISelectService _selectService;
 
-        public IncludeServiceInSpecificationCommand(
-            ProjectViewModel projectViewModel, 
-            IUnityContainer container)
+        public IncludeServiceInSpecificationCommand(ProjectViewModel1 viewModel, IUnityContainer container)
         {
-            _projectViewModel = projectViewModel;
+            _viewModel = viewModel;
             _container = container;
             _messageService = container.Resolve<IMessageService>();
             _selectService = container.Resolve<ISelectService>();
+
+            _viewModel.SelectedUnitChanged += RaiseCanExecuteChanged;
         }
 
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
-            return true;
+            return _viewModel.SelectedUnit != null && 
+                   _viewModel.SelectedUnit.Product.Model.ProductBlock.IsService;
         }
 
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
-            if (ActionIsValid() == false) return;
+            var salesUnits = _viewModel.SelectedUnit is ProjectUnitGroup projectUnitGroup
+                ? projectUnitGroup.Units.Select(x => x.Model).ToList()
+                : new List<SalesUnit>() { ((ProjectUnit)_viewModel.SelectedUnit).Model };
+
+            if (salesUnits.Any(salesUnit => salesUnit.Specification != null))
+            {
+                _messageService.Message("Уведомление", $"Услуга в спецификациях:\n{salesUnits.Select(salesUnit => salesUnit.Specification).Where(specification => specification != null).Distinct().Select(x => $"№{x.Number} к договору {x.Contract.Number}").ToStringEnum()}");
+                return;
+            }
+
 
             using (var unitOfWork = _container.Resolve<IUnitOfWork>())
             {
@@ -51,8 +62,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
                 if (specification == null)
                     return;
 
-                var salesUnits = _projectViewModel.GroupsViewModel.Groups.SelectedGroup.SalesUnits.Select(salesUnit =>
-                    unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id));
+                salesUnits = salesUnits.Select(salesUnit => unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id)).ToList();
                 salesUnits.ForEach(salesUnit => salesUnit.Specification = specification);
 
                 unitOfWork.SaveChanges();
@@ -60,32 +70,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
                 _messageService.Message("Уведомление", $"Выбранные услуги добавлены в спецификацию {specification}");
             }
 
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        private bool ActionIsValid()
-        {
-            var salesUnits = _projectViewModel.GroupsViewModel.Groups.SelectedGroup?.SalesUnits;
-            if (salesUnits == null)
-            {
-                _messageService.Message("Уведомление", "Выберите услугу для включения в спецификацию");
-                return false;
-            }
-
-            if (salesUnits.Any(salesUnit => salesUnit.Product.ProductBlock.IsService == false))
-            {
-                _messageService.Message("Уведомление", "Данная опция доступна только для услуг");
-                return false;
-            }
-
-            if (salesUnits.Any(salesUnit => salesUnit.Specification != null))
-            {
-                _messageService.Message("Уведомление", $"Услуга в спецификациях:\n{salesUnits.Select(salesUnit => salesUnit.Specification).Where(specification => specification != null).Distinct().Select(x => $"№{x.Number} к договору {x.Contract.Number}").ToStringEnum()}");
-                return false;
-            }
-
-            return true;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.Project1
         {
             //MoveToNewProjectCommand = new MoveToNewProjectCommand(this, Container);
             //MoveToExistsProjectCommand = new MoveToExistsProjectCommand(this, UnitOfWork, Container);
-            IncludeServiceInSpecificationCommand = new IncludeServiceInSpecificationCommand(this, container);
+            //IncludeServiceInSpecificationCommand = new IncludeServiceInSpecificationCommand(this, container);
         }
 
         public override void Load(Project project, bool isNew, object parameter = null)

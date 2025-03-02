@@ -37,8 +37,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             var changedSalesUnits = _projectWrapper.Units.Where(projectUnit => projectUnit.IsChanged).Select(projectUnit => projectUnit.Model).ToList();
             var addedSalesUnits = _projectWrapper.Units.AddedItems.Select(projectUnit => projectUnit.Model).ToList();
 
-            _projectWrapper.AcceptChanges();
             MapProject();
+            _projectWrapper.AcceptChanges();
             _unitOfWork.SaveEntity(_projectWrapper.Model);
             base.Execute(null);
 
@@ -50,8 +50,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         private void MapProject()
         {
-            var project = this._projectWrapper.Model;
-            foreach (var salesUnit in _projectWrapper.Units.Where(x => x.IsChanged).Select(x => x.Model))
+            var salesUnits1 = _projectWrapper.Units.Where(x => x.IsChanged).Select(x => x.Model);
+            var salesUnits2 = _projectWrapper.Units.AddedItems.Select(x => x.Model);
+            var salesUnits3 = _projectWrapper.Units.RemovedItems.Select(x => x.Model);
+
+            foreach (var salesUnit in salesUnits1.Union(salesUnits2).Union(salesUnits3).Distinct())
             {
                 salesUnit.Project = _unitOfWork.Repository<Project>().GetById(_projectWrapper.Model.Id);
                 if (salesUnit.Producer != null)
