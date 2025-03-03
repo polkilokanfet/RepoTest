@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
@@ -34,27 +35,25 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
-            var changedSalesUnits = _projectWrapper.Units.Where(projectUnit => projectUnit.IsChanged).Select(projectUnit => projectUnit.Model).ToList();
-            var addedSalesUnits = _projectWrapper.Units.AddedItems.Select(projectUnit => projectUnit.Model).ToList();
+            var changedSalesUnits = _projectWrapper.Units.Where(projectUnit => projectUnit.IsChanged).Select(projectUnit => projectUnit.Model);
+            var addedSalesUnits = _projectWrapper.Units.AddedItems.Select(projectUnit => projectUnit.Model);
+            var unionSalesUnits = changedSalesUnits.Union(addedSalesUnits).Distinct().ToList();
 
-            MapProject();
             _projectWrapper.AcceptChanges();
-            _unitOfWork.SaveEntity(_projectWrapper.Model);
+            MapProject(unionSalesUnits);
+            _unitOfWork.SaveChanges();
             base.Execute(null);
 
-            foreach (var salesUnit in changedSalesUnits.Union(addedSalesUnits).Distinct())
+            foreach (var salesUnit in unionSalesUnits)
             {
                 _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(salesUnit);
             }
             _eventAggregator.GetEvent<AfterSaveProjectEvent>().Publish(_projectWrapper.Model);
         }
 
-        private void MapProject()
+        private void MapProject(IEnumerable<SalesUnit> salesUnits)
         {
-            var salesUnits1 = _projectWrapper.Units.Where(x => x.IsChanged).Select(x => x.Model);
-            var salesUnits2 = _projectWrapper.Units.AddedItems.Select(x => x.Model);
-
-            foreach (var salesUnit in salesUnits1.Union(salesUnits2).Distinct())
+            foreach (var salesUnit in salesUnits)
             {
                 salesUnit.Project = _unitOfWork.Repository<Project>().GetById(_projectWrapper.Model.Id);
                 if (salesUnit.Producer != null)
