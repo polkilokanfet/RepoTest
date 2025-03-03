@@ -54,6 +54,16 @@ namespace HVTApp.Model.Services
         string CopyFileFromStorage(Guid fileId, string storageDirectoryPath, string targetDirectoryPath, string addToFileName = null, bool showTargetDirectory = true, bool createDirectoryIfNotExists = false);
 
         /// <summary>
+        /// Копирование файла из хранилища в целевую папку.
+        /// </summary>
+        /// <param name="fileName">Имя файла (того файла что был скопирован, а не целевого)</param>
+        /// <param name="fileId">Id файла</param>
+        /// <param name="storageDirectoryPath">Путь к файловому хранилищу</param>
+        /// <param name="targetDirectoryPath">Куда копировать файл</param>
+        /// <returns>Путь к скопированному файлу</returns>
+        string CopyFileFromStorage(string fileName, Guid fileId, string storageDirectoryPath, string targetDirectoryPath);
+
+        /// <summary>
         /// Копирование файлов из хранилища в целевую папку.
         /// </summary>
         /// <param name="files"></param>

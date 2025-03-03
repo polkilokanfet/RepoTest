@@ -134,6 +134,48 @@ namespace HVTApp.Services.FileManagerService
             return destFilePath;
         }
 
+        public string CopyFileFromStorage(string fileName, Guid fileId, string storageDirectoryPath, string targetDirectoryPath)
+        {
+            //проверка наличия файла
+            FileInfo fileInfo;
+            try
+            {
+                fileInfo = FindFile(fileId, storageDirectoryPath);
+            }
+            catch (FileNotFoundException)
+            {
+                _messageService.Message("Предупреждение", "Файл не найден в хранилище!");
+                return string.Empty;
+            }
+            catch (FileNotSingleFoundException)
+            {
+                _messageService.Message("Предупреждение", "Файлов больше одного!");
+                return string.Empty;
+            }
+            catch (IOException ioException)
+            {
+                _messageService.Message(ioException.GetType().ToString(), ioException.PrintAllExceptions());
+                return string.Empty;
+            }
+            catch (Exception e)
+            {
+                _messageService.Message(e.GetType().ToString(), e.PrintAllExceptions());
+                return string.Empty;
+            }
+
+            if (Directory.Exists(targetDirectoryPath) == false)
+            {
+                Directory.CreateDirectory(targetDirectoryPath);
+            }
+
+            fileName = fileName.ReplaceUncorrectSimbols();
+            var destFilePath = Path.Combine(targetDirectoryPath, $"{fileName}{fileInfo.Extension}");
+
+            File.Copy(fileInfo.FullName, destFilePath, true);
+
+            return destFilePath;
+        }
+
         public void CopyFilesFromStorage(IEnumerable<IFileStorage> files, string storageDirectoryPath, bool addName = true, bool showTargetDirectory = true)
         {
             var targetDirectory = this.GetDirectoryPath();

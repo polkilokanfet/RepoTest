@@ -4,8 +4,17 @@ namespace HVTApp.Model.Services.Storage
 {
     public class FileCopyInfoTechnicalSpecification : FileCopyInfo
     {
-        public FileCopyInfoTechnicalSpecification(IFileStorage file, string destinationDirectory) : base(file, destinationDirectory)
+        public string TargetName { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="destinationDirectory"></param>
+        /// <param name="targetName">Желаемое название файла</param>
+        public FileCopyInfoTechnicalSpecification(IFileStorage file, string destinationDirectory, string targetName = null) : base(file, destinationDirectory)
         {
+            TargetName = targetName;
         }
 
         public override string SourcePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Services.Storage;
@@ -44,19 +45,31 @@ namespace HVTApp.UI.PriceEngineering
 
             //загрузка отдельных актуальных ОЛ
             if (task1.ParentPriceEngineeringTaskId != null) return;
+
+            _fileNameNum = 1;
             var actualTechReqFiles = task1
                 .GetAllPriceEngineeringTasks()
                 .SelectMany(task => task.FilesTechnicalRequirements)
                 .Where(requirements => requirements.IsActual)
                 .Distinct()
-                .Select(requirements => new FileCopyInfoTechnicalSpecification(requirements, targetDirectoryPath));
+                .Select(requirements => new FileCopyInfoTechnicalSpecification(requirements, targetDirectoryPath, this.FileName(task1, requirements)));
             foreach (var fileCopyStorage in actualTechReqFiles)
             {
                 FilesStorageService.CopyFileFromStorage(
+                    fileCopyStorage.TargetName,
                     fileCopyStorage.File.Id, 
                     fileCopyStorage.SourcePath, 
-                    Path.Combine(targetDirectoryPath, "Актуальное ТЗ"), null, false, true);
+                    Path.Combine(targetDirectoryPath, "Актуальное ТЗ"));
             }
+        }
+
+        private int _fileNameNum = 1;
+        private string FileName(PriceEngineeringTask task, PriceEngineeringTaskFileTechnicalRequirements requirements)
+        {
+            var tasks = task.GetAllPriceEngineeringTasks();
+            var targetTask = tasks.First(x => x.FilesTechnicalRequirements.Contains(requirements));
+            var productCategory = GlobalAppProperties.ProductDesignationService.GetProductCategory(new Product(){ProductBlock = targetTask.ProductBlock});
+            return $"{targetTask.Number} {productCategory.NameShort} ({_fileNameNum++})";
         }
     }
 }
