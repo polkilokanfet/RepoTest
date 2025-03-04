@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using HVTApp.Infrastructure;
@@ -359,7 +360,7 @@ namespace HVTApp.Services.PrintService
 
     //    public void PrintSpecification(Guid specificationId)
     //    {
-            
+
     //    }
 
 
@@ -399,9 +400,16 @@ namespace HVTApp.Services.PrintService
             var offer = Container.Resolve<IUnitOfWork>().Repository<Offer>().GetById(offerId);
             var offerUnitsGroups = GetUnitsGroupsGroupByFacilities(offer);
             var unitsGroupsByFacilities = offerUnitsGroups.GroupBy(offerUnitsGroup => offerUnitsGroup.Facility).ToList();
-            
+
             //полный путь к файлу (с именем файла)
             var fullPath = offer.GetPath(path);
+
+            if (File.Exists(fullPath))
+            {
+                var dr = MessageService.ConfirmationDialog("Внимание", "Это ТКП уже напечатано. Заменить его?", defaultNo: true);
+                if (dr == false)
+                    return;
+            }
 
             var docWriter = GetWordDocumentWriter(fullPath);
             if (docWriter == null) return;
