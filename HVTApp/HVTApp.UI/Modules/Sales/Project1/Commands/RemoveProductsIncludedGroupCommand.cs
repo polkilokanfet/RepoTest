@@ -1,4 +1,5 @@
 using HVTApp.UI.Modules.Sales.Project1.ViewModels;
+using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
@@ -25,12 +26,28 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
-            foreach (var targetProductIncluded in _viewModel.SelectedProductsIncludedGroup.Items)
+            foreach (var productIncluded in _viewModel.SelectedProductsIncludedGroup.Items)
             {
-                _viewModel.ProjectUnit.RemoveProductIncluded(targetProductIncluded);
+                if (_viewModel.ProjectUnit is ProjectUnit projectUnit) 
+                    RemoveProductIncluded(projectUnit, productIncluded);
+                else if (_viewModel.ProjectUnit is ProjectUnitGroup projectUnitGroup)
+                    RemoveProductIncluded(projectUnitGroup, productIncluded);
             }
 
             _viewModel.SelectedProductsIncludedGroup = null;
+        }
+
+        private void RemoveProductIncluded(ProjectUnit projectUnit, ProjectUnitProductIncluded productIncluded)
+        {
+            projectUnit.ProductsIncluded.Remove(productIncluded);
+        }
+
+        private void RemoveProductIncluded(ProjectUnitGroup projectUnitGroup, ProjectUnitProductIncluded productIncluded)
+        {
+            foreach (var projectUnit in projectUnitGroup.Units)
+            {
+                RemoveProductIncluded(projectUnit, productIncluded);
+            }
         }
     }
 }

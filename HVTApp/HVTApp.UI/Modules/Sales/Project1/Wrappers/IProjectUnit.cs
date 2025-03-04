@@ -32,10 +32,5 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         Price Price { get; }
 
         ProjectUnitCalculatedParts CalculatedParts { get; }
-
-        void CopyProps(IProjectUnit projectUnit);
-
-        void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded);
-        void AddProductIncluded(ProductIncluded productIncluded, bool isForEach);
     }
 }

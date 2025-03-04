@@ -117,14 +117,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         #region Ctors
 
         /// <summary>
-        /// Для создания по образцу
-        /// </summary>
-        public ProjectUnit(IProjectUnit projectUnit) : this(new SalesUnit())
-        {
-            this.CopyProps(projectUnit);
-        }
-
-        /// <summary>
         /// Для редактирования
         /// </summary>
         /// <param name="model"></param>
@@ -172,57 +164,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         }
 
         #endregion
-
-        public void CopyProps(IProjectUnit projectUnit)
-        {
-            if (projectUnit == null) return;
-
-            Cost = projectUnit.Cost;
-            Comment = projectUnit.Comment;
-            CostDelivery = projectUnit.CostDelivery;
-            DeliveryDateExpected = projectUnit.DeliveryDateExpected;
-
-            Facility = projectUnit.Facility;
-            Product = projectUnit.Product;
-            PaymentConditionSet = projectUnit.PaymentConditionSet;
-            Producer = projectUnit.Producer;
-
-            var pu = projectUnit is ProjectUnitGroup projectUnitGroup
-                ? projectUnitGroup.Units.First()
-                : projectUnit;
-            var pi = pu
-                .ProductsIncludedGroups
-                .SelectMany(x => x.Items)
-                .Select(x => x.Model)
-                .Select(x => new ProductIncluded() { Product = x.Product, Amount = x.Amount, CustomFixedPrice = x.CustomFixedPrice });
-
-            foreach (var productIncluded in pi)
-            {
-                this.ProductsIncluded.Add(new ProjectUnitProductIncluded(productIncluded));
-            }
-        }
-
-        public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)
-        {
-            this.ProductsIncluded.Remove(productIncluded);
-            RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
-        }
-
-        public void AddProductIncluded(ProductIncluded productIncluded, bool isForEach = true)
-        {
-            this.ProductsIncluded.Add(new ProjectUnitProductIncluded(productIncluded));
-            RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
-        }
-
-        public bool HasSameGroup(SalesUnit other)
-        {
-            return (new ProjectUnitComparer()).Equals(this, new ProjectUnit(other));
-        }
-
-        public bool HasSameGroup(ProjectUnit other)
-        {
-            return (new ProjectUnitComparer()).Equals(this, other);
-        }
 
         public class ProjectUnitComparer : IEqualityComparer<IProjectUnit>
         {

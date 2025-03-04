@@ -5,7 +5,6 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Services;
 using HVTApp.UI.Modules.Sales.Project1.ViewModels;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
@@ -40,18 +39,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         public void Execute(object parameter)
         {
             //создаем модель для диалога
-            var projectUnitAddViewModel = new ProjectUnitAddViewModel(_unitOfWork, _selectService, _getProductService, _dialogService);
-
-            //заполняем начальные данные
-            projectUnitAddViewModel.ProjectUnit.CopyProps(_viewModel.SelectedUnit);
+            var projectUnitAddViewModel = new ProjectUnitAddViewModel(_viewModel.ProjectWrapper, _viewModel.SelectedUnit, _unitOfWork, _selectService, _getProductService, _dialogService);
 
             //диалог с пользователем
-            var result = _dialogService.ShowDialog(projectUnitAddViewModel, "Добавление оборудования в проект");
-            if (result.HasValue == false || 
-                result.Value == false) 
-                return;
-
-            projectUnitAddViewModel.Result.ForEach(projectUnit => _viewModel.ProjectWrapper.Units.Add(projectUnit));
+            _dialogService.ShowDialog(projectUnitAddViewModel, "Добавление оборудования в проект");
         }
     }
 }

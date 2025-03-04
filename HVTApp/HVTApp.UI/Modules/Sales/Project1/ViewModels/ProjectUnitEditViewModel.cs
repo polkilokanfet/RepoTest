@@ -33,12 +33,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         public ProjectUnitEditViewModel(IProjectUnit projectUnit, IUnitOfWork unitOfWork, ISelectService selectService, IGetProductService productService, IDialogService dialogService)
         {
             ProjectUnit = projectUnit;
-            ChangeFacilityCommand = new ChangeFacilityCommand(projectUnit, selectService);
-            ChangePaymentConditionsSetCommand = new ChangePaymentsCommand(projectUnit, selectService);
-            ChangeProductCommand = new ChangeProductCommand(projectUnit, productService);
+            ChangeFacilityCommand = new ChangeFacilityCommand(projectUnit, selectService, unitOfWork);
+            ChangePaymentConditionsSetCommand = new ChangePaymentsCommand(projectUnit, selectService, unitOfWork);
+            ChangeProductCommand = new ChangeProductCommand(projectUnit, productService, unitOfWork);
             ChangeProducerCommand = new ChangeProducerCommand(projectUnit, selectService, unitOfWork);
             RemoveProducerCommand = new RemoveProducerCommand(projectUnit);
-            AddProductsIncludedGroupCommand = new AddProductsIncludedGroupCommand(projectUnit, productService, dialogService);
+            AddProductsIncludedGroupCommand = new AddProductsIncludedGroupCommand(projectUnit, productService, dialogService, unitOfWork);
             RemoveProductsIncludedGroupCommand = new RemoveProductsIncludedGroupCommand(this);
         }
 

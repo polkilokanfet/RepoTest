@@ -7,6 +7,7 @@ using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
+using static HVTApp.UI.Modules.Sales.Project1.Wrappers.ProjectUnit;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
@@ -111,46 +112,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public IEnumerable<Price> Prices => new List<Price> { this.Price };
 
-
-        public void CopyProps(IProjectUnit projectUnit)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddProductIncluded(ProductIncluded productIncluded, bool isForEach)
-        {
-            if (isForEach)
-            {
-                foreach (var projectUnit in Units)
-                {
-                    projectUnit.AddProductIncluded(new ProductIncluded
-                    {
-                        Product = productIncluded.Product, 
-                        Amount = productIncluded.Amount
-                    });
-                }
-            }
-            else
-            {
-                foreach (var projectUnit in Units)
-                {
-                    projectUnit.AddProductIncluded(productIncluded);
-                }
-            }
-
-            RaisePropertyChanged(nameof(ProjectUnit.ProductsIncludedGroups));
-        }
-
-        public void RemoveProductIncluded(ProjectUnitProductIncluded productIncluded)
-        {
-            foreach (var projectUnit in Units)
-            {
-                projectUnit.RemoveProductIncluded(productIncluded);
-            }
-            RaisePropertyChanged(nameof(ProjectUnitGroup.ProductsIncludedGroups));
-        }
-
-
         public ProjectUnitGroup(IEnumerable<ProjectUnit> projectUnits)
         {
             Units = new ValidatableChangeTrackingCollection<ProjectUnit>(projectUnits);
@@ -202,13 +163,15 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 {
                     RaisePropertyChanged(nameof(CalculatedParts));
                     RaisePropertyChanged(nameof(Prices));
+                    RaisePropertyChanged(nameof(ProductsIncludedGroups));
                 };
             }
         }
 
         public bool Add(ProjectUnit projectUnit)
         {
-            if (this.Units.First().HasSameGroup(projectUnit) == false) 
+            //если эта группа не подходит для добавляемой сущности
+            if ((new ProjectUnitComparer()).Equals(this.Units.First(), projectUnit) == false) 
                 return false;
 
             this.Units.Add(projectUnit);

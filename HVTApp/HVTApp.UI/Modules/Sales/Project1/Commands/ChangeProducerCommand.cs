@@ -8,15 +8,13 @@ using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 
 namespace HVTApp.UI.Modules.Sales.Project1.Commands
 {
-    public class ChangeProducerCommand : ProjectUnitEditBaseCommand
+    public class ChangeProducerCommand : ProjectUnitEditUnitOfWorkBaseCommand
     {
         private static ISelectService _selectService;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public ChangeProducerCommand(IProjectUnit projectUnit, ISelectService selectService, IUnitOfWork unitOfWork) : base(projectUnit)
+        public ChangeProducerCommand(IProjectUnit projectUnit, ISelectService selectService, IUnitOfWork unitOfWork) : base(projectUnit, unitOfWork)
         {
             _selectService = selectService;
-            _unitOfWork = unitOfWork;
         }
 
         public override bool CanExecute(object parameter)
@@ -27,9 +25,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         public override void Execute(object parameter)
         {
             var hvtProducersActivityField = GlobalAppProperties.Actual.HvtProducersActivityField;
-            var producer = _selectService.SelectItem(_unitOfWork.Repository<Company>().Find(x => x.ActivityFilds.ContainsById(hvtProducersActivityField)));
+            var producer = _selectService.SelectItem(UnitOfWork.Repository<Company>().Find(x => x.ActivityFilds.ContainsById(hvtProducersActivityField)));
             if (producer == null) return;
-            ProjectUnit.Producer = new CompanyEmptyWrapper(producer);
+            if (producer.Id == ProjectUnit.Producer?.Model.Id) return;
+            ProjectUnit.Producer = new CompanyEmptyWrapper(UnitOfWork.Repository<Company>().GetById(producer.Id));
         }
     }
 }

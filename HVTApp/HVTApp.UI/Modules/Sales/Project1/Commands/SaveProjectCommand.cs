@@ -40,7 +40,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             var unionSalesUnits = changedSalesUnits.Union(addedSalesUnits).Distinct().ToList();
 
             _projectWrapper.AcceptChanges();
-            MapProject(unionSalesUnits);
+            //MapProject(unionSalesUnits);
             _unitOfWork.SaveChanges();
             base.Execute(null);
 
