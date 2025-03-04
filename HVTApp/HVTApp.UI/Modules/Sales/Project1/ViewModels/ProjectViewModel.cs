@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
@@ -89,7 +90,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// <param name="container"></param>
         public ProjectViewModel(Project project, IUnityContainer container) : base(container)
         {
-            project = UnitOfWork.Repository<Project>().GetById(project.Id) ?? project;
+            project = ((IProjectRepository)(UnitOfWork.Repository<Project>())).GetForEdit(project.Id) ?? project;
             ProjectWrapper = new ProjectWrapper1(project);
             ProjectTypes = new ProjectTypes(UnitOfWork, this.ProjectWrapper);
 

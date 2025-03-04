@@ -16,6 +16,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         DateTime DeliveryDateExpected { get; set; }
         string Comment { get; set; }
 
+        bool IsRemoved { get; }
+
         FacilityEmptyWrapper Facility { get; set; }
         ProductEmptyWrapper Product { get; set; }
         PaymentConditionSetEmptyWrapper PaymentConditionSet { get; set; }

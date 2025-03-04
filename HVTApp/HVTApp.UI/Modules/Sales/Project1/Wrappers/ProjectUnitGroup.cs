@@ -51,6 +51,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set => this.Units.ForEach(projectUnit => projectUnit.Comment = value);
         }
 
+        public bool IsRemoved => this.Units.First().IsRemoved;
+
         #endregion
 
         #region ComplexProperties

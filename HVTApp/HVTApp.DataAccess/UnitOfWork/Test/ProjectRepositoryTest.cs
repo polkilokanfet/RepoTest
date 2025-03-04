@@ -10,5 +10,10 @@ namespace HVTApp.DataAccess
         {
             throw new NotImplementedException();
         }
+        public Project GetForEdit(Guid projectId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

@@ -67,6 +67,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             targetProjectUnit.Comment = projectUnit.Comment;
             targetProjectUnit.CostDelivery = projectUnit.CostDelivery;
             targetProjectUnit.DeliveryDateExpected = projectUnit.DeliveryDateExpected;
+            targetProjectUnit.ProductionTerm = projectUnit.ProductionTerm;
 
             targetProjectUnit.Facility = projectUnit.Facility;
             targetProjectUnit.Product = projectUnit.Product;

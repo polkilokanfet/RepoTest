@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Contexts;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
@@ -41,7 +42,18 @@ namespace HVTApp.DataAccess
             try
             {
 #endif
-                _context.SaveChanges();
+                var entries = _context.ChangeTracker.Entries().Where(x => x.State != EntityState.Unchanged).ToList();
+                foreach (var entry in entries)
+                {
+                    if (entry.State == EntityState.Unchanged) continue;
+                    Console.WriteLine($"Entity: {entry.Entity.GetType().Name}, State: {entry.State}");
+                    foreach (var property in entry.CurrentValues.PropertyNames)
+                    {
+                        Console.WriteLine($"  {property}: {entry.CurrentValues[property]}");
+                    }
+                }
+
+                _context.SaveChanges(); 
                 result = new UnitOfWorkOperationResult();
 #if DEBUG
 #else

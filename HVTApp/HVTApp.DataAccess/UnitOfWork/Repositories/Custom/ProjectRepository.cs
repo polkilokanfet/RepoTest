@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,10 +20,20 @@ namespace HVTApp.DataAccess
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return this.GetQuery().Include(x => x.Notes).ToList();
         }
+
+        public Project GetForEdit(Guid projectId)
+        {
+            Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            return Context.Set<Project>()
+                .AsQueryable()
+                .Include(project => project.SalesUnits)
+                .SingleOrDefault(project => project.Id == projectId);
+        }
     }
 
     public partial interface IProjectRepository
     {
         IEnumerable<Project> GetAllWithNotes();
+        Project GetForEdit(Guid projectId);
     }
 }

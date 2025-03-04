@@ -172,6 +172,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 if (x == null) throw new ArgumentNullException(nameof(x));
                 if (y == null) throw new ArgumentNullException(nameof(y));
 
+                if (!Equals(x.IsRemoved, y.IsRemoved)) return false;
                 if (!Equals(x.Cost, y.Cost)) return false;
                 if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
                 if (!Equals(x.CostDelivery, y.CostDelivery)) return false;

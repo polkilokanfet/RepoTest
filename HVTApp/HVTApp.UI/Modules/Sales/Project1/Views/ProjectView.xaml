@@ -10,7 +10,9 @@
     d:DataContext="{d:DesignInstance viewModels:ProjectViewModel, IsDesignTimeCreatable=True}"
     xmlns:dp="http://infragistics.com/DataPresenter"
     xmlns:igEditors="http://infragistics.com/Editors"
-    xmlns:viewModels="clr-namespace:HVTApp.UI.Modules.Sales.Project1.ViewModels">
+    xmlns:viewModels="clr-namespace:HVTApp.UI.Modules.Sales.Project1.ViewModels"
+    xmlns:infragistics="http://schemas.infragistics.com/xaml"
+    xmlns:igWindows="http://infragistics.com/Windows">
 
     <inf:ViewBaseConfirmNavigationRequest.Resources>
         <Style x:Key="ProductCellsStyle" TargetType="{x:Type dp:CellValuePresenter}">
@@ -135,6 +137,15 @@
 
                         <dp:XamDataGrid.FieldLayouts>
                             <dp:FieldLayout Key="GroupsLayout">
+
+                                <dp:FieldLayout.RecordFilters>
+                                    <dp:RecordFilter FieldName="IsRemoved">
+                                        <dp:RecordFilter.Conditions>
+                                            <igWindows:ComparisonCondition Operator="Equals" Value="False" />
+                                        </dp:RecordFilter.Conditions>
+                                    </dp:RecordFilter>
+                                </dp:FieldLayout.RecordFilters>
+
                                 <dp:FieldLayout.Fields>
                                     <dp:TextField AlternateBinding="{Binding Facility.Model.Name}" BindingType="UseAlternateBinding" Label="Объект" Width="150" />
                                     <dp:TextField AlternateBinding="{Binding Product.Model.ProductType.Name}" Label="Тип" Width="200" />
@@ -151,6 +162,7 @@
                                     <dp:TextField AlternateBinding="{Binding PaymentConditionSet.Model}" BindingType="UseAlternateBinding" Label="Условия оплаты" Width="300" />
                                     <dp:TextField AlternateBinding="{Binding Comment, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowEdit="True" />
                                     <dp:TextField AlternateBinding="{Binding Specification}" BindingType="UseAlternateBinding" Label="Спецификация" Width="Auto" />
+                                    <dp:CheckBoxField Name="IsRemoved" AlternateBinding="{Binding IsRemoved}" BindingType="UseAlternateBinding" Label="Удалён" Width="Auto" Visibility="Hidden"/>
                                     <dp:Field Name="Units" IsExpandable="True"/>
                                 </dp:FieldLayout.Fields>
                             </dp:FieldLayout>
