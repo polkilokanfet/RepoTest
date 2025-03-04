@@ -40,7 +40,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             var unionSalesUnits = changedSalesUnits.Union(addedSalesUnits).Distinct().ToList();
 
             _projectWrapper.AcceptChanges();
-            //MapProject(unionSalesUnits);
             _unitOfWork.SaveChanges();
             base.Execute(null);
 
@@ -49,23 +48,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
                 _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(salesUnit);
             }
             _eventAggregator.GetEvent<AfterSaveProjectEvent>().Publish(_projectWrapper.Model);
-        }
-
-        private void MapProject(IEnumerable<SalesUnit> salesUnits)
-        {
-            foreach (var salesUnit in salesUnits)
-            {
-                salesUnit.Project = _unitOfWork.Repository<Project>().GetById(_projectWrapper.Model.Id);
-                if (salesUnit.Producer != null)
-                    salesUnit.Producer = _unitOfWork.Repository<Company>().GetById(salesUnit.Producer.Id);
-                salesUnit.Facility = _unitOfWork.Repository<Facility>().GetById(salesUnit.Facility.Id);
-                salesUnit.Product = _unitOfWork.Repository<Product>().GetById(salesUnit.Product.Id);
-                salesUnit.PaymentConditionSet = _unitOfWork.Repository<PaymentConditionSet>().GetById(salesUnit.PaymentConditionSet.Id);
-                foreach (var productIncluded in salesUnit.ProductsIncluded)
-                {
-                    productIncluded.Product = _unitOfWork.Repository<Product>().GetById(productIncluded.Product.Id);
-                }
-            }
         }
     }
 }

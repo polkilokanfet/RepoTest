@@ -175,6 +175,7 @@
     <Compile Include="Services\IGetFilePaths.cs" />
     <Compile Include="Services\INotificationMainService.cs" />
     <Compile Include="Services\INotificationsReportService.cs" />
+    <Compile Include="Services\IPrintOfferContract.cs" />
     <Compile Include="Services\IPrintPriceEngineering.cs" />
     <Compile Include="Services\Storage\FileCopyInfo.cs" />
     <Compile Include="Services\Storage\IFileCopyInfo.cs" />

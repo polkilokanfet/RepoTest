@@ -71,6 +71,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\WordDocumentWriterExt.cs" />
+    <Compile Include="Unit.cs" />
+    <Compile Include="UnitsGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">

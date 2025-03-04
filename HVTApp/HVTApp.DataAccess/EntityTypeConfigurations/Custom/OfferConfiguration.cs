@@ -4,9 +4,10 @@ namespace HVTApp.DataAccess
     {
         public OfferConfiguration()
         {
-            HasRequired(x => x.Project).WithMany().WillCascadeOnDelete(true);
-            Property(x => x.ValidityDate).IsRequired();
-            Property(x => x.Vat).IsRequired();
+            HasRequired(offer => offer.Project).WithMany().WillCascadeOnDelete(true);
+            Property(offer => offer.ValidityDate).IsRequired();
+            Property(offer => offer.Vat).IsRequired();
+            HasMany(offer => offer.OfferUnits).WithRequired(offerUnit => offerUnit.Offer).WillCascadeOnDelete(true);
         }
     }
 }
