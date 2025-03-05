@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -63,6 +64,10 @@ namespace HVTApp.Services.PrintService
             fontBold.Bold = true;
 
             PrintUnitsTable(unitsGroups, docWriter, fontBold, unitsGroupsByFacilities, specification);
+            var sum = unitsGroups.Sum(x => x.Total);
+            var vatSum = sum * specification.Vat;
+            var totalSum = sum + vatSum;
+            docWriter.PrintParagraph($"Всего по настоящей спецификации: {DoubleToSum(totalSum)}, в том числе НДС {DoubleToSum(vatSum)}");
 
             #endregion
 
@@ -77,10 +82,7 @@ namespace HVTApp.Services.PrintService
                 GetShipmentConditions(unitsGroups),
                 PrintPaymentConditions("Условия оплаты:", unitsGroups.GroupBy(x => x.PaymentConditionSet), specification.Date.AddDays(14)),
                 PrintConditions("Срок производства (календарных дней, с правом досрочной поставки):", unitsGroups.GroupBy(offerUnitsGroup => offerUnitsGroup.ProductionTerm)),
-                "Комплектация и характеристики оборудования в соответствии с техническим приложением к настоящему предложению.",
-                "В случае изменения технических характеристик оборудования, объёма поставки или сроков заключения контракта условия предложения могут быть пересмотрены.",
             };
-
 
             var noBordersTableBorderProperties = docWriter.CreateTableBorderProperties();
             noBordersTableBorderProperties.Style = TableBorderStyle.None;
@@ -197,6 +199,87 @@ namespace HVTApp.Services.PrintService
             OpenDocument(fullPath);
         }
 
+        static string DoubleToSum(double number)
+        {
+            var n1 = (long)Math.Truncate(number);
+            var n2 = (int)((number - n1) * 100);
+            return $"{NumberToWords(n1)} руб. {n2} коп.";
+        }
+
+        static string NumberToWords(long number)
+        {
+
+            if (number == 0)
+                return "ноль";
+
+            if (number < 0)
+                return "минус " + NumberToWords(Math.Abs(number));
+
+            string words = "";
+
+            string[] units = { "", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять",
+                           "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+                           "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать" };
+
+            string[] tens = { "", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят",
+                          "семьдесят", "восемьдесят", "девяносто" };
+
+            string[] hundreds = { "", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот",
+                              "семьсот", "восемьсот", "девятьсот" };
+
+            string[,] thousands = {
+            { "", "", "" },
+            { "тысяча", "тысячи", "тысяч" },
+            { "миллион", "миллиона", "миллионов" },
+            { "миллиард", "миллиарда", "миллиардов" }
+        };
+
+            int unitIndex = 0;
+
+            while (number > 0)
+            {
+                int chunk = (int)(number % 1000);
+                number /= 1000;
+
+                if (chunk > 0)
+                {
+                    string chunkWords = "";
+
+                    int h = chunk / 100;
+                    int t = (chunk % 100) / 10;
+                    int u = chunk % 10;
+
+                    if (h > 0)
+                        chunkWords += hundreds[h] + " ";
+
+                    if (t == 1)
+                    {
+                        chunkWords += units[10 + u] + " ";
+                    }
+                    else
+                    {
+                        if (t > 1)
+                            chunkWords += tens[t] + " ";
+
+                        if (u > 0)
+                            chunkWords += (unitIndex == 1 && (u == 1 || u == 2) ?
+                                           new string[] { "одна", "две" }[u - 1] : units[u]) + " ";
+                    }
+
+                    if (unitIndex > 0)
+                    {
+                        int form = (u == 1 && t != 1) ? 0 : (u >= 2 && u <= 4 && t != 1 ? 1 : 2);
+                        chunkWords += thousands[unitIndex, form] + " ";
+                    }
+
+                    words = chunkWords + words;
+                }
+
+                unitIndex++;
+            }
+
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(words.Trim());
+        }
         private static string GetPath(string fileName)
         {
             //удаляем некорректные символы
