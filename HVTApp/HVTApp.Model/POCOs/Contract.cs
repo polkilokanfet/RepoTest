@@ -19,6 +19,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Контрагент"), Required]
         public virtual Company Contragent { get; set; }
 
+        [Designation("Подписант"), NotForListView]
+        public virtual Employee ContragentEmployee { get; set; }
+
         public override string ToString()
         {
             return Number;

@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace HVTApp.Infrastructure.Extensions
 {
-    public static class DateExtansions
+    public static class DateExtensions
     {
         /// <summary>
         /// Возвращает сегодня, если проверяемая дата раньше сегодняшней.

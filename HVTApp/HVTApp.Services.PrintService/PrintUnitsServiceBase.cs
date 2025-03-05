@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Media;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Services.PrintService.Extensions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
@@ -12,8 +13,11 @@ namespace HVTApp.Services.PrintService
 {
     public abstract class PrintUnitsServiceBase : PrintServiceBase
     {
+        private readonly PrintProductService _printProductService;
+
         protected PrintUnitsServiceBase(IUnityContainer container) : base(container)
         {
+            _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
         protected static List<UnitsGroup> GetUnitsGroups(IEnumerable<IUnit> offerUnits)
@@ -67,10 +71,10 @@ namespace HVTApp.Services.PrintService
 
             if (printComments)
                 docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
-                    "№", "Тип оборудования", "Обозначение", "Комментарий", "Кол.", "Стоимость", "Сумма");
+                    "№", "Тип", "Обозначение", "Комментарий", "Кол.", "Стоимость", "Сумма");
             else
                 docWriter.PrintTableRow(tableCellProperties, tableRowProperties, paragraphProps, fontBold,
-                    "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость", "Сумма");
+                    "№", "Тип", "Обозначение", "Кол.", "Стоимость", "Сумма");
 
             // Reset the cell properties, so that the cell properties are different from the header cells.
             tableCellProperties.Reset();
@@ -124,8 +128,6 @@ namespace HVTApp.Services.PrintService
             docWriter.EndTable();
         }
 
-
-
         protected static void PrintSumTableString(
             string text, double sum, WordDocumentWriter docWriter, TableCellProperties tableCellProperties,
             Font font, ParagraphProperties parProp, int columnsCount)
@@ -138,23 +140,39 @@ namespace HVTApp.Services.PrintService
             docWriter.EndTableRow();
         }
 
-        protected string GetShipmentConditions(List<UnitsGroup> offerUnitsGroups)
+        protected virtual string GetShipmentConditions(List<UnitsGroup> unitsGroups)
         {
-            if (offerUnitsGroups.Any(x => x.CostDelivery.HasValue && x.CostDelivery > 0))
-            {
-                if (offerUnitsGroups.All(x => x.CostDelivery.HasValue && x.CostDelivery > 0))
-                    return "В стоимости оборудования учтены расходы, связанные с его доставкой на объект.";
+            var shipmentPositions = unitsGroups
+                .Where(x => x.CostDelivery.HasValue && x.CostDelivery > 0)
+                .ToList();
 
-                var positions = offerUnitsGroups
-                    .Where(x => x.CostDelivery.HasValue && x.CostDelivery > 0)
-                    .Select(x => x.Position).ToList();
-                var end = positions.Count == 1 ? "и" : "й";
+            if (shipmentPositions.Any() == false)
+                return "Отгрузка оборудования производится путём выборки товара (получение товара в месте поставки: склад Поставщика по адресу Российская Федерация, г.Екатеринбург, ул.Фронтовых бригад, д.22).";
 
-                return $"В стоимости позиции{end} {positions.ToStringEnum(", ")} учтены расходы, связанные с его доставкой на объект.";
-            }
-            return "В стоимости оборудования не учтены расходы, связанные с его доставкой на объект.";
+            if (unitsGroups.Count == shipmentPositions.Count)
+                return $"В стоимости оборудования учтены расходы, связанные с его доставкой на объект, расположенный по адресу {shipmentPositions.First().Facility}.";
+
+            var s = shipmentPositions.Select(x => $"{x.Product.Category.NameShort} (поз. {x.Position})").ToStringEnum(", ");
+
+            return $"В стоимости {s} учтены расходы, связанные с доставкой этого оборудования на объект, расположенный по адресу {shipmentPositions.First().Facility}.";
         }
 
+        protected string GetSupervisionConditions(List<UnitsGroup> unitsGroups)
+        {
+            var supervisionPositions = unitsGroups
+                .Where(x => x.ProductsIncluded.Any(xx => xx.Product.ProductBlock.IsSupervision))
+                .ToList();
+
+            if (supervisionPositions.Any() == false)
+                return "В стоимости оборудования не учтены расходы, связанные с его шеф-монтажом на объекте.";
+
+            if (unitsGroups.Count == supervisionPositions.Count)
+                return "В стоимости оборудования учтены расходы, связанные с его шеф-монтажом на объекте.";
+
+            var s = supervisionPositions.Select(x => $"{x.Product.Category.NameShort} (поз. {x.Position})").ToStringEnum(", ");
+
+            return $"В стоимости {s} учтены расходы, связанные с шеф-монтажом этого оборудования на объекте.";
+        }
 
         protected static string PrintPaymentConditions(string text, IEnumerable<IGrouping<PaymentConditionSet, UnitsGroup>> offerUnitsGroupsGrouped, DateTime date)
         {
@@ -176,7 +194,6 @@ namespace HVTApp.Services.PrintService
             return result;
         }
 
-
         protected static string PrintConditions<T>(string text, IEnumerable<IGrouping<T, UnitsGroup>> unitsGroupsGrouped)
         {
             var result = text;
@@ -193,6 +210,37 @@ namespace HVTApp.Services.PrintService
                 result += $"{prefix} {positions}: {unitsGroups.Key}.";
             }
             return result;
+        }
+
+        protected void PrintTechnicalDetails(WordDocumentWriter docWriter, List<IGrouping<Facility, UnitsGroup>> unitsGroupsByFacilities)
+        {
+            docWriter.PrintParagraph("Технические характеристики оборудования:");
+            foreach (var offerUnitsGroupsByFacility in unitsGroupsByFacilities)
+            {
+                foreach (var unitsGroup in offerUnitsGroupsByFacility)
+                {
+                    docWriter.PrintParagraph(Environment.NewLine + $"{unitsGroup.Position}. {unitsGroup.Product} - {unitsGroup.Amount} шт.:");
+                    _printProductService.Print(docWriter, unitsGroup.Product);
+
+                    // включенное в состав оборудование
+                    if (unitsGroup.ProductsIncluded.Any())
+                    {
+                        docWriter.PrintParagraph(Environment.NewLine + "Дополнительное оборудование и услуги, включенные в состав:");
+
+                        int n = 1;
+                        var productsIncluded = unitsGroup.ProductsIncluded.GroupBy(productIncluded => new
+                        {
+                            productIncluded.Product,
+                            productIncluded.Amount
+                        });
+                        foreach (var productIncluded in productsIncluded)
+                        {
+                            docWriter.PrintParagraph(Environment.NewLine + $"{unitsGroup.Position}.{n++} {productIncluded.Key.Product} - {productIncluded.Count() * productIncluded.Key.Amount} шт.:");
+                            _printProductService.Print(docWriter, productIncluded.Key.Product);
+                        }
+                    }
+                }
+            }
         }
 
 

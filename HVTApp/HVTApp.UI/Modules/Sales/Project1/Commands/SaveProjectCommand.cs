@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.Events;
-using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using Prism.Events;
 

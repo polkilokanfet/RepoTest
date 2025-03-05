@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Media;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Services;
-using HVTApp.Model.Wrapper.Groups;
 using HVTApp.Services.PrintService.Extensions;
 using Infragistics.Documents.Word;
 using Microsoft.Practices.Unity;
@@ -18,11 +15,8 @@ namespace HVTApp.Services.PrintService
 {
     public class PrintOfferService : PrintUnitsServiceBase, IPrintOfferService
     {
-        private readonly PrintProductService _printProductService;
-
         public PrintOfferService(IUnityContainer container) : base(container)
         {
-            _printProductService = container.Resolve<IPrintProductService>() as PrintProductService;
         }
 
         public void PrintOffer(Guid offerId, string path = "")
@@ -129,6 +123,7 @@ namespace HVTApp.Services.PrintService
 
             var conditions = new List<string>
             {
+                GetSupervisionConditions(unitsGroups),
                 GetShipmentConditions(unitsGroups),
                 PrintPaymentConditions("Условия оплаты:", unitsGroups.GroupBy(x => x.PaymentConditionSet), offer.ValidityDate),
                 PrintConditions("Срок производства (календарных дней, с правом досрочной поставки):", unitsGroups.GroupBy(offerUnitsGroup => offerUnitsGroup.ProductionTerm)),
@@ -230,35 +225,9 @@ namespace HVTApp.Services.PrintService
 
             paragraphProperties = docWriter.CreateParagraphProperties();
             paragraphProperties.PageBreakBefore = true;
-
             docWriter.PrintParagraph($"Техническое приложение к предложению исх.№ {offer.RegNumber} от {offer.Date.ToShortDateString()} г.", paragraphProperties, fontBold);
-            docWriter.PrintParagraph("Технические характеристики оборудования:");
-            foreach (var offerUnitsGroupsByFacility in unitsGroupsByFacilities)
-            {
-                foreach (var offerUnitsGroup in offerUnitsGroupsByFacility)
-                {
-                    docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}. {offerUnitsGroup.Product} - {offerUnitsGroup.Amount} шт.:");
-                    _printProductService.Print(docWriter, offerUnitsGroup.Product);
-
-                    // включенное в состав оборудование
-                    if (offerUnitsGroup.ProductsIncluded.Any())
-                    {
-                        docWriter.PrintParagraph(Environment.NewLine + "Дополнительное оборудование и услуги, включенные в состав:");
-
-                        int n = 1;
-                        var productsIncluded = offerUnitsGroup.ProductsIncluded.GroupBy(x => new
-                        {
-                            x.Product,
-                            x.Amount
-                        });
-                        foreach (var productIncluded in productsIncluded)
-                        {
-                            docWriter.PrintParagraph(Environment.NewLine + $"{offerUnitsGroup.Position}.{n++} {productIncluded.Key.Product} - {productIncluded.Count() * productIncluded.Key.Amount} шт.:");
-                            _printProductService.Print(docWriter, productIncluded.Key.Product);
-                        }
-                    }
-                }
-            }
+            
+            PrintTechnicalDetails(docWriter, unitsGroupsByFacilities);
 
             #endregion
 
@@ -285,52 +254,22 @@ namespace HVTApp.Services.PrintService
             OpenDocument(fullPath);
         }
 
-        /// <summary>
-        /// Печать технических деталей ТКП
-        /// </summary>
-        /// <param name="docWriter"></param>
-        /// <param name="offerUnitsGroupsByFacilities"></param>
-        private void PrintTechnicalDetails(WordDocumentWriter docWriter, List<IGrouping<Facility, OfferUnitsGroup>> offerUnitsGroupsByFacilities)
+        protected override string GetShipmentConditions(List<UnitsGroup> unitsGroups)
         {
-            var paragraphProperties = docWriter.CreateParagraphProperties();
-            paragraphProperties.PageBreakBefore = true;
+            var shipmentPositions = unitsGroups
+                .Where(x => x.CostDelivery.HasValue && x.CostDelivery > 0)
+                .ToList();
 
-            Font fontHeader = docWriter.CreateFont();
-            fontHeader.Bold = true;
+            if (shipmentPositions.Any() == false)
+                return "В стоимости оборудования не учтены расходы, связанные с его доставкой на объект.";
 
-            docWriter.PrintParagraph("Технические характеристики оборудования(в соответствии с позициями таблицы):", paragraphProperties, fontHeader);
-            int positionNumber = 1;
-            foreach (var offerUnitsGroupsByFacility in offerUnitsGroupsByFacilities)
-            {
-                foreach (var offerUnitsGroup in offerUnitsGroupsByFacility)
-                {
-                    docWriter.PrintParagraph($"{positionNumber++}. {offerUnitsGroup.Product} = {offerUnitsGroupsByFacility.Count()} шт.:");
-                    _printProductService.Print(docWriter, offerUnitsGroup.Product.Model);
+            if (unitsGroups.Count == shipmentPositions.Count)
+                return "В стоимости оборудования учтены расходы, связанные с его доставкой на объект.";
 
-                    // включенное в состав оборудование
-                    if (offerUnitsGroup.ProductsIncluded.Any())
-                    {
-                        docWriter.PrintParagraph("Дополнительное оборудование, включенное в состав:");
-                        foreach (var productIncluded in offerUnitsGroup.ProductsIncluded)
-                        {
-                            docWriter.PrintParagraph($"{productIncluded.Model.Product} {productIncluded.Model.Amount} шт.:");
-                            _printProductService.Print(docWriter, productIncluded.Model.Product);
-                        }
-                    }
+            var s = shipmentPositions.Select(x => $"{x.Product.Category.NameShort} (поз. {x.Position})").ToStringEnum(", ");
 
-                    docWriter.PrintParagraph(Environment.NewLine);
-                }
-            }
+            return $"В стоимости {s} учтены расходы, связанные с доставкой этого оборудования на объект.";
         }
 
-        protected override string GetFullPath(Document document, string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void PrintBody(Document document, WordDocumentWriter docWriter)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -16,6 +16,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Сокращенное наименование"), Required, MaxLength(100), OrderStatus(15)]
         public string ShortName { get; set; }
 
+        [Designation("email"), MaxLength(124)]
+        public string Email { get; set; }
+
         [Designation("ИНН"), MaxLength(10)]
         public string Inn { get; set; }
 
