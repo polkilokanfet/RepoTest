@@ -77,6 +77,16 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             }
         }
 
+        public ProjectEmptyWrapper Project
+        {
+            get => Units.First().Project;
+            set
+            {
+                Units.ForEach(projectUnit => projectUnit.Project = value);
+                RaisePropertyChanged();
+            }
+        }
+
         public PaymentConditionSetEmptyWrapper PaymentConditionSet
         {
             get => Units.First().PaymentConditionSet;

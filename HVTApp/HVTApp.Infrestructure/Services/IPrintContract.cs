@@ -2,7 +2,7 @@
 
 namespace HVTApp.Infrastructure.Services
 {
-    public interface IPrintOfferContract
+    public interface IPrintContract
     {
         void PrintContract(Guid contractId);
         void PrintSpecification(Guid specificationId);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -9,7 +8,6 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Groups;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using ProjectUnit = HVTApp.UI.Modules.Sales.Project1.Wrappers.ProjectUnit;
@@ -40,7 +38,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             : base(new ProjectUnit(new SalesUnit()), unitOfWork, selectService, productService, dialogService)
         {
             if (projectUnit == null)
+            {
                 this.ProjectUnit.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(unitOfWork.Repository<PaymentConditionSet>().GetById(GlobalAppProperties.Actual.StandartPaymentsConditionSet.Id));
+                this.ProjectUnit.Project = new ProjectEmptyWrapper(projectWrapper.Model);
+            }
             else
                 this.CopyProperties((ProjectUnit)ProjectUnit, projectUnit);
             
@@ -70,6 +71,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             targetProjectUnit.ProductionTerm = projectUnit.ProductionTerm;
 
             targetProjectUnit.Facility = projectUnit.Facility;
+            targetProjectUnit.Project = projectUnit.Project;
             targetProjectUnit.Product = projectUnit.Product;
             targetProjectUnit.PaymentConditionSet = projectUnit.PaymentConditionSet;
             targetProjectUnit.Producer = projectUnit.Producer;

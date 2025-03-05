@@ -65,6 +65,7 @@
     <Compile Include="PrintSupervisionLetterService.cs" />
     <Compile Include="PrintOfferService.cs" />
     <Compile Include="PrintProductService.cs" />
+    <Compile Include="PrintUnitsServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

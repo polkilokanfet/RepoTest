@@ -29,7 +29,7 @@ namespace HVTApp.DataAccess
             Property(x => x.PickingDate).IsOptional();
             Property(x => x.EndProductionDate).IsOptional();
 
-            HasOptional(x => x.Specification).WithMany();
+            HasOptional(x => x.Specification).WithMany(specification => specification.SalesUnits).WillCascadeOnDelete(false);
 
             Property(x => x.Cost).IsRequired();
 

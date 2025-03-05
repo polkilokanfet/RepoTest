@@ -19,6 +19,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.TaskInvoiceForPayment1.ForManager;
+using Prism.Commands;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.ViewModels
@@ -32,6 +33,7 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public ICommand LoadScanCommand { get; private set; }
         public ICommand OpenScanCommand { get; private set; }
+        public ICommand PrintCommand { get; }
 
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
@@ -90,6 +92,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), specification}});
                 });
+            PrintCommand = new DelegateCommand(() =>
+                container.Resolve<IPrintContract>().PrintSpecification(this.DetailsViewModel.Item.Model.Id));
         }
 
         public override void Load(Specification model, bool isNew, object parameter = null)

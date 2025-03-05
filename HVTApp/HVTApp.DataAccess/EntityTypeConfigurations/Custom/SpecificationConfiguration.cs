@@ -9,6 +9,7 @@ namespace HVTApp.DataAccess
             HasRequired(specification => specification.Contract).WithMany().WillCascadeOnDelete(false);
             HasMany(specification => specification.PriceEngineeringTasks).WithOptional(x => x.Specification).WillCascadeOnDelete(false);
             HasMany(specification => specification.TechnicalRequrements).WithOptional(x => x.Specification).WillCascadeOnDelete(false);
+            HasMany(specification => specification.SalesUnits).WithOptional(x => x.Specification).WillCascadeOnDelete(false);
         }
     }
 }

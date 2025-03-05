@@ -144,6 +144,7 @@ namespace HVTApp
             Container.RegisterType<IGetProductService, GetProductServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INewProductService, NewProductServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPrintOfferService, PrintOfferService>();
+            Container.RegisterType<IPrintContract, PrintContractService>();
             Container.RegisterType<IPrintProductService, PrintProductService>();
             Container.RegisterType<IPrintSupervisionLetterService, PrintSupervisionLetterService>();
             Container.RegisterType<IPrintBlankLetterService, PrintBlankLetterService>();

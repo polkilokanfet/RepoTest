@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Спецификация")]
     [AllowEdit(Role.SalesManager)]
-    public partial class Specification : BaseEntity
+    public partial class Specification : BaseEntity, IVatContainer
     {
         [Designation("№"), Required, MaxLength(10), OrderStatus(10)]
         public string Number { get; set; }
@@ -31,6 +31,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Задачи ТСЕ"), NotForListView, NotForDetailsView, NotForWrapper]
         public virtual List<TechnicalRequrements> TechnicalRequrements { get; set; } = new List<TechnicalRequrements>();
+
+
+        [NotForListView, NotForDetailsView, NotForWrapper]
+        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 
 
         public override string ToString()

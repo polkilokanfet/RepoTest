@@ -38,6 +38,10 @@
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.UI;component/Images/save.png"/>
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Word версия">
+        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
+    </infRib:RibbonGroup>
+
     <infRib:RibbonGroup Caption="Сканированная версия">
         <infRib:ButtonTool Caption="Загрузить" Command="{Binding LoadScanCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
         <infRib:ButtonTool Caption="Скачать" Command="{Binding OpenScanCommand}" SmallImage="/HVTApp.UI;component/Images/arrow_forward.png"/>
