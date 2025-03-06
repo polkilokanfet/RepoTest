@@ -39,7 +39,8 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Word версия">
-        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
+        <infRib:ButtonTool Caption="Печать договора" Command="{Binding PrintContractCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
+        <infRib:ButtonTool Caption="Печать спецификации" Command="{Binding PrintSpecificationCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Сканированная версия">

@@ -6997,6 +6997,17 @@ namespace HVTApp.Model.Wrapper
         public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
         /// <summary>
+        /// email
+        /// </summary>
+        public System.String Email
+        {
+          get { return Model.Email; }
+          set { SetValue(value); }
+        }
+        public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
+        public bool EmailIsChanged => GetIsChanged(nameof(Email));
+
+        /// <summary>
         /// ИНН
         /// </summary>
         public System.String Inn
@@ -7391,11 +7402,21 @@ namespace HVTApp.Model.Wrapper
             set { SetComplexValue<Company, CompanyWrapper>(Contragent, value); }
         }
 
+        /// <summary>
+        /// Подписант
+        /// </summary>
+	    public EmployeeWrapper ContragentEmployee 
+        {
+            get { return GetWrapper<EmployeeWrapper>(); }
+            set { SetComplexValue<Employee, EmployeeWrapper>(ContragentEmployee, value); }
+        }
+
         #endregion
 
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<CompanyWrapper>(nameof(Contragent), Model.Contragent == null ? null : new CompanyWrapper(Model.Contragent));
+            InitializeComplexProperty<EmployeeWrapper>(nameof(ContragentEmployee), Model.ContragentEmployee == null ? null : new EmployeeWrapper(Model.ContragentEmployee));
         }
 	}
 
@@ -9478,6 +9499,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Boolean ForReportOriginalValue => GetOriginalValue<System.Boolean>(nameof(ForReport));
         public bool ForReportIsChanged => GetIsChanged(nameof(ForReport));
+
+        /// <summary>
+        /// ManagerId
+        /// </summary>
+        public System.Guid ManagerId
+        {
+          get { return Model.ManagerId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ManagerIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ManagerId));
+        public bool ManagerIdIsChanged => GetIsChanged(nameof(ManagerId));
 
         /// <summary>
         /// Id

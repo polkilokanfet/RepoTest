@@ -62,6 +62,16 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        public string ToFullName()
+        {
+            return $"{Form.FullName} \"{FullName}\"";
+        }
+
+        public string ToShortName()
+        {
+            return $"{Form.ShortName} \"{ShortName}\"";
+        }
+
         public override string ToString()
         {
             return $"{ShortName} ({Form?.ShortName})";

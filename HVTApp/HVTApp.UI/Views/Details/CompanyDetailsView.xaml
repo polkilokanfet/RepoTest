@@ -34,6 +34,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Наименование" Visibility="{Binding VisibilityFullNameCompany, ElementName=Root}"/>
@@ -92,8 +93,13 @@
                  Text="{Binding Item.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityInnCompany, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="9" Content="Банковские реквизиты" Visibility="{Binding VisibilityBankDetailsListCompany, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="9"
+        <Label Grid.Column="0" Grid.Row ="9" Content="email" Visibility="{Binding VisibilityEmailCompany, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="9"
+                 Text="{Binding Item.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityEmailCompany, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="10" Content="Банковские реквизиты" Visibility="{Binding VisibilityBankDetailsListCompany, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="10"
 										 Items="{Binding Path=Item.BankDetailsList}"
 										 SelectedItem="{Binding SelectedBankDetailsListItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInBankDetailsListCommand}"

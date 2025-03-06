@@ -30,6 +30,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Старт задачи" Visibility="{Binding VisibilityMomentStartTaskInvoiceForPayment, ElementName=Root}"/>
@@ -37,33 +40,45 @@
                     SelectedDate="{Binding Item.MomentStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityMomentStartTaskInvoiceForPayment, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Финиш задачи" Visibility="{Binding VisibilityMomentFinishTaskInvoiceForPayment, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Финиш (экономиста)" Visibility="{Binding VisibilityMomentFinishTaskInvoiceForPayment, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.MomentFinish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityMomentFinishTaskInvoiceForPayment, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Исполнитель" Visibility="{Binding VisibilityBackManagerTaskInvoiceForPayment, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Финиш (плановика)" Visibility="{Binding VisibilityMomentFinishByPlanMakerTaskInvoiceForPayment, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.MomentFinishByPlanMaker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityMomentFinishByPlanMakerTaskInvoiceForPayment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Плановик" Visibility="{Binding VisibilityPlanMakerTaskInvoiceForPayment, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+                                    Item="{Binding Item.PlanMaker}" 
+                                    AddItemCommand="{Binding SelectPlanMakerCommand}" 
+                                    RemoveItemCommand="{Binding ClearPlanMakerCommand}"
+									Visibility="{Binding VisibilityPlanMakerTaskInvoiceForPayment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Экономист" Visibility="{Binding VisibilityBackManagerTaskInvoiceForPayment, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.BackManager}" 
                                     AddItemCommand="{Binding SelectBackManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearBackManagerCommand}"
 									Visibility="{Binding VisibilityBackManagerTaskInvoiceForPayment, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Требуется оригинал счёта" Visibility="{Binding VisibilityOriginalIsRequiredTaskInvoiceForPayment, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="5" Content="Требуется оригинал счёта" Visibility="{Binding VisibilityOriginalIsRequiredTaskInvoiceForPayment, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                   IsChecked="{Binding Item.OriginalIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityOriginalIsRequiredTaskInvoiceForPayment, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Строки счёта" Visibility="{Binding VisibilityItemsTaskInvoiceForPayment, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+        <Label Grid.Column="0" Grid.Row ="6" Content="Строки счёта" Visibility="{Binding VisibilityItemsTaskInvoiceForPayment, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.Items}"
 										 SelectedItem="{Binding SelectedItemsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInItemsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromItemsCommand}"
 										 Visibility="{Binding VisibilityItemsTaskInvoiceForPayment, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Комментарий менеджера" Visibility="{Binding VisibilityCommentTaskInvoiceForPayment, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="5"
+        <Label Grid.Column="0" Grid.Row ="7" Content="Комментарий менеджера" Visibility="{Binding VisibilityCommentTaskInvoiceForPayment, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="7"
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentTaskInvoiceForPayment, ElementName=Root}"/>
 

@@ -33,7 +33,8 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public ICommand LoadScanCommand { get; private set; }
         public ICommand OpenScanCommand { get; private set; }
-        public ICommand PrintCommand { get; }
+        public ICommand PrintContractCommand { get; }
+        public ICommand PrintSpecificationCommand { get; }
 
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
@@ -92,8 +93,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
                     container.Resolve<IRegionManager>().RequestNavigateContentRegion<TaskInvoiceForPaymentManagerView>(new NavigationParameters(){{nameof(Specification), specification}});
                 });
-            PrintCommand = new DelegateCommand(() =>
+
+            PrintSpecificationCommand = new DelegateCommand(() =>
                 container.Resolve<IPrintContract>().PrintSpecification(this.DetailsViewModel.Item.Model.Id));
+            PrintContractCommand = new DelegateCommand(() =>
+                container.Resolve<IPrintContract>().PrintContract(this.DetailsViewModel.Item.Model.Id));
         }
 
         public override void Load(Specification model, bool isNew, object parameter = null)

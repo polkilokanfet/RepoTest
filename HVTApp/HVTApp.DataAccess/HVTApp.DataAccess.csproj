@@ -532,6 +532,10 @@
     <Compile Include="Migrations\202502261935396_SalesUnitProductId.Designer.cs">
       <DependentUpon>202502261935396_SalesUnitProductId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202503052223318_CompanyEmail.cs" />
+    <Compile Include="Migrations\202503052223318_CompanyEmail.Designer.cs">
+      <DependentUpon>202503052223318_CompanyEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -880,6 +884,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202502261935396_SalesUnitProductId.resx">
       <DependentUpon>202502261935396_SalesUnitProductId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202503052223318_CompanyEmail.resx">
+      <DependentUpon>202503052223318_CompanyEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

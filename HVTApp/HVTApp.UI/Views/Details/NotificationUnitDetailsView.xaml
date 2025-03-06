@@ -36,24 +36,24 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Пользователь" Visibility="{Binding VisibilitySenderUserNotificationUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Получатель" Visibility="{Binding VisibilityRecipientUserNotificationUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
-                                    Item="{Binding Item.SenderUser}" 
-                                    AddItemCommand="{Binding SelectSenderUserCommand}" 
-                                    RemoveItemCommand="{Binding ClearSenderUserCommand}"
-									Visibility="{Binding VisibilitySenderUserNotificationUnit, ElementName=Root}"/>
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Пользователь" Visibility="{Binding VisibilityRecipientUserNotificationUnit, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.RecipientUser}" 
                                     AddItemCommand="{Binding SelectRecipientUserCommand}" 
                                     RemoveItemCommand="{Binding ClearRecipientUserCommand}"
 									Visibility="{Binding VisibilityRecipientUserNotificationUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Отправлено по почте" Visibility="{Binding VisibilityIsSentByEmailNotificationUnit, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="1" Content="Отправлено по почте" Visibility="{Binding VisibilityIsSentByEmailNotificationUnit, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                   IsChecked="{Binding Item.IsSentByEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsSentByEmailNotificationUnit, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Отправитель" Visibility="{Binding VisibilitySenderUserNotificationUnit, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.SenderUser}" 
+                                    AddItemCommand="{Binding SelectSenderUserCommand}" 
+                                    RemoveItemCommand="{Binding ClearSenderUserCommand}"
+									Visibility="{Binding VisibilitySenderUserNotificationUnit, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Moment" Visibility="{Binding VisibilityMomentNotificationUnit, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="3" 

@@ -44,33 +44,33 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Чертеж" Visibility="{Binding VisibilityDesignProductBlock, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0"
+                 Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1"
+                 Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Чертеж" Visibility="{Binding VisibilityDesignProductBlock, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2"
                  Text="{Binding Item.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Фиксированные цены" Visibility="{Binding VisibilityFixedCostsProductBlock, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+        <Label Grid.Column="0" Grid.Row ="3" Content="Фиксированные цены" Visibility="{Binding VisibilityFixedCostsProductBlock, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.FixedCosts}"
 										 SelectedItem="{Binding SelectedFixedCostsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInFixedCostsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromFixedCostsCommand}"
 										 Visibility="{Binding VisibilityFixedCostsProductBlock, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Трудозатраты (н/ч на ед.)" Visibility="{Binding VisibilityLaborCostsProductBlock, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Трудозатраты (н/ч на ед.)" Visibility="{Binding VisibilityLaborCostsProductBlock, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
                                Value="{Binding Item.LaborCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityLaborCostsProductBlock, ElementName=Root}"/>
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="3"
-                 Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="4"
-                 Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Себестоимости" Visibility="{Binding VisibilityPricesProductBlock, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
