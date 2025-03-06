@@ -10,6 +10,7 @@ using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
+using HVTApp.Model.Wrapper;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
@@ -77,10 +78,10 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// <param name="container"></param>
         public ProjectViewModel(IUnityContainer container) : this(new Project
         {
-            ProjectTypeId = GlobalAppProperties.Actual.DefaultProjectType.Id,
-            ManagerId = GlobalAppProperties.User.Id
+            ProjectTypeId = GlobalAppProperties.Actual.DefaultProjectType.Id
         }, container)
         {
+            ProjectWrapper.Manager = new UserEmptyWrapper(this.UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
         }
 
         /// <summary>

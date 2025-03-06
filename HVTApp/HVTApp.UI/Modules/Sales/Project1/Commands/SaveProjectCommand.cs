@@ -38,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
             var unionSalesUnits = changedSalesUnits.Union(addedSalesUnits).Distinct().ToList();
 
             _projectWrapper.AcceptChanges();
-            _unitOfWork.SaveChanges();
+            _unitOfWork.SaveEntity(_projectWrapper.Model);
             base.Execute(null);
 
             foreach (var salesUnit in unionSalesUnits)

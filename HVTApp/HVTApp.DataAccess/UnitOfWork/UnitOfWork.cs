@@ -42,6 +42,7 @@ namespace HVTApp.DataAccess
             try
             {
 #endif
+#if DEBUG
                 var entries = _context.ChangeTracker.Entries().Where(x => x.State != EntityState.Unchanged).ToList();
                 foreach (var entry in entries)
                 {
@@ -52,7 +53,8 @@ namespace HVTApp.DataAccess
                         Console.WriteLine($"  {property}: {entry.CurrentValues[property]}");
                     }
                 }
-
+#else
+#endif
                 _context.SaveChanges(); 
                 result = new UnitOfWorkOperationResult();
 #if DEBUG
