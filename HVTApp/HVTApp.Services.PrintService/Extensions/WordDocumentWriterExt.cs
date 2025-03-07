@@ -40,11 +40,17 @@ namespace HVTApp.Services.PrintService.Extensions
             return docWriter;
         }
 
-        public static WordDocumentWriter PrintTableRow(this WordDocumentWriter docWriter, TableCellProperties cellProps, 
-            TableRowProperties tableRowProperties = null, ParagraphProperties paragraphProperties = null, Font font = null, 
+        public static WordDocumentWriter PrintTableRow(this WordDocumentWriter docWriter, params string[] text)
+        {
+            docWriter.PrintTableRow(docWriter.CreateTableCellProperties(), docWriter.CreateTableRowProperties(), docWriter.DefaultParagraphProperties, docWriter.DefaultFont, text);
+            return docWriter;
+        }
+
+        public static WordDocumentWriter PrintTableRow(this WordDocumentWriter docWriter, TableCellProperties cellProps,
+            TableRowProperties tableRowProperties = null, ParagraphProperties paragraphProperties = null, Font font = null,
             params string[] text)
         {
-            if(tableRowProperties == null) docWriter.StartTableRow();
+            if (tableRowProperties == null) docWriter.StartTableRow();
             else docWriter.StartTableRow(tableRowProperties);
 
             text.ForEach(x => docWriter.PrintTableCell(x, cellProps, paragraphProperties, font));
