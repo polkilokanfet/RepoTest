@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 
@@ -26,7 +27,7 @@ namespace HVTApp.Services.PrintService.Extensions
             
             //возвращаем путь
             return path == ""
-                ? AppDomain.CurrentDomain.BaseDirectory + $"\\{fileName}"
+                ? Path.GetTempPath() + $"\\{fileName}"
                 : path + $"\\{fileName}";
         }
     }

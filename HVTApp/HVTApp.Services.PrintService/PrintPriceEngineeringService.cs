@@ -46,7 +46,7 @@ namespace HVTApp.Services.PrintService
 
         private void PrintPriceEngineeringTasksInformation(PriceEngineeringTasks priceEngineeringTasks)
         {
-            //string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestPriceEngineeringTasks.docx";
+            //string offerDocumentPath = Path.GetTempPath() + "\\TestPriceEngineeringTasks.docx";
             string offerDocumentPath = @"C:\Users\kosol\Desktop\Новая папка\TestPriceEngineeringTasks1.docx";
             
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);

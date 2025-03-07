@@ -24,7 +24,7 @@ namespace HVTApp.Services.PrintService
 
         public void PrintProduct(Product product)
         {
-            string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestProductDocument.docx";
+            string offerDocumentPath = Path.GetTempPath() + "\\TestProductDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
             docWriter.StartDocument();
             docWriter.PrintParagraph($"{product}");
@@ -40,7 +40,7 @@ namespace HVTApp.Services.PrintService
         {
             try
             {
-                var pathDocx = AppDomain.CurrentDomain.BaseDirectory + $"\\{Guid.NewGuid()}.docx";
+                var pathDocx = Path.GetTempPath() + $"\\{Guid.NewGuid()}.docx";
                 WordDocumentWriter docWriter = WordDocumentWriter.Create(pathDocx);
                 docWriter.StartDocument();
 
@@ -58,7 +58,7 @@ namespace HVTApp.Services.PrintService
                 docWriter.EndDocument();
                 docWriter.Close();
 
-                //var pathPdf = AppDomain.CurrentDomain.BaseDirectory + @"\ProductsDocument.pdf";
+                //var pathPdf = Path.GetTempPath() + @"\ProductsDocument.pdf";
                 //var documentCore = DocumentCore.Load(pathDocx);
                 //documentCore.Save(pathPdf, SaveOptions.PdfDefault);
 
