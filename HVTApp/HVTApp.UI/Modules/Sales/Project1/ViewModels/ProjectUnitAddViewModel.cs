@@ -40,7 +40,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
             if (projectUnit == null)
             {
                 this.ProjectUnit.PaymentConditionSet = new PaymentConditionSetEmptyWrapper(unitOfWork.Repository<PaymentConditionSet>().GetById(GlobalAppProperties.Actual.StandartPaymentsConditionSet.Id));
-                this.ProjectUnit.Project = new ProjectEmptyWrapper(projectWrapper.Model);
+                this.ProjectUnit.Project = projectWrapper.Model;
             }
             else
                 this.CopyProperties((ProjectUnit)ProjectUnit, projectUnit);

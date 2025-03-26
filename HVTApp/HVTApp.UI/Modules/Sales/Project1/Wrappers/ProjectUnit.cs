@@ -13,6 +13,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 {
     public class ProjectUnit : WrapperBase<SalesUnit>, IProjectUnit
     {
+        public Project Project
+        {
+            get => this.Model.Project;
+            set => this.Model.Project = value;
+        }
+
         public Specification Specification => this.Model.Specification;
 
         #region SimpleProperties
@@ -34,7 +40,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set
             {
                 if (value < 0) return;
-                SetValue(value == 0 ? default(double?) : value);
+                SetValue(value == 0 ? default : value);
             }
         }
 
@@ -74,12 +80,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         {
             get => GetWrapper<FacilityEmptyWrapper>();
             set => SetComplexValue<Facility, FacilityEmptyWrapper>(Facility, value);
-        }
-
-        public ProjectEmptyWrapper Project
-        {
-            get => GetWrapper<ProjectEmptyWrapper>();
-            set => SetComplexValue<Project, ProjectEmptyWrapper>(Project, value);
         }
 
         public ProductEmptyWrapper Product

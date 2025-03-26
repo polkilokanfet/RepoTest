@@ -18,12 +18,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         bool IsRemoved { get; }
 
-        ProjectEmptyWrapper Project { get; set; }
         FacilityEmptyWrapper Facility { get; set; }
         ProductEmptyWrapper Product { get; set; }
         PaymentConditionSetEmptyWrapper PaymentConditionSet { get; set; }
         CompanyEmptyWrapper Producer { get; set; }
 
+        Project Project { get; set; }
         Specification Specification { get; }
 
         /// <summary>

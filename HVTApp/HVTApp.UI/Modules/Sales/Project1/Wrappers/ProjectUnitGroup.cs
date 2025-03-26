@@ -25,7 +25,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set { this.Units.ForEach(projectUnit => projectUnit.Cost = value); }
         }
 
-        public double CostTotal => this.Units.Sum(projectUnit => projectUnit.Cost);
+        public double CostTotal
+        {
+            get
+            {
+                return this.Units.Sum(projectUnit => projectUnit.Cost);
+            }
+        }
 
         public double? CostDelivery
         {
@@ -77,16 +83,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             }
         }
 
-        public ProjectEmptyWrapper Project
-        {
-            get => Units.First().Project;
-            set
-            {
-                Units.ForEach(projectUnit => projectUnit.Project = value);
-                RaisePropertyChanged();
-            }
-        }
-
         public PaymentConditionSetEmptyWrapper PaymentConditionSet
         {
             get => Units.First().PaymentConditionSet;
@@ -108,6 +104,15 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         }
 
         #endregion
+
+        public Project Project
+        {
+            get => this.Units.First().Project;
+            set
+            {
+                this.Units.ForEach(unit => unit.Project = value);
+            }
+        }
 
         public Specification Specification => Units.First().Specification;
 
