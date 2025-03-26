@@ -102,6 +102,8 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
+            PrintSign(docWriter, contragentEmployee);
+
             #region Supervision
 
             var paragraphPropertiesPageBreakBefore = docWriter.CreateParagraphProperties();
@@ -123,8 +125,7 @@ namespace HVTApp.Services.PrintService
 
             #endregion
 
-            PrintSign(docWriter, contragentEmployee);
-            docWriter.PrintParagraph(String.Empty, paragraphPropertiesPageBreakBefore);
+            docWriter.PrintParagraph(string.Empty, paragraphPropertiesPageBreakBefore);
 
             #region Author Footer
 
