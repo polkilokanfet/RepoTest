@@ -27,6 +27,7 @@
                         <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ComplectType}" Label="Тип" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                         <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ComplectDesignation}" Label="Обозначение" Width="Auto" AllowResize="True" />
                         <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Product.Comment}" Label="Назначение" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
+                        <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding StructureCost}" Label="StructureCost" Width="Auto" AllowResize="True" Converter="{StaticResource ObjectToStringConverter}"/>
                         <dataPresenter:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Product.Id}" Label="Id" Width="Auto" AllowResize="True" />
 					</dataPresenter:FieldLayout.Fields>
 				</dataPresenter:FieldLayout>
