@@ -157,7 +157,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             var salesUnits = model.PriceEngineeringTask?.SalesUnits?? model.TechnicalRequrements.SalesUnits;
             var salesUnit = salesUnits.First();
 
-            FixedCost = -1.0 * salesUnits.Sum(x => x.FixedCost);
+            FixedCost = -1.0 * salesUnits.GetFixedCost();
 
             _order = salesUnits.Select(unit => unit.Order).Distinct().Where(order => order != null).Select(order => order.Number).ToStringEnum();
             _orderPositions = salesUnits.Select(unit => unit.OrderPosition).GetOrderPositions();

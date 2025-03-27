@@ -273,5 +273,37 @@ namespace HVTApp.Model
 
             return task;
         }
+
+        /// <summary>
+        /// Сумма фиксированных затрат
+        /// </summary>
+        /// <param name="salesUnits1"></param>
+        /// <returns></returns>
+        public static double GetFixedCost(this IEnumerable<SalesUnit> salesUnits1)
+        {
+            {
+                var salesUnits = salesUnits1 as SalesUnit[] ?? salesUnits1.ToArray();
+                var productsIncluded = salesUnits
+                    .SelectMany(salesUnit => salesUnit.ProductsIncluded)
+                    .Distinct()
+                    .ToList();
+
+                //суммируе нестандартные ФЗ
+                var result = productsIncluded
+                    .Where(productIncluded => productIncluded.CustomFixedPrice.HasValue)
+                    .Sum(productIncluded => productIncluded.CustomFixedPrice.Value * productIncluded.AmountOnUnit);
+
+                //Суммируем стандартные ФЗ
+                foreach (var pi in productsIncluded.Where(productIncluded => productIncluded.CustomFixedPrice.HasValue == false))
+                {
+                    var fc = pi.Product.ProductBlock.GetFixedCost(salesUnits.First().OrderInTakeDate);
+                    if (fc.HasValue == false) continue;
+                    result += fc.Value * pi.AmountOnUnit;
+                }
+
+                return result;
+            }
+        }
+
     }
 }

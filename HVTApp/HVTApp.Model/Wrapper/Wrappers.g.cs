@@ -8426,11 +8426,6 @@ namespace HVTApp.Model.Wrapper
         public System.Double SumToShipping => Model.SumToShipping; 
 
         /// <summary>
-        /// Сумма фиксированных затрат
-        /// </summary>
-        public System.Double FixedCost => Model.FixedCost; 
-
-        /// <summary>
         /// ОИТ
         /// </summary>
         public System.DateTime OrderInTakeDate => Model.OrderInTakeDate; 

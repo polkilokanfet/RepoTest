@@ -2643,9 +2643,6 @@ namespace HVTApp.UI.Lookup
         public System.Double SumToShipping => Entity.SumToShipping;
 
 		[OrderStatus(1)]
-        public System.Double FixedCost => Entity.FixedCost;
-
-		[OrderStatus(1)]
         public System.Nullable<System.DateTime> OrderInTakeDateInjected => Entity.OrderInTakeDateInjected;
 
 		[OrderStatus(990)]

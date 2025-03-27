@@ -102,14 +102,18 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
         {
             var invoice = new TaskInvoiceForPayment();
 
-            foreach (var priceEngineeringTask in specification.PriceEngineeringTasks)
+            var tasks = specification.PriceEngineeringTasks
+                .Where(priceEngineeringTask => priceEngineeringTask.SalesUnits.All(salesUnit => salesUnit.IsRemoved == false));
+            foreach (var priceEngineeringTask in tasks)
             {
                 var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem();
                 taskInvoiceForPaymentItem.PriceEngineeringTask = UnitOfWork.Repository<PriceEngineeringTask>().GetById(priceEngineeringTask.Id);
                 invoice.Items.Add(taskInvoiceForPaymentItem);
             }
 
-            foreach (var technicalRequrements in specification.TechnicalRequrements)
+            var requirements = specification.TechnicalRequrements
+                .Where(requrements => requrements.SalesUnits.All(salesUnit => salesUnit.IsRemoved == false));
+            foreach (var technicalRequrements in requirements)
             {
                 var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem();
                 taskInvoiceForPaymentItem.TechnicalRequrements = UnitOfWork.Repository<TechnicalRequrements>().GetById(technicalRequrements.Id);

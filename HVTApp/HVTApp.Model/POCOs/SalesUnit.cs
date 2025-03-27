@@ -301,32 +301,6 @@ namespace HVTApp.Model.POCOs
                 condition.DaysToPoint <= 0).
             Sum(condition => Cost * condition.Part);
 
-
-        /// <summary>
-        /// Сумма фиксированных затрат
-        /// </summary>
-        [Designation("Сумма фиксированных затрат"), NotMapped]
-        public double FixedCost
-        {
-            get
-            {
-                //суммируе нестандартные ФЗ
-                var result = this.ProductsIncluded
-                    .Where(productIncluded => productIncluded.CustomFixedPrice.HasValue)
-                    .Sum(productIncluded => productIncluded.CustomFixedPrice.Value * productIncluded.AmountOnUnit);
-
-                //Суммируем стандартные ФЗ
-                foreach (var pi in this.ProductsIncluded.Where(productIncluded => productIncluded.CustomFixedPrice.HasValue == false))
-                {
-                    var fc = pi.Product.ProductBlock.GetFixedCost(OrderInTakeDate);
-                    if (fc.HasValue == false) continue;
-                    result += fc.Value * pi.AmountOnUnit;
-                }
-
-                return result;
-            }
-        }
-
         #endregion
 
         #region Даты
@@ -498,7 +472,7 @@ namespace HVTApp.Model.POCOs
                 }
 
                 //по дате размещения в производстве (план)
-                if (EndProductionPlanDate.HasValue) return EndProductionPlanDate.Value.Date;
+                if (EndProductionPlanDate.HasValue) return EndProductionPlanDate.Value.Date.SkipPast();
 
                 //по сроку производства
                 return StartProductionDateCalculated.AddDays(ProductionTerm).SkipPastAndWeekend().Date;

@@ -156,7 +156,7 @@ namespace HVTApp.UI.Modules.Reports.CommonInfo
 
             OrderInTakeDate = salesUnit.OrderInTakeDate;
 
-            FixedCost = -1.0 * salesUnits.Sum(unit => unit.FixedCost);
+            FixedCost = -1.0 * salesUnits.GetFixedCost();
 
             Manager = $"{salesUnit.Project.Manager.Employee.Person}";
 
