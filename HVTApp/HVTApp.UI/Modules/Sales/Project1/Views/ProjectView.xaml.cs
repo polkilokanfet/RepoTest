@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Modules.Sales.Project1.ViewModels;
+using Infragistics.Windows.DataPresenter;
+using Infragistics.Windows.DataPresenter.Events;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -16,6 +19,13 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
         public ProjectView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(container, regionManager, eventAggregator)
         {
             InitializeComponent();
+            this.PricesDataGrid.InitializeRecord += PricesDataGridOnInitializeRecord;
+        }
+
+        //раскрыть все подсроки
+        private void PricesDataGridOnInitializeRecord(object sender, InitializeRecordEventArgs e)
+        {
+            this.PricesDataGrid.ExecuteCommand(DataPresenterCommands.ToggleRecordIsExpanded, e.Record);
         }
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)

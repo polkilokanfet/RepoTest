@@ -246,7 +246,10 @@
                                     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2">
                                         <Expander Header="Структура себестоимости" IsExpanded="True">
                                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                <dp:XamDataGrid DataSource="{Binding SelectedUnit.Prices}" Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                                <dp:XamDataGrid 
+                                                    x:Name="PricesDataGrid"
+                                                    DataSource="{Binding SelectedUnit.Prices}" 
+                                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
                                                     <dp:XamDataGrid.FieldLayouts>
                                                         <dp:FieldLayout>
                                                             <dp:FieldLayout.Fields>
@@ -265,15 +268,16 @@
                                                         </dp:FieldLayout>
                                                     </dp:XamDataGrid.FieldLayouts>
                                                 </dp:XamDataGrid>
-
                                             </ScrollViewer>
                                         </Expander>
                                     </Border>
 
-                                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2">
+                                    <!--<Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2">
                                         <Expander Header="Трудозатраты">
                                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                <dp:XamDataGrid DataSource="{Binding PricesLaborHours}" Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                                <dp:XamDataGrid 
+                                                    DataSource="{Binding PricesLaborHours}" 
+                                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
                                                     <dp:XamDataGrid.FieldLayouts>
                                                         <dp:FieldLayout>
                                                             <dp:FieldLayout.Fields>
@@ -292,7 +296,7 @@
 
                                             </ScrollViewer>
                                         </Expander>
-                                    </Border>
+                                    </Border>-->
 
                                 </Grid>
 
