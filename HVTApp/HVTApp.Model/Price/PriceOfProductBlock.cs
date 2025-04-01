@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Text;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 
@@ -28,9 +30,48 @@ namespace HVTApp.Model.Price
             {
                 var q = $"{_averageQuarterSum.Date.Quarter()} кв. {_averageQuarterSum.Date.Year} г.";
                 return ContainsAnyAnalog
-                    ? $" ПЗ аналога ({q}): {Analog}"
+                    ? $" ПЗ аналога ({q}): {Analog} (Различия:: {GetParameterDifference()})"
                     : $" ПЗ оригинала ({q})";
             }
+        }
+
+        string GetParameterDifference()
+        {
+            if (Analog == null || OriginalBlock == null) return string.Empty;
+            var sb = new StringBuilder();
+            var parametersAnalog = Analog.Parameters.ToList();
+            var parametersOriginal = OriginalBlock.Parameters.ToList();
+
+            foreach (var parameter in parametersAnalog.ToList())
+            {
+                if (parametersOriginal.Contains(parameter))
+                {
+                    parametersAnalog.Remove(parameter);
+                    parametersOriginal.Remove(parameter);
+                    continue;
+                }
+
+                var targetParameter = parametersOriginal.SingleOrDefault(x => x.ParameterGroup.Equals(parameter.ParameterGroup));
+                if (targetParameter != null)
+                {
+                    sb.Append($"< {parameter.ParameterGroup.Name}: {parameter.Value} +- {targetParameter.Value} >, ");
+                    parametersAnalog.Remove(parameter);
+                    parametersOriginal.Remove(targetParameter);
+                    continue;
+                }
+            }
+
+            foreach (var parameter in parametersAnalog)
+            {
+                sb.Append($"< + {parameter.ParameterGroup.Name}: {parameter.Value} >, ");
+            }
+
+            foreach (var parameter in parametersOriginal)
+            {
+                sb.Append($"< - {parameter.ParameterGroup.Name}: {parameter.Value} >, ");
+            }
+
+            return sb.ToString();
         }
 
         public override string CommentLaborHours =>
@@ -83,6 +124,7 @@ namespace HVTApp.Model.Price
         private void Init(ProductBlock productBlock, DateTime targetDate, ProductBlock originalBlock)
         {
             Name = $"{originalBlock} (по аналогу: {productBlock})";
+            OriginalBlock = originalBlock;
             Analog = productBlock;
             Init(productBlock, targetDate);
         }

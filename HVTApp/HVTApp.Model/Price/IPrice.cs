@@ -5,6 +5,8 @@ namespace HVTApp.Model.Price
 {
     public interface IPrice : IProfitability
     {
+        ProductBlock OriginalBlock { get; }
+
         /// <summary>
         /// По какому аналогу взят прайс
         /// </summary>

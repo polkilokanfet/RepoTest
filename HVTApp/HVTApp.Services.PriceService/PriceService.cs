@@ -178,7 +178,7 @@ namespace HVTApp.Services.PriceService1
         /// Поиск аналога для блока.
         /// </summary>
         /// <param name="blockTarget">Целевой блок.</param>
-        /// <returns></returns>
+        /// <returns>Блок-аналог</returns>
         public ProductBlock GetAnalogWithPrice(ProductBlock blockTarget)
         {
             if (ProductBlocksAnalogsDictionary.ContainsKey(blockTarget.Id))
