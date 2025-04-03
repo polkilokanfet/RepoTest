@@ -74,12 +74,12 @@
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Padding="3" Margin="0 3 0 0" CornerRadius="2">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="4*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" MaxHeight="480"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="2">
@@ -210,99 +210,96 @@
 
                     <GridSplitter Grid.Row="2" VerticalAlignment="Center"/>
 
-                    <GroupBox Grid.Row="3" Header="Включено в стоимость">
+                    <ScrollViewer Grid.Row="3"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
+                            <Expander Header="Включено в стоимость">
+                                <dp:XamDataGrid x:Name="ProductsIncludedGroupsGrid"
+                                                Style="{StaticResource XamDataGridWithoutGroupByArea}"
+                                                DataSource="{Binding SelectedUnit.ProductsIncludedGroups}"
+                                                SelectedDataItemsScope="RecordsOrCells">
 
-                        <dp:XamDataGrid x:Name="ProductsIncludedGroupsGrid"
-                                        Style="{StaticResource XamDataGridWithoutGroupByArea}"
-                                        DataSource="{Binding SelectedUnit.ProductsIncludedGroups}"
-                                        SelectedDataItemsScope="RecordsOrCells">
+                                    <dp:XamDataGrid.FieldLayouts>
+                                        <dp:FieldLayout Key="GroupsLayout">
+                                            <dp:FieldLayout.Fields>
+                                                <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="350" />
+                                                <dp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="350" />
+                                                <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
+                                                <dp:NumericField AlternateBinding="{Binding CustomFixedPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость на единицу" Width="Auto" AllowEdit="True" AllowResize="False"/>
+                                            </dp:FieldLayout.Fields>
+                                        </dp:FieldLayout>
+                                    </dp:XamDataGrid.FieldLayouts>
 
-                            <dp:XamDataGrid.FieldLayouts>
-
-                                <dp:FieldLayout Key="GroupsLayout">
-                                    <dp:FieldLayout.Fields>
-                                        <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="350" />
-                                        <dp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="350" />
-                                        <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" />
-                                        <dp:NumericField AlternateBinding="{Binding CustomFixedPrice, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость на единицу" Width="Auto" AllowEdit="True" AllowResize="False"/>
-                                    </dp:FieldLayout.Fields>
-                                </dp:FieldLayout>
-                            </dp:XamDataGrid.FieldLayouts>
-
-                        </dp:XamDataGrid>
-                    </GroupBox>
+                                </dp:XamDataGrid>
+                            </Expander>
+                        </Border>
+                    </ScrollViewer>
 
                     <GridSplitter Grid.Row="4" VerticalAlignment="Center"/>
 
-                    <Border Grid.Row="5" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
-                        <Expander Header="Затраты (на единицу)">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer Grid.Row="5"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="3">
+                            <Expander Header="Затраты (на единицу)">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2">
-                                        <Expander Header="Структура себестоимости" IsExpanded="True">
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                <dp:XamDataGrid 
-                                                    x:Name="PricesDataGrid"
-                                                    DataSource="{Binding SelectedUnit.Prices}" 
-                                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
-                                                    <dp:XamDataGrid.FieldLayouts>
-                                                        <dp:FieldLayout>
-                                                            <dp:FieldLayout.Fields>
-
-                                                                <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="350" AllowResize="True"/>
-                                                                <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
-                                                                <dp:NumericField AlternateBinding="{Binding SumPriceOnUnit}" BindingType="UseAlternateBinding" Label="ПЗ на ед." Width="Auto" AllowResize="False" />
-                                                                <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ на кол." Width="Auto" AllowResize="False" />
-                                                                <dp:NumericField AlternateBinding="{Binding SumFixedOnUnit}" BindingType="UseAlternateBinding" Label="ФЗ на ед." Width="Auto" AllowResize="False" />
-                                                                <dp:NumericField AlternateBinding="{Binding SumFixedTotal}" BindingType="UseAlternateBinding" Label="ФЗ на кол." Width="Auto" AllowResize="False" />
-                                                                <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="ПЗ+ФЗ на кол." Width="Auto" AllowResize="False" />
-                                                                <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowResize="True" />
-                                                                <dp:Field Name="Prices" IsExpandable="True"/>
-
-                                                            </dp:FieldLayout.Fields>
-                                                        </dp:FieldLayout>
-                                                    </dp:XamDataGrid.FieldLayouts>
-                                                </dp:XamDataGrid>
-                                            </ScrollViewer>
-                                        </Expander>
-                                    </Border>
+                                    <dp:XamDataGrid
+                                        x:Name="PricesDataGrid"
+                                        DataSource="{Binding SelectedUnit.Prices}" 
+                                        Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                        <dp:XamDataGrid.FieldLayouts>
+                                            <dp:FieldLayout>
+                                                <dp:FieldLayout.Fields>
+                                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="350" AllowResize="True"/>
+                                                    <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                                    <dp:NumericField AlternateBinding="{Binding SumPriceOnUnit}" BindingType="UseAlternateBinding" Label="ПЗ на ед." Width="Auto" AllowResize="False" />
+                                                    <dp:NumericField AlternateBinding="{Binding SumPriceTotal}" BindingType="UseAlternateBinding" Label="ПЗ на кол." Width="Auto" AllowResize="False" />
+                                                    <dp:NumericField AlternateBinding="{Binding SumFixedOnUnit}" BindingType="UseAlternateBinding" Label="ФЗ на ед." Width="Auto" AllowResize="False" />
+                                                    <dp:NumericField AlternateBinding="{Binding SumFixedTotal}" BindingType="UseAlternateBinding" Label="ФЗ на кол." Width="Auto" AllowResize="False" />
+                                                    <dp:NumericField AlternateBinding="{Binding SumTotal}" BindingType="UseAlternateBinding" Label="ПЗ+ФЗ на кол." Width="Auto" AllowResize="False" />
+                                                    <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowResize="True" />
+                                                    <dp:Field Name="Prices" IsExpandable="True"/>
+                                                </dp:FieldLayout.Fields>
+                                            </dp:FieldLayout>
+                                        </dp:XamDataGrid.FieldLayouts>
+                                    </dp:XamDataGrid>
 
                                     <!--<Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2">
-                                        <Expander Header="Трудозатраты">
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                <dp:XamDataGrid 
-                                                    DataSource="{Binding PricesLaborHours}" 
-                                                    Style="{StaticResource XamDataGridWithoutGroupByArea}">
-                                                    <dp:XamDataGrid.FieldLayouts>
-                                                        <dp:FieldLayout>
-                                                            <dp:FieldLayout.Fields>
+                                            <Expander Header="Трудозатраты">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                    <dp:XamDataGrid 
+                                                        DataSource="{Binding PricesLaborHours}" 
+                                                        Style="{StaticResource XamDataGridWithoutGroupByArea}">
+                                                        <dp:XamDataGrid.FieldLayouts>
+                                                            <dp:FieldLayout>
+                                                                <dp:FieldLayout.Fields>
 
-                                                                <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="350" AllowResize="True"/>
-                                                                <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
-                                                                <dp:NumericField AlternateBinding="{Binding LaborHours}" BindingType="UseAlternateBinding" Label="Н/ч на ед." Width="Auto" AllowResize="False" />
-                                                                <dp:NumericField AlternateBinding="{Binding LaborHoursTotal}" BindingType="UseAlternateBinding" Label="Н/ч на кол." Width="Auto" AllowResize="False" />
-                                                                <dp:TextField AlternateBinding="{Binding CommentLaborHours}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowResize="True" />
-                                                                <dp:Field Name="Prices" IsExpandable="True"/>
+                                                                    <dp:TextField AlternateBinding="{Binding Name}" BindingType="UseAlternateBinding" Label="Продукт" Width="350" AllowResize="True"/>
+                                                                    <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False"/>
+                                                                    <dp:NumericField AlternateBinding="{Binding LaborHours}" BindingType="UseAlternateBinding" Label="Н/ч на ед." Width="Auto" AllowResize="False" />
+                                                                    <dp:NumericField AlternateBinding="{Binding LaborHoursTotal}" BindingType="UseAlternateBinding" Label="Н/ч на кол." Width="Auto" AllowResize="False" />
+                                                                    <dp:TextField AlternateBinding="{Binding CommentLaborHours}" BindingType="UseAlternateBinding" Label="Комментарий" Width="200" AllowResize="True" />
+                                                                    <dp:Field Name="Prices" IsExpandable="True"/>
 
-                                                            </dp:FieldLayout.Fields>
-                                                        </dp:FieldLayout>
-                                                    </dp:XamDataGrid.FieldLayouts>
-                                                </dp:XamDataGrid>
+                                                                </dp:FieldLayout.Fields>
+                                                            </dp:FieldLayout>
+                                                        </dp:XamDataGrid.FieldLayouts>
+                                                    </dp:XamDataGrid>
 
-                                            </ScrollViewer>
-                                        </Expander>
-                                    </Border>-->
+                                                </ScrollViewer>
+                                            </Expander>
+                                        </Border>-->
 
                                 </Grid>
-
-                            </ScrollViewer>
-                        </Expander>
-                    </Border>
+                            </Expander>
+                        </Border>
+                    </ScrollViewer>
 
                 </Grid>
             </Border>
