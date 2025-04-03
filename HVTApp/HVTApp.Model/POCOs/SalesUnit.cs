@@ -29,6 +29,12 @@ namespace HVTApp.Model.POCOs
         [Designation("Стоимость"), Required, OrderStatus(990)]
         public double Cost { get; set; }
 
+        /// <summary>
+        /// Стоимость для формирования бюджета (с запасом)
+        /// </summary>
+        [Designation("Стоимость для формирования бюджета"), OrderStatus(990)]
+        public double? CostWithReserve { get; set; }
+
         [Designation("Себестоимость"), OrderStatus(985)]
         public double? Price { get; set; }
 

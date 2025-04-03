@@ -64,7 +64,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         #endregion
 
-
         #region CollectionProperties
 
         public ProjectUnitGroupsContainer Units { get; private set; }

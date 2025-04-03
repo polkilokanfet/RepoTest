@@ -536,6 +536,10 @@
     <Compile Include="Migrations\202503052223318_CompanyEmail.Designer.cs">
       <DependentUpon>202503052223318_CompanyEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202504030755456_CostWithReserve.cs" />
+    <Compile Include="Migrations\202504030755456_CostWithReserve.Designer.cs">
+      <DependentUpon>202504030755456_CostWithReserve.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -887,6 +891,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202503052223318_CompanyEmail.resx">
       <DependentUpon>202503052223318_CompanyEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504030755456_CostWithReserve.resx">
+      <DependentUpon>202504030755456_CostWithReserve.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

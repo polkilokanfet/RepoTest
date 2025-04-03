@@ -44,6 +44,26 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             }
         }
 
+        /// <summary>
+        /// Запас бюджетной цены по сравнению с обычной
+        /// </summary>
+        public double? ReservePart
+        {
+            get
+            {
+                if (_projectUnit.CostWithReserve.HasValue == false) return default;
+                if (_projectUnit.Cost == 0) return default;
+                return (_projectUnit.CostWithReserve.Value - _projectUnit.Cost) / _projectUnit.Cost * 100.0;
+            }
+            set
+            {
+                _projectUnit.CostWithReserve = value == null 
+                    ? null 
+                    : _projectUnit.Cost * (1.0 + value / 100.0);
+                RaisePropertyChanged();
+            }
+        }
+
         public ProjectUnitCalculatedParts(IProjectUnit projectUnit)
         {
             _projectUnit = projectUnit;

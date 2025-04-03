@@ -11,6 +11,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
     public interface IProjectUnit : INotifyPropertyChanged, IIsValid
     {
         double Cost { get; set; }
+        double? CostWithReserve { get; set; }
         double? CostDelivery { get; set; }
         int ProductionTerm { get; set; }
         DateTime DeliveryDateExpected { get; set; }

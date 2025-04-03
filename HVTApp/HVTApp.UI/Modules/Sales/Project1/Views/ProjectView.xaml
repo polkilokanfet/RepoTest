@@ -88,6 +88,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0" Padding="2">
@@ -113,6 +114,9 @@
                                 <igEditors:XamNumericEditor Width="100"
                                                             Value="{Binding ProjectWrapper.Units.Cost, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                             </StackPanel>
+                        </Border>
+                        <Border Grid.Column="4" BorderBrush="Black" BorderThickness="1" Padding="2" Margin="2 0 0 0">
+                            <CheckBox x:Name="ReserveVisibilityCheckBox" Content="Показать запас" Unchecked="ReserveVisibilityCheckBox_OnUnchecked" Checked="ReserveVisibilityCheckBox_OnChecked"/>
                         </Border>
 
                     </Grid>
@@ -152,9 +156,11 @@
                                     <dp:TextField AlternateBinding="{Binding Product.Model.Designation}" Label="Обозначение" Width="200" />
                                     <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="50" AllowResize="False"/>
                                     <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>-->
-                                    <dp:NumericField AlternateBinding="{Binding CalculatedParts.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД%" Width="50" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField AlternateBinding="{Binding CalculatedParts.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД%" Width="55" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="100" AllowEdit="True" AllowResize="False" />
                                     <dp:NumericField AlternateBinding="{Binding CostTotal, Mode=OneWay}" BindingType="UseAlternateBinding" Label="Сумма" Width="100" AllowResize="False"/>
+                                    <dp:NumericField Name="ReservePart" AlternateBinding="{Binding CalculatedParts.ReservePart, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Зпс%" Width="55" AllowEdit="True" AllowResize="False" />
+                                    <dp:NumericField Name="CostWithReserve" AlternateBinding="{Binding CostWithReserve, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Ст. с запасом" Width="100" AllowEdit="True" AllowResize="False" />
                                     <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="100" AllowEdit="True" AllowResize="False"/>
                                     <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding ProductionTerm, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>
@@ -195,6 +201,8 @@
                                     <!--<dp:NumericField Name="Profitability" Label="Р%" Width="50" AllowEdit="True" AllowResize="False"/>-->
                                     <dp:NumericField AlternateBinding="{Binding CalculatedParts.MarginalIncome, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="МД%" Width="50" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding Cost, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Стоимость" Width="100" AllowEdit="True" AllowResize="False"/>
+                                    <dp:NumericField Name="ReservePart" AlternateBinding="{Binding CalculatedParts.ReservePart, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Зпс%" Width="55" AllowEdit="True" AllowResize="False" />
+                                    <dp:NumericField Name="CostWithReserve" AlternateBinding="{Binding CostWithReserve, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Ст. с запасом" Width="100" AllowEdit="True" AllowResize="False" />
                                     <dp:NumericField AlternateBinding="{Binding CostDelivery, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Доставка" Width="200" AllowEdit="True" AllowResize="False"/>
                                     <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" AllowResize="False"/>
                                     <dp:NumericField AlternateBinding="{Binding ProductionTerm, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Срок" Width="55" AllowEdit="True" AllowResize="False"/>

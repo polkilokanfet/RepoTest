@@ -34,6 +34,22 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             }
         }
 
+        /// <summary>
+        /// Стоимость для формирования бюджета
+        /// </summary>
+        public double? CostWithReserve
+        {
+            get => Model.CostWithReserve;
+            set
+            {
+                if (value < 0) return;
+                SetValue(value);
+            }
+        }
+        public double? CostWithReserveOriginalValue => GetOriginalValue<double?>(nameof(CostWithReserve));
+        public bool CostWithReserveIsChanged => GetIsChanged(nameof(CostWithReserve));
+
+
         public double? CostDelivery
         {
             get => Model.CostDelivery;
@@ -133,6 +149,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             this.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(Cost) ||
+                    args.PropertyName == nameof(CostWithReserve) ||
                     args.PropertyName == nameof(CostDelivery))
                 {
                     RaisePropertyChanged(nameof(CalculatedParts));
@@ -181,6 +198,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
                 if (!Equals(x.IsRemoved, y.IsRemoved)) return false;
                 if (!Equals(x.Cost, y.Cost)) return false;
+                if (!Equals(x.CostWithReserve, y.CostWithReserve)) return false;
                 if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
                 if (!Equals(x.CostDelivery, y.CostDelivery)) return false;
                 if (!Equals(x.Comment, y.Comment)) return false;

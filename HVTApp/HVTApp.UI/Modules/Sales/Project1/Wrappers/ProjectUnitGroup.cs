@@ -25,6 +25,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             set { this.Units.ForEach(projectUnit => projectUnit.Cost = value); }
         }
 
+        public double? CostWithReserve
+        {
+            get => this.Units.First().CostWithReserve;
+            set { this.Units.ForEach(projectUnit => projectUnit.CostWithReserve = value); }
+        }
+
         public double CostTotal
         {
             get
@@ -149,6 +155,11 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                         RaisePropertyChanged(nameof(CostTotal));
                         RaisePropertyChanged(nameof(CalculatedParts));
                     }
+                    else if (args.PropertyName == nameof(CostWithReserve))
+                    {
+                        RaisePropertyChanged(nameof(CostWithReserve));
+                        RaisePropertyChanged(nameof(CalculatedParts));
+                    }
                     else if (args.PropertyName == nameof(CostDelivery))
                     {
                         RaisePropertyChanged(nameof(CostDelivery));
@@ -190,7 +201,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
             //если эта группа не подходит для добавляемой сущности
             if ((new ProjectUnitComparer()).Equals(this.Units.First(), projectUnit) == false) 
                 return false;
-
+            
             this.Units.Add(projectUnit);
             return true;
         }

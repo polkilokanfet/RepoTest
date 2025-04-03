@@ -112,7 +112,15 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 
             SaveCommand = new SaveProjectCommand(this.ProjectWrapper, UnitOfWork, eventAggregator);
 
-            RoundUpCommand = new DelegateCommand(() => this.ProjectWrapper.Units.ForEach(projectUnit => projectUnit.Cost = RoundUpModule.RoundUp(projectUnit.Cost)));
+            RoundUpCommand = new DelegateCommand(() =>
+            {
+                foreach (var projectUnit in this.ProjectWrapper.Units)
+                {
+                    projectUnit.Cost = RoundUpModule.RoundUp(projectUnit.Cost);
+                    if (projectUnit.CostWithReserve.HasValue)
+                        projectUnit.CostWithReserve = RoundUpModule.RoundUp(projectUnit.CostWithReserve.Value);
+                }
+            });
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -20,6 +21,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
         {
             InitializeComponent();
             this.PricesDataGrid.InitializeRecord += PricesDataGridOnInitializeRecord;
+            this.VisibilityReserve();
         }
 
         //раскрыть все подсроки
@@ -79,6 +81,29 @@ namespace HVTApp.UI.Modules.Sales.Project1.Views
             }
 
             throw new NotImplementedException();
+        }
+
+        private void ReserveVisibilityCheckBox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            VisibilityReserve();
+        }
+
+        private void ReserveVisibilityCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            VisibilityReserve();
+        }
+
+        private void VisibilityReserve()
+        {
+            var visibility = this.ReserveVisibilityCheckBox.IsChecked == true
+                ? Visibility.Visible 
+                : Visibility.Collapsed;
+
+            this.UnitListGrid.FieldLayouts[0].Fields["ReservePart"].Visibility = visibility;
+            this.UnitListGrid.FieldLayouts[0].Fields["CostWithReserve"].Visibility = visibility;
+
+            this.UnitListGrid.FieldLayouts[1].Fields["ReservePart"].Visibility = visibility;
+            this.UnitListGrid.FieldLayouts[1].Fields["CostWithReserve"].Visibility = visibility;
         }
     }
 }

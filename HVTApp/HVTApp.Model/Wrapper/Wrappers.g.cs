@@ -7899,6 +7899,17 @@ namespace HVTApp.Model.Wrapper
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
         /// <summary>
+        /// Стоимость для формирования бюджета
+        /// </summary>
+        public System.Nullable<System.Double> CostWithReserve
+        {
+          get { return Model.CostWithReserve; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> CostWithReserveOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(CostWithReserve));
+        public bool CostWithReserveIsChanged => GetIsChanged(nameof(CostWithReserve));
+
+        /// <summary>
         /// Себестоимость
         /// </summary>
         public System.Nullable<System.Double> Price
