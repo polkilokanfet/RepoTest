@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -61,13 +62,20 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             DetailsViewModel.Item.Author = new EmployeeWrapper(author);
             DetailsViewModel.Item.SenderEmployee = new EmployeeWrapper(sender);
 
-            IEnumerable<SalesUnit> salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetByProject(project.Id).Where(salesUnit => !salesUnit.IsRemoved);
+            var salesUnits = ((ISalesUnitRepository)UnitOfWork.Repository<SalesUnit>()).GetByProject(project.Id).Where(salesUnit => !salesUnit.IsRemoved).ToArray();
+
+            var useCostWithReserve = false;
+            if (salesUnits.Any(salesUnit => salesUnit.CostWithReserve.HasValue))
+            {
+                useCostWithReserve = Container.Resolve<IMessageService>().ConfirmationDialog("Цены с запасом", "Использовать ли цены с запасом?", defaultYes:true);
+            }
+
             var offerUnits = new List<OfferUnit>();
             foreach (var salesUnit in salesUnits)
             {
                 var offerUnit = new OfferUnit
                 {
-                    Cost = salesUnit.Cost,
+                    Cost = useCostWithReserve && salesUnit.CostWithReserve.HasValue? salesUnit.CostWithReserve.Value : salesUnit.Cost,
                     Comment = salesUnit.Comment,
                     Facility = salesUnit.Facility,
                     Product = salesUnit.Product,
