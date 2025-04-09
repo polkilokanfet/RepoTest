@@ -28,6 +28,7 @@ namespace HVTApp.Model.Price
         {
             get
             {
+                if (_averageQuarterSum == null) return string.Empty;
                 var q = $"{_averageQuarterSum.Date.Quarter()} кв. {_averageQuarterSum.Date.Year} г.";
                 return ContainsAnyAnalog
                     ? $" ПЗ аналога ({q}): {Analog} (Различия:: {GetParameterDifference()})"
