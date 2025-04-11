@@ -54,9 +54,10 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
 
         protected override bool CanExecuteMethod()
         {
-            return ViewModel.TasksWrapperBackManager.IsValid && 
-                   ViewModel.TasksTceItem.IsValid &&
-                   ViewModel.Status.Equals(ScriptStep.LoadToTceStart);
+            if (ViewModel.TasksWrapperBackManager.IsValid == false) return false;
+            if (ViewModel.TasksTceItem.IsValid == false) return false;
+            return ViewModel.Status.Equals(ScriptStep.LoadToTceStart) || 
+                   ViewModel.Status.Equals(ScriptStep.Accept);
         }
     }
 }

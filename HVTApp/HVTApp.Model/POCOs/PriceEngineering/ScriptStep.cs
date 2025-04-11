@@ -349,7 +349,8 @@ namespace HVTApp.Model.POCOs
 
             protected override IEnumerable<Role> RolesForShow => new[]
             {
-                Role.Constructor
+                Role.Constructor,
+                Role.SalesManager
             };
 
             public VerificationRejectStep() : base(9, Role.DesignDepartmentHead, Role.Constructor)
