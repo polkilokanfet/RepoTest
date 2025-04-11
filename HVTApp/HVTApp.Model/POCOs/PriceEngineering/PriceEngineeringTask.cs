@@ -136,6 +136,9 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
+        [Designation("Документация загружена в TeamCenter")]
+        public bool IsUploadedDocumentationToTeamCenter { get; set; }
+
         public virtual Specification Specification { get; set; }
     }
 

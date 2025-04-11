@@ -48,18 +48,16 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var salesUnits = unitOfWork.Repository<SalesUnit>().GetAll();
+                    var priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTask>().GetAll();
 
                     var sb = new StringBuilder();
-                    foreach (var salesUnit in salesUnits)
+                    foreach (var priceEngineeringTask in priceEngineeringTasks)
                     {
-                        //актуализация даты первого платежа и оплаченной суммы
-                        salesUnit.FirstPaymentDate = salesUnit
-                            .PaymentsActual.Where(paymentActual => paymentActual.Sum > 0)
-                            .OrderBy(paymentActual => paymentActual.Date)
-                            .FirstOrDefault()?
-                            .Date;
-                        salesUnit.PaidSum = salesUnit.PaymentsActual.Sum(paymentActual => paymentActual.Sum); ;
+                        priceEngineeringTask.IsUploadedDocumentationToTeamCenter = false;
+                        if (priceEngineeringTask.Status.Equals(ScriptStep.ProductionRequestFinish))
+                        {
+                            priceEngineeringTask.IsUploadedDocumentationToTeamCenter = true;
+                        }
                     }
 
                     unitOfWork.SaveChanges();

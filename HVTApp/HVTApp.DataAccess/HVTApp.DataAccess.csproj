@@ -540,6 +540,10 @@
     <Compile Include="Migrations\202504030755456_CostWithReserve.Designer.cs">
       <DependentUpon>202504030755456_CostWithReserve.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202504111040175_IsUploadedDocumentationToTeamCenter.cs" />
+    <Compile Include="Migrations\202504111040175_IsUploadedDocumentationToTeamCenter.Designer.cs">
+      <DependentUpon>202504111040175_IsUploadedDocumentationToTeamCenter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -894,6 +898,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202504030755456_CostWithReserve.resx">
       <DependentUpon>202504030755456_CostWithReserve.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504111040175_IsUploadedDocumentationToTeamCenter.resx">
+      <DependentUpon>202504111040175_IsUploadedDocumentationToTeamCenter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

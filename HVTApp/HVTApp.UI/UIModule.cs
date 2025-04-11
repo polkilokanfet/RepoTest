@@ -117,12 +117,14 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackManager>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackManagerBoss>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksListView>();
+            
 
             Container.RegisterViewForNavigation<DesignDepartmentView>();
             Container.RegisterViewForNavigation<ProductRelationsView>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksTceView2>();
             Container.RegisterViewForNavigation<TasksTceView>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksListViewDesignDepartmentHead>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksListViewPlanMaker>();
             Container.RegisterViewForNavigation<EngineeringDepartmentTasksQueueViewAdmin>();
             Container.RegisterViewForNavigation<EngineeringDepartmentTasksQueueViewDepartmentHead>();
             Container.RegisterViewForNavigation<EngineeringDepartmentTasksQueueViewConstructor>();

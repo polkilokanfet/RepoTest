@@ -10,6 +10,16 @@ namespace HVTApp.UI.PriceEngineering.Items
     public class PriceEngineeringTasksListItemPlanMaker : 
         PriceEngineeringTasksListItemBase<PriceEngineeringTaskListItemPlanMaker>
     {
+        public bool? IsUploadedDocumentationToTeamCenter
+        {
+            get
+            {
+                if (this.ChildPriceEngineeringTasks.All(x => x.IsUploadedDocumentationToTeamCenter == true)) return true;
+                if (this.ChildPriceEngineeringTasks.All(x => x.IsUploadedDocumentationToTeamCenter == false)) return false;
+                return default;
+            }
+        }
+
         public PriceEngineeringTasksListItemPlanMaker(PriceEngineeringTasks entity) : base(entity)
         {
         }
@@ -33,5 +43,10 @@ namespace HVTApp.UI.PriceEngineering.Items
             Entity.ChildPriceEngineeringTasks.Any(x =>
                 x.UserPlanMaker?.Id == GlobalAppProperties.User.Id &&
                 x.Status.Equals(ScriptStep.ProductionRequestStart));
+
+        public void RefreshIsUploadedDocumentationToTeamCenter()
+        {
+            RaisePropertyChanged(nameof(IsUploadedDocumentationToTeamCenter));
+        }
     }
 }

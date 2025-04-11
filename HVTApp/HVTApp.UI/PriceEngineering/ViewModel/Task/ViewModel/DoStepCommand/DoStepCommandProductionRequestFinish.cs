@@ -43,6 +43,12 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 EnumerableExtensions.ForEach(ordersGroup, x => x.Model.Order = order);
             }
             ViewModel.SignalToStartProductionDone = DateTime.Now;
+
+            //установка флага того, что документация загружена в TeamCenter
+            foreach (var priceEngineeringTask in ViewModel.Model.GetAllPriceEngineeringTasks())
+            {
+                priceEngineeringTask.IsUploadedDocumentationToTeamCenter = true;
+            }
         }
 
         protected override string GetStatusComment()

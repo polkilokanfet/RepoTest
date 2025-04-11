@@ -32,8 +32,8 @@
     <InstallUrl>\\uetm\data\ОП ВВА\BaseVVA\Storage\App\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
-    <MinimumRequiredVersion>1.0.0.566</MinimumRequiredVersion>
-    <ApplicationRevision>566</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.567</MinimumRequiredVersion>
+    <ApplicationRevision>568</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

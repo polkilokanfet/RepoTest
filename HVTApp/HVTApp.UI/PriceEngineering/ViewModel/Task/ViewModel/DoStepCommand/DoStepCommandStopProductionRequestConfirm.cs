@@ -47,6 +47,13 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                 if (salesUnit.Order != null)
                     salesUnit.Order = null;
             }
+
+            //установка флага того, что документация не загружена в TeamCenter
+            foreach (var priceEngineeringTask in ViewModel.Model.GetAllPriceEngineeringTasks())
+            {
+                priceEngineeringTask.IsUploadedDocumentationToTeamCenter = false;
+            }
+
         }
 
         protected override bool CanExecuteMethod()

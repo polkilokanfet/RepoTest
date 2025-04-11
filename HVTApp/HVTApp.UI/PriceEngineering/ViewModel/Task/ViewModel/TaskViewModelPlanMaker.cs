@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
+using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -17,6 +22,7 @@ namespace HVTApp.UI.PriceEngineering
     {
         private bool _isNotUniqueOrderData = true;
         private bool _isFillingRest;
+        private bool _isUploadedDocumentationToTeamCenter;
 
         #region TaskViewModelPlanMaker
 
@@ -116,6 +122,7 @@ namespace HVTApp.UI.PriceEngineering
         #region Commands
 
         public ICommandRaiseCanExecuteChanged ProductionRequestFinishCommand { get; }
+        public DelegateLogConfirmationCommand UploadedDocumentationToTeamCenterCommand { get; }
 
         #endregion
 
@@ -176,6 +183,17 @@ namespace HVTApp.UI.PriceEngineering
 
         #endregion
 
+        public bool IsUploadedDocumentationToTeamCenter
+        {
+            get => _isUploadedDocumentationToTeamCenter;
+            set
+            {
+                SetProperty(ref _isUploadedDocumentationToTeamCenter, value);
+                RaisePropertyChanged();
+                this.UploadedDocumentationToTeamCenterCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         #region IgnatenkoInfo
 
         public Specification Specification => this.Model?.SalesUnits.FirstOrDefault()?.Specification;
@@ -203,6 +221,28 @@ namespace HVTApp.UI.PriceEngineering
             TasksWrapper = tasksWrapper;
 
             ProductionRequestFinishCommand = new DoStepCommandProductionRequestFinish(this, container, () => this.ProductionRequestFinishedEvent?.Invoke());
+            UploadedDocumentationToTeamCenterCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Вы уверены, что загрузили документацию в TeamCenter для проработки заказа ОГК?",
+                () =>
+                {
+                    using (var unitOfWork = container.Resolve<IUnitOfWork>())
+                    {
+                        var priceEngineeringTask = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.Model.Id);
+                        var tasks = priceEngineeringTask.GetAllPriceEngineeringTasks().ToList();
+                        tasks.ForEach(task => task.IsUploadedDocumentationToTeamCenter = true);
+                        unitOfWork.SaveChanges();
+
+                        var ev = container.Resolve<IEventAggregator>().GetEvent<AfterUploadDocumentationInTeamCenterEvent>();
+                        tasks.ForEach(engineeringTask => ev.Publish(engineeringTask));
+                    }
+
+                    this.IsUploadedDocumentationToTeamCenter = true;
+                }, 
+                () => 
+                    this.IsUploadedDocumentationToTeamCenter == false && 
+                    this.Status.Equals(ScriptStep.ProductionRequestStart));
+            this.IsUploadedDocumentationToTeamCenter = this.Model.IsUploadedDocumentationToTeamCenter;
 
             this.Statuses.CollectionChanged += (sender, args) =>
             {

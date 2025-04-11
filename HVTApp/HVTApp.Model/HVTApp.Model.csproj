@@ -77,6 +77,7 @@
     <Compile Include="Events\AfterSaveSyncEvents.cs" />
     <Compile Include="Events\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents.g.cs" />
+    <Compile Include="Events\AfterUploadDocumentationInTeamCenterEvent.cs" />
     <Compile Include="Events\EventServiceEvents\ISendNotificationThroughApp.cs" />
     <Compile Include="Events\EventServiceEvents\NotificationEvent.cs" />
     <Compile Include="Events\NotificationArgs\NotificationAboutPriceEngineeringTaskEventArg.cs" />

@@ -35,8 +35,9 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveDesignDepartmentParametersAddedBlocksEvent : PubSubEvent<DesignDepartmentParametersAddedBlocks> { }
 	public partial class AfterSaveDesignDepartmentParametersSubTaskEvent : PubSubEvent<DesignDepartmentParametersSubTask> { }
 	public partial class AfterSaveNotificationsReportsSettingsEvent : PubSubEvent<NotificationsReportsSettings> { }
-	public partial class AfterSavePriceEngineeringTaskEvent : PubSubEvent<PriceEngineeringTask> { }
-	public partial class AfterSavePriceEngineeringTaskFileAnswerEvent : PubSubEvent<PriceEngineeringTaskFileAnswer> { }
+    public partial class AfterSavePriceEngineeringTaskEvent : PubSubEvent<PriceEngineeringTask> { }
+
+    public partial class AfterSavePriceEngineeringTaskFileAnswerEvent : PubSubEvent<PriceEngineeringTaskFileAnswer> { }
 	public partial class AfterSavePriceEngineeringTaskFileTechnicalRequirementsEvent : PubSubEvent<PriceEngineeringTaskFileTechnicalRequirements> { }
 	public partial class AfterSavePriceEngineeringTaskMessageEvent : PubSubEvent<PriceEngineeringTaskMessage> { }
 	public partial class AfterSavePriceEngineeringTaskProductBlockAddedEvent : PubSubEvent<PriceEngineeringTaskProductBlockAdded> { }

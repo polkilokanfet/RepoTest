@@ -22,7 +22,9 @@
                                 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <view:ProductTaskControlPlanMaker TaskViewModel="{Binding }"/>
+                        <view:ProductTaskControlPlanMaker 
+                            TaskViewModel="{Binding }"
+                            Margin="0 2"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

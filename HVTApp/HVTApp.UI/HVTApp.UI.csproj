@@ -443,6 +443,9 @@
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitGroupsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\RoundUpModule.cs" />
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewPlanMaker.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListViewPlanMaker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\AcceptConverter.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\UpdateStructureCostNumberTaskForConstructorViewModel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\UpdateStructureCostNumberTaskForDesignDepartmentHeadViewModel.cs" />
@@ -2325,6 +2328,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewPlanMaker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

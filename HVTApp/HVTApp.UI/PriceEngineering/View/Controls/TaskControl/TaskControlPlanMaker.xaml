@@ -3,8 +3,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
-             xmlns:view1="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View"
-             xmlns:converters="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View.Converters"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              x:Name="Root">
 
     <!--Задача на блок продукта-->
@@ -31,6 +30,7 @@
             <Grid Grid.Column="1">
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -77,9 +77,32 @@
                     </Grid>
                 </Expander>
 
+                <GroupBox 
+                    Grid.Row="1" Background="Transparent"
+                    Header="Информация о документации">
+
+                    <Grid>
+                        <Button 
+                            Command="{Binding UploadedDocumentationToTeamCenterCommand}"
+                            Visibility="{Binding IsUploadedDocumentationToTeamCenter, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityReverseConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:FontAwesome Icon="Check" Foreground="DarkRed"/>
+                                <TextBlock Text="Завершить загрузку документации в TeamCenter для проработки ОГК" Foreground="DarkRed"/>
+                            </StackPanel>
+
+                        </Button>
+                        <Label
+                            Content="Документация загружена в TeamCenter для проработки ОГК"
+                            Foreground="DarkGreen"
+                            HorizontalAlignment="Center"
+                            Visibility="{Binding IsUploadedDocumentationToTeamCenter, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </Grid>
+
+                </GroupBox>
+
                 <!--Заводской заказ-->
                 <GroupBox
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Background="Transparent"
                     Header="Заводской заказ">
 

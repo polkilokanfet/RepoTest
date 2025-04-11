@@ -11,8 +11,16 @@ namespace HVTApp.UI.PriceEngineering.Items
                                        Entity.UserPlanMaker != null &&
                                        Entity.UserPlanMaker.Id == GlobalAppProperties.User.Id;
 
+        public bool IsUploadedDocumentationToTeamCenter => Entity.IsUploadedDocumentationToTeamCenter;
+
         public PriceEngineeringTaskListItemPlanMaker(PriceEngineeringTask entity) : base(entity)
         {
+        }
+
+        public void RefreshIsUploadedDocumentationToTeamCenter()
+        {
+            this.Entity.IsUploadedDocumentationToTeamCenter = true;
+            RaisePropertyChanged(nameof(IsUploadedDocumentationToTeamCenter));
         }
     }
 }
