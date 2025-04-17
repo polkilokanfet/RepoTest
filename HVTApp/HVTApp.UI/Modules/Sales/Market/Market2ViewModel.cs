@@ -90,7 +90,7 @@ namespace HVTApp.UI.Modules.Sales.Market
                 _selectedProjectItem = value;
                 ProjectRaiseCanExecuteChanged();
 
-                RaisePropertyChanged(nameof(Market2ViewModel.Notes));
+                this.NotesViewModel.SelectProject(_selectedProjectItem.Project);
                 AddNoteCommand.RaiseCanExecuteChanged();
                 SelectedNote = null;
 
@@ -207,7 +207,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             #endregion
 
-            InitNotes();
+            NotesViewModel = new NotesViewModel(container.Resolve<IUnitOfWork>());
 
             //загрузка данных
             BeforeGetData();

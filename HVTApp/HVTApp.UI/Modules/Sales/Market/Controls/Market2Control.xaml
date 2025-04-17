@@ -3,14 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Name="Root">
 
-    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 0 0 2">
-        <Expander 
-            Background="AliceBlue" 
-            Header="{Binding ElementName=Root, Path=Header}" 
-            MaxHeight="300">
-            <ContentControl 
-                Margin="0 0 0 3" 
-                Content="{Binding ElementName=Root, Path=PlaceHolder1}" Name="ContentPresenter"/>
-        </Expander>
-    </Border>
+    <ContentControl 
+        Margin="0 0 0 3" 
+        Content="{Binding ElementName=Root, Path=PlaceHolder1}" Name="ContentPresenter"/>
 </UserControl>

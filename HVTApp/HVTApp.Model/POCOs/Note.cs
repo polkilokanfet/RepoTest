@@ -8,6 +8,8 @@ namespace HVTApp.Model.POCOs
     [Designation("Заметка")]
     public partial class Note : BaseEntity
     {
+        public Guid ProjectId { get; set; }
+
         [Designation("Дата"), Required, OrderStatus(4)]
         public DateTime Date { get; set; }
 

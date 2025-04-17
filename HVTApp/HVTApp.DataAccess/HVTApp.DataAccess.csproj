@@ -544,6 +544,10 @@
     <Compile Include="Migrations\202504111040175_IsUploadedDocumentationToTeamCenter.Designer.cs">
       <DependentUpon>202504111040175_IsUploadedDocumentationToTeamCenter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202504171159584_NoteProjectId.cs" />
+    <Compile Include="Migrations\202504171159584_NoteProjectId.Designer.cs">
+      <DependentUpon>202504171159584_NoteProjectId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -901,6 +905,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202504111040175_IsUploadedDocumentationToTeamCenter.resx">
       <DependentUpon>202504111040175_IsUploadedDocumentationToTeamCenter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504171159584_NoteProjectId.resx">
+      <DependentUpon>202504171159584_NoteProjectId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

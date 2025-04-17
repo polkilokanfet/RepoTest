@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -14,6 +15,43 @@ using Prism.Commands;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
+    public class NotesViewModel
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly List<ProjectNotesWrapper> _projectNotesWrappers;
+
+        public ObservableCollection<NoteWrapper> Notes { get; } = new ObservableCollection<NoteWrapper>();
+
+        public DelegateLogCommand AddNoteCommand { get; private set; }
+        public DelegateLogCommand RemoveNoteCommand { get; private set; }
+        public DelegateLogCommand SaveNotesCommand { get; private set; }
+
+
+        public NotesViewModel(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            _projectNotesWrappers = ((IProjectRepository)unitOfWork.Repository<Project>()).GetAllWithNotes().Select(project => new ProjectNotesWrapper(project)).ToList();
+
+
+        }
+
+        public void SelectProject(Project project)
+        {
+            Notes.Clear();
+
+            if (project == null) return;
+
+            var projectNotesWrapper = _projectNotesWrappers.SingleOrDefault(x => x.Model.Id == project.Id);
+            if (projectNotesWrapper == null)
+            {
+                projectNotesWrapper = new ProjectNotesWrapper(_unitOfWork.Repository<Project>().GetById(project.Id));
+                _projectNotesWrappers.Add(projectNotesWrapper);
+            }
+
+            Notes.AddRange(projectNotesWrapper.Notes.OrderByDescending(noteWrapper => noteWrapper.Date));
+        }
+    }
+
     public partial class Market2ViewModel
     {
         private IUnitOfWork _notesUnitOfWork;
@@ -21,18 +59,7 @@ namespace HVTApp.UI.Modules.Sales.Market
         private NoteWrapper _selectedNote;
         private readonly ObservableCollection<NoteWrapper> _notes = new ObservableCollection<NoteWrapper>();
 
-        public ObservableCollection<NoteWrapper> Notes
-        {
-            get
-            {
-                _notes.Clear();
-                if (ProjectNotesWrapper != null)
-                {
-                    _notes.AddRange(ProjectNotesWrapper.Notes.OrderByDescending(x => x.Date));
-                }
-                return _notes;
-            }
-        }
+        public NotesViewModel NotesViewModel { get; }
 
         public NoteWrapper SelectedNote
         {
@@ -67,42 +94,42 @@ namespace HVTApp.UI.Modules.Sales.Market
         public DelegateLogCommand SaveNotesCommand { get; private set; }
 
 
-        public void InitNotes()
-        {
-            _notesUnitOfWork = Container.Resolve<IUnitOfWork>();
-            var projectNotes = ((IProjectRepository)_notesUnitOfWork.Repository<Project>()).GetAllWithNotes().Select(project => new ProjectNotesWrapper(project));
-            _projectNotes = new ValidatableChangeTrackingCollection<ProjectNotesWrapper>(projectNotes);
+        //public void InitNotes()
+        //{
+        //    _notesUnitOfWork = Container.Resolve<IUnitOfWork>();
+        //    var projectNotes = ((IProjectRepository)_notesUnitOfWork.Repository<Project>()).GetAllWithNotes().Select(project => new ProjectNotesWrapper(project));
+        //    _projectNotes = new ValidatableChangeTrackingCollection<ProjectNotesWrapper>(projectNotes);
 
-            AddNoteCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var note = new NoteWrapper(new Note {Date = DateTime.Now});
-                    ProjectNotesWrapper.Notes.Add(note);
-                    RaisePropertyChanged(nameof(Notes));
-                },
-                () => ProjectNotesWrapper != null);
+        //    AddNoteCommand = new DelegateLogCommand(
+        //        () =>
+        //        {
+        //            var note = new NoteWrapper(new Note {Date = DateTime.Now});
+        //            ProjectNotesWrapper.Notes.Add(note);
+        //            RaisePropertyChanged(nameof(Notes));
+        //        },
+        //        () => ProjectNotesWrapper != null);
 
-            RemoveNoteCommand = new DelegateLogCommand(
-                () =>
-                {
-                    ProjectNotesWrapper.Notes.Remove(SelectedNote);
-                    RaisePropertyChanged(nameof(Notes));
-                    SelectedNote = null;
-                },
-                () => SelectedNote != null);
+        //    RemoveNoteCommand = new DelegateLogCommand(
+        //        () =>
+        //        {
+        //            ProjectNotesWrapper.Notes.Remove(SelectedNote);
+        //            RaisePropertyChanged(nameof(Notes));
+        //            SelectedNote = null;
+        //        },
+        //        () => SelectedNote != null);
 
-            SaveNotesCommand = new DelegateLogCommand(
-                () =>
-                {
-                    _projectNotes.AcceptChanges();
-                    _notesUnitOfWork.SaveChanges();
-                },
-                () => _projectNotes.All(x => x.Notes.IsValid) && _projectNotes.Any(x => x.Notes.IsChanged));
+        //    SaveNotesCommand = new DelegateLogCommand(
+        //        () =>
+        //        {
+        //            _projectNotes.AcceptChanges();
+        //            _notesUnitOfWork.SaveChanges();
+        //        },
+        //        () => _projectNotes.All(x => x.Notes.IsValid) && _projectNotes.Any(x => x.Notes.IsChanged));
 
-            _projectNotes.PropertyChanged += (sender, args) =>
-            {
-                SaveNotesCommand.RaiseCanExecuteChanged();
-            };
-        }
+        //    _projectNotes.PropertyChanged += (sender, args) =>
+        //    {
+        //        SaveNotesCommand.RaiseCanExecuteChanged();
+        //    };
+        //}
     }
 }

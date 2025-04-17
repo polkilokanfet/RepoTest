@@ -213,7 +213,7 @@
 
                     </dp:XamDataGrid>
 
-                    <GridSplitter Grid.Row="1" VerticalAlignment="Bottom" Height="2" HorizontalAlignment="Stretch"/>
+                    <GridSplitter Grid.Row="1" VerticalAlignment="Bottom" Height="3" HorizontalAlignment="Stretch"/>
 
                     <Border Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
                         <TabControl TabStripPlacement="Bottom">
