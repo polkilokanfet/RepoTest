@@ -210,12 +210,12 @@
                     <TabItem Header="Переписка">
                         <Border Name="Messages" AllowDrop="True" Drop="Messages_OnDrop">
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                                <dp:XamDataGrid Grid.Column="0" 
+                                <dp:XamDataGrid Grid.Row="0" Grid.Column="0" 
                                                 Style="{StaticResource XamDataGridWithoutGroupByArea}"
                                                 DataSource="{Binding Outlook.Messages}"
                                                 ActiveDataItem="{Binding Outlook.SelectedMessage, Mode=TwoWay}">
@@ -239,17 +239,19 @@
                                     </dp:XamDataGrid.FieldLayouts>
                                 </dp:XamDataGrid>
 
-                                <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/>
+                                <GridSplitter Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="2"/>
 
-                                <GroupBox Grid.Column="1" Header="{Binding Outlook.SelectedMessage, Mode=OneWay}">
-                                    <!--<TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
-                                                            TextWrapping="Wrap"
-                                                            BorderThickness="0"
-                                                            VerticalScrollBarVisibility="Auto"
-                                                            HorizontalScrollBarVisibility="Auto"
-                                                            IsReadOnly="True"/>-->
-                                    <WebBrowser Name="WebBrowserForMessages"/>
-                                </GroupBox>
+                                <Expander Grid.Row="1" Header="Письмо" IsExpanded="False">
+                                    <GroupBox Header="{Binding Outlook.SelectedMessage, Mode=OneWay}">
+                                        <!--<TextBox Text="{Binding Outlook.SelectedMessage.BodyText}"
+                                                                TextWrapping="Wrap"
+                                                                BorderThickness="0"
+                                                                VerticalScrollBarVisibility="Auto"
+                                                                HorizontalScrollBarVisibility="Auto"
+                                                                IsReadOnly="True"/>-->
+                                        <WebBrowser Name="WebBrowserForMessages"/>
+                                    </GroupBox>
+                                </Expander>
                             </Grid>
                         </Border>
                     </TabItem>
