@@ -47,6 +47,7 @@ namespace HVTApp.DataAccess
                 foreach (var entry in entries)
                 {
                     if (entry.State == EntityState.Unchanged) continue;
+                    if (entry.State == EntityState.Deleted) continue;
                     Console.WriteLine($"Entity: {entry.Entity.GetType().Name}, State: {entry.State}");
                     foreach (var property in entry.CurrentValues.PropertyNames)
                     {

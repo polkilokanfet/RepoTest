@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.Services;
@@ -188,6 +189,13 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
 
             _viewModel.Outlook.DeleteDuplicateMessages();
+        }
+
+        private void NoteTextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) 
+                if (_viewModel.NotesViewModel.AddNoteCommand.CanExecute())
+                    _viewModel.NotesViewModel.AddNoteCommand.Execute();
         }
     }
 }

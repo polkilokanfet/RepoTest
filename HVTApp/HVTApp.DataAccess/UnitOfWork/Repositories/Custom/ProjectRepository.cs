@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
@@ -15,10 +16,12 @@ namespace HVTApp.DataAccess
                 .Include(project => project.Manager);
         }
 
-        public IEnumerable<Project> GetAllWithNotes()
+        public IEnumerable<Project> GetAllForUserWithNotes()
         {
             Loging(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return this.GetQuery().Include(x => x.Notes).ToList();
+            return this.GetQuery()
+                .Where(project => project.Manager.Id == GlobalAppProperties.User.Id)
+                .Include(project => project.Notes).ToList();
         }
 
         public Project GetForEdit(Guid projectId)
@@ -33,7 +36,7 @@ namespace HVTApp.DataAccess
 
     public partial interface IProjectRepository
     {
-        IEnumerable<Project> GetAllWithNotes();
+        IEnumerable<Project> GetAllForUserWithNotes();
         Project GetForEdit(Guid projectId);
     }
 }

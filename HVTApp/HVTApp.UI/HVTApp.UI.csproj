@@ -1208,7 +1208,7 @@
     <Compile Include="Modules\Sales\Project1\SalesUnitsGroupsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\SalesUnitsViewModel.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\UnitsContainer.cs" />
-    <Compile Include="Modules\Sales\Market\Market2ViewModel_Notes.cs" />
+    <Compile Include="Modules\Sales\Market\NotesViewModel.cs" />
     <Compile Include="Modules\Sales\Market\Market2ViewModel.cs" />
     <Compile Include="Modules\Sales\Market\SalesUnitsMarketViewComparer.cs" />
     <Compile Include="Modules\Sales\ViewModels\OffersViewModel.cs" />

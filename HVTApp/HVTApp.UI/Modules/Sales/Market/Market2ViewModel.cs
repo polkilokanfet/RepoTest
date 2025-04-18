@@ -36,6 +36,8 @@ namespace HVTApp.UI.Modules.Sales.Market
         private bool _isShownLoosenItems = true;
         private bool _isShownOnlyReportsItems = true;
 
+        public NotesViewModel NotesViewModel { get; }
+
         public bool IsShownDoneItems
         {
             get => _isShownDoneItems;
@@ -91,8 +93,6 @@ namespace HVTApp.UI.Modules.Sales.Market
                 ProjectRaiseCanExecuteChanged();
 
                 this.NotesViewModel.SelectProject(_selectedProjectItem.Project);
-                AddNoteCommand.RaiseCanExecuteChanged();
-                SelectedNote = null;
 
                 Offers.SelectedItem = null;
                 Tenders.SelectedItem = null;

@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial class ProjectRepositoryTest
     {
-        public IEnumerable<Project> GetAllWithNotes()
+        public IEnumerable<Project> GetAllForUserWithNotes()
         {
             throw new NotImplementedException();
         }
