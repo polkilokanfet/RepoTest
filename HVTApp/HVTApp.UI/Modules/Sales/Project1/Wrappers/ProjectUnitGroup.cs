@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Price;
 using HVTApp.Model.Wrapper;
@@ -130,7 +131,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public ProjectUnitProductIncludedGroup SelectedProductsIncludedGroup { get; set; }
 
-        public Price Price => Units.First().Price;
+        public Price Price => GlobalAppProperties.PriceService.GetPrice(this.Units.Select(unit => unit.Model), Units.First().Model.RealizationDateCalculated, true);
         public ProjectUnitCalculatedParts CalculatedParts { get; }
 
         public IEnumerable<Price> Prices => new List<Price> { this.Price };

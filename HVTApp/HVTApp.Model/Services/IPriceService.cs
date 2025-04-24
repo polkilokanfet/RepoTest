@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Services
@@ -16,6 +17,15 @@ namespace HVTApp.Model.Services
         /// <param name="checkCalculations">Проверять ли калькуляции цен?</param>
         /// <returns></returns>
         Price.Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations);
+
+        /// <summary>
+        /// Получить прайс
+        /// </summary>
+        /// <param name="salesUnits"></param>
+        /// <param name="targetDate">Целевая дата</param>
+        /// <param name="checkCalculations">Проверять ли калькуляции цен?</param>
+        /// <returns></returns>
+        Price.Price GetPrice(IEnumerable<SalesUnit> salesUnits, DateTime targetDate, bool checkCalculations);
 
         PriceCalculationItem GetPriceCalculationItem(IUnit unit);
 

@@ -62,6 +62,9 @@ namespace HVTApp.Services.PriceService1
         public Price GetPrice(IUnit unit, DateTime targetDate, bool checkCalculations) => 
             new Price(unit, targetDate, this, checkCalculations);
 
+        public Price GetPrice(IEnumerable<SalesUnit> salesUnits, DateTime targetDate, bool checkCalculations) =>
+            new Price(salesUnits, targetDate, this, checkCalculations);
+
         #endregion
 
         #region Profitability

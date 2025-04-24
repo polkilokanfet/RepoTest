@@ -123,8 +123,11 @@ namespace HVTApp.Model.Price
             }
         }
 
-        public Price(IUnit unit, DateTime targetDate, IPriceService priceService, bool checkCalculations)
+        public Price(IEnumerable<IUnit> units, DateTime targetDate, IPriceService priceService, bool checkCalculations)
         {
+            var unit = units.First();
+            var unitsAmount = units.Count();
+
             Name = unit.Product.ToString();
             IEnumerable<ProductIncluded> productsIncluded = unit.ProductsIncluded;
 
@@ -137,7 +140,7 @@ namespace HVTApp.Model.Price
                 HasCalculation = true;
 
                 //заглушка на прайс основного блока
-                PriceMainBlock = new PriceStub(unit.Product.ToString(), 1, laborHours:priceService.GetLaborHoursAmount(unit));
+                PriceMainBlock = new PriceStub(unit.Product.ToString(), 1, laborHours: priceService.GetLaborHoursAmount(unit));
 
                 //заглушки на прайсы зависимых блоков
                 PricesOfDependentBlocks =
@@ -164,9 +167,14 @@ namespace HVTApp.Model.Price
             //включенное оборудование
             foreach (var productIncluded in productsIncluded)
             {
-                var price = new PriceOfProduct(productIncluded.Product, targetDate, priceService, productIncluded.AmountOnUnit, productIncluded.CustomFixedPrice);
+                var price = new PriceOfProduct(productIncluded.Product, targetDate, priceService, productIncluded.AmountOnUnit / unitsAmount, productIncluded.CustomFixedPrice);
                 PricesProductsIncluded.Add(price);
             }
+        }
+
+        public Price(IUnit unit, DateTime targetDate, IPriceService priceService, bool checkCalculations) : 
+            this(new []{unit}, targetDate, priceService, checkCalculations)
+        {
         }
     }
 }
