@@ -125,11 +125,15 @@ namespace HVTApp.Model.Price
 
         public Price(IEnumerable<IUnit> units, DateTime targetDate, IPriceService priceService, bool checkCalculations)
         {
-            var unit = units.First();
-            var unitsAmount = units.Count();
+            var unitsArray = units as IUnit[] ?? units.ToArray();
+            var unit = unitsArray.First();
+            var unitsAmount = unitsArray.Length;
 
             Name = unit.Product.ToString();
-            IEnumerable<ProductIncluded> productsIncluded = unit.ProductsIncluded;
+            var productsIncludedGroups = unitsArray
+                .SelectMany(unit1 => unit1.ProductsIncluded)
+                .Distinct()
+                .GroupBy(productIncluded => new { productIncluded.Product.Id, productIncluded.Amount });
 
             //если есть калькуляция
             _priceCalculationItem = checkCalculations
@@ -151,7 +155,7 @@ namespace HVTApp.Model.Price
                         .ToList();
 
                 //оставляем включенное оборудование только с фиксированной ценой (напр. шеф-монтаж)
-                productsIncluded = productsIncluded.Where(productIncluded => productIncluded.CustomFixedPrice.HasValue || productIncluded.Product.HasBlockWithFixedCost);
+                productsIncludedGroups = productsIncludedGroups.Where(productIncluded => productIncluded.First().CustomFixedPrice.HasValue || productIncluded.First().Product.HasBlockWithFixedCost);
             }
             //если калькуляции нет, нужно инициировать по продукту
             else
@@ -165,9 +169,10 @@ namespace HVTApp.Model.Price
             }
 
             //включенное оборудование
-            foreach (var productIncluded in productsIncluded)
+            foreach (var productIncludedGroup in productsIncludedGroups)
             {
-                var price = new PriceOfProduct(productIncluded.Product, targetDate, priceService, productIncluded.AmountOnUnit / unitsAmount, productIncluded.CustomFixedPrice);
+                var productIncluded = productIncludedGroup.First();
+                var price = new PriceOfProduct(productIncluded.Product, targetDate, priceService, productIncludedGroup.Sum(x => (double)x.Amount) * productIncludedGroup.Count() / unitsAmount, productIncluded.CustomFixedPrice);
                 PricesProductsIncluded.Add(price);
             }
         }
