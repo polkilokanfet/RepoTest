@@ -741,6 +741,11 @@ namespace HVTApp.Model.Wrapper
         public IValidatableChangeTrackingCollection<UserWrapper> Staff { get; private set; }
 
         /// <summary>
+        /// Наблюдатели
+        /// </summary>
+        public IValidatableChangeTrackingCollection<UserWrapper> Observers { get; private set; }
+
+        /// <summary>
         /// Наборы параметров основного оборудования
         /// </summary>
         public IValidatableChangeTrackingCollection<DesignDepartmentParametersWrapper> ParameterSets { get; private set; }
@@ -767,6 +772,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.Staff == null) throw new ArgumentException($"{nameof(Model.Staff)} cannot be null");
           Staff = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Staff.Select(e => new UserWrapper(e)));
           RegisterCollection(Staff, Model.Staff);
+          if (Model.Observers == null) throw new ArgumentException($"{nameof(Model.Observers)} cannot be null");
+          Observers = new ValidatableChangeTrackingCollection<UserWrapper>(Model.Observers.Select(e => new UserWrapper(e)));
+          RegisterCollection(Observers, Model.Observers);
           if (Model.ParameterSets == null) throw new ArgumentException($"{nameof(Model.ParameterSets)} cannot be null");
           ParameterSets = new ValidatableChangeTrackingCollection<DesignDepartmentParametersWrapper>(Model.ParameterSets.Select(e => new DesignDepartmentParametersWrapper(e)));
           RegisterCollection(ParameterSets, Model.ParameterSets);
@@ -2749,6 +2757,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.Boolean NeedEquipmentOriginalValue => GetOriginalValue<System.Boolean>(nameof(NeedEquipment));
         public bool NeedEquipmentIsChanged => GetIsChanged(nameof(NeedEquipment));
+
+        /// <summary>
+        /// Документация загружена в TeamCenter
+        /// </summary>
+        public System.Boolean IsUploadedDocumentationToTeamCenter
+        {
+          get { return Model.IsUploadedDocumentationToTeamCenter; }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsUploadedDocumentationToTeamCenterOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsUploadedDocumentationToTeamCenter));
+        public bool IsUploadedDocumentationToTeamCenterIsChanged => GetIsChanged(nameof(IsUploadedDocumentationToTeamCenter));
 
         /// <summary>
         /// Id
@@ -6415,6 +6434,17 @@ namespace HVTApp.Model.Wrapper
 	    public NoteWrapper(Note model) : base(model) { }
 
         #region SimpleProperties
+
+        /// <summary>
+        /// ProjectId
+        /// </summary>
+        public System.Guid ProjectId
+        {
+          get { return Model.ProjectId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ProjectIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectId));
+        public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
 
         /// <summary>
         /// Дата

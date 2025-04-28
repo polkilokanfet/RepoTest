@@ -57,10 +57,14 @@ namespace HVTApp.UI.ViewModels
                     using (var unitOfWork = Container.Resolve<IUnitOfWork>())
                     {
                         var staff = dep.Staff.Select(user => unitOfWork.Repository<User>().GetById(user.Id)).ToList();
-                        foreach (var department in SelectedItems.Select(x => unitOfWork.Repository<DesignDepartment>().GetById(x.Id)))
+                        var observers = dep.Observers.Select(user => unitOfWork.Repository<User>().GetById(user.Id)).ToList();
+                        foreach (var department in SelectedItems.Select(department => unitOfWork.Repository<DesignDepartment>().GetById(department.Id)))
                         {
                             department.Staff.Clear();
                             department.Staff.AddRange(staff);
+
+                            department.Observers.Clear();
+                            department.Observers.AddRange(observers);
                         }
 
                         unitOfWork.SaveChanges();

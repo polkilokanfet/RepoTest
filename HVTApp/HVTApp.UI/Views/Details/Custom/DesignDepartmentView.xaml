@@ -25,6 +25,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row ="0" Content="Название"/>
@@ -39,27 +40,34 @@
 
             <Label Grid.Column="0" Grid.Row ="2" Content="Сотрудники"/>
             <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
-										     Items="{Binding Path=Item.Staff}"
-										     SelectedItem="{Binding SelectedStaffItem, Mode=TwoWay}"
-										     AddItemCommand="{Binding AddInStaffCommand}"
-										     RemoveItemCommand="{Binding RemoveFromStaffCommand}"/>
+                                             Items="{Binding Path=Item.Staff}"
+                                             SelectedItem="{Binding SelectedStaffItem, Mode=TwoWay}"
+                                             AddItemCommand="{Binding AddInStaffCommand}"
+                                             RemoveItemCommand="{Binding RemoveFromStaffCommand}"/>
 
-            <Label Grid.Column="0" Grid.Row ="3" Content="Наборы параметров основного оборудования"/>
+            <Label Grid.Column="0" Grid.Row ="3" Content="Наблюдатели"/>
             <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
+                                             Items="{Binding Path=Item.Observers}"
+                                             SelectedItem="{Binding SelectedObserversItem, Mode=TwoWay}"
+                                             AddItemCommand="{Binding AddInObserversCommand}"
+                                             RemoveItemCommand="{Binding RemoveFromObserversCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="4" Content="Наборы параметров основного оборудования"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
 										     Items="{Binding Path=Item.ParameterSets}"
 										     SelectedItem="{Binding SelectedDesignDepartmentParameters, Mode=TwoWay}"
 										     AddItemCommand="{Binding CreateParameterSetCommand}"
 										     RemoveItemCommand="{Binding RemoveFromParameterSetsCommand}"/>
 
-            <Label Grid.Column="0" Grid.Row ="4" Content="Наборы параметров дополнительного оборудования"/>
-            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+            <Label Grid.Column="0" Grid.Row ="5" Content="Наборы параметров дополнительного оборудования"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										     Items="{Binding Path=Item.ParameterSetsAddedBlocks}"
 										     SelectedItem="{Binding SelectedDesignDepartmentParametersAdded, Mode=TwoWay}"
 										     AddItemCommand="{Binding CreateParameterSetAddedCommand}"
 										     RemoveItemCommand="{Binding RemoveFromParameterSetsAddedBlocksCommand}"/>
 
-            <Label Grid.Column="0" Grid.Row ="5" Content="Наборы параметров оборудования для подзадач"/>
-            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+            <Label Grid.Column="0" Grid.Row ="6" Content="Наборы параметров оборудования для подзадач"/>
+            <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
                                              Items="{Binding Path=Item.ParameterSetsSubTask}"
                                              SelectedItem="{Binding SelectedDesignDepartmentParametersSubTasks, Mode=TwoWay}"
                                              AddItemCommand="{Binding CreateParameterSetSubTaskCommand}"

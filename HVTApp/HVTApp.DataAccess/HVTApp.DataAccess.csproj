@@ -548,6 +548,10 @@
     <Compile Include="Migrations\202504171159584_NoteProjectId.Designer.cs">
       <DependentUpon>202504171159584_NoteProjectId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202504281931179_TasksObservers.cs" />
+    <Compile Include="Migrations\202504281931179_TasksObservers.Designer.cs">
+      <DependentUpon>202504281931179_TasksObservers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -908,6 +912,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202504171159584_NoteProjectId.resx">
       <DependentUpon>202504171159584_NoteProjectId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504281931179_TasksObservers.resx">
+      <DependentUpon>202504281931179_TasksObservers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
