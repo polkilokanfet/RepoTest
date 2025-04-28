@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.TaskControlObserver"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View"
+             x:Name="Root">
+
+    <!--Задача на блок продукта-->
+    <view:TaskControl 
+        DataContext="{Binding TaskViewModelHead, ElementName=Root}"
+        TaskViewModel="{Binding}">
+
+        <view:TaskControl.AreaFiles>
+            <view:FilesControl Grid.Row="1" TaskViewModel="{Binding}"/>
+        </view:TaskControl.AreaFiles>
+
+        <view:TaskControl.AreaIncludedBlocks>
+            <ItemsControl 
+                Background="Transparent" 
+                HorizontalAlignment="Stretch" 
+                ItemsSource="{Binding ChildPriceEngineeringTasks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border 
+                            Background="Transparent" 
+                            Margin="10 0 0 0" 
+                            Padding="5 2">
+                            <StackPanel>
+                                <view:TaskControlDesignDepartmentHead TaskViewModelHead="{Binding }" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </view:TaskControl.AreaIncludedBlocks>
+
+    </view:TaskControl>
+
+</UserControl>

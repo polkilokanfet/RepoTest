@@ -27,7 +27,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 {
                     if (SelectedWorkLoadTask is PriceEngineeringTasksListItemDesignDepartmentHead task)
                     {
-                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(new NavigationParameters(){{nameof(task), task.Entity}});
+                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(new NavigationParameters() { { nameof(task), task.Entity } });
                     }
                 });
         }
