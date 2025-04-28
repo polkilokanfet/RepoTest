@@ -117,8 +117,9 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewManager>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackManager>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksViewBackManagerBoss>();
+            Container.RegisterViewForNavigation<PriceEngineeringTasksListViewObserver>();
             Container.RegisterViewForNavigation<PriceEngineeringTasksListView>();
-            
+
 
             Container.RegisterViewForNavigation<DesignDepartmentView>();
             Container.RegisterViewForNavigation<ProductRelationsView>();

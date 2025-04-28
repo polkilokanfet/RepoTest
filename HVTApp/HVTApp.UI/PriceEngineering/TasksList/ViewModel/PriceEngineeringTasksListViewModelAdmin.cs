@@ -8,6 +8,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Items;
 using Microsoft.Practices.Unity;
+using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
@@ -42,6 +43,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         unitOfWork.SaveChanges();
                     }
                 });
+        }
+
+        protected override void OpenTask(NavigationParameters parameters)
+        {
+            throw new NotImplementedException();
         }
 
         protected override PriceEngineeringTasksListItemSalesManager GetItem(PriceEngineeringTasks model)

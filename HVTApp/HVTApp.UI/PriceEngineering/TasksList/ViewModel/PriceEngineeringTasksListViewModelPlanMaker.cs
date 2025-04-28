@@ -1,15 +1,17 @@
 using System.Linq;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.Items;
+using HVTApp.UI.PriceEngineering.View;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public class PriceEngineeringTasksListViewModelPlanMaker : 
-        PriceEngineeringTasksListViewModelBase<PriceEngineeringTasksListItemPlanMaker, PriceEngineeringTaskListItemPlanMaker>
+    public class PriceEngineeringTasksListViewModelPlanMaker : PriceEngineeringTasksListViewModelBase<PriceEngineeringTasksListItemPlanMaker, PriceEngineeringTaskListItemPlanMaker>
     {
         public PriceEngineeringTasksListViewModelPlanMaker(IUnityContainer container) : base(container)
         {
@@ -26,6 +28,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         }
                     }
                 });
+        }
+
+        protected override void OpenTask(NavigationParameters parameters)
+        {
+            RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewPlanMaker>(parameters);
         }
 
         protected override PriceEngineeringTasksListItemPlanMaker GetItem(PriceEngineeringTasks model)

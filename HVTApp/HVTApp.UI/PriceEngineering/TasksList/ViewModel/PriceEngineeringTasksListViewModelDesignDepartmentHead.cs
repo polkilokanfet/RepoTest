@@ -67,6 +67,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             }
         }
 
+        protected override void OpenTask(NavigationParameters parameters)
+        {
+            RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(parameters);
+        }
+
         protected override PriceEngineeringTasksListItemDesignDepartmentHead GetItem(PriceEngineeringTasks model)
         {
             return new PriceEngineeringTasksListItemDesignDepartmentHead(model);

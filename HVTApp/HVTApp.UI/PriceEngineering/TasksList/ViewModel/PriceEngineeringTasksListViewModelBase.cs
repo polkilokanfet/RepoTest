@@ -40,7 +40,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         }
 
         /// <summary>
-        /// Показаны только актульные задачи
+        /// Показаны только актуальные задачи
         /// </summary>
         public bool IsShownActual
         {
@@ -71,60 +71,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                         parameter = tTask.Entity;
                     }
 
-                    if (parameter != null)
-                    {
-                        var parameters = new NavigationParameters {{nameof(PriceEngineeringTasks), parameter}};
+                    if (parameter == null) return;
 
-                        switch (GlobalAppProperties.User.RoleCurrent)
-                        {
-                            case Role.SalesManager:
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewManager>(parameters);
-                                break;
-
-                            case Role.Constructor:
-                            {
-                                if (SelectedItem is TTasks tt)
-                                {
-                                    if (tt.Entity.GetSuitableTasksForInspect(GlobalAppProperties.User).Any())
-                                    {
-                                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewInspector>(parameters);
-                                        break;
-                                    }
-                                }
-                                else if (SelectedItem is TTask t)
-                                {
-                                    if (t.Entity.UserConstructor?.Id != GlobalAppProperties.User.Id &&
-                                        t.Entity.UserConstructorInspector?.Id == GlobalAppProperties.User.Id)
-                                    {
-                                        RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewInspector>(parameters);
-                                        break;
-                                    }
-                                }
-
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewConstructor>(parameters);
-                                break;
-                            }
-
-                            case Role.BackManager:
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManager>(parameters);
-                                break;
-
-                            case Role.BackManagerBoss:
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewBackManagerBoss>(parameters);
-                                break;
-
-                            case Role.DesignDepartmentHead:
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewDesignDepartmentHead>(parameters);
-                                break;
-
-                            case Role.PlanMaker:
-                                RegionManager.RequestNavigateContentRegion<PriceEngineeringTasksViewPlanMaker>(parameters);
-                                break;
-
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
-                    }
+                    var parameters = new NavigationParameters {{nameof(PriceEngineeringTasks), parameter}};
+                    this.OpenTask(parameters);
                 },
                 () => SelectedItem != null);
 
@@ -137,6 +87,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
             Load();
         }
+
+        protected abstract void OpenTask(NavigationParameters parameters);
 
         private void OnItemChild2(NotificationUnit notificationUnit)
         {

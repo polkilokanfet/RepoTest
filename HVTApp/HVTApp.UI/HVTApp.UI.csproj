@@ -446,6 +446,9 @@
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemObserver.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemObserver.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelObserver.cs" />
+    <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewObserver.xaml.cs">
+      <DependentUpon>PriceEngineeringTasksListViewObserver.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewPlanMaker.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListViewPlanMaker.xaml</DependentUpon>
     </Compile>
@@ -2342,6 +2345,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTask.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewObserver.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
