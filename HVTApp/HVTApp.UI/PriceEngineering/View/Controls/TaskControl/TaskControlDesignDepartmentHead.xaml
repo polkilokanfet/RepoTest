@@ -8,7 +8,7 @@
 
     <!--Задача на блок продукта-->
     <view:TaskControl 
-        DataContext="{Binding TaskViewModelHead, ElementName=Root}"
+        DataContext="{Binding TaskViewModel, ElementName=Root}"
         TaskViewModel="{Binding}">
 
         <view:TaskControl.AreaActionButtonsTop>
@@ -43,7 +43,7 @@
                             Margin="10 0 0 0" 
                             Padding="5 2">
                             <StackPanel>
-                                <view:TaskControlDesignDepartmentHead TaskViewModelHead="{Binding }" />
+                                <view:TaskControlDesignDepartmentHead TaskViewModel="{Binding }" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>

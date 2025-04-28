@@ -13,7 +13,7 @@ namespace HVTApp.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202504281931179_TasksObservers"; }
+            get { return "202504282158282_TasksObservers"; }
         }
         
         string IMigrationMetadata.Source

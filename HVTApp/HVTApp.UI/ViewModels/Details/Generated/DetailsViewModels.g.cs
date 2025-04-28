@@ -405,6 +405,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<User>> _getEntitiesForAddInObserversCommand;
+		public DelegateLogCommand AddInObserversCommand { get; }
+		public DelegateLogCommand RemoveFromObserversCommand { get; private set; }
+		private UserWrapper _selectedObserversItem;
+		public UserWrapper SelectedObserversItem 
+		{ 
+			get { return _selectedObserversItem; }
+			set 
+			{ 
+				if (Equals(_selectedObserversItem, value)) return;
+				_selectedObserversItem = value;
+				RaisePropertyChanged();
+				RemoveFromObserversCommand.RaiseCanExecuteChanged();
+			}
+		}
+
 		private Func<List<DesignDepartmentParameters>> _getEntitiesForAddInParameterSetsCommand;
 		public DelegateLogCommand AddInParameterSetsCommand { get; }
 		public DelegateLogCommand RemoveFromParameterSetsCommand { get; private set; }
@@ -466,6 +482,11 @@ namespace HVTApp.UI.ViewModels
 			if (RemoveFromStaffCommand == null) RemoveFromStaffCommand = new DelegateLogCommand(RemoveFromStaffCommand_Execute_Default, RemoveFromStaffCommand_CanExecute_Default);
 
 			
+			if (_getEntitiesForAddInObserversCommand == null) _getEntitiesForAddInObserversCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };;
+			if (AddInObserversCommand == null) AddInObserversCommand = new DelegateLogCommand(AddInObserversCommand_Execute_Default);
+			if (RemoveFromObserversCommand == null) RemoveFromObserversCommand = new DelegateLogCommand(RemoveFromObserversCommand_Execute_Default, RemoveFromObserversCommand_CanExecute_Default);
+
+			
 			if (_getEntitiesForAddInParameterSetsCommand == null) _getEntitiesForAddInParameterSetsCommand = () => { return UnitOfWork.Repository<DesignDepartmentParameters>().GetAll(); };;
 			if (AddInParameterSetsCommand == null) AddInParameterSetsCommand = new DelegateLogCommand(AddInParameterSetsCommand_Execute_Default);
 			if (RemoveFromParameterSetsCommand == null) RemoveFromParameterSetsCommand = new DelegateLogCommand(RemoveFromParameterSetsCommand_Execute_Default, RemoveFromParameterSetsCommand_CanExecute_Default);
@@ -505,6 +526,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromStaffCommand_CanExecute_Default()
 			{
 				return SelectedStaffItem != null;
+			}
+
+			private void AddInObserversCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<User, UserWrapper>(_getEntitiesForAddInObserversCommand(), Item.Observers);
+			}
+
+			private void RemoveFromObserversCommand_Execute_Default()
+			{
+				Item.Observers.Remove(SelectedObserversItem);
+			}
+
+			private bool RemoveFromObserversCommand_CanExecute_Default()
+			{
+				return SelectedObserversItem != null;
 			}
 
 			private void AddInParameterSetsCommand_Execute_Default()

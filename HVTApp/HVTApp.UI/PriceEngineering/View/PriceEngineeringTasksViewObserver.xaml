@@ -5,6 +5,6 @@
     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
     xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View">
 
-    <view:TasksControlDesignDepartmentHead TasksViewModel="{Binding}"/>
+    <view:TasksControlObserver TasksViewModel="{Binding}"/>
 
 </inf:ViewBaseConfirmNavigationRequest>

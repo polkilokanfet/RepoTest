@@ -6,7 +6,7 @@
 
     <!--Задача на блок продукта-->
     <view:TaskControl 
-        DataContext="{Binding TaskViewModelHead, ElementName=Root}"
+        DataContext="{Binding TaskViewModel, ElementName=Root}"
         TaskViewModel="{Binding}">
 
         <view:TaskControl.AreaFiles>
@@ -25,7 +25,7 @@
                             Margin="10 0 0 0" 
                             Padding="5 2">
                             <StackPanel>
-                                <view:TaskControlDesignDepartmentHead TaskViewModelHead="{Binding }" />
+                                <view:TaskControlObserver TaskViewModel="{Binding }" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>

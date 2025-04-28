@@ -5,13 +5,13 @@ namespace HVTApp.UI.PriceEngineering.View
 {
     public partial class TaskControlObserver : UserControl
     {
-        public static readonly DependencyProperty TaskViewModelHeadProperty = DependencyProperty.Register(
-            "TaskViewModelHead", typeof(TaskViewModelObserver), typeof(TaskControlObserver), new PropertyMetadata(default(TaskViewModelObserver)));
+        public static readonly DependencyProperty TaskViewModelProperty = DependencyProperty.Register(
+            "TaskViewModel", typeof(TaskViewModelObserver), typeof(TaskControlObserver), new PropertyMetadata(default(TaskViewModelObserver)));
 
-        public TaskViewModelObserver TaskViewModelHead
+        public TaskViewModelObserver TaskViewModel
         {
-            get { return (TaskViewModelObserver) GetValue(TaskViewModelHeadProperty); }
-            set { SetValue(TaskViewModelHeadProperty, value); }
+            get { return (TaskViewModelObserver) GetValue(TaskViewModelProperty); }
+            set { SetValue(TaskViewModelProperty, value); }
         }
 
         public TaskControlObserver()
