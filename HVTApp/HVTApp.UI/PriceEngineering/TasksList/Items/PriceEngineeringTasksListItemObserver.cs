@@ -24,9 +24,8 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         protected override IEnumerable<PriceEngineeringTaskListItemObserver> GetChildTasks()
         {
-            return Entity.ChildPriceEngineeringTasks
-                .Where(task => task.DesignDepartment != null)
-                .Where(task => task.DesignDepartment.Observers.ContainsById(GlobalAppProperties.User))
+            return Entity
+                .GetSuitableTasksForObserve(GlobalAppProperties.User)
                 .Select(task => new PriceEngineeringTaskListItemObserver(task));
         }
     }

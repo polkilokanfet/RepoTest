@@ -1,4 +1,5 @@
 using System.Linq;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using Microsoft.Practices.Unity;
@@ -36,6 +37,14 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 };
             }
             return tasksWrapperBackManager;
+        }
+
+        protected override bool ChildTaskIsVisibleByDefault(PriceEngineeringTask priceEngineeringTask)
+        {
+            var user = GlobalAppProperties.User;
+            var backManager = priceEngineeringTask.GetPriceEngineeringTasks(this.UnitOfWork).BackManager;
+            return backManager != null && user.Id == backManager.Id;
+
         }
     }
 }

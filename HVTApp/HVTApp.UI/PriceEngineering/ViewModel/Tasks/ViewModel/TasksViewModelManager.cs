@@ -327,6 +327,11 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             if (this.TasksWrapper.ChildTasks.Contains(taskViewModel))
                 this.TasksWrapper.ChildTasks.Remove(taskViewModel);
         }
+
+        protected override bool ChildTaskIsVisibleByDefault(PriceEngineeringTask priceEngineeringTask)
+        {
+            return true;
+        }
     }
 
     class CreatePriceCalculationCommand : DelegateLogCommand

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
@@ -69,6 +70,12 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         protected override TasksWrapperDesignDepartmentHead GetPriceEngineeringTasksWrapper(PriceEngineeringTasks priceEngineeringTasks, IUnityContainer container)
         {
             return new TasksWrapperDesignDepartmentHead(priceEngineeringTasks, container);
+        }
+
+        protected override bool ChildTaskIsVisibleByDefault(PriceEngineeringTask priceEngineeringTask)
+        {
+            var user = GlobalAppProperties.User;
+            return priceEngineeringTask.GetSuitableTasksForInstruct(user).Any();
         }
     }
 }

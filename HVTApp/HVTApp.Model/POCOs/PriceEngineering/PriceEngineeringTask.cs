@@ -398,6 +398,27 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+        /// <summary>
+        /// Вернуть все задачи, которые обозревает данный User
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForObserve(User user)
+        {
+            if (this.DesignDepartment.Observers.ContainsById(user))
+            {
+                yield return this;
+            }
+
+            foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)
+            {
+                foreach (var priceEngineeringTask in childPriceEngineeringTask.GetSuitableTasksForObserve(user))
+                {
+                    yield return priceEngineeringTask;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Вернуть все задачи, которые прорабатывает бюро пользователя

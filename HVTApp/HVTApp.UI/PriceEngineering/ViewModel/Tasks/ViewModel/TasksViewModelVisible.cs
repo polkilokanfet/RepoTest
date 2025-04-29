@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer;
 using Microsoft.Practices.Unity;
@@ -57,30 +55,6 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             AllTasksAreVisible = null;
         }
 
-        private bool ChildTaskIsVisibleByDefault(PriceEngineeringTask priceEngineeringTask)
-        {
-            var user = GlobalAppProperties.User;
-            switch (user.RoleCurrent)
-            {
-                case Role.PlanMaker:
-                    return true;
-                case Role.SalesManager:
-                    return true;
-                case Role.Constructor:
-                    return priceEngineeringTask.GetSuitableTasksForWork(user).Any() ||
-                           priceEngineeringTask.GetSuitableTasksForInspect(user).Any();
-                case Role.DesignDepartmentHead:
-                    return priceEngineeringTask.GetSuitableTasksForInstruct(user).Any();
-                case Role.BackManagerBoss:
-                    return true;
-                case Role.BackManager:
-                {
-                    var bm = priceEngineeringTask.GetPriceEngineeringTasks(this.UnitOfWork).BackManager;
-                    return bm != null && user.Id == bm.Id;
-                }
-                default:
-                    return false;
-            }
-        }
+        protected abstract bool ChildTaskIsVisibleByDefault(PriceEngineeringTask priceEngineeringTask);
     }
 }

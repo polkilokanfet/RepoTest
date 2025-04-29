@@ -143,6 +143,15 @@ namespace HVTApp.Model.POCOs
         }
 
         /// <summary>
+        /// Вернуть все задачи, которые может обозревать этот пользователь
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<PriceEngineeringTask> GetSuitableTasksForObserve(User user)
+        {
+            return ChildPriceEngineeringTasks.SelectMany(priceEngineeringTask => priceEngineeringTask.GetSuitableTasksForObserve(user));
+        }
+
+        /// <summary>
         /// Вернуть все КБ, которые прорабатывают эти задачи
         /// </summary>
         /// <returns></returns>

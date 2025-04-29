@@ -40,5 +40,10 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             }
             return tasksWrapperBackManager;
         }
+
+        protected override bool ChildTaskIsVisibleByDefault(PriceEngineeringTask priceEngineeringTask)
+        {
+            return true;
+        }
     }
 }
