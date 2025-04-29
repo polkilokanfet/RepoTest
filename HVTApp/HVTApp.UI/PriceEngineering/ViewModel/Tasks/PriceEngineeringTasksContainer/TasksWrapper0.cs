@@ -7,7 +7,7 @@ using HVTApp.Model.Wrapper.Base.TrackingCollections;
 
 namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
 {
-    public abstract class TasksWrapper0 : WrapperBase<PriceEngineeringTasks>
+    public abstract class TasksWrapper0 : WrapperBase<PriceEngineeringTasks>, ITasksWrapper
     {
         #region CollectionProperties
 

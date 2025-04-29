@@ -8,7 +8,7 @@
 
         <!--Общая информация для всего оборудования в заданиях-->
         <view:TasksControl.CommonInformation>
-            <view:CommonInformationControlDesignDepartmentHead TasksViewModelDesignDepartmentHead="{Binding}"/>
+            <view:CommonInformationControlReadOnly TasksWrapper="{Binding}"/>
         </view:TasksControl.CommonInformation>
 
         <!--Оборудование-->

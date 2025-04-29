@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="HVTApp.UI.PriceEngineering.View.CommonInformationControlReadOnly"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+
+    <!--Общая информация для всего оборудования в заданиях-->
+    <GroupBox 
+        Header="Общая информация для всего оборудования в заданиях"
+        DataContext="{Binding ElementName=Root, Path=TasksWrapper}">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Content="Проработать до:"/>
+            <TextBox Grid.Column="1" 
+                     Text="{Binding Model.WorkUpTo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateToStringConverter}}"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     FontStyle="Italic"
+                     IsReadOnly="True"/>
+
+            <Label Grid.Column="2" Content=" Комментарий менеджера:"/>
+            <TextBox Grid.Column="3" 
+                     Text="{Binding Model.Comment, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     FontStyle="Italic"
+                     IsReadOnly="True"/>
+        </Grid>
+    </GroupBox>
+
+</UserControl>

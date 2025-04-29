@@ -18,8 +18,8 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.PriceEngineering.ViewModel
 {
-    public abstract class TasksViewModel<TTasksWrapper, TTaskViewModel> : ViewModelBase, IPriceEngineeringTasksViewModel
-        where TTasksWrapper : TasksWrapper<TTaskViewModel>
+    public abstract class TasksViewModel<TTasksWrapper, TTaskViewModel> : ViewModelBase, IPriceEngineeringTasksViewModel, ITasksViewModel<TTasksWrapper>
+        where TTasksWrapper : TasksWrapper<TTaskViewModel>, ITasksWrapper
         where TTaskViewModel : TaskViewModel
     {
         private TTasksWrapper _tasksWrapper;

@@ -8,7 +8,7 @@
 
         <!--Общая информация для всего оборудования в заданиях-->
         <view:TasksControl.CommonInformation>
-            <view:CommonInformationControlInspector TasksViewModel="{Binding}"/>
+            <view:CommonInformationControlReadOnly TasksWrapper="{Binding TasksWrapper}"/>
         </view:TasksControl.CommonInformation>
 
         <!--Оборудование-->

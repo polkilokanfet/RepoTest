@@ -455,7 +455,9 @@
     <Compile Include="PriceEngineering\TasksList\View\PriceEngineeringTasksListViewPlanMaker.xaml.cs">
       <DependentUpon>PriceEngineeringTasksListViewPlanMaker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\ITasksWrapper.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\PriceEngineeringTasksContainer\TasksWrapperObserver.cs" />
+    <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\ITasksViewModel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Tasks\ViewModel\TasksViewModelObserver.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\Base\Wrapper\AcceptConverter.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelObserver.cs" />
@@ -697,14 +699,8 @@
     <Compile Include="PriceEngineering\Tce\Unit\PriceEngineeringTaskWrapper1.cs" />
     <Compile Include="PriceEngineering\Tce\Second\ViewModel\TasksTceViewModel.cs" />
     <Compile Include="PriceEngineering\ViewModel\Task\ViewModel\TaskViewModelPlanMaker.cs" />
-    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlInspector.xaml.cs">
-      <DependentUpon>CommonInformationControlInspector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlDesignDepartmentHead.xaml.cs">
-      <DependentUpon>CommonInformationControlDesignDepartmentHead.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlConstructor.xaml.cs">
-      <DependentUpon>CommonInformationControlConstructor.xaml</DependentUpon>
+    <Compile Include="PriceEngineering\View\Controls\CommonInformationControlReadOnly.xaml.cs">
+      <DependentUpon>CommonInformationControlReadOnly.xaml</DependentUpon>
     </Compile>
     <Compile Include="PriceEngineering\View\Controls\FilesControl\FilesControlConstructor.xaml.cs">
       <DependentUpon>FilesControlConstructor.xaml</DependentUpon>
@@ -2407,15 +2403,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PriceEngineering\View\Controls\CommonInformationControlInspector.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PriceEngineering\View\Controls\CommonInformationControlDesignDepartmentHead.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PriceEngineering\View\Controls\CommonInformationControlConstructor.xaml">
+    <Page Include="PriceEngineering\View\Controls\CommonInformationControlReadOnly.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
