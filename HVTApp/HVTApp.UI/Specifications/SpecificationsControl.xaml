@@ -40,7 +40,7 @@
             <dataPresenter:XamDataGrid.FieldLayouts>
                 <dataPresenter:FieldLayout>
                     <dataPresenter:FieldLayout.Fields>
-                        <dataPresenter:TextField Name="Company" Label="Контрагент" Width="300" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
+                        <dataPresenter:TextField Name="Company" Label="Контрагент" Width="200" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <dataPresenter:TextField Name="Number" Label="№" Width="50" AllowResize="True" />
                         <dataPresenter:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="False" />
                         <dataPresenter:TextField Name="Contract" Label="Договор" Width="100" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>

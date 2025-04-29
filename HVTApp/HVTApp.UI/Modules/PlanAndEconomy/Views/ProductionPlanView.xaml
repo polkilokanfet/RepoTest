@@ -5,6 +5,7 @@
               xmlns:prism="http://prismlibrary.com/"
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               prism:ViewModelLocator.AutoWireViewModel="True"
+              xmlns:system="clr-namespace:System;assembly=mscorlib"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Views.ProductionPlanView">
 
     <controls:LoadableContentControl x:Name="LoadbleControl" ContentIsLoaded="{Binding IsLoaded}">
@@ -24,8 +25,8 @@
                     <infg:DateTimeField Name="OrderOpenDate" Label="Открытие з/з" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="EndProductionDate" Label="Расчетная дата" Width="Auto" AllowResize="False"/>
                     <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата" Width="Auto" AllowResize="False"/>
-                    <infg:NumericField Name="EndProductionPlanDateYear" Label="Год" Width="Auto" AllowResize="False"/>
-                    <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Name="EndProductionPlanDateYear" Label="Год" Width="Auto" AllowResize="False" DataType="system:Int32"/>
+                    <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц" Width="Auto" AllowResize="False" DataType="system:Int32"/>
                     <infg:TextField AlternateBinding="{Binding Manager.Employee.Person}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>

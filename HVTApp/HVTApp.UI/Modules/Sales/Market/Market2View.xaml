@@ -162,13 +162,13 @@
                 
             </controls:LoadableContentControl>
 
-            <GridSplitter Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="3"/>
+            <GridSplitter Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="2"/>
                         
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
                 <TabControl Grid.Column="0">
@@ -228,11 +228,11 @@
                                     <dp:XamDataGrid.FieldLayouts>
                                         <dp:FieldLayout>
                                             <dp:FieldLayout.Fields>
-                                                <dp:TextField Name="Sender" Label="Отправитель" Width="100" Converter="{StaticResource ObjectToStringConverter}" AllowResize="True"/>
-                                                <dp:TextField Name="Recipients" Label="Получатели" Width="100" Converter="{StaticResource ObjectsToStringConverter}" AllowResize="True"/>
+                                                <dp:TextField Name="Sender" Label="Отправитель" Width="105" Converter="{StaticResource ObjectToStringConverter}" AllowResize="True"/>
+                                                <dp:TextField Name="Recipients" Label="Получатели" Width="105" Converter="{StaticResource ObjectsToStringConverter}" AllowResize="True"/>
                                                 <dp:DateTimeField Name="SentOnDate" Label="Дата" Width="Auto" Format="dd.MM.yy hh:mm"/>
                                                 <dp:CheckBoxField Name="HasAttachments" Label="В" Width="Auto"/>
-                                                <dp:TextField Name="Subject" Label="Тема" Width="300" AllowResize="True"/>
+                                                <dp:TextField Name="Subject" Label="Тема" Width="Auto" AllowResize="True"/>
                                             </dp:FieldLayout.Fields>
                                         </dp:FieldLayout>
 
