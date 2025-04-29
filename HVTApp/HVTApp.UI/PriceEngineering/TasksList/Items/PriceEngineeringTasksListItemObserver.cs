@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure.Attributes;
-using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
@@ -13,8 +12,7 @@ namespace HVTApp.UI.PriceEngineering.Items
         protected override IEnumerable<SalesUnit> GetSalesUnits()
         {
             return Entity.ChildPriceEngineeringTasks
-                .Where(task => task.DesignDepartment != null)
-                .Where(task => task.DesignDepartment.Observers.ContainsById(GlobalAppProperties.User))
+                .Where(task => task.GetSuitableTasksForObserve(GlobalAppProperties.User).Any())
                 .SelectMany(task => task.SalesUnits);
         }
 

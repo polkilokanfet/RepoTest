@@ -36,7 +36,8 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         protected override IEnumerable<TaskViewModelPlanMaker> GetChildPriceEngineeringTasks(IUnityContainer container)
         {
             return this.Model.ChildPriceEngineeringTasks
-                .Where(x => x.Status.Equals(ScriptStep.ProductionRequestStart) || x.Status.Equals(ScriptStep.ProductionRequestFinish))
+                .Where(task => task.Status.Equals(ScriptStep.ProductionRequestStart) || 
+                               task.Status.Equals(ScriptStep.ProductionRequestFinish))
                 .Select(task => this.GetChildPriceEngineeringTask(container, task.Id));
         }
 

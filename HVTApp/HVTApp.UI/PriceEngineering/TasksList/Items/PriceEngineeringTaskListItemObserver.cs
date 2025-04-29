@@ -14,17 +14,13 @@ namespace HVTApp.UI.PriceEngineering.Items
         {
             get
             {
-                if (this.Entity.UserConstructor == null)
-                {
-                    return this.Entity.StartMoment.HasValue
-                        ? "Требует поручения"
-                        : "Остановлено";
-                }
-
                 if (Entity.StartMoment.HasValue)
                 {
+                    if (this.Entity.UserConstructor == null)
+                        return "Требует поручения";
+
                     if (Entity.Status.Equals(ScriptStep.VerificationRequestByConstructor))
-                        return "На проверке";
+                        return "На проверке у руководителя";
 
                     if (Entity.Status.Equals(ScriptStep.RejectByConstructor))
                         return "Отклонено менеджеру исполнителем";
@@ -34,7 +30,7 @@ namespace HVTApp.UI.PriceEngineering.Items
                         : "Прорабатывается исполнителем";
                 }
 
-                return "Поручено (задача остановлена)";
+                return "Остановлено";
             }
         }
 

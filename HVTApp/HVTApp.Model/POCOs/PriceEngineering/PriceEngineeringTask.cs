@@ -405,9 +405,13 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public IEnumerable<PriceEngineeringTask> GetSuitableTasksForObserve(User user)
         {
-            if (this.DesignDepartment.Observers.ContainsById(user))
+            if (this.DesignDepartment != null)
             {
-                yield return this;
+                if (this.DesignDepartment.Head.Id == GlobalAppProperties.User.Id ||
+                    this.DesignDepartment.Observers.ContainsById(user))
+                {
+                    yield return this;
+                }
             }
 
             foreach (var childPriceEngineeringTask in ChildPriceEngineeringTasks)

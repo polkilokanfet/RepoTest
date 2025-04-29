@@ -1,0 +1,25 @@
+﻿<inf:RibbonTabItemWithViewModel
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:infRib="http://infragistics.com/Ribbon" 
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.UI.PriceEngineering.Tabs.TabPriceEngineeringTaskObserver"
+             Header="Технико-стоимостная проработка">
+
+    <infRib:RibbonGroup Caption="Навигация">
+        <infRib:ButtonTool Caption="Назад" 
+                           Command="{Binding GoBackCommand}" 
+                           SmallImage="/HVTApp.UI;component/Images/ar_back.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Отображение">
+        <infRib:CheckBoxTool Caption="Все задачи" IsChecked="{Binding AllTasksAreVisible}"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="История">
+        <infRib:ButtonTool 
+            Caption="Выгрузить" 
+            Command="{Binding LoadHistoryTasksCommand}"/>
+    </infRib:RibbonGroup>
+
+</inf:RibbonTabItemWithViewModel>

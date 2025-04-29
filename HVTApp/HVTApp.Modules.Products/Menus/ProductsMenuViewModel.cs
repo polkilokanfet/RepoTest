@@ -33,7 +33,7 @@ namespace HVTApp.Modules.Products.Menus
             {
                 //Items.Add(new NavigationItem("Приоритетность задач", typeof(EngineeringDepartmentTasksQueueViewDepartmentHead)));
                 Items.Add(new NavigationItem("Технико-стоимостные проработки", typeof(PriceEngineeringTasksListViewDesignDepartmentHead)));
-                Items.Add(new NavigationItem("Технико-стоимостные проработки (наблюдение)", typeof(PriceEngineeringTasksListViewObserver)));
+                Items.Add(new NavigationItem("Мониторинг ТСП", typeof(PriceEngineeringTasksListViewObserver)));
                 Items.Add(new NavigationItem("StructureCosts", typeof(StructureCostsNumbersView)));
                 Items.Add(new NavigationItem("Статистика работы в ТСП", typeof(PriceEngineeringStatisticsView)));
             }

@@ -443,6 +443,9 @@
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitGroupsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\RoundUpModule.cs" />
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
+    <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTaskObserver.xaml.cs">
+      <DependentUpon>TabPriceEngineeringTaskObserver.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTaskListItemObserver.cs" />
     <Compile Include="PriceEngineering\TasksList\Items\PriceEngineeringTasksListItemObserver.cs" />
     <Compile Include="PriceEngineering\TasksList\ViewModel\PriceEngineeringTasksListViewModelObserver.cs" />
@@ -2325,6 +2328,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PriceEngineering\Statistics\PriceEngineeringStatisticsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PriceEngineering\Tabs\TabPriceEngineeringTaskObserver.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

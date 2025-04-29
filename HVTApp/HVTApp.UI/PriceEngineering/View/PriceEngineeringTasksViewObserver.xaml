@@ -5,6 +5,16 @@
     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
     xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.View">
 
-    <view:TasksControlObserver TasksViewModel="{Binding}"/>
+    <Border Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Режим просмотра с доступом к работе в чате" Foreground="YellowGreen" HorizontalAlignment="Left" Margin="0 0 0 -6"/>
+            <view:TasksControlObserver Grid.Row="1" TasksViewModel="{Binding}"/>
+        </Grid>
+
+    </Border>
 
 </inf:ViewBaseConfirmNavigationRequest>
