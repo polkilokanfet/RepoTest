@@ -46,11 +46,14 @@
             <TextBox Grid.Column="0" 
                      DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
                      IsEnabled="{Binding Messenger.AllowTexting, UpdateSourceTrigger=PropertyChanged}" 
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap" PreviewKeyDown="TextBox_OnPreviewKeyDown"
                      Text="{Binding Messenger.MessageText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             
             <Button Grid.Column="1" 
                     DataContext="{Binding ElementName=Root, Path=TaskViewModel}"
                     Content="Отправить" 
+                    ToolTip="Ctrl + Enter"
                     Command="{Binding Messenger.SendMessageCommand}"/>
         </Grid>
 

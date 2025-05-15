@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HVTApp.UI.PriceEngineering.View
 {
@@ -17,6 +18,15 @@ namespace HVTApp.UI.PriceEngineering.View
         public TaskChatControl()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return; // if Enter key is pressed...
+            // ... and Ctrl key is NOT... then ignore it
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+                if (TaskViewModel.Messenger.SendMessageCommand.CanExecute())
+                    TaskViewModel.Messenger.SendMessageCommand.Execute();
         }
     }
 }
