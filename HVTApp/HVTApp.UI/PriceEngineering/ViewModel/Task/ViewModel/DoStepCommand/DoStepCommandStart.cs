@@ -59,6 +59,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
         protected override IEnumerable<NotificationUnit> GetNotificationUnits()
         {
             if(ViewModel.Model.UserConstructor != null)
+            {
                 yield return new NotificationUnit
                 {
                     ActionType = NotificationActionType.PriceEngineeringTaskStart,
@@ -66,7 +67,10 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                     RecipientUser = ViewModel.Model.UserConstructor,
                     TargetEntityId = ViewModel.Model.Id
                 };
-            else if (ViewModel.Model.DesignDepartment != null)
+            }
+            
+            if (ViewModel.Model.DesignDepartment != null)
+            {
                 yield return new NotificationUnit
                 {
                     ActionType = NotificationActionType.PriceEngineeringTaskStart,
@@ -74,6 +78,7 @@ namespace HVTApp.UI.PriceEngineering.DoStepCommand
                     RecipientUser = ViewModel.Model.DesignDepartment.Head,
                     TargetEntityId = ViewModel.Model.Id
                 };
+            }
         }
 
         protected override void BeforeDoStepAction()
