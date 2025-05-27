@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -22,7 +23,18 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{StatusEnum} {Moment}";
+            ScriptStep scriptStep = null;
+
+            if (StatusEnum == ScriptStep.Start.Value)
+                scriptStep = ScriptStep.Start;
+            else if (StatusEnum == ScriptStep.Stop.Value)
+                scriptStep = ScriptStep.Stop;
+            else if (StatusEnum == ScriptStep.Create.Value)
+                scriptStep = ScriptStep.Create;
+
+            return scriptStep == null 
+                ? $"{StatusEnum} {Moment}"
+                : $"{scriptStep.Description} {StatusEnum} {Moment}";
         }
     }
 
