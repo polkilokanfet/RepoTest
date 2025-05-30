@@ -38,7 +38,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
         public override void Execute(object parameter)
         {
             var salesUnits = _viewModel.SelectedUnit is ProjectUnitGroup projectUnitGroup
-                ? projectUnitGroup.Units.Select(x => x.Model).ToList()
+                ? projectUnitGroup.Units.Select(projectUnit => projectUnit.Model).ToList()
                 : new List<SalesUnit>() { ((ProjectUnit)_viewModel.SelectedUnit).Model };
 
             if (salesUnits.Any(salesUnit => salesUnit.Specification != null))
@@ -58,9 +58,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
                     .Distinct();
 
                 var specification = _selectService.SelectItem(specifications);
-
-                if (specification == null)
-                    return;
+                if (specification == null) return;
+                specification = unitOfWork.Repository<Specification>().GetById(specification.Id);
 
                 salesUnits = salesUnits.Select(salesUnit => unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id)).ToList();
                 salesUnits.ForEach(salesUnit => salesUnit.Specification = specification);
