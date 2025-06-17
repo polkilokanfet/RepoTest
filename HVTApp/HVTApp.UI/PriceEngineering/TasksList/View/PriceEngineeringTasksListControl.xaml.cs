@@ -25,9 +25,9 @@ namespace HVTApp.UI.PriceEngineering.View
                         {
                             this.DataGrid.SetFilter("ToShow", viewModel.IsShownActual, true);
                         }
-
-                        this.DataGrid.SetFilter("ToShow", viewModel.IsShownActual, true);
                     };
+                        
+                    this.DataGrid.SetFilter("ToShow", viewModel.IsShownActual, true);
                 }
             }
 

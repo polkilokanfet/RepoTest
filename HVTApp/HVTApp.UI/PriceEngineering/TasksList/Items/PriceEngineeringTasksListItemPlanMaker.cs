@@ -40,9 +40,9 @@ namespace HVTApp.UI.PriceEngineering.Items
 
         public override bool ToShow =>
             base.ToShow &&
-            Entity.ChildPriceEngineeringTasks.Any(x =>
-                x.UserPlanMaker?.Id == GlobalAppProperties.User.Id &&
-                x.Status.Equals(ScriptStep.ProductionRequestStart));
+            Entity.ChildPriceEngineeringTasks.Any(priceEngineeringTask =>
+                priceEngineeringTask.UserPlanMaker?.Id == GlobalAppProperties.User.Id &&
+                priceEngineeringTask.Status.Equals(ScriptStep.ProductionRequestStart));
 
         public void RefreshIsUploadedDocumentationToTeamCenter()
         {
