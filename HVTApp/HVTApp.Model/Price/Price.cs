@@ -172,13 +172,13 @@ namespace HVTApp.Model.Price
             foreach (var productIncludedGroup in productsIncludedGroups)
             {
                 var productIncluded = productIncludedGroup.First();
-                var price = new PriceOfProduct(productIncluded.Product, targetDate, priceService, productIncludedGroup.Sum(x => (double)x.Amount) * productIncludedGroup.Count() / unitsAmount, productIncluded.CustomFixedPrice);
+                var price = new PriceOfProduct(productIncluded.Product, targetDate, priceService, productIncludedGroup.Sum(pi => (double)pi.Amount) / unitsAmount, productIncluded.CustomFixedPrice);
                 PricesProductsIncluded.Add(price);
             }
         }
 
         public Price(IUnit unit, DateTime targetDate, IPriceService priceService, bool checkCalculations) : 
-            this(new []{unit}, targetDate, priceService, checkCalculations)
+            this(new [] { unit }, targetDate, priceService, checkCalculations)
         {
         }
     }
