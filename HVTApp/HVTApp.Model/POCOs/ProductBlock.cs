@@ -78,6 +78,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Доставка"), NotMapped]
         public bool IsDelivery { get; set; } = false;
 
+        [Designation("Комплект"), NotMapped]
+        public bool IsKit => Parameters.ContainsById(GlobalAppProperties.Actual.ComplectsParameter);
+
         #endregion
 
 

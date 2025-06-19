@@ -10,13 +10,15 @@ using HVTApp.Model.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.Services.GetProductService.Complects
+namespace HVTApp.Services.GetProductService.Kits
 {
-    public class ComplectViewModel : ViewModelBase
+    public class KitViewModel : ViewModelBase
     {
         private readonly List<Parameter> _complectTypes;
         private readonly ParameterRelationWrapper _relation;
         private ParameterWrapper _parameterComplectType;
+
+        private DesignDepartment _designDepartment;
 
         public bool IsSaved { get; private set; } = false;
 
@@ -25,11 +27,7 @@ namespace HVTApp.Services.GetProductService.Complects
         public ParameterWrapper ParameterComplectType
         {
             get => _parameterComplectType;
-            private set
-            {
-                _parameterComplectType = value;
-                RaisePropertyChanged();
-            }
+            private set => SetProperty(ref _parameterComplectType, value);
         }
 
         public ParameterWrapper ParameterComplectDesignation { get; }
@@ -39,7 +37,7 @@ namespace HVTApp.Services.GetProductService.Complects
         public ICommand SaveCommand { get; }
         public ICommand SelectTypeCommand { get; }
 
-        public ComplectViewModel(IUnityContainer container) : base(container)
+        public KitViewModel(IUnityContainer container) : base(container)
         {
 
             SaveCommand = new DelegateCommand(
@@ -47,6 +45,9 @@ namespace HVTApp.Services.GetProductService.Complects
                 {
                     //Обозначение продукта
                     var designation = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}".GetFirstSimbols(255);
+
+                    if (_designDepartment != null)
+                        Product.Model.DesignDepartmentsKits.Add(_designDepartment);
 
                     Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = designation;
                     if (UnitOfWork.SaveEntity(Product.Model).OperationCompletedSuccessfully)
@@ -104,10 +105,16 @@ namespace HVTApp.Services.GetProductService.Complects
 
         }
 
+        public void Load(DesignDepartment designDepartment)
+        {
+            if (_designDepartment == null) return;
+            _designDepartment = UnitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id);
+        }
+
         public void ShowDialog()
         {
-            var complectWindow = new ComplectWindow(this);
-            complectWindow.ShowDialog();
+            var kitWindow = new KitWindow(this);
+            kitWindow.ShowDialog();
         }
 
         public event Action SaveEvent;

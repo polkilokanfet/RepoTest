@@ -10,7 +10,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Prism.Commands;
 
-namespace HVTApp.Services.GetProductService.Complects
+namespace HVTApp.Services.GetProductService.Kits
 {
     public class ComplectTypesViewModel : INotifyPropertyChanged
     {

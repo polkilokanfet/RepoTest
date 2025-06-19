@@ -48,15 +48,19 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTask>().GetAll();
+                    var priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTask>()
+                        .Find(task => task.DesignDepartment != null);
+                    var products = unitOfWork.Repository<Product>().GetAll();
 
                     var sb = new StringBuilder();
                     foreach (var priceEngineeringTask in priceEngineeringTasks)
                     {
-                        priceEngineeringTask.IsUploadedDocumentationToTeamCenter = false;
-                        if (priceEngineeringTask.Status.Equals(ScriptStep.ProductionRequestFinish))
+                        foreach (var blockAdded in priceEngineeringTask.ProductBlocksAddedActual)
                         {
-                            priceEngineeringTask.IsUploadedDocumentationToTeamCenter = true;
+                            if (blockAdded.ProductBlock.IsKit == false) continue;
+                            var product = products.Single(x => x.ProductBlock.Id == blockAdded.ProductBlock.Id);
+                            priceEngineeringTask.DesignDepartment.Kits.Add(product);
+                            sb.AppendLine($"{product.DesignationSpecial} => {priceEngineeringTask.DesignDepartment.Name}");
                         }
                     }
 

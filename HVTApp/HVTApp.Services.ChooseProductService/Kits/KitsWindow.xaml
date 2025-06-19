@@ -1,4 +1,4 @@
-﻿<Window x:Class="HVTApp.Services.GetProductService.Complects.ComplectsWindow"
+﻿<Window x:Class="HVTApp.Services.GetProductService.Kits.KitsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dataPresenter="http://infragistics.com/DataPresenter"

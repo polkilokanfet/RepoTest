@@ -2,9 +2,9 @@ using System.Linq;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.GetProductService.Complects
+namespace HVTApp.Services.GetProductService.Kits
 {
-    public class Complect
+    public class Kit
     {
         public Product Product { get; }
 
@@ -12,7 +12,7 @@ namespace HVTApp.Services.GetProductService.Complects
         public string ComplectDesignation { get; }
         public string StructureCost { get; }
 
-        public Complect(Product product)
+        public Kit(Product product)
         {
             Product = product;
             ComplectType = product.ProductBlock.Parameters.Single(parameter => parameter.ParameterGroup.IsComplectsGroup()).Value;

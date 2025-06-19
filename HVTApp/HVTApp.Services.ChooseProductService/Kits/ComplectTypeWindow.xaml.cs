@@ -7,7 +7,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using Prism.Commands;
 
-namespace HVTApp.Services.GetProductService.Complects
+namespace HVTApp.Services.GetProductService.Kits
 {
     public partial class ComplectTypeWindow : INotifyPropertyChanged
     {

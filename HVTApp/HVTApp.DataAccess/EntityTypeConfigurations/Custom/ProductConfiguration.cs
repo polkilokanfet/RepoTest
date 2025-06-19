@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
             HasMany(product => product.DependentProducts).WithRequired().HasForeignKey(productDependent => productDependent.MainProductId).WillCascadeOnDelete(true);
             Property(product => product.DesignationSpecial).IsOptional();
             Property(product => product.Comment).IsOptional().HasMaxLength(256);
+            HasMany(product => product.DesignDepartmentsKits).WithMany(designDepartment => designDepartment.Kits);
         }
     }
 }

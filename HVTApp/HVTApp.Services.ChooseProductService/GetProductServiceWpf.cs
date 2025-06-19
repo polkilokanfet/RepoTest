@@ -10,7 +10,7 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
-using HVTApp.Services.GetProductService.Complects;
+using HVTApp.Services.GetProductService.Kits;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
@@ -55,7 +55,7 @@ namespace HVTApp.Services.GetProductService
                 //если необходимо выбрать комплект
                 if (window.ShouldSelectComplect)
                 {
-                    return Container.Resolve<IGetProductService>().GetComplect(originProduct);
+                    return Container.Resolve<IGetProductService>().GetKit(originProduct);
                 }
 
                 //выходим, если пользователь отменил выбор продукта.
@@ -122,13 +122,26 @@ namespace HVTApp.Services.GetProductService
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProductEvent>().Publish(product);
         }
 
-        public Product GetComplect(Product originProduct = null)
+        public Product GetKit(Product originProduct = null)
         {
-            var complectViewModel = Container.Resolve<ComplectsViewModel>();
-            complectViewModel.ShowDialog();
+            var kitsViewModel = Container.Resolve<KitsViewModel>();
+            kitsViewModel.Load();
+            return GetKitBase(kitsViewModel, originProduct);
+        }
 
-            return complectViewModel.IsSelected
-                ? complectViewModel.SelectedItem.Product
+        public Product GetKit(DesignDepartment designDepartment, Product originProduct = null)
+        {
+            var kitsViewModel = Container.Resolve<KitsViewModel>();
+            kitsViewModel.Load(designDepartment);
+            return GetKitBase(kitsViewModel, originProduct);
+        }
+
+        private Product GetKitBase(KitsViewModel kitsViewModel, Product originProduct = null)
+        {
+            kitsViewModel.ShowDialog();
+
+            return kitsViewModel.IsSelected
+                ? kitsViewModel.SelectedItem.Product
                 : originProduct;
         }
 

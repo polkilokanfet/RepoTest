@@ -1,4 +1,4 @@
-﻿namespace HVTApp.Services.GetProductService.Complects
+﻿namespace HVTApp.Services.GetProductService.Kits
 {
     public partial class ComplectTypesWindow
     {

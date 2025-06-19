@@ -56,6 +56,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Комментарий"), MaxLength(256)]
         public string Comment { get; set; }
 
+        [Designation("КБ ремкомплектов"), OrderStatus(20)]
+        public virtual List<DesignDepartment> DesignDepartmentsKits { get; set; } = new List<DesignDepartment>();
+
+
 
         public override bool Equals(object obj)
         {

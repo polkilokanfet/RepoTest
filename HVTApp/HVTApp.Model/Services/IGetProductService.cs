@@ -25,7 +25,15 @@ namespace HVTApp.Model.Services
         /// </summary>
         /// <param name="originProduct"></param>
         /// <returns></returns>
-        Product GetComplect(Product originProduct = null);
+        Product GetKit(Product originProduct = null);
+
+        /// <summary>
+        /// Выбор ремонтного комплекта
+        /// </summary>
+        /// <param name="designDepartment">КБ, которому пренадлежат эти комплекты</param>
+        /// <param name="originProduct"></param>
+        /// <returns></returns>
+        Product GetKit(DesignDepartment designDepartment, Product originProduct = null);
 
         /// <summary>
         /// Выбор блока продукта

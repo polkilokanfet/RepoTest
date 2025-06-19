@@ -157,12 +157,12 @@ namespace HVTApp.UI.PriceEngineering
             AddBlockAddedComplectCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var complect = Container.Resolve<IGetProductService>().GetComplect();
-                    if (complect == null) return;
-                    complect = UnitOfWork.Repository<Product>().GetById(complect.Id);
+                    var kit = Container.Resolve<IGetProductService>().GetKit(this.DesignDepartment);
+                    if (kit == null) return;
+                    kit = UnitOfWork.Repository<Product>().GetById(kit.Id);
                     var wrapper = new TaskProductBlockAddedWrapperConstructor(new PriceEngineeringTaskProductBlockAdded())
                     {
-                        ProductBlock = new ProductBlockStructureCostWrapperConstructor(complect.ProductBlock)
+                        ProductBlock = new ProductBlockStructureCostWrapperConstructor(kit.ProductBlock)
                     };
                     this.ProductBlocksAdded.Add(wrapper);
                 },

@@ -1,4 +1,4 @@
-﻿<Window x:Class="HVTApp.Services.GetProductService.Complects.ComplectTypeWindow"
+﻿<Window x:Class="HVTApp.Services.GetProductService.Kits.ComplectTypeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Тип комплекта или детали" 
