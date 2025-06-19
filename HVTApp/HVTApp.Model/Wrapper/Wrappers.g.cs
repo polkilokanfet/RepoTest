@@ -6833,6 +6833,11 @@ namespace HVTApp.Model.Wrapper
         public System.Boolean IsSupervision => Model.IsSupervision; 
 
         /// <summary>
+        /// Комплект
+        /// </summary>
+        public System.Boolean IsKit => Model.IsKit; 
+
+        /// <summary>
         /// Тип
         /// </summary>
         public HVTApp.Model.POCOs.ProductType ProductType => Model.ProductType; 
@@ -8866,6 +8871,11 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; private set; }
 
+        /// <summary>
+        /// КБ ремкомплектов
+        /// </summary>
+        public IValidatableChangeTrackingCollection<DesignDepartmentWrapper> DesignDepartmentsKits { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -8902,6 +8912,9 @@ namespace HVTApp.Model.Wrapper
           if (Model.DependentProducts == null) throw new ArgumentException($"{nameof(Model.DependentProducts)} cannot be null");
           DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(Model.DependentProducts.Select(e => new ProductDependentWrapper(e)));
           RegisterCollection(DependentProducts, Model.DependentProducts);
+          if (Model.DesignDepartmentsKits == null) throw new ArgumentException($"{nameof(Model.DesignDepartmentsKits)} cannot be null");
+          DesignDepartmentsKits = new ValidatableChangeTrackingCollection<DesignDepartmentWrapper>(Model.DesignDepartmentsKits.Select(e => new DesignDepartmentWrapper(e)));
+          RegisterCollection(DesignDepartmentsKits, Model.DesignDepartmentsKits);
         }
 	}
 

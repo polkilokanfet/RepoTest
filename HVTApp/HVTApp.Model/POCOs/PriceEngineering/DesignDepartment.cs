@@ -32,7 +32,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Наборы параметров оборудования для подзадач"), OrderStatus(30)]
         public virtual List<DesignDepartmentParametersSubTask> ParameterSetsSubTask { get; set; } = new List<DesignDepartmentParametersSubTask>();
 
-        [Designation("Комплекты деталей"), OrderStatus(20)]
+        [Designation("Комплекты деталей"), OrderStatus(20), NotForWrapper]
         public virtual List<Product> Kits { get; set; } = new List<Product>();
 
         /// <summary>

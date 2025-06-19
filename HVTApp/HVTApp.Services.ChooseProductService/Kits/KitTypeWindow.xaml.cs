@@ -9,7 +9,7 @@ using Prism.Commands;
 
 namespace HVTApp.Services.GetProductService.Kits
 {
-    public partial class ComplectTypeWindow : INotifyPropertyChanged
+    public partial class KitTypeWindow : INotifyPropertyChanged
     {
         public ParameterWrapper ParameterComplectType { get; }
 
@@ -17,7 +17,7 @@ namespace HVTApp.Services.GetProductService.Kits
 
         public ICommand OkCommand { get; }
 
-        public ComplectTypeWindow(ParameterGroup parameterGroup)
+        public KitTypeWindow(ParameterGroup parameterGroup)
         {
             ParameterComplectType = new ParameterWrapper(new Parameter {ParameterGroup = parameterGroup});
 

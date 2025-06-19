@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -16,7 +17,7 @@ namespace HVTApp.Services.GetProductService.Kits
         private DesignDepartment _designDepartment;
 
         private Kit _selectedItem;
-        public ObservableCollection<Kit> Items { get; private set; }
+        public ObservableCollection<Kit> Items { get; } = new ObservableCollection<Kit>();
 
         public Kit SelectedItem
         {
@@ -33,10 +34,13 @@ namespace HVTApp.Services.GetProductService.Kits
         public bool IsSelected { get; private set; } = false;
 
         public ICommand SelectCommand { get; }
-        public ICommand NewComplectCommand { get; }
+        public ICommand NewKitCommand { get; }
+        public ICommand LoadAllKitsCommand { get; }
 
         public KitsViewModel(IUnityContainer container) : base(container)
         {
+            LoadAllKitsCommand = new DelegateCommand(this.Load);
+
             SelectCommand = new DelegateCommand(
                 () =>
                 {
@@ -45,7 +49,7 @@ namespace HVTApp.Services.GetProductService.Kits
                 }, 
                 () => SelectedItem != null);
 
-            NewComplectCommand = new DelegateCommand(
+            NewKitCommand = new DelegateCommand(
                 () =>
                 {
                     var kitViewModel = Container.Resolve<KitViewModel>();
@@ -54,7 +58,7 @@ namespace HVTApp.Services.GetProductService.Kits
                     if (kitViewModel.IsSaved)
                     {
                         var kit = new Kit(kitViewModel.Product.Model);
-                        Items.Add(kit);
+                        Items.Insert(0, kit);
                         SelectedItem = kit;
                     }
                 });
@@ -69,14 +73,21 @@ namespace HVTApp.Services.GetProductService.Kits
             var kits = UnitOfWork.Repository<Product>()
                 .Find(product => product.ProductBlock.Parameters.ContainsById(kitParameter))
                 .Select(product => new Kit(product));
-            Items = new ObservableCollection<Kit>(kits);
+            RefreshItems(kits);
         }
 
         public void Load(DesignDepartment designDepartment)
         {
             _designDepartment = UnitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id);
             var kits = _designDepartment.Kits.Select(product => new Kit(product));
-            Items = new ObservableCollection<Kit>(kits);
+            RefreshItems(kits);
+        }
+
+        private void RefreshItems(IEnumerable<Kit> kits)
+        {
+            Items.Clear();
+            Items.AddRange(kits.OrderBy(kit => kit.Product.DesignationSpecial));
+
         }
 
         public void ShowDialog()

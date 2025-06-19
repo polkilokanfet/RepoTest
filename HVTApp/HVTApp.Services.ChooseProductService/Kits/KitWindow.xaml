@@ -1,6 +1,12 @@
 ﻿<Window x:Class="HVTApp.Services.GetProductService.Kits.KitWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ns="clr-namespace:HVTApp.Services.GetProductService.Kits"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance ns:KitViewModel, IsDesignTimeCreatable=True}"
         Title="Создание комплекта или детали" 
         Width="400"
         MinWidth="200" 
@@ -20,9 +26,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <Button Grid.Row="0" Grid.Column="0" Content="Тип" Command="{Binding SelectTypeCommand}"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ParameterComplectType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-        
+        <Label Grid.Row="0" Grid.Column="0" Content="Тип"/>
+        <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
+                                    Item="{Binding ParameterComplectType.Value}" 
+                                    AddItemCommand="{Binding SelectTypeCommand}"/>
+
         <Label Grid.Row="1" Grid.Column="0" Content="Обозначение"/>
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ParameterComplectDesignation.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         

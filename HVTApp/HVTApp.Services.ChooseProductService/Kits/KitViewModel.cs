@@ -14,9 +14,9 @@ namespace HVTApp.Services.GetProductService.Kits
 {
     public class KitViewModel : ViewModelBase
     {
-        private readonly List<Parameter> _complectTypes;
+        private readonly List<Parameter> _kitsTypes;
         private readonly ParameterRelationWrapper _relation;
-        private ParameterWrapper _parameterComplectType;
+        private ParameterWrapper _parameterKitType;
 
         private DesignDepartment _designDepartment;
 
@@ -26,8 +26,8 @@ namespace HVTApp.Services.GetProductService.Kits
 
         public ParameterWrapper ParameterComplectType
         {
-            get => _parameterComplectType;
-            private set => SetProperty(ref _parameterComplectType, value);
+            get => _parameterKitType;
+            private set => SetProperty(ref _parameterKitType, value);
         }
 
         public ParameterWrapper ParameterComplectDesignation { get; }
@@ -39,17 +39,18 @@ namespace HVTApp.Services.GetProductService.Kits
 
         public KitViewModel(IUnityContainer container) : base(container)
         {
-
             SaveCommand = new DelegateCommand(
                 () =>
                 {
                     //Обозначение продукта
                     var designation = $"{ParameterComplectType.Value} {ParameterComplectDesignation.Value}".GetFirstSimbols(255);
+                    Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = designation;
 
                     if (_designDepartment != null)
-                        Product.Model.DesignDepartmentsKits.Add(_designDepartment);
+                    {
+                        Product.DesignDepartmentsKits.Add(new DesignDepartmentWrapper(_designDepartment));
+                    }
 
-                    Product.DesignationSpecial = Product.ProductBlock.DesignationSpecial = designation;
                     if (UnitOfWork.SaveEntity(Product.Model).OperationCompletedSuccessfully)
                     {
                         Product.AcceptChanges();
@@ -62,9 +63,10 @@ namespace HVTApp.Services.GetProductService.Kits
             SelectTypeCommand = new DelegateCommand(
                 () =>
                 {
-                    var complectTypesViewModel = new ComplectTypesViewModel(_complectTypes, UnitOfWork);
-                    complectTypesViewModel.ShowDialog();
-                    if (complectTypesViewModel.IsSelected && complectTypesViewModel.SelectedItem.Id != ParameterComplectType?.Id)
+                    var kitTypesViewModel = new KitTypesViewModel(_kitsTypes, UnitOfWork);
+                    kitTypesViewModel.ShowDialog();
+                    if (kitTypesViewModel.IsSelected && 
+                        kitTypesViewModel.SelectedItem.Id != ParameterComplectType?.Id)
                     {
                         if (ParameterComplectType != null)
                         {
@@ -72,42 +74,41 @@ namespace HVTApp.Services.GetProductService.Kits
                             Product.ProductBlock.Parameters.Remove(ParameterComplectType);
                         }
 
-                        ParameterComplectType = new ParameterWrapper(complectTypesViewModel.SelectedItem);
+                        ParameterComplectType = new ParameterWrapper(kitTypesViewModel.SelectedItem);
                         _relation.RequiredParameters.Add(ParameterComplectType);
                         Product.ProductBlock.Parameters.Add(ParameterComplectType);
 
-                        _complectTypes.ReAddById(ParameterComplectType.Model);
+                        _kitsTypes.ReAddById(ParameterComplectType.Model);
                     }
                 });
 
-            var parameterComplects = UnitOfWork.Repository<Parameter>().GetById(GlobalAppProperties.Actual.ComplectsParameter.Id);
+            var parameterKits = UnitOfWork.Repository<Parameter>().GetById(GlobalAppProperties.Actual.ComplectsParameter.Id);
 
             Product = new ProductWrapper(new Product {ProductBlock = new ProductBlock()});
-            Product.ProductBlock.Parameters.Add(new ParameterWrapper(parameterComplects));
+            Product.ProductBlock.Parameters.Add(new ParameterWrapper(parameterKits));
             Product.PropertyChanged += (sender, args) => ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
 
             ParameterComplectDesignation = new ParameterWrapper(new Parameter {ParameterGroup = UnitOfWork.Repository<ParameterGroup>().GetById(GlobalAppProperties.Actual.ComplectDesignationGroup.Id) });
             ParameterComplectDesignation.Value = "0БП.000.000";
             _relation = new ParameterRelationWrapper(new ParameterRelation());
             _relation.ParameterId = ParameterComplectDesignation.Id;
-            _relation.RequiredParameters.Add(new ParameterWrapper(parameterComplects));
+            _relation.RequiredParameters.Add(new ParameterWrapper(parameterKits));
             ParameterComplectDesignation.ParameterRelations.Add(_relation);
             Product.ProductBlock.Parameters.Add(ParameterComplectDesignation);
 
-            _complectTypes = UnitOfWork.Repository<Parameter>().Find(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id);
-            var parameterComplectType = _complectTypes.FirstOrDefault();
-            if (parameterComplectType != null)
+            _kitsTypes = UnitOfWork.Repository<Parameter>().Find(x => x.ParameterGroup.Id == GlobalAppProperties.Actual.ComplectsGroup.Id);
+            var parameterKitType = _kitsTypes.FirstOrDefault();
+            if (parameterKitType != null)
             {
-                ParameterComplectType = new ParameterWrapper(parameterComplectType);
+                ParameterComplectType = new ParameterWrapper(parameterKitType);
                 Product.ProductBlock.Parameters.Add(ParameterComplectType);
                 _relation.RequiredParameters.Add(ParameterComplectType);
             }
-
         }
 
         public void Load(DesignDepartment designDepartment)
         {
-            if (_designDepartment == null) return;
+            if (designDepartment == null) return;
             _designDepartment = UnitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id);
         }
 

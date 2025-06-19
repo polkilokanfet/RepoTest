@@ -1,8 +1,8 @@
 ﻿namespace HVTApp.Services.GetProductService.Kits
 {
-    public partial class ComplectTypesWindow
+    public partial class KitsTypesWindow
     {
-        public ComplectTypesWindow(ComplectTypesViewModel viewModel)
+        public KitsTypesWindow(KitTypesViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

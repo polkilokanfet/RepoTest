@@ -160,6 +160,10 @@ namespace HVTApp.UI.PriceEngineering
                     var kit = Container.Resolve<IGetProductService>().GetKit(this.DesignDepartment);
                     if (kit == null) return;
                     kit = UnitOfWork.Repository<Product>().GetById(kit.Id);
+                    if (kit.DesignDepartmentsKits.ContainsById(this.Model.DesignDepartment) == false)
+                    {
+                        kit.DesignDepartmentsKits.Add(UnitOfWork.Repository<DesignDepartment>().GetById(this.Model.DesignDepartment.Id));
+                    }
                     var wrapper = new TaskProductBlockAddedWrapperConstructor(new PriceEngineeringTaskProductBlockAdded())
                     {
                         ProductBlock = new ProductBlockStructureCostWrapperConstructor(kit.ProductBlock)

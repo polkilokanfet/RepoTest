@@ -87,12 +87,12 @@
     <Compile Include="BankFactory.cs" />
     <Compile Include="Kits\Kit.cs" />
     <Compile Include="Kits\KitsViewModel.cs" />
-    <Compile Include="Kits\ComplectTypesViewModel.cs" />
-    <Compile Include="Kits\ComplectTypesWindow.xaml.cs">
-      <DependentUpon>ComplectTypesWindow.xaml</DependentUpon>
+    <Compile Include="Kits\KitTypesViewModel.cs" />
+    <Compile Include="Kits\KitsTypesWindow.xaml.cs">
+      <DependentUpon>KitsTypesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Kits\ComplectTypeWindow.xaml.cs">
-      <DependentUpon>ComplectTypeWindow.xaml</DependentUpon>
+    <Compile Include="Kits\KitTypeWindow.xaml.cs">
+      <DependentUpon>KitTypeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Kits\KitWindow.xaml.cs">
       <DependentUpon>KitWindow.xaml</DependentUpon>
@@ -172,11 +172,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Kits\ComplectTypesWindow.xaml">
+    <Page Include="Kits\KitsTypesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Kits\ComplectTypeWindow.xaml">
+    <Page Include="Kits\KitTypeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
