@@ -3,7 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
                                       xmlns:igWpf="http://infragistics.com/Windows"
               x:Class="HVTApp.UI.Modules.PriceMaking.Views.PricesView"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls" 
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure" 
               xmlns:components="clr-namespace:HVTApp.UI.Components">
 
     <controls:LoadableContentControl x:Name="LoadbleControl" ContentIsLoaded="{Binding IsLoaded}">

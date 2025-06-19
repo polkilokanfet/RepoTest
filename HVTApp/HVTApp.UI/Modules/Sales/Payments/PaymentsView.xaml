@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               x:Class="HVTApp.UI.Modules.Sales.Payments.PaymentsView"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls" 
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure" 
               xmlns:components="clr-namespace:HVTApp.UI.Components">
 
     <controls:LoadableContentControl x:Name="LoadbleControl" ContentIsLoaded="{Binding IsLoaded}">

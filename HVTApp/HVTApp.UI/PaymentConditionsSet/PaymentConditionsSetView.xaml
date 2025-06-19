@@ -1,7 +1,7 @@
 ﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.PaymentConditionsSet.PaymentConditionsSetView">
 
     <Grid Margin="5" MinWidth="480">

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure.Interfaces;
 
-namespace HVTApp.UI.Controls
+namespace HVTApp.Infrastructure.Controls
 {
     public partial class ButtonIsVisibleWhenCanExecute
     {

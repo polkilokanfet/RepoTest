@@ -4,7 +4,7 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:prism="http://prismlibrary.com/" 
               xmlns:views="clr-namespace:HVTApp.UI.Views"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure"
               xmlns:parameters="clr-namespace:HVTApp.UI.Modules.Products.Parameters"
               prism:ViewModelLocator.AutoWireViewModel="True"
               x:Class="HVTApp.UI.Modules.Products.Parameters.ParametersView">

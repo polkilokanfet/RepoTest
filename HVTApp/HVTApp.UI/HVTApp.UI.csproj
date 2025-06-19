@@ -146,12 +146,6 @@
   <ItemGroup>
     <Compile Include="Commands\DelegateLogConfirmationCommand.cs" />
     <Compile Include="Components\ViewBaseSaveCustomization.cs" />
-    <Compile Include="Controls\ButtonIsVisibleWhenCanExecute.xaml.cs">
-      <DependentUpon>ButtonIsVisibleWhenCanExecute.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LoadableContentControl.xaml.cs">
-      <DependentUpon>LoadableContentControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converter\LookupsToStringConverter.cs" />
     <Compile Include="Converter\ObjectsToStringConverter.cs" />
     <Compile Include="Converter\ObjectToStringConverter.cs" />
@@ -1496,12 +1490,6 @@
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
     <Compile Include="ViewModels\Base\IBaseListViewModel.cs" />
-    <Compile Include="Controls\ChooseItemControl.xaml.cs">
-      <DependentUpon>ChooseItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ChooseItemsListControl.xaml.cs">
-      <DependentUpon>ChooseItemsListControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converter\LookupToStringConverter.cs" />
     <Compile Include="Converter\WrappersToStringConverter.cs" />
     <Compile Include="Lookup\Items\LookupItem.cs" />
@@ -1707,22 +1695,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\ButtonIsVisibleWhenCanExecute.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ChooseItemControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ChooseItemsListControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\LoadableContentControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="EngineeringDepartmentTasksQueue\Views\EngineeringDepartmentTasksQueueControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

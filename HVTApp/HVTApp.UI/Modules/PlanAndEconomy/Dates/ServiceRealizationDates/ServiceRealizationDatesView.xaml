@@ -3,7 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Modules.PlanAndEconomy.Dates.ServiceRealizationDates.ServiceRealizationDatesView"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure"
               xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf">
 
     <inf:ViewBase.Resources>

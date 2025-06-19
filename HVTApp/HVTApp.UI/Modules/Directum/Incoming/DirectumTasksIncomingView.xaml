@@ -5,7 +5,7 @@
               xmlns:prism="http://prismlibrary.com/" 
               xmlns:dataPresenter="http://infragistics.com/DataPresenter"
               xmlns:ctrls="http://infragistics.com/Windows"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls" 
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure" 
               prism:ViewModelLocator.AutoWireViewModel="True">
 
     <controls:LoadableContentControl x:Name="LoadbleControl" ContentIsLoaded="{Binding IsLoaded}">

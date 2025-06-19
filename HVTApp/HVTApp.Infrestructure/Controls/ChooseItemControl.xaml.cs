@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace HVTApp.UI.Controls
+namespace HVTApp.Infrastructure.Controls
 {
     public partial class ChooseItemControl
     {

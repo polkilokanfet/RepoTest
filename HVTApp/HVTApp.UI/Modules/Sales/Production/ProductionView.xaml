@@ -4,7 +4,7 @@
                                       xmlns:igWpf="http://infragistics.com/Windows"
                                       xmlns:localConverters="clr-namespace:HVTApp.UI.Modules.Sales.Market.Converters"
                                       x:Class="HVTApp.UI.Modules.Sales.Production.ProductionView"
-                                      xmlns:controls="clr-namespace:HVTApp.UI.Controls" 
+                                      xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure" 
                                       xmlns:components="clr-namespace:HVTApp.UI.Components">
     <!--xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                       xmlns:production="clr-namespace:HVTApp.UI.Modules.Sales.Production"

@@ -6,7 +6,7 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:forManager="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.ForManager"
               xmlns:base="clr-namespace:HVTApp.UI.TaskInvoiceForPayment1.Base"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure"
               mc:Ignorable="d"
               d:DataContext="{d:DesignInstance forManager:TaskInvoiceForPaymentViewModelManager, IsDesignTimeCreatable=True}"
               >

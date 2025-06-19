@@ -10,7 +10,7 @@
                                       mc:Ignorable="d"
                                       d:DataContext="{d:DesignInstance market:Market2ViewModel, IsDesignTimeCreatable=True}"
                                       xmlns:components="clr-namespace:HVTApp.UI.Components"
-                                      xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+                                      xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure"
                                       xmlns:controls1="clr-namespace:HVTApp.UI.Modules.Sales.Market.Controls"
                                       xmlns:market="clr-namespace:HVTApp.UI.Modules.Sales.Market">
 

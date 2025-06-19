@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:ig="http://schemas.infragistics.com/xaml"
-             xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+             xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure">
 
     <GroupBox Header="{Binding Title}">
         <Grid>

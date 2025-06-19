@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace HVTApp.UI.Controls
+namespace HVTApp.Infrastructure.Controls
 {
     public partial class LoadableContentControl : UserControl
     {

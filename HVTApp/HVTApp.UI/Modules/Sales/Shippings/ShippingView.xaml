@@ -4,7 +4,7 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:igWpf="http://infragistics.com/Windows"
               x:Class="HVTApp.UI.Modules.Sales.Shippings.ShippingView"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure">
 
     <controls:LoadableContentControl ContentIsLoaded="{Binding IsLoaded}">
 

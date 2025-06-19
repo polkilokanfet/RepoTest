@@ -125,6 +125,18 @@
     <Compile Include="Comparers\FileComparer.cs" />
     <Compile Include="Comparers\ProductAmountComparer.cs" />
     <Compile Include="Comparers\ProductAmount.cs" />
+    <Compile Include="Controls\ButtonIsVisibleWhenCanExecute.xaml.cs">
+      <DependentUpon>ButtonIsVisibleWhenCanExecute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChooseItemControl.xaml.cs">
+      <DependentUpon>ChooseItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChooseItemsListControl.xaml.cs">
+      <DependentUpon>ChooseItemsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoadableContentControl.xaml.cs">
+      <DependentUpon>LoadableContentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityReverseConverter.cs" />
     <Compile Include="Converters\DatePickerOriginalValueConverter.cs" />
@@ -249,6 +261,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\Services\AuthenticationService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\ButtonIsVisibleWhenCanExecute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ChooseItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ChooseItemsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LoadableContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
