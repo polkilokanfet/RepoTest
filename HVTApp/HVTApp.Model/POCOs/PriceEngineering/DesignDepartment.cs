@@ -36,6 +36,12 @@ namespace HVTApp.Model.POCOs
         public virtual List<Product> Kits { get; set; } = new List<Product>();
 
         /// <summary>
+        /// КБ ремкомплектов
+        /// </summary>
+        [Designation("КБ ремкомплектов"), OrderStatus(10)]
+        public bool IsKitDepartment { get; set; }
+
+        /// <summary>
         /// Блок продукта подходит этому департаменту
         /// </summary>
         /// <param name="productBlock"></param>

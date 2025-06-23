@@ -59,7 +59,11 @@ namespace HVTApp.Model.POCOs
         [Designation("КБ ремкомплектов"), OrderStatus(20)]
         public virtual List<DesignDepartment> DesignDepartmentsKits { get; set; } = new List<DesignDepartment>();
 
-
+        /// <summary>
+        /// Продукт является ремкомплектом
+        /// </summary>
+        [NotMapped]
+        public bool IsKit => DesignDepartmentsKits.Any();
 
         public override bool Equals(object obj)
         {

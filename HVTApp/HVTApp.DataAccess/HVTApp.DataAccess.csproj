@@ -556,6 +556,10 @@
     <Compile Include="Migrations\202506181049441_DesignDepartmentKits.Designer.cs">
       <DependentUpon>202506181049441_DesignDepartmentKits.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202506231104495_KitDesignDepartment.cs" />
+    <Compile Include="Migrations\202506231104495_KitDesignDepartment.Designer.cs">
+      <DependentUpon>202506231104495_KitDesignDepartment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -922,6 +926,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202506181049441_DesignDepartmentKits.resx">
       <DependentUpon>202506181049441_DesignDepartmentKits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506231104495_KitDesignDepartment.resx">
+      <DependentUpon>202506231104495_KitDesignDepartment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

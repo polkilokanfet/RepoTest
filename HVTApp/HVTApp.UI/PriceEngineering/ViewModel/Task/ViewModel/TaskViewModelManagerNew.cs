@@ -20,6 +20,8 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         private readonly TasksViewModelManager _tasksViewModelManager;
 
+        private readonly List<DesignDepartment> _kitDepartments;
+
         public DelegateLogConfirmationCommand RemoveTaskCommand { get; }
 
         public DelegateLogCommand SelectDesignDepartmentCommand { get; }
@@ -52,10 +54,21 @@ namespace HVTApp.UI.PriceEngineering
             this.Model.ProductBlockManager = product.ProductBlock;
 
             //бюро
-            var department = UnitOfWork.Repository<DesignDepartment>().Find(designDepartment => designDepartment.ProductBlockIsSuitable(this.Model.ProductBlockEngineer)).FirstOrDefault();
-            if (department != null)
+            //если ТСП на ремкомплект
+            _kitDepartments = product.DesignDepartmentsKits.Where(dd => dd.IsKitDepartment).ToList();
+            if (_kitDepartments.Any())
             {
-                this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
+                var designDepartment = UnitOfWork.Repository<DesignDepartment>().GetById(_kitDepartments.First().Id);
+                this.DesignDepartment = new DesignDepartmentEmptyWrapper(designDepartment);
+            }
+            //если ТСП не на ремкомплект
+            else
+            {
+                var department = UnitOfWork.Repository<DesignDepartment>().Find(designDepartment => designDepartment.ProductBlockIsSuitable(this.Model.ProductBlockEngineer)).FirstOrDefault();
+                if (department != null)
+                {
+                    this.DesignDepartment = new DesignDepartmentEmptyWrapper(department);
+                }
             }
 
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(new List<TaskViewModel>());
@@ -88,14 +101,15 @@ namespace HVTApp.UI.PriceEngineering
             SelectDesignDepartmentCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var departments = UnitOfWork.Repository<DesignDepartment>().Find(department1 => department1.ProductBlockIsSuitable(this.Model.ProductBlockEngineer));
-                    var designDepartment = Container.Resolve<ISelectService>().SelectItem(departments);
+                    var designDepartment = Container.Resolve<ISelectService>().SelectItem(_kitDepartments);
                     if (designDepartment != null)
                     {
-                        this.DesignDepartment = new DesignDepartmentEmptyWrapper(UnitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id));
+                        this.DesignDepartment =
+                            new DesignDepartmentEmptyWrapper(UnitOfWork.Repository<DesignDepartment>()
+                                .GetById(designDepartment.Id));
                     }
                 },
-                () => IsEditMode);
+                () => IsEditMode && _kitDepartments.Any());
 
             #endregion
 

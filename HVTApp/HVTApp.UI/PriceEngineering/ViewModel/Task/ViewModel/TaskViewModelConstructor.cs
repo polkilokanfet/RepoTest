@@ -110,38 +110,41 @@ namespace HVTApp.UI.PriceEngineering
                 () =>
                 {
                     var originProductBlock = this.ProductBlockEngineer.Model;
-                    var selectedProductBlock = Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, productBlockRequiredParameters);
-                    if (originProductBlock.Id != selectedProductBlock.Id)
-                    {
-                        this.ProductBlockEngineer.RejectChanges();
+                    var selectedProductBlock = this.DesignDepartment.IsKitDepartment 
+                        ? Container.Resolve<IGetProductService>().GetKit(this.DesignDepartment)?.ProductBlock
+                        : Container.Resolve<IGetProductService>().GetProductBlock(originProductBlock, productBlockRequiredParameters);
 
-                        //если выбрали пустой КТТ
-                        var emptyParameter = GlobalAppProperties.Actual.EmptyParameterCurrentTransformersSet;
-                        if (emptyParameter != null && selectedProductBlock.Parameters.ContainsById(emptyParameter))
+                    if (selectedProductBlock == null || 
+                        originProductBlock.Id == selectedProductBlock.Id) return;
+
+                    this.ProductBlockEngineer.RejectChanges();
+
+                    //если выбрали пустой КТТ
+                    var emptyParameter = GlobalAppProperties.Actual.EmptyParameterCurrentTransformersSet;
+                    if (emptyParameter != null && selectedProductBlock.Parameters.ContainsById(emptyParameter))
+                    {
+                        var dr = messageService.ConfirmationDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
+                        if (dr)
                         {
-                            var dr = messageService.ConfirmationDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
-                            if (dr)
+                            var rp = productBlockRequiredParameters.ToList();
+                            rp.Add(GlobalAppProperties.Actual.ParameterCurrentTransformersSetCustom);
+                            var product = Container.Resolve<IGetProductService>().GetProduct(rp);
+                            if (product != null)
                             {
-                                var rp = productBlockRequiredParameters.ToList();
-                                rp.Add(GlobalAppProperties.Actual.ParameterCurrentTransformersSetCustom);
-                                var product = Container.Resolve<IGetProductService>().GetProduct(rp);
-                                if (product != null)
+                                foreach (var block in product.GetBlocks())
                                 {
-                                    foreach (var block in product.GetBlocks())
+                                    if (productBlockRequiredParameters.AllContainsInById(block.Parameters))
                                     {
-                                        if (productBlockRequiredParameters.AllContainsInById(block.Parameters))
-                                        {
-                                            continue;
-                                        }
-                                        AddAddedBlock(block);
+                                        continue;
                                     }
+                                    AddAddedBlock(block);
                                 }
                             }
                         }
-
-                        this.ProductBlockEngineer.RejectChanges();
-                        this.ProductBlockEngineer = new ProductBlockStructureCostWrapperConstructor(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id));
                     }
+
+                    this.ProductBlockEngineer.RejectChanges();
+                    this.ProductBlockEngineer = new ProductBlockStructureCostWrapperConstructor(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id));
                 },
                 () => IsTarget && IsEditMode);
 

@@ -145,6 +145,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
                                         <ContentPresenter Grid.Column="0" Content="{Binding ElementName=Root, Path=AreaInstruct}"/>
@@ -153,6 +154,7 @@
 
                                         <Label Grid.Column="2" Content=" Бюро:"/>
                                         <TextBox Grid.Column="3" FontWeight="DemiBold" Text="{Binding DesignDepartment, Mode=OneWay}" IsReadOnly="True" Background="AliceBlue" BorderThickness="0"/>
+                                        <Button Grid.Column="4" Content="..." Command="{Binding SelectDesignDepartmentCommand}"/>
 
                                     </Grid>
 
