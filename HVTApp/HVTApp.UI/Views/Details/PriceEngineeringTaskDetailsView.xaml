@@ -69,6 +69,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="№" Visibility="{Binding VisibilityNumberPriceEngineeringTask, ElementName=Root}"/>
@@ -250,6 +255,19 @@
                                     AddItemCommand="{Binding SelectUserConstructorInitiatorCommand}" 
                                     RemoveItemCommand="{Binding ClearUserConstructorInitiatorCommand}"
 									Visibility="{Binding VisibilityUserConstructorInitiatorPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="27" Content="Задачи на изменение номера стракчакоста блока" Visibility="{Binding VisibilityUpdateStructureCostNumberTasksPriceEngineeringTask, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="27"
+										 Items="{Binding Path=Item.UpdateStructureCostNumberTasks}"
+										 SelectedItem="{Binding SelectedUpdateStructureCostNumberTasksItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInUpdateStructureCostNumberTasksCommand}"
+										 RemoveItemCommand="{Binding RemoveFromUpdateStructureCostNumberTasksCommand}"
+										 Visibility="{Binding VisibilityUpdateStructureCostNumberTasksPriceEngineeringTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="28" Content="Документация загружена в TeamCenter" Visibility="{Binding VisibilityIsUploadedDocumentationToTeamCenterPriceEngineeringTask, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="28" MinWidth="200" 
+                  IsChecked="{Binding Item.IsUploadedDocumentationToTeamCenter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsUploadedDocumentationToTeamCenterPriceEngineeringTask, ElementName=Root}"/>
 
 
     </Grid>

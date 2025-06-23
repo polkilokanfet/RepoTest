@@ -31,6 +31,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityNameDesignDepartment, ElementName=Root}"/>
@@ -84,6 +86,19 @@
 										 AddItemCommand="{Binding AddInParameterSetsSubTaskCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParameterSetsSubTaskCommand}"
 										 Visibility="{Binding VisibilityParameterSetsSubTaskDesignDepartment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="7" Content="Комплекты деталей" Visibility="{Binding VisibilityKitsDesignDepartment, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
+										 Items="{Binding Path=Item.Kits}"
+										 SelectedItem="{Binding SelectedKitsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInKitsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromKitsCommand}"
+										 Visibility="{Binding VisibilityKitsDesignDepartment, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="8" Content="КБ ремкомплектов" Visibility="{Binding VisibilityIsKitDepartmentDesignDepartment, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="8" MinWidth="200" 
+                  IsChecked="{Binding Item.IsKitDepartment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityIsKitDepartmentDesignDepartment, ElementName=Root}"/>
 
 
     </Grid>

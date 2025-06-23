@@ -5776,6 +5776,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<List<DesignDepartment>> _getEntitiesForAddInDesignDepartmentsKitsCommand;
+		public DelegateLogCommand AddInDesignDepartmentsKitsCommand { get; }
+		public DelegateLogCommand RemoveFromDesignDepartmentsKitsCommand { get; private set; }
+		private DesignDepartmentWrapper _selectedDesignDepartmentsKitsItem;
+		public DesignDepartmentWrapper SelectedDesignDepartmentsKitsItem 
+		{ 
+			get { return _selectedDesignDepartmentsKitsItem; }
+			set 
+			{ 
+				if (Equals(_selectedDesignDepartmentsKitsItem, value)) return;
+				_selectedDesignDepartmentsKitsItem = value;
+				RaisePropertyChanged();
+				RemoveFromDesignDepartmentsKitsCommand.RaiseCanExecuteChanged();
+			}
+		}
+
         public ProductDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -5797,6 +5813,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForAddInDependentProductsCommand == null) _getEntitiesForAddInDependentProductsCommand = () => { return UnitOfWork.Repository<ProductDependent>().GetAll(); };;
 			if (AddInDependentProductsCommand == null) AddInDependentProductsCommand = new DelegateLogCommand(AddInDependentProductsCommand_Execute_Default);
 			if (RemoveFromDependentProductsCommand == null) RemoveFromDependentProductsCommand = new DelegateLogCommand(RemoveFromDependentProductsCommand_Execute_Default, RemoveFromDependentProductsCommand_CanExecute_Default);
+
+			
+			if (_getEntitiesForAddInDesignDepartmentsKitsCommand == null) _getEntitiesForAddInDesignDepartmentsKitsCommand = () => { return UnitOfWork.Repository<DesignDepartment>().GetAll(); };;
+			if (AddInDesignDepartmentsKitsCommand == null) AddInDesignDepartmentsKitsCommand = new DelegateLogCommand(AddInDesignDepartmentsKitsCommand_Execute_Default);
+			if (RemoveFromDesignDepartmentsKitsCommand == null) RemoveFromDesignDepartmentsKitsCommand = new DelegateLogCommand(RemoveFromDesignDepartmentsKitsCommand_Execute_Default, RemoveFromDesignDepartmentsKitsCommand_CanExecute_Default);
 
 		}
 
@@ -5843,6 +5864,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromDependentProductsCommand_CanExecute_Default()
 			{
 				return SelectedDependentProductsItem != null;
+			}
+
+			private void AddInDesignDepartmentsKitsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<DesignDepartment, DesignDepartmentWrapper>(_getEntitiesForAddInDesignDepartmentsKitsCommand(), Item.DesignDepartmentsKits);
+			}
+
+			private void RemoveFromDesignDepartmentsKitsCommand_Execute_Default()
+			{
+				Item.DesignDepartmentsKits.Remove(SelectedDesignDepartmentsKitsItem);
+			}
+
+			private bool RemoveFromDesignDepartmentsKitsCommand_CanExecute_Default()
+			{
+				return SelectedDesignDepartmentsKitsItem != null;
 			}
 
 

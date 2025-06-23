@@ -26,6 +26,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row ="0" Content="Название"/>
@@ -72,6 +73,10 @@
                                              SelectedItem="{Binding SelectedDesignDepartmentParametersSubTasks, Mode=TwoWay}"
                                              AddItemCommand="{Binding CreateParameterSetSubTaskCommand}"
                                              RemoveItemCommand="{Binding RemoveFromParameterSetsSubTaskCommand}"/>
+
+            <Label Grid.Column="0" Grid.Row ="7" Content="КБ ремкомплектов"/>
+            <CheckBox Grid.Column="1" Grid.Row="7" MinWidth="200" 
+                      IsChecked="{Binding Item.IsKitDepartment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
 

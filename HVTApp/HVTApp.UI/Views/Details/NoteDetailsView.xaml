@@ -27,6 +27,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Дата" Visibility="{Binding VisibilityDateNote, ElementName=Root}"/>

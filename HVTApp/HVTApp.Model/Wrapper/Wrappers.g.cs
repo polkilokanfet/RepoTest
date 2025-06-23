@@ -708,6 +708,17 @@ namespace HVTApp.Model.Wrapper
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
         /// <summary>
+        /// КБ ремкомплектов
+        /// </summary>
+        public System.Boolean IsKitDepartment
+        {
+          get { return Model.IsKitDepartment; }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsKitDepartmentOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsKitDepartment));
+        public bool IsKitDepartmentIsChanged => GetIsChanged(nameof(IsKitDepartment));
+
+        /// <summary>
         /// Id
         /// </summary>
         public System.Guid Id
@@ -8889,6 +8900,11 @@ namespace HVTApp.Model.Wrapper
         /// В продукте есть блоки с фиксированной ценой
         /// </summary>
         public System.Boolean HasBlockWithFixedCost => Model.HasBlockWithFixedCost; 
+
+        /// <summary>
+        /// IsKit
+        /// </summary>
+        public System.Boolean IsKit => Model.IsKit; 
 
         /// <summary>
         /// Тип

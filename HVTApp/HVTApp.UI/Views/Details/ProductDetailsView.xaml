@@ -32,30 +32,40 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProduct, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0"
+        <Label Grid.Column="0" Grid.Row ="0" Content="КБ ремкомплектов" Visibility="{Binding VisibilityDesignDepartmentsKitsProduct, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
+										 Items="{Binding Path=Item.DesignDepartmentsKits}"
+										 SelectedItem="{Binding SelectedDesignDepartmentsKitsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInDesignDepartmentsKitsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromDesignDepartmentsKitsCommand}"
+										 Visibility="{Binding VisibilityDesignDepartmentsKitsProduct, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProduct, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1"
                  Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignationSpecialProduct, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Блок" Visibility="{Binding VisibilityProductBlockProduct, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Блок" Visibility="{Binding VisibilityProductBlockProduct, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding VisibilityProductBlockProduct, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Продукты в составе" Visibility="{Binding VisibilityDependentProductsProduct, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="3" Content="Продукты в составе" Visibility="{Binding VisibilityDependentProductsProduct, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.DependentProducts}"
 										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"
 										 Visibility="{Binding VisibilityDependentProductsProduct, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Комментарий" Visibility="{Binding VisibilityCommentProduct, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="3"
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityCommentProduct, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4"
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentProduct, ElementName=Root}"/>
 

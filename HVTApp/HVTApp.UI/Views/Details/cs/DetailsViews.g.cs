@@ -722,6 +722,14 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityParameterSetsSubTaskDesignDepartment = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartment).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartment.Kits)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityKitsDesignDepartment = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.DesignDepartment).GetProperty(nameof(HVTApp.Model.POCOs.DesignDepartment.IsKitDepartment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsKitDepartmentDesignDepartment = Visibility.Collapsed;
+
 
         }
 
@@ -779,6 +787,22 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParameterSetsSubTaskDesignDepartmentProperty); }
             set { SetValue(VisibilityParameterSetsSubTaskDesignDepartmentProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityKitsDesignDepartmentProperty = DependencyProperty.Register("VisibilityKitsDesignDepartment", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityKitsDesignDepartment
+        {
+            get { return (Visibility) GetValue(VisibilityKitsDesignDepartmentProperty); }
+            set { SetValue(VisibilityKitsDesignDepartmentProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityIsKitDepartmentDesignDepartmentProperty = DependencyProperty.Register("VisibilityIsKitDepartmentDesignDepartment", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsKitDepartmentDesignDepartment
+        {
+            get { return (Visibility) GetValue(VisibilityIsKitDepartmentDesignDepartmentProperty); }
+            set { SetValue(VisibilityIsKitDepartmentDesignDepartmentProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -7024,6 +7048,10 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityIsDeliveryProductBlock = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.IsKit)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsKitProductBlock = Visibility.Collapsed;
+
 
         }
 
@@ -7169,6 +7197,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityIsDeliveryProductBlockProperty); }
             set { SetValue(VisibilityIsDeliveryProductBlockProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityIsKitProductBlockProperty = DependencyProperty.Register("VisibilityIsKitProductBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsKitProductBlock
+        {
+            get { return (Visibility) GetValue(VisibilityIsKitProductBlockProperty); }
+            set { SetValue(VisibilityIsKitProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -9413,6 +9449,14 @@ namespace HVTApp.UI.Views
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityCommentProduct = Visibility.Collapsed;
 
+            //attr = typeof(HVTApp.Model.POCOs.Product).GetProperty(nameof(HVTApp.Model.POCOs.Product.DesignDepartmentsKits)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDesignDepartmentsKitsProduct = Visibility.Collapsed;
+
+            //attr = typeof(HVTApp.Model.POCOs.Product).GetProperty(nameof(HVTApp.Model.POCOs.Product.IsKit)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityIsKitProduct = Visibility.Collapsed;
+
 
         }
 
@@ -9478,6 +9522,22 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentProductProperty); }
             set { SetValue(VisibilityCommentProductProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityDesignDepartmentsKitsProductProperty = DependencyProperty.Register("VisibilityDesignDepartmentsKitsProduct", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDesignDepartmentsKitsProduct
+        {
+            get { return (Visibility) GetValue(VisibilityDesignDepartmentsKitsProductProperty); }
+            set { SetValue(VisibilityDesignDepartmentsKitsProductProperty, value); OnPropertyChanged(); }
+        }
+
+
+        public static readonly DependencyProperty VisibilityIsKitProductProperty = DependencyProperty.Register("VisibilityIsKitProduct", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityIsKitProduct
+        {
+            get { return (Visibility) GetValue(VisibilityIsKitProductProperty); }
+            set { SetValue(VisibilityIsKitProductProperty, value); OnPropertyChanged(); }
         }
 
 	}
