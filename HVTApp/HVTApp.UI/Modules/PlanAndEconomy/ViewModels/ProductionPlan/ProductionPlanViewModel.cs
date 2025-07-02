@@ -71,7 +71,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.ViewModels
                 .GroupBy(salesUnit => new
                 {
                     ProductId = salesUnit.Product.Id,
-                    EndProductionPlanDate = salesUnit.EndProductionPlanDate,
+                    salesUnit.EndProductionPlanDate,
                     OrderId = salesUnit.Order.Id
                 })
                 .Select(units => new OrderItem(units))

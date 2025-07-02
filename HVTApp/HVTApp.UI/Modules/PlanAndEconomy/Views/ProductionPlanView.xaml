@@ -18,16 +18,16 @@
 
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout>
-                    <infg:TextField Name="Facility" Label="Объект" Width="200"/>
-                    <infg:TextField Name="Product" Label="Продукт" Width="500"/>
-                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto" AllowResize="False"/>
-                    <infg:TextField Name="Order" Label="З/з" Width="Auto" AllowResize="False"/>
-                    <infg:DateTimeField Name="OrderOpenDate" Label="Открытие з/з" Width="Auto" AllowResize="False"/>
-                    <infg:DateTimeField Name="EndProductionDate" Label="Расчетная дата" Width="Auto" AllowResize="False"/>
-                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата" Width="Auto" AllowResize="False"/>
-                    <infg:NumericField Name="EndProductionPlanDateYear" Label="Год" Width="Auto" AllowResize="False" DataType="system:Int32"/>
-                    <infg:NumericField Name="EndProductionPlanDateMonth" Label="Месяц" Width="Auto" AllowResize="False" DataType="system:Int32"/>
-                    <infg:TextField AlternateBinding="{Binding Manager.Employee.Person}" BindingType="UseAlternateBinding" Label="Менеджер" Width="Auto"/>
+                    <infg:TextField Label="Объект" AlternateBinding="{Binding Facility}" Width="200"/>
+                    <infg:TextField Label="Продукт" AlternateBinding="{Binding Product}" Width="500"/>
+                    <infg:NumericField Label="Кол." AlternateBinding="{Binding Amount}" Width="Auto" AllowResize="False"/>
+                    <infg:TextField Label="З/з" AlternateBinding="{Binding Order.Number}" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Label="Открытие з/з" AlternateBinding="{Binding OrderOpenDate}" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Label="Расчетная дата" AlternateBinding="{Binding EndProductionDate}" Width="Auto" AllowResize="False"/>
+                    <infg:DateTimeField Label="Плановая дата" AlternateBinding="{Binding EndProductionPlanDate}" Width="Auto" AllowResize="False"/>
+                    <infg:NumericField Label="Год" AlternateBinding="{Binding EndProductionPlanDateYear}" Width="Auto" AllowResize="False" DataType="system:Int32"/>
+                    <infg:NumericField Label="Месяц" AlternateBinding="{Binding EndProductionPlanDateMonth}" Width="Auto" AllowResize="False" DataType="system:Int32"/>
+                    <infg:TextField  Label="Менеджер" AlternateBinding="{Binding Manager}" BindingType="UseAlternateBinding" Width="Auto"/>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>
 

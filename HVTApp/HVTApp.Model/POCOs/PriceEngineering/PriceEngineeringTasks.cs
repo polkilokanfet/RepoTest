@@ -111,6 +111,7 @@ namespace HVTApp.Model.POCOs
         public IEnumerable<PriceEngineeringTask> GetSuitableTasksForOpenOrder(User user)
         {
             return ChildPriceEngineeringTasks
+                .Where(priceEngineeringTask => priceEngineeringTask.SalesUnits.Any())
                 .SelectMany(priceEngineeringTask => priceEngineeringTask.GetSuitableTasksForOpenOrder(user));
         }
 
