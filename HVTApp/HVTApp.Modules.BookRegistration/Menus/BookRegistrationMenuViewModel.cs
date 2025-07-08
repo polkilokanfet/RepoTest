@@ -10,12 +10,12 @@ namespace HVTApp.Modules.BookRegistration.Menus
         {
             Items.Add(new NavigationItem("Журнал переписки", typeof(BookRegistrationView)));
 
-            if (GlobalAppProperties.User.RoleCurrent == Role.Admin
-                || GlobalAppProperties.User.RoleCurrent == Role.Director
-                || GlobalAppProperties.UserIsManager)
-            {
-                Items.Add(new NavigationItem("Входящие запросы", typeof(IncomingRequestsView)));
-            }
+            //if (GlobalAppProperties.User.RoleCurrent == Role.Admin
+            //    || GlobalAppProperties.User.RoleCurrent == Role.Director
+            //    || GlobalAppProperties.UserIsManager)
+            //{
+            //    Items.Add(new NavigationItem("Входящие запросы", typeof(IncomingRequestsView)));
+            //}
         }
     }
 }

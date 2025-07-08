@@ -5,42 +5,38 @@ using System.Diagnostics;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
-using HVTApp.UI.Lookup;
-using HVTApp.UI.Modules.BookRegistration.Views;
-using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Prism.Regions;
 
 namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
-    public class BookRegistrationViewModel : DocumentLookupListViewModel
+    public class BookRegistrationViewModel : ViewModelBaseCanExportToExcel
     {
         private readonly IFileManagerService _fileManagerService;
-        private List<DocumentLookup> _documentLookups;
-        private DocumentLookup _selectedDocumentLookup;
-        private bool _showIncoming = true;
-        private bool _showOutgoing = true;
+        private Letter _selectedLetter;
 
-        public DocumentLookup SelectedDocumentLookup
+        public ObservableCollection<Letter> Letters { get; } = new ObservableCollection<Letter>();
+
+        public Letter SelectedLetter
         {
-            get => _selectedDocumentLookup;
+            get => _selectedLetter;
             set
             {
-                if (Equals(_selectedDocumentLookup, value))
-                    return;
-
-                _selectedDocumentLookup = value;
-                EditDocumentCommand.RaiseCanExecuteChanged();
-                OpenFolderCommand.RaiseCanExecuteChanged();
-                PrintBlankLetterCommand.RaiseCanExecuteChanged();
-                SelectedDocumentChanged?.Invoke(value?.Entity);
+                SetProperty(ref _selectedLetter, value, () =>
+                {
+                    EditDocumentCommand.RaiseCanExecuteChanged();
+                    OpenFolderCommand.RaiseCanExecuteChanged();
+                    PrintBlankLetterCommand.RaiseCanExecuteChanged();
+                    SelectedDocumentChanged?.Invoke(value?.Entity);
+                });
             }
         }
 
@@ -75,40 +71,28 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
             _fileManagerService = container.Resolve<IFileManagerService>();
-            ReloadCommand = new DelegateLogCommand(Load2);
+            ReloadCommand = new DelegateLogCommand(Load);
 
             CreateOutgoingDocumentCommand = new DelegateLogCommand(() =>
             {
-                var document = new Document
-                {
-                    Author = GlobalAppProperties.User.Employee,
-                    SenderEmployee = GlobalAppProperties.Actual.SenderOfferEmployee
-                };
-                container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { DocumentDirection.Outgoing.ToString(), document } });
+                var documentViewModel = new LetterViewModel(container, DocumentDirection.Outgoing);
+                container.Resolve<IDialogService>().Show(documentViewModel, "Регистрация исходящего письма");
             });
 
             CreateIncomingDocumentCommand = new DelegateLogCommand(() =>
             {
-                var document = new Document
-                {
-                    Author = GlobalAppProperties.User.Employee,
-                    RecipientEmployee = GlobalAppProperties.Actual.SenderOfferEmployee
-                };
-                container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(new NavigationParameters { { DocumentDirection.Incoming.ToString(), document } });
+                var documentViewModel = new LetterViewModel(container, DocumentDirection.Incoming);
+                container.Resolve<IDialogService>().Show(documentViewModel, "Регистрация входящего письма");
             });
 
             EditDocumentCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var document = SelectedDocumentLookup.Entity;
-                    container.Resolve<IRegionManager>().RequestNavigateContentRegion<DocumentView>(
-                        new NavigationParameters
-                        {
-                            { document.Direction.ToString(), document },
-                            { "edit", true }
-                        });
+                    var document = SelectedLetter.Entity;
+                    var documentViewModel = new LetterViewModel(container, document);
+                    container.Resolve<IDialogService>().Show(documentViewModel, $"Редактирование письма №{document.RegNumber}");
                 },
-                () => SelectedDocumentLookup != null);
+                () => SelectedLetter != null);
 
             OpenFolderCommand = new DelegateLogCommand(
                 () =>
@@ -119,101 +103,42 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                         return;
                     }
 
-                    var path = _fileManagerService.GetPath(SelectedDocumentLookup.Entity);
+                    var path = _fileManagerService.GetPath(SelectedLetter.Entity);
                     Process.Start("explorer", $"\"{path}\"");
                 },
-                () => SelectedDocumentLookup != null);
+                () => SelectedLetter != null);
 
             PrintBlankLetterCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var path = _fileManagerService.GetPath(SelectedDocumentLookup.Entity);
-                    Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedDocumentLookup.Entity, path);
+                    var path = _fileManagerService.GetPath(SelectedLetter.Entity);
+                    Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedLetter.Entity, path);
                 },
-                () => SelectedDocumentLookup != null && SelectedDocumentLookup.Entity.Direction == DocumentDirection.Outgoing);
+                () => SelectedLetter != null && SelectedLetter.Entity.Direction == DocumentDirection.Outgoing);
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDocumentEvent>().Subscribe(document =>
             {
-                if(!_documentLookups.ContainsById(document))
-                    _documentLookups.Insert(0, new DocumentLookup(document));
+                if(Letters.ContainsById(document))
+                    Letters.Single(letter => letter.Entity.Id == document.Id).Refresh(document);
+                else
+                    Letters.Insert(0, new Letter(document));
             });
+
+            this.Load();
         }
 
-        public void Load2()
+        public void Load()
         {
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
-            
-            var requests = UnitOfWork.Repository<IncomingRequest>().GetAll();
-            List<Document> documents;
-            if (GlobalAppProperties.UserIsManager)
-            {
-                documents = UnitOfWork.Repository<Document>().Find(document => document.Author.Id == GlobalAppProperties.User.Employee.Id);
-                var requests2 = requests.Where(incomingRequest => incomingRequest.Performers.ContainsById(GlobalAppProperties.User.Employee));
-                documents = documents.Union(requests2.Select(incomingRequest => incomingRequest.Document)).ToList();
-            }
-            else
-            {
-                documents = UnitOfWork.Repository<Document>().Find(document => 
-                    document.Author.Id == GlobalAppProperties.User.Employee.Id ||
-                    document.Direction == DocumentDirection.Incoming);
-            }
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var letters = unitOfWork.Repository<Document>()
+                    .GetAllAsNoTracking()
+                    .OrderByDescending(document => document.Date)
+                    .ThenByDescending(document => document.Number)
+                    .Select(document => new Letter(document))
+                    .ToList();
 
-            _documentLookups = documents
-                .OrderByDescending(document => document.Date)
-                .ThenByDescending(document => document.Number)
-                .Select(document => new DocumentLookup(document, requests.SingleOrDefault(incomingRequest => incomingRequest.Document.Id == document.Id)?.Performers))
-                .ToList();
-
-            UpdateLookups();
-        }
-
-        public bool ShowIncoming
-        {
-            get => _showIncoming;
-            set
-            {
-                if (Equals(_showIncoming, value)) return;
-                _showIncoming = value;
-                UpdateLookups();
-            }
-        }
-
-        public bool ShowOutgoing
-        {
-            get => _showOutgoing;
-            set
-            {
-                if(_showOutgoing == value) return;
-                _showOutgoing = value;
-                UpdateLookups();
-            }
-        }
-
-        private void UpdateLookups()
-        {
-            var lookups = Lookups as ObservableCollection<DocumentLookup>;
-            if (lookups == null) return;
-
-            lookups.Clear();
-
-            if (ShowIncoming && ShowOutgoing)
-            {
-                lookups.AddRange(_documentLookups);
-                return;
-            }
-
-            if (ShowIncoming)
-            {
-                lookups.AddRange(
-                    _documentLookups.Where(document => document.Direction == DocumentDirection.Incoming));
-                return;
-            }
-
-            if (ShowOutgoing)
-            {
-                lookups.AddRange(
-                    _documentLookups.Where(document => document.Direction == DocumentDirection.Outgoing));
-            }
+            Letters.Clear();
+            Letters.AddRange(letters);
         }
     }
 }

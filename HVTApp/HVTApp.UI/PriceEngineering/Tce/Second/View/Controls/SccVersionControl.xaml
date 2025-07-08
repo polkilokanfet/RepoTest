@@ -3,52 +3,76 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:editors="http://infragistics.com/Editors"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:view="clr-namespace:HVTApp.UI.PriceEngineering.Tce.Second.View"
              x:Name="Root">
 
     <!--Версия SCC-->
     <Border BorderBrush="Black" BorderThickness="1" Padding="3" Background="Gainsboro" CornerRadius="5">
         <Grid>
-
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" 
-                         Background="Transparent"
-                         Text="{Binding ElementName=Root, Path=SccVersion.Name, Mode=OneWay}" 
-                         BorderThickness="0"
-                         IsReadOnly="True"/>
+                <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="1" Content="ОГК:"/>
+                        <TextBox Grid.Column="0" 
+                                 Background="Transparent"
+                                 Text="{Binding ElementName=Root, Path=SccVersion.Name, Mode=OneWay}" 
+                                 BorderThickness="0"
+                                 IsReadOnly="True"/>
+
+                        <Label Grid.Column="2" Content="ОГК ("/>
+                        <TextBox Grid.Column="3"
+                                 Background="Transparent"
+                                 FontStyle="Italic"
+                                 Text="{Binding ElementName=Root, Path=SccVersion.Department, Mode=OneWay}" 
+                                 BorderThickness="0"
+                                 IsReadOnly="True"/>
+                        <Label Grid.Column="4" Content="):"/>
+
+                        <TextBox Grid.Column="5"
+                                 Background="Transparent"
+                                 FontStyle="Italic"
+                                 Text="{Binding ElementName=Root, Path=SccVersion.Constructor, Mode=OneWay}" 
+                                 BorderThickness="0"
+                                 IsReadOnly="True"/>
+
+                    </Grid>
+
+                </ScrollViewer>
+
+                <Label Grid.Column="1" Content=" SCC от ОГК:"/>
 
                 <TextBox Grid.Column="2"
                          Background="Transparent"
-                         Text="{Binding ElementName=Root, Path=SccVersion.Constructor, Mode=OneWay}" 
-                         BorderThickness="0"
-                         IsReadOnly="True"/>
-
-                <Label Grid.Column="3" Content=" SCC от ОГК:"/>
-
-                <TextBox Grid.Column="4"
-                         Background="Transparent"
+                         FontStyle="Italic"
                          Text="{Binding ElementName=Root, Path=SccVersion.OriginalStructureCostNumber, Mode=OneWay}" 
                          BorderThickness="0"
                          IsReadOnly="True"/>
 
-                <Label Grid.Column="5" Content=" V:"/>
+                <Label Grid.Column="3" Content=" V:"/>
 
-                <editors:XamNumericEditor Grid.Column="6"
+                <editors:XamNumericEditor Grid.Column="4"
                                           Value="{Binding ElementName=Root, Path=SccVersion.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ValueType="system:Int32"/>
-                                          <!--IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TasksTceView}}, Path=DataContext.AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>-->
+                <!--IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:TasksTceView}}, Path=DataContext.AllowEdit, UpdateSourceTrigger=PropertyChanged}"/>-->
+
+
             </Grid>
+
 
             <Separator Background="Black" Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityReverseConverter}}"/>
 

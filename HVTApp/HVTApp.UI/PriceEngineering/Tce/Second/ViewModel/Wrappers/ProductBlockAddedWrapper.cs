@@ -14,7 +14,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         /// </summary>
         public IValidatableChangeTrackingCollection<SccVersionWrapper> StructureCostVersions { get; private set; }
 
-        public ProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded model, string constructor) : base(model)
+        public ProductBlockAddedWrapper(PriceEngineeringTaskProductBlockAdded model, string constructor, string department) : base(model)
         {
             var originalStructureCostNumber = this.Model.ProductBlock.StructureCostNumber;
 
@@ -28,7 +28,11 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 StructureCostVersions.AcceptChanges();
             }
 
-            this.StructureCostVersions.ForEach(x => x.Constructor = constructor);
+            this.StructureCostVersions.ForEach(x =>
+            {
+                x.Constructor = constructor;
+                x.Department = department;
+            });
         }
 
         protected override void InitializeCollectionProperties()

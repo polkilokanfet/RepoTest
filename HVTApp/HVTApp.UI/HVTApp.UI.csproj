@@ -209,9 +209,11 @@
       <DependentUpon>TabDocument.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\BookRegistration\ViewModels\BookRegistrationViewModel.cs" />
-    <Compile Include="Modules\BookRegistration\ViewModels\DocumentViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\LetterViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\Letter.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\LetterWrapper.cs" />
     <Compile Include="Modules\Directum\DirectumExt.cs" />
     <Compile Include="Modules\Directum\DirectumTask\ContentTaskControl.xaml.cs">
       <DependentUpon>ContentTaskControl.xaml</DependentUpon>
@@ -1049,8 +1051,8 @@
     <Compile Include="Modules\BookRegistration\Views\BookRegistrationView.xaml.cs">
       <DependentUpon>BookRegistrationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\BookRegistration\Views\DocumentView.xaml.cs">
-      <DependentUpon>DocumentView.xaml</DependentUpon>
+    <Compile Include="Modules\BookRegistration\Views\LetterView.xaml.cs">
+      <DependentUpon>LetterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Director\Tabs\TabReload.xaml.cs">
       <DependentUpon>TabReload.xaml</DependentUpon>
@@ -1747,7 +1749,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\BookRegistration\Views\DocumentView.xaml">
+    <Page Include="Modules\BookRegistration\Views\LetterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

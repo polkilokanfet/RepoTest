@@ -18,7 +18,7 @@ namespace HVTApp.Modules.BookRegistration
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<BookRegistrationView>();
-            Container.RegisterViewForNavigation<DocumentView>();
+            Container.RegisterViewForNavigation<LetterView>();
             Container.RegisterViewForNavigation<IncomingRequestView>();
         }
 

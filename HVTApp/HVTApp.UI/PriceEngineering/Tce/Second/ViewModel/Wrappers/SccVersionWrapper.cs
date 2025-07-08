@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -12,6 +11,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         public bool IsActual { get; }
         public string Name { get; }
         public string Constructor { get; set; }
+        public string Department { get; set; }
 
         public SccVersionWrapper(StructureCostVersion model, string name, bool isActual) : base(model)
         {
@@ -35,6 +35,5 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 }
             }
         }
-
     }
 }

@@ -567,6 +567,7 @@
     <Compile Include="HVTAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\DirectumTaskRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\DocumentRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\Interfaces\IDirectumTaskRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\Interfaces\IOfferRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\Interfaces\IOfferUnitRepository.cs" />

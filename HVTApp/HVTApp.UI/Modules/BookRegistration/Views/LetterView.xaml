@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="HVTApp.UI.Modules.BookRegistration.Views.LetterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              mc:Ignorable="d"
+              d:DataContext="{d:DesignInstance viewModels:LetterViewModel, IsDesignTimeCreatable=True}"
+              xmlns:viewModels="clr-namespace:HVTApp.UI.Modules.BookRegistration.ViewModels"
+              xmlns:controls="clr-namespace:HVTApp.Infrastructure.Controls;assembly=HVTApp.Infrastructure">
+
+    <GroupBox Header="Письмо">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="MinWidth" Value="200"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row ="0" Content="Дата"/>
+                <DatePicker Grid.Column="1" Grid.Row="0" SelectedDate="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Column="0" Grid.Row ="1" Content="Тема"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Column="0" Grid.Row ="2" Content="Автор" Visibility="{Binding VisibilityAuthorDocument, ElementName=Root}"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Author}" 
+                                    AddItemCommand="{Binding SelectAuthorCommand}" 
+                                    RemoveItemCommand="{Binding ClearAuthorCommand}"
+									Visibility="{Binding VisibilityAuthorDocument, ElementName=Root}"/>
+
+                <Label Grid.Column="0" Grid.Row ="3" Content="Отправитель"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+                                    Item="{Binding SenderEmployee}" 
+                                    AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
+                                    RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"/>
+
+                <Label Grid.Column="0" Grid.Row ="4" Content="Получатель"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding RecipientEmployee}" 
+                                    AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
+                                    RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"/>
+
+                <Label Grid.Column="0" Grid.Row ="5" Content="Копия"/>
+                <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+										 Items="{Binding Path=CopyToRecipients}"
+										 SelectedItem="{Binding SelectedCopyToRecipientsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInCopyToRecipientsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"/>
+
+                <Label Grid.Column="0" Grid.Row ="6" Content="Запрос"/>
+                <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
+                                    Item="{Binding RequestDocument}" 
+                                    AddItemCommand="{Binding SelectRequestDocumentCommand}" 
+                                    RemoveItemCommand="{Binding ClearRequestDocumentCommand}"/>
+
+            </Grid>
+
+            <Button Grid.Row="1" Content="Сохранить" Command="{Binding SaveCommand}"/>
+
+        </Grid>
+    </GroupBox>
+    
+</UserControl>

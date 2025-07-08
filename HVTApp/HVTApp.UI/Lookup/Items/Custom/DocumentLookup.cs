@@ -8,10 +8,10 @@ namespace HVTApp.UI.Lookup
     public partial class DocumentLookup
     {
         [Designation("Компания-отправитель"), OrderStatus(100)]
-        public CompanyLookup CompanySender => this.SenderEmployee.Company;
+        public string CompanySender => this.SenderEmployee?.Company.ToString();
 
         [Designation("Компания-получатель"), OrderStatus(99)]
-        public CompanyLookup CompanyRecipient => this.RecipientEmployee.Company;
+        public string CompanyRecipient => this.RecipientEmployee?.Company.ToString();
 
         public List<Employee> Performers { get; } = new List<Employee>();
 

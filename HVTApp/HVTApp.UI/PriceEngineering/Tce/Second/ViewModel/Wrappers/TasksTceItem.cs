@@ -77,7 +77,11 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 StructureCostVersions.AcceptChanges();
             }
 
-            this.StructureCostVersions.ForEach(sccVersionWrapper => sccVersionWrapper.Constructor = this.Model.UserConstructor?.Employee.Person.ToString());
+            this.StructureCostVersions.ForEach(sccVersionWrapper =>
+            {
+                sccVersionWrapper.Constructor = this.Model.UserConstructor?.Employee.Person.ToString();
+                sccVersionWrapper.Department = this.Model.DesignDepartment?.Name;
+            });
 
             LoadFilesCommand = new DelegateCommand(() =>
             {
@@ -109,7 +113,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             RegisterCollection(ChildPriceEngineeringTasks, Model.ChildPriceEngineeringTasks);
 
             if (Model.ProductBlocksAdded == null) throw new ArgumentException("ProductBlocksAdded cannot be null");
-            BlockAddedList = new ValidatableChangeTrackingCollection<ProductBlockAddedWrapper>(Model.ProductBlocksAdded.Select(e => new ProductBlockAddedWrapper(e, this.Model.UserConstructor.Employee.Person.ToString())));
+            BlockAddedList = new ValidatableChangeTrackingCollection<ProductBlockAddedWrapper>(Model.ProductBlocksAdded.Select(e => new ProductBlockAddedWrapper(e, this.Model.UserConstructor.Employee.Person.ToString(), this.Model.DesignDepartment?.Name)));
             RegisterCollection(BlockAddedList, Model.ProductBlocksAdded);
 
             if (Model.StructureCostVersions == null) throw new ArgumentException("StructureCostVersions cannot be null");

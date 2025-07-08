@@ -69,6 +69,11 @@ namespace HVTApp.Model.POCOs
         public DocumentDirection Direction => GlobalAppProperties.Actual.OurCompany.Id == SenderEmployee?.Company.Id 
             ? DocumentDirection.Outgoing 
             : DocumentDirection.Incoming;
+
+        public override string ToString()
+        {
+            return $"ѕисьмо {this.SenderEmployee?.Company} рег.є{RegNumber} от {this.Date.ToShortDateString()} г.";
+        }
     }
 
     public enum DocumentDirection
@@ -76,4 +81,5 @@ namespace HVTApp.Model.POCOs
         Incoming,
         Outgoing
     }
+
 }

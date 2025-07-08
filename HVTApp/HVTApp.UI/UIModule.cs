@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.EngineeringDepartmentTasksQueue.Views;
+using HVTApp.UI.Modules.BookRegistration.ViewModels;
 using HVTApp.UI.Modules.BookRegistration.Views;
 using HVTApp.UI.Modules.Directum;
 using HVTApp.UI.Modules.Directum.ToAccept;
@@ -156,6 +157,8 @@ namespace HVTApp.UI
             _dialogService.Register<PaymentsPlanViewModel, PaymentsPlanView>();
             _dialogService.Register<PriceEngineeringTask, BlockReportView>();
             _dialogService.Register<ProjectUnitEditViewModel, ProjectUnitEditView>();
+
+            _dialogService.Register<LetterViewModel, LetterView>();
 
             RegisterViews();
 
