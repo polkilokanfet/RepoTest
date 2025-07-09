@@ -151,6 +151,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         /// <param name="direction"></param>
         public LetterViewModel(IUnityContainer container, DocumentDirection direction) : this(container, new Document())
         {
+            this.Model.WhoRegisteredUserId = GlobalAppProperties.User.Id;
+
             var employee = new EmployeeEmptyWrapper(UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.Actual.SenderOfferEmployee.Id));
             var author = new EmployeeEmptyWrapper(UnitOfWork.Repository<Employee>().GetById(GlobalAppProperties.User.Id));
             switch (direction)

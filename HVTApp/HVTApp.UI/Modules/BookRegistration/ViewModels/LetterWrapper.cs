@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -105,6 +107,30 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             set => SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfRecipient, value);
         }
 
+        public string RegistrationDetailsOfRecipientNumber
+        {
+            get => this.RegistrationDetailsOfRecipient?.Number;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value)) return;
+                if (this.RegistrationDetailsOfRecipient == null)
+                    this.RegistrationDetailsOfRecipient = new DocumentsRegistrationDetailsWrapper(new DocumentsRegistrationDetails() {Date = DateTime.Today});
+                this.RegistrationDetailsOfRecipient.Number = value;
+            }
+        }
+
+        public DateTime? RegistrationDetailsOfRecipientDate
+        {
+            get => this.RegistrationDetailsOfRecipient?.Date;
+            set
+            {
+                if (value.HasValue == false) return;
+                if (this.RegistrationDetailsOfRecipient == null)
+                    this.RegistrationDetailsOfRecipient = new DocumentsRegistrationDetailsWrapper(new DocumentsRegistrationDetails() { Date = DateTime.Today });
+                this.RegistrationDetailsOfRecipient.Date = value.Value;
+            }
+        }
+
         #endregion
 
         #region CollectionProperties
@@ -130,6 +156,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             if (Model.CopyToRecipients == null) throw new ArgumentException($"{nameof(Model.CopyToRecipients)} cannot be null");
             CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeEmptyWrapper>(Model.CopyToRecipients.Select(e => new EmployeeEmptyWrapper(e)));
             RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
+        }
+
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (string.IsNullOrWhiteSpace(Comment))
+                yield return new ValidationResult("Не указана тема письма", new[] { nameof(Comment) });
         }
     }
 }

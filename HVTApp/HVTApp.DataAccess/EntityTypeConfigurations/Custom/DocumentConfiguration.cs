@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
 
             HasRequired(x => x.SenderEmployee).WithMany().HasForeignKey(x => x.SenderId).WillCascadeOnDelete(false);
             HasRequired(x => x.RecipientEmployee).WithMany().HasForeignKey(x => x.RecipientId).WillCascadeOnDelete(false);
+            HasOptional(x => x.WhoRegisteredUser).WithMany().HasForeignKey(x => x.WhoRegisteredUserId).WillCascadeOnDelete(false);
 
             HasOptional(x => x.Author).WithMany().WillCascadeOnDelete(false);
 

@@ -48,20 +48,15 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = _container.Resolve<IUnitOfWork>();
 
-                    var priceEngineeringTasks = unitOfWork.Repository<PriceEngineeringTask>()
-                        .Find(task => task.DesignDepartment != null);
-                    var products = unitOfWork.Repository<Product>().GetAll();
+                    var documents = unitOfWork.Repository<Document>().GetAll();
+                    var users = unitOfWork.Repository<User>().GetAll();
 
                     var sb = new StringBuilder();
-                    foreach (var priceEngineeringTask in priceEngineeringTasks)
+                    foreach (var document in documents)
                     {
-                        foreach (var blockAdded in priceEngineeringTask.ProductBlocksAddedActual)
-                        {
-                            if (blockAdded.ProductBlock.IsKit == false) continue;
-                            var product = products.Single(x => x.ProductBlock.Id == blockAdded.ProductBlock.Id);
-                            priceEngineeringTask.DesignDepartment.Kits.Add(product);
-                            sb.AppendLine($"{product.DesignationSpecial} => {priceEngineeringTask.DesignDepartment.Name}");
-                        }
+                        var user = users.SingleOrDefault(user1 => user1.Employee.Id == document.Author.Id);
+                        if (user == null) continue;
+                        document.WhoRegisteredUser = user;
                     }
 
                     unitOfWork.SaveChanges();

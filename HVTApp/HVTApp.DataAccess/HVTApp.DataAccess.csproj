@@ -560,6 +560,10 @@
     <Compile Include="Migrations\202506231104495_KitDesignDepartment.Designer.cs">
       <DependentUpon>202506231104495_KitDesignDepartment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202507090640100_WhoRegisteredUser.cs" />
+    <Compile Include="Migrations\202507090640100_WhoRegisteredUser.Designer.cs">
+      <DependentUpon>202507090640100_WhoRegisteredUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
@@ -930,6 +934,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202506231104495_KitDesignDepartment.resx">
       <DependentUpon>202506231104495_KitDesignDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202507090640100_WhoRegisteredUser.resx">
+      <DependentUpon>202507090640100_WhoRegisteredUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

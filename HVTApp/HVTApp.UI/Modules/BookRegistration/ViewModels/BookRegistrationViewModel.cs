@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -130,12 +131,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         public void Load()
         {
             var unitOfWork = Container.Resolve<IUnitOfWork>();
-            var letters = unitOfWork.Repository<Document>()
-                    .GetAllAsNoTracking()
-                    .OrderByDescending(document => document.Date)
-                    .ThenByDescending(document => document.Number)
-                    .Select(document => new Letter(document))
-                    .ToList();
+            var letters = ((IDocumentRepository)unitOfWork.Repository<Document>())
+                .GetAllOfCurrentUser()
+                .OrderByDescending(document => document.Date)
+                .ThenByDescending(document => document.Number)
+                .Select(document => new Letter(document))
+                .ToList();
 
             Letters.Clear();
             Letters.AddRange(letters);
