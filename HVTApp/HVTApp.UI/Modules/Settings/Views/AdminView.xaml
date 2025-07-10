@@ -5,7 +5,10 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              prism:ViewModelLocator.AutoWireViewModel="True">
     
-    <Button Content="btn" Command="{Binding Command}"/>
+    <StackPanel Orientation="Vertical">
+        <Button Content="Command1" Command="{Binding Command1}"/>
+        <Button Content="Command2" Command="{Binding Command2}"/>
+    </StackPanel>
     
 </inf:ViewBase>
 

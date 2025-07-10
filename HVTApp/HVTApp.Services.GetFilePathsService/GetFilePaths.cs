@@ -6,6 +6,17 @@ namespace HVTApp.Services.GetFilePathsService
 {
     public class GetFilePathsService1 : IGetFilePaths
     {
+        public string GetFolderPath()
+        {
+            var openFileDialog = new FolderBrowserDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                return openFileDialog.SelectedPath;
+            }
+
+            return default;
+        }
         public string GetFilePath()
         {
             var openFileDialog = new OpenFileDialog

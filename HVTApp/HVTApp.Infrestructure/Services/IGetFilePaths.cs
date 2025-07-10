@@ -4,6 +4,8 @@ namespace HVTApp.Infrastructure.Services
 {
     public interface IGetFilePaths
     {
+        string GetFolderPath();
+
         string GetFilePath();
 
         /// <summary>

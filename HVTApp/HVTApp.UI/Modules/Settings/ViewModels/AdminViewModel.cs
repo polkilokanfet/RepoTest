@@ -25,13 +25,12 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 {
     public class AdminViewModel
     {
-        private readonly IUnityContainer _container;
-        public DelegateLogCommand Command { get; }
+        public DelegateLogCommand Command1 { get; }
+        public DelegateLogCommand Command2 { get; }
 
         public AdminViewModel(IUnityContainer container)
         {
-            _container = container;
-            Command = new DelegateLogCommand(
+            Command1 = new DelegateLogCommand(
                 () =>
                 {
                     //try
@@ -46,7 +45,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    _container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
                     //}
 
-                    var unitOfWork = _container.Resolve<IUnitOfWork>();
+                    var unitOfWork = container.Resolve<IUnitOfWork>();
 
                     var documents = unitOfWork.Repository<Document>().GetAll();
                     var users = unitOfWork.Repository<User>().GetAll();
@@ -65,6 +64,25 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     //Clipboard.SetText(sb.ToString());
                 });
+
+            Command2 = new DelegateLogCommand(() =>
+            {
+                var folderPath = container.Resolve<IGetFilePaths>().GetFolderPath();
+                var files = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories);
+                var gr = files.GroupBy(Path.GetFileName).Where(x => x.Count() > 1);
+                StringBuilder sb = new StringBuilder();
+                foreach (var g in gr)
+                {
+                    sb.AppendLine($"file name: {g.Key}");
+                    foreach (var s in g)
+                    {
+                        sb.AppendLine($"    {s}");
+                    }
+
+                    sb.AppendLine("");
+                }
+                container.Resolve<IMessageService>().Message("", sb.ToString());
+            });
         }
     }
 }
