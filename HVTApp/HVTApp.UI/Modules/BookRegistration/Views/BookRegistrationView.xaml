@@ -16,6 +16,10 @@
                               SelectedDataItem="{Binding SelectedLetter, Mode=TwoWay}"
                               DataSource="{Binding Letters}">
 
+                <infg:XamDataGrid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditDocumentCommand, Mode=OneWay}"/>
+                </infg:XamDataGrid.InputBindings>
+
                 <infg:XamDataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>

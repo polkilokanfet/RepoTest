@@ -15,9 +15,12 @@ namespace HVTApp.Services.FileManagerService
         /// </summary>
         private string _projectsFolderPath;
 
+        private string DefaultAppStorageFolderName { get; } = "HVTAppStorage";
+
         private string OffersFolderName { get; } = "ТКП";
         private string HvtAppProjectsFolderName { get; } = "HVTAppProjects";
         private string CorrespondenceFolderName { get; } = "Переписка";
+        private string LettersFolderName { get; } = "Letters";
 
         public FileManagerService1()
         {
@@ -94,6 +97,22 @@ namespace HVTApp.Services.FileManagerService
                 ? path
                 : Environment.SpecialFolder.MyDocuments.ToString();
         }
+
+        public string GetDefaultStoragePath()
+        {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), DefaultAppStorageFolderName);
+            CreateDirectoryPathIfNotExists(path);
+            return path;
+        }
+
+
+        public string GetLettersDefaultStoragePath()
+        {
+            var path = Path.Combine(GetDefaultStoragePath(), LettersFolderName);
+            CreateDirectoryPathIfNotExists(path);
+            return path;
+        }
+
 
         public bool CreateDirectoryPathIfNotExists(string path)
         {

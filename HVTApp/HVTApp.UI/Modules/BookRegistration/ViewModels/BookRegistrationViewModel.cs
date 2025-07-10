@@ -21,7 +21,6 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class BookRegistrationViewModel : ViewModelBaseCanExportToExcel
     {
-        private readonly IFileManagerService _fileManagerService;
         private Letter _selectedLetter;
 
         public ObservableCollection<Letter> Letters { get; } = new ObservableCollection<Letter>();
@@ -34,14 +33,10 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 SetProperty(ref _selectedLetter, value, () =>
                 {
                     EditDocumentCommand.RaiseCanExecuteChanged();
-                    OpenFolderCommand.RaiseCanExecuteChanged();
                     PrintBlankLetterCommand.RaiseCanExecuteChanged();
-                    SelectedDocumentChanged?.Invoke(value?.Entity);
                 });
             }
         }
-
-        public event Action<Document> SelectedDocumentChanged;
 
         #region Commands
 
@@ -59,7 +54,6 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         /// Редактирование документа
         /// </summary>
         public DelegateLogCommand EditDocumentCommand { get; }
-        public DelegateLogCommand OpenFolderCommand { get; }
         public DelegateLogCommand ReloadCommand { get; }
 
         /// <summary>
@@ -71,7 +65,7 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
-            _fileManagerService = container.Resolve<IFileManagerService>();
+            var fileManagerService = container.Resolve<IFileManagerService>();
             ReloadCommand = new DelegateLogCommand(Load);
 
             CreateOutgoingDocumentCommand = new DelegateLogCommand(() =>
@@ -95,24 +89,10 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 },
                 () => SelectedLetter != null);
 
-            OpenFolderCommand = new DelegateLogCommand(
-                () =>
-                {
-                    if (string.IsNullOrEmpty(GlobalAppProperties.Actual.IncomingRequestsPath))
-                    {
-                        Container.Resolve<IMessageService>().Message("Информация", "Путь к хранилищу приложений не назначен");
-                        return;
-                    }
-
-                    var path = _fileManagerService.GetPath(SelectedLetter.Entity);
-                    Process.Start("explorer", $"\"{path}\"");
-                },
-                () => SelectedLetter != null);
-
             PrintBlankLetterCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var path = _fileManagerService.GetPath(SelectedLetter.Entity);
+                    var path = fileManagerService.GetLettersDefaultStoragePath();
                     Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedLetter.Entity, path);
                 },
                 () => SelectedLetter != null && SelectedLetter.Entity.Direction == DocumentDirection.Outgoing);

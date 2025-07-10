@@ -304,11 +304,11 @@ namespace HVTApp.Services.FileManagerService
             }
         }
 
-        public bool LoadFileToStorage(string storagePath, string filePath, Guid fileId, bool overwrite = false)
+        public bool LoadFile(string targetPath, string filePath, string newFileName = null, bool overwrite = false)
         {
             try
             {
-                File.Copy(filePath, $"{storagePath}\\{fileId}{Path.GetExtension(filePath)}", overwrite);
+                File.Copy(filePath, $"{targetPath}\\{newFileName ?? Path.GetFileName(filePath)}{Path.GetExtension(filePath)}", overwrite);
             }
             catch (Exception e)
             {
@@ -316,6 +316,12 @@ namespace HVTApp.Services.FileManagerService
             }
 
             return true;
+        }
+
+
+        public bool LoadFileToStorage(string storagePath, string filePath, Guid fileId, bool overwrite = false)
+        {
+            return LoadFile(storagePath, filePath, fileId.ToString(), overwrite);
         }
 
         public bool LoadFileToStorage(string storagePath, Guid fileId, bool overwrite = false)

@@ -45,6 +45,14 @@ namespace HVTApp.Model.Services
         string GetPath(Guid guid, string rootDirectory, string addToFolderName = null);
 
         /// <summary>
+        /// Стандартное хранилище вложений
+        /// </summary>
+        /// <returns></returns>
+        string GetDefaultStoragePath();
+
+        string GetLettersDefaultStoragePath();
+
+        /// <summary>
         /// Создать директорию, если ее не существует.
         /// </summary>
         /// <param name="path">Путь к директории</param>

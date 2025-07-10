@@ -102,6 +102,8 @@ namespace HVTApp.Model.Services
 
         void AddFilesToZip(string zipPath, string[] files);
 
+        bool LoadFile(string targetPath, string filePath, string newFileName = null, bool overwrite = false);
+
         /// <summary>
         /// Загрузка файла в хранилище
         /// </summary>

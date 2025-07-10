@@ -8,12 +8,12 @@
     <infRib:RibbonGroup Caption="Регистрация">
         <infRib:ButtonTool Caption="Входящий" Command="{Binding CreateIncomingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/in.png"/>
         <infRib:ButtonTool Caption="Исходящий" Command="{Binding CreateOutgoingDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>
+        <!--<infRib:ButtonTool Caption="Изменить" Command="{Binding EditDocumentCommand}" SmallImage="/HVTApp.UI;component/Images/edit.png"/>-->
     </infRib:RibbonGroup>
-    
+
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Печать бланка" Command="{Binding PrintBlankLetterCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
-        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
+        <!--<infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>-->
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

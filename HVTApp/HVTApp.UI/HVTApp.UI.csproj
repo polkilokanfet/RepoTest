@@ -213,6 +213,7 @@
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestsViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\IncomingRequestViewModel.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\Letter.cs" />
+    <Compile Include="Modules\BookRegistration\ViewModels\LetterViewModelBase.cs" />
     <Compile Include="Modules\BookRegistration\ViewModels\LetterWrapper.cs" />
     <Compile Include="Modules\Directum\DirectumExt.cs" />
     <Compile Include="Modules\Directum\DirectumTask\ContentTaskControl.xaml.cs">
