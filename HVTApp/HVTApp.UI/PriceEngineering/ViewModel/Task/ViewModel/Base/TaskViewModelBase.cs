@@ -252,7 +252,7 @@ namespace HVTApp.UI.PriceEngineering
         public abstract class FilesContainer<TItemWrapper> : ValidatableChangeTrackingCollection<TItemWrapper> 
             where TItemWrapper : class, IValidatableChangeTracking, IFilePathContainer, IIsActual
         {
-            protected abstract string StoragePath { get; }
+            public abstract string StoragePath { get; }
 
             protected FilesContainer(IEnumerable<TItemWrapper> items) : base(items)
             {
@@ -290,7 +290,8 @@ namespace HVTApp.UI.PriceEngineering
             /// </summary>
             private void LoadNewFilesInStorage()
             {
-                if (this.AddedItems.Any(file => string.IsNullOrWhiteSpace(file.Path) == false) == false) return;
+                if (this.AddedItems.Any(file => string.IsNullOrWhiteSpace(file.Path) == false) == false) 
+                    return;
 
                 //новые файлы, которые нужно загрузить (в них пути к файлу не пустые)
                 var addedFiles = this.AddedItems
@@ -298,13 +299,16 @@ namespace HVTApp.UI.PriceEngineering
                     .ToList();
 
                 //уже загруженные в хранилище файлы
-                var allLoadedfiles = GetAllLoadedFileWrappers().Where(x => string.IsNullOrEmpty(x.Path) == false).ToList();
+                var allLoadedFiles = GetAllLoadedFileWrappers()
+                    .Where(x => string.IsNullOrEmpty(x.Path) == false)
+                    .ToList();
 
                 foreach (var file in addedFiles)
                 {
-                    var sameFile = string.IsNullOrEmpty(file.Path) == false
-                        ? allLoadedfiles.Where(x => string.IsNullOrEmpty(x.Path) == false).SingleOrDefault(x => FileComparer.CheckFilesEquality(file.Path, x.Path))
-                        : null;
+                    var sameFile = allLoadedFiles
+                        .Where(x => string.IsNullOrEmpty(x.Path) == false)
+                        .SingleOrDefault(x => FileComparer.FilesAreEqual(file.Path, x.Path));
+
                     if (sameFile != null)
                     {
                         this.Add(sameFile);
@@ -313,7 +317,7 @@ namespace HVTApp.UI.PriceEngineering
                     else
                     {
                         file.LoadToStorage(this.StoragePath);
-                        allLoadedfiles.Add(file);
+                        allLoadedFiles.Add(file);
                     }
                 }
             }
@@ -328,7 +332,7 @@ namespace HVTApp.UI.PriceEngineering
         public class FilesContainerTechnicalRequrements : FilesContainer<PriceEngineeringTaskFileTechnicalRequirementsWrapper>
         {
             private readonly Func<IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper>> _getAllLoadedFileWrappers;
-            protected override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
+            public override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesPath;
 
             protected override IEnumerable<PriceEngineeringTaskFileTechnicalRequirementsWrapper> GetAllLoadedFileWrappers()
             {
@@ -344,7 +348,7 @@ namespace HVTApp.UI.PriceEngineering
         public class FilesContainerAnswers : FilesContainer<PriceEngineeringTaskFileAnswerWrapper>
         {
             private readonly Func<IEnumerable<PriceEngineeringTaskFileAnswerWrapper>> _getAllLoadedFileWrappers;
-            protected override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
+            public override string StoragePath => GlobalAppProperties.Actual.TechnicalRequrementsFilesAnswersPath;
             protected override IEnumerable<PriceEngineeringTaskFileAnswerWrapper> GetAllLoadedFileWrappers()
             {
                 return _getAllLoadedFileWrappers.Invoke();

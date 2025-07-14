@@ -10,7 +10,7 @@ namespace HVTApp.Infrastructure.Comparers
         /// <param name="file1Path"></param>
         /// <param name="file2Path"></param>
         /// <returns></returns>
-        public static bool CheckFilesEquality(string file1Path, string file2Path)
+        public static bool FilesAreEqual(string file1Path, string file2Path)
         {
             int file1Byte;
             int file2Byte;

@@ -3,10 +3,13 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Comparers;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering.Wrapper;
@@ -100,7 +103,21 @@ namespace HVTApp.UI.PriceEngineering
         /// <param name="container"></param>
         /// <param name="unitOfWork"></param>
         protected TaskViewModelManager(IUnityContainer container, IUnitOfWork unitOfWork) : base(container, unitOfWork) { }
-        
+
+        private bool FileContainsInTask(string path)
+        {
+            foreach (var file in this.FilesTechnicalRequirements)
+            {
+                var filePath = string.IsNullOrWhiteSpace(file.Path)
+                    ? Container.Resolve<IFilesStorageService>().FindFile(file.Id, this.FilesTechnicalRequirements.StoragePath).FullName
+                    : file.Path;
+                if (FileComparer.FilesAreEqual(filePath, path))
+                    return true;
+            }
+
+            return false;
+        }
+
         protected override void InCtor()
         {
             base.InCtor();
@@ -118,6 +135,12 @@ namespace HVTApp.UI.PriceEngineering
                     //копируем каждый файл
                     foreach (var fileName in fileNames)
                     {
+                        if (this.FileContainsInTask(fileName))
+                        {
+                            Container.Resolve<IMessageService>().Message("Вы уже загрузили в задачу точно такой же файл", $"{fileName}");
+                            continue;
+                        }
+
                         var fileWrapper = new PriceEngineeringTaskFileTechnicalRequirementsWrapper(new PriceEngineeringTaskFileTechnicalRequirements())
                         {
                             Name = Path.GetFileNameWithoutExtension(fileName).LimitLength(200),
