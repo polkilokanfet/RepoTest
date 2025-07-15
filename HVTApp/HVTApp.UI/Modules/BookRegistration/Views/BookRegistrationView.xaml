@@ -39,6 +39,7 @@
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RecipientEmployee}" Label="Получатель" Width="250" AllowResize="True"/>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RequestDocument}" Label="Запрос" Width="200" AllowResize="True"/>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Direction}" Label="Направление" Width="Auto" AllowResize="True"/>
+                            <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOffer}" Label="ТКП?" Width="Auto" AllowResize="False"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
 

@@ -28,6 +28,8 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         /// </summary>
         public string CompanyRecipient => Entity.RecipientEmployee?.Company.ToString();
 
+        public bool IsOffer => this.Entity is Offer;
+
         public Letter(Document entity) : base(entity)
         {
             if (entity == null) throw new NoNullAllowedException();
