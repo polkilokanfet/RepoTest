@@ -23,11 +23,11 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
 
         public override void AfterUnitsLoading()
         {
-            if (string.IsNullOrEmpty(this.DetailsViewModel.Item.Comment))
-            {
-                var facilities = this.GroupsViewModel.Groups.Select(x => x.Facility).Distinct();
-                this.DetailsViewModel.Item.Comment = $"“ œ ({facilities.ToStringEnum()})";
-            }
+            //if (string.IsNullOrEmpty(this.DetailsViewModel.Item.Comment))
+            //{
+            //    var facilities = this.GroupsViewModel.Groups.Select(x => x.Facility).Distinct();
+            //    this.DetailsViewModel.Item.Comment = $"“ œ ({facilities.ToStringEnum()})";
+            //}
         }
 
         protected override IEnumerable<OfferUnit> GetUnits(Offer offer, object parameter = null)
@@ -104,7 +104,6 @@ namespace HVTApp.UI.Modules.Sales.ViewModels
             if (offer.RecipientEmployee != null) DetailsViewModel.Item.RecipientEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(offer.RecipientEmployee.Id));
             if (offer.SenderEmployee != null) DetailsViewModel.Item.SenderEmployee = new EmployeeWrapper(UnitOfWork.Repository<Employee>().GetById(offer.SenderEmployee.Id));
             if (offer.RequestDocument != null) DetailsViewModel.Item.RequestDocument = new DocumentWrapper(UnitOfWork.Repository<Document>().GetById(offer.RequestDocument.Id));
-            DetailsViewModel.Item.Comment = offer.Comment;
             DetailsViewModel.Item.Vat = offer.Vat;
             DetailsViewModel.Item.ValidityDate = offer.ValidityDate;
 

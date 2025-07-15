@@ -9,7 +9,18 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
     {
         public string RegNumber => Entity.RegNumber;
         public DateTime Date => Entity.Date;
-        public string Comment => Entity.Comment;
+        public string Comment
+        {
+            get
+            {
+                if (this.Entity is Offer offer)
+                {
+                    return offer.ToString();
+                }
+                return Entity.Comment;
+            }
+        }
+
         public string SenderEmployee => Entity.SenderEmployee?.ToString();
         public string Author => Entity.Author?.ToString();
         public string RecipientEmployee => Entity.RecipientEmployee?.ToString();

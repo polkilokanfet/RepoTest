@@ -47,15 +47,12 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = container.Resolve<IUnitOfWork>();
 
-                    var documents = unitOfWork.Repository<Document>().GetAll();
-                    var users = unitOfWork.Repository<User>().GetAll();
+                    var offers = unitOfWork.Repository<Offer>().GetAll();
 
                     var sb = new StringBuilder();
-                    foreach (var document in documents)
+                    foreach (var offer in offers)
                     {
-                        var user = users.SingleOrDefault(user1 => user1.Employee.Id == document.Author.Id);
-                        if (user == null) continue;
-                        document.WhoRegisteredUser = user;
+                        offer.Comment = null;
                     }
 
                     unitOfWork.SaveChanges();

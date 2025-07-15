@@ -17,7 +17,8 @@
             <ScrollViewer>
                 <views:OfferDetailsView x:Name="OfferDetailsView"
                                         DockPanel.Dock="Top"
-                                        DataContext="{Binding DetailsViewModel}" 
+                                        DataContext="{Binding DetailsViewModel}"
+                                        VisibilityCommentOffer="Collapsed"
                                         VisibilityAuthorOffer="Collapsed"
                                         VisibilityProjectOffer="Collapsed"
                                         VisibilityTceNumberOffer="Collapsed"
