@@ -307,7 +307,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     var sameFile = allLoadedFiles
                         .Where(x => string.IsNullOrEmpty(x.Path) == false)
-                        .SingleOrDefault(x => FileComparer.FilesAreEqual(file.Path, x.Path));
+                        .FirstOrDefault(x => FileComparer.FilesAreEqual(file.Path, x.Path));
 
                     if (sameFile != null)
                     {

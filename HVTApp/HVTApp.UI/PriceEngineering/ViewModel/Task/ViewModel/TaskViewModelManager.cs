@@ -137,7 +137,7 @@ namespace HVTApp.UI.PriceEngineering
                     {
                         if (this.FileContainsInTask(fileName))
                         {
-                            Container.Resolve<IMessageService>().Message("Вы уже загрузили в задачу точно такой же файл", $"{fileName}");
+                            Container.Resolve<IMessageService>().Message("Вы уже загрузили в задачу точно такой же файл", $"Этот файл уже загружен в задачу: {fileName}");
                             continue;
                         }
 
@@ -174,7 +174,7 @@ namespace HVTApp.UI.PriceEngineering
         {
             get
             {
-                var statusesArray = Model.Statuses.OrderBy(x => x.Moment).ToArray();
+                var statusesArray = Model.Statuses.OrderBy(status => status.Moment).ToArray();
                 if (statusesArray.Length < 3) return false;
                 if (statusesArray[0].StatusEnum != 0) return false;
                 if (statusesArray[1].StatusEnum != 1) return false;
