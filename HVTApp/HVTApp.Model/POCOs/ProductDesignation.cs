@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Extensions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -45,6 +46,12 @@ namespace HVTApp.Model.POCOs
         public override string ToString()
         {
             return Designation;
+        }
+
+        protected bool Equals(ProductDesignation other)
+        {
+            return this.Parameters.Select(x => x.Id).MembersAreSame(other.Parameters.Select(x => x.Id)) &&
+                   this.Parents.Select(x => x.Id).MembersAreSame(other.Parents.Select(x => x.Id));
         }
     }
 }

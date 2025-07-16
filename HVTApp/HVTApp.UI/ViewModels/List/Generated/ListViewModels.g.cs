@@ -232,7 +232,7 @@ namespace HVTApp.UI.ViewModels
         public ProductIncludedLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
-	public partial class ProductDesignationLookupListViewModel : BaseListViewModel<ProductDesignation, ProductDesignationLookup, AfterSaveProductDesignationEvent, AfterSelectProductDesignationEvent, AfterRemoveProductDesignationEvent>
+    public partial class ProductDesignationLookupListViewModel : BaseListViewModel<ProductDesignation, ProductDesignationLookup, AfterSaveProductDesignationEvent, AfterSelectProductDesignationEvent, AfterRemoveProductDesignationEvent>
     {
         public ProductDesignationLookupListViewModel(IUnityContainer container) : base(container) { }
     }

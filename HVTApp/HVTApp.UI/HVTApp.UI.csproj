@@ -1441,6 +1441,7 @@
     <Compile Include="ViewModels\List\Custom\RegionLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\SpecificationLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\UserLookupListViewModel.cs" />
+    <Compile Include="ViewModels\List\Custom\ProductDesignationLookupListViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
@@ -1458,7 +1459,11 @@
     <Compile Include="Views\List\cs\Custom\ProductBlockLookupListView.cs" />
     <Compile Include="Views\List\cs\Custom\ProductLookupListView.cs" />
     <Compile Include="Views\List\cs\Custom\ProjectLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\TabProductDesignationLookupListView.xaml.cs">
+      <DependentUpon>TabProductDesignationLookupListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\cs\Custom\UserLookupListView.cs" />
+    <Compile Include="Views\List\cs\Custom\ProductDesignationLookupListView.cs" />
     <Compile Include="Views\List\Custom\PaymentConditionFilterControl.xaml.cs">
       <DependentUpon>PaymentConditionFilterControl.xaml</DependentUpon>
     </Compile>
@@ -3219,6 +3224,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\CreateNewProductTaskLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\cs\Custom\TabProductDesignationLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
