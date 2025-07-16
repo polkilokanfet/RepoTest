@@ -31,7 +31,7 @@
                         <infg:FieldLayout.Fields>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RegNumber}" Label="Номер" Width="Auto" AllowResize="False" />
                             <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Date}" Label="Дата" Width="Auto" AllowResize="False" />
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Комментарий" Width="200" AllowResize="True" />
+                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Тема" Width="200" AllowResize="True" />
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding CompanySender}" Label="Компания-отправитель" Width="250" AllowResize="True"/>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding CompanyRecipient}" Label="Компания-получатель" Width="250" AllowResize="True"/>
                             <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SenderEmployee}" Label="Отправитель" Width="250" AllowResize="True"/>

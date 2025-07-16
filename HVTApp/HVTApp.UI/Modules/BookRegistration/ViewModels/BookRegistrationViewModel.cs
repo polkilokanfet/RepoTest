@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
@@ -54,13 +56,22 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         /// Редактирование документа
         /// </summary>
         public DelegateLogCommand EditDocumentCommand { get; }
+
+        /// <summary>
+        /// Перезагрузка списка писем
+        /// </summary>
         public DelegateLogCommand ReloadCommand { get; }
 
         /// <summary>
         /// Печать бланка письма
         /// </summary>
         public DelegateLogCommand PrintBlankLetterCommand { get; }
-        
+
+        /// <summary>
+        /// Перенос писем из старого хранилища
+        /// </summary>
+        public DelegateLogCommand MoveLettersCommand { get; }
+
         #endregion
 
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
@@ -96,6 +107,31 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedLetter.Entity, path);
                 },
                 () => SelectedLetter != null && SelectedLetter.Entity.Direction == DocumentDirection.Outgoing);
+
+            MoveLettersCommand = new DelegateLogCommand(() =>
+            {
+                var sb = new StringBuilder();
+                var filesStorageService = container.Resolve<IFileManagerService>();
+
+                var storageNew = fileManagerService.GetLettersDefaultStoragePath();
+
+                foreach (var letter in this.Letters)
+                {
+                    var dirPath = filesStorageService.GetPath(letter.Entity);
+                    if (Directory.Exists(dirPath) == false) continue;
+
+                    var firstFilePath = Directory.GetFiles(dirPath).FirstOrDefault();
+                    if (firstFilePath == null) continue;
+
+                    var fileExt = Path.GetExtension(firstFilePath);
+                    var destFileName = Path.Combine(storageNew, $"{letter.Entity.Id.ToString()}{fileExt}");
+                    File.Move(firstFilePath, destFileName);
+
+                    sb.AppendLine(destFileName);
+                }
+
+                container.Resolve<IMessageService>().Message("Перенесённые файлы", sb.ToString());
+            });
 
             Container.Resolve<IEventAggregator>().GetEvent<AfterSaveDocumentEvent>().Subscribe(document =>
             {

@@ -9,8 +9,8 @@ namespace HVTApp.Services.PrintService.Extensions
     {
         public static string GetPath(this Document document, string path)
         {
-            var fileName = $"{document.RegNumber} {document.Date.ToShortDateString()} {DateTime.Today.ToShortDateString()}";
-            return GetPath(path, fileName);
+            //var fileName = $"{document.RegNumber} {document.Date.ToShortDateString()} {DateTime.Today.ToShortDateString()}";
+            return GetPath(path, document.Id.ToString());
         }
 
         public static string GetPath(this Offer offer, string path)

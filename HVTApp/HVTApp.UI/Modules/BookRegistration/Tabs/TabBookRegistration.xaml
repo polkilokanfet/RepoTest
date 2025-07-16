@@ -16,4 +16,8 @@
         <!--<infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>-->
     </infRib:RibbonGroup>
 
+    <infRib:RibbonGroup Caption="Действия 2">
+        <infRib:ButtonTool Caption="Перенести письма из старого хранилища в новое" Command="{Binding MoveLettersCommand}"/>
+    </infRib:RibbonGroup>
+
 </inf:RibbonTabItemWithViewModel>

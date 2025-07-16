@@ -16,8 +16,6 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 {
     public class SupervisionViewModel : LoadableExportableViewModel
     {
-        private readonly IFileManagerService _fileManagerService;
-
         private object[] _selectedUnits;
 
         public IValidatableChangeTrackingCollection<SupervisionWr> Units { get; } = new ValidatableChangeTrackingCollection<SupervisionWr>(new List<SupervisionWr>());
@@ -39,7 +37,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
 
         public SupervisionViewModel(IUnityContainer container) : base(container)
         {
-            _fileManagerService = container.Resolve<IFileManagerService>();
+            var fileManagerService = container.Resolve<IFileManagerService>();
 
             SaveCommand = new DelegateLogCommand(
                 () =>
@@ -111,7 +109,7 @@ namespace HVTApp.UI.Modules.PlanAndEconomy.Supervision
                     if (unitOfWork.SaveEntity(letter).OperationCompletedSuccessfully)
                     {
                         Container.Resolve<IPrintSupervisionLetterService>()
-                            .PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWr>().Select(x => x.Model), letter, _fileManagerService.GetPath(letter));
+                            .PrintSupervisionLetter(SelectedUnits.Cast<SupervisionWr>().Select(x => x.Model), letter, fileManagerService.GetLettersDefaultStoragePath());
                     }
 
                 },

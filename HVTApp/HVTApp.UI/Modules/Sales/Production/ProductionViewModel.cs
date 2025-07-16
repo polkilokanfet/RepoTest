@@ -117,7 +117,7 @@ namespace HVTApp.UI.Modules.Sales.Production
                     UnitOfWork.Repository<Document>().Add(document);
                     UnitOfWork.SaveChanges();
 
-                    var path = container.Resolve<IFileManagerService>().GetPath(document);
+                    var path = container.Resolve<IFileManagerService>().GetLettersDefaultStoragePath();
 
                     container.Resolve<IPrintNoticeOfCompletionOfProductionService>()
                         .PrintNoticeOfCompletionOfProduction(_selectedProductionGroups, document, path, em);

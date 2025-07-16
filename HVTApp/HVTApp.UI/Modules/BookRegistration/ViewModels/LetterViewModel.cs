@@ -46,6 +46,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 
             LoadFileCommand = new DelegateLogCommand(() =>
             {
+                if (filesStorageService.FileContainsInStorage(this.Model.Id, lettersStoragePath))
+                {
+                    var dr = container.Resolve<IMessageService>().ConfirmationDialog("Заменить загруженный файл?");
+                    if (dr == false) return;
+                }
+
                 var filePath = container.Resolve<IGetFilePaths>().GetFilePath();
                 if (filePath == null) return;
                 filesStorageService.LoadFile(lettersStoragePath, filePath, this.Model.Id.ToString(), true);
