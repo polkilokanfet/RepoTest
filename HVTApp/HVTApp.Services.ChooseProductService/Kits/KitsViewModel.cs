@@ -39,7 +39,7 @@ namespace HVTApp.Services.GetProductService.Kits
 
         public KitsViewModel(IUnityContainer container) : base(container)
         {
-            LoadAllKitsCommand = new DelegateCommand(this.Load);
+            LoadAllKitsCommand = new DelegateCommand(this.Load2, () => GlobalAppProperties.User.RoleCurrent == Role.Constructor);
 
             SelectCommand = new DelegateCommand(
                 () =>
@@ -61,13 +61,24 @@ namespace HVTApp.Services.GetProductService.Kits
                         Items.Insert(0, kit);
                         SelectedItem = kit;
                     }
-                });
+                }, () => GlobalAppProperties.User.RoleCurrent == Role.Constructor);
+        }
+
+        /// <summary>
+        /// Загрузка всех комплектов (для менеджера)
+        /// </summary>
+        public void Load()
+        {
+            var kits = UnitOfWork.Repository<Product>()
+                .Find(product => product.DesignDepartmentsKits.Any(department => department.IsKitDepartment))
+                .Select(product => new Kit(product));
+            RefreshItems(kits);
         }
 
         /// <summary>
         /// Загрузка всех комплектов
         /// </summary>
-        public void Load()
+        public void Load2()
         {
             var kitParameter = GlobalAppProperties.Actual.ComplectsParameter;
             var kits = UnitOfWork.Repository<Product>()
@@ -76,6 +87,10 @@ namespace HVTApp.Services.GetProductService.Kits
             RefreshItems(kits);
         }
 
+        /// <summary>
+        /// Загрузка всех комплектов
+        /// </summary>
+        /// <param name="designDepartment">Департамент ОГК, чьи комплекты</param>
         public void Load(DesignDepartment designDepartment)
         {
             _designDepartment = UnitOfWork.Repository<DesignDepartment>().GetById(designDepartment.Id);
@@ -87,7 +102,6 @@ namespace HVTApp.Services.GetProductService.Kits
         {
             Items.Clear();
             Items.AddRange(kits.OrderBy(kit => kit.Product.DesignationSpecial));
-
         }
 
         public void ShowDialog()
