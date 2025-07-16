@@ -36,11 +36,17 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                 {
                     EditDocumentCommand.RaiseCanExecuteChanged();
                     PrintBlankLetterCommand.RaiseCanExecuteChanged();
+                    OpenFileCommand.RaiseCanExecuteChanged();
+                    LoadFileCommand.RaiseCanExecuteChanged();
                 });
             }
         }
 
         #region Commands
+
+        public DelegateLogCommand OpenFileCommand { get; }
+
+        public DelegateLogCommand LoadFileCommand { get; }
 
         /// <summary>
         /// Создание исходящего документа
@@ -77,7 +83,33 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
         public BookRegistrationViewModel(IUnityContainer container) : base(container)
         {
             var fileManagerService = container.Resolve<IFileManagerService>();
+            var filesStorageService = container.Resolve<IFilesStorageService>();
+
+            var lettersStoragePath = container.Resolve<IFileManagerService>().GetLettersDefaultStoragePath();
+
             ReloadCommand = new DelegateLogCommand(Load);
+
+            OpenFileCommand = new DelegateLogCommand(() =>
+            {
+                var fi = filesStorageService.FindFile(this.SelectedLetter.Id, lettersStoragePath);
+                Process.Start(fi.FullName);
+            }, () => this.SelectedLetter != null &&
+                     filesStorageService.FileContainsInStorage(this.SelectedLetter.Id, lettersStoragePath));
+
+            LoadFileCommand = new DelegateLogCommand(() =>
+            {
+                if (filesStorageService.FileContainsInStorage(this.Model.Id, lettersStoragePath))
+                {
+                    var dr = container.Resolve<IMessageService>().ConfirmationDialog("Заменить загруженный файл?");
+                    if (dr == false) return;
+                }
+
+                var filePath = container.Resolve<IGetFilePaths>().GetFilePath();
+                if (filePath == null) return;
+                filesStorageService.LoadFile(lettersStoragePath, filePath, this.Model.Id.ToString(), true);
+                OpenFileCommand.RaiseCanExecuteChanged();
+            }, () => this.SelectedLetter != null);
+
 
             CreateOutgoingDocumentCommand = new DelegateLogCommand(() =>
             {
@@ -111,13 +143,12 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             MoveLettersCommand = new DelegateLogCommand(() =>
             {
                 var sb = new StringBuilder();
-                var filesStorageService = container.Resolve<IFileManagerService>();
 
                 var storageNew = fileManagerService.GetLettersDefaultStoragePath();
 
                 foreach (var letter in this.Letters)
                 {
-                    var dirPath = filesStorageService.GetPath(letter.Entity);
+                    var dirPath = fileManagerService.GetPath(letter.Entity);
                     if (Directory.Exists(dirPath) == false) continue;
 
                     var firstFilePath = Directory.GetFiles(dirPath).FirstOrDefault();

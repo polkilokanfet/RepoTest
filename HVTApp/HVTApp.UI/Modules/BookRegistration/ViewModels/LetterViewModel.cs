@@ -15,8 +15,6 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
 {
     public class LetterViewModel : LetterViewModelBase
     {
-        public DelegateLogCommand OpenFileCommand { get; }
-        public DelegateLogCommand LoadFileCommand { get; }
         public DelegateCommand SaveCommand { get; }
 
         /// <summary>
@@ -37,26 +35,6 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     container.Resolve<IEventAggregator>().GetEvent<AfterSaveDocumentEvent>().Publish(this.Model);
                 },
                 () => this.IsValid && this.IsChanged);
-
-            OpenFileCommand = new DelegateLogCommand(() =>
-            {
-                var fi = filesStorageService.FindFile(this.Model.Id, lettersStoragePath);
-                Process.Start(fi.FullName);
-            }, () => filesStorageService.FileContainsInStorage(this.Model.Id, lettersStoragePath));
-
-            LoadFileCommand = new DelegateLogCommand(() =>
-            {
-                if (filesStorageService.FileContainsInStorage(this.Model.Id, lettersStoragePath))
-                {
-                    var dr = container.Resolve<IMessageService>().ConfirmationDialog("Заменить загруженный файл?");
-                    if (dr == false) return;
-                }
-
-                var filePath = container.Resolve<IGetFilePaths>().GetFilePath();
-                if (filePath == null) return;
-                filesStorageService.LoadFile(lettersStoragePath, filePath, this.Model.Id.ToString(), true);
-                OpenFileCommand.RaiseCanExecuteChanged();
-            });
 
             this.PropertyChanged += (sender, args) => SaveCommand.RaiseCanExecuteChanged();
         }

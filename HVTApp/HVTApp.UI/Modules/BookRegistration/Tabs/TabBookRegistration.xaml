@@ -13,10 +13,15 @@
 
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Печать бланка" Command="{Binding PrintBlankLetterCommand}" SmallImage="/HVTApp.UI;component/Images/print.png"/>
-        <!--<infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>-->
+        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.UI;component/Images/refresh.png"/>
     </infRib:RibbonGroup>
 
-    <infRib:RibbonGroup Caption="Действия 2">
+    <infRib:RibbonGroup Caption="Связанный файл">
+        <infRib:ButtonTool Caption="Загрузить" Command="{Binding LoadFileCommand}" SmallImage="/HVTApp.UI;component/Images/in.png"/>
+        <infRib:ButtonTool Caption="Загрузить" Command="{Binding OpenFileCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Перенос">
         <infRib:ButtonTool Caption="Перенести письма из старого хранилища в новое" Command="{Binding MoveLettersCommand}"/>
     </infRib:RibbonGroup>
 

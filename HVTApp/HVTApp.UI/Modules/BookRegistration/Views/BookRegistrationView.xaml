@@ -3,50 +3,41 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter">
-    <Border Background="White">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="Журнал переписки" HorizontalAlignment="Left"/>
+    <Grid>
+        <infg:XamDataGrid Grid.Row="0" x:Name="DocsGrid"
+                          SelectedDataItem="{Binding SelectedLetter, Mode=TwoWay}"
+                          DataSource="{Binding Letters}">
 
-            <infg:XamDataGrid Grid.Row="1" x:Name="DocsGrid"
-                              SelectedDataItem="{Binding SelectedLetter, Mode=TwoWay}"
-                              DataSource="{Binding Letters}">
+            <infg:XamDataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditDocumentCommand, Mode=OneWay}"/>
+            </infg:XamDataGrid.InputBindings>
 
-                <infg:XamDataGrid.InputBindings>
-                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=EditDocumentCommand, Mode=OneWay}"/>
-                </infg:XamDataGrid.InputBindings>
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
 
-                <infg:XamDataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                    </ContextMenu>
-                </infg:XamDataGrid.ContextMenu>
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RegNumber}" Label="Номер" Width="Auto" AllowResize="False" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Date}" Label="Дата" Width="Auto" AllowResize="False" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Тема" Width="200" AllowResize="True" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding CompanySender}" Label="Компания-отправитель" Width="250" AllowResize="True"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding CompanyRecipient}" Label="Компания-получатель" Width="250" AllowResize="True"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SenderEmployee}" Label="Отправитель" Width="250" AllowResize="True"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Author}" Label="Автор" Width="250" AllowResize="True"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RecipientEmployee}" Label="Получатель" Width="250" AllowResize="True"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RequestDocument}" Label="Запрос" Width="200" AllowResize="True"/>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Direction}" Label="Направление" Width="Auto" AllowResize="True"/>
+                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOffer}" Label="ТКП?" Width="Auto" AllowResize="False"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
 
-                <infg:XamDataGrid.FieldLayouts>
-                    <infg:FieldLayout>
-                        <infg:FieldLayout.Fields>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RegNumber}" Label="Номер" Width="Auto" AllowResize="False" />
-                            <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding Date}" Label="Дата" Width="Auto" AllowResize="False" />
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Comment}" Label="Тема" Width="200" AllowResize="True" />
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding CompanySender}" Label="Компания-отправитель" Width="250" AllowResize="True"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding CompanyRecipient}" Label="Компания-получатель" Width="250" AllowResize="True"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SenderEmployee}" Label="Отправитель" Width="250" AllowResize="True"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Author}" Label="Автор" Width="250" AllowResize="True"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RecipientEmployee}" Label="Получатель" Width="250" AllowResize="True"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding RequestDocument}" Label="Запрос" Width="200" AllowResize="True"/>
-                            <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding Direction}" Label="Направление" Width="Auto" AllowResize="True"/>
-                            <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding IsOffer}" Label="ТКП?" Width="Auto" AllowResize="False"/>
-                        </infg:FieldLayout.Fields>
-                    </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
 
-                </infg:XamDataGrid.FieldLayouts>
-            </infg:XamDataGrid>
-
-        </Grid>
-
-    </Border>
+    </Grid>
 </inf:ViewBase>
