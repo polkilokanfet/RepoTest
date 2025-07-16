@@ -18,7 +18,7 @@
 
     <infRib:RibbonGroup Caption="Связанный файл">
         <infRib:ButtonTool Caption="Загрузить" Command="{Binding LoadFileCommand}" SmallImage="/HVTApp.UI;component/Images/in.png"/>
-        <infRib:ButtonTool Caption="Загрузить" Command="{Binding OpenFileCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
+        <infRib:ButtonTool Caption="Открыть" Command="{Binding OpenFileCommand}" SmallImage="/HVTApp.UI;component/Images/out.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Перенос">

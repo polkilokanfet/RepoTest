@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -78,7 +79,17 @@ namespace HVTApp.Services.PrintService
             docWriter.EndTableCell();
 
             var recipient = document.RecipientEmployee;
-            docWriter.PrintTableCell("Получатель: " + Environment.NewLine + $"{recipient.Position} {recipient.Company.Form.ShortName} \"{recipient.Company.ShortName}\"" + Environment.NewLine + $"{recipient.Person}");
+            var sb = new StringBuilder();
+            sb.Append("Получатель: " + Environment.NewLine + $"{recipient.Position} {recipient.Company.Form.ShortName} \"{recipient.Company.ShortName}\"" + Environment.NewLine + $"{recipient.Person}");
+            if (document.CopyToRecipients.Any())
+            {
+                sb.Append(Environment.NewLine + "Копия:");
+                foreach (var copyToRecipient in document.CopyToRecipients)
+                {
+                    sb.Append(Environment.NewLine + copyToRecipient);
+                }
+            }
+            docWriter.PrintTableCell(sb.ToString());
 
             docWriter.EndTableRow();
 

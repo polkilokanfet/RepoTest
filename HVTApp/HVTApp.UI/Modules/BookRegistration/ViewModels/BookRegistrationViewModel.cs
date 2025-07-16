@@ -93,22 +93,39 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             {
                 var fi = filesStorageService.FindFile(this.SelectedLetter.Id, lettersStoragePath);
                 Process.Start(fi.FullName);
-            }, () => this.SelectedLetter != null &&
-                     filesStorageService.FileContainsInStorage(this.SelectedLetter.Id, lettersStoragePath));
+            }, () =>
+            {
+                try
+                {
+                    return this.SelectedLetter != null &&
+                           filesStorageService.FileContainsInStorage(this.SelectedLetter.Id, lettersStoragePath);
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                return false;
+            });
 
             LoadFileCommand = new DelegateLogCommand(() =>
             {
-                if (filesStorageService.FileContainsInStorage(this.Model.Id, lettersStoragePath))
-                {
-                    var dr = container.Resolve<IMessageService>().ConfirmationDialog("Заменить загруженный файл?");
-                    if (dr == false) return;
-                }
+                if (ConfirmReLoadFile(container, filesStorageService, lettersStoragePath) == false) return;
 
                 var filePath = container.Resolve<IGetFilePaths>().GetFilePath();
                 if (filePath == null) return;
-                filesStorageService.LoadFile(lettersStoragePath, filePath, this.Model.Id.ToString(), true);
+
+                filesStorageService.LoadFile(lettersStoragePath, filePath, this.SelectedLetter.Id.ToString(), true);
                 OpenFileCommand.RaiseCanExecuteChanged();
             }, () => this.SelectedLetter != null);
+
+            PrintBlankLetterCommand = new DelegateLogCommand(
+                () =>
+                {
+                    if (ConfirmReLoadFile(container, filesStorageService, lettersStoragePath) == false) return;
+                    Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedLetter.Entity, lettersStoragePath);
+                },
+                () => SelectedLetter != null && SelectedLetter.Entity.Direction == DocumentDirection.Outgoing);
 
 
             CreateOutgoingDocumentCommand = new DelegateLogCommand(() =>
@@ -131,14 +148,6 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
                     container.Resolve<IDialogService>().Show(documentViewModel, $"Редактирование письма №{document.RegNumber}");
                 },
                 () => SelectedLetter != null);
-
-            PrintBlankLetterCommand = new DelegateLogCommand(
-                () =>
-                {
-                    var path = fileManagerService.GetLettersDefaultStoragePath();
-                    Container.Resolve<IPrintBlankLetterService>().PrintBlankLetter(SelectedLetter.Entity, path);
-                },
-                () => SelectedLetter != null && SelectedLetter.Entity.Direction == DocumentDirection.Outgoing);
 
             MoveLettersCommand = new DelegateLogCommand(() =>
             {
@@ -173,6 +182,19 @@ namespace HVTApp.UI.Modules.BookRegistration.ViewModels
             });
 
             this.Load();
+        }
+
+        private bool ConfirmReLoadFile(IUnityContainer container, IFilesStorageService filesStorageService,
+            string lettersStoragePath)
+        {
+            if (filesStorageService.FileContainsInStorage(this.SelectedLetter.Id, lettersStoragePath))
+            {
+                var dr = container.Resolve<IMessageService>().ConfirmationDialog("Удалить уже загруженный файл?");
+                if (dr == false) return false;
+                filesStorageService.RemoveFiles(lettersStoragePath, this.SelectedLetter.Id);
+            }
+
+            return true;
         }
 
         public void Load()
