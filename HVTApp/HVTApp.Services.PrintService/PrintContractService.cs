@@ -87,12 +87,12 @@ namespace HVTApp.Services.PrintService
 
             docWriter.StartTableRow();
 
-            var part1 = "Поставщик" + Environment.NewLine + c1.ToShortName() + Environment.NewLine + GetR();
+            var part1 = "Поставщик" + Environment.NewLine + c1.ToShortName() + Environment.NewLine + GetR(c1);
             docWriter.PrintTableCell(part1, tableCellProperties2);
 
             docWriter.PrintTableCell(" ");
 
-            var part3 = "Покупатель" + Environment.NewLine + c2.ToShortName();
+            var part3 = "Покупатель" + Environment.NewLine + c2.ToShortName() + Environment.NewLine + GetR(c2);
             docWriter.PrintTableCell(part3, tableCellProperties2);
 
             docWriter.EndTableRow();
@@ -307,19 +307,19 @@ namespace HVTApp.Services.PrintService
             return Path.GetTempPath() + $"\\{fileName}";
         }
 
-        private string GetR()
+        private string GetR(Company company)
         {
-            return @"ИНН 6673197337, КПП 668601001,
-ОГРН 1096673002172, ОКПО 60793024
-Местонахождения: Россия, 620017, Свердловская область, г. Екатеринбург, ул. Фронтовых бригад, 22
-Почтовый адрес: Россия, 620017, г. Екатеринбург, ул. Фронтовых бригад, 22
-Тел/факс (343) 324-53-00, 324-55-21
-р/с 4070 2810 9050 0003 9438 
-Уральский ф-л ПАО «ПРОМСВЯЗЬБАНК» 
-620027, г. Екатеринбург, ул. Никонова, 4
-кор/с 30101810500000000975 в Уральском ГУ Банка России 
-БИК 046577975
-ИНН/КПП 7744000912/667143001";
+            var bankDetails = company.BankDetailsList.FirstOrDefault() ?? new BankDetails {BankName = "NoInfo"};
+
+            return $@"ИНН {company.Inn}, КПП {company.Kpp},
+Местонахождения: {company.AddressLegal}
+Почтовый адрес: {company.AddressPost}
+e-mail: {company.Email}
+Банковские реквизиты:
+{bankDetails.BankName}
+БИК {bankDetails.BankIdentificationCode}
+р/с {bankDetails.CheckingAccount}
+кор/с {bankDetails.CorrespondentAccount}";
         }
 
         private static string GetContractBody(DateTime date)
