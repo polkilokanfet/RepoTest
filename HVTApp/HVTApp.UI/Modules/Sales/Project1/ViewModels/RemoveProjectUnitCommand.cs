@@ -35,7 +35,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
 
 
             var salesUnits = _viewModel.SelectedUnit is ProjectUnitGroup projectUnitGroup
-                ? projectUnitGroup.Units.Select(x => x.Model).ToList()
+                ? projectUnitGroup.Units.Select(projectUnit => projectUnit.Model).ToList()
                 : new List<SalesUnit> { ((ProjectUnit)_viewModel.SelectedUnit).Model };
 
             //если ни один юнит ещё не сохранен в БД
@@ -45,7 +45,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
                 return;
             }
 
-            if (salesUnits.Any(x => x.Order != null))
+            if (salesUnits.Any(salesUnit => salesUnit.Order != null))
             {
                 _messageService.Message("Удаление невозможно", "Оборудованию присвоен заводской заказ.");
                 return;
@@ -81,6 +81,24 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
                 .Find(technicalRequrements => technicalRequrements.SalesUnits.Any())
                 .SelectMany(technicalRequrements => technicalRequrements.SalesUnits);
             foreach (var salesUnit in salesUnits.Intersect(salesUnitsInTce))
+            {
+                salesUnit.IsRemoved = true;
+            }
+
+            //проверка на включение в задачи на формирование счетов
+            var salesUnitsInvoiceForPaymentItems = _unitOfWork.Repository<TaskInvoiceForPaymentItem>()
+                .GetAll()
+                .SelectMany(invoiceForPaymentItem => invoiceForPaymentItem.SalesUnits);
+            foreach (var salesUnit in salesUnits.Intersect(salesUnitsInvoiceForPaymentItems))
+            {
+                salesUnit.IsRemoved = true;
+            }
+
+            //проверка на включение в расчёты переменных затрат
+            var salesUnitsPriceCalculation = _unitOfWork.Repository<PriceCalculationItem>()
+                .GetAll()
+                .SelectMany(invoiceForPaymentItem => invoiceForPaymentItem.SalesUnits);
+            foreach (var salesUnit in salesUnits.Intersect(salesUnitsPriceCalculation))
             {
                 salesUnit.IsRemoved = true;
             }
