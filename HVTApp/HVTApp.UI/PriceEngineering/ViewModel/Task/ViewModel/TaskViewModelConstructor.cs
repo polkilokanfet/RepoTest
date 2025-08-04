@@ -151,7 +151,14 @@ namespace HVTApp.UI.PriceEngineering
             AddBlockAddedCommand = new DelegateLogCommand(
                 () =>
                 {
-                    var block = Container.Resolve<IGetProductService>().GetProductBlock(Model.DesignDepartment.ParameterSetsAddedBlocks);
+                    var addedBlocksList = Model.DesignDepartment.ParameterSetsAddedBlocks;
+                    if (addedBlocksList.Any() == false)
+                    {
+                        messageService.Message("Вашему КБ не назначено ни одного дополнительного блока. Если необходимо их добавить, обратитесь к Косолапову А.Г.");
+                        return;
+                    }
+
+                    var block = Container.Resolve<IGetProductService>().GetProductBlock(addedBlocksList);
                     if (block == null) return;
                     AddAddedBlock(block);
                 },

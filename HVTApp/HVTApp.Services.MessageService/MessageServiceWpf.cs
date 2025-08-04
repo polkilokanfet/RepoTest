@@ -6,19 +6,9 @@ namespace HVTApp.Services.MessageService
 {
     public class MessageServiceWpf : IMessageService
     {
-        public bool ConfirmationDialog(string title, string message, bool defaultYes = false, bool defaultNo = false)
+        public void Message(string message)
         {
-            var window = new YesNoWindow(title, message, defaultYes, defaultNo)
-            {
-                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(window1 => window1.IsActive)
-            };
-            window.ShowDialog();
-            return window.DialogResult.HasValue && window.DialogResult.Value;
-        }
-
-        public bool ConfirmationDialog(string message, bool defaultYes = false, bool defaultNo = false)
-        {
-            return this.ConfirmationDialog("Уведомление", message, defaultYes, defaultNo);
+            this.Message("Уведомление", message);
         }
 
         public void Message(string title, string message)
@@ -32,6 +22,21 @@ namespace HVTApp.Services.MessageService
             {
                 MessageBox.Show(owner, message, title);
             }
+        }
+
+        public bool ConfirmationDialog(string title, string message, bool defaultYes = false, bool defaultNo = false)
+        {
+            var window = new YesNoWindow(title, message, defaultYes, defaultNo)
+            {
+                Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(window1 => window1.IsActive)
+            };
+            window.ShowDialog();
+            return window.DialogResult.HasValue && window.DialogResult.Value;
+        }
+
+        public bool ConfirmationDialog(string message, bool defaultYes = false, bool defaultNo = false)
+        {
+            return this.ConfirmationDialog("Уведомление", message, defaultYes, defaultNo);
         }
     }
 }
