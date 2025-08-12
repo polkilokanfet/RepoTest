@@ -29,6 +29,12 @@ namespace HVTApp.Model.POCOs
         [Designation("Сралчахвост"), MaxLength(50), OrderStatus(7)]
         public string StructureCostNumber { get; set; }
 
+        /// <summary>
+        /// Сралчахвост требуется
+        /// </summary>
+        [Designation("Сралчахвост требуется"), OrderStatus(8)]
+        public bool StructureCostNumberIsRequired { get; set; } = true;
+
         [Designation("Чертеж"), MaxLength(25)]
         public string Design { get; set; }
 
