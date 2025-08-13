@@ -564,9 +564,9 @@
     <Compile Include="Migrations\202507090640100_WhoRegisteredUser.Designer.cs">
       <DependentUpon>202507090640100_WhoRegisteredUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202508120710522_StructureCostNumberIsRequired.cs" />
-    <Compile Include="Migrations\202508120710522_StructureCostNumberIsRequired.Designer.cs">
-      <DependentUpon>202508120710522_StructureCostNumberIsRequired.cs</DependentUpon>
+    <Compile Include="Migrations\202508131018336_StructureCostNumberIsRequired3.cs" />
+    <Compile Include="Migrations\202508131018336_StructureCostNumberIsRequired3.Designer.cs">
+      <DependentUpon>202508131018336_StructureCostNumberIsRequired3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -942,8 +942,8 @@
     <EmbeddedResource Include="Migrations\202507090640100_WhoRegisteredUser.resx">
       <DependentUpon>202507090640100_WhoRegisteredUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202508120710522_StructureCostNumberIsRequired.resx">
-      <DependentUpon>202508120710522_StructureCostNumberIsRequired.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202508131018336_StructureCostNumberIsRequired3.resx">
+      <DependentUpon>202508131018336_StructureCostNumberIsRequired3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

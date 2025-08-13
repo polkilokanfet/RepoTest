@@ -39,7 +39,9 @@ namespace HVTApp.Services.GetProductService.Kits
 
         public KitsViewModel(IUnityContainer container) : base(container)
         {
-            LoadAllKitsCommand = new DelegateCommand(this.Load2, () => GlobalAppProperties.User.RoleCurrent == Role.Constructor);
+            LoadAllKitsCommand = new DelegateCommand(this.Load2, () =>
+                GlobalAppProperties.User.RoleCurrent == Role.Constructor ||
+                GlobalAppProperties.User.RoleCurrent == Role.DesignDepartmentHead);
 
             SelectCommand = new DelegateCommand(
                 () =>

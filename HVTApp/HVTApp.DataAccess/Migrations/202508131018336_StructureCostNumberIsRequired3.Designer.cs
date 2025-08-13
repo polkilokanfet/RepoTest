@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class StructureCostNumberIsRequired : IMigrationMetadata
+    public sealed partial class StructureCostNumberIsRequired3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(StructureCostNumberIsRequired));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(StructureCostNumberIsRequired3));
         
         string IMigrationMetadata.Id
         {
-            get { return "202508120710522_StructureCostNumberIsRequired"; }
+            get { return "202508131018336_StructureCostNumberIsRequired3"; }
         }
         
         string IMigrationMetadata.Source
