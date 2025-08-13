@@ -286,5 +286,33 @@ namespace HVTApp.Services.GetProductService
             var nodes = PathNodesGenerator.GetPathNodes(parameters);
             return PathNodesGenerator.GetAllBlocks(nodes).Distinct();
         }
+
+        public bool ReplaceProduct(Product productToReplace, Product product)
+        {
+            using (var unitOfWork = Container.Resolve<IUnitOfWork>())
+            {
+                productToReplace = unitOfWork.Repository<Product>().GetById(productToReplace.Id);
+                product = unitOfWork.Repository<Product>().GetById(product.Id);
+
+
+                unitOfWork.Repository<SalesUnit>()
+                    .Find(salesUnit => salesUnit.Product.Id == productToReplace.Id)
+                    .ForEach(salesUnit => salesUnit.ProductId = product.Id);
+
+                unitOfWork.Repository<OfferUnit>()
+                    .Find(offerUnit => offerUnit.Product.Id == productToReplace.Id)
+                    .ForEach(offerUnit => offerUnit.ProductId = product.Id);
+
+                unitOfWork.Repository<ProductIncluded>()
+                    .Find(productIncluded => productIncluded.Product.Id == productToReplace.Id)
+                    .ForEach(productIncluded => productIncluded.ProductId = product.Id);
+
+                productToReplace.DesignDepartmentsKits.ForEach(department => department.Kits.ReAddById(product));
+
+
+                unitOfWork.SaveChanges();
+            }
+            return true;
+        }
     }
 }

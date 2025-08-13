@@ -4,13 +4,13 @@ namespace HVTApp.DataAccess
     {
         public OfferUnitConfiguration()
         {
-            HasRequired(x => x.Facility).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
+            HasRequired(offerUnit => offerUnit.Facility).WithMany().WillCascadeOnDelete(false);
+            HasRequired(offerUnit => offerUnit.Product).WithMany().HasForeignKey(offerUnit => offerUnit.ProductId).WillCascadeOnDelete(false);
+            HasRequired(offerUnit => offerUnit.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
 
-            HasRequired(x => x.Offer).WithMany(x => x.OfferUnits).WillCascadeOnDelete(true);
+            HasRequired(offerUnit => offerUnit.Offer).WithMany(offer => offer.OfferUnits).WillCascadeOnDelete(true);
 
-            HasMany(x => x.ProductsIncluded).WithMany();
+            HasMany(offerUnit => offerUnit.ProductsIncluded).WithMany();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HVTApp.Infrastructure;
@@ -11,6 +12,8 @@ namespace HVTApp.Model.POCOs
     [Designation("Включенное в стоимость оборудование")]
     public partial class ProductIncluded : BaseEntity
     {
+        public Guid ProductId { get; set; }
+
         [Designation("Продукт"), Required, OrderStatus(10)]
         public virtual Product Product { get; set; }
 

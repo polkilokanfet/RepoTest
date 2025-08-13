@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper.Base;
@@ -7,7 +8,18 @@ namespace HVTApp.UI.Modules.Products.StructureCostsNumbers
 {
     public class StructureCostsNumber : WrapperBase<ProductBlock>
     {
-        public StructureCostsNumber(ProductBlock model) : base(model) { }
+        public Product ProductKit { get; }
+        public IEnumerable<DesignDepartment> DepartmentsKits { get; }
+
+        public StructureCostsNumber(ProductBlock model) : base(model)
+        {
+        }
+
+        public StructureCostsNumber(Product productKit, IEnumerable<DesignDepartment> departmentsKits) : base(productKit.ProductBlock)
+        {
+            ProductKit = productKit;
+            DepartmentsKits = departmentsKits;
+        }
 
         /// <summary>
         /// Сралчахвост

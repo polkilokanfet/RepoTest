@@ -52,5 +52,13 @@ namespace HVTApp.Model.Services
         ProductBlock GetProductBlock(IEnumerable<IParametersContainer> parametersContainers, ProductBlock originProductBlock = null);
 
         IEnumerable<ProductBlock> GenerateBlocks();
+
+        /// <summary>
+        /// Замена одного продукта другим
+        /// </summary>
+        /// <param name="productToReplace">Заменяемый продукт</param>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        bool ReplaceProduct(Product productToReplace, Product product);
     }
 }

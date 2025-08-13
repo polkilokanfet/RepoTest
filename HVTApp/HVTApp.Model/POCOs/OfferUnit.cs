@@ -25,6 +25,8 @@ namespace HVTApp.Model.POCOs
         [Designation("Объект"), Required]
         public virtual Facility Facility { get; set; }
 
+        public Guid ProductId { get; set; }
+
         [Designation("Продукт"), Required]
         public virtual Product Product { get; set; }
 
