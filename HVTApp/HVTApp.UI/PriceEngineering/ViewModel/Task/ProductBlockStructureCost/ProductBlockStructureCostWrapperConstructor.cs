@@ -35,7 +35,7 @@ namespace HVTApp.UI.PriceEngineering
 
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (string.IsNullOrWhiteSpace(StructureCostNumber))
+            if (Model.StructureCostNumberIsRequired && string.IsNullOrWhiteSpace(StructureCostNumber))
             {
                 yield return new ValidationResult($"{nameof(StructureCostNumber)} is required", new[] { nameof(StructureCostNumber) });
             }
@@ -51,7 +51,9 @@ namespace HVTApp.UI.PriceEngineering
                     : $" (изменен с {StructureCostNumberOriginalValue})";
             }
 
-            return $"{Model} (SCC: {StructureCostNumber}{info})";
+            return Model.StructureCostNumberIsRequired
+                ? $"{Model} (SCC: {Model.StructureCostNumber}{info})"
+                : $"{Model} (блок не требует состава (SCC){info})";
         }
     }
 }

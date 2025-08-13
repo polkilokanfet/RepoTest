@@ -403,16 +403,15 @@ namespace HVTApp.UI.PriceCalculations.ViewModel.PriceCalculation1
             //добавляем в расчет ПЗ оборудование
             foreach (var task in priceEngineeringTasks.ChildPriceEngineeringTasks)
             {
-                if (task.SalesUnits.Any())
+                if (task.SalesUnits.Any() == false) continue;
+
+                var priceCalculationItem = GetPriceCalculationItem2Wrapper(priceEngineeringTasks, task);
+                if (string.IsNullOrEmpty(task.TcePosition) == false &&
+                    int.TryParse(task.TcePosition, out var positionInTce))
                 {
-                    var priceCalculationItem = GetPriceCalculationItem2Wrapper(priceEngineeringTasks, task);
-                    if (string.IsNullOrEmpty(task.TcePosition) == false &&
-                        int.TryParse(task.TcePosition, out var positionInTce))
-                    {
-                        priceCalculationItem.PositionInTeamCenter = positionInTce;
-                    }
-                    PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem);
+                    priceCalculationItem.PositionInTeamCenter = positionInTce;
                 }
+                PriceCalculationWrapper.PriceCalculationItems.Add(priceCalculationItem);
             }
 
             //добавляем расчет ПЗ в загруженную задачу

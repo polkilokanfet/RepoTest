@@ -14,7 +14,8 @@
     <!--Задача на блок продукта-->
     <view:TaskControl 
         DataContext="{Binding TaskViewModelManager, ElementName=Root}"
-        TaskViewModel="{Binding}">
+        TaskViewModel="{Binding}" 
+        SelectDesignDepartmentButtonVisibility="Visible">
 
         <view:TaskControl.AreaFiles>
             <view:FilesControlManager1 Grid.Row="1" TaskViewModelManager="{Binding}"/>

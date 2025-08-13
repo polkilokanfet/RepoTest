@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Comparers;
+using HVTApp.Infrastructure.Exceptions;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Services;
@@ -105,7 +106,20 @@ namespace HVTApp.UI.PriceEngineering
         /// </summary>
         public bool IsValidForProduction => Model.IsValidForProduction;
 
-        public string TceNumber => Model.GetPriceEngineeringTasks(this.UnitOfWork).TceNumber;
+        public string TceNumber
+        {
+            get
+            {
+                try
+                {
+                    return Model.GetPriceEngineeringTasks(this.UnitOfWork).TceNumber;
+                }
+                catch (EntityNotInDataBaseException)
+                {
+                    return null;
+                }
+            }
+        }
 
         #endregion
 

@@ -54,11 +54,20 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
         /// <summary>
         /// Список scc для отображения во View
         /// </summary>
-        public IEnumerable<SccVersionWrapper> SccVersions =>
-            StructureCostVersions
-                .Union(this.ChildPriceEngineeringTasks.SelectMany(x => x.SccVersions))
-                .Union(this.BlockAddedList.SelectMany(x => x.StructureCostVersions))
-                .OrderBy(x => x.Name);
+        public IEnumerable<SccVersionWrapper> SccVersions
+        {
+            get
+            {
+                var sccMainTask = this.Model.ProductBlock.StructureCostNumberIsRequired
+                    ? this.StructureCostVersions.ToList()
+                    : new List<SccVersionWrapper>();
+                var sccChildTasks = this.ChildPriceEngineeringTasks.SelectMany(x => x.SccVersions);
+                var sccBlocksAdded = this.BlockAddedList.SelectMany(x => x.StructureCostVersions);
+
+                return sccMainTask.Union(sccChildTasks).Union(sccBlocksAdded)
+                    .OrderBy(x => x.Name);
+            }
+        }
 
         public ICommand LoadFilesCommand { get; }
 
@@ -69,12 +78,15 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
             var originalStructureCostNumber = this.Model.ProductBlock.StructureCostNumber;
 
             //если нет актуального scc, добавляем его
-            if (this.StructureCostVersions.Any(x => x.OriginalStructureCostNumber == originalStructureCostNumber) == false)
+            if (this.Model.ProductBlock.StructureCostNumberIsRequired)
             {
-                var scc = new SccVersionWrapper(new StructureCostVersion(), this.Model.ProductBlock.ToString(), true);
-                this.StructureCostVersions.Add(scc);
-                scc.OriginalStructureCostNumber = originalStructureCostNumber;
-                StructureCostVersions.AcceptChanges();
+                if (this.StructureCostVersions.Any(sccVersion => sccVersion.OriginalStructureCostNumber == originalStructureCostNumber) == false)
+                {
+                    var scc = new SccVersionWrapper(new StructureCostVersion(), this.Model.ProductBlock.ToString(), true);
+                    this.StructureCostVersions.Add(scc);
+                    scc.OriginalStructureCostNumber = originalStructureCostNumber;
+                    StructureCostVersions.AcceptChanges();
+                }
             }
 
             this.StructureCostVersions.ForEach(sccVersionWrapper =>
@@ -96,7 +108,7 @@ namespace HVTApp.UI.PriceEngineering.Tce.Second
                 .Where(x => x.IsValid == false);
             foreach (var sccVersionWrapper in sccVersionWrappers)
             {
-                yield return new ValidationResult($"{nameof(SccVersions)} has not valid items", new[] {nameof(SccVersions)});
+                yield return new ValidationResult($"{sccVersionWrapper} has not valid items", new[] {nameof(SccVersions)});
             }
 
             if (string.IsNullOrWhiteSpace(this.TcePosition) && 

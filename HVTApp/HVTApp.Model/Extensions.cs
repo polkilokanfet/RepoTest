@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Exceptions;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
@@ -265,6 +266,8 @@ namespace HVTApp.Model
         public static PriceEngineeringTask GetTopPriceEngineeringTask(this PriceEngineeringTask task, IUnitOfWork unitOfWork)
         {
             task = unitOfWork.Repository<PriceEngineeringTask>().GetById(task.Id);
+            if (task == null)
+                throw new EntityNotInDataBaseException();
 
             while (task.ParentPriceEngineeringTaskId.HasValue)
             {
@@ -288,7 +291,7 @@ namespace HVTApp.Model
                     .Distinct()
                     .ToList();
 
-                //суммируе нестандартные ФЗ
+                //суммируем нестандартные ФЗ
                 var result = productsIncluded
                     .Where(productIncluded => productIncluded.CustomFixedPrice.HasValue)
                     .Sum(productIncluded => productIncluded.CustomFixedPrice.Value * productIncluded.AmountOnUnit);

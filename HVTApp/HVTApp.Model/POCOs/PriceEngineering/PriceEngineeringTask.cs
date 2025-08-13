@@ -305,11 +305,13 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                if (this.HasSccNumberInTce == false)
+                if (this.ProductBlock.StructureCostNumberIsRequired && this.HasSccNumberInTce == false)
                     return false;
 
                 var actualProductBlocksAdded =
-                    this.ProductBlocksAdded.Where(blockAdded => blockAdded.IsRemoved == false);
+                    this.ProductBlocksAdded
+                        .Where(blockAdded => blockAdded.IsRemoved == false)
+                        .Where(blockAdded => blockAdded.ProductBlock.StructureCostNumberIsRequired);
                 if (actualProductBlocksAdded.Any(blockAdded => blockAdded.HasSccNumberInTce == false))
                     return false;
 
@@ -472,8 +474,11 @@ namespace HVTApp.Model.POCOs
             salesUnitsAmount = salesUnitsAmount ?? SalesUnits.Count;
 
             //стракчакост основного блока
-            var structureCostNumber = GetStructureCostNumber(this, tceNumber, priceService);
-            yield return GetNewStructureCost(ProductBlockEngineer, structureCostNumber, 1, 1);
+            if (this.ProductBlock.StructureCostNumberIsRequired)
+            {
+                var structureCostNumber = GetStructureCostNumber(this, tceNumber, priceService);
+                yield return GetNewStructureCost(ProductBlockEngineer, structureCostNumber, 1, 1);
+            }
 
             //стракчакосты добавленных блоков
             foreach (var blockAdded in ProductBlocksAdded.Where(productBlockAdded => productBlockAdded.IsRemoved == false))

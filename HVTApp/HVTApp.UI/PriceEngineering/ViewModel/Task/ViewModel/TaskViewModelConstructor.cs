@@ -101,7 +101,7 @@ namespace HVTApp.UI.PriceEngineering
             //Обязательные параметры главного блока продукта задачи
             var productBlockRequiredParameters = Model.DesignDepartment
                 .ParameterSets
-                .FirstOrDefault(x => x.Parameters.AllContainsInById(Model.ProductBlockManager.Parameters))?
+                .FirstOrDefault(parameters => parameters.Parameters.AllContainsInById(Model.ProductBlockManager.Parameters))?
                 .Parameters.ToList();
 
             #region Commands
@@ -146,7 +146,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.ProductBlockEngineer.RejectChanges();
                     this.ProductBlockEngineer = new ProductBlockStructureCostWrapperConstructor(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id));
                 },
-                () => IsTarget && IsEditMode);
+                () => IsTarget && IsEditMode && this.Model.ProductBlock.StructureCostNumberIsRequired);
 
             AddBlockAddedCommand = new DelegateLogCommand(
                 () =>

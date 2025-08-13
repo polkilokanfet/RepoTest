@@ -44,6 +44,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -54,6 +55,8 @@
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedItem.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Grid.Row="1" Grid.Column="0" Content="Чертёж"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedItem.Design, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Нужен scc"/>
+                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding SelectedItem.StructureCostNumberIsRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
 
                 <GroupBox Grid.Row="2" Header="Параметры блока">

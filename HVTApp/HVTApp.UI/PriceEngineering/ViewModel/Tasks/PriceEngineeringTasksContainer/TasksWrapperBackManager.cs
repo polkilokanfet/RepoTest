@@ -51,7 +51,7 @@ namespace HVTApp.UI.PriceEngineering.PriceEngineeringTasksContainer
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
             if (string.IsNullOrWhiteSpace(TceNumber))
-                yield return new ValidationResult("TceNumber is required", new[] {nameof(TceNumber)});
+                yield return new ValidationResult($"{nameof(TceNumber)} is required", new[] {nameof(TceNumber)});
         }
     }
 }

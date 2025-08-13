@@ -31,6 +31,17 @@ namespace HVTApp.UI.Modules.Products.StructureCostsNumbers
         public string DesignOriginalValue => GetOriginalValue<string>(nameof(Design));
         public bool DesignIsChanged => GetIsChanged(nameof(Design));
 
+        /// <summary>
+        /// Требуется ли стракчакост
+        /// </summary>
+        public bool StructureCostNumberIsRequired
+        {
+            get => Model.StructureCostNumberIsRequired;
+            set => SetValue(value);
+        }
+        public bool StructureCostNumberIsRequiredOriginalValue => GetOriginalValue<bool>(nameof(StructureCostNumberIsRequired));
+        public bool StructureCostNumberIsRequiredIsChanged => GetIsChanged(nameof(StructureCostNumberIsRequired));
+
         public string ParametersString =>
             this.Model.Parameters
                 .Select(parameter => $"[({parameter.ParameterGroup}) : ({parameter.Value})]")

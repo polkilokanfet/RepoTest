@@ -12,7 +12,9 @@ namespace HVTApp.UI.PriceEngineering
 
         public virtual string PrintToMessage()
         {
-            return $"{Model} (SCC: {Model.StructureCostNumber})";
+            return Model.StructureCostNumberIsRequired
+                ? $"{Model} (SCC: {Model.StructureCostNumber})"
+                : $"{Model} (блок не требует состава (SCC))";
         }
     }
 }
