@@ -2,7 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.NoteLookupListView">
+              x:Class="HVTApp.UI.Views.LetterListView">
 
     <Grid>
          <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=NoteLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=LetterListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="NoteLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="LetterListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -39,10 +39,17 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 
+                        <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsOffer" Label="IsOffer" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Direction" Label="Направление" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="Text" Label="Текст" Width="Auto" AllowResize="True" />
-                        <infg:CheckBoxField Name="IsImportant" Label="Важно?" Width="Auto" AllowResize="True" />
-                        <infg:TextField Name="ProjectId" Label="ProjectId" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="CompanySender" Label="CompanySender" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="CompanyRecipient" Label="CompanyRecipient" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" AllowResize="True" />
+                        <infg:TextField Name="Author" Label="Автор" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -228,6 +228,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(110)]
         public System.String Name => Entity.Name;
 
+		[OrderStatus(10)]
+        public System.Boolean IsKitDepartment => Entity.IsKitDepartment;
+
         #endregion
 
         #region ComplexProperties
@@ -237,12 +240,16 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(90)]
 	    public List<UserLookup> Staff { get { return GetLookupEnum<UserLookup>().ToList(); } }
+		[OrderStatus(85)]
+	    public List<UserLookup> Observers { get { return GetLookupEnum<UserLookup>().ToList(); } }
 		[OrderStatus(50)]
 	    public List<DesignDepartmentParametersLookup> ParameterSets { get { return GetLookupEnum<DesignDepartmentParametersLookup>().ToList(); } }
 		[OrderStatus(40)]
 	    public List<DesignDepartmentParametersAddedBlocksLookup> ParameterSetsAddedBlocks { get { return GetLookupEnum<DesignDepartmentParametersAddedBlocksLookup>().ToList(); } }
 		[OrderStatus(30)]
 	    public List<DesignDepartmentParametersSubTaskLookup> ParameterSetsSubTask { get { return GetLookupEnum<DesignDepartmentParametersSubTaskLookup>().ToList(); } }
+		[OrderStatus(20)]
+	    public List<ProductLookup> Kits { get { return GetLookupEnum<ProductLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Задача")]
@@ -884,6 +891,9 @@ namespace HVTApp.UI.Lookup
         public System.Boolean NeedEquipment => Entity.NeedEquipment;
 
 		[OrderStatus(1)]
+        public System.Boolean IsUploadedDocumentationToTeamCenter => Entity.IsUploadedDocumentationToTeamCenter;
+
+		[OrderStatus(1)]
         public System.Boolean IsInProcessByConstructor => Entity.IsInProcessByConstructor;
 
 		[OrderStatus(1)]
@@ -1248,6 +1258,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(80)]
         public System.String NameShort => Entity.NameShort;
 
+		[OrderStatus(1)]
+        public System.Boolean IsStub => Entity.IsStub;
+
         #endregion
 		[OrderStatus(50)]
 	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
@@ -1287,6 +1300,9 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+		[OrderStatus(1)]
+        public System.Guid ProductId => Entity.ProductId;
+
 		[OrderStatus(5)]
         public System.Int32 Amount => Entity.Amount;
 
@@ -2063,6 +2079,9 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+		[OrderStatus(1)]
+        public System.Guid ProjectId => Entity.ProjectId;
+
 		[OrderStatus(4)]
         public System.DateTime Date => Entity.Date;
 
@@ -2091,6 +2110,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean CostDeliveryIncluded => Entity.CostDeliveryIncluded;
+
+		[OrderStatus(1)]
+        public System.Guid ProductId => Entity.ProductId;
 
 		[OrderStatus(1)]
         public System.Int32 ProductionTerm => Entity.ProductionTerm;
@@ -2140,6 +2162,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(7)]
         public System.String StructureCostNumber => Entity.StructureCostNumber;
 
+		[OrderStatus(8)]
+        public System.Boolean StructureCostNumberIsRequired => Entity.StructureCostNumberIsRequired;
+
 		[OrderStatus(1)]
         public System.String Design => Entity.Design;
 
@@ -2172,6 +2197,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean IsDelivery => Entity.IsDelivery;
+
+		[OrderStatus(1)]
+        public System.Boolean IsKit => Entity.IsKit;
 
         #endregion
 
@@ -2243,6 +2271,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(15)]
         public System.String ShortName => Entity.ShortName;
+
+		[OrderStatus(1)]
+        public System.String Email => Entity.Email;
 
 		[OrderStatus(1)]
         public System.String Inn => Entity.Inn;
@@ -2519,8 +2550,17 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+		[OrderStatus(1)]
+        public System.Guid FacilityId => Entity.FacilityId;
+
+		[OrderStatus(1)]
+        public System.Guid ProductId => Entity.ProductId;
+
 		[OrderStatus(990)]
         public System.Double Cost => Entity.Cost;
+
+		[OrderStatus(990)]
+        public System.Nullable<System.Double> CostWithReserve => Entity.CostWithReserve;
 
 		[OrderStatus(985)]
         public System.Nullable<System.Double> Price => Entity.Price;
@@ -2529,10 +2569,16 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.Double> LaborHours => Entity.LaborHours;
 
 		[OrderStatus(1)]
+        public System.Guid PaymentConditionSetId => Entity.PaymentConditionSetId;
+
+		[OrderStatus(1)]
         public System.Int32 ProductionTerm => Entity.ProductionTerm;
 
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
+
+		[OrderStatus(1)]
+        public System.Guid ProjectId => Entity.ProjectId;
 
 		[OrderStatus(1)]
         public System.DateTime DeliveryDateExpected => Entity.DeliveryDateExpected;
@@ -2756,6 +2802,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.Guid RecipientId => Entity.RecipientId;
 
+		[OrderStatus(1)]
+        public System.Nullable<System.Guid> WhoRegisteredUserId => Entity.WhoRegisteredUserId;
+
 		[OrderStatus(130)]
         public System.String Comment => Entity.Comment;
 
@@ -2782,6 +2831,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public EmployeeLookup RecipientEmployee { get { return GetLookup<EmployeeLookup>(); } }
+
+		[OrderStatus(1)]
+	    public UserLookup WhoRegisteredUser { get { return GetLookup<UserLookup>(); } }
 
 		[OrderStatus(1)]
 	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
@@ -2828,6 +2880,9 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(1)]
         public System.String Comment => Entity.Comment;
 
+		[OrderStatus(1)]
+        public System.Boolean IsKit => Entity.IsKit;
+
         #endregion
 
         #region ComplexProperties
@@ -2843,6 +2898,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 		[OrderStatus(1)]
 	    public List<ProductDependentLookup> DependentProducts { get { return GetLookupEnum<ProductDependentLookup>().ToList(); } }
+		[OrderStatus(20)]
+	    public List<DesignDepartmentLookup> DesignDepartmentsKits { get { return GetLookupEnum<DesignDepartmentLookup>().ToList(); } }
 	}
 	[AllowEditAttribute(Infrastructure.Role.Admin)]
 	[Designation("Предложение")]
@@ -2870,6 +2927,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Guid RecipientId => Entity.RecipientId;
+
+		[OrderStatus(1)]
+        public System.Nullable<System.Guid> WhoRegisteredUserId => Entity.WhoRegisteredUserId;
 
 		[OrderStatus(130)]
         public System.String Comment => Entity.Comment;
@@ -2900,6 +2960,9 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public EmployeeLookup RecipientEmployee { get { return GetLookup<EmployeeLookup>(); } }
+
+		[OrderStatus(1)]
+	    public UserLookup WhoRegisteredUser { get { return GetLookup<UserLookup>(); } }
 
 		[OrderStatus(1)]
 	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
@@ -3043,11 +3106,17 @@ namespace HVTApp.UI.Lookup
 		[OrderStatus(9)]
         public System.String Name => Entity.Name;
 
+		[OrderStatus(1)]
+        public System.Guid ProjectTypeId => Entity.ProjectTypeId;
+
 		[OrderStatus(2)]
         public System.Boolean InWork => Entity.InWork;
 
 		[OrderStatus(1)]
         public System.Boolean ForReport => Entity.ForReport;
+
+		[OrderStatus(1)]
+        public System.Guid ManagerId => Entity.ManagerId;
 
         #endregion
 

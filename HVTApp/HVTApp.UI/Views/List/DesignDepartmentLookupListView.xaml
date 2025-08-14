@@ -42,9 +42,12 @@
                         <infg:TextField Name="Name" Label="Название" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Head" Label="Руководитель" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Staff" Label="Сотрудники" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Observers" Label="Наблюдатели" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ParameterSets" Label="Наборы параметров основного оборудования" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ParameterSetsAddedBlocks" Label="Наборы параметров дополнительного оборудования" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="ParameterSetsSubTask" Label="Наборы параметров оборудования для подзадач" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:TextField Name="Kits" Label="Комплекты деталей" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
+                        <infg:CheckBoxField Name="IsKitDepartment" Label="КБ ремкомплектов" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Id" Label="Id" Width="Auto" AllowResize="True" />
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

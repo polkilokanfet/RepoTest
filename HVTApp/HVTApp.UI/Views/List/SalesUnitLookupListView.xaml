@@ -43,6 +43,7 @@
                         <infg:TextField Name="Facility" Label="Объект" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:TextField Name="Product" Label="Продукт" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" AllowResize="True" />
+                        <infg:NumericField Name="CostWithReserve" Label="Стоимость для формирования бюджета" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="Price" Label="Себестоимость" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="OrderInTakeYear" Label="Год ОИТ" Width="Auto" AllowResize="True" />
@@ -97,7 +98,6 @@
                         <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsDone" Label="Исполнено" Width="Auto" AllowResize="True" />
-                        <infg:NumericField Name="FixedCost" Label="Сумма фиксированных затрат" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="FirstPaymentDate" Label="Дата первого платежа по заказу" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" AllowResize="True" />
                         <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" AllowResize="True" />

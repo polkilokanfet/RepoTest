@@ -51,7 +51,6 @@
                         <infg:TextField Name="Supplier" Label="Поставщик" Width="Auto" AllowResize="True" Converter="{StaticResource LookupToStringConverter}"/>
                         <infg:CheckBoxField Name="InWork" Label="В работе" Width="Auto" AllowResize="True" />
                         <infg:TextField Name="Tenders" Label="Tenders" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
-                        <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:TextField Name="Offers" Label="Offers" Width="Auto" AllowResize="True" Converter="{StaticResource LookupsToStringConverter}"/>
                         <infg:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsDone" Label="Done" Width="Auto" AllowResize="True" />

@@ -5596,6 +5596,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectRecipientEmployeeCommand { get; private set; }
 		public DelegateLogCommand ClearRecipientEmployeeCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectWhoRegisteredUserCommand;
+		private Func<List<User>> _getEntitiesForSelectWhoRegisteredUserCommand;
+		public DelegateLogCommand SelectWhoRegisteredUserCommand { get; private set; }
+		public DelegateLogCommand ClearWhoRegisteredUserCommand { get; private set; }
+
 		//private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		private Func<List<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		public DelegateLogCommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
@@ -5643,6 +5648,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectRecipientEmployeeCommand == null) _getEntitiesForSelectRecipientEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
 			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateLogCommand(SelectRecipientEmployeeCommand_Execute_Default);
 			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateLogCommand(ClearRecipientEmployeeCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectWhoRegisteredUserCommand == null) _getEntitiesForSelectWhoRegisteredUserCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectWhoRegisteredUserCommand == null) SelectWhoRegisteredUserCommand = new DelegateLogCommand(SelectWhoRegisteredUserCommand_Execute_Default);
+			if (ClearWhoRegisteredUserCommand == null) ClearWhoRegisteredUserCommand = new DelegateLogCommand(ClearWhoRegisteredUserCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRegistrationDetailsOfRecipientCommand == null) _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = () => { return UnitOfWork.Repository<DocumentsRegistrationDetails>().GetAll(); };
@@ -5704,6 +5714,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearRecipientEmployeeCommand_Execute_Default() 
 		{
 						Item.RecipientEmployee = null;		    
+		}
+
+		private void SelectWhoRegisteredUserCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectWhoRegisteredUserCommand(), nameof(Item.WhoRegisteredUser), Item.WhoRegisteredUser?.Id);
+		}
+
+		private void ClearWhoRegisteredUserCommand_Execute_Default() 
+		{
+						Item.WhoRegisteredUser = null;		    
 		}
 
 		private void SelectRegistrationDetailsOfRecipientCommand_Execute_Default() 
@@ -5916,6 +5936,11 @@ namespace HVTApp.UI.ViewModels
 		public DelegateLogCommand SelectRecipientEmployeeCommand { get; private set; }
 		public DelegateLogCommand ClearRecipientEmployeeCommand { get; private set; }
 
+		//private Func<Task<List<User>>> _getEntitiesForSelectWhoRegisteredUserCommand;
+		private Func<List<User>> _getEntitiesForSelectWhoRegisteredUserCommand;
+		public DelegateLogCommand SelectWhoRegisteredUserCommand { get; private set; }
+		public DelegateLogCommand ClearWhoRegisteredUserCommand { get; private set; }
+
 		//private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		private Func<List<DocumentsRegistrationDetails>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
 		public DelegateLogCommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
@@ -5968,6 +5993,11 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectRecipientEmployeeCommand == null) _getEntitiesForSelectRecipientEmployeeCommand = () => { return UnitOfWork.Repository<Employee>().GetAll(); };
 			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateLogCommand(SelectRecipientEmployeeCommand_Execute_Default);
 			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateLogCommand(ClearRecipientEmployeeCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectWhoRegisteredUserCommand == null) _getEntitiesForSelectWhoRegisteredUserCommand = () => { return UnitOfWork.Repository<User>().GetAll(); };
+			if (SelectWhoRegisteredUserCommand == null) SelectWhoRegisteredUserCommand = new DelegateLogCommand(SelectWhoRegisteredUserCommand_Execute_Default);
+			if (ClearWhoRegisteredUserCommand == null) ClearWhoRegisteredUserCommand = new DelegateLogCommand(ClearWhoRegisteredUserCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectRegistrationDetailsOfRecipientCommand == null) _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = () => { return UnitOfWork.Repository<DocumentsRegistrationDetails>().GetAll(); };
@@ -6039,6 +6069,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearRecipientEmployeeCommand_Execute_Default() 
 		{
 						Item.RecipientEmployee = null;		    
+		}
+
+		private void SelectWhoRegisteredUserCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<User, UserWrapper>(_getEntitiesForSelectWhoRegisteredUserCommand(), nameof(Item.WhoRegisteredUser), Item.WhoRegisteredUser?.Id);
+		}
+
+		private void ClearWhoRegisteredUserCommand_Execute_Default() 
+		{
+						Item.WhoRegisteredUser = null;		    
 		}
 
 		private void SelectRegistrationDetailsOfRecipientCommand_Execute_Default() 

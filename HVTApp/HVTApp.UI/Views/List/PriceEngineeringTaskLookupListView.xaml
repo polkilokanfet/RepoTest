@@ -70,6 +70,7 @@
                         <infg:CheckBoxField Name="NeedEquipment" Label="Требуется оснастка" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="NeedDesignDocumentationDevelopment" Label="Требуется разработка КД" Width="Auto" AllowResize="True" />
                         <infg:DateTimeField Name="MomentFinishByDesignDepartment" Label="MomentFinishByDesignDepartment" Width="Auto" AllowResize="True" />
+                        <infg:CheckBoxField Name="IsUploadedDocumentationToTeamCenter" Label="Документация загружена в TeamCenter" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsTop" Label="IsTop" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsStoppedTotal" Label="IsStoppedTotal" Width="Auto" AllowResize="True" />
                         <infg:CheckBoxField Name="IsStarted" Label="IsStarted" Width="Auto" AllowResize="True" />

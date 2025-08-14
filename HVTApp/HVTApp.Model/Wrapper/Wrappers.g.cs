@@ -4047,6 +4047,17 @@ namespace HVTApp.Model.Wrapper
         #region SimpleProperties
 
         /// <summary>
+        /// ProductId
+        /// </summary>
+        public System.Guid ProductId
+        {
+          get { return Model.ProductId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ProductIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
+        /// <summary>
         /// Количество
         /// </summary>
         public System.Int32 Amount
@@ -6550,6 +6561,17 @@ namespace HVTApp.Model.Wrapper
         public bool CostDeliveryIncludedIsChanged => GetIsChanged(nameof(CostDeliveryIncluded));
 
         /// <summary>
+        /// ProductId
+        /// </summary>
+        public System.Guid ProductId
+        {
+          get { return Model.ProductId; }
+          set { SetValue(value); }
+        }
+        public System.Guid ProductIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
+        /// <summary>
         /// Срок производства
         /// </summary>
         public System.Int32 ProductionTerm
@@ -6724,6 +6746,17 @@ namespace HVTApp.Model.Wrapper
         }
         public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
         public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
+
+        /// <summary>
+        /// Сралчахвост требуется
+        /// </summary>
+        public System.Boolean StructureCostNumberIsRequired
+        {
+          get { return Model.StructureCostNumberIsRequired; }
+          set { SetValue(value); }
+        }
+        public System.Boolean StructureCostNumberIsRequiredOriginalValue => GetOriginalValue<System.Boolean>(nameof(StructureCostNumberIsRequired));
+        public bool StructureCostNumberIsRequiredIsChanged => GetIsChanged(nameof(StructureCostNumberIsRequired));
 
         /// <summary>
         /// Чертеж
@@ -8634,6 +8667,17 @@ namespace HVTApp.Model.Wrapper
         public bool RecipientIdIsChanged => GetIsChanged(nameof(RecipientId));
 
         /// <summary>
+        /// WhoRegisteredUserId
+        /// </summary>
+        public System.Nullable<System.Guid> WhoRegisteredUserId
+        {
+          get { return Model.WhoRegisteredUserId; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> WhoRegisteredUserIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(WhoRegisteredUserId));
+        public bool WhoRegisteredUserIdIsChanged => GetIsChanged(nameof(WhoRegisteredUserId));
+
+        /// <summary>
         /// Комментарий
         /// </summary>
         public System.String Comment
@@ -8716,6 +8760,15 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
+        /// Регистратор
+        /// </summary>
+	    public UserWrapper WhoRegisteredUser 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(WhoRegisteredUser, value); }
+        }
+
+        /// <summary>
         /// Рег.данные получателя
         /// </summary>
 	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
@@ -8756,6 +8809,7 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<EmployeeWrapper>(nameof(Author), Model.Author == null ? null : new EmployeeWrapper(Model.Author));
             InitializeComplexProperty<EmployeeWrapper>(nameof(SenderEmployee), Model.SenderEmployee == null ? null : new EmployeeWrapper(Model.SenderEmployee));
             InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientEmployee), Model.RecipientEmployee == null ? null : new EmployeeWrapper(Model.RecipientEmployee));
+            InitializeComplexProperty<UserWrapper>(nameof(WhoRegisteredUser), Model.WhoRegisteredUser == null ? null : new UserWrapper(Model.WhoRegisteredUser));
             InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfRecipient), Model.RegistrationDetailsOfRecipient == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient));
         }
 
@@ -9002,6 +9056,17 @@ namespace HVTApp.Model.Wrapper
         public bool RecipientIdIsChanged => GetIsChanged(nameof(RecipientId));
 
         /// <summary>
+        /// WhoRegisteredUserId
+        /// </summary>
+        public System.Nullable<System.Guid> WhoRegisteredUserId
+        {
+          get { return Model.WhoRegisteredUserId; }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> WhoRegisteredUserIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(WhoRegisteredUserId));
+        public bool WhoRegisteredUserIdIsChanged => GetIsChanged(nameof(WhoRegisteredUserId));
+
+        /// <summary>
         /// Комментарий
         /// </summary>
         public System.String Comment
@@ -9093,6 +9158,15 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
+        /// Регистратор
+        /// </summary>
+	    public UserWrapper WhoRegisteredUser 
+        {
+            get { return GetWrapper<UserWrapper>(); }
+            set { SetComplexValue<User, UserWrapper>(WhoRegisteredUser, value); }
+        }
+
+        /// <summary>
         /// Рег.данные получателя
         /// </summary>
 	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
@@ -9134,6 +9208,7 @@ namespace HVTApp.Model.Wrapper
             InitializeComplexProperty<EmployeeWrapper>(nameof(Author), Model.Author == null ? null : new EmployeeWrapper(Model.Author));
             InitializeComplexProperty<EmployeeWrapper>(nameof(SenderEmployee), Model.SenderEmployee == null ? null : new EmployeeWrapper(Model.SenderEmployee));
             InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientEmployee), Model.RecipientEmployee == null ? null : new EmployeeWrapper(Model.RecipientEmployee));
+            InitializeComplexProperty<UserWrapper>(nameof(WhoRegisteredUser), Model.WhoRegisteredUser == null ? null : new UserWrapper(Model.WhoRegisteredUser));
             InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfRecipient), Model.RegistrationDetailsOfRecipient == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient));
         }
 
