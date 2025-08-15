@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces;
@@ -109,6 +108,12 @@ namespace HVTApp.UI.PriceEngineering
             SelectProductBlockCommand = new DelegateLogCommand(
                 () =>
                 {
+                    if (this.Model.ProductBlock.IsService)
+                    {
+                        messageService.Message("Услуга не требует состава ПЗ. Комплекты для ремонта необходимо добавлять в разделе Дополнительные блоки.");
+                        return;
+                    }
+
                     var originProductBlock = this.ProductBlockEngineer.Model;
                     var selectedProductBlock = this.DesignDepartment.IsKitDepartment 
                         ? Container.Resolve<IGetProductService>().GetKit(this.DesignDepartment)?.ProductBlock

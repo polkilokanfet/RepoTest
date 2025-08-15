@@ -58,22 +58,58 @@ namespace HVTApp.UI.Modules.Products.StructureCostsNumbers
                 "Вы уверены, что хотите заменить этот комплект на другой (удалив этот)?",
                 () =>
                 {
-                    var kit = productService.GetKit(SelectedItem.DepartmentsKits.First());
-                    if (kit == null) return;
-                    if (string.IsNullOrWhiteSpace(kit.ProductBlock.StructureCostNumber))
+                    var kitTarget = productService.GetKit(SelectedItem.DepartmentsKits.First());
+                    if (kitTarget == null) return;
+                    if (string.IsNullOrWhiteSpace(kitTarget.ProductBlock.StructureCostNumber))
                     {
                         messageService.Message("Выберите комплект со стракчакостом");
                         return;
                     }
 
-                    if (productService.ReplaceProduct(SelectedItem.ProductKit, kit))
+                    kitTarget = unitOfWork.Repository<Product>().GetById(kitTarget.Id);
+                    var kitTargetBlock = kitTarget.ProductBlock;
+                    var kitToReplace = unitOfWork.Repository<Product>().GetById(SelectedItem.ProductKit.Id);
+                    var kitToReplaceBlock = kitToReplace.ProductBlock;
+
+                    if (kitTarget.Id == kitToReplace.Id)
                     {
-                        kit = unitOfWork.Repository<Product>().GetById(kit.Id);
-                        unitOfWork.Repository<ProductBlock>().Delete(kit.ProductBlock);
-                        unitOfWork.Repository<Product>().Delete(kit);
+                        messageService.Message("Вы выбрали тот же комплект");
+                        return;
+                    }
+
+                    if (productService.ReplaceProduct(SelectedItem.ProductKit, kitTarget))
+                    {
+                        //замена ремкомплекта в задачах
+                        unitOfWork.Repository<PriceEngineeringTask>()
+                            .Find(x => x.ProductBlockEngineer.Id == kitToReplaceBlock.Id)
+                            .ForEach(x => x.ProductBlockEngineer = kitTargetBlock);
+
+                        unitOfWork.Repository<PriceEngineeringTask>()
+                            .Find(x => x.ProductBlockManager.Id == kitToReplaceBlock.Id)
+                            .ForEach(x => x.ProductBlockManager = kitTargetBlock);
+
+                        unitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>()
+                            .Find(x => x.ProductBlock.Id == kitToReplaceBlock.Id)
+                            .ForEach(x => x.ProductBlock = kitTargetBlock);
+
+                        unitOfWork.Repository<StructureCost>()
+                            .Find(x => x.OriginalStructureCostProductBlock?.Id == kitToReplaceBlock.Id)
+                            .ForEach(x => x.OriginalStructureCostProductBlock = kitTargetBlock);
+
+                        //перенос всех прайсов из удаляемого блока
+                        foreach (var sumOnDate in kitToReplaceBlock.Prices.ToList())
+                        {
+                            kitTargetBlock.Prices.Add(sumOnDate);
+                            kitToReplaceBlock.Prices.Remove(sumOnDate);
+                        }
+
+                        unitOfWork.Repository<Product>().Delete(kitToReplace);
+                        unitOfWork.Repository<ProductBlock>().Delete(kitToReplaceBlock);
 
                         Items.Remove(SelectedItem);
                         SelectedItem = null;
+
+                        unitOfWork.SaveChanges();
                     }
                 },
                 () => SelectedItem != null && SelectedItem.Model.IsKit);
@@ -90,15 +126,13 @@ namespace HVTApp.UI.Modules.Products.StructureCostsNumbers
                 .Select(block => new StructureCostsNumber(block));
 
             //ремонтные комплекты
-            var kitDepartments = departments.Where(department => department.IsKitDepartment).ToList();
-
             var kits = new List<StructureCostsNumber>();
-            foreach (var kitDepartment in kitDepartments)
+            foreach (var kitDepartment in departments)
             {
                 foreach (var product in kitDepartment.Kits)
                 {
                     if (kits.Any(structureCostsNumber => structureCostsNumber.ProductKit.Id == product.Id)) continue;
-                    kits.Add(new StructureCostsNumber(product, kitDepartments.Where(department => department.Kits.Contains(product))));
+                    kits.Add(new StructureCostsNumber(product, departments.Where(department => department.Kits.Contains(product))));
                 }
             }
 
