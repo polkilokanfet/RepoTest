@@ -440,6 +440,7 @@
     <Compile Include="Modules\Sales\Project1\Wrappers\ProjectUnitGroupsContainer.cs" />
     <Compile Include="Modules\Sales\ViewModels\Groups\RoundUpModule.cs" />
     <Compile Include="Modules\Sales\ViewModels\LoadSpecificationScanCommand.cs" />
+    <Compile Include="PriceEngineering\Converters\ProductBlockStructureCostNumberIsRequiredVisibilityConverter.cs" />
     <Compile Include="PriceEngineering\Tabs\TabPriceEngineeringTaskObserver.xaml.cs">
       <DependentUpon>TabPriceEngineeringTaskObserver.xaml</DependentUpon>
     </Compile>

@@ -151,7 +151,7 @@ namespace HVTApp.UI.PriceEngineering
                     this.ProductBlockEngineer.RejectChanges();
                     this.ProductBlockEngineer = new ProductBlockStructureCostWrapperConstructor(UnitOfWork.Repository<ProductBlock>().GetById(selectedProductBlock.Id));
                 },
-                () => IsTarget && IsEditMode && this.Model.ProductBlock.StructureCostNumberIsRequired);
+                () => IsTarget && IsEditMode);
 
             AddBlockAddedCommand = new DelegateLogCommand(
                 () =>
