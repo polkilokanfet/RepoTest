@@ -23,7 +23,7 @@ namespace HVTApp.Model.POCOs
         public bool InWork { get; set; } = false;
 
         [Designation("Отчетный"), OrderStatus(1)]
-        public bool ForReport { get; set; } = true;
+        public bool ForReport { get; set; } = false;
 
         [Designation("Менеджер"), NotUpdate(Role.SalesManager), OrderStatus(4)]
         public virtual User Manager { get; set; }

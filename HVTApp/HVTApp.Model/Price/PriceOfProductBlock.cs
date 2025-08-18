@@ -28,6 +28,9 @@ namespace HVTApp.Model.Price
         {
             get
             {
+                if (_productBlock.StructureCostNumberIsRequired == false)
+                    return "Ѕлок без ѕ«";
+
                 if (_averageQuarterSum == null) return string.Empty;
                 var q = $"{_averageQuarterSum.Date.Quarter()} кв. {_averageQuarterSum.Date.Year} г.";
                 return ContainsAnyAnalog
@@ -104,16 +107,39 @@ namespace HVTApp.Model.Price
 
             Amount = amount;
 
-            if (productBlock.HasPrice || productBlock.HasFixedPrice)
+            if (productBlock.StructureCostNumberIsRequired)
             {
-                //инициализаци€ по прайсу/фиксированной цене
-                Init(productBlock, targetDate);
+                if (productBlock.HasPrice || productBlock.HasFixedPrice)
+                {
+                    //инициализаци€ по прайсу/фиксированной цене
+                    Init(productBlock, targetDate);
+                }
+                else
+                {
+                    //инициализаци€ по аналогу
+                    Init(priceService.GetAnalogWithPrice(productBlock), targetDate, productBlock);
+                }
             }
             else
             {
-                //инициализаци€ по аналогу
-                Init(priceService.GetAnalogWithPrice(productBlock), targetDate, productBlock);
+                Init(targetDate);
             }
+        }
+
+        /// <summary>
+        /// инициализаци€ без ѕ«
+        /// </summary>
+        private void Init(DateTime targetDate)
+        {
+            Name = _productBlock.ToString();
+            UnitPrice = 0;
+
+            //по фиксированной цене
+            if (_productBlock.HasFixedPrice)
+            {
+                SumFixed = _productBlock.FixedCosts.GetClosedSumOnDate(targetDate).Sum;
+            }
+
         }
 
         /// <summary>
