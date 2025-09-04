@@ -5,7 +5,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 {
     public interface ISelectedProjectItemChanged
     {
-        ProjectItem SelectedProjectItem { get; }
-        event Action<ProjectItem> SelectedProjectItemChanged;
+        MarketProjectItem SelectedProjectItem { get; }
+        event Action<MarketProjectItem> SelectedProjectItemChanged;
     }
 }

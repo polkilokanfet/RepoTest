@@ -12,24 +12,23 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Commands;
+using HVTApp.UI.Modules.Sales.Market.Converters;
 using HVTApp.UI.Modules.Sales.Market.Items;
 using HVTApp.UI.Modules.Sales.ViewModels.Containers;
 using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.Specifications;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Mvvm;
 using Prism.Regions;
 
 namespace HVTApp.UI.Modules.Sales.Market
 {
-    public partial class Market2ViewModel : LoadableExportableExpandCollapseViewModel, ISelectedProjectItemChanged
+    public class Market2ViewModel : LoadableExportableExpandCollapseViewModel, ISelectedProjectItemChanged
     {
-        private ProjectItem _selectedProjectItem;
-        private readonly IEventAggregator _eventAggregator;
+        private MarketProjectItem _selectedProjectItem;
         private IModelsStore ModelsStore => Container.Resolve<IModelsStore>();
 
-        private IEnumerable<Tender> _tenders;
-        private IEnumerable<ProjectItem> _projectItems;
         private object _selectedItem;
         private object[] _selectedItems;
         private bool _isShownDoneItems = true;
@@ -56,51 +55,59 @@ namespace HVTApp.UI.Modules.Sales.Market
             set => this.SetProperty(ref _isShownOnlyReportsItems, value);
         }
 
-        public ProjectItemsCollection ProjectItems { get; } 
+        public ProjectItemsCollection ProjectItems { get; }
+
+        #region SelectedItem
 
         public object SelectedItem
         {
             get => _selectedItem;
             set
             {
-                _selectedItem = value;
-
-                if (value != null)
+                this.SetProperty(ref _selectedItem, value, () =>
                 {
-                    if (value is ProjectItem projectItem)
+                    switch (value)
                     {
-                        SelectedProjectItem = projectItem;
-                    }
-
-                    if (value is ProjectUnitsGroup projectUnitsGroup)
-                    {
-                        SelectedProjectUnitsGroup = projectUnitsGroup;
-                        if (SelectedProjectItem != SelectedProjectUnitsGroup.ProjectItem)
+                        case null:
                         {
-                            SelectedProjectItem = SelectedProjectUnitsGroup.ProjectItem;
+                            return;
+                        }
+                        case MarketProjectItem marketProjectItem:
+                        {
+                            SelectedProjectItem = marketProjectItem;
+                            SelectedProjectUnitsGroup = null;
+                            break;
+                        }
+                        case MarketSalesUnitsItem marketSalesUnitsItem:
+                        {
+                            SelectedProjectUnitsGroup = marketSalesUnitsItem;
+                            SelectedProjectItem = SelectedProjectUnitsGroup.MarketProjectItem;
+                            break;
                         }
                     }
-                }
+                });
             }
         }
 
-        public ProjectItem SelectedProjectItem
+        public MarketProjectItem SelectedProjectItem
         {
             get => _selectedProjectItem;
             set
             {
-                _selectedProjectItem = value;
-                ProjectRaiseCanExecuteChanged();
+                this.SetProperty(ref _selectedProjectItem, value, () =>
+                {
+                    ProjectRaiseCanExecuteChanged();
 
-                this.NotesViewModel.SelectProject(_selectedProjectItem.Project);
+                    this.NotesViewModel.SelectProject(_selectedProjectItem.Project.Id);
 
-                Offers.SelectedItem = null;
-                Tenders.SelectedItem = null;
-                PriceEngineeringTasks.SelectedItem = null;
-                TechnicalRequrementsTasks.SelectedItem = null;
-                PriceCalculations.SelectedItem = null;
+                    Offers.SelectedItem = null;
+                    Tenders.SelectedItem = null;
+                    PriceEngineeringTasks.SelectedItem = null;
+                    TechnicalRequrementsTasks.SelectedItem = null;
+                    PriceCalculations.SelectedItem = null;
 
-                SelectedProjectItemChanged?.Invoke(SelectedProjectItem);
+                    SelectedProjectItemChanged?.Invoke(SelectedProjectItem);
+                });
             }
         }
 
@@ -114,23 +121,23 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
         }
 
-        public List<ProjectItem> SelectedProjectItems
+        public List<MarketProjectItem> SelectedProjectItems
         {
             get
             {
-                var result = new List<ProjectItem>();
+                var result = new List<MarketProjectItem>();
 
                 if (SelectedItems == null) return result;
 
                 foreach (var selectedItem in SelectedItems)
                 {
-                    if (selectedItem is ProjectItem item)
+                    if (selectedItem is MarketProjectItem marketProjectItem)
                     {
-                        result.Add(item);
+                        result.Add(marketProjectItem);
                     }
-                    else if (selectedItem is ProjectUnitsGroup grp)
+                    else if (selectedItem is MarketSalesUnitsItem marketSalesUnitsItem)
                     {
-                        result.Add(grp.ProjectItem);
+                        result.Add(marketSalesUnitsItem.MarketProjectItem);
                     }
                 }
 
@@ -138,9 +145,11 @@ namespace HVTApp.UI.Modules.Sales.Market
             }
         }
 
-        public ProjectUnitsGroup SelectedProjectUnitsGroup { get; set; }
+        public MarketSalesUnitsItem SelectedProjectUnitsGroup { get; set; }
 
-        public event Action<ProjectItem> SelectedProjectItemChanged;
+        public event Action<MarketProjectItem> SelectedProjectItemChanged;
+
+        #endregion
 
         #region Containers
 
@@ -176,8 +185,8 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public Market2ViewModel(IUnityContainer container) : base(container, loadDataInCtor: false)
         {
-            _eventAggregator = Container.Resolve<IEventAggregator>();
-            ProjectItems = new ProjectItemsCollection(this, _eventAggregator);
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+            ProjectItems = new ProjectItemsCollection(eventAggregator, this);
 
             Offers = new OffersContainer(Container, this);
             Tenders = new TendersContainer(Container, this);
@@ -209,6 +218,8 @@ namespace HVTApp.UI.Modules.Sales.Market
 
             NotesViewModel = new NotesViewModel(container.Resolve<IUnitOfWork>());
 
+            ProjectToProjectTypeNameConverter.ProductTypes = UnitOfWork.Repository<ProjectType>().GetAll();
+
             //загрузка данных
             BeforeGetData();
             GetData();
@@ -222,25 +233,14 @@ namespace HVTApp.UI.Modules.Sales.Market
             base.ReloadCommand_Execute();
         }
 
+        private IEnumerable<SalesUnit> _salesUnits;
         protected override void GetData()
         {
             UnitOfWork = ModelsStore.UnitOfWork;
 
-            _tenders = UnitOfWork.Repository<Tender>().GetAll();
-
-            var salesUnits = (GlobalAppProperties.User.RoleCurrent == Role.Admin
+            _salesUnits = (GlobalAppProperties.User.RoleCurrent == Role.Admin
                     ? UnitOfWork.Repository<SalesUnit>().GetAll()
                     : ((ISalesUnitRepository) UnitOfWork.Repository<SalesUnit>()).GetAllOfCurrentUserForMarketView()).ToList();
-
-            var items = salesUnits
-                .GroupBy(unit => unit, new SalesUnitsMarketViewComparer())
-                .Select(units => new ProjectItem(units, _eventAggregator))
-                .ToList();
-
-            _projectItems = items
-                .OrderBy(projectItem => projectItem.DaysToStartProduction)
-                .ThenBy(projectItem => projectItem.OrderInTakeDate)
-                .ToList();
 
             Offers.Load(UnitOfWork);
             Tenders.Load(UnitOfWork);
@@ -251,8 +251,6 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         protected override void BeforeGetData()
         {
-            ProjectItem.AllTenders.Clear();
-            ProjectItems.Clear();
             Offers.Clear();
             Tenders.Clear();
             PriceEngineeringTasks.Clear();
@@ -262,8 +260,7 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         protected override void AfterGetData()
         {
-            ProjectItem.AllTenders.AddRange(_tenders);
-            ProjectItems.AddRange(_projectItems);
+            ProjectItems.Load(_salesUnits);
         }
 
         #region RaiseCanExecuteChanged

@@ -1,26 +1,23 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Data;
-using HVTApp.UI.Modules.Sales.Market.Items;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Modules.Sales.Market.Converters
 {
-    [ValueConversion(typeof(MarketProjectItem), typeof(double))]
-    public class ProjectItemToOpacityConverter : IValueConverter
+    public class ProjectToProjectTypeNameConverter : IValueConverter
     {
+        public static IEnumerable<ProjectType> ProductTypes;
+
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is MarketProjectItem projectItem)
+            if (value is Project project)
             {
-                if (projectItem.IsLoosen)
-                    return 0.5;
-
-                if (projectItem.IsDone)
-                    return 0.6;
-
-                return 1.0;
+                return ProductTypes.Single(x => x.Id == project.ProjectTypeId).Name;
             }
 
-            return Binding.DoNothing;
+            throw new ArgumentException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

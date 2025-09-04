@@ -73,6 +73,7 @@
     <Compile Include="Comparers\SalesUnitsGroupsComparer.cs" />
     <Compile Include="Comparers\UnitsGroupsComparer.cs" />
     <Compile Include="DesignationExt.cs" />
+    <Compile Include="Events\AfterChangeSalesUnitsEvent.cs" />
     <Compile Include="Events\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveSyncEvents.cs" />
     <Compile Include="Events\AfterSaveEntityEvents.g.cs" />

@@ -75,7 +75,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             unitOfWork.SaveChanges();
 
             var remove = _viewModel.ProjectItems.Where(projectItem => projectItem.Project.Id == _viewModel.SelectedProjectItem.Project.Id).ToList();
-            remove.ForEach(projectItem => _viewModel.ProjectItems.Remove(projectItem));
+            //remove.ForEach(projectItem => _viewModel.ProjectItems.Remove(projectItem));
         }
 
         protected override bool CanExecuteMethod()

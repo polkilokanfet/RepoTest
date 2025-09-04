@@ -33,18 +33,16 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
-            var changedSalesUnits = _projectWrapper.Units.Where(projectUnit => projectUnit.IsChanged).Select(projectUnit => projectUnit.Model);
-            var addedSalesUnits = _projectWrapper.Units.AddedItems.Select(projectUnit => projectUnit.Model);
-            var unionSalesUnits = changedSalesUnits.Union(addedSalesUnits).Distinct().ToList();
+            var changedSalesUnits = _projectWrapper.Units.Where(projectUnit => projectUnit.IsChanged).Select(projectUnit => projectUnit.Model).ToList();
+            var addedSalesUnits = _projectWrapper.Units.AddedItems.Select(projectUnit => projectUnit.Model).ToList();
 
             _projectWrapper.AcceptChanges();
             _unitOfWork.SaveEntity(_projectWrapper.Model);
             base.Execute(null);
 
-            foreach (var salesUnit in unionSalesUnits)
-            {
-                _eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(salesUnit);
-            }
+            _eventAggregator.GetEvent<AfterChangeSalesUnitsEvent>().Publish(changedSalesUnits);
+            _eventAggregator.GetEvent<AfterAddSalesUnitsEvent>().Publish(addedSalesUnits);
+
             _eventAggregator.GetEvent<AfterSaveProjectEvent>().Publish(_projectWrapper.Model);
         }
     }

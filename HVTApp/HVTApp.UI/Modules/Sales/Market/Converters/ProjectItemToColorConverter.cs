@@ -5,12 +5,12 @@ using HVTApp.UI.Modules.Sales.Market.Items;
 
 namespace HVTApp.UI.Modules.Sales.Market.Converters
 {
-    [ValueConversion(typeof(ProjectItem), typeof(Color))]
+    [ValueConversion(typeof(MarketProjectItem), typeof(Color))]
     public class ProjectItemToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is ProjectItem projectItem)
+            if (value is MarketProjectItem projectItem)
             {
                 //если оборудование выиграно
                 if (projectItem.IsWon)

@@ -181,10 +181,18 @@ namespace HVTApp.Infrastructure.Extensions
             return unitOfWork.Repository<T>().GetById(entity.Id);
         }
 
+        public static string ToDistinctOrderedString<T>(this IEnumerable<T> enumerable, string separator = "; ")
+        {
+            var enumerable1 = enumerable as T[] ?? enumerable.ToArray();
+            return enumerable1.Any() == false || enumerable1.All(x => x == null)
+                ? string.Empty
+                : string.Join(separator, enumerable1.Where(x => x != null).Select(x => x.ToString()).Distinct().OrderBy(x => x));
+        }
+
         public static string ToStringEnum<T>(this IEnumerable<T> enumerable, string separator = "; ")
         {
             var enumerable1 = enumerable as T[] ?? enumerable.ToArray();
-            return !enumerable1.Any() || enumerable1.All(x => x == null)
+            return enumerable1.Any() == false || enumerable1.All(x => x == null)
                 ? string.Empty 
                 : string.Join(separator, enumerable1.Where(x => x != null).Select(x => x.ToString()).Distinct());
         }

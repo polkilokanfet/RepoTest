@@ -63,18 +63,18 @@ namespace HVTApp.UI.Modules.Sales.Market
                     this.Errors.HasErrors == false);
         }
 
-        public void SelectProject(Project project)
+        public void SelectProject(Guid? projectId)
         {
-            if (project == null)
+            if (projectId == null)
             {
                 ProjectNotesWrapper = null;
             }
             else
             {
-                var projectNotesWrapper = _projectNotesWrappers.SingleOrDefault(x => x.Model.Id == project.Id);
+                var projectNotesWrapper = _projectNotesWrappers.SingleOrDefault(x => x.Model.Id == projectId);
                 if (projectNotesWrapper == null)
                 {
-                    projectNotesWrapper = new ProjectNotesWrapper(_unitOfWork.Repository<Project>().GetById(project.Id), this);
+                    projectNotesWrapper = new ProjectNotesWrapper(_unitOfWork.Repository<Project>().GetById(projectId.Value), this);
                     _projectNotesWrappers.Add(projectNotesWrapper);
                 }
 

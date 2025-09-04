@@ -110,7 +110,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             OnMarket2ViewModelOnSelectedProjectItemChanged(_market2ViewModel.SelectedProjectItem);
         }
 
-        void OnMarket2ViewModelOnSelectedProjectItemChanged(ProjectItem projectItem)
+        void OnMarket2ViewModelOnSelectedProjectItemChanged(MarketProjectItem projectItem)
         {
             Messages.Clear();
 

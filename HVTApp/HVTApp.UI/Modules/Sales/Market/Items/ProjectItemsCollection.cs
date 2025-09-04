@@ -1,65 +1,85 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using HVTApp.Model.Events;
+using HVTApp.Model.POCOs;
+using Microsoft.Practices.ObjectBuilder2;
 using Prism.Events;
 
 namespace HVTApp.UI.Modules.Sales.Market.Items
 {
-    public class ProjectItemsCollection : ObservableCollection<ProjectItem>
+    public class ProjectItemsCollection : IEnumerable<MarketProjectItem>, INotifyCollectionChanged
     {
-        private readonly Market2ViewModel _viewModel;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ObservableCollection<MarketProjectItem> _projectItems 
+            = new ObservableCollection<MarketProjectItem>();
 
-        public ProjectItemsCollection(Market2ViewModel viewModel, IEventAggregator eventAggregator)
+        public ProjectItemsCollection(IEventAggregator eventAggregator, Market2ViewModel viewModel)
         {
-            _viewModel = viewModel;
+            _eventAggregator = eventAggregator;
 
-            //при добавлении или удалении айтема, подписываем/отписываем на событие удаления
-            this.CollectionChanged += (sender, args) =>
+            _projectItems.CollectionChanged += (sender, args) => this.CollectionChanged?.Invoke(this, args);
+
+            eventAggregator.GetEvent<AfterSaveProjectEvent>().Subscribe(project =>
             {
-                if (args.Action == NotifyCollectionChangedAction.Add)
-                {
-                    foreach (var projectItem in args.NewItems.Cast<ProjectItem>())
-                    {
-                        projectItem.LastSalesUnitRemoveEvent += ProjectItemOnLastSalesUnitRemoveEvent;
-                    }
-                }
-
-                if (args.Action == NotifyCollectionChangedAction.Remove)
-                {
-                    foreach (var projectItem in args.OldItems.Cast<ProjectItem>())
-                    {
-                        projectItem.LastSalesUnitRemoveEvent -= ProjectItemOnLastSalesUnitRemoveEvent;
-                    }
-                }
-            };
-
-            //реакция на сохранение юнита
-            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                //проверяем, можно ли юнит поместить в существующую группу
-                this.ToList().ForEach(projectItem => projectItem.Check(salesUnit));
-
-                //если не смогли пристроить в существующую группу, создаем новую
-                if (!this.SelectMany(projectItem => projectItem.SalesUnits).Contains(salesUnit))
-                {
-                    this.Add(new ProjectItem(new[] { salesUnit }, eventAggregator));
-                }
+                this
+                    .Where(marketProjectItem => marketProjectItem.Project.Id == project.Id)
+                    .ForEach(marketProjectItem => marketProjectItem.Project = project);
             });
 
+            eventAggregator.GetEvent<AfterChangeSalesUnitsEvent>().Subscribe(salesUnits =>
+            {
+                var result = new List<SalesUnit>(salesUnits);
+                if (result.Any() == false) return;
+
+                var projectItems = this
+                    .Where(item => item.Project.Id == result.First().Project.Id)
+                    .ToList();
+
+                var salesUnits1 = projectItems.SelectMany(item => item.SalesUnits);
+                foreach (var salesUnit in salesUnits1)
+                {
+                    if (result.Select(x => x.Id).Contains(salesUnit.Id) == false) 
+                        result.Add(salesUnit);
+                }
+
+                projectItems.ForEach(marketProjectItem => this._projectItems.Remove(marketProjectItem));
+
+                this.AddItems(result);
+
+                viewModel.SelectedItem = this.Single(x => x.SalesUnits.Contains(salesUnits.First()));
+            });
         }
 
-        //удалить айтем, если он уже опустел
-        private void ProjectItemOnLastSalesUnitRemoveEvent(ProjectItem item)
+        private void AddItems(IEnumerable<SalesUnit> salesUnits)
         {
-            if (this.Contains(item))
-            {
-                if (_viewModel.SelectedProjectItem == item)
-                {
-                    _viewModel.SelectedItem = null;
-                }
-                this.Remove(item);
-            }
+            var items = salesUnits
+                .GroupBy(salesUnit => salesUnit, new MarketProjectItem.Comparer())
+                .Select(units => new MarketProjectItem(units))
+                .OrderBy(projectItem => projectItem.DaysToStartProduction)
+                .ThenBy(projectItem => projectItem.OrderInTakeDate);
+
+            _projectItems.AddRange(items);
+        }
+
+        public IEnumerator<MarketProjectItem> GetEnumerator()
+        {
+            return _projectItems.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public void Load(IEnumerable<SalesUnit> salesUnits)
+        {
+            this._projectItems.Clear();
+            this.AddItems(salesUnits);
         }
     }
 }

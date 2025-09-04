@@ -388,7 +388,11 @@
     <Compile Include="Modules\Sales\Market\Controls\Market2OffersControl.xaml.cs">
       <DependentUpon>Market2OffersControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Sales\Market\Converters\ProjectToProjectTypeNameConverter.cs" />
     <Compile Include="Modules\Sales\Market\ISelectedProjectItemChanged.cs" />
+    <Compile Include="Modules\Sales\Market\Items\MarketProjectItem.cs" />
+    <Compile Include="Modules\Sales\Market\Items\MarketSalesUnitsItem.cs" />
+    <Compile Include="Modules\Sales\Market\Items\MarketViewBaseComparer.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\AddProjectUnitCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\ChangeProducerCommand.cs" />
     <Compile Include="Modules\Sales\Project1\Commands\IncludeServiceInSpecificationCommand.cs" />

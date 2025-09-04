@@ -37,6 +37,9 @@ namespace HVTApp.Model.POCOs
         [NotForWrapper, NotForListView, NotForDetailsView]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 
+        [NotForWrapper, NotForListView, NotForDetailsView]
+        public virtual List<Tender> Tenders { get; set; } = new List<Tender>();
+
         public override string ToString()
         {
             return $"{Name}";

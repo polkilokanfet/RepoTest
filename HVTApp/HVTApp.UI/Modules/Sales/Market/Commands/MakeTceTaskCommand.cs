@@ -34,7 +34,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
                 var salesUnits = new List<SalesUnit>();
 
                 //если выбран проект целиком
-                if (_viewModel.SelectedItem is ProjectItem projectItem)
+                if (_viewModel.SelectedItem is MarketProjectItem projectItem)
                 {
                     salesUnits = ((ISalesUnitRepository)_unitOfWork.Repository<SalesUnit>())
                         .GetByProject(projectItem.Project.Id)
@@ -43,7 +43,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
                 }
 
                 //если выбрано конкретное оборудование
-                else if (_viewModel.SelectedItem is ProjectUnitsGroup projectUnitsGroup)
+                else if (_viewModel.SelectedItem is MarketSalesUnitsItem projectUnitsGroup)
                 {
                     salesUnits = projectUnitsGroup.SalesUnits.ToList();
                 }

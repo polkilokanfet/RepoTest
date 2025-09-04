@@ -6,12 +6,12 @@ using HVTApp.UI.Modules.Sales.Market.Items;
 
 namespace HVTApp.UI.Modules.Sales.Market.Converters
 {
-    [ValueConversion(typeof(ProjectItem), typeof(FontWeight))]
+    [ValueConversion(typeof(MarketProjectItem), typeof(FontWeight))]
     public class ProjectItemToFontWeightConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is ProjectItem projectItem)
+            if (value is MarketProjectItem projectItem)
             {
                 if (projectItem.InWork)
                     return FontWeights.Bold;

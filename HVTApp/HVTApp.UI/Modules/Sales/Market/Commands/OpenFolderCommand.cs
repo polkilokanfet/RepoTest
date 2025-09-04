@@ -18,7 +18,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
 
         protected override void ExecuteMethod()
         {
-            var path = _fileManagerService.GetPath(_viewModel.SelectedProjectItem.Project);
+            var path = _fileManagerService.GetPath(_viewModel.SelectedProjectItem.Project.Id);
             Process.Start($"\"{path}\"");
         }
 

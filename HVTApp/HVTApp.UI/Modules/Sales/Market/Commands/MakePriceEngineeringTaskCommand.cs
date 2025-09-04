@@ -6,7 +6,6 @@ using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Market.Items;
-using HVTApp.UI.PriceEngineering;
 using HVTApp.UI.PriceEngineering.View;
 using Prism.Regions;
 
@@ -32,13 +31,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
                 List<SalesUnit> salesUnits = new List<SalesUnit>();
 
                 //если выбран проект целиком
-                if (_viewModel.SelectedItem is ProjectItem projectItem)
+                if (_viewModel.SelectedItem is MarketProjectItem projectItem)
                 {
                     salesUnits = ((ISalesUnitRepository)_unitOfWork.Repository<SalesUnit>()).GetByProject(projectItem.Project.Id).Where(salesUnit => !salesUnit.IsRemoved).ToList();
                 }
 
                 //если выбрано конкретное оборудование
-                else if (_viewModel.SelectedItem is ProjectUnitsGroup projectUnitsGroup)
+                else if (_viewModel.SelectedItem is MarketSalesUnitsItem projectUnitsGroup)
                 {
                     salesUnits = projectUnitsGroup.SalesUnits.ToList();
                 }

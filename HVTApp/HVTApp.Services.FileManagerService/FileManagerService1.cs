@@ -55,6 +55,11 @@ namespace HVTApp.Services.FileManagerService
             return GetPath(project.Id, _projectsFolderPath, project.Name);
         }
 
+        public string GetPath(Guid projectId)
+        {
+            return GetPath(projectId, _projectsFolderPath);
+        }
+
         public string GetProjectCorrespondenceFolderName(Project project)
         {
             string path = GetPath(project);

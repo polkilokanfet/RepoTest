@@ -4,13 +4,13 @@ namespace HVTApp.DataAccess
     {
         public TenderConfiguration()
         {
-            HasRequired(x => x.Project).WithMany().WillCascadeOnDelete(true);
-            HasMany(x => x.Types).WithMany();
-            Property(x => x.DateOpen).IsRequired();
-            Property(x => x.DateClose).IsRequired();
-            Property(x => x.DateNotice).IsOptional();
-            HasMany(x => x.Participants).WithMany();
-            HasOptional(x => x.Winner).WithMany();
+            HasRequired(tender => tender.Project).WithMany(project => project.Tenders).WillCascadeOnDelete(true);
+            HasMany(tender => tender.Types).WithMany();
+            Property(tender => tender.DateOpen).IsRequired();
+            Property(tender => tender.DateClose).IsRequired();
+            Property(tender => tender.DateNotice).IsOptional();
+            HasMany(tender => tender.Participants).WithMany();
+            HasOptional(tender => tender.Winner).WithMany();
         }
     }
 }

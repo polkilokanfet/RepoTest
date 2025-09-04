@@ -28,13 +28,13 @@ namespace HVTApp.UI.Modules.Sales.Market.Commands
             if (_messageService.ConfirmationDialog("Объединить проекты.", "Вы уверены, что хотите объединить проекты?", defaultNo: true) == false)
                 return;
 
-            List<ProjectItem> projectItems = _viewModel.SelectedProjectItems.ToList();
+            var projectItems = _viewModel.SelectedProjectItems.ToList();
             List<Project> projects = projectItems.Select(projectItem => projectItem.Project).Distinct().ToList();
 
             Project targetProject = _container.Resolve<ISelectService>().SelectItem(projects);
             if (targetProject == null) return;
 
-            ProjectItem targetProjectItem = projectItems.First(projectItem => projectItem.Project.Id == targetProject.Id);
+            MarketProjectItem targetProjectItem = projectItems.First(projectItem => projectItem.Project.Id == targetProject.Id);
 
             IUnitOfWork unitOfWork = _container.Resolve<IUnitOfWork>();
             targetProject = unitOfWork.Repository<Project>().GetById(targetProject.Id);

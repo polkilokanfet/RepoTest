@@ -19,6 +19,8 @@ namespace HVTApp.Model.Services
         /// <returns>Путь к папке проекта</returns>
         string GetPath(Project project);
 
+        string GetPath(Guid projectId);
+
         /// <summary>
         /// Путь к папке "Переписка" в папке проекта
         /// </summary>

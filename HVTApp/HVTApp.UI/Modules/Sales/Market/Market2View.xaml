@@ -38,6 +38,7 @@
         <localConverters:ProjectItemToColorConverter x:Key="ProjectItemToColorConverter"/>
         <localConverters:ProjectItemToOpacityConverter x:Key="ProjectItemToOpacityConverter"/>
         <localConverters:ProjectItemToFontWeightConverter x:Key="ProjectItemToFontWeightConverter"/>
+        <localConverters:ProjectToProjectTypeNameConverter x:Key="ProjectToProjectTypeNameConverter"/>
 
 </components:ViewBaseSaveCustomization.Resources>
     
@@ -102,14 +103,14 @@
                                 </dp:FieldLayout.RecordFilters>-->
 
                             <dp:FieldLayout.Fields>
-                                <dp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="200" Converter="{StaticResource ObjectsToStringConverter}"/>
+                                <dp:TextField AlternateBinding="{Binding Facilities}" BindingType="UseAlternateBinding" Label="Объекты" Width="200" />
                                 <dp:TextField AlternateBinding="{Binding Project.Name}" BindingType="UseAlternateBinding" Label="Название" Width="350"/>
                                 <dp:NumericField AlternateBinding="{Binding Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                                 <dp:DateTimeField AlternateBinding="{Binding TenderDate}" BindingType="UseAlternateBinding" Label="Тендер" Width="Auto" AllowResize="False"/>
                                 <dp:TextField AlternateBinding="{Binding Builder}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Подрядчик" Width="120"/>
                                 <dp:TextField AlternateBinding="{Binding ProjectMaker}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Проектировщик" Width="120"/>
                                 <dp:TextField AlternateBinding="{Binding Supplier}" Converter="{StaticResource ObjectToStringConverter}" BindingType="UseAlternateBinding" Label="Поставщик" Width="120"/>
-                                <dp:TextField AlternateBinding="{Binding Project.ProjectType}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" Converter="{StaticResource ObjectToStringConverter}"/>
+                                <dp:TextField AlternateBinding="{Binding Project, Converter={StaticResource ProjectToProjectTypeNameConverter}}" BindingType="UseAlternateBinding" Label="Тип проекта" Width="Auto" />
                                 <dp:TextField AlternateBinding="{Binding ProductsInProject}" BindingType="UseAlternateBinding" Label="Номенклатура" Width="150"/>
                                 <dp:TextField AlternateBinding="{Binding FacilitiesOwners}" BindingType="UseAlternateBinding" Label="Владельцы объектов" Width="150" Converter="{StaticResource ObjectsToStringConverter}"/>
                                 <dp:NumericField Name="OrderInTakeYear" Label="ОИТ (год)" Width="Auto" AllowResize="False"/>
@@ -117,12 +118,12 @@
                                 <dp:NumericField Name="DaysToStartProduction" Label="DTSP" Width="Auto" AllowResize="False"/>
                                 <dp:CheckBoxField Name="IsDone" AlternateBinding="{Binding IsDone}" BindingType="UseAlternateBinding" Label="Done" Width="Auto" AllowResize="False" Visibility="Hidden"/>
                                 <dp:CheckBoxField Name="IsLoosen" AlternateBinding="{Binding IsLoosen}" BindingType="UseAlternateBinding" Label="Loose" Width="Auto" AllowResize="False" Visibility="Hidden"/>
-                                <dp:CheckBoxField Name="ForReport" AlternateBinding="{Binding ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False" Visibility="Hidden"/>
-                                <dp:Field Name="ProjectUnitsGroups" IsExpandable="True"/>
+                                <dp:CheckBoxField Name="ForReport" AlternateBinding="{Binding Project.ForReport}" BindingType="UseAlternateBinding" Label="Report" Width="Auto" AllowResize="False" Visibility="Hidden"/>
+                                <dp:Field Name="Items" IsExpandable="True"/>
                             </dp:FieldLayout.Fields>
                         </dp:FieldLayout>
 
-                        <dp:FieldLayout ParentFieldName="ProjectUnitsGroups">
+                        <dp:FieldLayout ParentFieldName="Items">
 
                             <dp:FieldLayout.Settings>
                                 <dp:FieldLayoutSettings
@@ -144,14 +145,14 @@
                             </dp:FieldLayout.FieldSettings>
                             
                             <dp:FieldLayout.Fields>
-                                <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}" Label="Объект" Width="200"/>
-                                <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Converter="{StaticResource ObjectToStringConverter}" Label="Тип оборудования" Width="200"/>
+                                <dp:TextField AlternateBinding="{Binding Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="200"/>
+                                <dp:TextField AlternateBinding="{Binding ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="200"/>
                                 <dp:TextField AlternateBinding="{Binding Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="200"/>
                                 <dp:NumericField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto" AllowResize="False" />
                                 <dp:NumericField AlternateBinding="{Binding Cost}" BindingType="UseAlternateBinding" Label="Цена" Width="Auto" AllowResize="False"/>
-                                <dp:NumericField AlternateBinding="{Binding Total}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
+                                <dp:NumericField AlternateBinding="{Binding CostTotal}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowResize="False"/>
                                 <dp:DateTimeField AlternateBinding="{Binding OrderInTakeDate}" BindingType="UseAlternateBinding" Label="ОИТ" Width="Auto" AllowResize="False"/>
-                                <dp:DateTimeField AlternateBinding="{Binding ShipmentDate}" BindingType="UseAlternateBinding" Label="Отгрузка" Width="Auto" AllowResize="False"/>
+                                <dp:DateTimeField AlternateBinding="{Binding RealizationDateCalculated}" BindingType="UseAlternateBinding" Label="Реализация" Width="Auto" AllowResize="False"/>
                                 <dp:TextField AlternateBinding="{Binding Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="250"/>
                             </dp:FieldLayout.Fields>
 
