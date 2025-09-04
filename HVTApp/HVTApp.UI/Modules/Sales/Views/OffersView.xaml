@@ -5,8 +5,7 @@
               xmlns:views="clr-namespace:HVTApp.UI.Views">
 
     <views:OfferLookupListView DataContext="{Binding}" 
-                               NumberVisibility="Collapsed"
-                               OfferUnitsVisibility="Collapsed"/>
+                               NumberVisibility="Collapsed"/>
 
 </inf:ViewBase>
 

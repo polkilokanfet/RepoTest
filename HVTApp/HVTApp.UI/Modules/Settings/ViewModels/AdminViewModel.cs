@@ -47,12 +47,13 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = container.Resolve<IUnitOfWork>();
 
-                    var productBlocks = unitOfWork.Repository<ProductBlock>().GetAll();
+                    var offers = unitOfWork.Repository<Offer>().GetAll();
 
                     var sb = new StringBuilder();
-                    foreach (var productBlock in productBlocks)
+                    foreach (var offer in offers)
                     {
-                        productBlock.StructureCostNumberIsRequired = true;
+                        if (offer.WhoRegisteredUserId == null)
+                            offer.WhoRegisteredUserId = offer.Project.ManagerId;
                     }
 
                     unitOfWork.SaveChanges();
