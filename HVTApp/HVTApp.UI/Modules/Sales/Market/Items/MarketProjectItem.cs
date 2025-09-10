@@ -24,28 +24,11 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             }
         }
 
-        public string Facilities => SalesUnits.Select(salesUnit => salesUnit.Facility).ToDistinctOrderedString();
+        public string Facilities => Items.Select(salesUnit => salesUnit.Facility).ToDistinctOrderedString();
 
-        public string FacilitiesOwners
-        {
-            get
-            {
-                var owners = SalesUnits
-                    .Select(salesUnit => salesUnit.Facility)
-                    .Select(facility => facility.OwnerCompany)
-                    .ToList();
-                var result = new List<Company>(owners);
-                foreach (var owner in owners)
-                {
-                    result.AddRange(owner.ParentCompanies());
-                }
-                return result.Distinct().OrderBy(company => company.ShortName).ToStringEnum();
-            }
-        }
+        public string FacilitiesOwners => Items.Select(item => item.FacilitiesOwners).ToDistinctOrderedString();
 
-        public string ProductsInProject => this.Items
-            .Select(salesUnit => salesUnit.Designation.Replace("-ÓÝÒÌ-", "-"))
-            .ToDistinctOrderedString();
+        public string ProductsInProject => this.Items.Select(salesUnit => salesUnit.Designation).ToDistinctOrderedString();
 
         public double Sum => SalesUnits.Sum(salesUnit => salesUnit.Cost);
 
@@ -145,7 +128,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             var marketSalesUnitsItems = SalesUnits
                 .GroupBy(salesUnit => salesUnit, new MarketSalesUnitsItem.Comparer())
                 .Select(x => new MarketSalesUnitsItem(x, this));
-            _items = new ObservableCollection<MarketSalesUnitsItem>(marketSalesUnitsItems);
+            _items = new ObservableCollection<MarketSalesUnitsItem>(marketSalesUnitsItems.OrderByDescending(x => x.Cost));
         }
 
         public class Comparer : MarketViewBaseComparer

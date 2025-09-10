@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Extensions;
 using HVTApp.Model.POCOs;
 using Prism.Mvvm;
 
@@ -15,7 +16,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         public string ProductType => SalesUnits.First().Product.ProductType.Name;
         public string Designation => SalesUnits.First().Product.Category.IsStub
             ? SalesUnits.First().Product.Designation.Replace("-ÓÝÒÌ-", "-")
-            : SalesUnits.First().Product.Category.NameShort;
+            : SalesUnits.First().Product.Category.NameShort.Replace("-ÓÝÒÌ-", "-");
         public int Amount => SalesUnits.Count();
         public double Cost => SalesUnits.First().Cost;
         public double CostTotal => SalesUnits.Sum(salesUnit => salesUnit.Cost);
@@ -23,6 +24,15 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         public DateTime RealizationDateCalculated => SalesUnits.First().RealizationDateCalculated;
         public string Comment => SalesUnits.First().Comment;
 
+        public string FacilitiesOwners
+        {
+            get
+            {
+                var owners = new List<Company> { SalesUnits.First().Facility.OwnerCompany };
+                owners.AddRange(owners.First().ParentCompanies());
+                return owners.ToStringEnum();
+            }
+        }
 
         public MarketSalesUnitsItem(IEnumerable<SalesUnit> salesUnits, MarketProjectItem marketProjectItem)
         {
