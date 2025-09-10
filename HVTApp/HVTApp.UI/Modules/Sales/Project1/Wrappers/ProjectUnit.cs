@@ -174,7 +174,6 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty(nameof(Facility), Model.Facility == null ? null : new FacilityEmptyWrapper(Model.Facility));
-            InitializeComplexProperty(nameof(Project), Model.Project == null ? null : new ProjectEmptyWrapper(Model.Project));
             InitializeComplexProperty(nameof(Product), Model.Product == null ? null : new ProductEmptyWrapper(Model.Product));
             InitializeComplexProperty(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetEmptyWrapper(Model.PaymentConditionSet));
             InitializeComplexProperty(nameof(Producer), Model.Producer == null ? null : new CompanyEmptyWrapper(Model.Producer));

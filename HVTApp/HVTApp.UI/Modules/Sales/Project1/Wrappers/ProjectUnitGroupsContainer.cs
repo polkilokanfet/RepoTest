@@ -79,7 +79,7 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
 
         public new void Remove(ProjectUnit projectUnit)
         {
-            var projectUnitGroup = Groups.Single(x => x.Units.Contains(projectUnit));
+            var projectUnitGroup = Groups.Single(group => group.Units.Contains(projectUnit));
             projectUnitGroup.Units.Remove(projectUnit);
             if (projectUnitGroup.Units.Count == 0)
                 ((ObservableCollection<ProjectUnitGroup>)Groups).Remove(projectUnitGroup);

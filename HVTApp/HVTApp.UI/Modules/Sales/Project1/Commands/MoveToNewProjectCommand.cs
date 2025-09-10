@@ -25,8 +25,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
 
         public override void Execute(object parameter)
         {
-            IEnumerable<SalesUnit> salesUnits = _viewModel.SelectedUnit is ProjectUnitGroup projectUnitGroup
-                ? projectUnitGroup.Units.Select(x => x.Model)
+            var salesUnits = _viewModel.SelectedUnit is ProjectUnitGroup projectUnitGroup
+                ? projectUnitGroup.Units.Select(projectUnit => projectUnit.Model)
                 : new[] { ((ProjectUnit)_viewModel.SelectedUnit).Model };
 
             _container.Resolve<IRegionManager>().RequestNavigateContentRegion<ProjectView>(new NavigationParameters
