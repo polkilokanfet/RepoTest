@@ -33,20 +33,15 @@ namespace HVTApp.UI.PriceEngineering.Items
         public string Facilities =>
             GetSalesUnits()
                 .Where(salesUnit => salesUnit != null)
-                .Select(salesUnit => salesUnit.Facility)
-                .Distinct()
-                .OrderBy(facility => facility.Name)
-                .ToStringEnum();
+                .Select(salesUnit => salesUnit.Facility.ToString())
+                .ToDistinctOrderedString();
 
         [Designation("Заказы"), OrderStatus(2000)]
         public string Orders =>
             GetSalesUnits()
-                .Where(salesUnit => salesUnit != null)
-                .Select(salesUnit => salesUnit.Order)
-                .Where(order => order != null)
-                .Distinct()
-                .OrderBy(order => order.Number)
-                .ToStringEnum();
+                .Where(salesUnit => salesUnit?.Order != null)
+                .Select(salesUnit => salesUnit.Order.Number)
+                .ToDistinctOrderedString();
 
         protected abstract IEnumerable<SalesUnit> GetSalesUnits();
 
@@ -64,10 +59,8 @@ namespace HVTApp.UI.PriceEngineering.Items
 
                 return
                     childPriceEngineeringTasks
-                        .Select(childTask => childTask.Entity.ProductBlock.Designation)
-                        .Distinct()
-                        .OrderBy(x => x)
-                        .ToStringEnum();
+                        .Select(childTask => childTask.Entity.ProductBlock.CategoryOrDesignation)
+                        .ToDistinctOrderedString();
             }
         }
 
@@ -76,16 +69,13 @@ namespace HVTApp.UI.PriceEngineering.Items
             this.ChildPriceEngineeringTasks
                 .Select(childTask => childTask.Entity.UserConstructor?.Employee.Person)
                 .Where(person => person != null)
-                .Distinct()
-                .OrderBy(person => person.ToString())
-                .ToStringEnum();
+                .Select(person => person.ToString())
+                .ToDistinctOrderedString();
 
         public string StatusString =>
             this.ChildPriceEngineeringTasks
                 .Select(childTask => childTask.StatusString)
-                .Distinct()
-                .OrderBy(x => x)
-                .ToStringEnum();
+                .ToDistinctOrderedString();
 
         public string Numbers { get; }
 

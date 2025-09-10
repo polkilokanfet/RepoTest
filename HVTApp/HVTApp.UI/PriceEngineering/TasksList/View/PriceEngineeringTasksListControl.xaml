@@ -84,7 +84,7 @@
                 </dataPresenter:FieldLayout>
 
                 <dataPresenter:FieldLayout ParentFieldLayoutKey="MnL" ParentFieldName="ChildPriceEngineeringTasks">
-                    <dataPresenter:TextField Label="Блок" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.ProductBlock}" Width="300"/>
+                    <dataPresenter:TextField Label="Блок" BindingType="UseAlternateBinding" AlternateBinding="{Binding CategoryOrDesignation}" Width="300"/>
                     <dataPresenter:TextField Label="Исполнитель" BindingType="UseAlternateBinding" AlternateBinding="{Binding Entity.UserConstructor}" Width="300" 
                                              Visibility="{Binding RelativeSource={RelativeSource Self},  Converter={StaticResource UnVisibleToConstructorConverter}}"/>
                     <dataPresenter:TextField Label="Статус" BindingType="UseAlternateBinding" AlternateBinding="{Binding StatusString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>

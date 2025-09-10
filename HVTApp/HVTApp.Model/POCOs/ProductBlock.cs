@@ -61,6 +61,18 @@ namespace HVTApp.Model.POCOs
         [Designation("Тип"), NotMapped, OrderStatus(10)]
         public ProductType ProductType => GlobalAppProperties.ProductDesignationService?.GetProductType(this);
 
+        private ProductCategory _category;
+        [Designation("Категория"), NotMapped, NotForWrapper, OrderStatus(9)]
+        public ProductCategory Category => _category ?? (_category = GlobalAppProperties.ProductDesignationService.GetProductCategory(this));
+
+        /// <summary>
+        /// Категория или обозначение (без "-УЭТМ-")
+        /// </summary>
+        [NotMapped, NotForDetailsView, NotForListView, NotForWrapper]
+        public string CategoryOrDesignation => this.Category.IsStub
+            ? this.Designation.Replace("-УЭТМ-", "-")
+            : this.Category.NameShort.Replace("-УЭТМ-", "-");
+
         [Designation("Есть прайс"), NotMapped]
         public bool HasPrice => Prices.Any();
 

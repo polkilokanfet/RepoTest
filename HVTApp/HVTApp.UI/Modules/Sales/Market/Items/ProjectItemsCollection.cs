@@ -49,7 +49,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
 
                 this.AddItems(result);
 
-                viewModel.SelectedItem = this.Single(x => x.SalesUnits.Contains(salesUnits.First()));
+                viewModel.SelectedItem = this.First(item => item.SalesUnits.Contains(salesUnits.First()));
             });
         }
 

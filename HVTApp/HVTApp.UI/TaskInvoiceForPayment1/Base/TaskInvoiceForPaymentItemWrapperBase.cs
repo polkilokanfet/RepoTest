@@ -189,7 +189,6 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.Base
             DeliveryType = Math.Abs(CostDelivery) > 0 ? "Доставка" : "Самовывоз";
 
             DeliveryAddress = salesUnit.GetDeliveryAddressString();
-
         }
 
         #region GetInfo

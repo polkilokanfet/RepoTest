@@ -1,5 +1,4 @@
-﻿using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.TaskInvoiceForPayment1.Base;
 

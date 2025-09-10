@@ -115,12 +115,17 @@ namespace HVTApp.Services.ProductDesignationService
 
         public ProductCategory GetProductCategory(Product product)
         {
-            if (_dictionaryBlockCategories.ContainsKey(product.ProductBlock.Id))
-                return _dictionaryBlockCategories[product.ProductBlock.Id];
+            return this.GetProductCategory(product.ProductBlock);
+        }
 
-            var result = _productCategories.FirstOrDefault(category => category.Parameters.AllContainsInById(product.ProductBlock.Parameters)) ?? _emptyCategory;
+        public ProductCategory GetProductCategory(ProductBlock block)
+        {
+            if (_dictionaryBlockCategories.ContainsKey(block.Id))
+                return _dictionaryBlockCategories[block.Id];
 
-            _dictionaryBlockCategories.Add(product.ProductBlock.Id, result);
+            var result = _productCategories.FirstOrDefault(category => category.Parameters.AllContainsInById(block.Parameters)) ?? _emptyCategory;
+
+            _dictionaryBlockCategories.Add(block.Id, result);
 
             return result;
         }
