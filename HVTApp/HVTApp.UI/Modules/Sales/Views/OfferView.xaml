@@ -19,6 +19,7 @@
                                         DockPanel.Dock="Top"
                                         DataContext="{Binding DetailsViewModel}"
                                         VisibilityCommentOffer="Collapsed"
+                                        VisibilityWhoRegisteredUserOffer="Collapsed"
                                         VisibilityAuthorOffer="Collapsed"
                                         VisibilityProjectOffer="Collapsed"
                                         VisibilityTceNumberOffer="Collapsed"

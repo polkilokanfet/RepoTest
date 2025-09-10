@@ -43,8 +43,8 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
             }
         }
 
-        public string ProductsInProject => this.SalesUnits
-            .Select(salesUnit => salesUnit.Product.Designation.Replace("-ÓÝÒÌ-", "-"))
+        public string ProductsInProject => this.Items
+            .Select(salesUnit => salesUnit.Designation.Replace("-ÓÝÒÌ-", "-"))
             .ToDistinctOrderedString();
 
         public double Sum => SalesUnits.Sum(salesUnit => salesUnit.Cost);
@@ -76,8 +76,6 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         public bool IsDone => SalesUnits.All(salesUnit => salesUnit.IsDone);
         public bool IsWon => SalesUnits.All(salesUnit => salesUnit.IsWon);
         public bool IsLoosen => SalesUnits.All(salesUnit => salesUnit.IsLoosen);
-
-        //public bool ForReport => Project.ForReport;
 
         public bool InWork
         {

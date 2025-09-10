@@ -14,7 +14,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
         public string Facility => SalesUnits.First().Facility.ToString();
         public string ProductType => SalesUnits.First().Product.ProductType.Name;
         public string Designation => SalesUnits.First().Product.Category.IsStub
-            ? SalesUnits.First().Product.Designation
+            ? SalesUnits.First().Product.Designation.Replace("-ÓÝÒÌ-", "-")
             : SalesUnits.First().Product.Category.NameShort;
         public int Amount => SalesUnits.Count();
         public double Cost => SalesUnits.First().Cost;
