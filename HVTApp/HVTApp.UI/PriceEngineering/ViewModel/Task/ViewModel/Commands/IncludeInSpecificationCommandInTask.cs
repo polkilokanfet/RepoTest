@@ -3,7 +3,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.Commands
 {
     public class IncludeInSpecificationCommandInTask : IncludeInSpecificationCommand
     {
@@ -18,7 +18,7 @@ namespace HVTApp.UI.PriceEngineering
 
             if (salesUnitsContainer is PriceEngineeringTask priceEngineeringTask)
             {
-                if (priceEngineeringTask.Statuses.Select(x => x.StatusEnum).Contains(ScriptStep.LoadToTceStart.Value) == false)
+                if (priceEngineeringTask.Statuses.Select(status => status.StatusEnum).Contains(ScriptStep.LoadToTceStart.Value) == false)
                 {
                     Container.Resolve<IMessageService>().Message("Отказ", "Вы не давали распоряжение загрузить эту задачу в TeamCenter.");
                     return false;

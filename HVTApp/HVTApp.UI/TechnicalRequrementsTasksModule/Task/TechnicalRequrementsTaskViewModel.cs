@@ -14,6 +14,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrapper;
 using HVTApp.UI.Commands;
 using HVTApp.UI.PriceEngineering;
+using HVTApp.UI.PriceEngineering.Commands;
 using HVTApp.UI.PriceEngineering.View;
 using HVTApp.UI.TechnicalRequrementsTasksModule.Wrapper;
 using Microsoft.Practices.Unity;

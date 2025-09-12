@@ -61,12 +61,17 @@ namespace HVTApp.UI.Modules.Sales.Project1.Commands
                 if (specification == null) return;
                 specification = unitOfWork.Repository<Specification>().GetById(specification.Id);
 
+                var producer = unitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
                 salesUnits = salesUnits.Select(salesUnit => unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id)).ToList();
-                salesUnits.ForEach(salesUnit => salesUnit.Specification = specification);
+                salesUnits.ForEach(salesUnit =>
+                {
+                    salesUnit.Specification = specification;
+                    salesUnit.Producer = producer;
+                });
 
                 unitOfWork.SaveChanges();
 
-                _messageService.Message("Уведомление", $"Выбранные услуги добавлены в спецификацию {specification}");
+                _messageService.Message("Уведомление", $"Выбранные услуги добавлены в спецификацию №{specification.Number} договора {specification.Contract.Number}");
             }
 
         }

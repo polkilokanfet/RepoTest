@@ -10,6 +10,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper.Base.TrackingCollections;
 using HVTApp.UI.Commands;
+using HVTApp.UI.PriceEngineering.Commands;
 using HVTApp.UI.PriceEngineering.DoStepCommand;
 using Microsoft.Practices.Unity;
 

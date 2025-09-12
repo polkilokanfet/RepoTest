@@ -1,25 +1,20 @@
 using System;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extensions;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Commands;
-using HVTApp.UI.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
-using Prism.Regions;
 
-namespace HVTApp.UI.PriceEngineering
+namespace HVTApp.UI.PriceEngineering.Commands
 {
     public class IncludeInSpecificationCommand : DelegateLogCommand
     {
         protected readonly IUnityContainer Container;
         private readonly Func<bool> _canExecute;
         private readonly IMessageService _messageService;
-
-
 
         public IncludeInSpecificationCommand(IUnityContainer container, Func<bool> canExecute)
         {
@@ -77,14 +72,16 @@ namespace HVTApp.UI.PriceEngineering
                 }
             }
 
+            var producer = unitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
             foreach (var salesUnit in salesUnitsContainer.SalesUnits)
             {
                 var su = unitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id);
                 su.Specification = specification;
+                su.Producer = producer;
             }
 
             unitOfWork.SaveChanges();
-            Container.Resolve<IRegionManager>().RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { nameof(Specification), specification } });
+            _messageService.Message($"Добавлено в спецификацию №{specification.Number} договора {specification.Contract.Number}");
         }
 
         private Specification GetSpecification(IUnitOfWork unitOfWork)

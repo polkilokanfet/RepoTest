@@ -47,18 +47,19 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
 
                     var unitOfWork = container.Resolve<IUnitOfWork>();
 
-                    var offers = unitOfWork.Repository<Offer>().GetAll();
+                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Specification != null && salesUnit.Producer == null);
+                    var company = unitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
 
                     var sb = new StringBuilder();
-                    foreach (var offer in offers)
+                    foreach (var salesUnit in salesUnits)
                     {
-                        if (offer.WhoRegisteredUserId == null)
-                            offer.WhoRegisteredUserId = offer.Project.ManagerId;
+                        salesUnit.Producer = company;
+                        sb.AppendLine(salesUnit.ToString());
                     }
 
                     unitOfWork.SaveChanges();
 
-                    container.Resolve<IMessageService>().Message("", sb.ToString());
+                    container.Resolve<IMessageService>().Message(sb.ToString());
 
                     //Clipboard.SetText(sb.ToString());
                 });
