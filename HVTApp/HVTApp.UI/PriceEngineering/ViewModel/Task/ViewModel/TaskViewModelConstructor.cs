@@ -19,6 +19,7 @@ using HVTApp.UI.PriceEngineering.DoStepCommand;
 using HVTApp.UI.PriceEngineering.ParametersService1;
 using HVTApp.UI.PriceEngineering.Wrapper;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 
 namespace HVTApp.UI.PriceEngineering
 {
@@ -52,8 +53,20 @@ namespace HVTApp.UI.PriceEngineering
         {
             get => _selectedBlockAdded;
             set => this.SetProperty(ref _selectedBlockAdded, value,
-                () => RemoveBlockAddedCommand.RaiseCanExecuteChanged());
+                () =>
+                {
+                    RemoveBlockAddedCommand.RaiseCanExecuteChanged();
+                    CopyProductBlockAddedCommand.RaiseCanExecuteChanged();
+                });
         }
+
+        #region Buffer
+
+        private static ProductBlock BufferProductBlock;
+        private static PriceEngineeringTaskProductBlockAdded BufferProductBlockAdded;
+        private static PriceEngineeringTask BufferPriceEngineeringTask;
+
+        #endregion
 
         #region Commands
 
@@ -85,14 +98,47 @@ namespace HVTApp.UI.PriceEngineering
 
         public DelegateLogCommand LoadJsonFileCommand { get; }
 
+        /// <summary>
+        /// Команда копирования основного блока в буфер обмена
+        /// </summary>
+        public DelegateLogCommand CopyProductBlockCommand { get; }
+
+        /// <summary>
+        /// Команда вставки основного блока из буфера обмена
+        /// </summary>
+        public DelegateLogConfirmationCommand PasteProductBlockCommand { get; }
+
+        /// <summary>
+        /// Команда копирования добавленного блока в буфер обмен
+        /// </summary>
+        public DelegateLogCommand CopyProductBlockAddedCommand { get; }
+
+        /// <summary>
+        /// Команда вставки добавленного блока из буфера обмена
+        /// </summary>
+        public DelegateLogCommand PasteProductBlockAddedCommand { get; }
+
+        /// <summary>
+        /// Команда копирования всей задачи в буфер обмена
+        /// </summary>
+        public DelegateLogCommand CopyPriceEngineeringTaskCommand { get; }
+
+        /// <summary>
+        /// Команда вставки всей задачи из буфера обмена
+        /// </summary>
+        public DelegateLogConfirmationCommand PastePriceEngineeringTaskCommand { get; }
+
         #endregion
 
-        #region ctors
+        #region ctor
+
+        private readonly IMessageService _messageService;
 
         public TaskViewModelConstructor(IUnityContainer container, Guid priceEngineeringTaskId, TaskViewModelConstructor parentTask) : base(container, priceEngineeringTaskId)
         {
             _parentTask = parentTask;
-            var messageService = container.Resolve<IMessageService>();
+            _messageService = container.Resolve<IMessageService>();
+            var eventAggregator = container.Resolve<IEventAggregator>();
 
             var vms = Model.ChildPriceEngineeringTasks.Select(priceEngineeringTask => new TaskViewModelConstructor(container, priceEngineeringTask.Id, this));
             ChildPriceEngineeringTasks = new ValidatableChangeTrackingCollection<TaskViewModel>(vms);
@@ -110,7 +156,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     if (this.Model.ProductBlock.IsService)
                     {
-                        messageService.Message("Услуга не требует состава ПЗ. Комплекты для ремонта необходимо добавлять в разделе Дополнительные блоки.");
+                        _messageService.Message("Услуга не требует состава ПЗ. Комплекты для ремонта необходимо добавлять в разделе Дополнительные блоки.");
                         return;
                     }
 
@@ -128,7 +174,7 @@ namespace HVTApp.UI.PriceEngineering
                     var emptyParameter = GlobalAppProperties.Actual.EmptyParameterCurrentTransformersSet;
                     if (emptyParameter != null && selectedProductBlock.Parameters.ContainsById(emptyParameter))
                     {
-                        var dr = messageService.ConfirmationDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
+                        var dr = _messageService.ConfirmationDialog("Пустой КТТ", "Вы выбрали КТТ без ТТ. Хотите ли Вы запустить подбор ТТ?", defaultYes:true);
                         if (dr)
                         {
                             var rp = productBlockRequiredParameters.ToList();
@@ -159,7 +205,7 @@ namespace HVTApp.UI.PriceEngineering
                     var addedBlocksList = Model.DesignDepartment.ParameterSetsAddedBlocks;
                     if (addedBlocksList.Any() == false)
                     {
-                        messageService.Message("Вашему КБ не назначено ни одного дополнительного блока. Если необходимо их добавить, обратитесь к Косолапову А.Г.");
+                        _messageService.Message("Вашему КБ не назначено ни одного дополнительного блока. Если необходимо их добавить, обратитесь к Косолапову А.Г.");
                         return;
                     }
 
@@ -188,25 +234,11 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsTarget && IsEditMode);
 
             RemoveBlockAddedCommand = new DelegateLogConfirmationCommand(
-                messageService, 
+                _messageService, 
                 "Вы уверены, что хотите удалить выделенное дополнительное оборудование?",
                 () =>
                 {
-                    SelectedBlockAdded.RejectChanges();
-
-                    if (SelectedBlockAdded.Model.StructureCostVersions.Any())
-                    {
-                        SelectedBlockAdded.IsRemoved = true;
-                    }
-                    else
-                    {
-                        if (UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetById(SelectedBlockAdded.Model.Id) != null)
-                        {
-                            UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().Delete(SelectedBlockAdded.Model);
-                        }
-
-                        this.ProductBlocksAdded.Remove(SelectedBlockAdded);
-                    }
+                    this.RemoveBlockAdded(SelectedBlockAdded.Model);
                     SelectedBlockAdded = null;
                 },
                 () => IsTarget && IsEditMode && SelectedBlockAdded != null);
@@ -231,7 +263,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsTarget && IsEditMode == true);
 
             RemoveAnswerFileCommand = new DelegateLogConfirmationCommand(
-                messageService,
+                _messageService,
                 "Вы уверены, что хотите удалить выделенный файл?",
                 () => { this.FilesAnswers.Remove(SelectedFileAnswer); }, 
                 () => IsTarget && IsEditMode && SelectedFileAnswer != null);
@@ -259,7 +291,7 @@ namespace HVTApp.UI.PriceEngineering
                 {
                     if (this.Model.DesignDepartment.ParameterSetsSubTask.Any() == false)
                     {
-                        messageService.Message("Информация", "Ваше КБ не имеет продуктов для поручения.");
+                        _messageService.Message("Информация", "Ваше КБ не имеет продуктов для поручения.");
                         return;
                     }
 
@@ -281,7 +313,7 @@ namespace HVTApp.UI.PriceEngineering
 
                         if (taskViewModel.DesignDepartment == null)
                         {
-                            messageService.Message("Ошибка", $"Данному продукту не назначено КБ. Обратитесь для назначения к администратору:\n{product.ProductBlock.ParametersOrdered.ToStringEnum("\n")}");
+                            _messageService.Message("Ошибка", $"Данному продукту не назначено КБ. Обратитесь для назначения к администратору:\n{product.ProductBlock.ParametersOrdered.ToStringEnum("\n")}");
                             return;
                         }
 
@@ -296,7 +328,7 @@ namespace HVTApp.UI.PriceEngineering
                 () => IsTarget && IsEditMode);
 
             RemoveSubTaskCommand = new DelegateLogConfirmationCommand(
-                messageService,
+                _messageService,
                 "Вы уверены, что хотите удалить созданную Вами подзадачу?",
                 () =>
                 {
@@ -312,6 +344,70 @@ namespace HVTApp.UI.PriceEngineering
                     this.ProductBlocksAdded.AddRange(blocks.Select(x => new TaskProductBlockAddedWrapperConstructor(x)));
                 });
 
+
+            eventAggregator.GetEvent<CopyProductBlockEvent>().Subscribe(() =>
+            {
+                this.PasteProductBlockCommand.RaiseCanExecuteChanged();
+            });
+
+            eventAggregator.GetEvent<CopyProductBlockAddedEvent>().Subscribe(() =>
+            {
+                this.PasteProductBlockAddedCommand.RaiseCanExecuteChanged();
+            });
+
+            eventAggregator.GetEvent<CopyPriceEngineeringTaskEvent>().Subscribe(() =>
+            {
+                this.PastePriceEngineeringTaskCommand.RaiseCanExecuteChanged();
+            });
+
+            CopyProductBlockCommand = new DelegateLogCommand(() =>
+            {
+                BufferProductBlock = this.Model.ProductBlock;
+                eventAggregator.GetEvent<CopyProductBlockEvent>().Publish();
+            });
+
+            CopyProductBlockAddedCommand = new DelegateLogCommand(() =>
+            {
+                BufferProductBlockAdded = this.SelectedBlockAdded.Model;
+                eventAggregator.GetEvent<CopyProductBlockAddedEvent>().Publish();
+            }, () => this.IsTarget && this.SelectedBlockAdded != null);
+
+            CopyPriceEngineeringTaskCommand = new DelegateLogCommand(() =>
+            {
+                BufferPriceEngineeringTask = this.Model;
+                eventAggregator.GetEvent<CopyPriceEngineeringTaskEvent>().Publish();
+            }, () => this.IsTarget);
+
+            PasteProductBlockCommand = new DelegateLogConfirmationCommand(
+                _messageService,
+                "Вы уверены, что хотите вставить блок оборудования из буфера обмена?",
+                () => this.PasteProductBlock(BufferProductBlock),
+                () => this.IsEditMode && BufferProductBlock != null);
+
+            PasteProductBlockAddedCommand = new DelegateLogCommand(
+                () => this.PasteProductBlockAdded(BufferProductBlockAdded),
+                () => this.IsEditMode && BufferProductBlockAdded != null);
+
+            PastePriceEngineeringTaskCommand = new DelegateLogConfirmationCommand(
+                _messageService,
+                "Вы уверены, что хотите вставить все данные задачи из буфера обмена?",
+                () =>
+                {
+                    if (!this.PasteProductBlock(BufferPriceEngineeringTask.ProductBlock)) return;
+
+                    foreach (var blockAdded in this.ProductBlocksAdded.Select(ba => ba.Model).ToList())
+                    {
+                        this.RemoveBlockAdded(blockAdded);
+                    }
+
+                    foreach (var blockAdded in BufferPriceEngineeringTask.ProductBlocksAdded)
+                    {
+                        this.PasteProductBlockAdded(blockAdded);
+                    }
+                },
+                () => this.IsEditMode && BufferPriceEngineeringTask != null);
+
+
             #endregion
 
             this.SelectedAnswerFileIsChanged += () => RemoveAnswerFileCommand.RaiseCanExecuteChanged();
@@ -323,6 +419,54 @@ namespace HVTApp.UI.PriceEngineering
         }
 
         #endregion
+
+        private bool RemoveBlockAdded(PriceEngineeringTaskProductBlockAdded ba)
+        {
+            var blockAdded = this.ProductBlocksAdded.Single(x => x.Model.Id == ba.Id);
+            blockAdded.RejectChanges();
+            if (blockAdded.Model.StructureCostVersions.Any())
+            {
+                blockAdded.IsRemoved = true;
+            }
+            else
+            {
+                if (blockAdded.Model.PriceEngineeringTaskId == this.Model.Id &&
+                    UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().GetById(blockAdded.Model.Id) != null)
+                {
+                    UnitOfWork.Repository<PriceEngineeringTaskProductBlockAdded>().Delete(blockAdded.Model);
+                }
+
+                this.ProductBlocksAdded.Remove(blockAdded);
+            }
+
+            return true;
+        }
+
+        private bool PasteProductBlock(ProductBlock productBlock)
+        {
+            if (this.Model.DesignDepartment.ProductBlockIsSuitable(productBlock) == false)
+            {
+                _messageService.Message($"Блок <{productBlock.Designation}> не подходит для КБ <{this.Model.DesignDepartment}>");
+                return false;
+            }
+
+            this.ProductBlockEngineer = new ProductBlockStructureCostWrapperConstructor(this.UnitOfWork.Repository<ProductBlock>().GetById(productBlock.Id));
+            return true;
+        }
+
+        private bool PasteProductBlockAdded(PriceEngineeringTaskProductBlockAdded blockAdded)
+        {
+            this.ProductBlocksAdded.Add(
+                new TaskProductBlockAddedWrapperConstructor(
+                    new PriceEngineeringTaskProductBlockAdded
+                    {
+                        Amount = blockAdded.Amount,
+                        ProductBlock = this.UnitOfWork.Repository<ProductBlock>().GetById(blockAdded.ProductBlock.Id),
+                        IsOnBlock = blockAdded.IsOnBlock
+                    }));
+
+            return true;
+        }
 
         protected override void SaveCommand_ExecuteMethod()
         {
@@ -404,4 +548,8 @@ namespace HVTApp.UI.PriceEngineering
             unitOfWork.SaveChanges();
         }
     }
+
+    public class CopyProductBlockEvent : PubSubEvent { }
+    public class CopyProductBlockAddedEvent : PubSubEvent { }
+    public class CopyPriceEngineeringTaskEvent : PubSubEvent { }
 }

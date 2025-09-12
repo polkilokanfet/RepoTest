@@ -33,11 +33,25 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <UniformGrid Rows="1" Grid.Row="0">
+                <UniformGrid Rows="1">
+                    <Border BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Command="{Binding CopyProductBlockAddedCommand}" Background="Transparent">
+                                <fa:FontAwesome Icon="Copy" Foreground="MediumSeaGreen"/>
+                            </Button>
+                            <Button Grid.Column="1" Command="{Binding PasteProductBlockAddedCommand}" Background="Transparent">
+                                <fa:FontAwesome Icon="Paste"  Foreground="Goldenrod"/>
+                            </Button>
+                        </Grid>
+                    </Border>
 
                     <Button Command="{Binding AddBlockAddedCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:FontAwesome Icon="Plus"/>
+                            <fa:FontAwesome Icon="Plus" Foreground="MediumSeaGreen"/>
                             <TextBlock Text="Добавить"/>
                         </StackPanel>
                     </Button>
@@ -49,7 +63,7 @@
                     </Button>
                     <Button Command="{Binding RemoveBlockAddedCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:FontAwesome Icon="Remove"/>
+                            <fa:FontAwesome Icon="Remove" Foreground="Red"/>
                             <TextBlock Text="Удалить"/>
                         </StackPanel>
                     </Button>
@@ -161,18 +175,40 @@
         </view:TaskControl.AreaIncludedBlocks>
 
         <view:TaskControl.AreaSelectProductBlock>
-            <Button Grid.Column="0"
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
+                <Border BorderThickness="1" BorderBrush="Black">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{Binding CopyProductBlockCommand}" Background="Transparent">
+                            <fa:FontAwesome Icon="Copy" Foreground="MediumSeaGreen"/>
+                        </Button>
+                        <Button Command="{Binding PasteProductBlockCommand}" Background="Transparent">
+                            <fa:FontAwesome Icon="Paste"  Foreground="Goldenrod"/>
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <Button
                     VerticalAlignment="Center"
-                    Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}"
                     Content="..." 
                     Command="{Binding SelectProductBlockCommand}" 
-                    Padding="5 0"/>
+                    Padding="5 0"
+                    Margin="5 0 0 0"/>
+            </StackPanel>
         </view:TaskControl.AreaSelectProductBlock>
 
         <view:TaskControl.AreaActionButtonsTop>
-            <controls:ButtonIsVisibleWhenCanExecute 
-                Content="Удалить" 
-                Command="{Binding RemoveSubTaskCommand}"/>
+            <StackPanel Orientation="Horizontal">
+                <controls:ButtonIsVisibleWhenCanExecute 
+                    Content="Копировать" 
+                    Command="{Binding CopyPriceEngineeringTaskCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute 
+                    Content="Вставить" 
+                    Command="{Binding PastePriceEngineeringTaskCommand}"/>
+                <controls:ButtonIsVisibleWhenCanExecute 
+                    Content="Удалить" 
+                    Command="{Binding RemoveSubTaskCommand}"/>
+
+            </StackPanel>
         </view:TaskControl.AreaActionButtonsTop>
 
     </view:TaskControl>
