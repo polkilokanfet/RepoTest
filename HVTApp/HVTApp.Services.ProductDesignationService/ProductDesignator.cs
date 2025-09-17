@@ -120,6 +120,9 @@ namespace HVTApp.Services.ProductDesignationService
 
         public ProductCategory GetProductCategory(ProductBlock block)
         {
+            if (block.Parameters.Any() == false)
+                return _emptyCategory;
+
             if (_dictionaryBlockCategories.ContainsKey(block.Id))
                 return _dictionaryBlockCategories[block.Id];
 

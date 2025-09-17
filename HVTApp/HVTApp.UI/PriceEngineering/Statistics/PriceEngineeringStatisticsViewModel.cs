@@ -26,6 +26,7 @@ namespace HVTApp.UI.PriceEngineering.Statistics
         {
             Items = this.UnitOfWork.Repository<PriceEngineeringTask>()
                 .GetAll()
+                .Where(priceEngineeringTask => priceEngineeringTask.GetTopPriceEngineeringTask(UnitOfWork).ParentPriceEngineeringTasksId != null)
                 .Select(priceEngineeringTask => new PriceEngineeringStatisticsItem(priceEngineeringTask, GetFacility(priceEngineeringTask), priceEngineeringTask.GetDeadline(UnitOfWork)))
                 .OrderBy(item => item.PriceEngineeringTask.StartMoment);
 
