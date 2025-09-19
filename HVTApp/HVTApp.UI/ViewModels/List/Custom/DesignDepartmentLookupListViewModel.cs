@@ -12,6 +12,23 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
+    public partial class PriceEngineeringTaskLookupListViewModel
+    {
+        protected override void InitSpecialCommands()
+        {
+            this.RemoveItemCommand = new DelegateLogConfirmationCommand(
+                MessageService, () =>
+                {
+                    using (var unitOfWork = Container.Resolve<IUnitOfWork>())
+                    {
+                        var task = unitOfWork.Repository<PriceEngineeringTask>().GetById(this.SelectedItem.Id);
+                        unitOfWork.Repository<PriceEngineeringTask>().Delete(task);
+                        unitOfWork.SaveChanges();
+                    }
+                });
+
+        }
+    }
     public partial class DesignDepartmentLookupListViewModel
     {
         public DelegateLogCommand CopyDesignDepartmentCommand { get; private set; }

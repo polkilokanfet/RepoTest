@@ -55,7 +55,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Копия")]
         public virtual List<Employee> CopyToRecipients { get; set; } = new List<Employee>();
 
-        public Guid? WhoRegisteredUserId { get; set; } = GlobalAppProperties.User.Id;
+        public Guid? WhoRegisteredUserId { get; set; } = GlobalAppProperties.User?.Id;
         [Designation("Регистратор")]
         public virtual User WhoRegisteredUser { get; set; }
 
