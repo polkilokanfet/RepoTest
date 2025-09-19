@@ -17,7 +17,7 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
         public string ConnectionString { get; set; } = @"data source=(LocalDb)\MSSQLLocalDB;initial catalog=HvtAppDB;integrated security=True";
         public string DataBaseName { get; set; } = "HvtAppDB";
 #else
-        public string ConnectionString { get; set; } = @"data source=uetm2\s1;initial catalog=HVTApp.DataAccess.HvtAppContext;integrated security=True";
+        public string ConnectionString { get; set; } = @"data source=ekbsr56;initial catalog=HVTApp.DataAccess.HvtAppContext;integrated security=True";
         public string DataBaseName { get; set; } = "HVTApp.DataAccess.HvtAppContext";
 #endif
         public string Directory { get; set; } = @"G:\";

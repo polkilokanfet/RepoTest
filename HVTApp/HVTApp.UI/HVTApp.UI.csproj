@@ -1500,7 +1500,6 @@
     <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
     <Compile Include="ViewModels\Base\IBaseListViewModel.cs" />
     <Compile Include="Converter\LookupToStringConverter.cs" />
     <Compile Include="Converter\WrappersToStringConverter.cs" />
@@ -1526,7 +1525,6 @@
     <Compile Include="Tabs\TabCRUD.xaml.cs">
       <DependentUpon>TabCRUD.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
     <Compile Include="ViewModels\List\Custom\OfferLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\Custom\UnitLookupListViewModel.cs" />

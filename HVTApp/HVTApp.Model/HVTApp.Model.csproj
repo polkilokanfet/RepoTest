@@ -318,6 +318,7 @@
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Wrapper\IUnitWrapper.cs" />
     <Compile Include="Wrapper\IWrapperWithUnits.cs" />
+    <Compile Include="Wrapper\PriceEngineeringTaskWrapper.cs" />
     <Compile Include="Wrapper\Test\TestEntityWrapper.cs" />
     <Compile Include="Wrapper\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrapper\Test\TestFriendEmailWrapper.cs" />

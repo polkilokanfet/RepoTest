@@ -2619,7 +2619,7 @@ namespace HVTApp.Model.Wrapper
 	    public NotificationsReportsSettingsEmptyWrapper(NotificationsReportsSettings model) : base(model) { }
     }
 
-		
+
     public partial class PriceEngineeringTaskWrapper : WrapperBase<PriceEngineeringTask>
 	{
 	    public PriceEngineeringTaskWrapper(PriceEngineeringTask model) : base(model) { }

@@ -18,25 +18,28 @@ namespace HVTApp.UI.ViewModels
                     if (dr == false) return;
 
                     var status = this.SelectedStatusesItem;
-                    this.Item.Statuses.Remove(status);
 
-                    var unitOfWork = Container.Resolve<IUnitOfWork>();
-
-                    if (status.Model.StatusEnum == ScriptStep.ProductionRequestFinish.Value)
+                    using (var unitOfWork = Container.Resolve<IUnitOfWork>())
                     {
-                        this.Item.Model.SalesUnits.ForEach(salesUnit => salesUnit.SignalToStartProductionDone = null);
-                        var orders = this.Item.Model.SalesUnits
-                            .Select(salesUnit => unitOfWork.Repository<Order>().GetById(salesUnit.Order.Id))
-                            .Distinct();
-                        foreach (var order in orders)
+                        var statusModel = unitOfWork.Repository<PriceEngineeringTaskStatus>().GetById(status.Id);
+                        if (statusModel.StatusEnum == ScriptStep.ProductionRequestFinish.Value)
                         {
-                            unitOfWork.Repository<Order>().Delete(order);
+                            this.Item.Model.SalesUnits.ForEach(salesUnit => salesUnit.SignalToStartProductionDone = null);
+                            var orders = this.Item.Model.SalesUnits
+                                .Select(salesUnit => unitOfWork.Repository<Order>().GetById(salesUnit.Order.Id))
+                                .Distinct()
+                                .ToList();
+                            foreach (var order in orders)
+                            {
+                                unitOfWork.Repository<Order>().Delete(order);
+                            }
                         }
+
+                        unitOfWork.Repository<PriceEngineeringTaskStatus>().Delete(statusModel);
+                        unitOfWork.SaveChanges();
                     }
 
-                    unitOfWork.Repository<PriceEngineeringTaskStatus>().Delete(status.Model);
-                    unitOfWork.SaveChanges();
-
+                    this.Item.Statuses.Remove(status);
                 }, () => this.SelectedStatusesItem != null);
         }
     }

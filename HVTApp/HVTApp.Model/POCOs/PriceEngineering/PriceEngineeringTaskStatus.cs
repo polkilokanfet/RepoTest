@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -33,8 +32,8 @@ namespace HVTApp.Model.POCOs
                 scriptStep = ScriptStep.Create;
 
             return scriptStep == null 
-                ? $"{StatusEnum} {Moment}"
-                : $"{scriptStep.Description} {StatusEnum} {Moment}";
+                ? $"{StatusEnum} {Moment} id={Id}"
+                : $"{scriptStep.Description} {StatusEnum} {Moment} id={Id}";
         }
     }
 
