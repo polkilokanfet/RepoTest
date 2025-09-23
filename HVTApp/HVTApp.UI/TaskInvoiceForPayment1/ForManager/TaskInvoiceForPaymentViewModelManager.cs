@@ -16,10 +16,14 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
     public class TaskInvoiceForPaymentViewModelManager :
         TaskInvoiceForPaymentViewModelBase<TaskInvoiceForPaymentWrapperManager, TaskInvoiceForPaymentItemWrapperManager>
     {
+        #region ICommand
+
         public ICommand RemoveItemCommand { get; }
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
         public ICommand ChoosePaymentConditionCommand { get; }
+
+        #endregion
 
         public TaskInvoiceForPaymentViewModelManager(IUnityContainer container) : base(container)
         {
@@ -103,7 +107,7 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
             var invoice = new TaskInvoiceForPayment();
 
             var tasks = specification.PriceEngineeringTasks
-                .Where(priceEngineeringTask => priceEngineeringTask.SalesUnits.All(salesUnit => salesUnit.IsRemoved == false));
+                .Where(task => task.SalesUnits.All(salesUnit => salesUnit.IsRemoved == false));
             foreach (var priceEngineeringTask in tasks)
             {
                 var taskInvoiceForPaymentItem = new TaskInvoiceForPaymentItem();
@@ -124,6 +128,33 @@ namespace HVTApp.UI.TaskInvoiceForPayment1.ForManager
                 throw new ArgumentException();
 
             Task = new TaskInvoiceForPaymentWrapperManager(invoice);
+
+            #region ForReport
+
+            //делаем проект отчётным
+            var projects = specification.SalesUnits
+                .Select(salesUnit => salesUnit.Project)
+                .Distinct()
+                .ToList();
+
+            if (projects.All(project => project.ForReport == true))
+                return;
+
+            var dr = this.Container.Resolve<IMessageService>().ConfirmationDialog("Сделать проекты отчётными?");
+            if (dr == false) 
+                return;
+
+            using (var unitOfWork = this.Container.Resolve<IUnitOfWork>())
+            {
+                foreach (var project in projects)
+                {
+                    unitOfWork.Repository<Project>().GetById(project.Id).ForReport = true;
+                }
+
+                unitOfWork.SaveChanges();
+            }
+
+            #endregion
         }
 
         protected override void AfterSelectionItem()
