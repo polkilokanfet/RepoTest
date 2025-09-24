@@ -45,19 +45,36 @@ namespace HVTApp.UI.Modules.Settings.ViewModels
                     //    _container.Resolve<IMessageService>().Message(e.GetType().ToString(), e.PrintAllExceptions());
                     //}
 
-                    var unitOfWork = container.Resolve<IUnitOfWork>();
-
-                    var salesUnits = unitOfWork.Repository<SalesUnit>().Find(salesUnit => salesUnit.Specification != null && salesUnit.Producer == null);
-                    var company = unitOfWork.Repository<Company>().GetById(GlobalAppProperties.Actual.OurCompany.Id);
-
                     var sb = new StringBuilder();
-                    foreach (var salesUnit in salesUnits)
-                    {
-                        salesUnit.Producer = company;
-                        sb.AppendLine(salesUnit.ToString());
-                    }
 
-                    unitOfWork.SaveChanges();
+                    using (var unitOfWork = container.Resolve<IUnitOfWork>())
+                    {
+                        var products = unitOfWork.Repository<Product>().GetAll();
+                        var tasks = unitOfWork.Repository<PriceEngineeringTask>()
+                            .Find(task => task.DesignDepartment != null && task.ProductBlocksAdded.Any());
+
+                        foreach (var task in tasks)
+                        {
+                            foreach (var blockAdded in task.ProductBlocksAdded)
+                            {
+                                var kitBlock = blockAdded.ProductBlock;
+                                if (kitBlock == null)
+                                    continue;
+                                if (kitBlock.IsKit == false)
+                                    continue;
+
+                                var kitProduct = products.Single(product => product.ProductBlock.Id == kitBlock.Id);
+
+                                if (task.DesignDepartment.Kits.Contains(kitProduct))
+                                    continue;
+                                
+                                task.DesignDepartment.Kits.Add(kitProduct);
+                                sb.AppendLine($"{kitProduct.Designation} ({task.DesignDepartment.Name})");
+                            }
+                        }
+
+                        unitOfWork.SaveChanges();
+                    }
 
                     container.Resolve<IMessageService>().Message(sb.ToString());
 
