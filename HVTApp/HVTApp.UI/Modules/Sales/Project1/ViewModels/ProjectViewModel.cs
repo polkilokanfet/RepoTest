@@ -11,6 +11,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Wrapper;
+using HVTApp.UI.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Commands;
 using HVTApp.UI.Modules.Sales.Project1.Wrappers;
 using HVTApp.UI.Modules.Sales.ViewModels.Groups;
@@ -28,6 +29,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         public ProjectTypes ProjectTypes { get; private set; }
 
         private IProjectUnit _selectedUnit;
+        private ProjectUnitProductIncludedGroup _selectedProjectUnitProductIncludedGroup;
+
         public IProjectUnit SelectedUnit
         {
             get => _selectedUnit;
@@ -41,6 +44,12 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         }
 
         public event Action SelectedUnitChanged;
+
+        public ProjectUnitProductIncludedGroup SelectedProjectUnitProductIncludedGroup
+        {
+            get => _selectedProjectUnitProductIncludedGroup;
+            set => SetProperty(ref _selectedProjectUnitProductIncludedGroup, value, () => SelectedProjectUnitProductIncludedGroupToSalesUnitCommand.RaiseCanExecuteChanged());
+        }
 
         public RoundUpModule RoundUpModule { get; } = new RoundUpModule();
 
@@ -69,6 +78,8 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
         /// ¬ключить услугу в спецификацию
         /// </summary>
         public ICommand IncludeServiceInSpecificationCommand { get; }
+
+        public DelegateLogConfirmationCommand SelectedProjectUnitProductIncludedGroupToSalesUnitCommand { get; }
 
         #endregion
 
@@ -121,6 +132,19 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
                         projectUnit.CostWithReserve = RoundUpModule.RoundUp(projectUnit.CostWithReserve.Value);
                 }
             });
+
+            SelectedProjectUnitProductIncludedGroupToSalesUnitCommand = new DelegateLogConfirmationCommand(
+                messageService,
+                () =>
+                {
+                    var target = this.SelectedProjectUnitProductIncludedGroup;
+                    var projectUnit = new ProjectUnit(new SalesUnit());
+                    projectUnit.CopyProperties(this.SelectedUnit);
+                    projectUnit.Product = new ProductEmptyWrapper(target.Product);
+                    projectUnit.Cost = container.Resolve<IPriceService>().GetPrice(projectUnit.Model, projectUnit.Model.RealizationDateCalculated, false).SumPriceTotal;
+                    (new ProjectUnitAddViewModel(this.ProjectWrapper, projectUnit, UnitOfWork, selectService, getProductService, dialogService)).Add(projectUnit, target.Amount);
+                }, 
+                () => this.SelectedProjectUnitProductIncludedGroup != null);
         }
 
         /// <summary>

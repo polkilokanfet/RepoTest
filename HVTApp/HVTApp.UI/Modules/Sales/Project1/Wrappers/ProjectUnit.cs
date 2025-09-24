@@ -228,5 +228,41 @@ namespace HVTApp.UI.Modules.Sales.Project1.Wrappers
                 return 0;
             }
         }
+
+
+        public void CopyProperties(IProjectUnit projectUnit)
+        {
+            this.Cost = projectUnit.Cost;
+            this.Comment = projectUnit.Comment;
+            this.CostDelivery = projectUnit.CostDelivery;
+            this.DeliveryDateExpected = projectUnit.DeliveryDateExpected;
+            this.ProductionTerm = projectUnit.ProductionTerm;
+
+            this.Facility = projectUnit.Facility;
+            this.Project = projectUnit.Project;
+            this.Product = projectUnit.Product;
+            this.PaymentConditionSet = projectUnit.PaymentConditionSet;
+            this.Producer = projectUnit.Producer;
+
+            var pu = projectUnit is ProjectUnitGroup projectUnitGroup
+                ? projectUnitGroup.Units.First()
+                : projectUnit;
+            var pi = pu
+                .ProductsIncludedGroups
+                .SelectMany(x => x.Items)
+                .Select(x => x.Model)
+                .Select(productIncluded => new ProductIncluded
+                {
+                    Product = productIncluded.Product, 
+                    Amount = productIncluded.Amount, 
+                    CustomFixedPrice = productIncluded.CustomFixedPrice
+                });
+
+            foreach (var productIncluded in pi)
+            {
+                this.ProductsIncluded.Add(new ProjectUnitProductIncluded(productIncluded));
+            }
+        }
+
     }
 }
