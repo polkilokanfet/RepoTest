@@ -141,8 +141,19 @@ namespace HVTApp.UI.Modules.Sales.Project1.ViewModels
                     var projectUnit = new ProjectUnit(new SalesUnit());
                     projectUnit.CopyProperties(this.SelectedUnit);
                     projectUnit.Product = new ProductEmptyWrapper(target.Product);
+                    projectUnit.ProductsIncluded.Clear();
                     projectUnit.Cost = container.Resolve<IPriceService>().GetPrice(projectUnit.Model, projectUnit.Model.RealizationDateCalculated, false).SumPriceTotal;
+
                     (new ProjectUnitAddViewModel(this.ProjectWrapper, projectUnit, UnitOfWork, selectService, getProductService, dialogService)).Add(projectUnit, target.Amount);
+
+                    foreach (var projectUnitProductIncluded in target.Items.ToList())
+                    {
+                        foreach (var unit in this.ProjectWrapper.Units)
+                        {
+                            if (unit.ProductsIncluded.Remove(projectUnitProductIncluded))
+                                break;
+                        }
+                    }
                 }, 
                 () => this.SelectedProjectUnitProductIncludedGroup != null);
         }

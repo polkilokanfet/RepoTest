@@ -40,10 +40,14 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Command="{Binding CopyProductBlockAddedCommand}" Background="Transparent">
+                            <Button Grid.Column="0" Command="{Binding CopyProductBlockAddedCommand}" 
+                                    ToolTip="Копировать дополнительный блок в буфер"
+                                    Background="Transparent">
                                 <fa:FontAwesome Icon="Copy" Foreground="MediumSeaGreen"/>
                             </Button>
-                            <Button Grid.Column="1" Command="{Binding PasteProductBlockAddedCommand}" Background="Transparent">
+                            <Button Grid.Column="1" Command="{Binding PasteProductBlockAddedCommand}" 
+                                    ToolTip="Вставить дополнительный блок из буфера"
+                                    Background="Transparent">
                                 <fa:FontAwesome Icon="Paste"  Foreground="Goldenrod"/>
                             </Button>
                         </Grid>
@@ -179,10 +183,14 @@
                         Visibility="{Binding Converter={StaticResource ConstructorIsTargetTaskVisibilityConverter}}">
                 <Border BorderThickness="1" BorderBrush="Black">
                     <StackPanel Orientation="Horizontal">
-                        <Button Command="{Binding CopyProductBlockCommand}" Background="Transparent">
+                        <Button Command="{Binding CopyProductBlockCommand}"
+                                ToolTip="Копировать блок в буфер"
+                                Background="Transparent">
                             <fa:FontAwesome Icon="Copy" Foreground="MediumSeaGreen"/>
                         </Button>
-                        <Button Command="{Binding PasteProductBlockCommand}" Background="Transparent">
+                        <Button Command="{Binding PasteProductBlockCommand}" 
+                                ToolTip="Вставить блок из буфера"
+                                Background="Transparent">
                             <fa:FontAwesome Icon="Paste"  Foreground="Goldenrod"/>
                         </Button>
                     </StackPanel>
@@ -200,9 +208,11 @@
             <StackPanel Orientation="Horizontal">
                 <controls:ButtonIsVisibleWhenCanExecute 
                     Content="Копировать" 
+                    ToolTip="Копировать всю задачу в буфер"
                     Command="{Binding CopyPriceEngineeringTaskCommand}"/>
                 <controls:ButtonIsVisibleWhenCanExecute 
                     Content="Вставить" 
+                    ToolTip="Вставить всю задачу из буфера"
                     Command="{Binding PastePriceEngineeringTaskCommand}"/>
                 <controls:ButtonIsVisibleWhenCanExecute 
                     Content="Удалить" 
