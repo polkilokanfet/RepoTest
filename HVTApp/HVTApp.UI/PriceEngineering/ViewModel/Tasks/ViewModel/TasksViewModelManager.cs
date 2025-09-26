@@ -43,7 +43,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
         /// —тартовать все новые задачи
         /// </summary>
         public DelegateLogConfirmationCommand StartNewCommand { get; }
-        public DelegateLogConfirmationCommand StartCommand { get; }
+        //public DelegateLogConfirmationCommand StartCommand { get; }
         public DelegateLogConfirmationCommand StopCommand { get; }
         public DelegateLogCommand OpenPriceCalculationCommand { get; }
         public ICommandRaiseCanExecuteChanged CreatePriceCalculationCommand { get; }
@@ -168,6 +168,7 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 "¬ы уверены, что хотите стартовать все новые задачи?",
                 () =>
                 {
+                    LoadNewTechnicalRequirementFilesInStorage();
                     foreach (var childTask in this.TaskViewModelManagerNewList)
                     {
                         foreach (var taskViewModel in childTask.GetAllPriceEngineeringTaskViewModels())
@@ -178,6 +179,8 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
 
                     SaveCommand.Execute();
                     StartNewCommand.RaiseCanExecuteChanged();
+                    AddFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
+                    RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(nameof(AllowEditProps));
                 },
                 () =>
@@ -186,33 +189,33 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     this.TaskViewModelManagerNewList.All(x => x.IsValid && x.IsChanged));
 
 
-            StartCommand = new DelegateLogConfirmationCommand(
-                container.Resolve<IMessageService>(),
-                "¬ы уверены, что хотите стартовать все задачи?",
-                () =>
-                {
-                    LoadNewTechnicalRequirementFilesInStorage();
-                    foreach (var childTask in TasksWrapper.ChildTasks)
-                    {
-                        foreach (var taskViewModel in childTask.GetAllPriceEngineeringTaskViewModels())
-                        {
-                            ((TaskViewModelBaseStartable) taskViewModel).StartCommand.ExecuteWithoutConfirmation();
-                        }
-                    }
+            //StartCommand = new DelegateLogConfirmationCommand(
+            //    container.Resolve<IMessageService>(),
+            //    "¬ы уверены, что хотите стартовать все задачи?",
+            //    () =>
+            //    {
+            //        LoadNewTechnicalRequirementFilesInStorage();
+            //        foreach (var childTask in TasksWrapper.ChildTasks)
+            //        {
+            //            foreach (var taskViewModel in childTask.GetAllPriceEngineeringTaskViewModels())
+            //            {
+            //                ((TaskViewModelBaseStartable) taskViewModel).StartCommand.ExecuteWithoutConfirmation();
+            //            }
+            //        }
 
-                    SaveCommand.Execute();
-                    StartCommand.RaiseCanExecuteChanged();
-                    AddFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
-                    RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
-                    RaisePropertyChanged(nameof(AllowEditProps));
-                },
-                () =>
-                    this.TasksWrapper != null &&
-                    this.TasksWrapper.IsValid &&
-                    this.TasksWrapper.IsChanged &&
-                    this.TasksWrapper.ChildTasks.Any() &&
-                    this.TasksWrapper.ChildTasks.First() is TaskViewModelManagerNew &&
-                    AllowEditProps);
+            //        SaveCommand.Execute();
+            //        StartCommand.RaiseCanExecuteChanged();
+            //        AddFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
+            //        RemoveFileTechnicalRequirementsCommand.RaiseCanExecuteChanged();
+            //        RaisePropertyChanged(nameof(AllowEditProps));
+            //    },
+            //    () =>
+            //        this.TasksWrapper != null &&
+            //        this.TasksWrapper.IsValid &&
+            //        this.TasksWrapper.IsChanged &&
+            //        this.TasksWrapper.ChildTasks.Any() &&
+            //        this.TasksWrapper.ChildTasks.First() is TaskViewModelManagerNew &&
+            //        AllowEditProps);
 
             StopCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),

@@ -20,9 +20,9 @@
 
     <infRib:RibbonGroup Caption="Задачи" Visibility="{Binding Converter={StaticResource ManagerVisibilityConverter}}">
 
-        <infRib:ButtonTool Caption="Стартовать всё"
+        <!--<infRib:ButtonTool Caption="Стартовать всё"
                            Command="{Binding StartCommand}"
-                           SmallImage="/HVTApp.UI;component/Images/start.png" />
+                           SmallImage="/HVTApp.UI;component/Images/start.png" />-->
 
         <infRib:ButtonTool Caption="Стартовать новое"
                            ToolTip="Стартовать новые ТСП, добавленные в существующую сборку"
