@@ -46,6 +46,7 @@ namespace HVTApp.UI.Modules.Sales.Market.Items
                 if (!Equals(first.OrderInTakeDate, second.OrderInTakeDate)) return false;
                 if (!Equals(first.Cost, second.Cost)) return false;
                 if (!Equals(first.Comment, second.Comment)) return false;
+                if (!Equals(first.Facility.Id, second.Facility.Id)) return false;
                 if (!Equals(first.Product.Id, second.Product.Id)) return false;
                 if (!Equals(first.OrderInTakeDate, second.OrderInTakeDate)) return false;
                 if (!Equals(first.RealizationDateCalculated, second.RealizationDateCalculated)) return false;
