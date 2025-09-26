@@ -43,6 +43,13 @@ namespace HVTApp.UI.PriceEngineering.View
                     if (navigationContext.Parameters.First().Value is IEnumerable<SalesUnit> salesUnits)
                         _viewModel.Load(salesUnits);
                 }
+                else if (navigationContext.Parameters.Count() == 2)
+                {
+                    if (navigationContext.Parameters.First().Value is PriceEngineeringTasks priceEngineeringTasks &&
+                        navigationContext.Parameters.Last().Value is IEnumerable<SalesUnit> salesUnits)
+                        _viewModel.Load(priceEngineeringTasks, salesUnits);
+                }
+
             }
 
             base.OnNavigatedTo(navigationContext);

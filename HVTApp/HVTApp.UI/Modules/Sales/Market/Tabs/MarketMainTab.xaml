@@ -35,7 +35,12 @@
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="ТСП">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding MakePriceEngineeringTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Создать" 
+                           ToolTip="Создать новую сборку задач ТСП" 
+                           Command="{Binding MakePriceEngineeringTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
+        <infRib:ButtonTool Caption="Включить" 
+                           ToolTip="Включить выделенное оборудование в существующую сборку задач ТСП" 
+                           Command="{Binding IncludePriceEngineeringTaskCommand}" SmallImage="/HVTApp.UI;component/Images/add.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="ТeamСenter">

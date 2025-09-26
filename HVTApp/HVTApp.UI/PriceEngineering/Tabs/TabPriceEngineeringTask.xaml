@@ -24,6 +24,11 @@
                            Command="{Binding StartCommand}"
                            SmallImage="/HVTApp.UI;component/Images/start.png" />
 
+        <infRib:ButtonTool Caption="Стартовать новое"
+                           ToolTip="Стартовать новые ТСП, добавленные в существующую сборку"
+                           Command="{Binding StartNewCommand}"
+                           SmallImage="/HVTApp.UI;component/Images/start.png" />
+
         <infRib:ButtonTool Caption="Остановить всё"
                            Command="{Binding StopCommand}"
                            SmallImage="/HVTApp.UI;component/Images/stop.png" />

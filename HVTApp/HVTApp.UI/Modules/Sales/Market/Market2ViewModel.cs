@@ -5,6 +5,7 @@ using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extensions;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
@@ -85,6 +86,8 @@ namespace HVTApp.UI.Modules.Sales.Market
                             break;
                         }
                     }
+
+                    this.IncludePriceEngineeringTaskCommand.RaiseCanExecuteChanged();
                 });
             }
         }
@@ -177,7 +180,15 @@ namespace HVTApp.UI.Modules.Sales.Market
 
         public MakeTceTaskCommand MakeTceTaskCommand { get; }
 
+        /// <summary>
+        /// Команда создания новой сборки задач ТСП
+        /// </summary>
         public MakePriceEngineeringTaskCommand MakePriceEngineeringTaskCommand { get; }
+
+        /// <summary>
+        /// Команда включения задачи ТСП в существующую сборку
+        /// </summary>
+        public IncludePriceEngineeringTaskCommand IncludePriceEngineeringTaskCommand { get; }
 
         #endregion
 
@@ -213,6 +224,7 @@ namespace HVTApp.UI.Modules.Sales.Market
             MakeTceTaskCommand = new MakeTceTaskCommand(this, this.UnitOfWork, this.RegionManager, container.Resolve<IMessageService>());
 
             MakePriceEngineeringTaskCommand = new MakePriceEngineeringTaskCommand(this, this.UnitOfWork, this.RegionManager);
+            IncludePriceEngineeringTaskCommand = new IncludePriceEngineeringTaskCommand(this, this.UnitOfWork, this.RegionManager, Container.Resolve<ISelectService>());
 
             #endregion
 

@@ -29,11 +29,20 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
     {
         public PriceCalculationEmptyWrapper SelectedCalculation { get; set; }
 
+        public IEnumerable<TaskViewModelManagerNew> TaskViewModelManagerNewList =>
+            this.TasksWrapper.ChildTasks
+                .Where(x => x is TaskViewModelManagerNew)
+                .Cast<TaskViewModelManagerNew>();
+
         #region Commands
 
         public DelegateLogCommand AddFileTechnicalRequirementsCommand { get; }
         public DelegateLogConfirmationCommand RemoveFileTechnicalRequirementsCommand { get; }
         public DelegateLogCommand SaveCommand { get; }
+        /// <summary>
+        /// Стартовать все новые задачи
+        /// </summary>
+        public DelegateLogConfirmationCommand StartNewCommand { get; }
         public DelegateLogConfirmationCommand StartCommand { get; }
         public DelegateLogConfirmationCommand StopCommand { get; }
         public DelegateLogCommand OpenPriceCalculationCommand { get; }
@@ -153,6 +162,29 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                     }
                 },
                 () => this.TasksWrapper != null && this.TasksWrapper.IsValid && this.TasksWrapper.IsChanged);
+
+            StartNewCommand = new DelegateLogConfirmationCommand(
+                container.Resolve<IMessageService>(),
+                "Вы уверены, что хотите стартовать все новые задачи?",
+                () =>
+                {
+                    foreach (var childTask in this.TaskViewModelManagerNewList)
+                    {
+                        foreach (var taskViewModel in childTask.GetAllPriceEngineeringTaskViewModels())
+                        {
+                            ((TaskViewModelBaseStartable)taskViewModel).StartCommand.ExecuteWithoutConfirmation();
+                        }
+                    }
+
+                    SaveCommand.Execute();
+                    StartNewCommand.RaiseCanExecuteChanged();
+                    RaisePropertyChanged(nameof(AllowEditProps));
+                },
+                () =>
+                    this.TasksWrapper != null &&
+                    this.TaskViewModelManagerNewList.Any() &&
+                    this.TaskViewModelManagerNewList.All(x => x.IsValid && x.IsChanged));
+
 
             StartCommand = new DelegateLogConfirmationCommand(
                 container.Resolve<IMessageService>(),
@@ -303,6 +335,39 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
                 .Select(x => new TaskViewModelManagerNew(Container, UnitOfWork, x, this));
 
             TasksWrapper = new TasksWrapperManager(_, UnitOfWork.Repository<User>().GetById(GlobalAppProperties.User.Id));
+            IsNew = true;
+        }
+
+        /// <summary>
+        /// Загрузка при включении новой задачи в существующую сборку
+        /// </summary>
+        /// <param name="tasks"></param>
+        /// <param name="salesUnits"></param>
+        public void Load(PriceEngineeringTasks tasks, IEnumerable<SalesUnit> salesUnits)
+        {
+            TasksWrapper = new TasksWrapperManager(UnitOfWork.Repository<PriceEngineeringTasks>().GetById(tasks.Id), Container);
+            TasksWrapper.ChildTasks.ForEach(taskViewModelManager => taskViewModelManager.IsVisible = false);
+            var ids = TasksWrapper.ChildTasks
+                .SelectMany(x => x.SalesUnits)
+                .Select(x => x.Model.Id)
+                .ToList();
+
+            var taskList = salesUnits
+                .Where(salesUnit => ids.Contains(salesUnit.Id) == false)
+                .Select(salesUnit => UnitOfWork.Repository<SalesUnit>().GetById(salesUnit.Id))
+                .GroupBy(salesUnit => salesUnit, new SalesUnitForPriceEngineeringTaskComparer())
+                .Select(x => new TaskViewModelManagerNew(Container, UnitOfWork, x, this));
+
+            foreach (var task in taskList)
+            {
+                task.ParentPriceEngineeringTasksId = TasksWrapper.Model.Id;
+                TasksWrapper.ChildTasks.Add(task);
+                task.PropertyChanged += (sender, args) =>
+                {
+                    this.StartNewCommand.RaiseCanExecuteChanged();
+                };
+            }
+            
             IsNew = true;
         }
 

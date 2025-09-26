@@ -19,6 +19,9 @@ namespace HVTApp.UI.PriceEngineering.ViewModel
             get => _allTasksAreVisible;
             set
             {
+                if (this.IsNew)
+                    return;
+
                 switch (value)
                 {
                     case true:

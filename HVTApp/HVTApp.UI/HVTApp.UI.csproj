@@ -358,6 +358,7 @@
     </Compile>
     <Compile Include="Modules\Reports\TceReport\TceReportViewModel.cs" />
     <Compile Include="Modules\Reports\TceReport\TceReportUnit.cs" />
+    <Compile Include="Modules\Sales\Market\Commands\IncludePriceEngineeringTaskCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\MakePriceEngineeringTaskCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\MakeTceTaskCommand.cs" />
     <Compile Include="Modules\Sales\Market\Commands\OpenFolderCommand.cs" />
